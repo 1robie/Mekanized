@@ -43,7 +43,7 @@ abstract class ImportMekanism : DefaultTask() {
         Assets(source, out.resolve("pack/resourcepack/assets/mekanized"), report).copy()
         val itemTags = Tags(source, out.resolve("definitions"), report).convert()
         val content = MekanismContent(source, out, itemTags, report).also { it.generate() }
-        val recipes = Recipes(source, out, report, content.ids, content.machineIds, itemTags).also { it.convert() }
+        val recipes = Recipes(source, out, report, content.ids, content.machineIds, content.chemistryIds, itemTags).also { it.convert() }
         writeAliases(out.resolve("definitions/vanilla_aliases.yml"), recipes.referencedTags + itemTags.keys, itemTags, report)
         source.resolve("LICENSE").copyTo(out.resolve("LICENSE-MEKANISM.txt"), overwrite = true)
         out.resolve("import-report.txt").writeText(report.format())
@@ -259,8 +259,50 @@ internal class Recipes(
     private val contentIds: Set<String>,
     /** Phase 2 content: CraftEngine recipes needing it (and Phase 1) go into the `machines_` files. */
     private val machineIds: Set<String>,
+    /** Phase 3 content: CraftEngine recipes needing it (and earlier phases) go into the `chemistry_` files. */
+    private val chemistryIds: Set<String>,
     private val itemTags: Map<String, List<String>>,
 ) {
+    /**
+     * Mekanism's fluids (its `c:` fluid tags, one per fluid), plus water and lava: resources
+     * `mekanized:fluid/<name>`, apart from the chemicals of the same name.
+     */
+    val fluids: List<String> = source.resolve("src/datagen/generated").listFiles().orEmpty()
+        .flatMap { it.resolve("data/c/tags/fluid").listFiles().orEmpty().toList() }
+        .map { it.nameWithoutExtension }.filter { it != "gaseous" }.plus(listOf("water", "lava")).distinct().sorted()
+
+    /** A fluid id or `c:`/`minecraft:` fluid tag as a fluid resource type. */
+    private fun fluidType(ref: String): String {
+        val id = Ids.rename(ref.removePrefix("#"))
+        return when {
+            id == "minecraft:water" || id == "minecraft:lava" -> "mekanized:fluid/" + id.removePrefix("minecraft:")
+            id.startsWith("c:") && id.removePrefix("c:") in fluids -> "mekanized:fluid/" + id.removePrefix("c:")
+            id.startsWith("mekanized:") && id.removePrefix("mekanized:") in fluids -> "mekanized:fluid/" + id.removePrefix("mekanized:")
+            else -> throw Unsupported("unknown fluid $ref")
+        }
+    }
+
+    /**
+     * The first chemical of a chemical tag: per-tick costs are exact resources (e.g. water vapor
+     * for `#mekanism:water_vapor`, which also lists steam).
+     */
+    private fun firstChemical(tag: String): String {
+        val namespace = tag.substringBefore(":")
+        val path = tag.substringAfter(":")
+        // Already renamed: Mekanism's own tags live under its original namespaces.
+        val namespaces = if (namespace == "mekanized") listOf("mekanism", "mekanismgenerators") else listOf(namespace)
+        for (module in source.resolve("src/datagen/generated").listFiles().orEmpty()) for (namespace in namespaces) {
+            for (folder in listOf("tags/mekanism/chemical", "tags/chemical")) {
+                val file = module.resolve("data/$namespace/$folder/$path.json")
+                if (!file.isFile) continue
+                val first = JsonParser.parseString(file.readText()).asJsonObject.getAsJsonArray("values")
+                    .map { if (it.isJsonPrimitive) it.asString else it.asJsonObject.get("id").asString }
+                    .firstOrNull { !it.startsWith("#") } ?: continue
+                return Ids.rename(first)
+            }
+        }
+        throw Unsupported("chemical tag $tag has no chemical")
+    }
     /** Every item tag the recipes reference, for the vanilla aliases. */
     val referencedTags = sortedSetOf<String>()
     private data class Machine(val duration: Int, val energyPerTick: Long, val phase: Int)
@@ -280,7 +322,9 @@ internal class Recipes(
         "crystallizing" to Machine(200, 160, 3),
         "chemical_infusing" to Machine(1, 200, 3),
         "separating" to Machine(1, 400, 3),
-        "rotary" to Machine(1, 100, 3),
+        // Rotary recipes go both ways: split into one recipe type per direction (the machine's mode).
+        "condensing" to Machine(1, 100, 3),
+        "decondensing" to Machine(1, 100, 3),
         "reaction" to Machine(100, 0, 3),
         // Not machines: items turned into a chemical or energy when put into a machine's slot.
         "chemical_conversion" to Machine(0, 0, 2),
@@ -323,8 +367,24 @@ internal class Recipes(
 
     private class Unsupported(message: String) : RuntimeException(message)
 
+    /**
+     * Ingredients replaced where Mekanism's recipe needs content outside the plan, e.g. the chemical
+     * oxidizer's dynamic tank (a Phase 5 multiblock) and personal storage. Listed in the report.
+     */
+    private val adaptedIngredients = mapOf(
+        "mekanized:chemical_oxidizer" to mapOf("mekanism:dynamic_tank" to "mekanism:basic_fluid_tank",
+            "#mekanism:personal_storage" to "minecraft:chest"),
+    )
+
     private fun convert(id: String, json: JsonObject) {
         if (json.has("neoforge:conditions")) throw Unsupported("needs another mod (neoforge:conditions)")
+        adaptedIngredients[id]?.let { replacements ->
+            val key = json.getAsJsonObject("key")
+            for ((symbol, value) in key.entrySet().toList()) {
+                if (value.isJsonPrimitive) replacements[value.asString]?.let { key.addProperty(symbol, it) }
+            }
+            report.skip("adapted: ingredients outside the plan replaced (" + replacements.entries.joinToString { "${it.key} -> ${it.value}" } + ")", id)
+        }
         val type = json.get("type")?.asString ?: throw Unsupported("no type")
         when (type) {
             "minecraft:crafting_shaped", "mekanism:mek_data" -> craftEngine(id, "shaped", shaped(json))
@@ -333,6 +393,10 @@ internal class Recipes(
             else -> {
                 val kind = type.removePrefix("mekanism:")
                 outOfPlan[kind]?.let { throw Unsupported(it) }
+                if (kind == "rotary") {
+                    rotary(id, json)
+                    return
+                }
                 val machine = machines[kind] ?: throw Unsupported("recipe type $type has no converter")
                 machineRecipes[kind + "|" + id] = machineRecipe(kind, machine, json)
                 report.count("machine recipes")
@@ -341,6 +405,17 @@ internal class Recipes(
     }
 
     // -- machine recipes
+
+    /** Chemical to fluid (`condensing`) and fluid to chemical (`decondensing`). */
+    private fun rotary(id: String, json: JsonObject) {
+        for ((kind, fields) in listOf("condensing" to listOf("chemical_input", "fluid_output"),
+            "decondensing" to listOf("fluid_input", "chemical_output"))) {
+            val half = JsonObject()
+            for (field in fields) half.add(field, json.get(field) ?: throw Unsupported("rotary recipe without $field"))
+            machineRecipes[kind + "|" + id.replace("mekanized:rotary/", "mekanized:$kind/")] = machineRecipe(kind, machines.getValue(kind), half)
+            report.count("machine recipes")
+        }
+    }
 
     private fun machineRecipe(kind: String, machine: Machine, json: JsonObject): MutableMap<String, Any?> {
         val recipe = linkedMapOf<String, Any?>("type" to "mekanized:$kind")
@@ -356,14 +431,14 @@ internal class Recipes(
                 "input", "item_input", "main_input", "extra_input" ->
                     if (value.isJsonObject && value.asJsonObject.has("chemical") || value.isJsonObject && value.asJsonObject.has("tag")
                         && value.asJsonObject.has("amount")) {
-                        chemicalInput(value.asJsonObject).let { if (perTickChemical) perTick += it else inputs += it }
+                        if (perTickChemical) perTick += chemicalCost(value.asJsonObject) else inputs += chemicalInput(value.asJsonObject)
                     } else if (value.isJsonObject && value.asJsonObject.has("amount") && !value.asJsonObject.has("count")) {
                         inputs += fluidInput(value.asJsonObject)
                     } else {
                         inputs += itemInput(value.asJsonObject)
                     }
                 "chemical_input", "left_input", "right_input" ->
-                    chemicalInput(value.asJsonObject).let { if (perTickChemical) perTick += it else inputs += it }
+                    if (perTickChemical) perTick += chemicalCost(value.asJsonObject) else inputs += chemicalInput(value.asJsonObject)
                 "fluid_input" -> inputs += fluidInput(value.asJsonObject)
                 "output", "main_output", "item_output", "chemical_output", "fluid_output",
                 "left_chemical_output", "right_chemical_output" ->
@@ -421,14 +496,19 @@ internal class Recipes(
         }
     }
 
-    /** Fluids become MachineEngine resource tags of fluid types (Phase 3, E5/E9). */
+    /** A per-tick chemical cost: an exact chemical (costs are resources, not tags). */
+    private fun chemicalCost(json: JsonObject): Map<String, Any?> {
+        val input = chemicalInput(json)
+        val tag = input["tag"] as String? ?: return input
+        return mapOf("type" to firstChemical(tag), "amount" to input["amount"])
+    }
+
+    /** Fluids are resources of the Mekanized fluid category (Phase 3): a fluid tag names one fluid. */
     private fun fluidInput(json: JsonObject): Map<String, Any?> {
         val ingredient = json.get("ingredient") ?: throw Unsupported("fluid input without ingredient")
         val ref = if (ingredient.isJsonPrimitive) ingredient.asString else ingredient.asJsonObject.get("tag")?.asString?.let { "#$it" }
             ?: ingredient.asJsonObject.get("fluid")?.asString ?: throw Unsupported("fluid ingredient form ${ingredient.toString().take(60)}")
-        val amount = json.get("amount")?.asLong ?: 1
-        return if (ref.startsWith("#")) mapOf("fluid-tag" to Ids.rename(ref.removePrefix("#")), "amount" to amount)
-        else mapOf("fluid" to Ids.rename(ref), "amount" to amount)
+        return mapOf("type" to fluidType(ref), "amount" to (json.get("amount")?.asLong ?: 1))
     }
 
     private fun output(field: String, json: JsonObject): Map<String, Any?> {
@@ -436,7 +516,7 @@ internal class Recipes(
         return when {
             json.has("count") || field in setOf("main_output", "item_output", "secondary_output") || !json.has("amount") ->
                 mapOf("item" to id, "amount" to (json.get("count")?.asInt ?: 1))
-            field == "fluid_output" -> mapOf("fluid" to id, "amount" to json.get("amount").asLong)
+            field == "fluid_output" -> mapOf("type" to fluidType(id), "amount" to json.get("amount").asLong)
             else -> mapOf("type" to id, "amount" to json.get("amount").asLong)
         }
     }
@@ -452,6 +532,7 @@ internal class Recipes(
         val file = when {
             ingredients.all { it in contentIds } -> "materials_$group"
             ingredients.all { it in contentIds || it in machineIds } -> "machines_$group"
+            ingredients.all { it in contentIds || it in machineIds || it in chemistryIds } -> "chemistry_$group"
             else -> group
         }
         craftEngineRecipes["$file|$id"] = recipe.toMutableMap()
@@ -544,11 +625,25 @@ internal class Recipes(
     // -- output
 
     private fun writeOutputs() {
+        out.resolve("fluids.txt").writeText(fluids.joinToString("\n", postfix = "\n"))
+        // Bucket slots of fluid machines and tanks (E5): only vanilla buckets, Mekanism's need a mod-side model.
+        val buckets = linkedMapOf<String, Any?>()
+        for (fluid in listOf("water", "lava")) {
+            buckets["mekanized:bucket_filling/$fluid"] = linkedMapOf("type" to "mekanized:bucket_filling",
+                "inputs" to listOf(mapOf("item" to "minecraft:${fluid}_bucket", "amount" to 1)),
+                "outputs" to listOf(mapOf("type" to "mekanized:fluid/$fluid", "amount" to 1000), mapOf("item" to "minecraft:bucket", "amount" to 1)))
+            buckets["mekanized:bucket_draining/$fluid"] = linkedMapOf("type" to "mekanized:bucket_draining",
+                "inputs" to listOf(mapOf("item" to "minecraft:bucket", "amount" to 1), mapOf("type" to "mekanized:fluid/$fluid", "amount" to 1000)),
+                "outputs" to listOf(mapOf("item" to "minecraft:${fluid}_bucket", "amount" to 1)))
+        }
+        writeYaml(out.resolve("definitions/recipes_buckets.yml"),
+            "Mekanized bucket slots: a full bucket empties into the tank, an empty one is filled from it (1000 mB).\n" +
+                    "Edit freely: updates replace this file only while it is unedited.", linkedMapOf("recipes" to buckets))
         machineRecipes.entries.groupBy { it.key.substringBefore("|") }.forEach { (kind, entries) ->
             val machine = machines.getValue(kind)
             writeYaml(out.resolve("definitions/recipes_$kind.yml"),
                 "Mekanized $kind recipes, generated from Mekanism (MIT, see LICENSE-MEKANISM.txt).\n" +
-                        "Edit freely: this file is installed once and never overwritten; delete it to get the defaults back.\n" +
+                        "Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.\n" +
                         "Durations are ticks; energy is Joules per tick. Phase ${machine.phase} of MEKANIZED_PLAN.md.",
                 linkedMapOf("recipes" to entries.associate { it.key.substringAfter("|") to it.value }))
         }

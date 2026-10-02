@@ -12,6 +12,7 @@ import fr.robie.machineengine.api.registry.RegistryAccess;
 import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.api.resource.match.ResourceMatcher;
 import fr.robie.machineengine.api.resource.match.ResourcePredicate;
+import fr.robie.machineengine.api.resource.tag.ResourceTags;
 import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.NotNull;
 
@@ -42,19 +43,40 @@ final class RecipeFilters {
 
     /** Items used as an input by some recipe of {@code type}. */
     static @NotNull ResourcePredicate inputOf(@NotNull RecipeType<ProcessingRecipe> type) {
-        ResourcePredicate used = (variant, tags) -> {
+        return Items.anyItem().and(usedBy(type));
+    }
+
+    /** Resources (items, chemicals, fluids) used as an input by some recipe of {@code type}. */
+    static @NotNull ResourcePredicate usedBy(@NotNull RecipeType<ProcessingRecipe> type) {
+        return cached(type.key(), type, (recipe, variant, tags) -> {
+            for (ResourceMatcher input : recipe.inputs()) {
+                if (input.matches(variant, tags)) return true;
+            }
+            return false;
+        });
+    }
+
+    /** Resources some recipe of {@code type} pays per tick (e.g. the purification chamber's oxygen). */
+    static @NotNull ResourcePredicate costOf(@NotNull RecipeType<ProcessingRecipe> type) {
+        return cached(Key.key(type.key().namespace(), type.key().value() + "/cost"), type,
+                (recipe, variant, tags) -> recipe.costPerTick().stream().anyMatch(cost -> cost.variant().equals(variant)));
+    }
+
+    private interface RecipeTest {
+        boolean test(ProcessingRecipe recipe, ResourceVariant variant, ResourceTags tags);
+    }
+
+    private static ResourcePredicate cached(Key cacheKey, RecipeType<ProcessingRecipe> type, RecipeTest test) {
+        return (variant, tags) -> {
             RegistryAccess access = registries;
             if (access == null) return true; // before the freeze: nothing to check against yet
-            return CACHE.computeIfAbsent(type.key(), key -> new ConcurrentHashMap<>()).computeIfAbsent(variant, candidate -> {
+            return CACHE.computeIfAbsent(cacheKey, key -> new ConcurrentHashMap<>()).computeIfAbsent(variant, candidate -> {
                 for (Recipe recipe : access.registry(Registries.RECIPE)) {
-                    if (!(recipe instanceof ProcessingRecipe processing) || !processing.type().equals(type)) continue;
-                    for (ResourceMatcher input : processing.inputs()) {
-                        if (input.matches(candidate, tags)) return true;
-                    }
+                    if (recipe instanceof ProcessingRecipe processing && processing.type().equals(type)
+                            && test.test(processing, candidate, tags)) return true;
                 }
                 return false;
             });
         };
-        return Items.anyItem().and(used);
     }
 }

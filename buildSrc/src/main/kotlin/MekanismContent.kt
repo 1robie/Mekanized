@@ -62,7 +62,10 @@ internal class MekanismContent(
         writeYaml(out.resolve("pack/configuration/materials.yml"),
             "Mekanized materials, ores and storage blocks (Phase 1), generated from Mekanism (MIT, see LICENSE-MEKANISM.txt).",
             linkedMapOf("items" to items, "blocks" to blocks))
-        generateMachines(nameKeys, membership)
+        generateBlocks("machines.yml", "Mekanized machines, generators, energy cubes, cables and upgrades (Phase 2), generated from Mekanism (MIT).",
+            phase2Machines, phase2Transports, phase2Items, machineIds, nameKeys, membership)
+        generateBlocks("chemistry.yml", "Mekanized chemical machines, tanks, tubes, pipes and the pump (Phase 3), generated from Mekanism (MIT).",
+            phase3Machines, phase3Transports, phase3Items, chemistryIds, nameKeys, membership)
         val chemicals = chemicals()
         nameKeys += chemicals.map { "chemical.mekanism.$it" }
         out.resolve("chemicals.txt").writeText(chemicals.joinToString("\n", postfix = "\n"))
@@ -80,30 +83,51 @@ internal class MekanismContent(
         "purification_chamber", "precision_sawmill", "heat_generator", "solar_generator", "bio_generator",
         "basic_energy_cube", "advanced_energy_cube", "elite_energy_cube", "ultimate_energy_cube", "creative_energy_cube",
     )
-    private val phase2Transports = listOf("basic_universal_cable", "advanced_universal_cable", "elite_universal_cable", "ultimate_universal_cable")
+    private val tiers = listOf("basic", "advanced", "elite", "ultimate")
+
+    /** Transports -> the low edge of their square section (small 5..11, large 4..12). */
+    private val phase2Transports = tiers.associate { "${it}_universal_cable" to 5 }
     private val phase2Items = listOf("upgrade_speed", "upgrade_energy")
+
+    // -- Phase 3: chemical machines, tanks, tubes, pipes, pump ------------------------------------
+    private val phase3Machines = listOf(
+        "chemical_oxidizer", "chemical_infuser", "chemical_injection_chamber", "chemical_dissolution_chamber",
+        "chemical_washer", "chemical_crystallizer", "electrolytic_separator", "rotary_condensentrator", "electric_pump",
+    ) + (tiers + "creative").flatMap { listOf("${it}_chemical_tank", "${it}_fluid_tank") }
+    /** Crafting ingredients of Phase 3 machines (the tablet charges items in Phase 4). */
+    private val phase3Items = listOf("electrolytic_core", "energy_tablet")
+    private val phase3Transports = tiers.associate { "${it}_pressurized_tube" to 5 } + tiers.associate { "${it}_mechanical_pipe" to 4 }
 
     /** Ids of Phase 2 content, for the recipe split. */
     val machineIds = sortedSetOf<String>()
 
-    private fun generateMachines(nameKeys: MutableSet<String>, membership: Map<String, Set<String>>) {
+    /** Ids of Phase 3 content, for the recipe split. */
+    val chemistryIds = sortedSetOf<String>()
+
+    private fun generateBlocks(fileName: String, header: String, machineNames: List<String>, transports: Map<String, Int>,
+                               extraItems: List<String>, phaseIds: MutableSet<String>, nameKeys: MutableSet<String>,
+                               membership: Map<String, Set<String>>) {
         val items = linkedMapOf<String, Any?>()
         val blocks = linkedMapOf<String, Any?>()
         val modelsRoot = out.resolve("pack/resourcepack/assets/mekanized/models")
-        for (name in phase2Machines + phase2Transports) {
+        for (name in machineNames + transports.keys) {
             val id = "mekanized:$name"
-            val cable = name in phase2Transports
+            val cable = name in transports
             var itemModel: String? = null
             val behavior: Map<String, Any?>
             val states: Map<String, Any?>
             if (cable) {
                 // OBJ models upstream: drawn entirely by display entities (center and arms); the block is
                 // an empty sapling-type state: small hitbox, no collision, one state per cable.
-                val models = CableModels.write(modelsRoot, name, name)
+                val models = CableModels.write(modelsRoot, name, name, transports.getValue(name))
                 for (part in listOf("center") + CableModels.DIRECTIONS) {
                     items["mekanized:cable_part/$name/$part"] = linkedMapOf<String, Any?>("model" to models.getValue(part))
                 }
-                states = mapOf("state" to mapOf("auto_state" to "sapling", "model" to mapOf("path" to emptyModel(modelsRoot, name, models.getValue("center")))))
+                // Every tier of a family shares one state (sapling states are scarce: 8 to 16): same
+                // empty model, with the basic tier's breaking particles.
+                val family = name.substringAfter("_")
+                states = mapOf("state" to mapOf("auto_state" to mapOf("type" to "sapling", "id" to "mekanized_$family"),
+                    "model" to mapOf("path" to emptyModel(modelsRoot, family, "mekanized:block/cable/basic_$family/center"))))
                 behavior = mapOf("type" to "machineengine:transport", "transport" to id, "connection_items" to "mekanized:cable_part/$name")
                 itemModel = models.getValue("center")
             } else {
@@ -127,6 +151,8 @@ internal class MekanismContent(
                 if (active != null) items["mekanized:display/$name/active"] = linkedMapOf<String, Any?>("model" to active)
                 finalStates = singleAppearance(states, emptyModel(modelsRoot, name, inactive))
                 finalBehavior = behavior + ("display_item" to "mekanized:display/$name")
+                // Some blockstates turn the model even when facing north (separator 90, pump 180).
+                northRotation(states).let { if (it != 0) finalBehavior = finalBehavior + ("display_rotation" to it) }
                 report.count("display-rendered blocks")
             }
             blocks[id] = linkedMapOf<String, Any?>(
@@ -142,21 +168,19 @@ internal class MekanismContent(
                 "behavior" to mapOf("type" to "block_item", "block" to id),
             ).withTags(membership[id])
             nameKeys += "block.mekanism.$name"
-            machineIds += id
+            phaseIds += id
             report.count("machine blocks")
         }
-        for (name in phase2Items) {
+        for (name in extraItems) {
             val model = itemDefinition(name)?.let { itemModel(it) } ?: continue
             items["mekanized:$name"] = linkedMapOf<String, Any?>(
                 "data" to mapOf("item_name" to "<!i><lang:item.mekanized.$name>"),
                 "model" to Ids.rename(model),
             ).withTags(membership["mekanized:$name"])
             nameKeys += "item.mekanism.$name"
-            machineIds += "mekanized:$name"
+            phaseIds += "mekanized:$name"
         }
-        writeYaml(out.resolve("pack/configuration/machines.yml"),
-            "Mekanized machines, generators, energy cubes, cables and upgrades (Phase 2), generated from Mekanism (MIT).",
-            linkedMapOf("items" to items, "blocks" to blocks))
+        writeYaml(out.resolve("pack/configuration/$fileName"), header, linkedMapOf("items" to items, "blocks" to blocks))
     }
 
     private fun itemDefinition(name: String): File? = listOf(
@@ -242,6 +266,14 @@ internal class MekanismContent(
         fun model(name: String) = appearances[name]?.let { (it["model"] as Map<String, Any?>)["path"] as String }
         val inactive = model("facing_north_active_false") ?: model("facing_north") ?: allModels(states).first()
         return inactive to model("facing_north_active_true")
+    }
+
+    /** The y rotation of the "north, inactive" appearance, in degrees (0 to 270). */
+    @Suppress("UNCHECKED_CAST")
+    private fun northRotation(states: Map<String, Any?>): Int {
+        val appearances = (states["states"] as Map<String, Any?>?)?.get("appearances") as Map<String, Map<String, Any?>>? ?: return 0
+        val north = appearances["facing_north_active_false"] ?: appearances["facing_north"] ?: return 0
+        return (north["model"] as Map<String, Any?>)["y"] as Int? ?: 0
     }
 
     /** The same properties, every variant shown by one empty, non-occluding appearance. */

@@ -33,18 +33,26 @@ public final class MekanizedPlugin extends JavaPlugin {
             "configuration/materials.yml", "configuration/lang.yml", "configuration/recipes_materials_shaped.yml",
             "configuration/recipes_materials_shapeless.yml", "configuration/recipes_materials_cooking.yml",
             // Phase 2: machines, generators, energy cubes, cables, upgrades and their crafting recipes.
-            "configuration/machines.yml", "configuration/recipes_machines_shaped.yml");
+            "configuration/machines.yml", "configuration/recipes_machines_shaped.yml",
+            // Phase 3: chemical machines, tanks, tubes, pipes, the pump and their crafting recipes.
+            "configuration/chemistry.yml", "configuration/recipes_chemistry_shaped.yml");
     /** Generated MachineEngine definitions installed so far (same rule as {@link #ENABLED_CONFIGURATION}). */
-    private static final java.util.Set<String> ENABLED_DEFINITIONS = java.util.Set.of(
+    static final java.util.Set<String> ENABLED_DEFINITIONS = java.util.Set.of(
             // Phase 1: item and chemical tags, and the vanilla members of c: tags.
             "tags.yml", "vanilla_aliases.yml",
             // Phase 2: recipes of the basic machines, and the item -> energy / chemical conversions.
             "recipes_enriching.yml", "recipes_crushing.yml", "recipes_combining.yml", "recipes_sawing.yml",
             "recipes_metallurgic_infusing.yml", "recipes_compressing.yml", "recipes_purifying.yml",
-            "recipes_chemical_conversion.yml", "recipes_energy_conversion.yml");
+            "recipes_chemical_conversion.yml", "recipes_energy_conversion.yml",
+            // Phase 3: chemical machines (4x and 5x ore processing), the rotary condensentrator, bucket slots.
+            "recipes_oxidizing.yml", "recipes_chemical_infusing.yml", "recipes_injecting.yml", "recipes_dissolution.yml",
+            "recipes_washing.yml", "recipes_crystallizing.yml", "recipes_separating.yml", "recipes_condensing.yml",
+            "recipes_decondensing.yml", "recipes_buckets.yml");
 
     @Override
     public void onLoad() {
+        // Every class now: if the jar is replaced while the server runs, nothing breaks later.
+        fr.robie.machineengine.paper.ClassPreloader.preload(MekanizedPlugin.class, "fr/robie/machineengine/mekanized/");
         MachineEngine.register(AddonRegistration.builder(getName(), getPluginMeta().getVersion())
                 .requiresApi("[0.1,1.0)")
                 .register(MekanizedContent::register)

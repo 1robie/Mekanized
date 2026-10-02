@@ -28,7 +28,8 @@ import org.bukkit.plugin.Plugin;
 /**
  * {@code /mekanized test [<x y z>] [world]} (admin): places an enrichment chamber, gives it energy
  * and one osmium ore, and reports the dust after the process (2 expected). A server-side check of
- * the whole chain: CraftEngine block, machine, imported recipe and tags, energy.
+ * the whole chain: CraftEngine block, machine, imported recipe and tags, energy. {@code test-cable}
+ * and {@code test-chemistry} check energy and chemical transport the same way.
  */
 @SuppressWarnings("UnstableApiUsage")
 final class MekanizedCommands {
@@ -53,6 +54,11 @@ final class MekanizedCommands {
                                         && place(world, x + 2, y, z, "basic_universal_cable");
                                 reply(context, "mekanized place-set: " + (placed ? "crusher, energy cube, cable placed" : "placement failed"));
                             });
+                            return Command.SINGLE_SUCCESS;
+                        }))
+                .then(PositionArguments.optionalPosition(Commands.literal("test-chemistry"), PositionArguments.Default.PLACEMENT,
+                        (context, world, x, y, z) -> {
+                            Bukkit.getRegionScheduler().execute(this.plugin, new Location(world, x, y, z), () -> testChemistry(context, world, x, y, z));
                             return Command.SINGLE_SUCCESS;
                         }))
                 .then(PositionArguments.optionalPosition(Commands.literal("test-cable"), PositionArguments.Default.PLACEMENT,
@@ -129,6 +135,46 @@ final class MekanizedCommands {
             }
             this.plugin.getLogger().info("mekanized test-cable: " + dust + " osmium dust (expected 2), powered through the cable");
         }, 240);
+    }
+
+    /**
+     * An electrolytic separator splits 1000 mB of water; a pressurized tube (east) carries the
+     * hydrogen to a chemical tank. Reports what the tank and the separator hold.
+     */
+    private void testChemistry(CommandContext<CommandSourceStack> context, World world, int x, int y, int z) {
+        boolean placed = place(world, x, y, z, "electrolytic_separator") && place(world, x + 1, y, z, "basic_pressurized_tube")
+                && place(world, x + 2, y, z, "basic_chemical_tank");
+        WorldPosition separatorAt = WorldPosition.of(world.getKey(), x, y, z);
+        MachineInstance separator = MachineEngine.get().machineAt(separatorAt).orElse(null);
+        var water = MekanizedContent.fluid("water");
+        if (!placed || separator == null || water == null) {
+            reply(context, "mekanized test-chemistry: placement failed");
+            return;
+        }
+        ResourceHandler port = separator.capability(Capabilities.RESOURCE_HANDLER, Direction.UP).orElseThrow();
+        try (Transaction transaction = MachineEngine.get().transactions().openOuter()) {
+            port.insert(MekanizedContent.ENERGY.variant(), 160_000, transaction);
+            port.insert(water.variant(), 1_000, transaction);
+            transaction.commit();
+        }
+        reply(context, "mekanized test-chemistry: separator > tube > chemical tank with 1000 mB of water; result in 30 s");
+        Bukkit.getRegionScheduler().runDelayed(this.plugin, new Location(world, x, y, z), task -> {
+            WorldPosition tankAt = WorldPosition.of(world.getKey(), x + 2, y, z);
+            this.plugin.getLogger().info("mekanized test-chemistry: tank " + contents(tankAt, "chemical") + ", separator "
+                    + contents(separatorAt, "output") + " (expected 1000 mB hydrogen and 500 mB oxygen in all)");
+        }, 600);
+    }
+
+    private static String contents(WorldPosition position, String storage) {
+        MachineInstance machine = MachineEngine.get().machineAt(position).orElse(null);
+        if (machine == null) return "(gone)";
+        StringBuilder text = new StringBuilder();
+        for (StorageView view : machine.inspect().storages().get(storage)) {
+            if (view.isEmpty()) continue;
+            if (!text.isEmpty()) text.append(", ");
+            text.append(view.amount()).append(" mB ").append(view.variant().type().key().value());
+        }
+        return text.isEmpty() ? "empty" : text.toString();
     }
 
     private static boolean place(World world, int x, int y, int z, String block) {

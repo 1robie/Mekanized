@@ -58,8 +58,8 @@ public final class MekanizedMachines {
 
     // -- energy transport ------------------------------------------------------------------------
     public static final NetworkType ENERGY_NETWORK = NetworkType.of(key("energy"), NetworkBehavior.distributing());
-    private static final ResourcePredicate IS_ENERGY = ResourcePredicate.type(MekanizedContent.ENERGY);
-    private static final ResourcePredicate IS_CHEMICAL = ResourcePredicate.category(MekanizedContent.CHEMICAL);
+    static final ResourcePredicate IS_ENERGY = ResourcePredicate.type(MekanizedContent.ENERGY);
+    static final ResourcePredicate IS_CHEMICAL = ResourcePredicate.category(MekanizedContent.CHEMICAL);
     public static final List<TransportType> CABLES = List.of(
             TransportType.of(key("basic_universal_cable"), ENERGY_NETWORK, 8_000, IS_ENERGY),
             TransportType.of(key("advanced_universal_cable"), ENERGY_NETWORK, 128_000, IS_ENERGY),
@@ -82,6 +82,7 @@ public final class MekanizedMachines {
         CABLES.forEach(context.transportTypes()::register);
         machines().forEach(context.machineTypes()::register);
         context.recipes(FurnaceRecipes::provide);
+        ChemistryMachines.register(context);
     }
 
     static List<MachineType> machines() {
@@ -98,9 +99,9 @@ public final class MekanizedMachines {
                 .build());
         // Chemical machines: a tank fed by its item slot, used per tick (compressor, purification)
         // or as an input (infuser's infuse types).
-        machines.add(chemicalMachine("osmium_compressor", COMPRESSING, 80_000, 210, false));
-        machines.add(chemicalMachine("purification_chamber", PURIFYING, 80_000, 210, false));
-        machines.add(chemicalMachine("metallurgic_infuser", METALLURGIC_INFUSING, 20_000, 1_000, true));
+        machines.add(chemicalMachine("osmium_compressor", COMPRESSING, 80_000, 210, false).build());
+        machines.add(chemicalMachine("purification_chamber", PURIFYING, 80_000, 210, false).build());
+        machines.add(chemicalMachine("metallurgic_infuser", METALLURGIC_INFUSING, 20_000, 1_000, true).build());
         // Generators.
         machines.add(generator("heat_generator", 160_000)
                 .storage(StorageDefinition.slots("fuel", 1, 64).filter(Items.anyItem()))
@@ -139,15 +140,18 @@ public final class MekanizedMachines {
                         new ConvertingBehavior.Conversion("energy_slot", "energy", ENERGY_CONVERSION)));
     }
 
-    private static MachineType chemicalMachine(String name, RecipeType<ProcessingRecipe> recipes, long energy, long tank,
+    /** Item in, item out, a chemical tank used per tick or as an input, fed by tubes or its item slot. */
+    static MachineType.Builder chemicalMachine(String name, RecipeType<ProcessingRecipe> recipes, long energy, long tank,
                                                boolean chemicalIsInput) {
+        // The tank takes only what the recipes use: an input, or a per-tick cost.
+        ResourcePredicate chemicals = IS_CHEMICAL.and(chemicalIsInput ? RecipeFilters.usedBy(recipes) : RecipeFilters.costOf(recipes));
         ProcessBinding binding = chemicalIsInput
                 ? new ProcessBinding(List.of("input", "chemical"), "output", List.of("energy"))
                 : new ProcessBinding(List.of("input"), "output", List.of("energy", "chemical"));
         return base(name, energy)
                 .storage(StorageDefinition.slots("input", 1, 64).filter(RecipeFilters.inputOf(recipes)))
                 .storage(StorageDefinition.slots("output", 1, 64).filter(Items.anyItem()))
-                .storage(StorageDefinition.tank("chemical", tank).filter(IS_CHEMICAL))
+                .storage(StorageDefinition.tank("chemical", tank).filter(chemicals))
                 .storage(StorageDefinition.slots("chemical_slot", 1, 64).filter(RecipeFilters.inputOf(CHEMICAL_CONVERSION)))
                 .port(PortDefinition.builder("input", "input").direction(PortDirection.INPUT).build())
                 .port(PortDefinition.builder("output", "output").direction(PortDirection.OUTPUT).build())
@@ -155,15 +159,14 @@ public final class MekanizedMachines {
                 .upgradeSlots(2, upgrade -> upgrade.equals(SPEED) || upgrade.equals(ENERGY_UPGRADE))
                 .behavior(ConvertingBehavior.of(ProcessingBehavior.of(recipes, binding),
                         new ConvertingBehavior.Conversion("chemical_slot", "chemical", CHEMICAL_CONVERSION),
-                        new ConvertingBehavior.Conversion("energy_slot", "energy", ENERGY_CONVERSION)))
-                .build();
+                        new ConvertingBehavior.Conversion("energy_slot", "energy", ENERGY_CONVERSION)));
     }
 
     /**
      * Energy buffer (input from every side) and the slot that turns redstone into energy. Conversion
      * slots have no port: what hoppers and pipes insert goes to the input (side configuration, Phase 4).
      */
-    private static MachineType.Builder base(String name, long energy) {
+    static MachineType.Builder base(String name, long energy) {
         return MachineType.builder(key(name))
                 .storage(StorageDefinition.tank("energy", energy).filter(IS_ENERGY))
                 .storage(StorageDefinition.slots("energy_slot", 1, 64).filter(RecipeFilters.inputOf(ENERGY_CONVERSION)))

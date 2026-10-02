@@ -119,6 +119,37 @@ ways that hide where they came from. Source: `https://github.com/mekanism/Mekani
 - **Chemical machines:** Electrolytic Separator, Chemical Oxidizer, Chemical Infuser, Chemical Injection Chamber, Chemical Dissolution Chamber, Chemical Washer, Chemical Crystallizer, Rotary Condensentrator.
 - **Fluids:** fluid tanks, mechanical pipes and an Electric Pump.
 
+**Status: done (2026-10-02), not yet tried in game.**
+- **Engine:**
+  - Chemical and fluid networks (E9) needed nothing new: `NetworkBehavior.distributing()` and a transport filter per resource category.
+  - Port directions a behavior can switch at runtime (`MachineContext.setPortDirection` / `portDirection`), not saved: the behavior sets them again from its own data on load. A first step toward per-machine side configuration (E2).
+  - World fluids (E5): `MachineContext.worldFluidAt` returns a `WorldFluid` (the platform's fluid id, and whether the block is a source), and `takeWorldFluid` removes a source block. Only on the owning thread: Folia regions are not crossed. The CraftEngine host reads water and lava; `FakeWorld.setFluid` sets them in tests.
+  - The `machineengine_data` zMenu button changes a setting the machine type declares (switches a boolean, or cycles `values:`), shown by `%zmenu_machineengine_data_<id>%`.
+- **Mekanized, in Java:**
+  - Fluids: a `mekanized:fluid` category with `mekanized:fluid/<name>` for water, lava and Mekanism's 22 fluids, separate from the chemicals of the same name.
+  - Machines: Chemical Oxidizer, Chemical Infuser (left and right tanks on their sides, output at the front), Chemical Injection Chamber, Chemical Dissolution Chamber, Chemical Washer, Chemical Crystallizer, Electrolytic Separator (two output tanks) and Rotary Condensentrator (a mode switch, chemical on the left, fluid on the right).
+  - Electric Pump: 2 kJ for one water or lava source block (1000 mB) a second, below it or reached through the fluid below, up to 32 blocks away.
+  - Tanks: chemical tanks (64k to 8.192M mB, output through the front) and fluid tanks (32k to 256k mB, output at the bottom), four tiers plus creative.
+  - Pressurized tubes and mechanical pipes, four tiers each, at Mekanism's pull rates.
+  - Bucket slots (`bucket_in`, `bucket_out`) on fluid tanks and fluid machines, from `bucket_filling` / `bucket_draining` recipes: vanilla water and lava buckets only, because Mekanism's buckets need a mod-side model.
+  - Tank filters from recipes: a machine's tanks take only the chemicals or fluids its recipes use, as inputs or per-tick costs.
+- **Generated:**
+  - CraftEngine blocks for 19 machines and tanks, 8 tubes and pipes (`chemistry.yml`), and the electrolytic core and energy tablet items.
+  - The rotary recipes are split into `condensing` and `decondensing`. Fluid tags become fluid types. Per-tick chemical tags become their first chemical, for example water vapor.
+  - 31 crafting recipes (`recipes_chemistry_shaped.yml`). The chemical oxidizer's recipe is adapted: Mekanism's needs a dynamic tank and personal storage, which are outside the plan, so it uses a basic fluid tank and a chest. The import report lists the change.
+  - Every tier of a transport family shares one CraftEngine sapling state, which has only 8 slots, through `auto_state: {type: sapling, id: ...}`. Display-rendered machines keep one state each, so their breaking particles stay right.
+  - zMenu menus for every Phase 3 block.
+  - `display_rotation` on display-rendered blocks: the model's own turn when facing north (separator 90°, pump and bio generator 180°), which the display entity adds to its yaw.
+- **Tests:** in `MekanizedChainTest`:
+  - one osmium ore gives 1000 mB of dirty slurry, then 1000 mB of clean slurry (5 mB of water per mB), then 5 crystals;
+  - the separator splits water (2 mB give 2 mB of hydrogen and 1 mB of oxygen);
+  - the rotary works both ways and its ports swap with the mode;
+  - buckets fill and empty a fluid tank;
+  - the pump reaches a source block through flowing water;
+  - a pressurized tube carries brine from a chemical tank to a crystallizer.
+- **Server check:** `/mekanized test-chemistry`: a separator, a tube and a chemical tank, with 1000 mB of water.
+- **Known limits:** speed upgrades do not speed up the one-tick chemical recipes (washer, infuser, separator, rotary). Mekanism runs several operations per tick instead; that comes with factories (E7, Phase 4). Chemical and fluid names show as resource ids in menus.
+
 ### Phase 4: logistics and the Mekanism feel
 - **Logistics:** logistical transporters (item pipes, tiers) and filters.
 - **Machine setup:** side configuration per machine, with the input and output colors and auto-eject.

@@ -43,9 +43,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 class MekanizedChainTest {
     private static final WorldPosition HERE = FakeWorld.at(0, 64, 0);
-    private static final List<String> DEFINITIONS = List.of("tags.yml", "vanilla_aliases.yml", "recipes_enriching.yml",
-            "recipes_crushing.yml", "recipes_combining.yml", "recipes_sawing.yml", "recipes_metallurgic_infusing.yml",
-            "recipes_compressing.yml", "recipes_purifying.yml", "recipes_chemical_conversion.yml", "recipes_energy_conversion.yml");
+    /** What the plugin installs, tags first. */
+    private static final List<String> DEFINITIONS = MekanizedPlugin.ENABLED_DEFINITIONS.stream()
+            .sorted(java.util.Comparator.comparing((String name) -> name.startsWith("recipes_")).thenComparing(name -> name)).toList();
 
     private static ResourceVariant item(String id) {
         return Items.variant(new ItemData(Key.key(id), id.getBytes(StandardCharsets.UTF_8)));
@@ -203,6 +203,127 @@ class MekanizedChainTest {
         return machine.inspect().storages().get(storage).stream()
                 .filter(view -> view.variant() != null && view.variant().type().key().equals(MekanizedContent.key(chemical)))
                 .mapToLong(StorageView::amount).sum();
+    }
+
+    // -- Phase 3: chemicals and fluids ----------------------------------------------------------
+
+    @Test
+    void theChemicalChainGivesFiveCrystalsPerOre() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        MachineInstanceImpl dissolution = world.place(type("chemical_dissolution_chamber"), FakeWorld.at(0, 64, 0), Direction.NORTH);
+        fill(dissolution, "energy", MekanizedContent.ENERGY.stack(160_000));
+        fill(dissolution, "chemical", chemical("sulfuric_acid", 1_000));
+        fill(dissolution, "input", item("mekanized:osmium_ore").stack(1));
+        world.tick(101);
+        assertEquals(1_000, amountOfType(dissolution, "output", "dirty_osmium"), "1 osmium ore dissolves into 1000 mB of dirty slurry");
+        assertEquals(1_000 - 100, amountOfType(dissolution, "chemical", "sulfuric_acid"), "1 mB of acid per tick");
+
+        MachineInstanceImpl washer = world.place(type("chemical_washer"), FakeWorld.at(2, 64, 0), Direction.NORTH);
+        fill(washer, "input", chemical("dirty_osmium", 1_000));
+        fill(washer, "fluid", fluid("water", 10_000));
+        powered(world, 1_001, washer);
+        assertEquals(1_000, amountOfType(washer, "output", "clean_osmium"), "washing is one to one");
+        assertEquals(10_000 - 5_000, amountOfType(washer, "fluid", "fluid/water"), "5 mB of water per mB of slurry");
+
+        MachineInstanceImpl crystallizer = world.place(type("chemical_crystallizer"), FakeWorld.at(4, 64, 0), Direction.NORTH);
+        fill(crystallizer, "input", chemical("clean_osmium", 1_000));
+        powered(world, 5 * 200 + 5, crystallizer);
+        assertEquals(5, amount(crystallizer, "output", "mekanized:crystal_osmium"), "200 mB of clean slurry per crystal");
+    }
+
+    @Test
+    void anElectrolyticSeparatorSplitsWater() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        MachineInstanceImpl separator = place(world, "electrolytic_separator");
+        fill(separator, "energy", MekanizedContent.ENERGY.stack(160_000));
+        fill(separator, "input", fluid("water", 200));
+        world.tick(110);
+        assertEquals(200, amountOfType(separator, "output", "hydrogen"), "2 mB of water give 2 mB of hydrogen");
+        assertEquals(100, amountOfType(separator, "output", "oxygen"), "and 1 mB of oxygen");
+        assertEquals(0, amountOfType(separator, "input", "fluid/water"));
+    }
+
+    @Test
+    void aRotaryCondensentratorGoesBothWays() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        MachineInstanceImpl rotary = place(world, "rotary_condensentrator");
+        fill(rotary, "energy", MekanizedContent.ENERGY.stack(20_000));
+        fill(rotary, "chemical", chemical("oxygen", 50));
+        world.tick(60);
+        assertEquals(50, amountOfType(rotary, "fluid", "fluid/oxygen"), "condensing: chemical to fluid");
+        assertEquals(fr.robie.machineengine.api.machine.PortDirection.OUTPUT, rotary.context().portDirection("fluid"));
+
+        rotary.context().set(fr.robie.machineengine.mekanized.machine.ChemistryBehaviors.MODE, "decondensing");
+        rotary.wake(fr.robie.machineengine.api.machine.WakeReason.CONFIG_CHANGED);
+        world.tick(60);
+        assertEquals(50, amountOfType(rotary, "chemical", "oxygen"), "decondensing: fluid back to chemical");
+        assertEquals(fr.robie.machineengine.api.machine.PortDirection.INPUT, rotary.context().portDirection("fluid"),
+                "the fluid side became the input");
+        assertEquals(fr.robie.machineengine.api.machine.PortDirection.OUTPUT, rotary.context().portDirection("chemical"));
+    }
+
+    @Test
+    void bucketsFillAndEmptyFluidTanks() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        MachineInstanceImpl tank = place(world, "basic_fluid_tank");
+        fill(tank, "bucket_in", item("minecraft:water_bucket").stack(1));
+        world.tick(2);
+        assertEquals(1_000, amountOfType(tank, "fluid", "fluid/water"), "the bucket empties into the tank");
+        assertEquals(1, amount(tank, "bucket_out", "minecraft:bucket"), "and comes back empty");
+
+        // The player takes the empty bucket and puts it back in.
+        try (Transaction transaction = tank.services().transactions().openOuter()) {
+            assertEquals(1, tank.context().storage("bucket_out").extract(item("minecraft:bucket"), 1, transaction));
+            transaction.commit();
+        }
+        fill(tank, "bucket_in", item("minecraft:bucket").stack(1));
+        world.tick(2);
+        assertEquals(0, amountOfType(tank, "fluid", "fluid/water"), "an empty bucket takes 1000 mB");
+        assertEquals(1, amount(tank, "bucket_out", "minecraft:water_bucket"));
+    }
+
+    @Test
+    void anElectricPumpTakesSourceBlocksBelowIt() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        MachineInstanceImpl pump = place(world, "electric_pump");
+        fill(pump, "energy", MekanizedContent.ENERGY.stack(40_000));
+        Key water = Key.key("minecraft", "water");
+        // Flowing water below the pump, a source next to it.
+        world.setFluid(FakeWorld.at(0, 63, 0), new fr.robie.machineengine.api.world.WorldFluid(water, false));
+        world.setFluid(FakeWorld.at(1, 63, 0), new fr.robie.machineengine.api.world.WorldFluid(water, true));
+        world.tick(2);
+        assertEquals(1_000, amountOfType(pump, "fluid", "fluid/water"), "one source block is 1000 mB");
+        assertEquals(null, world.fluidAt(FakeWorld.at(1, 63, 0)), "the source block is gone");
+        assertEquals(40_000 - 2_000, energy(pump), "2 kJ per block");
+        world.tick(100);
+        assertEquals(1_000, amountOfType(pump, "fluid", "fluid/water"), "only flowing water is left: nothing more to take");
+    }
+
+    @Test
+    void pressurizedTubesCarryChemicals() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        MachineInstanceImpl tank = world.place(type("basic_chemical_tank"), FakeWorld.at(0, 64, 0), Direction.EAST);
+        fill(tank, "chemical", chemical("brine", 30));
+        world.placeTransport(fr.robie.machineengine.mekanized.machine.ChemistryMachines.TUBES.get(0), FakeWorld.at(1, 64, 0));
+        MachineInstanceImpl crystallizer = world.place(type("chemical_crystallizer"), FakeWorld.at(2, 64, 0), Direction.NORTH);
+        powered(world, 2 * 200 + 10, crystallizer);
+        assertEquals(0, amountOfType(tank, "chemical", "brine"), "the tube emptied the tank's front");
+        assertEquals(2, amount(crystallizer, "output", "mekanized:salt"), "15 mB of brine per salt");
+    }
+
+    /** Ticks {@code ticks}, keeping the machines' energy buffers full. */
+    private static void powered(FakeWorld world, int ticks, MachineInstanceImpl... machines) {
+        for (int done = 0; done < ticks; done += 20) {
+            for (MachineInstanceImpl machine : machines) {
+                long free = machine.inspect().storages().get("energy").stream().mapToLong(view -> view.capacity() - view.amount()).sum();
+                if (free > 0) fill(machine, "energy", MekanizedContent.ENERGY.stack(free));
+            }
+            world.tick(Math.min(20, ticks - done));
+        }
+    }
+
+    private ResourceStack fluid(String name, long amount) {
+        return java.util.Objects.requireNonNull(MekanizedContent.fluid(name), name).stack(amount);
     }
 
     // -- the generated definitions, read from the jar like the plugin installs them ---------------
