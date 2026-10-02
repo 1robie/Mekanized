@@ -73,6 +73,47 @@ ways that hide where they came from. Source: `https://github.com/mekanism/Mekani
 - **Upgrades:** speed and energy.
 - **Menus:** zMenu menus with energy and progress gauges and upgrade slots. They use Mekanism-style backgrounds if CraftEngine image titles work in zMenu menus (to verify).
 
+**Status: done (2026-10-02), not yet tried in game.**
+- **Engine:**
+  - Process bindings take several cost storages; each cost is paid from the first storage that holds it. Old saves, with one cost storage, still load.
+  - Chance outputs (E1): rolled at process start with the machine's random, then kept with the process. The `chance-outputs` definitions key reads them.
+  - A visible active state: `MachineContext.setActive` is saved, and the CraftEngine `active` property follows it.
+  - World info (E3): `MachineContext.environment()` gives sky, daytime, rain and sky light.
+  - The `machineengine_upgrades` zMenu button: an item whose id is an upgrade type's key is that upgrade.
+  - `PaperItems.itemOf`.
+  - Tested in `ProcessFeaturesTest`.
+- **Mekanized, in Java:**
+  - Machines: Enrichment Chamber, Crusher, Energized Smelter (every furnace recipe on the server, 93 on a vanilla server), Precision Sawmill, Combiner, Osmium Compressor, Purification Chamber, Metallurgic Infuser.
+  - Item slots that feed the energy buffer or the chemical tank (`ConvertingBehavior`). They have no port; side configuration comes in Phase 4.
+  - Generators: Heat (furnace fuels, 200 J/t), Bio (bio fuel, 350 J/t) and Solar (50 J/t in daylight, a fifth in rain).
+  - Energy cubes: four tiers plus creative. Input on five sides, output through the front.
+  - Universal cables: four tiers on an energy network.
+  - Upgrades: speed (duration ×0.75, cost ×1.33 each) and energy (cost ×0.8 each), up to 8 of each.
+- **Generated:**
+  - CraftEngine blocks for the 20 machine, generator, cube and cable blocks, from Mekanism's blockstates (`facing` plus `active` appearances); energy cubes use their item model, because their block model needs a loader.
+  - 16 machine crafting recipes.
+  - 16 zMenu menus with slots, energy, progress and chemical gauges and upgrades. Titles are translated (`<lang:…>`).
+- **Converter:** `#mekanized:` and `#c:` crafting ingredients are expanded to their vanilla members, for example basic alloy = redstone.
+- **Tests:** headless, `MekanizedChainTest` loads every imported recipe and tag without a warning and checks:
+  - enrichment (1 ore gives 2 dust);
+  - speed upgrades;
+  - purification (3 clumps, 1 mB of oxygen per tick);
+  - redstone to energy;
+  - the heat and solar generators.
+- **Verified:** `/mekanized test` on Folia 26.2 gives 2 osmium dust for 10 kJ, and CraftEngine reports no issues.
+- **Fixes after in-game testing (2026-10-02):**
+  - **Rendering of non-full blocks:** they are drawn by an item display entity (`display_item` on the machine behavior), turned to the facing and switched to the active model while working, over one empty non-occluding `tintable_leaves` state. Non-occluding states are scarce: CraftEngine's leaves group has 117 slots, shared with its own content. One state per facing overflowed the group, made energy cubes and cables invisible, and broke blocks after a restart.
+  - **Cables:** drawn entirely by display entities, a center piece plus an arm per connected side, over one sapling-type state (small hitbox, no collision). Connections come from `CoreNetworks.connections`: a transport of the same network, or a machine port on the facing side that carries what the transport does.
+  - **Converted models:** the importer flattens `mekanism:energy_cube` and `neoforge:composite` models into vanilla ones (84 models). Only OBJ transmitters remain, and cables do not use them.
+  - **Texture metadata:** sanitized. Empty animation `frames` lists made vanilla clients reject the whole pack; CTM sections are dropped.
+  - **Menus:**
+    - slots rebuild from the machine (`isUpdatedMasterButton`); gauges keep zMenu's periodic placeholder update;
+    - menus are refreshed in place after machine changes (at most every 5 ticks), never reopened;
+    - the top inventory is reached reflectively, because `InventoryView` is a class on 1.20.6 and an interface on 26.x.
+  - **Slot filters from recipes:** the input slot takes what the machine's recipes use, the chemical slot what converts into its chemical, the energy slot what converts into energy.
+  - **Updates to generated files:** generated files are updated unless a server owner edited them (`EditableFiles`, checksums in `plugins/Mekanized/installed.properties`).
+- **Still to do:** the energy cube's inner core (drawn in code by Mekanism) as a display entity.
+
 ### Phase 3: chemicals and fluids (4x and 5x ore processing)
 - **Chemicals:** chemical tanks (tiers) and pressurized tubes.
 - **Chemical machines:** Electrolytic Separator, Chemical Oxidizer, Chemical Infuser, Chemical Injection Chamber, Chemical Dissolution Chamber, Chemical Washer, Chemical Crystallizer, Rotary Condensentrator.

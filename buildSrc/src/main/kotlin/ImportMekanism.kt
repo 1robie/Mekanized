@@ -43,7 +43,7 @@ abstract class ImportMekanism : DefaultTask() {
         Assets(source, out.resolve("pack/resourcepack/assets/mekanized"), report).copy()
         val itemTags = Tags(source, out.resolve("definitions"), report).convert()
         val content = MekanismContent(source, out, itemTags, report).also { it.generate() }
-        val recipes = Recipes(source, out, report, content.ids, itemTags).also { it.convert() }
+        val recipes = Recipes(source, out, report, content.ids, content.machineIds, itemTags).also { it.convert() }
         writeAliases(out.resolve("definitions/vanilla_aliases.yml"), recipes.referencedTags + itemTags.keys, itemTags, report)
         source.resolve("LICENSE").copyTo(out.resolve("LICENSE-MEKANISM.txt"), overwrite = true)
         out.resolve("import-report.txt").writeText(report.format())
@@ -162,8 +162,14 @@ internal class Assets(private val source: File, private val target: File, privat
 
     private fun copyFile(file: File, destination: File, relative: String) {
         destination.parentFile.mkdirs()
-        if (file.extension == "json" || file.extension == "mcmeta") {
-            val text = Ids.renameInText(file.readText())
+        if (file.extension == "mcmeta") {
+            val cleaned = vanillaMetadata(Ids.renameInText(file.readText()), relative) ?: return
+            destination.writeText(cleaned)
+            report.count("texture files")
+            return
+        }
+        if (file.extension == "json") {
+            val text = flattenLoaderModel(Ids.renameInText(file.readText()))
             if (file.extension == "json" && "\"loader\"" in text) {
                 report.skip("model needs a mod-side loader (NeoForge composite/obj); not usable by vanilla clients yet", relative)
             }
@@ -173,6 +179,70 @@ internal class Assets(private val source: File, private val target: File, privat
         }
         report.count(if (relative.startsWith("textures/")) "texture files" else "model files")
     }
+}
+
+/**
+ * Texture metadata a vanilla client accepts: mod-only sections (CTM, connected textures) are dropped,
+ * and an empty `frames` list (NeoForge reads it as "every frame", vanilla fails to stitch the atlas)
+ * is removed. Null when nothing is left to write.
+ */
+/**
+ * Two of Mekanism's model loaders only group plain elements, so they flatten into vanilla models:
+ * `mekanism:energy_cube` (frame, ports and leds lists) and `neoforge:composite` (child models with
+ * their own textures, prefixed to avoid clashes). OBJ models and other loaders are left as they are.
+ */
+internal fun flattenLoaderModel(text: String): String {
+    val json = runCatching { JsonParser.parseString(text).asJsonObject }.getOrNull() ?: return text
+    val loader = json.get("loader")?.asString ?: return text
+    val elements = com.google.gson.JsonArray()
+    fun addAll(value: JsonElement?) {
+        when {
+            value == null -> {}
+            value.isJsonArray -> value.asJsonArray.forEach { if (it.isJsonObject && it.asJsonObject.has("from")) elements.add(it) else addAll(it) }
+            value.isJsonObject -> value.asJsonObject.entrySet().forEach { addAll(it.value) }
+        }
+    }
+    when (loader) {
+        "mekanized:energy_cube" -> {
+            addAll(json.remove("frame"))
+            addAll(json.remove("ports"))
+            addAll(json.remove("leds"))
+        }
+        "neoforge:composite" -> {
+            val textures = json.getAsJsonObject("textures") ?: JsonObject().also { json.add("textures", it) }
+            val children = json.remove("children")?.asJsonObject ?: return text
+            for ((childName, childValue) in children.entrySet()) {
+                val child = childValue.asJsonObject
+                val prefix = childName.replace(Regex("[^a-z0-9_]"), "_") + "_"
+                child.getAsJsonObject("textures")?.entrySet()?.forEach { (key, texture) -> textures.add(prefix + key, texture) }
+                child.getAsJsonArray("elements")?.forEach { element ->
+                    element.asJsonObject.getAsJsonObject("faces")?.entrySet()?.forEach { (_, face) ->
+                        val ref = face.asJsonObject.get("texture")?.asString
+                        if (ref != null && ref.startsWith("#") && child.getAsJsonObject("textures")?.has(ref.removePrefix("#")) == true) {
+                            face.asJsonObject.addProperty("texture", "#" + prefix + ref.removePrefix("#"))
+                        }
+                    }
+                    elements.add(element)
+                }
+            }
+            if (!json.has("parent")) json.addProperty("parent", "minecraft:block/block")
+        }
+        else -> return text
+    }
+    json.remove("loader")
+    json.add("elements", elements)
+    return com.google.gson.GsonBuilder().setPrettyPrinting().create().toJson(json)
+}
+
+internal fun Assets.vanillaMetadata(text: String, relative: String): String? {
+    val json = JsonParser.parseString(text).asJsonObject
+    for (modSection in listOf("ctm", "extra")) json.remove(modSection)
+    json.getAsJsonObject("animation")?.let { animation ->
+        val frames = animation.get("frames")
+        if (frames != null && frames.isJsonArray && frames.asJsonArray.isEmpty) animation.remove("frames")
+    }
+    if (json.size() == 0) return null
+    return com.google.gson.GsonBuilder().setPrettyPrinting().create().toJson(json)
 }
 
 // -- recipes --------------------------------------------------------------------------------------
@@ -187,6 +257,8 @@ internal class Recipes(
     private val report: Report,
     /** Content generated so far: CraftEngine recipes making these go into the `materials_` files. */
     private val contentIds: Set<String>,
+    /** Phase 2 content: CraftEngine recipes needing it (and Phase 1) go into the `machines_` files. */
+    private val machineIds: Set<String>,
     private val itemTags: Map<String, List<String>>,
 ) {
     /** Every item tag the recipes reference, for the vanilla aliases. */
@@ -376,9 +448,12 @@ internal class Recipes(
         val result = (recipe["result"] as Map<String, Any?>)["id"] as String
         // Each plan phase enables the files whose items all exist: the result (vanilla or already
         // generated) and every Mekanized ingredient.
-        val ready = (!result.startsWith("mekanized:") || result in contentIds) &&
-                mekanizedIds(recipe).all { it in contentIds }
-        val file = if (ready) "materials_$group" else group
+        val ingredients = mekanizedIds(recipe) + listOf(result).filter { it.startsWith("mekanized:") }
+        val file = when {
+            ingredients.all { it in contentIds } -> "materials_$group"
+            ingredients.all { it in contentIds || it in machineIds } -> "machines_$group"
+            else -> group
+        }
         craftEngineRecipes["$file|$id"] = recipe.toMutableMap()
         report.count("crafting/smelting recipes")
     }
@@ -418,14 +493,36 @@ internal class Recipes(
      */
     private fun craftIngredient(value: JsonElement): Any {
         val ingredient = craftIngredientRaw(value)
-        if (ingredient !is String || !ingredient.startsWith("#c:")) return ingredient
+        if (ingredient !is String || !ingredient.startsWith("#") || ingredient.startsWith("#minecraft:")) return ingredient
         val tag = ingredient.removePrefix("#")
-        referencedTags += tag
-        val expanded = VanillaAliases.of(tag) + (if (itemTags[tag].isNullOrEmpty()) listOf() else listOf(ingredient))
+        if (tag.startsWith("c:")) referencedTags += tag
+        // CraftEngine knows a tag through the Mekanized items declaring it; vanilla members are listed.
+        val expanded = vanillaMembers(tag, mutableSetOf()).distinct() + (if (hasMekanizedItems(tag, mutableSetOf())) listOf(ingredient) else listOf())
         return when (expanded.size) {
             0 -> ingredient
             1 -> expanded.first()
             else -> expanded
+        }
+    }
+
+    /** Vanilla items and `#minecraft:` tags in [tag], following `c:` / `mekanized:` includes. */
+    private fun vanillaMembers(tag: String, visited: MutableSet<String>): List<String> {
+        if (!visited.add(tag)) return listOf()
+        val direct = itemTags[tag].orEmpty().flatMap { member ->
+            when {
+                member.startsWith("#minecraft:") -> listOf(member)
+                member.startsWith("#") -> vanillaMembers(member.removePrefix("#"), visited)
+                member.startsWith("minecraft:") -> listOf(member)
+                else -> listOf()
+            }
+        }
+        return VanillaAliases.of(tag) + direct
+    }
+
+    private fun hasMekanizedItems(tag: String, visited: MutableSet<String>): Boolean {
+        if (!visited.add(tag)) return false
+        return itemTags[tag].orEmpty().any { member ->
+            if (member.startsWith("#")) hasMekanizedItems(member.removePrefix("#"), visited) else member.startsWith("mekanized:")
         }
     }
 

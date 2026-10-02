@@ -62,6 +62,7 @@ internal class MekanismContent(
         writeYaml(out.resolve("pack/configuration/materials.yml"),
             "Mekanized materials, ores and storage blocks (Phase 1), generated from Mekanism (MIT, see LICENSE-MEKANISM.txt).",
             linkedMapOf("items" to items, "blocks" to blocks))
+        generateMachines(nameKeys, membership)
         val chemicals = chemicals()
         nameKeys += chemicals.map { "chemical.mekanism.$it" }
         out.resolve("chemicals.txt").writeText(chemicals.joinToString("\n", postfix = "\n"))
@@ -69,6 +70,238 @@ internal class MekanismContent(
             "Names of Mekanized items, blocks and chemicals in every language Mekanism ships (Mekanism, MIT).\n" +
                     "Shown in each player's language.",
             linkedMapOf("lang" to languages(nameKeys)))
+    }
+
+    // -- Phase 2: machines, generators, energy cubes, cables, upgrades ----------------------------
+
+    /** Machine blocks of Phase 2: block name -> the MachineEngine machine (or transport) behind it. */
+    private val phase2Machines = listOf(
+        "enrichment_chamber", "crusher", "energized_smelter", "osmium_compressor", "combiner", "metallurgic_infuser",
+        "purification_chamber", "precision_sawmill", "heat_generator", "solar_generator", "bio_generator",
+        "basic_energy_cube", "advanced_energy_cube", "elite_energy_cube", "ultimate_energy_cube", "creative_energy_cube",
+    )
+    private val phase2Transports = listOf("basic_universal_cable", "advanced_universal_cable", "elite_universal_cable", "ultimate_universal_cable")
+    private val phase2Items = listOf("upgrade_speed", "upgrade_energy")
+
+    /** Ids of Phase 2 content, for the recipe split. */
+    val machineIds = sortedSetOf<String>()
+
+    private fun generateMachines(nameKeys: MutableSet<String>, membership: Map<String, Set<String>>) {
+        val items = linkedMapOf<String, Any?>()
+        val blocks = linkedMapOf<String, Any?>()
+        val modelsRoot = out.resolve("pack/resourcepack/assets/mekanized/models")
+        for (name in phase2Machines + phase2Transports) {
+            val id = "mekanized:$name"
+            val cable = name in phase2Transports
+            var itemModel: String? = null
+            val behavior: Map<String, Any?>
+            val states: Map<String, Any?>
+            if (cable) {
+                // OBJ models upstream: drawn entirely by display entities (center and arms); the block is
+                // an empty sapling-type state: small hitbox, no collision, one state per cable.
+                val models = CableModels.write(modelsRoot, name, name)
+                for (part in listOf("center") + CableModels.DIRECTIONS) {
+                    items["mekanized:cable_part/$name/$part"] = linkedMapOf<String, Any?>("model" to models.getValue(part))
+                }
+                states = mapOf("state" to mapOf("auto_state" to "sapling", "model" to mapOf("path" to emptyModel(modelsRoot, name, models.getValue("center")))))
+                behavior = mapOf("type" to "machineengine:transport", "transport" to id, "connection_items" to "mekanized:cable_part/$name")
+                itemModel = models.getValue("center")
+            } else {
+                states = machineStates(name) ?: run {
+                    report.skip("machine block without a usable blockstate", name)
+                    continue
+                }
+                behavior = mapOf("type" to "machineengine:machine", "machine" to id, "keep_contents" to true)
+            }
+            // Not a full cube: drawn by a display entity (turned to the facing, switching to the active
+            // model), over one empty non-occluding state, however many facings it has. Non-occluding
+            // states are scarce (about 117 slots), and the blocks around stay drawn (no seeing through walls).
+            val full = !cable && allModels(states).all { CableModels.isFullCube(modelsRoot, it) }
+            val finalStates: Map<String, Any?>
+            var finalBehavior = behavior
+            if (full || cable) {
+                finalStates = states
+            } else {
+                val (inactive, active) = displayModels(states)
+                items["mekanized:display/$name"] = linkedMapOf<String, Any?>("model" to inactive)
+                if (active != null) items["mekanized:display/$name/active"] = linkedMapOf<String, Any?>("model" to active)
+                finalStates = singleAppearance(states, emptyModel(modelsRoot, name, inactive))
+                finalBehavior = behavior + ("display_item" to "mekanized:display/$name")
+                report.count("display-rendered blocks")
+            }
+            blocks[id] = linkedMapOf<String, Any?>(
+                "behavior" to finalBehavior,
+                "loot" to mapOf("template" to "default:loot_table/self"),
+                "settings" to mapOf("template" to if (full) "default:settings/solid_1x1x1" else "default:settings/transparent_1x1x1",
+                    "overrides" to mapOf("hardness" to 3.5, "resistance" to 8.0, "push_reaction" to "block",
+                        "tags" to listOf("minecraft:mineable/pickaxe"), "correct_tools" to listOf("#minecraft:pickaxes"), "required_break_power" to 1)),
+            ).apply { putAll(finalStates) }
+            items[id] = linkedMapOf<String, Any?>(
+                "data" to mapOf("item_name" to "<!i><lang:block.mekanized.$name>"),
+                "model" to (itemModel ?: blockItemModel(name) ?: firstModel(states)),
+                "behavior" to mapOf("type" to "block_item", "block" to id),
+            ).withTags(membership[id])
+            nameKeys += "block.mekanism.$name"
+            machineIds += id
+            report.count("machine blocks")
+        }
+        for (name in phase2Items) {
+            val model = itemDefinition(name)?.let { itemModel(it) } ?: continue
+            items["mekanized:$name"] = linkedMapOf<String, Any?>(
+                "data" to mapOf("item_name" to "<!i><lang:item.mekanized.$name>"),
+                "model" to Ids.rename(model),
+            ).withTags(membership["mekanized:$name"])
+            nameKeys += "item.mekanism.$name"
+            machineIds += "mekanized:$name"
+        }
+        writeYaml(out.resolve("pack/configuration/machines.yml"),
+            "Mekanized machines, generators, energy cubes, cables and upgrades (Phase 2), generated from Mekanism (MIT).",
+            linkedMapOf("items" to items, "blocks" to blocks))
+    }
+
+    private fun itemDefinition(name: String): File? = listOf(
+        "src/datagen/generated/mekanism/assets/mekanism/items/$name.json",
+        "src/datagen/generated/mekanismgenerators/assets/mekanismgenerators/items/$name.json",
+    ).map { source.resolve(it) }.firstOrNull { it.isFile }
+
+    /** The item model: a plain model, or the base of a special one (energy cubes). */
+    private fun blockItemModel(name: String): String? {
+        val file = itemDefinition(name) ?: return null
+        val model = JsonParser.parseString(file.readText()).asJsonObject.getAsJsonObject("model") ?: return null
+        val ref = when (model.get("type")?.asString) {
+            "minecraft:model" -> model.get("model")?.asString
+            "minecraft:special" -> model.get("base")?.asString
+            else -> null
+        }
+        val renamed = ref?.let { Ids.rename(it) } ?: return null
+        // Mekanism draws some items in code (energy cubes): an empty model is no use, show the block.
+        val file2 = out.resolve("pack/resourcepack/assets/mekanized/models/" + renamed.substringAfter(":") + ".json")
+        if (file2.isFile) {
+            val model = JsonParser.parseString(file2.readText()).asJsonObject
+            if (!model.has("parent") && !model.has("elements")) return null
+        }
+        return renamed
+    }
+
+    /**
+     * CraftEngine states from a Mekanism blockstate: `facing` (4 or 6 directions) and `active`
+     * properties, one appearance per variant with its rotation. A model that needs a NeoForge loader
+     * is replaced by the block's item model (a plain cube for energy cubes).
+     */
+    private fun machineStates(name: String): Map<String, Any?>? {
+        val file = listOf("src/main/resources/assets/mekanism", "src/generators/resources/assets/mekanismgenerators",
+            "src/datagen/generated/mekanism/assets/mekanism", "src/datagen/generated/mekanismgenerators/assets/mekanismgenerators")
+            .map { source.resolve("$it/blockstates/$name.json") }.firstOrNull { it.isFile } ?: return null
+        val variants = JsonParser.parseString(file.readText()).asJsonObject.getAsJsonObject("variants") ?: return null
+        val values = linkedMapOf<String, MutableSet<String>>()
+        val appearances = linkedMapOf<String, Any?>()
+        val mapping = linkedMapOf<String, Any?>()
+        for ((key, value) in variants.entrySet()) {
+            val raw = (if (value.isJsonArray) value.asJsonArray[0] else value).asJsonObject
+            // Energy cubes: a Mekanism variant type keeping the vanilla part under "tier_model".
+            val variant = raw.getAsJsonObject("tier_model") ?: raw
+            val modelRef = variant.get("model")?.asString ?: return null
+            val model = if (needsLoader(modelRef)) (blockItemModel(name) ?: return null) else Ids.rename(modelRef)
+            val appearance = linkedMapOf<String, Any?>("path" to model)
+            variant.get("x")?.asInt?.let { if (it != 0) appearance["x"] = Math.floorMod(it, 360) }
+            variant.get("y")?.asInt?.let { if (it != 0) appearance["y"] = Math.floorMod(it, 360) }
+            val appearanceName = if (key.isEmpty()) "default" else key.replace("=", "_").replace(",", "_")
+            appearances[appearanceName] = mapOf("auto_state" to "solid", "model" to appearance)
+            if (key.isNotEmpty()) {
+                mapping[key] = mapOf("appearance" to appearanceName)
+                key.split(",").forEach { pair -> values.getOrPut(pair.substringBefore("=")) { linkedSetOf() } += pair.substringAfter("=") }
+            }
+        }
+        if (values.isEmpty()) return mapOf("state" to appearances["default"])
+        val properties = linkedMapOf<String, Any?>()
+        for ((property, options) in values) {
+            properties[property] = when (property) {
+                "facing" -> mapOf("type" to if (options.size == 4) "4-direction" else "6-direction", "default" to "north")
+                "active" -> mapOf("type" to "boolean", "default" to false)
+                else -> return null
+            }
+        }
+        return mapOf("states" to linkedMapOf("properties" to properties, "appearances" to appearances, "variants" to mapping))
+    }
+
+    private fun needsLoader(modelRef: String): Boolean {
+        val path = modelRef.substringAfter(":")
+        val module = if (modelRef.startsWith("mekanismgenerators:")) "mekanismgenerators" else "mekanism"
+        return listOf("src/main/resources/assets/$module/models", "src/generators/resources/assets/$module/models",
+            "src/datagen/generated/$module/assets/$module/models")
+            .map { source.resolve("$it/$path.json") }.firstOrNull { it.isFile }?.readText()
+            // energy_cube and composite models are flattened into vanilla ones by the import.
+            ?.let { "\"loader\"" in flattenLoaderModel(Ids.renameInText(it)) } ?: true
+    }
+
+    /** The models of the "north, inactive" and "north, active" appearances (active is null if none). */
+    @Suppress("UNCHECKED_CAST")
+    private fun displayModels(states: Map<String, Any?>): Pair<String, String?> {
+        val appearances = (states["states"] as Map<String, Any?>?)?.get("appearances") as Map<String, Map<String, Any?>>?
+            ?: return allModels(states).first() to null
+        fun model(name: String) = appearances[name]?.let { (it["model"] as Map<String, Any?>)["path"] as String }
+        val inactive = model("facing_north_active_false") ?: model("facing_north") ?: allModels(states).first()
+        return inactive to model("facing_north_active_true")
+    }
+
+    /** The same properties, every variant shown by one empty, non-occluding appearance. */
+    @Suppress("UNCHECKED_CAST")
+    private fun singleAppearance(states: Map<String, Any?>, emptyModel: String): Map<String, Any?> {
+        // The model is empty, so leaf tint does not matter: the larger tintable group keeps the scarce
+        // non-tintable leaves for content that needs them.
+        val appearance = mapOf("auto_state" to "tintable_leaves", "model" to mapOf("path" to emptyModel))
+        val nested = states["states"] as Map<String, Any?>? ?: return mapOf("state" to appearance)
+        val variants = (nested["variants"] as Map<String, Any?>).mapValues { mapOf("appearance" to "default") }
+        return mapOf("states" to linkedMapOf("properties" to nested["properties"], "appearances" to mapOf("default" to appearance),
+            "variants" to variants))
+    }
+
+    /** A model with no faces (the display entity draws the block) but the real model's breaking particles. */
+    private fun emptyModel(modelsRoot: File, name: String, realModel: String): String {
+        val file = modelsRoot.resolve("block/display_empty/$name.json")
+        file.parentFile.mkdirs()
+        file.writeText(com.google.gson.GsonBuilder().setPrettyPrinting().create().toJson(mapOf(
+            "textures" to mapOf("particle" to (particle(modelsRoot, realModel) ?: "minecraft:block/iron_block")),
+            "elements" to listOf<Any>())))
+        return "mekanized:block/display_empty/$name"
+    }
+
+    private fun particle(modelsRoot: File, model: String, depth: Int = 0): String? {
+        if (depth > 8 || !model.startsWith("mekanized:")) return null
+        val file = modelsRoot.resolve(model.substringAfter(":") + ".json")
+        if (!file.isFile) return null
+        val json = JsonParser.parseString(file.readText()).asJsonObject
+        val textures = json.getAsJsonObject("textures")
+        val direct = textures?.get("particle")?.asString
+        if (direct != null && !direct.startsWith("#")) return direct
+        textures?.entrySet()?.firstOrNull { !it.value.asString.startsWith("#") }?.let { return it.value.asString }
+        return json.get("parent")?.asString?.let { particle(modelsRoot, it, depth + 1) }
+    }
+
+    /** Every model path in a `state` / `states` entry. */
+    @Suppress("UNCHECKED_CAST")
+    private fun allModels(states: Map<String, Any?>): List<String> {
+        val appearances = (states["states"] as Map<String, Any?>?)?.let { (it["appearances"] as Map<String, Map<String, Any?>>).values.toList() }
+            ?: listOf(states["state"] as Map<String, Any?>)
+        return appearances.map { (it["model"] as Map<String, Any?>)["path"] as String }
+    }
+
+    /** The same states with every appearance's `auto_state` replaced. */
+    @Suppress("UNCHECKED_CAST")
+    private fun withAutoState(states: Map<String, Any?>, autoState: String): Map<String, Any?> {
+        fun replace(appearance: Map<String, Any?>) = appearance.toMutableMap().apply { this["auto_state"] = autoState }
+        states["state"]?.let { return mapOf("state" to replace(it as Map<String, Any?>)) }
+        val nested = (states["states"] as Map<String, Any?>).toMutableMap()
+        nested["appearances"] = (nested["appearances"] as Map<String, Map<String, Any?>>).mapValues { replace(it.value) }
+        return mapOf("states" to nested)
+    }
+
+    /** The model of the first appearance, from the `state` or `states` entry [machineStates] made. */
+    @Suppress("UNCHECKED_CAST")
+    private fun firstModel(states: Map<String, Any?>): String {
+        val appearance = (states["states"] as Map<String, Any?>?)?.let { (it["appearances"] as Map<String, Map<String, Any?>>).values.first() }
+            ?: states["state"] as Map<String, Any?>
+        return (appearance["model"] as Map<String, Any?>)["path"] as String
     }
 
     private fun MutableMap<String, Any?>.withTags(tags: Set<String>?): MutableMap<String, Any?> {

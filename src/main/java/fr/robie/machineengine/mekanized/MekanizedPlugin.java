@@ -31,11 +31,17 @@ public final class MekanizedPlugin extends JavaPlugin {
     private static final java.util.Set<String> ENABLED_CONFIGURATION = java.util.Set.of(
             // Phase 1: materials, ores, storage blocks, their names and recipes.
             "configuration/materials.yml", "configuration/lang.yml", "configuration/recipes_materials_shaped.yml",
-            "configuration/recipes_materials_shapeless.yml", "configuration/recipes_materials_cooking.yml");
+            "configuration/recipes_materials_shapeless.yml", "configuration/recipes_materials_cooking.yml",
+            // Phase 2: machines, generators, energy cubes, cables, upgrades and their crafting recipes.
+            "configuration/machines.yml", "configuration/recipes_machines_shaped.yml");
     /** Generated MachineEngine definitions installed so far (same rule as {@link #ENABLED_CONFIGURATION}). */
     private static final java.util.Set<String> ENABLED_DEFINITIONS = java.util.Set.of(
             // Phase 1: item and chemical tags, and the vanilla members of c: tags.
-            "tags.yml", "vanilla_aliases.yml");
+            "tags.yml", "vanilla_aliases.yml",
+            // Phase 2: recipes of the basic machines, and the item -> energy / chemical conversions.
+            "recipes_enriching.yml", "recipes_crushing.yml", "recipes_combining.yml", "recipes_sawing.yml",
+            "recipes_metallurgic_infusing.yml", "recipes_compressing.yml", "recipes_purifying.yml",
+            "recipes_chemical_conversion.yml", "recipes_energy_conversion.yml");
 
     @Override
     public void onLoad() {
@@ -43,23 +49,38 @@ public final class MekanizedPlugin extends JavaPlugin {
                 .requiresApi("[0.1,1.0)")
                 .register(MekanizedContent::register)
                 .build());
-        installCraftEnginePack();
-        installDefinitions();
+        // Editable generated files are updated only while nobody changed them (EditableFiles).
+        try (EditableFiles files = new EditableFiles(this)) {
+            installCraftEnginePack(files);
+            installDefinitions(files);
+            MekanizedMenus.install(this, files);
+        } catch (IOException e) {
+            getLogger().warning("Could not record the installed Mekanized files: " + e.getMessage());
+        }
     }
 
     /**
-     * Copies the enabled generated definitions to {@code plugins/MachineEngine/definitions/mekanized/},
-     * once: server owners edit them there (delete a file to get the defaults back).
+     * Copies the enabled generated definitions to {@code plugins/MachineEngine/definitions/mekanized/}:
+     * server owners edit them there; edited files are never overwritten (delete one to get the default).
      */
-    private void installDefinitions() {
+    private void installDefinitions(EditableFiles files) {
         Path target = getDataFolder().toPath().getParent().resolve("MachineEngine/definitions/mekanized");
         for (String file : ENABLED_DEFINITIONS) {
-            try {
-                copyResource(GENERATED + "definitions/" + file, target.resolve(file), false);
+            try (InputStream in = getResource(GENERATED + "definitions/" + file)) {
+                if (in == null) throw new IOException("missing resource " + file);
+                files.install(target.resolve(file), in.readAllBytes());
             } catch (IOException e) {
                 getLogger().severe("Could not install the definitions file " + file + ": " + e.getMessage());
             }
         }
+    }
+
+    @Override
+    @SuppressWarnings("UnstableApiUsage")
+    public void onEnable() {
+        MekanizedCommands commands = new MekanizedCommands(this);
+        getLifecycleManager().registerEventHandler(io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents.COMMANDS,
+                event -> event.registrar().register(commands.build(), "Mekanized commands"));
     }
 
     /**
@@ -67,10 +88,12 @@ public final class MekanizedPlugin extends JavaPlugin {
      * assets ({@code resourcepack/}) are refreshed on every start; configuration files are installed
      * once, so server owners' edits are kept.
      */
-    private void installCraftEnginePack() {
+    private void installCraftEnginePack(EditableFiles files) {
         Path target = getDataFolder().toPath().getParent().resolve("CraftEngine/resources/mekanized");
         int copied = 0;
         try (JarFile jar = new JarFile(getFile())) {
+            // Imported assets are generated: start from an empty folder so files removed from the jar go too.
+            deleteRecursively(target.resolve("resourcepack"));
             Enumeration<JarEntry> entries = jar.entries();
             while (entries.hasMoreElements()) {
                 JarEntry entry = entries.nextElement();
@@ -79,7 +102,13 @@ public final class MekanizedPlugin extends JavaPlugin {
                 String relative = name.substring((GENERATED + "pack/").length());
                 Path destination = target.resolve(relative);
                 boolean asset = relative.startsWith("resourcepack/");
-                if (!asset && (!ENABLED_CONFIGURATION.contains(relative) || Files.exists(destination))) continue;
+                if (!asset) {
+                    if (!ENABLED_CONFIGURATION.contains(relative)) continue;
+                    try (InputStream in = jar.getInputStream(entry)) {
+                        if (files.install(destination, in.readAllBytes())) copied++;
+                    }
+                    continue;
+                }
                 Files.createDirectories(destination.getParent());
                 try (InputStream in = jar.getInputStream(entry)) {
                     Files.copy(in, destination, StandardCopyOption.REPLACE_EXISTING);
@@ -93,6 +122,13 @@ public final class MekanizedPlugin extends JavaPlugin {
             return;
         }
         getLogger().info("Installed the Mekanized CraftEngine pack (" + copied + " files) in " + target);
+    }
+
+    private static void deleteRecursively(Path folder) throws IOException {
+        if (!Files.exists(folder)) return;
+        try (var walk = Files.walk(folder)) {
+            for (Path path : walk.sorted(java.util.Comparator.reverseOrder()).toList()) Files.delete(path);
+        }
     }
 
     private void copyResource(String resource, Path destination, boolean replace) throws IOException {

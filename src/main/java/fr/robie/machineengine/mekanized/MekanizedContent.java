@@ -47,6 +47,7 @@ public final class MekanizedContent {
         for (String chemical : chemicals()) {
             context.resourceTypes().register(ResourceType.of(key(chemical), CHEMICAL));
         }
+        fr.robie.machineengine.mekanized.machine.MekanizedMachines.register(context);
     }
 
     static List<String> chemicals() {

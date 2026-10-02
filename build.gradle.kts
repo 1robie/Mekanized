@@ -16,6 +16,11 @@ dependencies {
     compileOnly(libs.paper.api)
     compileOnly("net.momirealms:craft-engine-core:$craftEngineVersion") { isTransitive = false }
     compileOnly("net.momirealms:craft-engine-bukkit:$craftEngineVersion") { isTransitive = false }
+
+    // Headless tests of the imported content (machines, recipes, tags), no server.
+    testImplementation(project(":machineengine-test"))
+    testImplementation(project(":machineengine-paper"))
+    testImplementation(libs.paper.api)
 }
 
 // -- Mekanism import (MEKANIZED_PLAN.md Phase 0, K4) -------------------------------------------------

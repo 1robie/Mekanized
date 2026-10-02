@@ -1,0 +1,141 @@
+package fr.robie.machineengine.mekanized;
+
+import com.mojang.brigadier.Command;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.tree.LiteralCommandNode;
+import fr.robie.machineengine.api.MachineEngine;
+import fr.robie.machineengine.api.capability.Capabilities;
+import fr.robie.machineengine.api.item.ItemData;
+import fr.robie.machineengine.api.item.Items;
+import fr.robie.machineengine.api.machine.MachineInstance;
+import fr.robie.machineengine.api.resource.ResourceStack;
+import fr.robie.machineengine.api.transfer.ResourceHandler;
+import fr.robie.machineengine.api.transfer.StorageView;
+import fr.robie.machineengine.api.transfer.Transaction;
+import fr.robie.machineengine.api.world.Direction;
+import fr.robie.machineengine.api.world.WorldPosition;
+import fr.robie.machineengine.paper.PaperItems;
+import fr.robie.machineengine.paper.PositionArguments;
+import io.papermc.paper.command.brigadier.CommandSourceStack;
+import io.papermc.paper.command.brigadier.Commands;
+import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
+
+/**
+ * {@code /mekanized test [<x y z>] [world]} (admin): places an enrichment chamber, gives it energy
+ * and one osmium ore, and reports the dust after the process (2 expected). A server-side check of
+ * the whole chain: CraftEngine block, machine, imported recipe and tags, energy.
+ */
+@SuppressWarnings("UnstableApiUsage")
+final class MekanizedCommands {
+    private final Plugin plugin;
+
+    MekanizedCommands(Plugin plugin) {
+        this.plugin = plugin;
+    }
+
+    LiteralCommandNode<CommandSourceStack> build() {
+        return Commands.literal("mekanized")
+                .requires(source -> source.getSender().hasPermission("machineengine.admin"))
+                .then(PositionArguments.optionalPosition(Commands.literal("test"), PositionArguments.Default.PLACEMENT,
+                        (context, world, x, y, z) -> {
+                            Bukkit.getRegionScheduler().execute(this.plugin, new Location(world, x, y, z), () -> test(context, world, x, y, z));
+                            return Command.SINGLE_SUCCESS;
+                        }))
+                .then(PositionArguments.optionalPosition(Commands.literal("place-set"), PositionArguments.Default.PLACEMENT,
+                        (context, world, x, y, z) -> {
+                            Bukkit.getRegionScheduler().execute(this.plugin, new Location(world, x, y, z), () -> {
+                                boolean placed = place(world, x, y, z, "crusher") && place(world, x + 1, y, z, "basic_energy_cube")
+                                        && place(world, x + 2, y, z, "basic_universal_cable");
+                                reply(context, "mekanized place-set: " + (placed ? "crusher, energy cube, cable placed" : "placement failed"));
+                            });
+                            return Command.SINGLE_SUCCESS;
+                        }))
+                .then(PositionArguments.optionalPosition(Commands.literal("test-cable"), PositionArguments.Default.PLACEMENT,
+                        (context, world, x, y, z) -> {
+                            Bukkit.getRegionScheduler().execute(this.plugin, new Location(world, x, y, z), () -> testCable(context, world, x, y, z));
+                            return Command.SINGLE_SUCCESS;
+                        }))
+                .build();
+    }
+
+    private void test(CommandContext<CommandSourceStack> context, World world, int x, int y, int z) {
+        Location at = new Location(world, x, y, z);
+        if (!CraftEngineBlocks.place(at, net.momirealms.craftengine.core.util.Key.of("mekanized", "enrichment_chamber"), false)) {
+            reply(context, "mekanized test: could not place the enrichment chamber (is the Mekanized pack loaded?)");
+            return;
+        }
+        WorldPosition position = WorldPosition.of(world.getKey(), x, y, z);
+        MachineInstance chamber = MachineEngine.get().machineAt(position).orElse(null);
+        ItemStack ore = PaperItems.itemOf(MekanizedContent.key("osmium_ore"));
+        if (chamber == null || ore == null) {
+            reply(context, "mekanized test: no machine or no osmium ore item");
+            return;
+        }
+        ResourceHandler port = chamber.capability(Capabilities.RESOURCE_HANDLER, Direction.UP).orElseThrow();
+        try (Transaction transaction = MachineEngine.get().transactions().openOuter()) {
+            port.insert(MekanizedContent.ENERGY.variant(), 20_000, transaction);
+            ResourceStack resource = PaperItems.toResource(ore);
+            port.insert(resource.variant(), 1, transaction);
+            transaction.commit();
+        }
+        reply(context, "mekanized test: enrichment chamber fed with 20 kJ and 1 osmium ore; result in 11 s");
+        Bukkit.getRegionScheduler().runDelayed(this.plugin, at, task -> {
+            MachineInstance machine = MachineEngine.get().machineAt(position).orElse(null);
+            if (machine == null) return;
+            long dust = 0;
+            long energy = 0;
+            for (StorageView view : machine.inspect().storages().get("output")) {
+                ItemData data = view.variant() == null ? null : view.variant().components().get(Items.DATA);
+                if (data != null && data.item().equals(MekanizedContent.key("dust_osmium"))) dust += view.amount();
+            }
+            for (StorageView view : machine.inspect().storages().get("energy")) energy += view.amount();
+            this.plugin.getLogger().info("mekanized test: " + dust + " osmium dust (expected 2), " + energy + " J left (expected 10000)");
+        }, 220);
+    }
+
+    /**
+     * A creative energy cube (front facing north) powers an enrichment chamber through one universal
+     * cable: the chamber only gets energy through the cable. Reports the dust and the cable's arms.
+     */
+    private void testCable(CommandContext<CommandSourceStack> context, World world, int x, int y, int z) {
+        boolean placed = place(world, x, y, z, "enrichment_chamber") && place(world, x, y, z + 1, "basic_universal_cable")
+                && place(world, x, y, z + 2, "creative_energy_cube");
+        if (!placed) {
+            reply(context, "mekanized test-cable: placement failed");
+            return;
+        }
+        WorldPosition chamberAt = WorldPosition.of(world.getKey(), x, y, z);
+        MachineInstance chamber = MachineEngine.get().machineAt(chamberAt).orElse(null);
+        ItemStack ore = PaperItems.itemOf(MekanizedContent.key("osmium_ore"));
+        if (chamber == null || ore == null) return;
+        ResourceHandler port = chamber.capability(Capabilities.RESOURCE_HANDLER, Direction.UP).orElseThrow();
+        try (Transaction transaction = MachineEngine.get().transactions().openOuter()) {
+            port.insert(PaperItems.toResource(ore).variant(), 1, transaction);
+            transaction.commit();
+        }
+        reply(context, "mekanized test-cable: cube > cable > chamber with 1 osmium ore; result in 12 s");
+        Bukkit.getRegionScheduler().runDelayed(this.plugin, new Location(world, x, y, z), task -> {
+            MachineInstance machine = MachineEngine.get().machineAt(chamberAt).orElse(null);
+            if (machine == null) return;
+            long dust = 0;
+            for (StorageView view : machine.inspect().storages().get("output")) {
+                ItemData data = view.variant() == null ? null : view.variant().components().get(Items.DATA);
+                if (data != null && data.item().equals(MekanizedContent.key("dust_osmium"))) dust += view.amount();
+            }
+            this.plugin.getLogger().info("mekanized test-cable: " + dust + " osmium dust (expected 2), powered through the cable");
+        }, 240);
+    }
+
+    private static boolean place(World world, int x, int y, int z, String block) {
+        return CraftEngineBlocks.place(new Location(world, x, y, z), net.momirealms.craftengine.core.util.Key.of("mekanized", block), false);
+    }
+
+    private static void reply(CommandContext<CommandSourceStack> context, String message) {
+        context.getSource().getSender().sendMessage(message);
+    }
+}
