@@ -28,7 +28,14 @@ public final class MekanizedPlugin extends JavaPlugin {
      * Generated CraftEngine configuration files installed so far. Each plan phase adds the files whose
      * items and blocks exist; the others stay in the jar (they would only produce warnings).
      */
-    private static final java.util.Set<String> ENABLED_CONFIGURATION = java.util.Set.of();
+    private static final java.util.Set<String> ENABLED_CONFIGURATION = java.util.Set.of(
+            // Phase 1: materials, ores, storage blocks, their names and recipes.
+            "configuration/materials.yml", "configuration/lang.yml", "configuration/recipes_materials_shaped.yml",
+            "configuration/recipes_materials_shapeless.yml", "configuration/recipes_materials_cooking.yml");
+    /** Generated MachineEngine definitions installed so far (same rule as {@link #ENABLED_CONFIGURATION}). */
+    private static final java.util.Set<String> ENABLED_DEFINITIONS = java.util.Set.of(
+            // Phase 1: item and chemical tags, and the vanilla members of c: tags.
+            "tags.yml", "vanilla_aliases.yml");
 
     @Override
     public void onLoad() {
@@ -37,6 +44,22 @@ public final class MekanizedPlugin extends JavaPlugin {
                 .register(MekanizedContent::register)
                 .build());
         installCraftEnginePack();
+        installDefinitions();
+    }
+
+    /**
+     * Copies the enabled generated definitions to {@code plugins/MachineEngine/definitions/mekanized/},
+     * once: server owners edit them there (delete a file to get the defaults back).
+     */
+    private void installDefinitions() {
+        Path target = getDataFolder().toPath().getParent().resolve("MachineEngine/definitions/mekanized");
+        for (String file : ENABLED_DEFINITIONS) {
+            try {
+                copyResource(GENERATED + "definitions/" + file, target.resolve(file), false);
+            } catch (IOException e) {
+                getLogger().severe("Could not install the definitions file " + file + ": " + e.getMessage());
+            }
+        }
     }
 
     /**

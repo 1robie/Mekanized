@@ -41,8 +41,10 @@ abstract class ImportMekanism : DefaultTask() {
         out.deleteRecursively()
         val report = Report()
         Assets(source, out.resolve("pack/resourcepack/assets/mekanized"), report).copy()
-        Recipes(source, out, report).convert()
-        Tags(source, out.resolve("definitions"), report).convert()
+        val itemTags = Tags(source, out.resolve("definitions"), report).convert()
+        val content = MekanismContent(source, out, itemTags, report).also { it.generate() }
+        val recipes = Recipes(source, out, report, content.ids, itemTags).also { it.convert() }
+        writeAliases(out.resolve("definitions/vanilla_aliases.yml"), recipes.referencedTags + itemTags.keys, itemTags, report)
         source.resolve("LICENSE").copyTo(out.resolve("LICENSE-MEKANISM.txt"), overwrite = true)
         out.resolve("import-report.txt").writeText(report.format())
         logger.lifecycle(report.summary())
@@ -74,6 +76,25 @@ internal class Report {
             items.sorted().forEach { appendLine("- $it") }
         }
     }
+}
+
+/**
+ * `c:` tags with their vanilla members (E10): Mekanized item tags that make NeoForge convention tags
+ * work on Paper. Tags with neither vanilla nor Mekanized members are listed in the report.
+ */
+internal fun writeAliases(file: File, tags: Set<String>, itemTags: Map<String, List<String>>, report: Report) {
+    val aliases = sortedMapOf<String, Any?>()
+    for (tag in tags.filter { it.startsWith("c:") }.sorted()) {
+        val vanilla = VanillaAliases.of(tag)
+        if (vanilla.isNotEmpty()) {
+            aliases[tag] = vanilla
+            report.count("vanilla tag aliases")
+        } else if (itemTags[tag].isNullOrEmpty()) {
+            report.skip("c: tag with no known vanilla or Mekanized members (add them to an item-tags overlay)", tag)
+        }
+    }
+    writeYaml(file, "Vanilla members of NeoForge's c: convention tags, which do not exist on Paper.\n" +
+            "Generated for Mekanized; add your own items to these tags in another definitions file.", linkedMapOf("item-tags" to aliases))
 }
 
 internal object Ids {
@@ -160,7 +181,16 @@ internal class Assets(private val source: File, private val target: File, privat
  * Machine recipe conversion. Durations and energy per tick are Mekanism's defaults for the machine
  * running that recipe type; they are written into every recipe so server owners can tune them.
  */
-internal class Recipes(private val source: File, private val out: File, private val report: Report) {
+internal class Recipes(
+    private val source: File,
+    private val out: File,
+    private val report: Report,
+    /** Content generated so far: CraftEngine recipes making these go into the `materials_` files. */
+    private val contentIds: Set<String>,
+    private val itemTags: Map<String, List<String>>,
+) {
+    /** Every item tag the recipes reference, for the vanilla aliases. */
+    val referencedTags = sortedSetOf<String>()
     private data class Machine(val duration: Int, val energyPerTick: Long, val phase: Int)
 
     private val machines = mapOf(
@@ -298,13 +328,17 @@ internal class Recipes(private val source: File, private val out: File, private 
         ingredient.isJsonArray -> mapOf("any-of" to ingredient.asJsonArray.map { itemFilter(it) })
         ingredient.isJsonObject && ingredient.asJsonObject.get("type")?.asString == "neoforge:or" ->
             mapOf("any-of" to ingredient.asJsonObject.getAsJsonArray("values").map { itemFilter(it) })
-        ingredient.isJsonObject && ingredient.asJsonObject.has("tag") -> mapOf("item-tag" to Ids.rename(ingredient.asJsonObject.get("tag").asString))
+        ingredient.isJsonObject && ingredient.asJsonObject.has("tag") -> itemRef("#" + ingredient.asJsonObject.get("tag").asString)
         ingredient.isJsonObject && ingredient.asJsonObject.has("item") -> mapOf("item" to Ids.rename(ingredient.asJsonObject.get("item").asString))
         else -> throw Unsupported("item ingredient form ${ingredient.toString().take(60)}")
     }
 
-    private fun itemRef(value: String) =
-        if (value.startsWith("#")) mapOf("item-tag" to Ids.rename(value.removePrefix("#"))) else mapOf("item" to Ids.rename(value))
+    private fun itemRef(value: String): Map<String, Any?> {
+        if (!value.startsWith("#")) return mapOf("item" to Ids.rename(value))
+        val tag = Ids.rename(value.removePrefix("#"))
+        referencedTags += tag
+        return mapOf("item-tag" to tag)
+    }
 
     private fun chemicalInput(json: JsonObject): Map<String, Any?> {
         val amount = json.get("amount")?.asLong ?: 1
@@ -338,8 +372,23 @@ internal class Recipes(private val source: File, private val out: File, private 
     // -- crafting (CraftEngine)
 
     private fun craftEngine(id: String, group: String, recipe: Map<String, Any?>) {
-        craftEngineRecipes["$group|$id"] = recipe.toMutableMap()
+        @Suppress("UNCHECKED_CAST")
+        val result = (recipe["result"] as Map<String, Any?>)["id"] as String
+        // Each plan phase enables the files whose items all exist: the result (vanilla or already
+        // generated) and every Mekanized ingredient.
+        val ready = (!result.startsWith("mekanized:") || result in contentIds) &&
+                mekanizedIds(recipe).all { it in contentIds }
+        val file = if (ready) "materials_$group" else group
+        craftEngineRecipes["$file|$id"] = recipe.toMutableMap()
         report.count("crafting/smelting recipes")
+    }
+
+    /** Every `mekanized:` item id in a recipe's ingredients (tags excluded). */
+    private fun mekanizedIds(value: Any?): List<String> = when (value) {
+        is String -> if (value.startsWith("mekanized:")) listOf(value) else listOf()
+        is Map<*, *> -> value.filterKeys { it != "result" }.values.flatMap { mekanizedIds(it) }
+        is List<*> -> value.flatMap { mekanizedIds(it) }
+        else -> listOf()
     }
 
     private fun shaped(json: JsonObject): Map<String, Any?> = linkedMapOf(
@@ -363,7 +412,24 @@ internal class Recipes(private val source: File, private val out: File, private 
         "result" to result(json.getAsJsonObject("result")),
     )
 
-    private fun craftIngredient(value: JsonElement): Any = when {
+    /**
+     * A `#c:` tag becomes a list of its vanilla members plus the tag itself while Mekanized items are
+     * in it (CraftEngine knows those from the items' tags); vanilla items are not in `c:` tags on Paper.
+     */
+    private fun craftIngredient(value: JsonElement): Any {
+        val ingredient = craftIngredientRaw(value)
+        if (ingredient !is String || !ingredient.startsWith("#c:")) return ingredient
+        val tag = ingredient.removePrefix("#")
+        referencedTags += tag
+        val expanded = VanillaAliases.of(tag) + (if (itemTags[tag].isNullOrEmpty()) listOf() else listOf(ingredient))
+        return when (expanded.size) {
+            0 -> ingredient
+            1 -> expanded.first()
+            else -> expanded
+        }
+    }
+
+    private fun craftIngredientRaw(value: JsonElement): Any = when {
         value.isJsonPrimitive -> Ids.rename(value.asString)
         value.isJsonArray -> value.asJsonArray.map { craftIngredient(it) }
         value.isJsonObject && value.asJsonObject.get("type")?.asString == "neoforge:or" ->
@@ -404,7 +470,7 @@ internal class Recipes(private val source: File, private val out: File, private 
  * the vanilla members); the vanilla members are added by the Mekanized overlay (Phase 1, E10).
  */
 internal class Tags(private val source: File, private val target: File, private val report: Report) {
-    fun convert() {
+    fun convert(): Map<String, List<String>> {
         val itemTags = sortedMapOf<String, Any?>()
         val chemicalTags = sortedMapOf<String, Any?>()
         val data = source.resolve("src/datagen/generated")
@@ -420,6 +486,8 @@ internal class Tags(private val source: File, private val target: File, private 
             "Mekanized item and chemical tags, generated from Mekanism (MIT, see LICENSE-MEKANISM.txt).\n" +
                     "\"#name\" entries include another tag.",
             linkedMapOf("item-tags" to itemTags, "resource-tags" to chemicalTags))
+        @Suppress("UNCHECKED_CAST")
+        return itemTags as Map<String, List<String>>
     }
 
     private fun read(base: File, namespace: String, into: MutableMap<String, Any?>, what: String) {

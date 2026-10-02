@@ -49,6 +49,23 @@ ways that hide where they came from. Source: `https://github.com/mekanism/Mekani
 - **Ore blocks:** osmium, tin, lead, uranium and fluorite, plus their deepslate variants, with fortune drops (no world generation, K3). Raw and storage blocks too.
 - **Crafting and smelting recipes:** through CraftEngine.
 
+**Status: done (2026-10-02), not yet tried in game.**
+- **Engine E10 (item tags):** the reloadable `machineengine:item_tag` registry (`ItemTagContribution`: items and included tags), `Items.inTag`, the `item-tag:` filter, and the `item-tags:` and `resource-tags:` definitions sections. `TagSnapshot` resolves includes and guards against cycles, then asks the platform: on Paper, `CraftEngineItemBridge` reports vanilla tags and CraftEngine item tags. Machine slots now read tags live, so reloads reach existing machines. Tested in `ItemTagTest`.
+- **Engine E11 (custom item ids):**
+  - `PaperItems.idOf` gives CraftEngine items their custom id.
+  - Definition item ids resolve CraftEngine items.
+  - Recipes wait silently until CraftEngine has loaded its items (`ItemResolver.ready()`).
+  - Recipes, resource tags and item tags reload on every CraftEngine (re)load.
+  - Definition files are read from sub-folders too.
+- **Content:**
+  - Items and blocks: 93 items and 27 blocks, generated into the CraftEngine pack (`materials.yml`). Ores use CraftEngine's `ore` loot template (silk touch, fortune, `2~4` for fluorite); storage blocks drop themselves.
+  - Names: in all 46 of Mekanism's languages (`lang.yml`).
+  - Tags: `c:` tags are declared on the items, parent tags included.
+  - Recipes: 93 crafting, smelting and blasting recipes whose items all exist (`recipes_materials_*.yml`).
+  - Vanilla aliases: 86 `c:` tags (`vanilla_aliases.yml`). Crafting ingredients that use those tags become lists that include the vanilla members.
+  - Registered in Java: energy (`mekanized:energy`, J) and 49 chemicals (`mekanized:chemical`, mB). Pigments are left out.
+- **Verified:** on Paper 1.20.6 and Folia 26.2, CraftEngine loads the pack, recipes and resource pack with no issues, and MachineEngine reports no problems.
+
 ### Phase 2: first machines (2x and 3x ore processing)
 - **Processing machines:** Enrichment Chamber, Crusher, Energized Smelter, Osmium Compressor, Combiner, Metallurgic Infuser, Purification Chamber, Precision Sawmill.
 - **Generators:** Heat Generator, Solar Generator, Bio-Generator.
