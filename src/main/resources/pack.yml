@@ -1,0 +1,4 @@
+author: Mekanized (assets from Mekanism by Aidan C. Brady, MIT, see LICENSE-MEKANISM.txt)
+version: 1.0
+description: Mekanized blocks, items and textures. Inspired by Mekanism; not affiliated with Mekanism.
+namespace: mekanized

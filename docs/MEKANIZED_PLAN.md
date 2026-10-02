@@ -30,6 +30,17 @@ ways that hide where they came from. Source: `https://github.com/mekanism/Mekani
   - `#c:` and `#mekanism:` tags become Mekanized tag files, which include the matching vanilla tags.
   - Imported data is generated into `build/` and packaged. A small hand-written overlay holds what cannot be converted.
 
+**Status: done (2026-10-02).**
+- **Pin:** `gradle.properties` pins `mekanism_commit` (branch 26.1, `4718860`).
+- **`:machineengine-mekanized:fetchMekanism`:** a shallow, sparse, blob-filtered clone into `.mekanism/source` (about 25 MB).
+- **`importMekanism` (buildSrc `ImportMekanism`):**
+  - Assets: 1,038 textures and 680 models.
+  - Recipes: 950 machine recipes in 18 recipe types (`definitions/recipes_<type>.yml`, with durations and Joules per tick from Mekanism's machine defaults), and 353 crafting, smelting and blasting recipes (CraftEngine `configuration/recipes_<group>.yml`).
+  - Tags: 191 item tags and 17 chemical tags (`definitions/tags.yml`).
+  - Skipped, and listed in `import-report.txt`: 637 recipes for other mods, 370 painting and pigment recipes, endgame and multiblock recipes, and 90 models that need NeoForge loaders (83 composite, which can be flattened later, 6 OBJ and 1 energy cube).
+- **Plugin:** installs the CraftEngine pack with the imported assets, refreshed on every start. Generated configuration files are only installed once their phase defines the items they reference (`ENABLED_CONFIGURATION`). `LICENSE-MEKANISM.txt` ships in the jar and in the pack.
+- **Verified:** the pack loads on Paper 1.20.6.
+
 ### Phase 1: materials and energy
 - **Resources:** energy in Joules (`mekanized:energy`), items, and infuse types (carbon, redstone, diamond, refined obsidian, tin, gold, bio, fungi).
 - **Items:**
@@ -73,6 +84,8 @@ Miner, Teleporter, QIO, MekaSuit.
 | E7 | Several parallel processes per machine | Factories |
 | E8 | zMenu buttons: upgrade slot, energy, chemical and fluid gauges, side configuration | All menus |
 | E9 | Chemical and fluid networks (energy and items already work) | Tubes and pipes |
+| E10 | Item tags: an `item-tag:` filter, a provider backed by CraftEngine (`itemIdsByTag`: vanilla and custom items), and aliases such as `c:ores/iron` → `#minecraft:iron_ores` | Every imported recipe (Mekanism uses `#c:` tags) |
+| E11 | Definition item ids resolve CraftEngine custom items, not only vanilla materials | Recipes and filters naming `mekanized:` items |
 
 ## Verification per phase
 - **Headless tests:** each processing chain gives exactly the expected yield. For example, 1 ore gives 2 ingots through the Enrichment Chamber and 5 through the full chemical chain. Resources are always conserved.
