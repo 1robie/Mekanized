@@ -1,0 +1,18 @@
+# Mekanized settings. Read when the server starts: restart to apply changes.
+# Defaults are Mekanism's. Recipes (durations, energy per tick, outputs) are edited in
+# plugins/MachineEngine/definitions/mekanized/ instead, and reload with the server's recipes.
+
+# How much a network moves per tick, per tier: [basic, advanced, elite, ultimate].
+transport:
+  universal-cable: [8000, 128000, 1024000, 8192000]       # Joules per tick
+  pressurized-tube: [750, 2000, 64000, 256000]            # mB per tick
+  mechanical-pipe: [250, 1000, 8000, 32000]               # mB per tick
+  logistical-transporter: [8, 16, 32, 64]                 # items every 10 ticks
+
+dynamic-tank:
+  fluid-per-block: 350000         # mB of fluid per block inside the tank
+  chemical-per-block: 16000000    # mB of chemical per block inside the tank
+
+thermal-evaporation:
+  input-per-level-per-tick: 10    # mB of input evaporated per tick per level, by day (half at night, half again in rain)
+  input-tank-per-level: 16000     # mB of input the tower holds per level

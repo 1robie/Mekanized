@@ -35,8 +35,6 @@ public final class LogisticsMachines {
     public static final NetworkType ITEM_NETWORK = NetworkType.of(key("items"), NetworkBehavior.distributing(10));
     public static final String[] TIERS = {"basic", "advanced", "elite", "ultimate"};
     private static final int[] LANES = {3, 5, 7, 9};
-    /** Items per batch (every 10 ticks). */
-    private static final long[] TRANSPORTER_RATES = {8, 16, 32, 64};
     public static final List<TransportType> TRANSPORTERS = transporters();
 
     /** A factory kind: its recipes, the machine it upgrades, and what that machine has besides items and energy. */
@@ -61,7 +59,9 @@ public final class LogisticsMachines {
     private static List<TransportType> transporters() {
         List<TransportType> transporters = new ArrayList<>();
         for (int i = 0; i < TIERS.length; i++) {
-            transporters.add(TransportType.of(key(TIERS[i] + "_logistical_transporter"), ITEM_NETWORK, TRANSPORTER_RATES[i], Items.anyItem()));
+            // Items per batch (every 10 ticks), from the settings.
+            transporters.add(TransportType.of(key(TIERS[i] + "_logistical_transporter"), ITEM_NETWORK,
+                    fr.robie.machineengine.mekanized.MekanizedSettings.transporterRates[i], Items.anyItem()));
         }
         return List.copyOf(transporters);
     }

@@ -20,6 +20,7 @@ import fr.robie.machineengine.api.upgrade.StandardModifiers;
 import fr.robie.machineengine.api.upgrade.UpgradeType;
 import fr.robie.machineengine.api.world.RelativeSide;
 import fr.robie.machineengine.mekanized.MekanizedContent;
+import fr.robie.machineengine.mekanized.MekanizedSettings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,10 +70,10 @@ public final class MekanizedMachines {
     static final ResourcePredicate IS_ENERGY = ResourcePredicate.type(MekanizedContent.ENERGY);
     static final ResourcePredicate IS_CHEMICAL = ResourcePredicate.category(MekanizedContent.CHEMICAL);
     public static final List<TransportType> CABLES = List.of(
-            TransportType.of(key("basic_universal_cable"), ENERGY_NETWORK, 8_000, IS_ENERGY),
-            TransportType.of(key("advanced_universal_cable"), ENERGY_NETWORK, 128_000, IS_ENERGY),
-            TransportType.of(key("elite_universal_cable"), ENERGY_NETWORK, 1_024_000, IS_ENERGY),
-            TransportType.of(key("ultimate_universal_cable"), ENERGY_NETWORK, 8_192_000, IS_ENERGY));
+            TransportType.of(key("basic_universal_cable"), ENERGY_NETWORK, MekanizedSettings.cableRates[0], IS_ENERGY),
+            TransportType.of(key("advanced_universal_cable"), ENERGY_NETWORK, MekanizedSettings.cableRates[1], IS_ENERGY),
+            TransportType.of(key("elite_universal_cable"), ENERGY_NETWORK, MekanizedSettings.cableRates[2], IS_ENERGY),
+            TransportType.of(key("ultimate_universal_cable"), ENERGY_NETWORK, MekanizedSettings.cableRates[3], IS_ENERGY));
 
     private MekanizedMachines() {
     }

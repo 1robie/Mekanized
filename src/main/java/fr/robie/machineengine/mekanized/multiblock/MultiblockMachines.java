@@ -8,6 +8,7 @@ import fr.robie.machineengine.api.machine.PortDirection;
 import fr.robie.machineengine.api.machine.StorageDefinition;
 import fr.robie.machineengine.api.resource.match.ResourcePredicate;
 import fr.robie.machineengine.mekanized.MekanizedContent;
+import fr.robie.machineengine.mekanized.MekanizedSettings;
 import fr.robie.machineengine.mekanized.machine.MachineParts;
 import net.kyori.adventure.key.Key;
 
@@ -33,7 +34,8 @@ public final class MultiblockMachines {
 
     public static final Multiblocks.Type DYNAMIC_TANK = new Multiblocks.Type(key("dynamic_tank"), key("dynamic_tank"),
             Set.of(key("dynamic_tank"), key("dynamic_valve"), key("structural_glass")), AIR::contains,
-            structure -> Map.of("fluid", structure.volume() * 350_000L, "chemical", structure.volume() * 16_000_000L));
+            structure -> Map.of("fluid", structure.volume() * MekanizedSettings.tankFluidPerBlock,
+                    "chemical", structure.volume() * MekanizedSettings.tankChemicalPerBlock));
 
     public static final Multiblocks.Type INDUCTION_MATRIX = new Multiblocks.Type(key("induction_matrix"), key("induction_casing"),
             Set.of(key("induction_casing"), key("induction_port"), key("structural_glass")),
@@ -52,7 +54,7 @@ public final class MultiblockMachines {
             key("thermal_evaporation_block"),
             Set.of(key("thermal_evaporation_block"), key("thermal_evaporation_valve"), key("thermal_evaporation_controller")),
             AIR::contains,
-            structure -> Map.of("input", structure.height() * 16_000L, "output", 10_000L),
+            structure -> Map.of("input", structure.height() * MekanizedSettings.evaporationTankPerLevel, "output", 10_000L),
             4, true, key("thermal_evaporation_controller"));
 
     private MultiblockMachines() {

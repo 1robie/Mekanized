@@ -15,12 +15,12 @@ import org.jetbrains.annotations.NotNull;
  * The Thermal Evaporation Plant's work, done by its anchor every {@link #EVERY_TICKS}: the fluid in
  * its {@code input} tank turns into the {@code output} fluid (water to brine, brine to liquid lithium),
  * by the {@code evaporating} recipes. Mekanism heats the tower with the biome, heaters and solar
- * panels; here, simpler: 10 mB of input per tick per level inside the tower in daylight, half at
+ * panels; here, simpler: {@code evaporationPerLevel} mB of input (settings, 10 by default) per tick
+ * per level inside the tower in daylight, half at
  * night, half again in rain.
  */
 final class Evaporation implements MemberBehavior.AnchorTask {
     static final long EVERY_TICKS = 20;
-    private static final long PER_LEVEL = 10;
 
     private final RecipeType<ProcessingRecipe> recipes;
 
@@ -63,6 +63,6 @@ final class Evaporation implements MemberBehavior.AnchorTask {
         long levels = Math.max(1, structure.height() - 1); // the open top counts, the floor does not
         double heat = environment.daytime() ? 1.0 : 0.5;
         if (environment.raining()) heat /= 2;
-        return (long) (PER_LEVEL * EVERY_TICKS * levels * heat);
+        return (long) (fr.robie.machineengine.mekanized.MekanizedSettings.evaporationPerLevel * EVERY_TICKS * levels * heat);
     }
 }

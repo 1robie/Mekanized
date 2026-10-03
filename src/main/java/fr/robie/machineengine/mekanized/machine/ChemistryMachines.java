@@ -57,9 +57,9 @@ public final class ChemistryMachines {
     public static final NetworkType FLUID_NETWORK = NetworkType.of(key("fluid"), NetworkBehavior.distributing());
     private static final String[] TIERS = {"basic", "advanced", "elite", "ultimate"};
     public static final List<TransportType> TUBES = transports("pressurized_tube", CHEMICAL_NETWORK, IS_CHEMICAL,
-            750, 2_000, 64_000, 256_000);
+            fr.robie.machineengine.mekanized.MekanizedSettings.tubeRates);
     public static final List<TransportType> PIPES = transports("mechanical_pipe", FLUID_NETWORK, IS_FLUID,
-            250, 1_000, 8_000, 32_000);
+            fr.robie.machineengine.mekanized.MekanizedSettings.pipeRates);
 
     private ChemistryMachines() {
     }
