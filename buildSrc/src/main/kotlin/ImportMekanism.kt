@@ -41,12 +41,13 @@ abstract class ImportMekanism : DefaultTask() {
         out.deleteRecursively()
         val report = Report()
         Assets(source, out.resolve("pack/resourcepack/assets/mekanized"), report).copy()
+        GearModels(source, out.resolve("pack/resourcepack/assets/mekanized"), report).write()
         val itemTags = Tags(source, out.resolve("definitions"), report).convert()
         val content = MekanismContent(source, out, itemTags, report).also { it.generate() }
         val recipes = Recipes(source, out, report, listOf("materials" to content.ids, "machines" to content.machineIds,
             "chemistry" to content.chemistryIds, "logistics" to content.logisticsIds, "multiblocks" to content.multiblockIds,
             "endgame" to content.endgameIds, "reactors" to content.reactorIds,
-            "automation" to content.automationIds), itemTags)
+            "automation" to content.automationIds, "gear" to content.gearIds), itemTags)
             .also { it.convert() }
         writeAliases(out.resolve("definitions/vanilla_aliases.yml"), recipes.referencedTags + itemTags.keys, itemTags, report)
         source.resolve("LICENSE").copyTo(out.resolve("LICENSE-MEKANISM.txt"), overwrite = true)

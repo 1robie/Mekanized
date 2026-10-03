@@ -23,7 +23,18 @@ import java.util.Map;
  */
 public final class EnergyItems {
     /** Joules each energy item holds when full. */
-    public static final Map<Key, Long> CAPACITY = Map.of(MekanizedContent.key("energy_tablet"), 1_000_000L);
+    public static final Map<Key, Long> CAPACITY = Map.ofEntries(
+            Map.entry(MekanizedContent.key("energy_tablet"), 1_000_000L),
+            // Phase 6 wave 5: tools and armour.
+            Map.entry(MekanizedContent.key("atomic_disassembler"), 1_000_000L),
+            Map.entry(MekanizedContent.key("meka_tool"), 16_000_000L),
+            Map.entry(MekanizedContent.key("electric_bow"), 120_000L),
+            Map.entry(MekanizedContent.key("free_runners"), 64_000L),
+            Map.entry(MekanizedContent.key("free_runners_armored"), 64_000L),
+            Map.entry(MekanizedContent.key("mekasuit_helmet"), 16_000_000L),
+            Map.entry(MekanizedContent.key("mekasuit_bodyarmor"), 16_000_000L),
+            Map.entry(MekanizedContent.key("mekasuit_pants"), 16_000_000L),
+            Map.entry(MekanizedContent.key("mekasuit_boots"), 16_000_000L));
     /** Matches energy items, whatever their charge. */
     public static final ResourcePredicate IS_ENERGY_ITEM = (variant, tags) -> capacity(variant) > 0;
 

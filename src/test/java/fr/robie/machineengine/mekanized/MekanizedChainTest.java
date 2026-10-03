@@ -488,6 +488,40 @@ class MekanizedChainTest {
         }
     }
 
+    @Test
+    void energyCubesChargeGear() {
+        fr.robie.machineengine.mekanized.machine.EnergyItems.setAccess(new fr.robie.machineengine.mekanized.machine.EnergyItems.Access() {
+            @Override
+            public long energy(ResourceVariant item) {
+                return chargeOf(item);
+            }
+
+            @Override
+            public ResourceVariant withEnergy(ResourceVariant item, long energy) {
+                Key id = item.components().get(Items.DATA).item();
+                return Items.variant(new ItemData(id, (id.asString() + "|" + energy).getBytes(StandardCharsets.UTF_8)));
+            }
+        });
+        try {
+            FakeWorld world = FakeWorld.singleRegion(this.engine);
+            MachineInstanceImpl cube = place(world, "ultimate_energy_cube");
+            fill(cube, "energy", MekanizedContent.ENERGY.stack(100_000_000));
+            for (String gear : List.of("mekasuit_bodyarmor", "atomic_disassembler", "free_runners")) {
+                fill(cube, "charge", item("mekanized:" + gear).stack(1));
+                world.tick(200);
+                ResourceVariant charged = cube.inspect().storages().get("charge").getFirst().variant();
+                assertEquals(fr.robie.machineengine.mekanized.machine.EnergyItems.CAPACITY.get(MekanizedContent.key(gear)), chargeOf(charged),
+                        gear + " charges to its capacity");
+                try (Transaction transaction = this.engine.transactions().openOuter()) {
+                    cube.context().storage("charge").extract(charged, 1, transaction);
+                    transaction.commit();
+                }
+            }
+        } finally {
+            fr.robie.machineengine.mekanized.machine.EnergyItems.setAccess(null);
+        }
+    }
+
     private static long chargeOf(ResourceVariant tablet) {
         String text = new String(tablet.components().get(Items.DATA).data(), StandardCharsets.UTF_8);
         return text.contains("|") ? Long.parseLong(text.substring(text.indexOf('|') + 1)) : 0;

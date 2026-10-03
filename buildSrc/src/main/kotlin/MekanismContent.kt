@@ -79,6 +79,7 @@ internal class MekanismContent(
         generateBlocks("automation.yml", "Mekanized Digital Miner, seismic vibrator, teleporter, QIO and the cardboard box (Phase 6 wave 4), generated from Mekanism (MIT).",
             phase8Machines, mapOf(), phase8Items, automationIds, nameKeys, membership,
             extraModels = mapOf("cardboard_box_storage" to ("mekanized:block/cardboard_box_storage" to "block.mekanized.cardboard_box")))
+        generateGear(nameKeys, membership)
         val chemicals = chemicals()
         nameKeys += chemicals.map { "chemical.mekanism.$it" }
         // Fluids are named by their liquid blocks (block.mekanism.brine).
@@ -172,6 +173,73 @@ internal class MekanismContent(
 
     /** Ids of Phase 6 wave 4 content, for the recipe split. */
     val automationIds = sortedSetOf<String>()
+
+    // -- Phase 6 wave 5: tools and armour -------------------------------------------------------
+    /** A gear item: the vanilla item it is built on, the slot it is worn in, whether it shows the vanilla armour. */
+    private data class GearItem(val name: String, val material: String, val slot: String? = null, val vanillaLook: Boolean = false,
+                                val model: String? = null)
+
+    private val phase9Gear = listOf(
+        GearItem("atomic_disassembler", "netherite_pickaxe"),
+        GearItem("meka_tool", "netherite_pickaxe", model = "mekanized:item/atomic_disassembler"),
+        GearItem("flamethrower", "stick"),
+        GearItem("electric_bow", "bow"),
+        GearItem("network_reader", "stick"),
+        GearItem("jetpack", "paper", "chest"),
+        GearItem("jetpack_armored", "diamond_chestplate", "chest"),
+        GearItem("scuba_tank", "paper", "chest"),
+        GearItem("scuba_mask", "paper", "head"),
+        GearItem("free_runners", "leather_boots", "feet"),
+        GearItem("free_runners_armored", "diamond_boots", "feet"),
+        GearItem("mekasuit_helmet", "netherite_helmet", vanillaLook = true),
+        GearItem("mekasuit_bodyarmor", "netherite_chestplate", vanillaLook = true),
+        GearItem("mekasuit_pants", "netherite_leggings", vanillaLook = true),
+        GearItem("mekasuit_boots", "netherite_boots", vanillaLook = true),
+        GearItem("hazmat_mask", "leather_helmet", vanillaLook = true),
+        GearItem("hazmat_gown", "leather_chestplate", vanillaLook = true),
+        GearItem("hazmat_pants", "leather_leggings", vanillaLook = true),
+        GearItem("hazmat_boots", "leather_boots", vanillaLook = true),
+    )
+
+    /** Modules that work in Mekanized (installed by sneak-using them while wearing or holding the gear). */
+    private val phase9Modules = listOf("module_base", "module_electrolytic_breathing_unit", "module_vision_enhancement_unit",
+        "module_nutritional_injection_unit", "module_inhalation_purification_unit", "module_jetpack_unit",
+        "module_gravitational_modulating_unit", "module_elytra_unit", "module_locomotive_boosting_unit",
+        "module_hydraulic_propulsion_unit", "module_excavation_escalation_unit", "module_attack_amplification_unit",
+        "module_silk_touch_unit", "module_fortune_unit", "module_vein_mining_unit", "module_teleportation_unit",
+        // Ingredients of the elytra and nutritional injection units.
+        "hdpe_elytra", "canteen")
+
+    /** Ids of Phase 6 wave 5 content, for the recipe split. */
+    val gearIds = sortedSetOf<String>()
+
+    private fun generateGear(nameKeys: MutableSet<String>, membership: Map<String, Set<String>>) {
+        val items = linkedMapOf<String, Any?>()
+        for (gear in phase9Gear) {
+            val model = gear.model ?: itemDefinition(gear.name)?.let { itemModel(it) }?.let { Ids.rename(it) } ?: run {
+                report.skip("gear item without a usable model", gear.name)
+                continue
+            }
+            val data = linkedMapOf<String, Any?>("item_name" to "<!i><lang:item.mekanized.${gear.name}>", "unbreakable" to true,
+                "components" to mapOf("minecraft:max_stack_size" to 1))
+            // Worn without the vanilla armour's look: Mekanism draws its gear in code.
+            if (gear.slot != null) data["equippable"] = mapOf("slot" to gear.slot)
+            items["mekanized:${gear.name}"] = linkedMapOf<String, Any?>("material" to gear.material, "data" to data, "model" to model)
+                .withTags(membership["mekanized:${gear.name}"])
+            nameKeys += "item.mekanism.${gear.name}"
+            gearIds += "mekanized:${gear.name}"
+        }
+        for (name in phase9Modules) {
+            val model = itemDefinition(name)?.let { itemModel(it) } ?: continue
+            items["mekanized:$name"] = linkedMapOf<String, Any?>(
+                "data" to mapOf("item_name" to "<!i><lang:item.mekanized.$name>"), "model" to Ids.rename(model))
+                .withTags(membership["mekanized:$name"])
+            nameKeys += "item.mekanism.$name"
+            gearIds += "mekanized:$name"
+        }
+        writeYaml(out.resolve("pack/configuration/gear.yml"),
+            "Mekanized tools, armour and modules (Phase 6 wave 5), generated from Mekanism (MIT).", linkedMapOf("items" to items))
+    }
 
     /** Display-rendered blocks players walk on: a thin state with no collision instead of a full leaves block. */
     private val THIN_STATES = mapOf("chargepad" to "pressure_plate")
@@ -618,6 +686,8 @@ internal class MekanismContent(
         if (model.get("type")?.asString == "minecraft:select") model = model.getAsJsonObject("fallback") ?: return null
         // A model chosen by whether a component is there (the cardboard box, full or not): the empty one.
         if (model.get("type")?.asString == "minecraft:condition") model = model.getAsJsonObject("on_false") ?: return null
+        // Drawn in code upstream (gear): its base model, made drawable by GearModels.
+        if (model.get("type")?.asString == "minecraft:special") return model.get("base")?.asString
         if (model.get("type")?.asString != "minecraft:model") return null
         return model.get("model")?.asString
     }

@@ -36,6 +36,8 @@ val fetchMekanism = tasks.register<FetchMekanism>("fetchMekanism") {
         "/src/generators/resources/assets/mekanismgenerators/",
         "/src/datagen/generated/mekanism/",
         "/src/datagen/generated/mekanismgenerators/",
+        // Java entity models of the gear (jetpack, disassembler...), turned into item models.
+        "/src/main/java/mekanism/client/model/",
     )
     sourceDirectory = rootProject.layout.projectDirectory.dir(".mekanism/source")
 }
