@@ -213,11 +213,29 @@ final class PaperGear implements Listener {
                 || "mekasuit_bodyarmor".equals(id) && modules(chest).contains("jetpack_unit");
         if (!pack || player.isOnGround() || player.isFlying() || !jumping(player)) return;
         if (!useChemical(chest, 1)) return;
-        Vector velocity = player.getVelocity();
-        velocity.setY(Math.min(velocity.getY() + 0.15, 0.5));
+        // The server does not know the player's own horizontal speed: steer with the movement keys.
+        Vector velocity = steering(player);
+        velocity.setY(Math.min(player.getVelocity().getY() + 0.15, 0.5));
         player.setVelocity(velocity);
         player.setFallDistance(0);
         player.getWorld().spawnParticle(Particle.FLAME, player.getLocation().add(0, 0.6, 0), 2, 0.15, 0.05, 0.15, 0.01);
+    }
+
+    /** Horizontal speed from the movement keys held, along where the player looks (Paper 1.21.3+). */
+    private static Vector steering(Player player) {
+        try {
+            Object input = player.getClass().getMethod("getCurrentInput").invoke(player);
+            Class<?> type = input.getClass();
+            double forward = ((boolean) type.getMethod("isForward").invoke(input) ? 1 : 0) - ((boolean) type.getMethod("isBackward").invoke(input) ? 1 : 0);
+            double left = ((boolean) type.getMethod("isLeft").invoke(input) ? 1 : 0) - ((boolean) type.getMethod("isRight").invoke(input) ? 1 : 0);
+            double speed = (boolean) type.getMethod("isSprint").invoke(input) ? 0.45 : 0.3;
+            double yaw = Math.toRadians(player.getLocation().getYaw());
+            Vector move = new Vector(-Math.sin(yaw) * forward + Math.cos(yaw) * left, 0, Math.cos(yaw) * forward + Math.sin(yaw) * left);
+            return move.lengthSquared() == 0 ? move : move.normalize().multiply(speed);
+        } catch (ReflectiveOperationException | RuntimeException e) {
+            Vector velocity = player.getVelocity();
+            return new Vector(velocity.getX(), 0, velocity.getZ());
+        }
     }
 
     /** Whether the player holds jump (Paper 1.21.3+; older servers: never, the jetpack needs it). */
@@ -287,12 +305,18 @@ final class PaperGear implements Listener {
         ItemStack boots = player.getInventory().getBoots();
         String id = id(boots);
         if (!"free_runners".equals(id) && !"free_runners_armored".equals(id) && !"mekasuit_boots".equals(id)) return;
-        if (useEnergy(boots, (long) Math.ceil(event.getDamage() * 50))) event.setCancelled(true);
+        long cost = (long) Math.ceil(event.getDamage() * 50);
+        if (useEnergy(boots, cost)) {
+            event.setCancelled(true);
+            player.getInventory().setBoots(boots);
+            player.sendActionBar(Component.text(String.format(Locale.ROOT, "Fall absorbed: %,d J (%,d J left)", cost, energy(boots)),
+                    NamedTextColor.GRAY));
+        }
     }
 
     // -- tools ----------------------------------------------------------------------------------
 
-    /** Every block costs the tool energy; sneaking (or with the vein mining unit), whole veins of ore and logs. */
+    /** Every block costs the tool energy; sneaking, whole veins of ore and logs (64 blocks, 256 with the vein mining unit). */
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onBreak(BlockBreakEvent event) {
         if (this.veining.contains(event.getBlock())) return;
@@ -301,14 +325,15 @@ final class PaperGear implements Listener {
         String id = id(tool);
         if (!"atomic_disassembler".equals(id) && !"meka_tool".equals(id)) return;
         if (!useEnergy(tool, 100)) return;
-        boolean vein = "atomic_disassembler".equals(id) ? player.isSneaking() : player.isSneaking() && modules(tool).contains("vein_mining_unit");
+        boolean vein = player.isSneaking();
+        int limit = "meka_tool".equals(id) && modules(tool).contains("vein_mining_unit") ? 256 : 64;
         Block start = event.getBlock();
         boolean veinable = start.getType().getKey().getKey().endsWith("_ore") || Tag.LOGS.isTagged(start.getType());
         if (!vein || !veinable) return;
         Set<Block> seen = new HashSet<>(Set.of(start));
         ArrayDeque<Block> queue = new ArrayDeque<>(List.of(start));
         int broken = 0;
-        while (!queue.isEmpty() && broken < 64) {
+        while (!queue.isEmpty() && broken < limit) {
             Block at = queue.poll();
             for (BlockFace face : List.of(BlockFace.UP, BlockFace.DOWN, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST)) {
                 Block next = at.getRelative(face);
@@ -342,11 +367,16 @@ final class PaperGear implements Listener {
         }
     }
 
-    /** A charged electric bow does not use arrows (120 J a shot). */
+    /** A charged electric bow does not use arrows (120 J a shot): an arrow is still needed to shoot. */
     @EventHandler(ignoreCancelled = true)
     public void onShoot(EntityShootBowEvent event) {
         ItemStack bow = event.getBow();
-        if ("electric_bow".equals(id(bow)) && useEnergy(bow, 120)) event.setConsumeItem(false);
+        if (!"electric_bow".equals(id(bow)) || !useEnergy(bow, 120)) return;
+        event.setConsumeItem(false);
+        if (event.getProjectile() instanceof org.bukkit.entity.AbstractArrow arrow) {
+            arrow.setPickupStatus(org.bukkit.entity.AbstractArrow.PickupStatus.CREATIVE_ONLY);
+        }
+        if (event.getEntity() instanceof Player player) player.getScheduler().run(this.plugin, task -> player.updateInventory(), null);
     }
 
     @EventHandler(priority = EventPriority.LOW)

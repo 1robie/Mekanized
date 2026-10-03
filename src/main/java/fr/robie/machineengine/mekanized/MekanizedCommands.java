@@ -39,6 +39,23 @@ final class MekanizedCommands {
         this.plugin = plugin;
     }
 
+    /** {@code /mekanized build <structure> [<x y z>]}: a working multiblock, its lowest corner there. */
+    private com.mojang.brigadier.builder.LiteralArgumentBuilder<CommandSourceStack> structures() {
+        var build = Commands.literal("build").requires(MekanizedCommands::admin);
+        for (String name : MekanizedStructures.STRUCTURES.keySet()) {
+            build.then(PositionArguments.optionalPosition(Commands.literal(name), PositionArguments.Default.PLACEMENT,
+                    (context, world, x, y, z) -> {
+                        Bukkit.getRegionScheduler().execute(this.plugin, new Location(world, x, y, z), () -> {
+                            String problem = MekanizedStructures.build(name, world, x, y, z);
+                            reply(context, problem == null ? "mekanized build: " + name.replace('_', ' ') + " built at " + x + " " + y + " " + z
+                                    : "mekanized build: " + problem);
+                        });
+                        return Command.SINGLE_SUCCESS;
+                    }));
+        }
+        return build;
+    }
+
     private static boolean admin(CommandSourceStack source) {
         return source.getSender().hasPermission("machineengine.admin");
     }
@@ -54,6 +71,7 @@ final class MekanizedCommands {
                                             com.mojang.brigadier.arguments.StringArgumentType.getString(context, "name"));
                                     return Command.SINGLE_SUCCESS;
                                 })))
+                .then(structures())
                 .then(PositionArguments.optionalPosition(Commands.literal("test").requires(MekanizedCommands::admin), PositionArguments.Default.PLACEMENT,
                         (context, world, x, y, z) -> {
                             Bukkit.getRegionScheduler().execute(this.plugin, new Location(world, x, y, z), () -> test(context, world, x, y, z));

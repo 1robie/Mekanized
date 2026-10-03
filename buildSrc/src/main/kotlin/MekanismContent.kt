@@ -241,6 +241,12 @@ internal class MekanismContent(
             "Mekanized tools, armour and modules (Phase 6 wave 5), generated from Mekanism (MIT).", linkedMapOf("items" to items))
     }
 
+    /** Tiered display-rendered blocks: every tier shares the basic tier's state. */
+    private val TIERED = listOf("energy_cube", "chemical_tank", "fluid_tank")
+
+    /** Shared empty models of display-rendered blocks, by family (see generateBlocks). */
+    private val displayFamilies = mutableMapOf<String, String>()
+
     /** Display-rendered blocks players walk on: a thin state with no collision instead of a full leaves block. */
     private val THIN_STATES = mapOf("chargepad" to "pressure_plate")
 
@@ -302,10 +308,19 @@ internal class MekanismContent(
                 if (active != null) items["mekanized:display/$name/active"] = linkedMapOf<String, Any?>("model" to active)
                 // Factories: the four tiers of a kind share one state (and the basic tier's particles).
                 val factoryKind = factoryKinds.firstOrNull { name.endsWith("_${it}_factory") }
-                finalStates = if (factoryKind == null) singleAppearance(states, emptyModel(modelsRoot, name, inactive),
-                    autoState = THIN_STATES[name] ?: "tintable_leaves")
-                else singleAppearance(states, emptyModel(modelsRoot, "${factoryKind}_factory", "mekanized:block/factory/$factoryKind/basic"),
-                    "mekanized_${factoryKind}_factory")
+                finalStates = when {
+                    factoryKind != null -> singleAppearance(states,
+                        emptyModel(modelsRoot, "${factoryKind}_factory", "mekanized:block/factory/$factoryKind/basic"), "mekanized_${factoryKind}_factory")
+                    name in THIN_STATES -> singleAppearance(states, emptyModel(modelsRoot, name, inactive), autoState = THIN_STATES.getValue(name))
+                    else -> {
+                        // Non-occluding states are scarce (CraftEngine's leaves): blocks that break with the same
+                        // particles, and the tiers of a block, share one state.
+                        val family = TIERED.firstOrNull { suffix -> (tiers + "creative").any { name == "${it}_$suffix" } }
+                            ?: ("p_" + (particle(modelsRoot, inactive) ?: name).substringAfter(":").replace(Regex("[^a-z0-9_]"), "_"))
+                        val model = displayFamilies.getOrPut(family) { emptyModel(modelsRoot, "shared/$family", inactive) }
+                        singleAppearance(states, model, "mekanized_display_$family")
+                    }
+                }
                 finalBehavior = behavior + ("display_item" to "mekanized:display/$name")
                 // Some blockstates turn the model even when facing north (separator 90, pump 180).
                 northRotation(states).let { if (it != 0) finalBehavior = finalBehavior + ("display_rotation" to it) }
@@ -611,9 +626,9 @@ internal class MekanismContent(
     /** The same properties, every variant shown by one empty, non-occluding appearance. */
     @Suppress("UNCHECKED_CAST")
     private fun singleAppearance(states: Map<String, Any?>, emptyModel: String, sharedId: String? = null,
-                                 autoState: String = "tintable_leaves"): Map<String, Any?> {
-        // The model is empty, so leaf tint does not matter: the larger tintable group keeps the scarce
-        // non-tintable leaves for content that needs them. Blocks with the same sharedId share one state.
+                                 autoState: String = "leaves"): Map<String, Any?> {
+        // The model is empty, so leaf tint does not matter: any leaves state (tintable or not; CraftEngine
+        // has 65 tintable ones only). Blocks with the same sharedId share one state.
         val state: Any = if (sharedId == null) autoState else mapOf("type" to autoState, "id" to sharedId)
         val appearance = mapOf("auto_state" to state, "model" to mapOf("path" to emptyModel))
         val nested = states["states"] as Map<String, Any?>? ?: return mapOf("state" to appearance)
