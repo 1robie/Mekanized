@@ -43,8 +43,9 @@ abstract class ImportMekanism : DefaultTask() {
         Assets(source, out.resolve("pack/resourcepack/assets/mekanized"), report).copy()
         val itemTags = Tags(source, out.resolve("definitions"), report).convert()
         val content = MekanismContent(source, out, itemTags, report).also { it.generate() }
-        val recipes = Recipes(source, out, report, content.ids, content.machineIds, content.chemistryIds, content.logisticsIds,
-            content.multiblockIds, itemTags)
+        val recipes = Recipes(source, out, report, listOf("materials" to content.ids, "machines" to content.machineIds,
+            "chemistry" to content.chemistryIds, "logistics" to content.logisticsIds, "multiblocks" to content.multiblockIds,
+            "endgame" to content.endgameIds), itemTags)
             .also { it.convert() }
         writeAliases(out.resolve("definitions/vanilla_aliases.yml"), recipes.referencedTags + itemTags.keys, itemTags, report)
         source.resolve("LICENSE").copyTo(out.resolve("LICENSE-MEKANISM.txt"), overwrite = true)
@@ -281,16 +282,11 @@ internal class Recipes(
     private val source: File,
     private val out: File,
     private val report: Report,
-    /** Content generated so far: CraftEngine recipes making these go into the `materials_` files. */
-    private val contentIds: Set<String>,
-    /** Phase 2 content: CraftEngine recipes needing it (and Phase 1) go into the `machines_` files. */
-    private val machineIds: Set<String>,
-    /** Phase 3 content: CraftEngine recipes needing it (and earlier phases) go into the `chemistry_` files. */
-    private val chemistryIds: Set<String>,
-    /** Phase 4 content: CraftEngine recipes needing it (and earlier phases) go into the `logistics_` files. */
-    private val logisticsIds: Set<String>,
-    /** Phase 5a content: CraftEngine recipes needing it (and earlier phases) go into the `multiblocks_` files. */
-    private val multiblockIds: Set<String>,
+    /**
+     * Content per plan phase, in order (file prefix to ids): a CraftEngine recipe goes into the first
+     * phase's file whose content, with the earlier phases', has every Mekanized item it uses.
+     */
+    private val phases: List<Pair<String, Set<String>>>,
     private val itemTags: Map<String, List<String>>,
 ) {
     /**
@@ -353,23 +349,25 @@ internal class Recipes(
         "chemical_infusing" to Machine(1, 200, 3),
         "separating" to Machine(1, 400, 3),
         // Rotary recipes go both ways: split into one recipe type per direction (the machine's mode).
+        // Phase 6 machines (Mekanism's default usage): painting and pigments, late-game chemistry.
+        "painting" to Machine(256, 100, 6),
+        "pigment_extracting" to Machine(100, 200, 6),
+        "pigment_mixing" to Machine(1, 200, 6),
+        "centrifuging" to Machine(1, 200, 6),
+        "activating" to Machine(1, 0, 6),
+        "nucleosynthesizing" to Machine(500, 100_000, 6),
         // The Thermal Evaporation Plant: no energy, its rate comes from its height and the sun (Phase 5a).
         "evaporating" to Machine(1, 0, 5),
         "condensing" to Machine(1, 100, 3),
         "decondensing" to Machine(1, 100, 3),
-        "reaction" to Machine(100, 0, 3),
+        // The Pressurized Reaction Chamber: 100 J/t, plus each recipe's energy_required.
+        "reaction" to Machine(100, 100, 6),
         // Not machines: items turned into a chemical or energy when put into a machine's slot.
         "chemical_conversion" to Machine(0, 0, 2),
         "energy_conversion" to Machine(0, 0, 2),
     )
 
     private val outOfPlan = mapOf(
-        "painting" to "painting machine and pigments are not in the plan",
-        "pigment_extracting" to "painting machine and pigments are not in the plan",
-        "pigment_mixing" to "painting machine and pigments are not in the plan",
-        "nucleosynthesizing" to "endgame (Phase 5)",
-        "activating" to "endgame (Phase 5)",
-        "centrifuging" to "endgame (Phase 5)",
         "bin_insert" to "special recipe (bins handle it in code)",
         "bin_extract" to "special recipe (bins handle it in code)",
         "clear_configuration" to "special recipe (handled in code)",
@@ -492,7 +490,8 @@ internal class Recipes(
         if (outputs.isNotEmpty()) recipe["outputs"] = outputs
         if (chanceOutputs.isNotEmpty()) recipe["chance-outputs"] = chanceOutputs
         // energy_required: the reaction's own energy per tick; energy_multiplier: times the machine's base usage.
-        val energy = json.get("energy_required")?.asLong
+        val energy = if (kind == "reaction") machine.energyPerTick + (json.get("energy_required")?.asLong ?: 0)
+        else json.get("energy_required")?.asLong
             ?: (machine.energyPerTick * (json.get("energy_multiplier")?.asDouble ?: 1.0)).toLong()
         if (energy > 0) perTick.add(0, mapOf("type" to "mekanized:energy", "amount" to energy))
         if (perTick.isNotEmpty()) recipe["cost-per-tick"] = perTick
@@ -509,6 +508,12 @@ internal class Recipes(
     private fun itemFilter(ingredient: JsonElement): Map<String, Any?> = when {
         ingredient.isJsonPrimitive -> itemRef(ingredient.asString)
         ingredient.isJsonArray -> mapOf("any-of" to ingredient.asJsonArray.map { itemFilter(it) })
+        // NeoForge's compound ingredients: everything in base but not in subtracted; in every child.
+        ingredient.isJsonObject && ingredient.asJsonObject.get("neoforge:ingredient_type")?.asString == "neoforge:difference" ->
+            mapOf("all" to listOf(itemFilter(ingredient.asJsonObject.get("base")),
+                mapOf("not" to itemFilter(ingredient.asJsonObject.get("subtracted")))))
+        ingredient.isJsonObject && ingredient.asJsonObject.get("neoforge:ingredient_type")?.asString == "neoforge:intersection" ->
+            mapOf("all" to ingredient.asJsonObject.getAsJsonArray("children").map { itemFilter(it) })
         ingredient.isJsonObject && ingredient.asJsonObject.get("type")?.asString == "neoforge:or" ->
             mapOf("any-of" to ingredient.asJsonObject.getAsJsonArray("values").map { itemFilter(it) })
         ingredient.isJsonObject && ingredient.asJsonObject.has("tag") -> itemRef("#" + ingredient.asJsonObject.get("tag").asString)
@@ -570,14 +575,14 @@ internal class Recipes(
         // Each plan phase enables the files whose items all exist: the result (vanilla or already
         // generated) and every Mekanized ingredient.
         val ingredients = mekanizedIds(recipe) + listOf(result).filter { it.startsWith("mekanized:") }
-        val file = when {
-            ingredients.all { it in contentIds } -> "materials_$group"
-            ingredients.all { it in contentIds || it in machineIds } -> "machines_$group"
-            ingredients.all { it in contentIds || it in machineIds || it in chemistryIds } -> "chemistry_$group"
-            ingredients.all { it in contentIds || it in machineIds || it in chemistryIds || it in logisticsIds } -> "logistics_$group"
-            ingredients.all { it in contentIds || it in machineIds || it in chemistryIds || it in logisticsIds || it in multiblockIds } ->
-                "multiblocks_$group"
-            else -> group
+        val known = mutableSetOf<String>()
+        var file = group
+        for ((prefix, ids) in phases) {
+            known += ids
+            if (ingredients.all { it in known }) {
+                file = "${prefix}_$group"
+                break
+            }
         }
         craftEngineRecipes["$file|$id"] = recipe.toMutableMap()
         report.count("crafting/smelting recipes")

@@ -70,6 +70,8 @@ internal class MekanismContent(
             phase4Machines, phase4Transports, phase4Items, logisticsIds, nameKeys, membership)
         generateBlocks("multiblocks.yml", "Mekanized multiblocks: Dynamic Tank, Induction Matrix, Thermal Evaporation Plant (Phase 5a), generated from Mekanism (MIT).",
             phase5Machines, mapOf(), listOf(), multiblockIds, nameKeys, membership, phase5Plain)
+        generateBlocks("endgame.yml", "Mekanized late-game machines and generators (Phase 6), generated from Mekanism (MIT).",
+            phase6Machines, mapOf(), listOf(), endgameIds, nameKeys, membership)
         val chemicals = chemicals()
         nameKeys += chemicals.map { "chemical.mekanism.$it" }
         // Fluids are named by their liquid blocks (block.mekanism.brine).
@@ -131,6 +133,14 @@ internal class MekanismContent(
 
     /** Ids of Phase 5a content, for the recipe split. */
     val multiblockIds = sortedSetOf<String>()
+
+    // -- Phase 6: the remaining single-block machines and generators ---------------------------
+    private val phase6Machines = listOf("pressurized_reaction_chamber", "isotopic_centrifuge", "solar_neutron_activator",
+        "antiprotonic_nucleosynthesizer", "painting_machine", "pigment_extractor", "pigment_mixer",
+        "gas_burning_generator", "wind_generator", "advanced_solar_generator")
+
+    /** Ids of Phase 6 content, for the recipe split. */
+    val endgameIds = sortedSetOf<String>()
 
     private fun generateBlocks(fileName: String, header: String, machineNames: List<String>, transports: Map<String, Int>,
                                extraItems: List<String>, phaseIds: MutableSet<String>, nameKeys: MutableSet<String>,
@@ -544,14 +554,8 @@ internal class MekanismContent(
         return mapOf("template" to "default:loot_table/ore", "arguments" to arguments)
     }
 
-    /**
-     * Chemical names (gases, infuse types, slurries; Mekanism 1.21 unifies them) from the lang keys.
-     * Pigments (colors) are left out: the painting machine is not in the plan.
-     */
+    /** Chemical names (gases, infuse types, slurries, pigments; Mekanism 1.21 unifies them) from the lang keys. */
     private fun chemicals(): List<String> {
-        val pigments = setOf("black", "dark_blue", "dark_green", "dark_aqua", "dark_red", "purple", "orange", "gray", "dark_gray",
-            "indigo", "bright_green", "aqua", "red", "pink", "yellow", "white", "brown", "bright_pink", "blue", "cyan", "green",
-            "light_blue", "lime", "magenta", "light_gray")
         val names = sortedSetOf<String>()
         for (module in listOf("mekanism", "mekanismgenerators")) {
             val file = source.resolve("src/datagen/generated/$module/assets/$module/lang/en_us.json")
@@ -559,7 +563,7 @@ internal class MekanismContent(
             JsonParser.parseString(file.readText()).asJsonObject.keySet()
                 .filter { it.startsWith("chemical.$module.") }
                 .map { it.removePrefix("chemical.$module.") }
-                .filter { "." !in it && it != "empty" && it !in pigments }
+                .filter { "." !in it && it != "empty" }
                 .forEach { names += it }
         }
         names.forEach { _ -> report.count("chemicals") }

@@ -94,6 +94,7 @@ public final class MekanizedMachines {
         context.recipes(FurnaceRecipes::provide);
         ChemistryMachines.register(context);
         LogisticsMachines.register(context);
+        EndgameMachines.register(context);
         fr.robie.machineengine.mekanized.multiblock.MultiblockMachines.register(context);
     }
 
@@ -188,7 +189,7 @@ public final class MekanizedMachines {
     }
 
     /** Energy buffer exposed as an output on every side. */
-    private static MachineType.Builder generator(String name, long energy) {
+    static MachineType.Builder generator(String name, long energy) {
         return MachineType.builder(key(name))
                 .storage(StorageDefinition.tank("energy", energy).filter(IS_ENERGY))
                 .port(PortDefinition.builder("energy", "energy").direction(PortDirection.OUTPUT).filter(IS_ENERGY).group("energy").build());

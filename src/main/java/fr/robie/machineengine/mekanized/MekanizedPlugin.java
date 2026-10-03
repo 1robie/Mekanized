@@ -39,7 +39,9 @@ public final class MekanizedPlugin extends JavaPlugin {
             // Phase 4: transporters, the logistical sorter, factories, tier installers, the configurator.
             "configuration/logistics.yml", "configuration/recipes_logistics_shaped.yml",
             // Phase 5a: the Dynamic Tank and the Induction Matrix.
-            "configuration/multiblocks.yml", "configuration/recipes_multiblocks_shaped.yml");
+            "configuration/multiblocks.yml", "configuration/recipes_multiblocks_shaped.yml",
+            // Phase 6: the remaining single-block machines and generators.
+            "configuration/endgame.yml", "configuration/recipes_endgame_shaped.yml");
     /** Generated MachineEngine definitions installed so far (same rule as {@link #ENABLED_CONFIGURATION}). */
     static final java.util.Set<String> ENABLED_DEFINITIONS = java.util.Set.of(
             // Phase 1: item and chemical tags, and the vanilla members of c: tags.
@@ -53,7 +55,10 @@ public final class MekanizedPlugin extends JavaPlugin {
             "recipes_washing.yml", "recipes_crystallizing.yml", "recipes_separating.yml", "recipes_condensing.yml",
             "recipes_decondensing.yml", "recipes_buckets.yml",
             // Phase 5a: the Thermal Evaporation Plant.
-            "recipes_evaporating.yml");
+            "recipes_evaporating.yml",
+            // Phase 6: reactions, late-game chemistry, painting.
+            "recipes_reaction.yml", "recipes_centrifuging.yml", "recipes_activating.yml", "recipes_nucleosynthesizing.yml",
+            "recipes_painting.yml", "recipes_pigment_extracting.yml", "recipes_pigment_mixing.yml");
 
     @Override
     public void onLoad() {

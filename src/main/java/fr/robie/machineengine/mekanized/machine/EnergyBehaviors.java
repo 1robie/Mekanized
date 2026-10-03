@@ -106,6 +106,50 @@ public final class EnergyBehaviors {
         };
     }
 
+    /**
+     * Mekanism's gas-burning generator: burns 1 mB per tick of a fuel in {@code tank}, making the
+     * fuel's Joules per mB, and pushes energy to every neighbor. Pauses while the buffer is full.
+     */
+    public static @NotNull MachineBehavior.Factory gasBurning(@NotNull String tank, @NotNull java.util.Map<String, Long> joulesPerMb) {
+        return type -> context -> {
+            pushAround(context, 20_000);
+            ResourceHandler fuel = context.storage(tank);
+            StorageView held = fuel.views().getFirst();
+            Long joules = held.isEmpty() ? null : joulesPerMb.get(held.variant().type().key().value());
+            if (joules == null) {
+                context.setActive(false);
+                context.waitForInput();
+                return;
+            }
+            try (Transaction transaction = context.transactions().openOuter()) {
+                long made = context.storage(ENERGY).insert(MekanizedContent.ENERGY.variant(), joules, transaction);
+                if (made < joules || fuel.extract(held.variant(), 1, transaction) != 1) {
+                    context.setActive(false);
+                    context.block(new MachineError.TransferRejected("the energy buffer is full", null), 20);
+                    return;
+                }
+                transaction.commit();
+            }
+            context.setActive(true);
+        };
+    }
+
+    /**
+     * Mekanism's wind generator: up to {@code maxJoulesPerTick}, by height (nothing at y 24 and below,
+     * all at y 255 and above), under open sky; in batches of 20 ticks.
+     */
+    public static @NotNull MachineBehavior.Factory wind(long maxJoulesPerTick) {
+        return type -> context -> {
+            int y = context.machine().position().position().y();
+            double height = Math.max(0, Math.min(1, (y - 24) / 231.0));
+            long rate = context.environment().skyVisible() ? (long) (maxJoulesPerTick * height) : 0;
+            boolean produced = rate > 0 && insertEnergy(context, rate * 20);
+            context.setActive(produced);
+            pushAround(context, maxJoulesPerTick * 40);
+            context.wakeIn(20);
+        };
+    }
+
     private static long consumeFuel(MachineContext context, String storage, List<Fuel> fuels) {
         ResourceHandler slot = context.storage(storage);
         for (StorageView view : slot.views()) {

@@ -577,6 +577,43 @@ class MekanizedChainTest {
         }
     }
 
+    // -- Phase 6 ---------------------------------------------------------------------------------
+
+    @Test
+    void aPressurizedReactionChamberMakesAnItemAndAChemical() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        MachineInstanceImpl chamber = place(world, "pressurized_reaction_chamber");
+        fill(chamber, "input", item("mekanized:dust_fluorite").stack(1));
+        fill(chamber, "fluid", fluid("water", 1_000));
+        fill(chamber, "chemical", chemical("plutonium", 1_000));
+        powered(world, 105, chamber);
+        assertEquals(1, amount(chamber, "output", "mekanized:pellet_plutonium"), "the item into the item slot");
+        assertEquals(1_000, amountOfType(chamber, "chemical_output", "spent_nuclear_waste"), "the chemical into its tank");
+    }
+
+    @Test
+    void aSolarNeutronActivatorWorksOnlyInDaylight() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        MachineInstanceImpl activator = place(world, "solar_neutron_activator");
+        fill(activator, "input", chemical("lithium", 100));
+        world.tick(60);
+        assertEquals(0, amountOfType(activator, "output", "tritium"), "night: nothing");
+        world.setEnvironment(new MachineEnvironment(true, true, false, 15));
+        activator.wake(fr.robie.machineengine.api.machine.WakeReason.CONFIG_CHANGED);
+        world.tick(60);
+        assertTrue(amountOfType(activator, "output", "tritium") > 0, "daylight: lithium to tritium");
+    }
+
+    @Test
+    void aGasBurningGeneratorBurnsHydrogen() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        MachineInstanceImpl generator = place(world, "gas_burning_generator");
+        fill(generator, "fuel", chemical("hydrogen", 10));
+        world.tick(20);
+        assertEquals(10 * 200, energy(generator), "200 J per mB of hydrogen");
+        assertEquals(0, amountOfType(generator, "fuel", "hydrogen"));
+    }
+
     /** Ticks {@code ticks}, keeping the machines' energy buffers full. */
     private static void powered(FakeWorld world, int ticks, MachineInstanceImpl... machines) {
         for (int done = 0; done < ticks; done += 20) {
