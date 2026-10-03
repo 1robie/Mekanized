@@ -45,7 +45,9 @@ public final class MekanizedPlugin extends JavaPlugin {
             // Phase 6 wave 2: bins, personal storage, chargepad, plenisher, assemblicator, lasers, alarm.
             "configuration/utility.yml",
             // Phase 6 wave 3: heaters, conductors, boiler, turbine, fission and fusion reactors, SPS.
-            "configuration/reactors.yml", "configuration/recipes_reactors_shaped.yml");
+            "configuration/reactors.yml", "configuration/recipes_reactors_shaped.yml",
+            // Phase 6 wave 4: Digital Miner, seismic vibrator, teleporter, QIO, cardboard box.
+            "configuration/automation.yml", "configuration/recipes_automation_shaped.yml");
     /** Generated MachineEngine definitions installed so far (same rule as {@link #ENABLED_CONFIGURATION}). */
     static final java.util.Set<String> ENABLED_DEFINITIONS = java.util.Set.of(
             // Phase 1: item and chemical tags, and the vanilla members of c: tags.
@@ -119,6 +121,7 @@ public final class MekanizedPlugin extends JavaPlugin {
     public void onEnable() {
         fr.robie.machineengine.mekanized.machine.EnergyItems.setAccess(new PaperEnergyItems());
         PaperUtility.install(this);
+        PaperAutomation.install(this);
         fr.robie.machineengine.paper.ResourceNames.register(MekanizedPlugin::name);
         getServer().getPluginManager().registerEvents(new MekanizedTools(), this);
         MekanizedCommands commands = new MekanizedCommands(this);

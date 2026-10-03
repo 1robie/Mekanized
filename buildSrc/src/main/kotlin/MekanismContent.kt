@@ -76,6 +76,9 @@ internal class MekanismContent(
             phase6Utility, mapOf(), listOf(), endgameIds, nameKeys, membership)
         generateBlocks("reactors.yml", "Mekanized heaters, thermodynamic conductors, boiler, turbine, fission and fusion reactors, SPS (Phase 6 wave 3), generated from Mekanism (MIT).",
             phase7Machines, phase7Transports, phase7Items, reactorIds, nameKeys, membership)
+        generateBlocks("automation.yml", "Mekanized Digital Miner, seismic vibrator, teleporter, QIO and the cardboard box (Phase 6 wave 4), generated from Mekanism (MIT).",
+            phase8Machines, mapOf(), phase8Items, automationIds, nameKeys, membership,
+            extraModels = mapOf("cardboard_box_storage" to ("mekanized:block/cardboard_box_storage" to "block.mekanized.cardboard_box")))
         val chemicals = chemicals()
         nameKeys += chemicals.map { "chemical.mekanism.$it" }
         // Fluids are named by their liquid blocks (block.mekanism.brine).
@@ -161,6 +164,15 @@ internal class MekanismContent(
     /** Ids of Phase 6 wave 3 content, for the recipe split. */
     val reactorIds = sortedSetOf<String>()
 
+    // -- Phase 6 wave 4: Digital Miner, seismic vibrator, teleporter, QIO, cardboard box -----------
+    private val phase8Machines = listOf("digital_miner", "seismic_vibrator", "teleporter", "teleporter_frame",
+        "qio_drive_array", "qio_dashboard", "qio_importer", "qio_exporter", "qio_redstone_adapter")
+    private val phase8Items = listOf("cardboard_box", "teleportation_core", "robit", "seismic_reader", "qio_drive_base", "qio_drive_hyper_dense",
+        "qio_drive_time_dilating", "qio_drive_supermassive")
+
+    /** Ids of Phase 6 wave 4 content, for the recipe split. */
+    val automationIds = sortedSetOf<String>()
+
     /** Display-rendered blocks players walk on: a thin state with no collision instead of a full leaves block. */
     private val THIN_STATES = mapOf("chargepad" to "pressure_plate")
 
@@ -170,7 +182,8 @@ internal class MekanismContent(
 
     private fun generateBlocks(fileName: String, header: String, machineNames: List<String>, transports: Map<String, Int>,
                                extraItems: List<String>, phaseIds: MutableSet<String>, nameKeys: MutableSet<String>,
-                               membership: Map<String, Set<String>>, plainBlocks: List<String> = listOf()) {
+                               membership: Map<String, Set<String>>, plainBlocks: List<String> = listOf(),
+                               extraModels: Map<String, Pair<String, String>> = mapOf()) {
         val items = linkedMapOf<String, Any?>()
         val blocks = linkedMapOf<String, Any?>()
         val modelsRoot = out.resolve("pack/resourcepack/assets/mekanized/models")
@@ -273,11 +286,19 @@ internal class MekanismContent(
         }
         for (name in extraItems) {
             val model = itemDefinition(name)?.let { itemModel(it) } ?: continue
+            // Blocks used as items only here (the cardboard box) keep their block name.
+            val kind = if (source.resolve("src/main/resources/assets/mekanism/blockstates/$name.json").isFile) "block" else "item"
             items["mekanized:$name"] = linkedMapOf<String, Any?>(
-                "data" to mapOf("item_name" to "<!i><lang:item.mekanized.$name>"),
+                "data" to mapOf("item_name" to "<!i><lang:$kind.mekanized.$name>"),
                 "model" to Ids.rename(model),
             ).withTags(membership["mekanized:$name"])
-            nameKeys += "item.mekanism.$name"
+            nameKeys += "$kind.mekanism.$name"
+            phaseIds += "mekanized:$name"
+        }
+        // Items with only a model and a name (the full cardboard box): name -> (model, name key).
+        for ((name, model) in extraModels) {
+            items["mekanized:$name"] = linkedMapOf<String, Any?>(
+                "data" to mapOf("item_name" to "<!i><lang:${model.second}>"), "model" to model.first)
             phaseIds += "mekanized:$name"
         }
         writeYaml(out.resolve("pack/configuration/$fileName"), header, linkedMapOf("items" to items, "blocks" to blocks))
@@ -595,6 +616,8 @@ internal class MekanismContent(
         var model = JsonParser.parseString(file.readText()).asJsonObject.getAsJsonObject("model") ?: return null
         // A model chosen by a mod component (the configurator's modes): its fallback.
         if (model.get("type")?.asString == "minecraft:select") model = model.getAsJsonObject("fallback") ?: return null
+        // A model chosen by whether a component is there (the cardboard box, full or not): the empty one.
+        if (model.get("type")?.asString == "minecraft:condition") model = model.getAsJsonObject("on_false") ?: return null
         if (model.get("type")?.asString != "minecraft:model") return null
         return model.get("model")?.asString
     }

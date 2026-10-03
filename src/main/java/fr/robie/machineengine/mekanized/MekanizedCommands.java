@@ -39,15 +39,27 @@ final class MekanizedCommands {
         this.plugin = plugin;
     }
 
+    private static boolean admin(CommandSourceStack source) {
+        return source.getSender().hasPermission("machineengine.admin");
+    }
+
     LiteralCommandNode<CommandSourceStack> build() {
+        // Players set frequencies; the tests are for admins.
         return Commands.literal("mekanized")
-                .requires(source -> source.getSender().hasPermission("machineengine.admin"))
-                .then(PositionArguments.optionalPosition(Commands.literal("test"), PositionArguments.Default.PLACEMENT,
+                .then(Commands.literal("frequency")
+                        .requires(source -> source.getSender() instanceof org.bukkit.entity.Player)
+                        .then(Commands.argument("name", com.mojang.brigadier.arguments.StringArgumentType.word())
+                                .executes(context -> {
+                                    PaperAutomation.setFrequency(this.plugin, (org.bukkit.entity.Player) context.getSource().getSender(),
+                                            com.mojang.brigadier.arguments.StringArgumentType.getString(context, "name"));
+                                    return Command.SINGLE_SUCCESS;
+                                })))
+                .then(PositionArguments.optionalPosition(Commands.literal("test").requires(MekanizedCommands::admin), PositionArguments.Default.PLACEMENT,
                         (context, world, x, y, z) -> {
                             Bukkit.getRegionScheduler().execute(this.plugin, new Location(world, x, y, z), () -> test(context, world, x, y, z));
                             return Command.SINGLE_SUCCESS;
                         }))
-                .then(PositionArguments.optionalPosition(Commands.literal("place-set"), PositionArguments.Default.PLACEMENT,
+                .then(PositionArguments.optionalPosition(Commands.literal("place-set").requires(MekanizedCommands::admin), PositionArguments.Default.PLACEMENT,
                         (context, world, x, y, z) -> {
                             Bukkit.getRegionScheduler().execute(this.plugin, new Location(world, x, y, z), () -> {
                                 boolean placed = place(world, x, y, z, "crusher") && place(world, x + 1, y, z, "basic_energy_cube")
@@ -56,12 +68,12 @@ final class MekanizedCommands {
                             });
                             return Command.SINGLE_SUCCESS;
                         }))
-                .then(PositionArguments.optionalPosition(Commands.literal("test-chemistry"), PositionArguments.Default.PLACEMENT,
+                .then(PositionArguments.optionalPosition(Commands.literal("test-chemistry").requires(MekanizedCommands::admin), PositionArguments.Default.PLACEMENT,
                         (context, world, x, y, z) -> {
                             Bukkit.getRegionScheduler().execute(this.plugin, new Location(world, x, y, z), () -> testChemistry(context, world, x, y, z));
                             return Command.SINGLE_SUCCESS;
                         }))
-                .then(PositionArguments.optionalPosition(Commands.literal("test-cable"), PositionArguments.Default.PLACEMENT,
+                .then(PositionArguments.optionalPosition(Commands.literal("test-cable").requires(MekanizedCommands::admin), PositionArguments.Default.PLACEMENT,
                         (context, world, x, y, z) -> {
                             Bukkit.getRegionScheduler().execute(this.plugin, new Location(world, x, y, z), () -> testCable(context, world, x, y, z));
                             return Command.SINGLE_SUCCESS;
