@@ -145,6 +145,39 @@ final class PaperUtility implements Listener {
         }
     }
 
+    /** Only its owner breaks a personal chest or barrel (or players with the bypass permission). */
+    @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
+    public void onBreak(net.momirealms.craftengine.bukkit.api.event.CustomBlockBreakEvent event) {
+        String owner = personalOwner(event.bukkitBlock());
+        if (owner == null || owner.isEmpty()) return;
+        Player player = event.getPlayer();
+        if (owner.equals(player.getUniqueId().toString()) || player.hasPermission("mekanized.personal.bypass")) return;
+        event.setCancelled(true);
+        player.sendActionBar(Component.text("This belongs to someone else", NamedTextColor.RED));
+    }
+
+    /** Explosions leave personal storage alone. */
+    @EventHandler(ignoreCancelled = true)
+    public void onExplode(org.bukkit.event.entity.EntityExplodeEvent event) {
+        event.blockList().removeIf(block -> personalOwner(block) != null);
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onExplode(org.bukkit.event.block.BlockExplodeEvent event) {
+        event.blockList().removeIf(block -> personalOwner(block) != null);
+    }
+
+    /** The owner of the personal chest or barrel at {@code block} ("" if none yet), or null if it is not one. */
+    private static @Nullable String personalOwner(Block block) {
+        MachineLocator locator = MachineLocator.current();
+        if (locator == null) return null;
+        WorldPosition position = WorldPosition.of(block.getWorld().getKey(), block.getX(), block.getY(), block.getZ());
+        if (!locator.isOwnedByCurrentThread(position)) return null;
+        LoadedMachine machine = locator.machine(position);
+        if (machine == null || machine.instance() == null || !UtilityMachines.isPersonal(machine.inspect().type())) return null;
+        return machine.instance().context().get(UtilityMachines.OWNER);
+    }
+
     // -- chargepads --------------------------------------------------------------------------
 
     @EventHandler

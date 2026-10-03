@@ -109,12 +109,13 @@ class UtilityTest {
     }
 
     @Test
-    void aLaserFeedsAnAmplifierThatHoldsItWhilePowered() {
+    void aLaserFeedsAnAmplifierThatHoldsItUnderRedstoneControl() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
         MachineInstanceImpl laser = world.place(type("laser"), HERE, Direction.NORTH);
         WorldPosition at = HERE.relative(Direction.NORTH).relative(Direction.NORTH);
         MachineInstanceImpl amplifier = world.place(type("laser_amplifier"), at, Direction.NORTH);
-        world.setRedstone(at, 15);
+        // High: fires only while powered, and nothing powers it.
+        amplifier.context().set(fr.robie.machineengine.mekanized.machine.UtilityMachines.REDSTONE, "high");
         fill(laser, "energy", MekanizedContent.ENERGY.stack(100_000));
         world.tick(30);
         assertEquals(100_000, amount(amplifier, "energy"), "the laser's energy went into the amplifier");

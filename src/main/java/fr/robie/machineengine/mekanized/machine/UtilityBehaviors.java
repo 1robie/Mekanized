@@ -169,6 +169,18 @@ public final class UtilityBehaviors {
 
     // -- Lasers ------------------------------------------------------------------------------
 
+    /**
+     * Mekanism's redstone control ({@link UtilityMachines#REDSTONE}): {@code ignored} works whatever the
+     * signal, {@code high} only while powered, {@code low} only while not powered.
+     */
+    static boolean redstoneAllows(MachineContext context) {
+        return switch (context.get(UtilityMachines.REDSTONE)) {
+            case "high" -> context.redstonePower() > 0;
+            case "low" -> context.redstonePower() == 0;
+            default -> true;
+        };
+    }
+
     /** Laser receivers: the beam's energy goes into their {@code energy} storage. */
     static final Set<String> LASER_RECEIVERS = Set.of("laser_amplifier", "laser_tractor_beam");
     private static final int BEAM_RANGE = 64;
@@ -180,8 +192,8 @@ public final class UtilityBehaviors {
      * A laser, amplifier or tractor beam firing out of its front, up to 64 blocks: into a laser
      * receiver (its energy), or into a block, which breaks once it took its hardness x 100 kJ. A
      * laser fires {@code perTick} Joules from its energy; an amplifier or tractor beam fires what it
-     * stores, up to {@code perTick}, unless powered by redstone. A tractor beam keeps the drops of the
-     * blocks its beam breaks.
+     * stores, up to {@code perTick}. Each follows its redstone control. A tractor beam keeps the drops
+     * of the blocks its beam breaks.
      */
     public static @NotNull MachineBehavior.Factory laser(long perTick, boolean fromStorage, boolean collects) {
         return type -> new MachineBehavior() {
@@ -191,7 +203,7 @@ public final class UtilityBehaviors {
 
             @Override
             public void tick(@NotNull MachineContext context) {
-                if (fromStorage && context.redstonePower() > 0) {
+                if (!redstoneAllows(context)) {
                     idle(context, 20);
                     return;
                 }
@@ -245,6 +257,7 @@ public final class UtilityBehaviors {
                         return at;
                     }
                     if (AIR.contains(block) || context.worldFluidAt(at) != null) continue;
+                    if (UtilityMachines.isPersonal(block)) return at; // nobody's beam opens someone's storage
                     float hardness = context.worldBlockHardness(at);
                     if (hardness < 0) return at; // unbreakable
                     if (!at.equals(this.target)) {

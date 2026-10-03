@@ -35,6 +35,9 @@ public final class UtilityMachines {
     /** The player (UUID) a personal chest or barrel belongs to; empty until someone opens it. */
     public static final MachineDataKey<String> OWNER = MachineDataKey.of("owner",
             VersionedCodec.builder(key("owner"), Codecs.STRING).build(), "");
+    /** Redstone control of the lasers: ignored, high (works while powered) or low (while not powered). */
+    public static final MachineDataKey<String> REDSTONE = MachineDataKey.of("redstone",
+            VersionedCodec.builder(key("redstone"), Codecs.STRING).build(), "ignored");
     /** Joules the chargepad gives each player standing on it, per tick. */
     public static final long CHARGEPAD_RATE = 1_024_000 / 20;
     private static final ResourcePredicate IS_FLUID = ResourcePredicate.category(MekanizedContent.FLUID);
@@ -99,16 +102,19 @@ public final class UtilityMachines {
                 .build());
         // Lasers fire out of their front; they take energy from the other sides.
         machines.add(MachineType.builder(key("laser"))
+                .data(REDSTONE)
                 .storage(StorageDefinition.tank("energy", 2_000_000).filter(IS_ENERGY))
                 .port(PortDefinition.builder("energy", "energy").direction(PortDirection.INPUT).filter(IS_ENERGY)
                         .sides(RelativeSide.BACK, RelativeSide.LEFT, RelativeSide.RIGHT, RelativeSide.TOP, RelativeSide.BOTTOM).group("energy").build())
                 .behavior(UtilityBehaviors.laser(5_000, false, false))
                 .build());
         machines.add(MachineType.builder(key("laser_amplifier"))
+                .data(REDSTONE)
                 .storage(StorageDefinition.tank("energy", 5_000_000_000L).filter(IS_ENERGY))
                 .behavior(UtilityBehaviors.laser(5_000_000, true, false))
                 .build());
         machines.add(MachineType.builder(key("laser_tractor_beam"))
+                .data(REDSTONE)
                 .storage(StorageDefinition.tank("energy", 5_000_000_000L).filter(IS_ENERGY))
                 .storage(StorageDefinition.slots("items", 27, 64).filter(Items.anyItem()))
                 .port(PortDefinition.builder("items", "items").direction(PortDirection.OUTPUT).group("items").build())

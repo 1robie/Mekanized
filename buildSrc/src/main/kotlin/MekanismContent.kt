@@ -145,6 +145,9 @@ internal class MekanismContent(
     val endgameIds = sortedSetOf<String>()
 
     // -- Phase 6 wave 2: storage and utility blocks ------------------------------------------------
+    /** Display-rendered blocks players walk on: a thin state with no collision instead of a full leaves block. */
+    private val THIN_STATES = mapOf("chargepad" to "pressure_plate")
+
     private val phase6Utility = (tiers + "creative").map { "${it}_bin" } + listOf("personal_chest", "personal_barrel", "chargepad",
         "fluidic_plenisher", "formulaic_assemblicator", "laser", "laser_amplifier", "laser_tractor_beam", "oredictionificator",
         "industrial_alarm")
@@ -202,7 +205,8 @@ internal class MekanismContent(
                 if (active != null) items["mekanized:display/$name/active"] = linkedMapOf<String, Any?>("model" to active)
                 // Factories: the four tiers of a kind share one state (and the basic tier's particles).
                 val factoryKind = factoryKinds.firstOrNull { name.endsWith("_${it}_factory") }
-                finalStates = if (factoryKind == null) singleAppearance(states, emptyModel(modelsRoot, name, inactive))
+                finalStates = if (factoryKind == null) singleAppearance(states, emptyModel(modelsRoot, name, inactive),
+                    autoState = THIN_STATES[name] ?: "tintable_leaves")
                 else singleAppearance(states, emptyModel(modelsRoot, "${factoryKind}_factory", "mekanized:block/factory/$factoryKind/basic"),
                     "mekanized_${factoryKind}_factory")
                 finalBehavior = behavior + ("display_item" to "mekanized:display/$name")
@@ -305,7 +309,9 @@ internal class MekanismContent(
             // Energy cubes: a Mekanism variant type keeping the vanilla part under "tier_model".
             val variant = raw.getAsJsonObject("tier_model") ?: raw
             val modelRef = variant.get("model")?.asString ?: return null
-            val model = if (needsLoader(modelRef)) (blockItemModel(name) ?: return null) else Ids.rename(modelRef)
+            // Drawn in code upstream (a loader, or the empty "nothing" model of the personal chest): the item model.
+            val model = if (needsLoader(modelRef) || modelRef.endsWith(":block/nothing")) (blockItemModel(name) ?: return null)
+            else Ids.rename(modelRef)
             val appearance = linkedMapOf<String, Any?>("path" to model)
             variant.get("x")?.asInt?.let { if (it != 0) appearance["x"] = Math.floorMod(it, 360) }
             variant.get("y")?.asInt?.let { if (it != 0) appearance["y"] = Math.floorMod(it, 360) }
@@ -317,6 +323,23 @@ internal class MekanismContent(
             }
         }
         if (values.isEmpty()) return mapOf("state" to appearances["default"])
+        // An active state that looks like the inactive one only makes the block flicker: drop it.
+        if ("active" in values && mapping.keys.filter { "active=true" in it }.all { key ->
+                sameLook(appearances, mapping, key, key.replace("active=true", "active=false")) }) {
+            values.remove("active")
+            val kept = mapping.keys.filter { "active=false" in it }
+            val newMapping = linkedMapOf<String, Any?>()
+            val newAppearances = linkedMapOf<String, Any?>()
+            for (key in kept) {
+                val stripped = key.split(",").filter { it != "active=false" }.joinToString(",")
+                val name = stripped.replace("=", "_").replace(",", "_").ifEmpty { "default" }
+                newAppearances[name] = appearances[(mapping[key] as Map<*, *>)["appearance"]]
+                if (stripped.isNotEmpty()) newMapping[stripped] = mapOf("appearance" to name)
+            }
+            if (values.isEmpty()) return mapOf("state" to newAppearances["default"])
+            mapping.clear(); mapping.putAll(newMapping)
+            appearances.clear(); appearances.putAll(newAppearances)
+        }
         val properties = linkedMapOf<String, Any?>()
         for ((property, options) in values) {
             properties[property] = when (property) {
@@ -326,6 +349,29 @@ internal class MekanismContent(
             }
         }
         return mapOf("states" to linkedMapOf("properties" to properties, "appearances" to appearances, "variants" to mapping))
+    }
+
+    /** Whether the variants [a] and [b] show the same model the same way (path, rotation, or identical model files). */
+    @Suppress("UNCHECKED_CAST")
+    private fun sameLook(appearances: Map<String, Any?>, mapping: Map<String, Any?>, a: String, b: String): Boolean {
+        fun model(key: String) = ((mapping[key] as Map<String, Any?>?)?.get("appearance")?.let { appearances[it] } as Map<String, Any?>?)
+            ?.get("model") as Map<String, Any?>?
+        val first = model(a) ?: return false
+        val second = model(b) ?: return false
+        if (first["x"] != second["x"] || first["y"] != second["y"]) return false
+        val pathA = first["path"] as String
+        val pathB = second["path"] as String
+        if (pathA == pathB) return true
+        val root = out.resolve("pack/resourcepack/assets/mekanized/models")
+        fun text(path: String) = root.resolve(path.substringAfter(":") + ".json").takeIf { it.isFile }?.readText()
+            ?.let { JsonParser.parseString(it) }
+        val jsonA = text(pathA) ?: return false
+        val jsonB = text(pathB) ?: return false
+        if (jsonA == jsonB) return true
+        // An active model that is only its inactive one as parent.
+        fun onlyParent(json: com.google.gson.JsonElement, parent: String) =
+            json.isJsonObject && json.asJsonObject.size() == 1 && json.asJsonObject.get("parent")?.asString == parent
+        return onlyParent(jsonA, pathB) || onlyParent(jsonB, pathA)
     }
 
     private fun needsLoader(modelRef: String): Boolean {
@@ -457,14 +503,19 @@ internal class MekanismContent(
 
     /** The same properties, every variant shown by one empty, non-occluding appearance. */
     @Suppress("UNCHECKED_CAST")
-    private fun singleAppearance(states: Map<String, Any?>, emptyModel: String, sharedId: String? = null): Map<String, Any?> {
+    private fun singleAppearance(states: Map<String, Any?>, emptyModel: String, sharedId: String? = null,
+                                 autoState: String = "tintable_leaves"): Map<String, Any?> {
         // The model is empty, so leaf tint does not matter: the larger tintable group keeps the scarce
         // non-tintable leaves for content that needs them. Blocks with the same sharedId share one state.
-        val autoState: Any = if (sharedId == null) "tintable_leaves" else mapOf("type" to "tintable_leaves", "id" to sharedId)
-        val appearance = mapOf("auto_state" to autoState, "model" to mapOf("path" to emptyModel))
+        val state: Any = if (sharedId == null) autoState else mapOf("type" to autoState, "id" to sharedId)
+        val appearance = mapOf("auto_state" to state, "model" to mapOf("path" to emptyModel))
         val nested = states["states"] as Map<String, Any?>? ?: return mapOf("state" to appearance)
-        val variants = (nested["variants"] as Map<String, Any?>).mapValues { mapOf("appearance" to "default") }
-        return mapOf("states" to linkedMapOf("properties" to nested["properties"], "appearances" to mapOf("default" to appearance),
+        // The display entity shows whether the machine works: an active property would only make block updates.
+        val properties = (nested["properties"] as Map<String, Any?>).filterKeys { it != "active" }
+        if (properties.isEmpty()) return mapOf("state" to appearance)
+        val variants = (nested["variants"] as Map<String, Any?>).keys.filter { "active=true" !in it }
+            .associate { key -> key.split(",").filter { it != "active=false" }.joinToString(",") to mapOf("appearance" to "default") }
+        return mapOf("states" to linkedMapOf("properties" to properties, "appearances" to mapOf("default" to appearance),
             "variants" to variants))
     }
 

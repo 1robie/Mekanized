@@ -184,16 +184,19 @@ final class MekanizedMenus {
         laser.put("info", display(4, "END_ROD", "<red>Laser", "<gray>Fires out of its front (5 kJ/t): breaks blocks,",
                 "<gray>or feeds a laser amplifier or tractor beam"));
         laser.put("energy", energyDisplay(22));
+        laser.put("redstone", redstoneControl(40));
         menus.add(new Menu("laser", laser));
         Map<String, String> amplifier = new LinkedHashMap<>();
         amplifier.put("info", display(4, "END_CRYSTAL", "<red>Laser Amplifier", "<gray>Gathers laser energy and fires it",
                 "<gray>out of its front while not powered by redstone"));
         amplifier.put("energy", energyDisplay(22));
+        amplifier.put("redstone", redstoneControl(40));
         menus.add(new Menu("laser_amplifier", amplifier));
         Map<String, String> tractor = new LinkedHashMap<>();
         tractor.put("info", display(4, "END_CRYSTAL", "<red>Laser Tractor Beam", "<gray>An amplifier that keeps",
                 "<gray>the drops of the blocks it breaks"));
-        tractor.put("energy", energyDisplay(8));
+        tractor.put("energy", energyDisplay(0));
+        tractor.put("redstone", redstoneControl(40));
         for (int i = 0; i < 27; i++) tractor.put("items-" + (i + 1), slotOf(9 + i, "items", i + 1, "Collected"));
         menus.add(new Menu("laser_tractor_beam", tractor));
 
@@ -462,6 +465,14 @@ final class MekanizedMenus {
         if (fuel) buttons.put("fuel", slot(11, "fuel", "Fuel"));
         buttons.put("state", display(15, "REDSTONE_TORCH", "<yellow>%zmenu_machineengine_state%"));
         return new Menu(machine, buttons);
+    }
+
+    /** Mekanism's redstone control: ignored, works while powered, works while not powered. */
+    private static String redstoneControl(int slot) {
+        return "    type: machineengine_data\n    data: redstone\n    values: [ignored, high, low]\n    slot: " + slot + "\n    update: true\n"
+                + item("REDSTONE_TORCH", "<red>Redstone control: <yellow>%zmenu_machineengine_data_redstone%",
+                "<gray>ignored: always works", "<gray>high: works while powered", "<gray>low: works while not powered",
+                "<dark_gray>Click to switch");
     }
 
     private static String energyDisplay(int slot) {
