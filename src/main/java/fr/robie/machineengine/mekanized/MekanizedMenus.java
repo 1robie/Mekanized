@@ -143,6 +143,15 @@ final class MekanizedMenus {
                 "<gray>Configurator on a port: input or output"));
         matrix.put("energy", energyDisplay(22));
         menus.add(new Menu("induction_casing", matrix));
+
+        Map<String, String> tower = new LinkedHashMap<>();
+        tower.put("info", display(4, "SUNFLOWER", "<gold>Thermal Evaporation Plant", "<gray>Water to brine, brine to liquid lithium.",
+                "<gray>Faster when taller, by day, and when dry"));
+        buckets(tower, "input", "Input", 10);
+        tower.put("output", tank(16, "output", "WATER_BUCKET", "<aqua>", "Output"));
+        tower.put("output-bucket", slotOf(25, "output_bucket", 1, "Empty bucket to fill from the output"));
+        tower.put("state", display(13, "REDSTONE_TORCH", "<yellow>%zmenu_machineengine_state%"));
+        menus.add(new Menu("thermal_evaporation_block", tower));
     }
 
     // -- Phase 4 ---------------------------------------------------------------------------------

@@ -228,7 +228,10 @@ ways that hide where they came from. Source: `https://github.com/mekanism/Mekani
   - Members re-check their structure when they load. The anchor re-checks every 5 seconds, which notices blocks placed inside or cells added.
   - The configurator switches an induction port between input and output; an output port pushes energy to its neighbors at the providers' rate.
   - Tests: `MultiblockTest` covers formation, the valve passing through, one fluid or chemical at a time, unforming and forming again, matrix capacity from cells, and an output port feeding a machine.
-  - Next: the Thermal Evaporation Plant.
+  - **Thermal Evaporation Plant** (built 2026-10-03, not yet tried in game):
+    - a 4x4 tower, 3 to 18 high, open at the top, with exactly one controller (the detector gained a fixed footprint, an open top and one required block);
+    - the anchor evaporates once a second by Mekanism's recipes (water to brine, brine to liquid lithium): 10 mB of input per tick per level, halved at night and again in rain (simpler than Mekanism's temperatures);
+    - valves fill the input and give the output; bucket slots for both.
 
 ### Phase 5: later, not in the first release
 Multiblocks (Dynamic Tank, Induction Matrix, Thermal Evaporation, Boiler, Fission, Fusion), Digital

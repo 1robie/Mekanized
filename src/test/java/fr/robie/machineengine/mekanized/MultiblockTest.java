@@ -29,6 +29,12 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 class MultiblockTest {
     private final CoreMachineEngine engine = TestEngine.builder()
             .addon(AddonRegistration.builder("Mekanized", "1.0.0").register(MekanizedContent::register).build())
+            .definitions(MekanizedChainTest::definitions, new fr.robie.machineengine.core.definition.DefinitionCompiler.ItemResolver() {
+                @Override
+                public fr.robie.machineengine.api.error.Result<ResourceVariant> item(Key id) {
+                    return fr.robie.machineengine.api.error.Result.ok(MekanizedChainTest.item(id.asString()));
+                }
+            })
             .start();
 
     @BeforeEach
@@ -119,6 +125,37 @@ class MultiblockTest {
         assertEquals(20_000, amount(chamber, "energy"), "an output port pushes into its neighbor (up to 256 kJ/t)");
         assertEquals(true, port.isActive(), "an output port shows Mekanism's output model (active)");
         assertEquals(1_000_000 - 20_000, amount(anchor, "energy"));
+    }
+
+    @Test
+    void aThermalEvaporationPlantTurnsWaterIntoBrine() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        WorldPosition controllerAt = FakeWorld.at(1, 65, 0);
+        WorldPosition valveAt = FakeWorld.at(2, 65, 0);
+        // A 4x4 tower, 3 high, open at the top.
+        for (int x = 0; x < 4; x++) for (int y = 64; y < 67; y++) for (int z = 0; z < 4; z++) {
+            boolean wall = x == 0 || x == 3 || z == 0 || z == 3 || y == 64;
+            if (!wall) continue;
+            WorldPosition at = FakeWorld.at(x, y, z);
+            String block = at.equals(controllerAt) ? "thermal_evaporation_controller"
+                    : at.equals(valveAt) ? "thermal_evaporation_valve" : "thermal_evaporation_block";
+            world.place(type(block), at, Direction.NORTH);
+        }
+        world.tick(3);
+        assertNotNull(Multiblocks.containing(valveAt), "a 4x4 open tower with one controller forms");
+        MachineInstanceImpl anchor = world.machine(FakeWorld.at(0, 64, 0));
+        assertEquals(3 * 16_000, capacity(anchor, "input"));
+
+        ResourceHandler valve = world.machine(valveAt).capability(Capabilities.RESOURCE_HANDLER, Direction.NORTH).orElseThrow();
+        assertEquals(16_000, insert(valve, MekanizedContent.fluid("water").variant(), 16_000, this.engine));
+        world.tick(45);
+        // Night (no environment headless): half heat, 2 levels: 200 mB of water per second, 20 mB of brine.
+        assertEquals(true, amount(anchor, "output") >= 40, "brine made: " + amount(anchor, "output"));
+        assertEquals(16_000 - amount(anchor, "output") * 10, amount(anchor, "input"), "10 mB of water per mB of brine");
+        try (Transaction transaction = this.engine.transactions().openOuter()) {
+            long taken = valve.extract(MekanizedContent.fluid("brine").variant(), 10, transaction);
+            assertEquals(10, taken, "the valve gives the output");
+        }
     }
 
     @Test

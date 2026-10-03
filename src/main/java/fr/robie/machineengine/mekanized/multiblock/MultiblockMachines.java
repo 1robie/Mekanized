@@ -40,6 +40,21 @@ public final class MultiblockMachines {
             block -> AIR.contains(block) || block.value().endsWith("_induction_cell") || block.value().endsWith("_induction_provider"),
             structure -> Map.of("energy", sum(structure, "_induction_cell", CELLS)));
 
+    /** Mekanism's evaporating recipes: water to brine, brine to liquid lithium. */
+    public static final fr.robie.machineengine.api.recipe.RecipeType<fr.robie.machineengine.api.recipe.ProcessingRecipe> EVAPORATING =
+            fr.robie.machineengine.api.recipe.RecipeType.of(key("evaporating"), fr.robie.machineengine.api.recipe.ProcessingRecipe.class);
+
+    /**
+     * A 4x4 tower, 3 to 18 blocks high, open at the top, with exactly one controller. The input tank
+     * holds 16,000 mB per level, the output 10,000 mB.
+     */
+    public static final Multiblocks.Type THERMAL_EVAPORATION = new Multiblocks.Type(key("thermal_evaporation"),
+            key("thermal_evaporation_block"),
+            Set.of(key("thermal_evaporation_block"), key("thermal_evaporation_valve"), key("thermal_evaporation_controller")),
+            AIR::contains,
+            structure -> Map.of("input", structure.height() * 16_000L, "output", 10_000L),
+            4, true, key("thermal_evaporation_controller"));
+
     private MultiblockMachines() {
     }
 
@@ -51,6 +66,30 @@ public final class MultiblockMachines {
     }
 
     public static void register(RegistrationContext context) {
+        context.recipeTypes().register(EVAPORATING);
+        List<Multiblocks.Type> tower = List.of(THERMAL_EVAPORATION);
+        // The tower's casing: the anchor evaporates; bucket slots for both tanks.
+        context.machineTypes().register(MachineType.builder(key("thermal_evaporation_block"))
+                .storage(StorageDefinition.tank("input", 1).filter(IS_FLUID))
+                .storage(StorageDefinition.tank("output", 1).filter(IS_FLUID))
+                .storage(StorageDefinition.slots("bucket_in", 1, 16).filter(Items.anyItem()))
+                .storage(StorageDefinition.slots("output_bucket", 1, 16).filter(Items.anyItem()))
+                .storage(StorageDefinition.slots("bucket_out", 1, 16).filter(Items.anyItem()))
+                .behavior(fr.robie.machineengine.mekanized.machine.ConvertingBehavior.of(
+                        MemberBehavior.frame(tower, new Evaporation(EVAPORATING), Evaporation.EVERY_TICKS),
+                        new fr.robie.machineengine.mekanized.machine.ConvertingBehavior.Conversion("bucket_in", "input",
+                                fr.robie.machineengine.mekanized.machine.ChemistryMachines.BUCKET_FILLING, "bucket_out"),
+                        new fr.robie.machineengine.mekanized.machine.ConvertingBehavior.Conversion("output_bucket", "output",
+                                fr.robie.machineengine.mekanized.machine.ChemistryMachines.BUCKET_DRAINING, "bucket_out")))
+                .build());
+        context.machineTypes().register(MachineType.builder(key("thermal_evaporation_valve"))
+                .storage(StorageDefinition.tank("fluid", 1).filter(IS_FLUID))
+                .port(PortDefinition.builder("fluid", "fluid").filter(IS_FLUID).group("fluid").build())
+                .behavior(MemberBehavior.valve(tower, List.of("input"), List.of("output")))
+                .build());
+        context.machineTypes().register(MachineType.builder(key("thermal_evaporation_controller"))
+                .behavior(MemberBehavior.frame(tower))
+                .build());
         List<Multiblocks.Type> tank = List.of(DYNAMIC_TANK);
         List<Multiblocks.Type> matrix = List.of(INDUCTION_MATRIX);
         // The tank's casing: the anchor holds the fluid or chemical, and has bucket slots.

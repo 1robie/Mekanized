@@ -38,7 +38,7 @@ final class MekanizedTools implements Listener {
 
     /** Multiblock frame blocks: they open their structure's menu (the anchor's). */
     private static final java.util.Set<String> MEMBERS = java.util.Set.of("dynamic_tank", "dynamic_valve", "structural_glass",
-            "induction_casing", "induction_port");
+            "induction_casing", "induction_port", "thermal_evaporation_block", "thermal_evaporation_valve", "thermal_evaporation_controller");
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onUse(PlayerInteractEvent event) {

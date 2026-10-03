@@ -36,9 +36,17 @@ public final class Multiblocks {
      * @param faces      blocks allowed in its walls: the casing, valves or ports, glass
      * @param interior   blocks allowed inside (air for a tank; cells and providers for the matrix)
      * @param capacities the anchor's storage capacities for a structure (per slot), by storage id
+     * @param width      the outer width and depth it must have (a 4x4 tower), or 0 for any
+     * @param openTop    no roof: the top layer is part of the interior, walls go round it
+     * @param controller a block that must be in the walls exactly once, or {@code null}
      */
     public record Type(@NotNull Key key, @NotNull Key casing, @NotNull Set<Key> faces, @NotNull Predicate<Key> interior,
-                       @NotNull Function<Structure, Map<String, Long>> capacities) {
+                       @NotNull Function<Structure, Map<String, Long>> capacities, int width, boolean openTop,
+                       @Nullable Key controller) {
+        public Type(@NotNull Key key, @NotNull Key casing, @NotNull Set<Key> faces, @NotNull Predicate<Key> interior,
+                    @NotNull Function<Structure, Map<String, Long>> capacities) {
+            this(key, casing, faces, interior, capacities, 0, false, null);
+        }
     }
 
     /** A formed structure: its box (walls included) and what its interior holds, by block id. */
@@ -56,7 +64,13 @@ public final class Multiblocks {
 
         /** Blocks inside: the volume. */
         public int volume() {
-            return (this.max.x() - this.min.x() - 1) * (this.max.y() - this.min.y() - 1) * (this.max.z() - this.min.z() - 1);
+            int height = this.max.y() - this.min.y() + 1 - (this.type.openTop() ? 1 : 2);
+            return (this.max.x() - this.min.x() - 1) * height * (this.max.z() - this.min.z() - 1);
+        }
+
+        /** Outer height in blocks. */
+        public int height() {
+            return this.max.y() - this.min.y() + 1;
         }
 
         public int count(@NotNull Key block) {
@@ -125,12 +139,16 @@ public final class Multiblocks {
             }
         }
         if (maxX - minX + 1 < MIN_SIZE || maxY - minY + 1 < MIN_SIZE || maxZ - minZ + 1 < MIN_SIZE) return null;
+        if (type.width() > 0 && (maxX - minX + 1 != type.width() || maxZ - minZ + 1 != type.width())) return null;
         Map<Key, Integer> interior = new HashMap<>();
+        int controllers = 0;
         for (int x = minX; x <= maxX; x++) {
             for (int y = minY; y <= maxY; y++) {
                 for (int z = minZ; z <= maxZ; z++) {
                     BlockPosition at = new BlockPosition(x, y, z);
-                    int onBounds = (x == minX || x == maxX ? 1 : 0) + (y == minY || y == maxY ? 1 : 0) + (z == minZ || z == maxZ ? 1 : 0);
+                    // An open top has no roof: its top layer is inside, walls round it.
+                    boolean yBound = y == minY || (y == maxY && !type.openTop());
+                    int onBounds = (x == minX || x == maxX ? 1 : 0) + (yBound ? 1 : 0) + (z == minZ || z == maxZ ? 1 : 0);
                     if (onBounds == 0) {
                         Key block = blockAt.apply(at);
                         if (block == null || !type.interior().test(block)) return null;
@@ -139,10 +157,13 @@ public final class Multiblocks {
                         return null; // a hole in the walls
                     } else if (onBounds >= 2 && !type.casing().equals(blockAt.apply(at))) {
                         return null; // edges and corners are casings
+                    } else if (type.controller() != null && type.controller().equals(blockAt.apply(at))) {
+                        controllers++;
                     }
                 }
             }
         }
+        if (type.controller() != null && controllers != 1) return null; // exactly one controller
         return new Structure(type, start.world(), new BlockPosition(minX, minY, minZ), new BlockPosition(maxX, maxY, maxZ), Map.copyOf(interior));
     }
 }

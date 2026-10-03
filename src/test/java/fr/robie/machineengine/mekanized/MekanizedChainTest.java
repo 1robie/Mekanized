@@ -47,7 +47,7 @@ class MekanizedChainTest {
     private static final List<String> DEFINITIONS = MekanizedPlugin.ENABLED_DEFINITIONS.stream()
             .sorted(java.util.Comparator.comparing((String name) -> name.startsWith("recipes_")).thenComparing(name -> name)).toList();
 
-    private static ResourceVariant item(String id) {
+    static ResourceVariant item(String id) {
         return Items.variant(new ItemData(Key.key(id), id.getBytes(StandardCharsets.UTF_8)));
     }
 
@@ -594,7 +594,7 @@ class MekanizedChainTest {
 
     // -- the generated definitions, read from the jar like the plugin installs them ---------------
 
-    private static List<DefinitionFile> definitions() {
+    static List<DefinitionFile> definitions() {
         List<DefinitionFile> files = new ArrayList<>();
         for (String name : DEFINITIONS) {
             try (InputStream in = MekanizedChainTest.class.getClassLoader().getResourceAsStream("mekanized/definitions/" + name)) {

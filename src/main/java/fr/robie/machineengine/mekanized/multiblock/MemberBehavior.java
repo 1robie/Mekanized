@@ -35,22 +35,42 @@ public final class MemberBehavior implements MachineBehavior {
             VersionedCodec.builder(MekanizedContent.key("port_mode"), Codecs.STRING).build(), "input");
     private static final long RECHECK_TICKS = 100;
 
+    /** Work an anchor does while its structure is formed (e.g. evaporating), every {@code everyTicks}. */
+    public interface AnchorTask {
+        void run(@NotNull MachineContext anchor, @NotNull Multiblocks.Structure structure);
+    }
+
     private final List<Multiblocks.Type> types;
     private final List<String> storages;
+    private final List<String> insertInto;
+    private final List<String> extractFrom;
     private final boolean exclusive;
     private final @Nullable ToLongFunction<Multiblocks.Structure> outputRate;
+    private final @Nullable AnchorTask task;
+    private final long taskTicks;
 
-    private MemberBehavior(List<Multiblocks.Type> types, List<String> storages, boolean exclusive,
-                           @Nullable ToLongFunction<Multiblocks.Structure> outputRate) {
+    private MemberBehavior(List<Multiblocks.Type> types, List<String> insertInto, List<String> extractFrom, boolean exclusive,
+                           @Nullable ToLongFunction<Multiblocks.Structure> outputRate, @Nullable AnchorTask task, long taskTicks) {
         this.types = List.copyOf(types);
-        this.storages = List.copyOf(storages);
+        this.insertInto = List.copyOf(insertInto);
+        this.extractFrom = List.copyOf(extractFrom);
+        java.util.LinkedHashSet<String> all = new java.util.LinkedHashSet<>(insertInto);
+        all.addAll(extractFrom);
+        this.storages = List.copyOf(all);
         this.exclusive = exclusive;
         this.outputRate = outputRate;
+        this.task = task;
+        this.taskTicks = taskTicks;
     }
 
     /** A casing or glass: finds the structure; anchors it when it is the lowest corner. */
     public static @NotNull MachineBehavior.Factory frame(@NotNull List<Multiblocks.Type> types) {
-        return type -> new MemberBehavior(types, List.of(), false, null);
+        return type -> new MemberBehavior(types, List.of(), List.of(), false, null, null, RECHECK_TICKS);
+    }
+
+    /** A casing whose anchor also runs {@code task} every {@code everyTicks} while the structure is formed. */
+    public static @NotNull MachineBehavior.Factory frame(@NotNull List<Multiblocks.Type> types, @NotNull AnchorTask task, long everyTicks) {
+        return type -> new MemberBehavior(types, List.of(), List.of(), false, null, task, everyTicks);
     }
 
     /**
@@ -58,13 +78,19 @@ public final class MemberBehavior implements MachineBehavior {
      * holds one of them at a time (a dynamic tank holds a fluid or a chemical).
      */
     public static @NotNull MachineBehavior.Factory valve(@NotNull List<Multiblocks.Type> types, @NotNull List<String> storages, boolean exclusive) {
-        return type -> new MemberBehavior(types, storages, exclusive, null);
+        return type -> new MemberBehavior(types, storages, storages, exclusive, null, null, RECHECK_TICKS);
+    }
+
+    /** A valve filling the anchor's {@code insertInto} storages and emptying its {@code extractFrom} ones. */
+    public static @NotNull MachineBehavior.Factory valve(@NotNull List<Multiblocks.Type> types, @NotNull List<String> insertInto,
+                                                         @NotNull List<String> extractFrom) {
+        return type -> new MemberBehavior(types, insertInto, extractFrom, false, null, null, RECHECK_TICKS);
     }
 
     /** An induction port: passes energy in, or (in output mode) pushes it out at {@code outputRate} per tick. */
     public static @NotNull MachineBehavior.Factory port(@NotNull List<Multiblocks.Type> types, @NotNull String storage,
                                                         @NotNull ToLongFunction<Multiblocks.Structure> outputRate) {
-        return type -> new MemberBehavior(types, List.of(storage), false, outputRate);
+        return type -> new MemberBehavior(types, List.of(storage), List.of(storage), false, outputRate, null, RECHECK_TICKS);
     }
 
     @Override
@@ -88,8 +114,9 @@ public final class MemberBehavior implements MachineBehavior {
                 structure = again;
                 Multiblocks.form(again);
                 again.type().capacities().apply(again).forEach(context::setStorageCapacity);
+                if (this.task != null) this.task.run(context, again);
             }
-            context.wakeIn(RECHECK_TICKS);
+            context.wakeIn(this.taskTicks);
         }
         boolean output = this.outputRate != null && "output".equals(context.get(PORT_MODE));
         context.setActive(structure != null && (this.outputRate == null || output));
@@ -154,10 +181,14 @@ public final class MemberBehavior implements MachineBehavior {
         }
 
         private List<ResourceHandler> targets() {
+            return targets(MemberBehavior.this.storages);
+        }
+
+        private List<ResourceHandler> targets(List<String> storages) {
             Multiblocks.Structure structure = Multiblocks.containing(this.context.machine().position());
             if (structure == null) return List.of();
             List<ResourceHandler> targets = new ArrayList<>();
-            for (String storage : MemberBehavior.this.storages) {
+            for (String storage : storages) {
                 this.context.storageAt(structure.anchor(), storage).ifPresent(targets::add);
             }
             return targets;
@@ -170,7 +201,7 @@ public final class MemberBehavior implements MachineBehavior {
         @Override
         public long insert(@NotNull ResourceVariant variant, long maxAmount, @NotNull TransactionContext transaction) {
             if (output()) return 0;
-            List<ResourceHandler> targets = targets();
+            List<ResourceHandler> targets = targets(MemberBehavior.this.insertInto);
             for (ResourceHandler target : targets) {
                 if (MemberBehavior.this.exclusive && othersHold(targets, target)) continue;
                 long inserted = target.insert(variant, maxAmount, transaction);
@@ -191,7 +222,7 @@ public final class MemberBehavior implements MachineBehavior {
         public long extract(@NotNull ResourceVariant variant, long maxAmount, @NotNull TransactionContext transaction) {
             if (MemberBehavior.this.outputRate != null && !output()) return 0; // an input port gives nothing
             long extracted = 0;
-            for (ResourceHandler target : targets()) {
+            for (ResourceHandler target : targets(MemberBehavior.this.extractFrom)) {
                 extracted += target.extract(variant, maxAmount - extracted, transaction);
                 if (extracted >= maxAmount) break;
             }

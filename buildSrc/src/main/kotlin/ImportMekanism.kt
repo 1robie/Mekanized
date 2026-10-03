@@ -353,6 +353,8 @@ internal class Recipes(
         "chemical_infusing" to Machine(1, 200, 3),
         "separating" to Machine(1, 400, 3),
         // Rotary recipes go both ways: split into one recipe type per direction (the machine's mode).
+        // The Thermal Evaporation Plant: no energy, its rate comes from its height and the sun (Phase 5a).
+        "evaporating" to Machine(1, 0, 5),
         "condensing" to Machine(1, 100, 3),
         "decondensing" to Machine(1, 100, 3),
         "reaction" to Machine(100, 0, 3),
@@ -368,7 +370,6 @@ internal class Recipes(
         "nucleosynthesizing" to "endgame (Phase 5)",
         "activating" to "endgame (Phase 5)",
         "centrifuging" to "endgame (Phase 5)",
-        "evaporating" to "multiblock (Phase 5)",
         "bin_insert" to "special recipe (bins handle it in code)",
         "bin_extract" to "special recipe (bins handle it in code)",
         "clear_configuration" to "special recipe (handled in code)",
@@ -428,7 +429,12 @@ internal class Recipes(
                     return
                 }
                 val machine = machines[kind] ?: throw Unsupported("recipe type $type has no converter")
-                machineRecipes[kind + "|" + id] = machineRecipe(kind, machine, json)
+                evaporating = kind == "evaporating"
+                machineRecipes[kind + "|" + id] = try {
+                    machineRecipe(kind, machine, json)
+                } finally {
+                    evaporating = false
+                }
                 report.count("machine recipes")
             }
         }
@@ -541,12 +547,17 @@ internal class Recipes(
         return mapOf("type" to fluidType(ref), "amount" to (json.get("amount")?.asLong ?: 1))
     }
 
+    /** Set while converting an evaporating recipe: its outputs are fluids. */
+    private var evaporating = false
+
     private fun output(field: String, json: JsonObject): Map<String, Any?> {
         val id = Ids.rename(json.get("id")?.asString ?: throw Unsupported("output without id"))
         return when {
             json.has("count") || field in setOf("main_output", "item_output", "secondary_output") || !json.has("amount") ->
                 mapOf("item" to id, "amount" to (json.get("count")?.asInt ?: 1))
             field == "fluid_output" -> mapOf("type" to fluidType(id), "amount" to json.get("amount").asLong)
+            // Evaporating makes fluids (brine, liquid lithium), under an "output" field like chemicals'.
+            evaporating -> mapOf("type" to fluidType(id), "amount" to json.get("amount").asLong)
             else -> mapOf("type" to id, "amount" to json.get("amount").asLong)
         }
     }

@@ -51,7 +51,9 @@ public final class MekanizedPlugin extends JavaPlugin {
             // Phase 3: chemical machines (4x and 5x ore processing), the rotary condensentrator, bucket slots.
             "recipes_oxidizing.yml", "recipes_chemical_infusing.yml", "recipes_injecting.yml", "recipes_dissolution.yml",
             "recipes_washing.yml", "recipes_crystallizing.yml", "recipes_separating.yml", "recipes_condensing.yml",
-            "recipes_decondensing.yml", "recipes_buckets.yml");
+            "recipes_decondensing.yml", "recipes_buckets.yml",
+            // Phase 5a: the Thermal Evaporation Plant.
+            "recipes_evaporating.yml");
 
     @Override
     public void onLoad() {

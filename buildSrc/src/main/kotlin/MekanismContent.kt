@@ -68,7 +68,7 @@ internal class MekanismContent(
             phase3Machines, phase3Transports, phase3Items, chemistryIds, nameKeys, membership)
         generateBlocks("logistics.yml", "Mekanized transporters, the logistical sorter, factories, tier installers and the configurator (Phase 4), generated from Mekanism (MIT).",
             phase4Machines, phase4Transports, phase4Items, logisticsIds, nameKeys, membership)
-        generateBlocks("multiblocks.yml", "Mekanized multiblocks: Dynamic Tank, Induction Matrix (Phase 5a), generated from Mekanism (MIT).",
+        generateBlocks("multiblocks.yml", "Mekanized multiblocks: Dynamic Tank, Induction Matrix, Thermal Evaporation Plant (Phase 5a), generated from Mekanism (MIT).",
             phase5Machines, mapOf(), listOf(), multiblockIds, nameKeys, membership, phase5Plain)
         val chemicals = chemicals()
         nameKeys += chemicals.map { "chemical.mekanism.$it" }
@@ -124,7 +124,8 @@ internal class MekanismContent(
 
     // -- Phase 5a: multiblocks ---------------------------------------------------------------------
     /** Frame blocks: machines (they find their structure and pass through to its storage). */
-    private val phase5Machines = listOf("dynamic_tank", "dynamic_valve", "structural_glass", "induction_casing", "induction_port")
+    private val phase5Machines = listOf("dynamic_tank", "dynamic_valve", "structural_glass", "induction_casing", "induction_port",
+        "thermal_evaporation_block", "thermal_evaporation_valve", "thermal_evaporation_controller")
     /** Interior blocks of the induction matrix: plain blocks the structure counts. */
     private val phase5Plain = tiers.flatMap { listOf("${it}_induction_cell", "${it}_induction_provider") }
 
