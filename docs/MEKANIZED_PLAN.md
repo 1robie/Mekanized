@@ -192,6 +192,18 @@ ways that hide where they came from. Source: `https://github.com/mekanism/Mekani
   - Transporters move items instantly, with no items drawn travelling along them. Restrictive and diversion transporters are not made yet.
   - Turning a machine with the configurator restarts its current operation.
 
+### Polish after Phase 4 (2026-10-03)
+- **Names in menus:** `%zmenu_machineengine_storage_<id>_name%` (and `_slot_<n>_name`) shows a resource's name. Addons name their resources through `ResourceNames`. Mekanized's are translated on each player's client: chemicals (`chemical.mekanized.*`), fluids (their liquid blocks, `block.mekanized.*`; vanilla water and lava), energy.
+- **Speed upgrades on one-tick recipes:** a `processes_per_tick` modifier. `ProcessingBehavior` completes that many one-tick processes per tick, each paying its own cost. Each speed upgrade adds one (washer, infuser, separator, rotary, oxidizer...).
+- **Energy cube core:** a `level_display` block option, a gauge inside the block (`<item>/1..<steps>` by how full a storage is, nothing when empty). Energy cubes show Mekanism's core, tinted with the tier's color, in 4 sizes.
+- **Energy cube parts:** the frame always shows, and each side's port and LEDs only while that side has a port (`side_display`). Ports are redrawn on every side configuration change (`MachineHost.portsChanged`). Mekanism's left and right, seen from the front, are swapped to MachineEngine's, seen from behind.
+- **Energy upgrades:** as in Mekanism, each one also enlarges the energy buffer by its base size (`StorageDefinition.capacityModifier`, a storage capacity that follows upgrades; upgrades are decoded before storages, so energy above the base size survives a reload).
+- **Machines facing up or down:** their sides follow the turned block. The front is the facing, the top faces south (up) or north (down), and left and right stay west and east.
+- **CraftEngine reloads:** block properties (active, facing) are read by name from the current state; property objects from before a reload no longer match.
+- **Left out:**
+  - restrictive and diversion transporters: they change Mekanism's per-item routing, and our networks move without paths;
+  - items drawn travelling along transporters: display entities moved every tick, too costly for busy servers.
+
 ### Phase 5: later, not in the first release
 Multiblocks (Dynamic Tank, Induction Matrix, Thermal Evaporation, Boiler, Fission, Fusion), Digital
 Miner, Teleporter, QIO, MekaSuit.

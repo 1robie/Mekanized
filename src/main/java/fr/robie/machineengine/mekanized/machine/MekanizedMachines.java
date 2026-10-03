@@ -48,13 +48,21 @@ public final class MekanizedMachines {
             COMBINING, METALLURGIC_INFUSING, PURIFYING, SAWING, CHEMICAL_CONVERSION, ENERGY_CONVERSION);
 
     // -- upgrades: an item with the same id installs them (machineengine_upgrades button) --------
-    /** Mekanism: each speed upgrade makes processes faster and costlier. */
+    /**
+     * Mekanism: each speed upgrade makes processes faster and costlier; machines whose recipes take a
+     * single tick (washer, infuser, separator...) run one more operation per tick instead.
+     */
     public static final UpgradeType SPEED = UpgradeType.of(key("upgrade_speed"), 8,
             Modifier.multiplyTotal(StandardModifiers.PROCESS_DURATION, -250),
-            Modifier.multiplyTotal(StandardModifiers.PROCESS_COST, 333));
-    /** Each energy upgrade lowers the energy a process costs. */
+            Modifier.multiplyTotal(StandardModifiers.PROCESS_COST, 333),
+            Modifier.add(StandardModifiers.PROCESSES_PER_TICK, 1));
+    /** A machine's energy buffer size, scaled by energy upgrades. */
+    public static final fr.robie.machineengine.api.upgrade.ModifierType ENERGY_CAPACITY =
+            fr.robie.machineengine.api.upgrade.ModifierType.nonNegative(key("energy_capacity"));
+    /** Mekanism: each energy upgrade lowers the energy a process costs and enlarges the energy buffer (+100 % of the base). */
     public static final UpgradeType ENERGY_UPGRADE = UpgradeType.of(key("upgrade_energy"), 8,
-            Modifier.multiplyTotal(StandardModifiers.PROCESS_COST, -200));
+            Modifier.multiplyTotal(StandardModifiers.PROCESS_COST, -200),
+            Modifier.addMultipliedBase(ENERGY_CAPACITY, 1_000));
 
     // -- energy transport ------------------------------------------------------------------------
     public static final NetworkType ENERGY_NETWORK = NetworkType.of(key("energy"), NetworkBehavior.distributing());
@@ -76,6 +84,7 @@ public final class MekanizedMachines {
     public static void register(RegistrationContext context) {
         RecipeFilters.attach(context);
         RECIPE_TYPES.forEach(context.recipeTypes()::register);
+        context.modifierTypes().register(ENERGY_CAPACITY);
         context.upgradeTypes().register(SPEED);
         context.upgradeTypes().register(ENERGY_UPGRADE);
         context.networkTypes().register(ENERGY_NETWORK);
@@ -170,7 +179,7 @@ public final class MekanizedMachines {
     static MachineType.Builder base(String name, long energy) {
         return MachineType.builder(key(name))
                 .data(EjectBehavior.EJECT)
-                .storage(StorageDefinition.tank("energy", energy).filter(IS_ENERGY))
+                .storage(StorageDefinition.tank("energy", energy).filter(IS_ENERGY).capacityModifier(ENERGY_CAPACITY))
                 .storage(StorageDefinition.slots("energy_slot", 1, 64)
                         .filter(RecipeFilters.inputOf(ENERGY_CONVERSION).or(EnergyItems.IS_ENERGY_ITEM)))
                 .port(PortDefinition.builder("energy", "energy").direction(PortDirection.INPUT).filter(IS_ENERGY).group("energy").build());

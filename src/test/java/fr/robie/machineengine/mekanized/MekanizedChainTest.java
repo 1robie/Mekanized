@@ -244,6 +244,35 @@ class MekanizedChainTest {
     }
 
     @Test
+    void energyUpgradesEnlargeTheBufferAndLowerTheCost() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        MachineInstanceImpl chamber = place(world, "enrichment_chamber");
+        world.runInRegionOf(HERE, () -> assertTrue(chamber.installUpgrade(MekanizedMachines.ENERGY_UPGRADE, 2).isOk()));
+        fill(chamber, "energy", MekanizedContent.ENERGY.stack(60_000)); // 20 kJ base, +100 % per upgrade
+        assertEquals(60_000, energy(chamber));
+        fill(chamber, "input", item("mekanized:osmium_ore").stack(1));
+        world.tick(201);
+        assertEquals(2, amount(chamber, "output", "mekanized:dust_osmium"));
+        assertEquals(60_000 - 200 * 32, energy(chamber), "50 J x 0.8 x 0.8 = 32 J per tick");
+
+        var saved = world.unload(HERE);
+        MachineInstanceImpl reloaded = (MachineInstanceImpl) world.load(HERE, saved);
+        assertEquals(60_000 - 200 * 32, energy(reloaded), "energy above the base capacity survives a reload");
+    }
+
+    @Test
+    void speedUpgradesRunOneTickRecipesSeveralTimesPerTick() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        MachineInstanceImpl separator = place(world, "electrolytic_separator");
+        separator.installUpgrade(MekanizedMachines.SPEED, 2);
+        fill(separator, "input", fluid("water", 1_000));
+        powered(world, 10, separator);
+        // 1 + 2 operations per tick, 2 mB of water each.
+        assertEquals(1_000 - 10 * 3 * 2, amountOfType(separator, "input", "fluid/water"));
+        assertEquals(10 * 3 * 2, amountOfType(separator, "output", "hydrogen"));
+    }
+
+    @Test
     void aRotaryCondensentratorGoesBothWays() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
         MachineInstanceImpl rotary = place(world, "rotary_condensentrator");

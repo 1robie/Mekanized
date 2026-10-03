@@ -70,6 +70,10 @@ internal class MekanismContent(
             phase4Machines, phase4Transports, phase4Items, logisticsIds, nameKeys, membership)
         val chemicals = chemicals()
         nameKeys += chemicals.map { "chemical.mekanism.$it" }
+        // Fluids are named by their liquid blocks (block.mekanism.brine).
+        nameKeys += source.resolve("src/datagen/generated").listFiles().orEmpty()
+            .flatMap { it.resolve("data/c/tags/fluid").listFiles().orEmpty().toList() }
+            .map { it.nameWithoutExtension }.filter { it != "gaseous" }.map { "block.mekanism.$it" }
         out.resolve("chemicals.txt").writeText(chemicals.joinToString("\n", postfix = "\n"))
         writeYaml(out.resolve("pack/configuration/lang.yml"),
             "Names of Mekanized items, blocks and chemicals in every language Mekanism ships (Mekanism, MIT).\n" +
@@ -171,6 +175,16 @@ internal class MekanismContent(
                 finalBehavior = behavior + ("display_item" to "mekanized:display/$name")
                 // Some blockstates turn the model even when facing north (separator 90, pump 180).
                 northRotation(states).let { if (it != 0) finalBehavior = finalBehavior + ("display_rotation" to it) }
+                // Energy cubes: Mekanism's glowing core, drawn in code, as a second display growing with the charge.
+                energyCoreTier(name)?.let { tier ->
+                    energyCore(modelsRoot, tier, items)
+                    finalBehavior = finalBehavior + mapOf("level_display" to "mekanized:display/energy_core/$tier",
+                        "level_storage" to "energy", "level_steps" to CORE_LEVELS)
+                    // Like Mekanism: the frame always, a side's port only while that side is configured.
+                    if (energyCubeParts(modelsRoot, tier, name, items)) {
+                        finalBehavior = finalBehavior + ("side_display" to "mekanized:display/$name/port")
+                    }
+                }
                 report.count("display-rendered blocks")
             }
             blocks[id] = linkedMapOf<String, Any?>(
@@ -284,6 +298,91 @@ internal class MekanismContent(
         fun model(name: String) = appearances[name]?.let { (it["model"] as Map<String, Any?>)["path"] as String }
         val inactive = model("facing_north_active_false") ?: model("facing_north") ?: allModels(states).first()
         return inactive to model("facing_north_active_true")
+    }
+
+    // -- energy cube core -------------------------------------------------------------------------
+
+    private val CORE_LEVELS = 4
+    /** Mekanism's tier colors (BaseTier), which tint the core. */
+    private val TIER_COLORS = mapOf("basic" to 0x55FF55, "advanced" to 0xAA0000, "elite" to 0x0000AA, "ultimate" to 0xAA00AA, "creative" to 0x202020)
+
+    /**
+     * The energy cube split as Mekanism's loader draws it: `<tier>/frame` (the display item of the block)
+     * and `<tier>/port_<side>` (connector, port and LEDs of a side, model sides as seen facing north).
+     */
+    private fun energyCubeParts(modelsRoot: File, tier: String, name: String, items: MutableMap<String, Any?>): Boolean {
+        val root = source.resolve("src/main/resources/assets/mekanism/models/block/energy_cube")
+        val base = root.resolve("base.json").takeIf { it.isFile } ?: return false
+        val json = JsonParser.parseString(Ids.renameInText(base.readText())).asJsonObject
+        val textures = json.getAsJsonObject("textures")?.deepCopy() ?: JsonObject()
+        root.resolve("$tier.json").takeIf { it.isFile }?.let { file ->
+            JsonParser.parseString(Ids.renameInText(file.readText())).asJsonObject.getAsJsonObject("textures")
+                ?.entrySet()?.forEach { (key, value) -> textures.add(key, value) }
+        }
+        val gson = com.google.gson.GsonBuilder().setPrettyPrinting().create()
+        fun write(part: String, elements: com.google.gson.JsonArray): String {
+            val model = JsonObject()
+            model.addProperty("parent", "minecraft:block/block")
+            model.add("textures", textures)
+            model.add("elements", elements)
+            val file = modelsRoot.resolve("block/energy_cube/$tier/$part.json")
+            file.parentFile.mkdirs()
+            file.writeText(gson.toJson(model))
+            return "mekanized:block/energy_cube/$tier/$part"
+        }
+        items["mekanized:display/$name"] = linkedMapOf<String, Any?>("model" to write("frame", json.getAsJsonArray("frame") ?: return false))
+        val ports = json.getAsJsonObject("ports") ?: return false
+        val leds = json.getAsJsonObject("leds")
+        for (side in listOf("front", "back", "left", "right", "top", "bottom")) {
+            // Mekanism's left and right are as seen facing the front; MachineEngine's from behind.
+            val mekanism = when (side) { "left" -> "right"; "right" -> "left"; else -> side }
+            val elements = com.google.gson.JsonArray()
+            ports.getAsJsonArray(mekanism)?.forEach { elements.add(it) }
+            leds?.getAsJsonArray(mekanism)?.forEach { elements.add(it) }
+            items["mekanized:display/$name/port/$side"] = linkedMapOf<String, Any?>("model" to write("port_$side", elements))
+        }
+        return true
+    }
+
+    private fun energyCoreTier(name: String): String? =
+        TIER_COLORS.keys.firstOrNull { name == "${it}_energy_cube" }
+
+    /**
+     * The core of a tier: Mekanism's grey `render/energy_core.png` tinted with the tier's color, as a
+     * cube turned 45 degrees, in [CORE_LEVELS] sizes (items `display/energy_core/<tier>/<level>`).
+     */
+    private fun energyCore(modelsRoot: File, tier: String, items: MutableMap<String, Any?>) {
+        val texture = out.resolve("pack/resourcepack/assets/mekanized/textures/block/energy_core/$tier.png")
+        if (!texture.isFile) {
+            val grey = javax.imageio.ImageIO.read(source.resolve("src/main/resources/assets/mekanism/render/energy_core.png")) ?: return
+            val color = TIER_COLORS.getValue(tier)
+            val tinted = java.awt.image.BufferedImage(grey.width, grey.height, java.awt.image.BufferedImage.TYPE_INT_ARGB)
+            for (x in 0 until grey.width) for (y in 0 until grey.height) {
+                val argb = grey.getRGB(x, y)
+                val level = (argb shr 16) and 0xFF
+                fun channel(shift: Int) = (((color shr shift) and 0xFF) * level / 255) shl shift
+                tinted.setRGB(x, y, (argb and 0xFF000000.toInt()) or channel(16) or channel(8) or channel(0))
+            }
+            texture.parentFile.mkdirs()
+            javax.imageio.ImageIO.write(tinted, "png", texture)
+        }
+        val gson = com.google.gson.GsonBuilder().setPrettyPrinting().create()
+        for (level in 1..CORE_LEVELS) {
+            val half = 1.0 + level * 1.0 // 4 to 10 pixels wide
+            val face = mapOf("uv" to listOf(0, 0, 16, 16), "texture" to "#core")
+            val model = linkedMapOf<String, Any>(
+                "parent" to "minecraft:block/block",
+                "textures" to mapOf("core" to "mekanized:block/energy_core/$tier", "particle" to "mekanized:block/energy_core/$tier"),
+                "elements" to listOf(linkedMapOf(
+                    "from" to listOf(8 - half, 8 - half, 8 - half), "to" to listOf(8 + half, 8 + half, 8 + half),
+                    "rotation" to mapOf("angle" to 45, "axis" to "y", "origin" to listOf(8, 8, 8)),
+                    "shade" to false,
+                    "faces" to listOf("north", "south", "east", "west", "up", "down").associateWith { face })))
+            val file = modelsRoot.resolve("block/energy_core/$tier/$level.json")
+            file.parentFile.mkdirs()
+            file.writeText(gson.toJson(model))
+            items["mekanized:display/energy_core/$tier/$level"] = linkedMapOf<String, Any?>("model" to "mekanized:block/energy_core/$tier/$level")
+        }
     }
 
     /** The y rotation of the "north, inactive" appearance, in degrees (0 to 270). */

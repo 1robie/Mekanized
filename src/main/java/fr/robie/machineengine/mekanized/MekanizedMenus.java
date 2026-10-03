@@ -263,13 +263,13 @@ final class MekanizedMenus {
 
     private static String tank(int slot, String storage, String material, String color, String name) {
         String prefix = "%zmenu_machineengine_storage_" + storage + "_";
-        return display(slot, material, color + name, "<gray>" + prefix + "resource%",
+        return display(slot, material, color + name, "<gray>" + prefix + "name%",
                 "<gray>" + prefix + "amount% / " + prefix + "capacity% mB", color + prefix + "bar%");
     }
 
     private static String chemicalSlot(int slot, String storage, int index, String name) {
         String prefix = "%zmenu_machineengine_storage_" + storage + "_slot_" + index + "_";
-        return display(slot, "GLASS_BOTTLE", "<light_purple>" + name, "<gray>" + prefix + "resource%",
+        return display(slot, "GLASS_BOTTLE", "<light_purple>" + name, "<gray>" + prefix + "name%",
                 "<gray>" + prefix + "amount% / " + prefix + "capacity% mB");
     }
 
@@ -293,7 +293,7 @@ final class MekanizedMenus {
         buttons.put("upgrades", upgrades());
         if (chemical != null) {
             buttons.put("chemical-slot", slot(30, "chemical_slot", chemical));
-            buttons.put("chemical", display(32, "GLASS_BOTTLE", "<light_purple>%zmenu_machineengine_storage_chemical_resource%",
+            buttons.put("chemical", display(32, "GLASS_BOTTLE", "<light_purple>%zmenu_machineengine_storage_chemical_name%",
                     "<gray>%zmenu_machineengine_storage_chemical_amount% / %zmenu_machineengine_storage_chemical_capacity% mB",
                     "<light_purple>%zmenu_machineengine_storage_chemical_bar%"));
         }

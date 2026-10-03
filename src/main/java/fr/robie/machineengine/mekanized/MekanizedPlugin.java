@@ -85,10 +85,24 @@ public final class MekanizedPlugin extends JavaPlugin {
         }
     }
 
+    /** Menu names of Mekanized resources, translated on each player's client (Mekanism's language files). */
+    private static String name(fr.robie.machineengine.api.resource.ResourceVariant variant) {
+        var type = variant.type();
+        if (type == MekanizedContent.ENERGY) return "Energy";
+        String value = type.key().value();
+        if (type.category() == MekanizedContent.CHEMICAL) return "<lang:chemical.mekanized." + value + ">";
+        if (type.category() == MekanizedContent.FLUID) {
+            String fluid = value.substring(value.indexOf('/') + 1);
+            return fluid.equals("water") || fluid.equals("lava") ? "<lang:block.minecraft." + fluid + ">" : "<lang:block.mekanized." + fluid + ">";
+        }
+        return null;
+    }
+
     @Override
     @SuppressWarnings("UnstableApiUsage")
     public void onEnable() {
         fr.robie.machineengine.mekanized.machine.EnergyItems.setAccess(new PaperEnergyItems());
+        fr.robie.machineengine.paper.ResourceNames.register(MekanizedPlugin::name);
         getServer().getPluginManager().registerEvents(new MekanizedTools(), this);
         MekanizedCommands commands = new MekanizedCommands(this);
         getLifecycleManager().registerEventHandler(io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents.COMMANDS,
