@@ -91,7 +91,7 @@ public final class ChemistryMachines {
         machines.add(MekanizedMachines.base("chemical_oxidizer", 20_000)
                 .storage(StorageDefinition.slots("input", 1, 64).filter(RecipeFilters.inputOf(OXIDIZING)))
                 .storage(chemicalTank("output", 10_000, IS_CHEMICAL))
-                .port(PortDefinition.builder("input", "input").direction(PortDirection.INPUT).build())
+                .port(PortDefinition.builder("input", "input").direction(PortDirection.INPUT).group("items").build())
                 .port(output("output", IS_CHEMICAL))
                 .upgradeSlots(2, ChemistryMachines::upgrade)
                 .behavior(withEnergy(process(OXIDIZING, List.of("input"))))
@@ -105,7 +105,7 @@ public final class ChemistryMachines {
                 .port(input("left", IS_CHEMICAL, RelativeSide.LEFT))
                 .port(input("right", IS_CHEMICAL, RelativeSide.RIGHT))
                 .port(PortDefinition.builder("output", "output").direction(PortDirection.OUTPUT).filter(IS_CHEMICAL)
-                        .sides(RelativeSide.FRONT).build())
+                        .sides(RelativeSide.FRONT).group("chemical").build())
                 .upgradeSlots(2, ChemistryMachines::upgrade)
                 .behavior(withEnergy(process(CHEMICAL_INFUSING, List.of("left", "right"))))
                 .build());
@@ -116,7 +116,7 @@ public final class ChemistryMachines {
                 .storage(StorageDefinition.slots("input", 1, 64).filter(RecipeFilters.inputOf(DISSOLUTION)))
                 .storage(chemicalTank("chemical", 10_000, IS_CHEMICAL.and(RecipeFilters.costOf(DISSOLUTION))))
                 .storage(chemicalTank("output", 10_000, IS_CHEMICAL))
-                .port(PortDefinition.builder("input", "input").direction(PortDirection.INPUT).build())
+                .port(PortDefinition.builder("input", "input").direction(PortDirection.INPUT).group("items").build())
                 .port(input("chemical", IS_CHEMICAL))
                 .port(output("output", IS_CHEMICAL))
                 .upgradeSlots(2, ChemistryMachines::upgrade)
@@ -138,7 +138,7 @@ public final class ChemistryMachines {
                 .storage(chemicalTank("input", 10_000, IS_CHEMICAL.and(RecipeFilters.usedBy(CRYSTALLIZING))))
                 .storage(StorageDefinition.slots("output", 1, 64).filter(Items.anyItem()))
                 .port(input("input", IS_CHEMICAL))
-                .port(PortDefinition.builder("output", "output").direction(PortDirection.OUTPUT).build())
+                .port(PortDefinition.builder("output", "output").direction(PortDirection.OUTPUT).group("items").build())
                 .upgradeSlots(2, ChemistryMachines::upgrade)
                 .behavior(withEnergy(process(CRYSTALLIZING, List.of("input"))))
                 .build());
@@ -154,9 +154,9 @@ public final class ChemistryMachines {
         machines.add(withBuckets(MekanizedMachines.base("rotary_condensentrator", 20_000), "fluid", 10_000, true, true, IS_FLUID, false)
                 .storage(chemicalTank("chemical", 10_000, IS_CHEMICAL))
                 .port(PortDefinition.builder("chemical", "chemical").direction(PortDirection.INPUT).filter(IS_CHEMICAL)
-                        .sides(RelativeSide.LEFT).build())
+                        .sides(RelativeSide.LEFT).group("chemical").build())
                 .port(PortDefinition.builder("fluid", "fluid").direction(PortDirection.OUTPUT).filter(IS_FLUID)
-                        .sides(RelativeSide.RIGHT).build())
+                        .sides(RelativeSide.RIGHT).group("fluid").build())
                 .data(ChemistryBehaviors.MODE)
                 .upgradeSlots(2, ChemistryMachines::upgrade)
                 .behavior(withEnergy(ChemistryBehaviors.rotary(
@@ -167,7 +167,7 @@ public final class ChemistryMachines {
         // Pumps water or lava source blocks from below: 100 J/t for one block a second.
         machines.add(withBuckets(MekanizedMachines.base("electric_pump", 40_000), "fluid", 10_000, false, true, IS_FLUID, false)
                 .port(PortDefinition.builder("fluid", "fluid").direction(PortDirection.OUTPUT).filter(IS_FLUID)
-                        .sides(RelativeSide.FRONT, RelativeSide.BACK, RelativeSide.LEFT, RelativeSide.RIGHT, RelativeSide.TOP).build())
+                        .sides(RelativeSide.FRONT, RelativeSide.BACK, RelativeSide.LEFT, RelativeSide.RIGHT, RelativeSide.TOP).group("fluid").build())
                 .upgradeSlots(2, ChemistryMachines::upgrade)
                 .behavior(withEnergy(ChemistryBehaviors.pump("fluid", "energy", 2_000, 20, 32), buckets("fluid", false, true)))
                 .build());
@@ -192,24 +192,33 @@ public final class ChemistryMachines {
     }
 
     private static PortDefinition input(String storage, ResourcePredicate filter, RelativeSide... sides) {
-        PortDefinition.Builder port = PortDefinition.builder(storage, storage).direction(PortDirection.INPUT).filter(filter);
+        PortDefinition.Builder port = PortDefinition.builder(storage, storage).direction(PortDirection.INPUT).filter(filter)
+                .group(groupOf(filter));
         if (sides.length > 0) port.sides(sides[0], java.util.Arrays.copyOfRange(sides, 1, sides.length));
         return port.build();
     }
 
     private static PortDefinition output(String storage, ResourcePredicate filter) {
-        return PortDefinition.builder(storage, storage).direction(PortDirection.OUTPUT).filter(filter).build();
+        return PortDefinition.builder(storage, storage).direction(PortDirection.OUTPUT).filter(filter).group(groupOf(filter)).build();
+    }
+
+    /** The side configuration group of a port carrying {@code filter}'s resources. */
+    static String groupOf(ResourcePredicate filter) {
+        if (filter == MekanizedMachines.IS_ENERGY) return "energy";
+        if (filter == IS_CHEMICAL) return "chemical";
+        if (filter == IS_FLUID) return "fluid";
+        return "items";
     }
 
     private static MachineBehavior.Factory process(RecipeType<ProcessingRecipe> recipes, List<String> inputs) {
         return ProcessingBehavior.of(recipes, new ProcessBinding(inputs, "output", List.of("energy")));
     }
 
-    /** The energy item slot of {@link MekanizedMachines#base}, then the given conversion slots. */
+    /** The energy item slot of {@link MekanizedMachines#base}, then the given conversion slots; auto-eject. */
     private static MachineBehavior.Factory withEnergy(MachineBehavior.Factory inner, ConvertingBehavior.Conversion... more) {
         List<ConvertingBehavior.Conversion> conversions = new ArrayList<>(List.of(more));
         conversions.addFirst(new ConvertingBehavior.Conversion("energy_slot", "energy", ENERGY_CONVERSION));
-        return ConvertingBehavior.of(inner, conversions.toArray(ConvertingBehavior.Conversion[]::new));
+        return EjectBehavior.of(ConvertingBehavior.of(inner, conversions.toArray(ConvertingBehavior.Conversion[]::new)));
     }
 
     /**
@@ -240,9 +249,9 @@ public final class ChemistryMachines {
                 .storage(chemicalTank("chemical", capacity, IS_CHEMICAL))
                 .storage(StorageDefinition.slots("chemical_slot", 1, 64).filter(RecipeFilters.inputOf(CHEMICAL_CONVERSION)))
                 .port(PortDefinition.builder("in", "chemical").direction(PortDirection.INPUT).filter(IS_CHEMICAL)
-                        .sides(RelativeSide.BACK, RelativeSide.LEFT, RelativeSide.RIGHT, RelativeSide.TOP, RelativeSide.BOTTOM).build())
+                        .sides(RelativeSide.BACK, RelativeSide.LEFT, RelativeSide.RIGHT, RelativeSide.TOP, RelativeSide.BOTTOM).group("chemical").build())
                 .port(PortDefinition.builder("out", "chemical").direction(PortDirection.OUTPUT).filter(IS_CHEMICAL)
-                        .sides(RelativeSide.FRONT).ratePerTick(output).build())
+                        .sides(RelativeSide.FRONT).ratePerTick(output).group("chemical").build())
                 .behavior(ConvertingBehavior.of(ChemistryBehaviors.tank("chemical", RelativeSide.FRONT, output, creative),
                         new ConvertingBehavior.Conversion("chemical_slot", "chemical", CHEMICAL_CONVERSION)))
                 .build();
@@ -255,9 +264,9 @@ public final class ChemistryMachines {
                         .filter(RecipeFilters.inputOf(BUCKET_FILLING).or(RecipeFilters.inputOf(BUCKET_DRAINING))))
                 .storage(StorageDefinition.slots("bucket_out", 1, 16).filter(Items.anyItem()))
                 .port(PortDefinition.builder("in", "fluid").direction(PortDirection.INPUT).filter(IS_FLUID)
-                        .sides(RelativeSide.TOP, RelativeSide.FRONT, RelativeSide.BACK, RelativeSide.LEFT, RelativeSide.RIGHT).build())
+                        .sides(RelativeSide.TOP, RelativeSide.FRONT, RelativeSide.BACK, RelativeSide.LEFT, RelativeSide.RIGHT).group("fluid").build())
                 .port(PortDefinition.builder("out", "fluid").direction(PortDirection.OUTPUT).filter(IS_FLUID)
-                        .sides(RelativeSide.BOTTOM).ratePerTick(output).build())
+                        .sides(RelativeSide.BOTTOM).ratePerTick(output).group("fluid").build())
                 .behavior(ConvertingBehavior.of(ChemistryBehaviors.tank("fluid", RelativeSide.BOTTOM, output, creative),
                         buckets("fluid", true, true)))
                 .build();

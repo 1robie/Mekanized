@@ -66,6 +66,8 @@ internal class MekanismContent(
             phase2Machines, phase2Transports, phase2Items, machineIds, nameKeys, membership)
         generateBlocks("chemistry.yml", "Mekanized chemical machines, tanks, tubes, pipes and the pump (Phase 3), generated from Mekanism (MIT).",
             phase3Machines, phase3Transports, phase3Items, chemistryIds, nameKeys, membership)
+        generateBlocks("logistics.yml", "Mekanized transporters, the logistical sorter, factories, tier installers and the configurator (Phase 4), generated from Mekanism (MIT).",
+            phase4Machines, phase4Transports, phase4Items, logisticsIds, nameKeys, membership)
         val chemicals = chemicals()
         nameKeys += chemicals.map { "chemical.mekanism.$it" }
         out.resolve("chemicals.txt").writeText(chemicals.joinToString("\n", postfix = "\n"))
@@ -104,6 +106,16 @@ internal class MekanismContent(
     /** Ids of Phase 3 content, for the recipe split. */
     val chemistryIds = sortedSetOf<String>()
 
+    // -- Phase 4: logistics, factories, tier installers, tools ------------------------------------
+    /** Mekanism's factory kinds: each runs several processes of one machine at once. */
+    val factoryKinds = listOf("smelting", "enriching", "crushing", "compressing", "combining", "purifying", "injecting", "infusing", "sawing")
+    private val phase4Machines = listOf("logistical_sorter") + tiers.flatMap { tier -> factoryKinds.map { "${tier}_${it}_factory" } }
+    private val phase4Transports = tiers.associate { "${it}_logistical_transporter" to 4 }
+    private val phase4Items = tiers.map { "${it}_tier_installer" } + "configurator"
+
+    /** Ids of Phase 4 content, for the recipe split. */
+    val logisticsIds = sortedSetOf<String>()
+
     private fun generateBlocks(fileName: String, header: String, machineNames: List<String>, transports: Map<String, Int>,
                                extraItems: List<String>, phaseIds: MutableSet<String>, nameKeys: MutableSet<String>,
                                membership: Map<String, Set<String>>) {
@@ -119,15 +131,17 @@ internal class MekanismContent(
             if (cable) {
                 // OBJ models upstream: drawn entirely by display entities (center and arms); the block is
                 // an empty sapling-type state: small hitbox, no collision, one state per cable.
-                val models = CableModels.write(modelsRoot, name, name, transports.getValue(name))
-                for (part in listOf("center") + CableModels.DIRECTIONS) {
-                    items["mekanized:cable_part/$name/$part"] = linkedMapOf<String, Any?>("model" to models.getValue(part))
+                // Transporters: Mekanism draws a glass layer over a see-through frame; the opaque textures
+                // (glass filled in) give the same look with one model.
+                val texture = if (name.endsWith("_logistical_transporter")) "opaque/$name" else name
+                val models = CableModels.write(modelsRoot, name, texture, transports.getValue(name))
+                for ((part, model) in models) {
+                    items["mekanized:cable_part/$name/$part"] = linkedMapOf<String, Any?>("model" to model)
                 }
-                // Every tier of a family shares one state (sapling states are scarce: 8 to 16): same
-                // empty model, with the basic tier's breaking particles.
-                val family = name.substringAfter("_")
-                states = mapOf("state" to mapOf("auto_state" to mapOf("type" to "sapling", "id" to "mekanized_$family"),
-                    "model" to mapOf("path" to emptyModel(modelsRoot, family, "mekanized:block/cable/basic_$family/center"))))
+                // Every transport shares one state (CraftEngine has only 8 sapling states): the same
+                // empty model, with the universal cable's breaking particles.
+                states = mapOf("state" to mapOf("auto_state" to mapOf("type" to "sapling", "id" to "mekanized_universal_cable"),
+                    "model" to mapOf("path" to emptyModel(modelsRoot, "universal_cable", "mekanized:block/cable/basic_universal_cable/center"))))
                 behavior = mapOf("type" to "machineengine:transport", "transport" to id, "connection_items" to "mekanized:cable_part/$name")
                 itemModel = models.getValue("center")
             } else {
@@ -149,7 +163,11 @@ internal class MekanismContent(
                 val (inactive, active) = displayModels(states)
                 items["mekanized:display/$name"] = linkedMapOf<String, Any?>("model" to inactive)
                 if (active != null) items["mekanized:display/$name/active"] = linkedMapOf<String, Any?>("model" to active)
-                finalStates = singleAppearance(states, emptyModel(modelsRoot, name, inactive))
+                // Factories: the four tiers of a kind share one state (and the basic tier's particles).
+                val factoryKind = factoryKinds.firstOrNull { name.endsWith("_${it}_factory") }
+                finalStates = if (factoryKind == null) singleAppearance(states, emptyModel(modelsRoot, name, inactive))
+                else singleAppearance(states, emptyModel(modelsRoot, "${factoryKind}_factory", "mekanized:block/factory/$factoryKind/basic"),
+                    "mekanized_${factoryKind}_factory")
                 finalBehavior = behavior + ("display_item" to "mekanized:display/$name")
                 // Some blockstates turn the model even when facing north (separator 90, pump 180).
                 northRotation(states).let { if (it != 0) finalBehavior = finalBehavior + ("display_rotation" to it) }
@@ -255,7 +273,7 @@ internal class MekanismContent(
             "src/datagen/generated/$module/assets/$module/models")
             .map { source.resolve("$it/$path.json") }.firstOrNull { it.isFile }?.readText()
             // energy_cube and composite models are flattened into vanilla ones by the import.
-            ?.let { "\"loader\"" in flattenLoaderModel(Ids.renameInText(it)) } ?: true
+            ?.let { "\"loader\"" in flattenLoaderModel(Ids.renameInText(it), mekanismModels(source)) } ?: true
     }
 
     /** The models of the "north, inactive" and "north, active" appearances (active is null if none). */
@@ -278,10 +296,11 @@ internal class MekanismContent(
 
     /** The same properties, every variant shown by one empty, non-occluding appearance. */
     @Suppress("UNCHECKED_CAST")
-    private fun singleAppearance(states: Map<String, Any?>, emptyModel: String): Map<String, Any?> {
+    private fun singleAppearance(states: Map<String, Any?>, emptyModel: String, sharedId: String? = null): Map<String, Any?> {
         // The model is empty, so leaf tint does not matter: the larger tintable group keeps the scarce
-        // non-tintable leaves for content that needs them.
-        val appearance = mapOf("auto_state" to "tintable_leaves", "model" to mapOf("path" to emptyModel))
+        // non-tintable leaves for content that needs them. Blocks with the same sharedId share one state.
+        val autoState: Any = if (sharedId == null) "tintable_leaves" else mapOf("type" to "tintable_leaves", "id" to sharedId)
+        val appearance = mapOf("auto_state" to autoState, "model" to mapOf("path" to emptyModel))
         val nested = states["states"] as Map<String, Any?>? ?: return mapOf("state" to appearance)
         val variants = (nested["variants"] as Map<String, Any?>).mapValues { mapOf("appearance" to "default") }
         return mapOf("states" to linkedMapOf("properties" to nested["properties"], "appearances" to mapOf("default" to appearance),
@@ -343,7 +362,9 @@ internal class MekanismContent(
 
     /** The model of a plain item definition (`minecraft:model`), else null (special items come later). */
     private fun itemModel(file: File): String? {
-        val model = JsonParser.parseString(file.readText()).asJsonObject.getAsJsonObject("model") ?: return null
+        var model = JsonParser.parseString(file.readText()).asJsonObject.getAsJsonObject("model") ?: return null
+        // A model chosen by a mod component (the configurator's modes): its fallback.
+        if (model.get("type")?.asString == "minecraft:select") model = model.getAsJsonObject("fallback") ?: return null
         if (model.get("type")?.asString != "minecraft:model") return null
         return model.get("model")?.asString
     }

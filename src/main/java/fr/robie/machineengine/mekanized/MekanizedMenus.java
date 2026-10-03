@@ -18,10 +18,68 @@ import java.util.Map;
  * player's client.
  */
 final class MekanizedMenus {
+    /**
+     * The side configuration menus, one per port group: {@code mekanized_side_config_<group>}. Machine
+     * menus and the configurator open the first group the machine has; tabs switch between groups.
+     */
+    static final String SIDE_MENU = "mekanized_side_config";
+    /** Port groups in tab order: id, item, name. */
+    static final String[][] GROUPS = {
+            {"items", "HOPPER", "<yellow>Items"}, {"energy", "REDSTONE", "<red>Energy"},
+            {"chemical", "GLASS_BOTTLE", "<light_purple>Chemicals"}, {"fluid", "WATER_BUCKET", "<aqua>Fluids"}};
+    /** The sides laid out like an unfolded cube: left, front, right and back in a row, top above the front, bottom below it. */
+    private static final Object[][] CROSS = {{"top", 12}, {"left", 20}, {"front", 21}, {"right", 22}, {"back", 23}, {"bottom", 30}};
+
     private MekanizedMenus() {
     }
 
-    private record Menu(String machine, Map<String, String> buttons) {
+    /** The side configuration menu to open for a machine with these port groups, or {@code null}. */
+    static String sideMenuFor(java.util.Set<String> groups) {
+        for (String[] group : GROUPS) {
+            if (groups.contains(group[0])) return SIDE_MENU + "_" + group[0];
+        }
+        return null;
+    }
+
+    private static String sideMenu(int index) {
+        String group = GROUPS[index][0];
+        StringBuilder yaml = new StringBuilder()
+                .append("# Mekanized side configuration of ").append(group).append(" (zMenu). Edit freely; delete to get the default back.\n")
+                .append("# machineengine_side: what a side does for a port group (input, output, both, none).\n")
+                .append("size: 45\n")
+                .append("name: \"<gray>Side configuration: ").append(GROUPS[index][2].replaceAll("<[^>]+>", "")).append("\"\n")
+                .append("update-interval: 500\n\nitems:\n")
+                .append("  background:\n    is-permanent: true\n    item:\n      material: GRAY_STAINED_GLASS_PANE\n      name: \" \"\n")
+                .append("    slots:\n      - 0-44\n");
+        yaml.append("  back:\n    type: machineengine_menu\n    slot: 0\n").append(item("ARROW", "<gray>Back to the machine"));
+        // Tabs: the groups this machine has; the open one is marked.
+        for (int i = 0; i < GROUPS.length; i++) {
+            String tab = GROUPS[i][0];
+            yaml.append("  tab-").append(tab).append(":\n    type: machineengine_menu\n    menu: ").append(SIDE_MENU).append("_").append(tab)
+                    .append("\n    group: ").append(tab).append("\n    slot: ").append(2 + i).append("\n")
+                    .append(item(GROUPS[i][1], (i == index ? "<white>▶ " : "") + GROUPS[i][2], i == index ? "<gray>Shown" : "<dark_gray>Click to show"));
+        }
+        yaml.append("  eject:\n    type: machineengine_data\n    data: eject\n    slot: 8\n    update: true\n")
+                .append(item("DISPENSER", "<gold>Auto-eject: %zmenu_machineengine_data_eject%",
+                        "<gray>Pushes outputs out of their output sides", "<dark_gray>Click to switch"));
+        for (Object[] entry : CROSS) {
+            String side = (String) entry[0];
+            String label = Character.toUpperCase(side.charAt(0)) + side.substring(1);
+            yaml.append("  side-").append(side).append(":\n    type: machineengine_side\n    side: ").append(side)
+                    .append("\n    group: ").append(group).append("\n    slot: ").append(entry[1]).append("\n    update: true\n")
+                    .append(item(GROUPS[index][1], "<white>" + label + ": <yellow>%zmenu_machineengine_side_" + group + "_" + side + "%",
+                            "<dark_gray>Click: input, output, both, none"));
+        }
+        yaml.append("  legend:\n").append(display(40, "PAPER", "<gray>Sides of the machine", "<dark_gray>Front: the face you placed it facing you",
+                "<dark_gray>Left and right as seen from the front"));
+        return yaml.toString();
+    }
+
+    /** @param sideSlot where the side configuration button goes */
+    private record Menu(String machine, Map<String, String> buttons, int sideSlot) {
+        Menu(String machine, Map<String, String> buttons) {
+            this(machine, buttons, 44);
+        }
     }
 
     static void install(Plugin plugin, EditableFiles files) {
@@ -33,6 +91,13 @@ final class MekanizedMenus {
                 if (files.install(file, yaml(menu).getBytes(StandardCharsets.UTF_8))) installed++;
             } catch (IOException e) {
                 plugin.getLogger().warning("Could not install the menu " + file.getFileName() + ": " + e.getMessage());
+            }
+        }
+        for (int i = 0; i < GROUPS.length; i++) {
+            try {
+                if (files.install(folder.resolve(SIDE_MENU + "_" + GROUPS[i][0] + ".yml"), sideMenu(i).getBytes(StandardCharsets.UTF_8))) installed++;
+            } catch (IOException e) {
+                plugin.getLogger().warning("Could not install the side configuration menu: " + e.getMessage());
             }
         }
         if (installed > 0) plugin.getLogger().info("Installed " + installed + " Mekanized machine menus in " + folder);
@@ -51,9 +116,58 @@ final class MekanizedMenus {
         menus.add(generator("heat_generator", true));
         menus.add(generator("bio_generator", true));
         menus.add(generator("solar_generator", false));
-        for (String tier : List.of("basic", "advanced", "elite", "ultimate", "creative")) menus.add(generator(tier + "_energy_cube", false));
+        for (String tier : List.of("basic", "advanced", "elite", "ultimate", "creative")) {
+            Menu cube = generator(tier + "_energy_cube", false);
+            cube.buttons().put("charge", slot(31, "charge", "Charge an Energy Tablet"));
+            menus.add(cube);
+        }
         chemistryMenus(menus);
+        logisticsMenus(menus);
         return menus;
+    }
+
+    // -- Phase 4 ---------------------------------------------------------------------------------
+
+    private static void logisticsMenus(List<Menu> menus) {
+        Map<String, String> sorter = new LinkedHashMap<>();
+        sorter.put("info", display(4, "HOPPER", "<yellow>Logistical sorter", "<gray>Pulls from the block behind it,",
+                "<gray>pushes out of its front.", "<gray>Only items like the filters pass (none: all)."));
+        for (int i = 1; i <= 9; i++) sorter.put("filter-" + i, slotOf(8 + i, "filter", i, "Filter " + i));
+        sorter.put("buffer", slot(22, "buffer", "In transit"));
+        menus.add(new Menu("logistical_sorter", sorter));
+
+        for (String tier : List.of("basic", "advanced", "elite", "ultimate")) {
+            int lanes = fr.robie.machineengine.mekanized.machine.LogisticsMachines.LANES_BY_TIER.get(tier);
+            for (var kind : fr.robie.machineengine.mekanized.machine.LogisticsMachines.KINDS) {
+                menus.add(factory(tier, lanes, kind));
+            }
+        }
+    }
+
+    /** Lanes in columns: input, progress, output (and the sawmill's second outputs); energy and extras on top. */
+    private static Menu factory(String tier, int lanes, fr.robie.machineengine.mekanized.machine.LogisticsMachines.Kind kind) {
+        Map<String, String> buttons = new LinkedHashMap<>();
+        buttons.put("energy-slot", slot(0, "energy_slot", "Energy item (redstone: 10 kJ each)"));
+        buttons.put("energy", energyDisplay(1));
+        if (kind.chemicalTank() > 0) {
+            buttons.put("chemical-slot", slot(3, "chemical_slot", kind.chemicalIsInput() ? "Infuse source" : "Chemical source"));
+            buttons.put("chemical", chemical(4, "chemical", kind.chemicalIsInput() ? "Infuse type" : "Chemical"));
+        }
+        if (kind.extraSlot()) buttons.put("extra", slot(6, "extra", "Second input (every lane)"));
+        buttons.put("upgrades", upgrades());
+        int first = (9 - lanes) / 2;
+        for (int lane = 0; lane < lanes; lane++) {
+            int column = first + lane;
+            buttons.put("input-" + (lane + 1), slot(9 + column, fr.robie.machineengine.mekanized.machine.FactoryBehavior.laneStorage(lane),
+                    "Lane " + (lane + 1)));
+            buttons.put("progress-" + (lane + 1), display(18 + column, "BLAZE_POWDER", "<yellow>Lane " + (lane + 1),
+                    "<gray>%zmenu_machineengine_data_lane_" + (lane + 1) + "% %"));
+            buttons.put("output-" + (lane + 1), slotOf(27 + column, "output", lane + 1, "Output"));
+            if (kind.outputsPerLane() > 1) {
+                buttons.put("output-" + (lanes + lane + 1), slotOf(36 + column, "output", lanes + lane + 1, "Secondary output"));
+            }
+        }
+        return new Menu(tier + "_" + kind.name() + "_factory", buttons, kind.outputsPerLane() > 1 ? 7 : 44);
     }
 
     // -- Phase 3 ---------------------------------------------------------------------------------
@@ -235,6 +349,9 @@ final class MekanizedMenus {
                 .append("  background:\n    is-permanent: true\n    item:\n      material: GRAY_STAINED_GLASS_PANE\n      name: \" \"\n")
                 .append("    slots:\n      - 0-44\n");
         menu.buttons().forEach((name, button) -> yaml.append("  ").append(name).append(":\n").append(button));
+        yaml.append("  side-config:\n    type: machineengine_menu\n    menu: ").append(SIDE_MENU)
+                .append("\n    groups: [items, energy, chemical, fluid]\n    slot: ").append(menu.sideSlot()).append("\n")
+                .append(item("COMPARATOR", "<gold>Side configuration", "<gray>Inputs, outputs and auto-eject per side"));
         return yaml.toString();
     }
 }

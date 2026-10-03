@@ -43,7 +43,8 @@ abstract class ImportMekanism : DefaultTask() {
         Assets(source, out.resolve("pack/resourcepack/assets/mekanized"), report).copy()
         val itemTags = Tags(source, out.resolve("definitions"), report).convert()
         val content = MekanismContent(source, out, itemTags, report).also { it.generate() }
-        val recipes = Recipes(source, out, report, content.ids, content.machineIds, content.chemistryIds, itemTags).also { it.convert() }
+        val recipes = Recipes(source, out, report, content.ids, content.machineIds, content.chemistryIds, content.logisticsIds, itemTags)
+            .also { it.convert() }
         writeAliases(out.resolve("definitions/vanilla_aliases.yml"), recipes.referencedTags + itemTags.keys, itemTags, report)
         source.resolve("LICENSE").copyTo(out.resolve("LICENSE-MEKANISM.txt"), overwrite = true)
         out.resolve("import-report.txt").writeText(report.format())
@@ -169,7 +170,7 @@ internal class Assets(private val source: File, private val target: File, privat
             return
         }
         if (file.extension == "json") {
-            val text = flattenLoaderModel(Ids.renameInText(file.readText()))
+            val text = flattenLoaderModel(Ids.renameInText(file.readText()), mekanismModels(source))
             if (file.extension == "json" && "\"loader\"" in text) {
                 report.skip("model needs a mod-side loader (NeoForge composite/obj); not usable by vanilla clients yet", relative)
             }
@@ -191,7 +192,30 @@ internal class Assets(private val source: File, private val target: File, privat
  * `mekanism:energy_cube` (frame, ports and leds lists) and `neoforge:composite` (child models with
  * their own textures, prefixed to avoid clashes). OBJ models and other loaders are left as they are.
  */
-internal fun flattenLoaderModel(text: String): String {
+/**
+ * Reads a renamed model reference (`mekanized:block/x`) from Mekanism's sources, renamed too; null if
+ * it is not one of Mekanism's models.
+ */
+internal fun mekanismModels(source: File): (String) -> JsonObject? = { ref ->
+    if (!ref.startsWith("mekanized:")) null
+    else listOf("src/main/resources/assets/mekanism", "src/generators/resources/assets/mekanismgenerators",
+        "src/datagen/generated/mekanism/assets/mekanism", "src/datagen/generated/mekanismgenerators/assets/mekanismgenerators")
+        .map { source.resolve("$it/models/${ref.removePrefix("mekanized:")}.json") }.firstOrNull { it.isFile }
+        ?.let { JsonParser.parseString(Ids.renameInText(it.readText())).asJsonObject }
+}
+
+/** A child model's elements and textures, following `parent` references to the first model with elements. */
+private fun inlineParents(child: JsonObject, resolve: (String) -> JsonObject?, depth: Int = 0): JsonObject {
+    if (child.has("elements") || depth > 8) return child
+    val parent = child.get("parent")?.asString?.let(resolve) ?: return child
+    val inlined = inlineParents(parent, resolve, depth + 1).deepCopy()
+    val textures = inlined.getAsJsonObject("textures") ?: JsonObject().also { inlined.add("textures", it) }
+    child.getAsJsonObject("textures")?.entrySet()?.forEach { (key, value) -> textures.add(key, value) } // the child wins
+    inlined.remove("parent")
+    return inlined
+}
+
+internal fun flattenLoaderModel(text: String, resolve: (String) -> JsonObject? = { null }): String {
     val json = runCatching { JsonParser.parseString(text).asJsonObject }.getOrNull() ?: return text
     val loader = json.get("loader")?.asString ?: return text
     val elements = com.google.gson.JsonArray()
@@ -212,7 +236,8 @@ internal fun flattenLoaderModel(text: String): String {
             val textures = json.getAsJsonObject("textures") ?: JsonObject().also { json.add("textures", it) }
             val children = json.remove("children")?.asJsonObject ?: return text
             for ((childName, childValue) in children.entrySet()) {
-                val child = childValue.asJsonObject
+                // Factories: a child is just a parent reference (the machine base, the tier's LED).
+                val child = inlineParents(childValue.asJsonObject, resolve)
                 val prefix = childName.replace(Regex("[^a-z0-9_]"), "_") + "_"
                 child.getAsJsonObject("textures")?.entrySet()?.forEach { (key, texture) -> textures.add(prefix + key, texture) }
                 child.getAsJsonArray("elements")?.forEach { element ->
@@ -261,6 +286,8 @@ internal class Recipes(
     private val machineIds: Set<String>,
     /** Phase 3 content: CraftEngine recipes needing it (and earlier phases) go into the `chemistry_` files. */
     private val chemistryIds: Set<String>,
+    /** Phase 4 content: CraftEngine recipes needing it (and earlier phases) go into the `logistics_` files. */
+    private val logisticsIds: Set<String>,
     private val itemTags: Map<String, List<String>>,
 ) {
     /**
@@ -533,6 +560,7 @@ internal class Recipes(
             ingredients.all { it in contentIds } -> "materials_$group"
             ingredients.all { it in contentIds || it in machineIds } -> "machines_$group"
             ingredients.all { it in contentIds || it in machineIds || it in chemistryIds } -> "chemistry_$group"
+            ingredients.all { it in contentIds || it in machineIds || it in chemistryIds || it in logisticsIds } -> "logistics_$group"
             else -> group
         }
         craftEngineRecipes["$file|$id"] = recipe.toMutableMap()

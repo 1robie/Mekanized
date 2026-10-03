@@ -83,6 +83,7 @@ public final class MekanizedMachines {
         machines().forEach(context.machineTypes()::register);
         context.recipes(FurnaceRecipes::provide);
         ChemistryMachines.register(context);
+        LogisticsMachines.register(context);
     }
 
     static List<MachineType> machines() {
@@ -95,7 +96,7 @@ public final class MekanizedMachines {
         // Combiner: a second item input.
         machines.add(processing("combiner", COMBINING, 40_000, 1, "extra")
                 .storage(StorageDefinition.slots("extra", 1, 64).filter(RecipeFilters.inputOf(COMBINING)))
-                .port(PortDefinition.builder("extra", "extra").direction(PortDirection.INPUT).build())
+                .port(PortDefinition.builder("extra", "extra").direction(PortDirection.INPUT).group("items").build())
                 .build());
         // Chemical machines: a tank fed by its item slot, used per tick (compressor, purification)
         // or as an input (infuser's infuse types).
@@ -105,13 +106,13 @@ public final class MekanizedMachines {
         // Generators.
         machines.add(generator("heat_generator", 160_000)
                 .storage(StorageDefinition.slots("fuel", 1, 64).filter(Items.anyItem()))
-                .port(PortDefinition.builder("fuel", "fuel").direction(PortDirection.INPUT).build())
+                .port(PortDefinition.builder("fuel", "fuel").direction(PortDirection.INPUT).group("items").build())
                 .data(EnergyBehaviors.BURN)
                 .behavior(EnergyBehaviors.fuelGenerator("fuel", 200, EnergyBehaviors.FURNACE_FUELS))
                 .build());
         machines.add(generator("bio_generator", 160_000)
                 .storage(StorageDefinition.slots("fuel", 1, 64).filter(Items.anyItem()))
-                .port(PortDefinition.builder("fuel", "fuel").direction(PortDirection.INPUT).build())
+                .port(PortDefinition.builder("fuel", "fuel").direction(PortDirection.INPUT).group("items").build())
                 .data(EnergyBehaviors.BURN)
                 .behavior(EnergyBehaviors.fuelGenerator("fuel", 350, EnergyBehaviors.BIO_FUELS))
                 .build());
@@ -133,11 +134,11 @@ public final class MekanizedMachines {
         return base(name, energy)
                 .storage(StorageDefinition.slots("input", 1, 64).filter(RecipeFilters.inputOf(recipes)))
                 .storage(StorageDefinition.slots("output", outputSlots, 64).filter(Items.anyItem()))
-                .port(PortDefinition.builder("input", "input").direction(PortDirection.INPUT).build())
-                .port(PortDefinition.builder("output", "output").direction(PortDirection.OUTPUT).build())
+                .port(PortDefinition.builder("input", "input").direction(PortDirection.INPUT).group("items").build())
+                .port(PortDefinition.builder("output", "output").direction(PortDirection.OUTPUT).group("items").build())
                 .upgradeSlots(2, upgrade -> upgrade.equals(SPEED) || upgrade.equals(ENERGY_UPGRADE))
-                .behavior(ConvertingBehavior.of(process,
-                        new ConvertingBehavior.Conversion("energy_slot", "energy", ENERGY_CONVERSION)));
+                .behavior(EjectBehavior.of(ConvertingBehavior.of(process,
+                        new ConvertingBehavior.Conversion("energy_slot", "energy", ENERGY_CONVERSION))));
     }
 
     /** Item in, item out, a chemical tank used per tick or as an input, fed by tubes or its item slot. */
@@ -153,13 +154,13 @@ public final class MekanizedMachines {
                 .storage(StorageDefinition.slots("output", 1, 64).filter(Items.anyItem()))
                 .storage(StorageDefinition.tank("chemical", tank).filter(chemicals))
                 .storage(StorageDefinition.slots("chemical_slot", 1, 64).filter(RecipeFilters.inputOf(CHEMICAL_CONVERSION)))
-                .port(PortDefinition.builder("input", "input").direction(PortDirection.INPUT).build())
-                .port(PortDefinition.builder("output", "output").direction(PortDirection.OUTPUT).build())
-                .port(PortDefinition.builder("chemical", "chemical").direction(PortDirection.INPUT).filter(IS_CHEMICAL).build())
+                .port(PortDefinition.builder("input", "input").direction(PortDirection.INPUT).group("items").build())
+                .port(PortDefinition.builder("output", "output").direction(PortDirection.OUTPUT).group("items").build())
+                .port(PortDefinition.builder("chemical", "chemical").direction(PortDirection.INPUT).filter(IS_CHEMICAL).group("chemical").build())
                 .upgradeSlots(2, upgrade -> upgrade.equals(SPEED) || upgrade.equals(ENERGY_UPGRADE))
-                .behavior(ConvertingBehavior.of(ProcessingBehavior.of(recipes, binding),
+                .behavior(EjectBehavior.of(ConvertingBehavior.of(ProcessingBehavior.of(recipes, binding),
                         new ConvertingBehavior.Conversion("chemical_slot", "chemical", CHEMICAL_CONVERSION),
-                        new ConvertingBehavior.Conversion("energy_slot", "energy", ENERGY_CONVERSION)));
+                        new ConvertingBehavior.Conversion("energy_slot", "energy", ENERGY_CONVERSION))));
     }
 
     /**
@@ -168,25 +169,28 @@ public final class MekanizedMachines {
      */
     static MachineType.Builder base(String name, long energy) {
         return MachineType.builder(key(name))
+                .data(EjectBehavior.EJECT)
                 .storage(StorageDefinition.tank("energy", energy).filter(IS_ENERGY))
-                .storage(StorageDefinition.slots("energy_slot", 1, 64).filter(RecipeFilters.inputOf(ENERGY_CONVERSION)))
-                .port(PortDefinition.builder("energy", "energy").direction(PortDirection.INPUT).filter(IS_ENERGY).build());
+                .storage(StorageDefinition.slots("energy_slot", 1, 64)
+                        .filter(RecipeFilters.inputOf(ENERGY_CONVERSION).or(EnergyItems.IS_ENERGY_ITEM)))
+                .port(PortDefinition.builder("energy", "energy").direction(PortDirection.INPUT).filter(IS_ENERGY).group("energy").build());
     }
 
     /** Energy buffer exposed as an output on every side. */
     private static MachineType.Builder generator(String name, long energy) {
         return MachineType.builder(key(name))
                 .storage(StorageDefinition.tank("energy", energy).filter(IS_ENERGY))
-                .port(PortDefinition.builder("energy", "energy").direction(PortDirection.OUTPUT).filter(IS_ENERGY).build());
+                .port(PortDefinition.builder("energy", "energy").direction(PortDirection.OUTPUT).filter(IS_ENERGY).group("energy").build());
     }
 
     private static MachineType cube(String name, long capacity, long output, boolean creative) {
         return MachineType.builder(key(name))
                 .storage(StorageDefinition.tank("energy", capacity).filter(IS_ENERGY))
+                .storage(StorageDefinition.slots("charge", 1, 1).filter(EnergyItems.IS_ENERGY_ITEM))
                 .port(PortDefinition.builder("in", "energy").direction(PortDirection.INPUT).filter(IS_ENERGY)
-                        .sides(RelativeSide.BACK, RelativeSide.LEFT, RelativeSide.RIGHT, RelativeSide.TOP, RelativeSide.BOTTOM).build())
+                        .sides(RelativeSide.BACK, RelativeSide.LEFT, RelativeSide.RIGHT, RelativeSide.TOP, RelativeSide.BOTTOM).group("energy").build())
                 .port(PortDefinition.builder("out", "energy").direction(PortDirection.OUTPUT).filter(IS_ENERGY)
-                        .sides(RelativeSide.FRONT).ratePerTick(output).build())
+                        .sides(RelativeSide.FRONT).ratePerTick(output).group("energy").build())
                 .behavior(EnergyBehaviors.cube(output, creative))
                 .build();
     }

@@ -156,6 +156,42 @@ ways that hide where they came from. Source: `https://github.com/mekanism/Mekani
 - **Factories and tiers:** factories in basic, advanced, elite and ultimate, and tier installers that upgrade a placed machine and keep its state.
 - **Tools:** Configurator, and an Energy Tablet that charges items.
 
+**Status: done (2026-10-02), not yet tried in game.**
+- **Engine:**
+  - Side configuration (E2): `MachineContext.setPortSides` / `portSides`, saved with the machine (`sides` in its data, only for ports moved from the type's sides). Ports have a `group` (Mekanized: items, energy, chemical, fluid); each side shows at most one port of a group. Networks and transport arms follow the configuration.
+  - Container blocks (`MachineHost.worldHandlerAt`): vanilla chests, barrels, shulker boxes, hoppers, dispensers and droppers are item handlers, changed in transactions (undone on abort). Machines push into them and read them as neighbors; networks only fill them, so two chests cannot pass items back and forth. Transports next to a changed block re-read their network's endpoints.
+  - Item batches: `NetworkBehavior.distributing(everyTicks)`.
+  - Changing a placed machine's type while keeping its state (E6): `CoreMachines.restoreAs`, and `MachineLocator.replaceBlock` on the CraftEngine host. It places the new block with the same (or a given) facing, and the new machine takes the contents over; nothing drops. The running process is cancelled first (its inputs go back).
+  - zMenu: `machineengine_side` (one side of a port group), `machineengine_menu` (another menu for the same machine, e.g. side configuration and back), `%zmenu_machineengine_side_<group>_<side>%`. A `machineengine_data` button hides on machines without that setting.
+  - `MachineLocator.current()` and `MachineMenuService.current()` let addons reach the host and the menus.
+- **Mekanized, in Java:**
+  - Auto-eject (`EjectBehavior`, the `eject` setting): outputs are pushed out of the sides their ports are on, into machines or containers.
+  - Logistical transporters, four tiers (8, 16, 32, 64 items every 10 ticks), on an item network.
+  - Logistical sorter: every 10 ticks it pulls up to a stack from the block behind it (a container or a machine's output), and pushes out of its front, into a machine, a container or a transporter. Nine filter slots: only matching items pass; with no filter, everything does.
+  - Factories (E7, `FactoryBehavior`): 9 kinds × 4 tiers (3, 5, 7 and 9 lanes). As in Mekanism, a lane counts progress, paying its energy (and chemical) each tick, and takes its inputs only when the operation completes. Items spread over empty lanes. Speed and energy upgrades apply. Lane 1 is the machine's own `input`, so upgrading keeps it.
+  - Tier installers: a machine becomes its basic factory, a factory its next tier, one tier at a time.
+  - Configurator: right-click opens the side configuration; sneak + right-click turns the machine (it keeps its contents; a running operation restarts).
+  - Energy Tablet (E4, `EnergyItems`): holds 1 MJ in the item's persistent data, shown in its lore. In a machine's energy slot it gives 10 kJ per tick; energy cubes have a charge slot that fills it at the cube's output rate.
+- **Generated:**
+  - `logistics.yml`: the sorter, 36 factories (composite models flattened, children's parent models inlined), transporters, tier installers and the configurator (a `select` item model: its fallback). 46 crafting recipes in `recipes_logistics_shaped.yml`.
+  - The four tiers of a factory kind share one leaves state (9 instead of 36), and every Mekanized transport shares the universal cable's sapling state (CraftEngine has only 8).
+  - A side configuration menu (`mekanized_side_config`): rows of items, energy, chemicals and fluids, one button per side, plus the auto-eject switch. Every machine menu opens it. Sorter and factory menus are generated too.
+- **Tests:** side configuration (moved ports, saved), auto-eject into a tank, a factory's 3 lanes at once, a tier upgrade keeping energy and input, a sorter feeding a chest through transporters with a filter, and a cube charging a tablet that powers a machine.
+- **Fixes after in-game testing (2026-10-02 and 03):**
+  - **Transport side modes** (Mekanism's connection types, `TransportSideMode`), set per transport side and saved with the block:
+    - default: machines in and out, containers only filled;
+    - pull: takes from the block;
+    - push: only fills it;
+    - none: disconnected, also from another transport (the network splits).
+  - **Configurator on transports:** it cycles the clicked side, or, on a container, the side of every transport touching it. Pull sides draw Mekanism's funnel arm and push sides its nozzle.
+  - **Side configuration by roles:** each side is input, output, both or none for a whole port group (every factory lane at once). There is one menu per group, with tabs, laid out as an unfolded cube.
+  - **Factories:** a lane uses whichever recipe input matches its item (Mekanism lists the infuse type first).
+  - **Furnace recipes:** ingredients of any kind are read, including 26.x item-type choices. The importer logs how many it registered.
+  - **Transporters:** drawn with Mekanism's opaque textures (it draws a glass layer that vanilla cannot).
+- **Known limits:**
+  - Transporters move items instantly, with no items drawn travelling along them. Restrictive and diversion transporters are not made yet.
+  - Turning a machine with the configurator restarts its current operation.
+
 ### Phase 5: later, not in the first release
 Multiblocks (Dynamic Tank, Induction Matrix, Thermal Evaporation, Boiler, Fission, Fusion), Digital
 Miner, Teleporter, QIO, MekaSuit.

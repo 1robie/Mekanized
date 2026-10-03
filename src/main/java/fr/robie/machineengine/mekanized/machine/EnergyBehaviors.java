@@ -93,12 +93,16 @@ public final class EnergyBehaviors {
         };
     }
 
-    /** Stores energy and pushes it out of its front at {@code outputPerTick}; sleeps while that moves nothing. */
+    /**
+     * Stores energy and pushes it out of its front at {@code outputPerTick}, and charges the energy item
+     * in its {@code charge} slot at the same rate; sleeps while that moves nothing.
+     */
     public static @NotNull MachineBehavior.Factory cube(long outputPerTick, boolean creative) {
         return type -> context -> {
             if (creative) insertEnergy(context, Long.MAX_VALUE / 4);
             PushResult result = context.push(RelativeSide.FRONT, ENERGY, IS_ENERGY, outputPerTick);
-            if (result.moved() == 0) context.sleep();
+            long charged = EnergyItems.transfer(context, "charge", ENERGY, outputPerTick, false);
+            if (result.moved() == 0 && charged == 0) context.sleep();
         };
     }
 

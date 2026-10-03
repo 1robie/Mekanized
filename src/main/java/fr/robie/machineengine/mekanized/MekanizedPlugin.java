@@ -35,7 +35,9 @@ public final class MekanizedPlugin extends JavaPlugin {
             // Phase 2: machines, generators, energy cubes, cables, upgrades and their crafting recipes.
             "configuration/machines.yml", "configuration/recipes_machines_shaped.yml",
             // Phase 3: chemical machines, tanks, tubes, pipes, the pump and their crafting recipes.
-            "configuration/chemistry.yml", "configuration/recipes_chemistry_shaped.yml");
+            "configuration/chemistry.yml", "configuration/recipes_chemistry_shaped.yml",
+            // Phase 4: transporters, the logistical sorter, factories, tier installers, the configurator.
+            "configuration/logistics.yml", "configuration/recipes_logistics_shaped.yml");
     /** Generated MachineEngine definitions installed so far (same rule as {@link #ENABLED_CONFIGURATION}). */
     static final java.util.Set<String> ENABLED_DEFINITIONS = java.util.Set.of(
             // Phase 1: item and chemical tags, and the vanilla members of c: tags.
@@ -86,6 +88,8 @@ public final class MekanizedPlugin extends JavaPlugin {
     @Override
     @SuppressWarnings("UnstableApiUsage")
     public void onEnable() {
+        fr.robie.machineengine.mekanized.machine.EnergyItems.setAccess(new PaperEnergyItems());
+        getServer().getPluginManager().registerEvents(new MekanizedTools(), this);
         MekanizedCommands commands = new MekanizedCommands(this);
         getLifecycleManager().registerEventHandler(io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents.COMMANDS,
                 event -> event.registrar().register(commands.build(), "Mekanized commands"));

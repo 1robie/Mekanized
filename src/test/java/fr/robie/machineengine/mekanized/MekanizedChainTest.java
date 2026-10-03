@@ -311,6 +311,243 @@ class MekanizedChainTest {
         assertEquals(2, amount(crystallizer, "output", "mekanized:salt"), "15 mB of brine per salt");
     }
 
+    // -- Phase 4: side configuration and auto-eject ----------------------------------------------
+
+    @Test
+    void sideConfigurationMovesPortsAndIsSaved() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        MachineInstanceImpl crusher = place(world, "crusher");
+        java.util.Set<fr.robie.machineengine.api.world.RelativeSide> left = java.util.EnumSet.of(fr.robie.machineengine.api.world.RelativeSide.LEFT);
+        crusher.context().setPortSides("output", left);
+        Direction west = fr.robie.machineengine.api.world.RelativeSide.LEFT.toAbsolute(Direction.NORTH);
+        Direction east = fr.robie.machineengine.api.world.RelativeSide.RIGHT.toAbsolute(Direction.NORTH);
+        fill(crusher, "output", item("mekanized:dust_osmium").stack(3));
+        assertEquals(3, extractThrough(crusher, west, "mekanized:dust_osmium", 3), "the output port is on the left now");
+        fill(crusher, "output", item("mekanized:dust_osmium").stack(3));
+        assertEquals(0, extractThrough(crusher, east, "mekanized:dust_osmium", 3), "and no longer on the right");
+
+        var saved = world.unload(HERE);
+        MachineInstanceImpl reloaded = (MachineInstanceImpl) world.load(HERE, saved);
+        assertEquals(left, reloaded.context().portSides("output"), "side configuration is saved with the machine");
+        assertEquals(java.util.EnumSet.allOf(fr.robie.machineengine.api.world.RelativeSide.class), reloaded.context().portSides("input"),
+                "ports left alone keep the type's sides");
+    }
+
+    @Test
+    void autoEjectPushesOutputsIntoNeighbors() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        MachineInstanceImpl oxidizer = world.place(type("chemical_oxidizer"), FakeWorld.at(0, 64, 0), Direction.NORTH);
+        // The tank's back (an input) touches the oxidizer.
+        MachineInstanceImpl tank = world.place(type("basic_chemical_tank"), FakeWorld.at(1, 64, 0), Direction.EAST);
+        fill(oxidizer, "input", item("mekanized:salt").stack(2));
+        powered(world, 105, oxidizer);
+        assertEquals(15, amountOfType(oxidizer, "output", "brine"), "without auto-eject the brine stays");
+        assertEquals(0, amountOfType(tank, "chemical", "brine"));
+
+        oxidizer.context().set(fr.robie.machineengine.mekanized.machine.EjectBehavior.EJECT, true);
+        oxidizer.wake(fr.robie.machineengine.api.machine.WakeReason.CONFIG_CHANGED);
+        powered(world, 105, oxidizer);
+        assertEquals(30, amountOfType(tank, "chemical", "brine"), "auto-eject pushed both batches into the tank");
+        assertEquals(0, amountOfType(oxidizer, "output", "brine"));
+    }
+
+    @Test
+    void aFactoryRunsItsLanesAtOnce() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        MachineInstanceImpl factory = place(world, "basic_enriching_factory");
+        fill(factory, "input", item("mekanized:osmium_ore").stack(3));
+        powered(world, 205, factory);
+        assertEquals(6, amount(factory, "output", "mekanized:dust_osmium"), "3 ores spread over 3 lanes, enriched at once");
+        for (String lane : List.of("input", "input_2", "input_3")) {
+            assertEquals(0, amount(factory, lane, "mekanized:osmium_ore"), lane + " used its ore");
+        }
+    }
+
+    @Test
+    void anInfusingFactoryUsesItsInfuseType() {
+        // Mekanism lists the infuse type before the item: a lane must still find its recipe.
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        MachineInstanceImpl factory = place(world, "basic_infusing_factory");
+        fill(factory, "chemical", chemical("redstone", 60));
+        fill(factory, "input", item("mekanized:ingot_osmium").stack(3));
+        powered(world, 205, factory);
+        assertEquals(3, amount(factory, "output", "mekanized:basic_control_circuit"), "3 lanes, 20 mB of redstone each");
+        assertEquals(0, amountOfType(factory, "chemical", "redstone"));
+    }
+
+    @Test
+    void aTierInstallerKeepsWhatTheMachineHolds() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        MachineInstanceImpl chamber = place(world, "enrichment_chamber");
+        fill(chamber, "energy", MekanizedContent.ENERGY.stack(15_000));
+        fill(chamber, "input", item("mekanized:osmium_ore").stack(5));
+        world.tick(20); // a process is running: it is cancelled, its ore given back
+        chamber.context().process().cancel();
+        var packed = this.engine.machines().pack(chamber).orElseThrow();
+        WorldPosition next = FakeWorld.at(5, 64, 0);
+        MachineInstanceImpl fresh = world.place(type("basic_enriching_factory"), next, Direction.NORTH);
+        MachineInstanceImpl factory = (MachineInstanceImpl) this.engine.machines().restoreAs(fresh, packed.state(), world);
+        assertEquals(type("basic_enriching_factory"), factory.type());
+        assertEquals(15_000 - 20 * 50, energy(factory), "energy carries over");
+        assertEquals(5, amount(factory, "input", "mekanized:osmium_ore"), "the input is lane 1's");
+        assertEquals(mekanizedKey("basic_enriching_factory"), fr.robie.machineengine.mekanized.machine.LogisticsMachines
+                .upgrade(mekanizedKey("enrichment_chamber"), "basic"));
+        assertEquals(mekanizedKey("advanced_enriching_factory"), fr.robie.machineengine.mekanized.machine.LogisticsMachines
+                .upgrade(mekanizedKey("basic_enriching_factory"), "advanced"));
+        assertEquals(null, fr.robie.machineengine.mekanized.machine.LogisticsMachines
+                .upgrade(mekanizedKey("enrichment_chamber"), "advanced"), "tiers go one at a time");
+    }
+
+    @Test
+    void aSorterFeedsAChestThroughTransporters() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        var from = fr.robie.machineengine.api.transfer.storage.CombinedResourceHandler.slots(3, 64);
+        var to = fr.robie.machineengine.api.transfer.storage.CombinedResourceHandler.slots(3, 64);
+        try (Transaction transaction = this.engine.transactions().openOuter()) {
+            from.insert(item("minecraft:cobblestone"), 10, transaction);
+            from.insert(item("minecraft:dirt"), 4, transaction);
+            transaction.commit();
+        }
+        world.setContainer(FakeWorld.at(0, 64, 0), from);
+        world.setContainer(FakeWorld.at(4, 64, 0), to);
+        MachineInstanceImpl sorter = world.place(type("logistical_sorter"), FakeWorld.at(1, 64, 0), Direction.EAST);
+        fill(sorter, "filter", item("minecraft:cobblestone").stack(1));
+        world.placeTransport(fr.robie.machineengine.mekanized.machine.LogisticsMachines.TRANSPORTERS.get(0), FakeWorld.at(2, 64, 0));
+        world.placeTransport(fr.robie.machineengine.mekanized.machine.LogisticsMachines.TRANSPORTERS.get(0), FakeWorld.at(3, 64, 0));
+        world.tick(60);
+        assertEquals(10, to.amountOf(item("minecraft:cobblestone")), "the sorter pulled the cobblestone, the transporters delivered it");
+        assertEquals(0, to.amountOf(item("minecraft:dirt")), "dirt does not match the filter");
+        assertEquals(4, from.amountOf(item("minecraft:dirt")));
+        assertEquals(0, from.amountOf(item("minecraft:cobblestone")));
+    }
+
+    @Test
+    void energyCubesChargeTabletsThatPowerMachines() {
+        // Headless: the charge is kept in the stand-in item's bytes ("id|joules").
+        fr.robie.machineengine.mekanized.machine.EnergyItems.setAccess(new fr.robie.machineengine.mekanized.machine.EnergyItems.Access() {
+            @Override
+            public long energy(ResourceVariant item) {
+                String text = new String(item.components().get(Items.DATA).data(), StandardCharsets.UTF_8);
+                return text.contains("|") ? Long.parseLong(text.substring(text.indexOf('|') + 1)) : 0;
+            }
+
+            @Override
+            public ResourceVariant withEnergy(ResourceVariant item, long energy) {
+                Key id = item.components().get(Items.DATA).item();
+                return Items.variant(new ItemData(id, (id.asString() + "|" + energy).getBytes(StandardCharsets.UTF_8)));
+            }
+        });
+        try {
+            FakeWorld world = FakeWorld.singleRegion(this.engine);
+            MachineInstanceImpl cube = place(world, "basic_energy_cube");
+            fill(cube, "energy", MekanizedContent.ENERGY.stack(100_000));
+            fill(cube, "charge", item("mekanized:energy_tablet").stack(1));
+            world.tick(10);
+            ResourceVariant tablet = cube.inspect().storages().get("charge").getFirst().variant();
+            assertEquals(40_000, fr.robie.machineengine.mekanized.machine.EnergyItems.capacity(tablet) > 0 ? chargeOf(tablet) : -1,
+                    "the basic cube charges at its output rate, 4 kJ per tick");
+            assertEquals(60_000, energy(cube));
+
+            MachineInstanceImpl chamber = world.place(type("enrichment_chamber"), FakeWorld.at(3, 64, 0), Direction.NORTH);
+            fill(chamber, "energy_slot", tablet.stack(1));
+            world.tick(2);
+            assertTrue(energy(chamber) >= 10_000, "the tablet powers the machine: " + energy(chamber));
+            assertEquals(40_000 - energy(chamber), chargeOf(chamber.inspect().storages().get("energy_slot").getFirst().variant()),
+                    "energy is conserved");
+        } finally {
+            fr.robie.machineengine.mekanized.machine.EnergyItems.setAccess(null);
+        }
+    }
+
+    private static long chargeOf(ResourceVariant tablet) {
+        String text = new String(tablet.components().get(Items.DATA).data(), StandardCharsets.UTF_8);
+        return text.contains("|") ? Long.parseLong(text.substring(text.indexOf('|') + 1)) : 0;
+    }
+
+    @Test
+    void transportSidesPullFromContainersAndFillOthers() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        var barrel = fr.robie.machineengine.api.transfer.storage.CombinedResourceHandler.slots(3, 64);
+        var chest = fr.robie.machineengine.api.transfer.storage.CombinedResourceHandler.slots(3, 64);
+        try (Transaction transaction = this.engine.transactions().openOuter()) {
+            barrel.insert(item("mekanized:osmium_ore"), 5, transaction);
+            transaction.commit();
+        }
+        WorldPosition transporter = FakeWorld.at(0, 65, 0);
+        world.setContainer(FakeWorld.at(0, 66, 0), barrel);
+        world.setContainer(FakeWorld.at(1, 65, 0), chest);
+        world.placeTransport(fr.robie.machineengine.mekanized.machine.LogisticsMachines.TRANSPORTERS.get(0), transporter);
+        var networks = this.engine.machines().networks();
+
+        world.tick(25);
+        assertEquals(5, barrel.amountOf(item("mekanized:osmium_ore")), "default: containers are only filled, never emptied");
+
+        networks.setSideMode(transporter, Direction.UP, fr.robie.machineengine.api.network.TransportSideMode.PULL);
+        world.tick(25);
+        assertEquals(5, chest.amountOf(item("mekanized:osmium_ore")), "a pull side empties the barrel into the chest");
+        assertEquals(0, barrel.amountOf(item("mekanized:osmium_ore")));
+
+        networks.setSideMode(transporter, Direction.EAST, fr.robie.machineengine.api.network.TransportSideMode.PULL);
+        networks.setSideMode(transporter, Direction.UP, fr.robie.machineengine.api.network.TransportSideMode.PUSH);
+        world.tick(25);
+        assertEquals(5, barrel.amountOf(item("mekanized:osmium_ore")), "and back: pull the chest, push into the barrel");
+
+        networks.setSideMode(transporter, Direction.UP, fr.robie.machineengine.api.network.TransportSideMode.NONE);
+        MachineInstanceImpl chamber = place(world, "enrichment_chamber"); // below the transporter, at (0, 64, 0)
+        try (Transaction transaction = this.engine.transactions().openOuter()) {
+            chest.insert(item("mekanized:osmium_ore"), 3, transaction);
+            transaction.commit();
+        }
+        world.tick(25);
+        long started = chamber.context().process().current() == null ? 0 : 1; // one ore may be in the running process
+        assertEquals(3, amount(chamber, "input", "mekanized:osmium_ore") + started, "the chest's pull side feeds the chamber");
+        assertEquals(5, barrel.amountOf(item("mekanized:osmium_ore")), "a side set to none is disconnected");
+    }
+
+    @Test
+    void aSideSetToNoneCutsTwoTransportsApart() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        var barrel = fr.robie.machineengine.api.transfer.storage.CombinedResourceHandler.slots(3, 64);
+        var chest = fr.robie.machineengine.api.transfer.storage.CombinedResourceHandler.slots(3, 64);
+        try (Transaction transaction = this.engine.transactions().openOuter()) {
+            barrel.insert(item("minecraft:cobblestone"), 6, transaction);
+            transaction.commit();
+        }
+        world.setContainer(FakeWorld.at(0, 64, 0), barrel);
+        world.setContainer(FakeWorld.at(3, 64, 0), chest);
+        WorldPosition first = FakeWorld.at(1, 64, 0);
+        WorldPosition second = FakeWorld.at(2, 64, 0);
+        var transporter = fr.robie.machineengine.mekanized.machine.LogisticsMachines.TRANSPORTERS.get(0);
+        world.placeTransport(transporter, first);
+        world.placeTransport(transporter, second);
+        var networks = this.engine.machines().networks();
+        networks.setSideMode(first, Direction.WEST, fr.robie.machineengine.api.network.TransportSideMode.PULL);
+        networks.setSideMode(first, Direction.EAST, fr.robie.machineengine.api.network.TransportSideMode.NONE);
+        world.tick(25);
+        assertEquals(0, chest.amountOf(item("minecraft:cobblestone")), "the two transporters are not linked");
+        assertEquals(6, barrel.amountOf(item("minecraft:cobblestone")));
+        assertEquals(java.util.Set.of(), networks.connections(second, world, List.of(item("minecraft:cobblestone")))
+                .stream().filter(side -> side == Direction.WEST).collect(java.util.stream.Collectors.toSet()), "no arm toward the cut side");
+
+        networks.setSideMode(first, Direction.EAST, fr.robie.machineengine.api.network.TransportSideMode.DEFAULT);
+        world.tick(25);
+        assertEquals(6, chest.amountOf(item("minecraft:cobblestone")), "linked again");
+    }
+
+    private static Key mekanizedKey(String name) {
+        return MekanizedContent.key(name);
+    }
+
+    private static long extractThrough(MachineInstanceImpl machine, Direction side, String itemId, long amount) {
+        var handler = machine.capability(fr.robie.machineengine.api.capability.Capabilities.RESOURCE_HANDLER, side);
+        if (handler.isEmpty()) return 0;
+        try (Transaction transaction = machine.services().transactions().openOuter()) {
+            long moved = handler.get().extract(item(itemId), amount, transaction);
+            transaction.commit();
+            return moved;
+        }
+    }
+
     /** Ticks {@code ticks}, keeping the machines' energy buffers full. */
     private static void powered(FakeWorld world, int ticks, MachineInstanceImpl... machines) {
         for (int done = 0; done < ticks; done += 20) {

@@ -38,6 +38,9 @@ public final class ConvertingBehavior implements MachineBehavior {
         }
     }
 
+    /** Joules an energy item gives a machine per tick. */
+    static final long DISCHARGE_PER_TICK = 10_000;
+
     private final MachineBehavior inner;
     private final List<Conversion> conversions;
 
@@ -56,6 +59,8 @@ public final class ConvertingBehavior implements MachineBehavior {
             while (convertOne(context, conversion)) {
                 // as many items as fit, in one tick
             }
+            // An energy item (Energy Tablet) in the energy slot powers the machine.
+            if (conversion.to().equals("energy")) EnergyItems.transfer(context, conversion.from(), "energy", DISCHARGE_PER_TICK, true);
         }
         this.inner.tick(context);
     }
