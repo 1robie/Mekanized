@@ -43,7 +43,9 @@ public final class MekanizedPlugin extends JavaPlugin {
             // Phase 6: the remaining single-block machines and generators.
             "configuration/endgame.yml", "configuration/recipes_endgame_shaped.yml",
             // Phase 6 wave 2: bins, personal storage, chargepad, plenisher, assemblicator, lasers, alarm.
-            "configuration/utility.yml");
+            "configuration/utility.yml",
+            // Phase 6 wave 3: heaters, conductors, boiler, turbine, fission and fusion reactors, SPS.
+            "configuration/reactors.yml", "configuration/recipes_reactors_shaped.yml");
     /** Generated MachineEngine definitions installed so far (same rule as {@link #ENABLED_CONFIGURATION}). */
     static final java.util.Set<String> ENABLED_DEFINITIONS = java.util.Set.of(
             // Phase 1: item and chemical tags, and the vanilla members of c: tags.

@@ -48,6 +48,8 @@ public final class MemberBehavior implements MachineBehavior {
     private final @Nullable ToLongFunction<Multiblocks.Structure> outputRate;
     private final @Nullable AnchorTask task;
     private final long taskTicks;
+    /** Modal valves and ports: by mode ({@link #PORT_MODE}), the anchor's storages given out; null for others. */
+    private @Nullable java.util.Map<String, List<String>> pushes;
 
     private MemberBehavior(List<Multiblocks.Type> types, List<String> insertInto, List<String> extractFrom, boolean exclusive,
                            @Nullable ToLongFunction<Multiblocks.Structure> outputRate, @Nullable AnchorTask task, long taskTicks) {
@@ -87,6 +89,23 @@ public final class MemberBehavior implements MachineBehavior {
         return type -> new MemberBehavior(types, insertInto, extractFrom, false, null, null, RECHECK_TICKS);
     }
 
+    /**
+     * A valve or port with modes (Mekanism's configurator cycles them): it fills the anchor's
+     * {@code insertInto} storages, and in each mode gives out the storages {@code pushes} lists for it
+     * (pushed to its neighbors, and taken by pipes). The block shows the mode ({@code mode} property,
+     * or {@code active} when not in {@code input}).
+     */
+    public static @NotNull MachineBehavior.Factory modal(@NotNull List<Multiblocks.Type> types, @NotNull List<String> insertInto,
+                                                         @NotNull java.util.Map<String, List<String>> pushes) {
+        return type -> {
+            List<String> all = new ArrayList<>();
+            pushes.values().forEach(all::addAll);
+            MemberBehavior behavior = new MemberBehavior(types, insertInto, all, false, null, null, RECHECK_TICKS);
+            behavior.pushes = java.util.Map.copyOf(pushes);
+            return behavior;
+        };
+    }
+
     /** An induction port: passes energy in, or (in output mode) pushes it out at {@code outputRate} per tick. */
     public static @NotNull MachineBehavior.Factory port(@NotNull List<Multiblocks.Type> types, @NotNull String storage,
                                                         @NotNull ToLongFunction<Multiblocks.Structure> outputRate) {
@@ -118,6 +137,19 @@ public final class MemberBehavior implements MachineBehavior {
             }
             context.wakeIn(this.taskTicks);
         }
+        if (this.pushes != null) {
+            String mode = context.get(PORT_MODE);
+            context.setBlockProperty("mode", mode);
+            context.setActive(!"input".equals(mode));
+            List<String> given = this.pushes.getOrDefault(mode, List.of());
+            if (structure != null && !given.isEmpty()) {
+                for (String storage : given) pushOut(context, structure, storage, Long.MAX_VALUE);
+                context.wakeIn(5);
+            } else if (structure == null || !structure.anchor().equals(here)) {
+                context.sleep();
+            }
+            return;
+        }
         boolean output = this.outputRate != null && "output".equals(context.get(PORT_MODE));
         context.setActive(structure != null && (this.outputRate == null || output));
         if (output && structure != null) {
@@ -142,9 +174,13 @@ public final class MemberBehavior implements MachineBehavior {
 
     /** Output port: the structure's energy into every neighbor, up to the providers' rate. */
     private void push(MachineContext context, Multiblocks.Structure structure) {
-        ResourceHandler source = context.storageAt(structure.anchor(), this.storages.getFirst()).orElse(null);
+        pushOut(context, structure, this.storages.getFirst(), this.outputRate.applyAsLong(structure));
+    }
+
+    /** The anchor's {@code storage} into every neighbor outside the structure, up to {@code budget}. */
+    private static void pushOut(MachineContext context, Multiblocks.Structure structure, String storage, long budget) {
+        ResourceHandler source = context.storageAt(structure.anchor(), storage).orElse(null);
         if (source == null) return;
-        long budget = this.outputRate.applyAsLong(structure);
         for (RelativeSide side : RelativeSide.values()) {
             if (budget <= 0) return;
             ResourceHandler target = context.neighbor(side, Capabilities.RESOURCE_HANDLER).orElse(null);
@@ -221,8 +257,10 @@ public final class MemberBehavior implements MachineBehavior {
         @Override
         public long extract(@NotNull ResourceVariant variant, long maxAmount, @NotNull TransactionContext transaction) {
             if (MemberBehavior.this.outputRate != null && !output()) return 0; // an input port gives nothing
+            List<String> from = MemberBehavior.this.pushes == null ? MemberBehavior.this.extractFrom
+                    : MemberBehavior.this.pushes.getOrDefault(this.context.get(PORT_MODE), List.of());
             long extracted = 0;
-            for (ResourceHandler target : targets(MemberBehavior.this.extractFrom)) {
+            for (ResourceHandler target : targets(from)) {
                 extracted += target.extract(variant, maxAmount - extracted, transaction);
                 if (extracted >= maxAmount) break;
             }

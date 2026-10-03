@@ -150,7 +150,7 @@ public final class EnergyBehaviors {
         };
     }
 
-    private static long consumeFuel(MachineContext context, String storage, List<Fuel> fuels) {
+    static long consumeFuel(MachineContext context, String storage, List<Fuel> fuels) {
         ResourceHandler slot = context.storage(storage);
         for (StorageView view : slot.views()) {
             if (view.isEmpty()) continue;

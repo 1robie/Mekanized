@@ -245,6 +245,19 @@ public final class UtilityBehaviors {
                     at = at.relative(facing);
                     Key block = context.blockAt(at);
                     if (block == null) return at; // not loaded: the beam stops
+                    if (block.equals(MekanizedContent.key("laser_focus_matrix"))) {
+                        // A fusion reactor's window: the beam heats its plasma (ignition).
+                        var structure = fr.robie.machineengine.mekanized.multiblock.Multiblocks.containing(new WorldPosition(origin.world(), at));
+                        if (structure != null) {
+                            context.storageAt(structure.anchor(), "ignition").ifPresent(ignition -> {
+                                try (Transaction transaction = context.transactions().openOuter()) {
+                                    ignition.insert(MekanizedContent.ENERGY.variant(), joules, transaction);
+                                    transaction.commit();
+                                }
+                            });
+                        }
+                        return at;
+                    }
                     if (LASER_RECEIVERS.contains(block.value()) && block.namespace().equals(MekanizedContent.NAMESPACE)) {
                         var receiver = context.storageAt(new WorldPosition(origin.world(), at), "energy");
                         if (receiver.isPresent()) {

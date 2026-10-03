@@ -74,6 +74,8 @@ internal class MekanismContent(
             phase6Machines, mapOf(), listOf(), endgameIds, nameKeys, membership)
         generateBlocks("utility.yml", "Mekanized bins, personal storage, chargepad, plenisher, assemblicator, lasers (Phase 6), generated from Mekanism (MIT).",
             phase6Utility, mapOf(), listOf(), endgameIds, nameKeys, membership)
+        generateBlocks("reactors.yml", "Mekanized heaters, thermodynamic conductors, boiler, turbine, fission and fusion reactors, SPS (Phase 6 wave 3), generated from Mekanism (MIT).",
+            phase7Machines, phase7Transports, phase7Items, reactorIds, nameKeys, membership)
         val chemicals = chemicals()
         nameKeys += chemicals.map { "chemical.mekanism.$it" }
         // Fluids are named by their liquid blocks (block.mekanism.brine).
@@ -145,6 +147,20 @@ internal class MekanismContent(
     val endgameIds = sortedSetOf<String>()
 
     // -- Phase 6 wave 2: storage and utility blocks ------------------------------------------------
+    // -- Phase 6 wave 3: heat, boiler, turbine, fission and fusion reactors, SPS -------------------
+    /** Frames, valves and ports, and the blocks inside the structures (machines too: their structure counts them). */
+    private val phase7Machines = listOf("resistive_heater", "fuelwood_heater",
+        "boiler_casing", "boiler_valve", "pressure_disperser", "superheating_element",
+        "turbine_casing", "turbine_valve", "turbine_vent", "turbine_rotor", "rotational_complex", "electromagnetic_coil", "saturating_condenser",
+        "fission_reactor_casing", "fission_reactor_port", "fission_reactor_logic_adapter", "reactor_glass", "fission_fuel_assembly", "control_rod_assembly",
+        "fusion_reactor_controller", "fusion_reactor_frame", "fusion_reactor_port", "fusion_reactor_logic_adapter", "laser_focus_matrix",
+        "sps_casing", "sps_port", "supercharged_coil")
+    private val phase7Transports = tiers.associate { "${it}_thermodynamic_conductor" to 5 }
+    private val phase7Items = listOf("turbine_blade")
+
+    /** Ids of Phase 6 wave 3 content, for the recipe split. */
+    val reactorIds = sortedSetOf<String>()
+
     /** Display-rendered blocks players walk on: a thin state with no collision instead of a full leaves block. */
     private val THIN_STATES = mapOf("chargepad" to "pressure_plate")
 
@@ -191,7 +207,7 @@ internal class MekanismContent(
             // model), over one empty non-occluding state, however many facings it has. Non-occluding
             // states are scarce (about 117 slots), and the blocks around stay drawn (no seeing through walls).
             // Glass is a full cube that must not hide what is behind it: a non-occluding state.
-            val glass = name == "structural_glass"
+            val glass = name == "structural_glass" || name == "reactor_glass"
             val full = !cable && !glass && allModels(states).all { CableModels.isFullCube(modelsRoot, it) }
             val finalStates: Map<String, Any?>
             var finalBehavior = behavior
@@ -345,6 +361,8 @@ internal class MekanismContent(
             properties[property] = when (property) {
                 "facing" -> mapOf("type" to if (options.size == 4) "4-direction" else "6-direction", "default" to "north")
                 "active", "open" -> mapOf("type" to "boolean", "default" to false)
+                // Valves and ports: the machine shows its mode (MachineContext.setBlockProperty).
+                "mode" -> mapOf("type" to "string", "values" to options.toList(), "default" to (if ("input" in options) "input" else options.first()))
                 else -> return null
             }
         }

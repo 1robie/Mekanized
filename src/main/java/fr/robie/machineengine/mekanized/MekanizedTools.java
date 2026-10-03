@@ -38,7 +38,10 @@ final class MekanizedTools implements Listener {
 
     /** Multiblock frame blocks: they open their structure's menu (the anchor's). */
     private static final java.util.Set<String> MEMBERS = java.util.Set.of("dynamic_tank", "dynamic_valve", "structural_glass",
-            "induction_casing", "induction_port", "thermal_evaporation_block", "thermal_evaporation_valve", "thermal_evaporation_controller");
+            "induction_casing", "induction_port", "thermal_evaporation_block", "thermal_evaporation_valve", "thermal_evaporation_controller",
+            "boiler_casing", "boiler_valve", "turbine_casing", "turbine_valve", "turbine_vent", "fission_reactor_casing",
+            "fission_reactor_port", "fission_reactor_logic_adapter", "reactor_glass", "fusion_reactor_frame", "fusion_reactor_port",
+            "fusion_reactor_logic_adapter", "fusion_reactor_controller", "laser_focus_matrix", "sps_casing", "sps_port");
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onUse(PlayerInteractEvent event) {
@@ -48,6 +51,7 @@ final class MekanizedTools implements Listener {
         if (block == null) return;
         Key tool = item == null || item.getType().isAir() ? null : PaperItems.idOf(item);
         if (!event.getPlayer().isSneaking() && multiblock(event, block, tool)) return;
+        if (blades(event, block, item, tool)) return;
         if (tool == null) return;
         if (!tool.namespace().equals(MekanizedContent.NAMESPACE)) return;
         boolean installer = tool.value().endsWith(INSTALLER_SUFFIX);
@@ -115,15 +119,19 @@ final class MekanizedTools implements Listener {
         Key type = member.inspect().type();
         if (!type.namespace().equals(MekanizedContent.NAMESPACE) || !MEMBERS.contains(type.value())) return false;
         boolean configurator = tool != null && tool.equals(MekanizedContent.key("configurator"));
-        if (configurator && !type.value().equals("induction_port")) return false; // side configuration, turning
+        java.util.List<String> modes = type.value().equals("induction_port") ? java.util.List.of("input", "output")
+                : fr.robie.machineengine.mekanized.multiblock.ReactorMachines.MODES.get(type.value());
+        if (configurator && modes == null) return false; // side configuration, turning
         event.setCancelled(true);
         Player player = event.getPlayer();
         if (configurator) {
             var context = member.instance().context();
-            String mode = "output".equals(context.get(fr.robie.machineengine.mekanized.multiblock.MemberBehavior.PORT_MODE)) ? "input" : "output";
+            String current = context.get(fr.robie.machineengine.mekanized.multiblock.MemberBehavior.PORT_MODE);
+            String mode = modes.get((modes.indexOf(current) + 1) % modes.size());
             context.set(fr.robie.machineengine.mekanized.multiblock.MemberBehavior.PORT_MODE, mode);
             member.instance().wake(fr.robie.machineengine.api.machine.WakeReason.CONFIG_CHANGED);
-            player.sendActionBar(Component.text("Induction port: ", NamedTextColor.GRAY).append(Component.text(mode, NamedTextColor.YELLOW)));
+            player.sendActionBar(Component.text(type.value().replace('_', ' ') + ": ", NamedTextColor.GRAY)
+                    .append(Component.text(mode.replace('_', ' '), NamedTextColor.YELLOW)));
             return true;
         }
         var structure = fr.robie.machineengine.mekanized.multiblock.Multiblocks.containing(position);
@@ -135,6 +143,48 @@ final class MekanizedTools implements Listener {
             return true;
         }
         menus.open(player, anchor);
+        return true;
+    }
+
+    /**
+     * Turbine blades on a rotor: right-click with blades adds one (two at most), with an empty hand
+     * while sneaking takes one back.
+     *
+     * @return whether the click was handled
+     */
+    private static boolean blades(PlayerInteractEvent event, Block block, @org.jetbrains.annotations.Nullable ItemStack item,
+                                  @org.jetbrains.annotations.Nullable Key tool) {
+        MachineLocator locator = MachineLocator.current();
+        if (locator == null) return false;
+        LoadedMachine rotor = locator.machine(WorldPosition.of(block.getWorld().getKey(), block.getX(), block.getY(), block.getZ()));
+        if (rotor == null || rotor.instance() == null || !rotor.inspect().type().equals(MekanizedContent.key("turbine_rotor"))) return false;
+        Player player = event.getPlayer();
+        boolean add = tool != null && tool.equals(MekanizedContent.key("turbine_blade"));
+        boolean take = tool == null && player.isSneaking();
+        if (!add && !take) return false;
+        event.setCancelled(true);
+        var context = rotor.instance().context();
+        var storage = context.storage("blades");
+        try (var transaction = context.transactions().openOuter()) {
+            if (add) {
+                var variant = PaperItems.toResource(item).variant();
+                if (storage.insert(variant, 1, transaction) == 1) {
+                    transaction.commit();
+                    if (player.getGameMode() != GameMode.CREATIVE) item.setAmount(item.getAmount() - 1);
+                }
+            } else {
+                var held = storage.views().getFirst();
+                var blade = held.isEmpty() ? null : held.variant();
+                if (blade != null && storage.extract(blade, 1, transaction) == 1) {
+                    var stack = PaperItems.toItemStack(blade, 1);
+                    transaction.commit();
+                    if (stack != null) player.getInventory().addItem(stack).values()
+                            .forEach(left -> player.getWorld().dropItem(player.getLocation(), left));
+                }
+            }
+        }
+        long count = storage.views().stream().mapToLong(fr.robie.machineengine.api.transfer.StorageView::amount).sum();
+        player.sendActionBar(Component.text("Rotor blades: " + count + " / 2", NamedTextColor.YELLOW));
         return true;
     }
 

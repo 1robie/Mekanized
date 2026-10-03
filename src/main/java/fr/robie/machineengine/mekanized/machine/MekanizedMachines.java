@@ -96,6 +96,8 @@ public final class MekanizedMachines {
         LogisticsMachines.register(context);
         EndgameMachines.register(context);
         UtilityMachines.register(context);
+        HeatMachines.register(context);
+        fr.robie.machineengine.mekanized.multiblock.ReactorMachines.register(context);
         fr.robie.machineengine.mekanized.multiblock.MultiblockMachines.register(context);
     }
 

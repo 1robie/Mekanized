@@ -39,7 +39,11 @@ public final class MekanizedContent {
     public static final ResourceType ENERGY = ResourceType.of(key("energy"), ENERGY_CATEGORY);
     public static final ResourceCategory CHEMICAL = ResourceCategory.builder(key("chemical")).unit("mB").build();
     public static final ResourceCategory FLUID = ResourceCategory.builder(key("fluid")).unit("mB").build();
+    /** Heat in Joules: heaters make it, thermodynamic conductors carry it, boilers use it (Phase 6 wave 3). */
+    public static final ResourceCategory HEAT_CATEGORY = ResourceCategory.builder(key("heat")).unit("J").build();
+    public static final ResourceType HEAT = ResourceType.of(key("heat"), HEAT_CATEGORY);
     private static final Map<String, ResourceType> FLUIDS = new ConcurrentHashMap<>();
+    private static final Map<String, ResourceType> CHEMICALS = new ConcurrentHashMap<>();
 
     private MekanizedContent() {
     }
@@ -53,12 +57,19 @@ public final class MekanizedContent {
         return FLUIDS.get(name);
     }
 
+    /** The chemical {@code mekanized:<name>}, e.g. {@code steam}; {@code null} if there is none. */
+    public static @Nullable ResourceType chemical(@NotNull String name) {
+        return CHEMICALS.get(name);
+    }
+
     static void register(RegistrationContext context) {
         context.resourceCategories().register(ENERGY_CATEGORY);
         context.resourceTypes().register(ENERGY);
+        context.resourceCategories().register(HEAT_CATEGORY);
+        context.resourceTypes().register(HEAT);
         context.resourceCategories().register(CHEMICAL);
         for (String chemical : lines("mekanized/chemicals.txt")) {
-            context.resourceTypes().register(ResourceType.of(key(chemical), CHEMICAL));
+            context.resourceTypes().register(CHEMICALS.computeIfAbsent(chemical, name -> ResourceType.of(key(name), CHEMICAL)));
         }
         context.resourceCategories().register(FLUID);
         for (String fluid : lines("mekanized/fluids.txt")) {
