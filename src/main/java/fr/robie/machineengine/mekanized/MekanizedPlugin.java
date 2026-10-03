@@ -41,7 +41,9 @@ public final class MekanizedPlugin extends JavaPlugin {
             // Phase 5a: the Dynamic Tank and the Induction Matrix.
             "configuration/multiblocks.yml", "configuration/recipes_multiblocks_shaped.yml",
             // Phase 6: the remaining single-block machines and generators.
-            "configuration/endgame.yml", "configuration/recipes_endgame_shaped.yml");
+            "configuration/endgame.yml", "configuration/recipes_endgame_shaped.yml",
+            // Phase 6 wave 2: bins, personal storage, chargepad, plenisher, assemblicator, lasers, alarm.
+            "configuration/utility.yml");
     /** Generated MachineEngine definitions installed so far (same rule as {@link #ENABLED_CONFIGURATION}). */
     static final java.util.Set<String> ENABLED_DEFINITIONS = java.util.Set.of(
             // Phase 1: item and chemical tags, and the vanilla members of c: tags.
@@ -114,6 +116,7 @@ public final class MekanizedPlugin extends JavaPlugin {
     @SuppressWarnings("UnstableApiUsage")
     public void onEnable() {
         fr.robie.machineengine.mekanized.machine.EnergyItems.setAccess(new PaperEnergyItems());
+        PaperUtility.install(this);
         fr.robie.machineengine.paper.ResourceNames.register(MekanizedPlugin::name);
         getServer().getPluginManager().registerEvents(new MekanizedTools(), this);
         MekanizedCommands commands = new MekanizedCommands(this);

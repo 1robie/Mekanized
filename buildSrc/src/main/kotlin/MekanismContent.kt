@@ -72,6 +72,8 @@ internal class MekanismContent(
             phase5Machines, mapOf(), listOf(), multiblockIds, nameKeys, membership, phase5Plain)
         generateBlocks("endgame.yml", "Mekanized late-game machines and generators (Phase 6), generated from Mekanism (MIT).",
             phase6Machines, mapOf(), listOf(), endgameIds, nameKeys, membership)
+        generateBlocks("utility.yml", "Mekanized bins, personal storage, chargepad, plenisher, assemblicator, lasers (Phase 6), generated from Mekanism (MIT).",
+            phase6Utility, mapOf(), listOf(), endgameIds, nameKeys, membership)
         val chemicals = chemicals()
         nameKeys += chemicals.map { "chemical.mekanism.$it" }
         // Fluids are named by their liquid blocks (block.mekanism.brine).
@@ -142,6 +144,11 @@ internal class MekanismContent(
     /** Ids of Phase 6 content, for the recipe split. */
     val endgameIds = sortedSetOf<String>()
 
+    // -- Phase 6 wave 2: storage and utility blocks ------------------------------------------------
+    private val phase6Utility = (tiers + "creative").map { "${it}_bin" } + listOf("personal_chest", "personal_barrel", "chargepad",
+        "fluidic_plenisher", "formulaic_assemblicator", "laser", "laser_amplifier", "laser_tractor_beam", "oredictionificator",
+        "industrial_alarm")
+
     private fun generateBlocks(fileName: String, header: String, machineNames: List<String>, transports: Map<String, Int>,
                                extraItems: List<String>, phaseIds: MutableSet<String>, nameKeys: MutableSet<String>,
                                membership: Map<String, Set<String>>, plainBlocks: List<String> = listOf()) {
@@ -201,6 +208,8 @@ internal class MekanismContent(
                 finalBehavior = behavior + ("display_item" to "mekanized:display/$name")
                 // Some blockstates turn the model even when facing north (separator 90, pump 180).
                 northRotation(states).let { if (it != 0) finalBehavior = finalBehavior + ("display_rotation" to it) }
+                // Every facing's turn, x included (lasers point up in their model): "north=90/180,south=...".
+                facingRotations(states)?.let { finalBehavior = finalBehavior + ("display_rotations" to it) }
                 // Energy cubes: Mekanism's glowing core, drawn in code, as a second display growing with the charge.
                 energyCoreTier(name)?.let { tier ->
                     energyCore(modelsRoot, tier, items)
@@ -312,7 +321,7 @@ internal class MekanismContent(
         for ((property, options) in values) {
             properties[property] = when (property) {
                 "facing" -> mapOf("type" to if (options.size == 4) "4-direction" else "6-direction", "default" to "north")
-                "active" -> mapOf("type" to "boolean", "default" to false)
+                "active", "open" -> mapOf("type" to "boolean", "default" to false)
                 else -> return null
             }
         }
@@ -422,6 +431,20 @@ internal class MekanismContent(
             file.writeText(gson.toJson(model))
             items["mekanized:display/energy_core/$tier/$level"] = linkedMapOf<String, Any?>("model" to "mekanized:block/energy_core/$tier/$level")
         }
+    }
+
+    /** Each facing's blockstate rotation as "facing=x/y,..." (inactive appearances); null without a facing property. */
+    @Suppress("UNCHECKED_CAST")
+    private fun facingRotations(states: Map<String, Any?>): String? {
+        val appearances = (states["states"] as Map<String, Any?>?)?.get("appearances") as Map<String, Map<String, Any?>>? ?: return null
+        val rotations = mutableListOf<String>()
+        for (facing in listOf("north", "south", "east", "west", "up", "down")) {
+            val appearance = appearances["facing_${facing}_active_false"] ?: appearances["facing_${facing}_open_false"]
+                ?: appearances["facing_$facing"] ?: continue
+            val model = appearance["model"] as Map<String, Any?>
+            rotations += "$facing=${model["x"] ?: 0}/${model["y"] ?: 0}"
+        }
+        return if (rotations.isEmpty()) null else rotations.joinToString(",")
     }
 
     /** The y rotation of the "north, inactive" appearance, in degrees (0 to 270). */
