@@ -123,7 +123,26 @@ final class MekanizedMenus {
         }
         chemistryMenus(menus);
         logisticsMenus(menus);
+        multiblockMenus(menus);
         return menus;
+    }
+
+    // -- Phase 5a --------------------------------------------------------------------------------
+
+    /** The structures' menus, opened from any member: the anchor's storage. */
+    private static void multiblockMenus(List<Menu> menus) {
+        Map<String, String> tank = new LinkedHashMap<>();
+        tank.put("info", display(4, "BUCKET", "<aqua>Dynamic Tank", "<gray>Holds one fluid or one chemical,",
+                "<gray>350,000 mB of fluid per block inside"));
+        tank.put("chemical", chemical(15, "chemical", "Chemical"));
+        buckets(tank, "fluid", "Fluid", 11);
+        menus.add(new Menu("dynamic_tank", tank));
+
+        Map<String, String> matrix = new LinkedHashMap<>();
+        matrix.put("info", display(4, "BEACON", "<aqua>Induction Matrix", "<gray>Cells store energy, providers set the output rate.",
+                "<gray>Configurator on a port: input or output"));
+        matrix.put("energy", energyDisplay(22));
+        menus.add(new Menu("induction_casing", matrix));
     }
 
     // -- Phase 4 ---------------------------------------------------------------------------------

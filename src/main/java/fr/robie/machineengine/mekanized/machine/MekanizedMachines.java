@@ -93,6 +93,7 @@ public final class MekanizedMachines {
         context.recipes(FurnaceRecipes::provide);
         ChemistryMachines.register(context);
         LogisticsMachines.register(context);
+        fr.robie.machineengine.mekanized.multiblock.MultiblockMachines.register(context);
     }
 
     static List<MachineType> machines() {

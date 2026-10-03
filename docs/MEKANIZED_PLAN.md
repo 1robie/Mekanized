@@ -204,6 +204,32 @@ ways that hide where they came from. Source: `https://github.com/mekanism/Mekani
   - restrictive and diversion transporters: they change Mekanism's per-item routing, and our networks move without paths;
   - items drawn travelling along transporters: display entities moved every tick, too costly for busy servers.
 
+### Phase 5a: multiblocks (started 2026-10-03, the owner's choice)
+- **Order:**
+  1. Dynamic Tank (casings, valves, structural glass; one fluid or one chemical);
+  2. Induction Matrix (casings, ports, cells, providers);
+  3. Thermal Evaporation Plant (Mekanism's evaporating recipes).
+  The boiler and the fission and fusion reactors need Mekanism's heat system, and come later.
+- **Engine (E12):**
+  - **Reading blocks:** `MachineHost.blockAt` gives the block at a position (a CraftEngine id or a vanilla one), on the owner thread.
+  - **Runtime capacities:** `MachineContext.setStorageCapacity` sizes a storage at runtime. It is saved with the machine and read before the storages.
+  - **Passing through:** `MachineContext.exposeHandler` makes a machine show another handler on all its sides (valves and ports pass through to the structure's storage).
+  - **Another machine's storage:** `MachineContext.storageAt` gives full access to a storage of another machine that is loaded and owned by the same thread.
+- **Mekanized:**
+  - **Members:** every frame block (casing, valve, port, glass) is a machine; the interior blocks of the matrix (cells, providers) are plain blocks.
+  - **Detection:** a structure is a hollow box whose edges are casings, whose faces are casings, valves, ports or glass, and whose interior follows the type's rule; between 3 and 18 blocks on each side.
+    - It runs when a member loads, when one is removed, and on a configurator click.
+    - It forms only if every block is loaded and in the same Folia region.
+  - **Contents:** the lowest corner casing (the anchor) holds the structure's storage, sized at formation.
+    - Removing another block unforms the structure; the anchor keeps the contents until it forms again.
+    - Breaking the anchor keeps them in its item (keep-contents, like every Mekanized machine).
+    - Menus of every member open the anchor's.
+- **Status (2026-10-03):** the Dynamic Tank and the Induction Matrix are done, not yet tried in game.
+  - Members re-check their structure when they load. The anchor re-checks every 5 seconds, which notices blocks placed inside or cells added.
+  - The configurator switches an induction port between input and output; an output port pushes energy to its neighbors at the providers' rate.
+  - Tests: `MultiblockTest` covers formation, the valve passing through, one fluid or chemical at a time, unforming and forming again, matrix capacity from cells, and an output port feeding a machine.
+  - Next: the Thermal Evaporation Plant.
+
 ### Phase 5: later, not in the first release
 Multiblocks (Dynamic Tank, Induction Matrix, Thermal Evaporation, Boiler, Fission, Fusion), Digital
 Miner, Teleporter, QIO, MekaSuit.

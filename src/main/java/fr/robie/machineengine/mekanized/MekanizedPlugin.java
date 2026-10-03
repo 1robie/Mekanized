@@ -37,7 +37,9 @@ public final class MekanizedPlugin extends JavaPlugin {
             // Phase 3: chemical machines, tanks, tubes, pipes, the pump and their crafting recipes.
             "configuration/chemistry.yml", "configuration/recipes_chemistry_shaped.yml",
             // Phase 4: transporters, the logistical sorter, factories, tier installers, the configurator.
-            "configuration/logistics.yml", "configuration/recipes_logistics_shaped.yml");
+            "configuration/logistics.yml", "configuration/recipes_logistics_shaped.yml",
+            // Phase 5a: the Dynamic Tank and the Induction Matrix.
+            "configuration/multiblocks.yml", "configuration/recipes_multiblocks_shaped.yml");
     /** Generated MachineEngine definitions installed so far (same rule as {@link #ENABLED_CONFIGURATION}). */
     static final java.util.Set<String> ENABLED_DEFINITIONS = java.util.Set.of(
             // Phase 1: item and chemical tags, and the vanilla members of c: tags.

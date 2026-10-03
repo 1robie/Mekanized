@@ -36,13 +36,19 @@ final class MekanizedTools implements Listener {
     private static final String INSTALLER_SUFFIX = "_tier_installer";
     private static final Direction[] TURN = {Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
 
+    /** Multiblock frame blocks: they open their structure's menu (the anchor's). */
+    private static final java.util.Set<String> MEMBERS = java.util.Set.of("dynamic_tank", "dynamic_valve", "structural_glass",
+            "induction_casing", "induction_port");
+
     @EventHandler(priority = EventPriority.LOWEST)
     public void onUse(PlayerInteractEvent event) {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK || event.getHand() != EquipmentSlot.HAND) return;
         Block block = event.getClickedBlock();
         ItemStack item = event.getItem();
-        if (block == null || item == null || item.getType().isAir()) return;
-        Key tool = PaperItems.idOf(item);
+        if (block == null) return;
+        Key tool = item == null || item.getType().isAir() ? null : PaperItems.idOf(item);
+        if (!event.getPlayer().isSneaking() && multiblock(event, block, tool)) return;
+        if (tool == null) return;
         if (!tool.namespace().equals(MekanizedContent.NAMESPACE)) return;
         boolean installer = tool.value().endsWith(INSTALLER_SUFFIX);
         if (!installer && !tool.value().equals("configurator")) return;
@@ -92,6 +98,44 @@ final class MekanizedTools implements Listener {
                 player.sendActionBar(Component.text("No side configuration menu", NamedTextColor.RED));
             }
         }
+    }
+
+    /**
+     * A multiblock member clicked: an induction port switches between input and output with the
+     * configurator; otherwise every member opens its structure's menu, or says it is not formed.
+     *
+     * @return whether the click was handled
+     */
+    private static boolean multiblock(PlayerInteractEvent event, Block block, @org.jetbrains.annotations.Nullable Key tool) {
+        MachineLocator locator = MachineLocator.current();
+        if (locator == null) return false;
+        WorldPosition position = WorldPosition.of(block.getWorld().getKey(), block.getX(), block.getY(), block.getZ());
+        LoadedMachine member = locator.machine(position);
+        if (member == null || member.instance() == null) return false;
+        Key type = member.inspect().type();
+        if (!type.namespace().equals(MekanizedContent.NAMESPACE) || !MEMBERS.contains(type.value())) return false;
+        boolean configurator = tool != null && tool.equals(MekanizedContent.key("configurator"));
+        if (configurator && !type.value().equals("induction_port")) return false; // side configuration, turning
+        event.setCancelled(true);
+        Player player = event.getPlayer();
+        if (configurator) {
+            var context = member.instance().context();
+            String mode = "output".equals(context.get(fr.robie.machineengine.mekanized.multiblock.MemberBehavior.PORT_MODE)) ? "input" : "output";
+            context.set(fr.robie.machineengine.mekanized.multiblock.MemberBehavior.PORT_MODE, mode);
+            member.instance().wake(fr.robie.machineengine.api.machine.WakeReason.CONFIG_CHANGED);
+            player.sendActionBar(Component.text("Induction port: ", NamedTextColor.GRAY).append(Component.text(mode, NamedTextColor.YELLOW)));
+            return true;
+        }
+        var structure = fr.robie.machineengine.mekanized.multiblock.Multiblocks.containing(position);
+        LoadedMachine anchor = structure == null ? null : locator.machine(structure.anchor());
+        MachineMenuService menus = MachineMenuService.current();
+        if (anchor == null || menus == null) {
+            player.sendActionBar(Component.text("Not formed: build a closed box (3 to 18 blocks a side), casings on every edge",
+                    NamedTextColor.RED));
+            return true;
+        }
+        menus.open(player, anchor);
+        return true;
     }
 
     private static String describe(fr.robie.machineengine.api.network.TransportSideMode mode) {

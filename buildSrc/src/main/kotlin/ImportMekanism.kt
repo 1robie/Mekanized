@@ -43,7 +43,8 @@ abstract class ImportMekanism : DefaultTask() {
         Assets(source, out.resolve("pack/resourcepack/assets/mekanized"), report).copy()
         val itemTags = Tags(source, out.resolve("definitions"), report).convert()
         val content = MekanismContent(source, out, itemTags, report).also { it.generate() }
-        val recipes = Recipes(source, out, report, content.ids, content.machineIds, content.chemistryIds, content.logisticsIds, itemTags)
+        val recipes = Recipes(source, out, report, content.ids, content.machineIds, content.chemistryIds, content.logisticsIds,
+            content.multiblockIds, itemTags)
             .also { it.convert() }
         writeAliases(out.resolve("definitions/vanilla_aliases.yml"), recipes.referencedTags + itemTags.keys, itemTags, report)
         source.resolve("LICENSE").copyTo(out.resolve("LICENSE-MEKANISM.txt"), overwrite = true)
@@ -288,6 +289,8 @@ internal class Recipes(
     private val chemistryIds: Set<String>,
     /** Phase 4 content: CraftEngine recipes needing it (and earlier phases) go into the `logistics_` files. */
     private val logisticsIds: Set<String>,
+    /** Phase 5a content: CraftEngine recipes needing it (and earlier phases) go into the `multiblocks_` files. */
+    private val multiblockIds: Set<String>,
     private val itemTags: Map<String, List<String>>,
 ) {
     /**
@@ -561,6 +564,8 @@ internal class Recipes(
             ingredients.all { it in contentIds || it in machineIds } -> "machines_$group"
             ingredients.all { it in contentIds || it in machineIds || it in chemistryIds } -> "chemistry_$group"
             ingredients.all { it in contentIds || it in machineIds || it in chemistryIds || it in logisticsIds } -> "logistics_$group"
+            ingredients.all { it in contentIds || it in machineIds || it in chemistryIds || it in logisticsIds || it in multiblockIds } ->
+                "multiblocks_$group"
             else -> group
         }
         craftEngineRecipes["$file|$id"] = recipe.toMutableMap()

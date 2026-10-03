@@ -68,6 +68,8 @@ internal class MekanismContent(
             phase3Machines, phase3Transports, phase3Items, chemistryIds, nameKeys, membership)
         generateBlocks("logistics.yml", "Mekanized transporters, the logistical sorter, factories, tier installers and the configurator (Phase 4), generated from Mekanism (MIT).",
             phase4Machines, phase4Transports, phase4Items, logisticsIds, nameKeys, membership)
+        generateBlocks("multiblocks.yml", "Mekanized multiblocks: Dynamic Tank, Induction Matrix (Phase 5a), generated from Mekanism (MIT).",
+            phase5Machines, mapOf(), listOf(), multiblockIds, nameKeys, membership, phase5Plain)
         val chemicals = chemicals()
         nameKeys += chemicals.map { "chemical.mekanism.$it" }
         // Fluids are named by their liquid blocks (block.mekanism.brine).
@@ -120,9 +122,18 @@ internal class MekanismContent(
     /** Ids of Phase 4 content, for the recipe split. */
     val logisticsIds = sortedSetOf<String>()
 
+    // -- Phase 5a: multiblocks ---------------------------------------------------------------------
+    /** Frame blocks: machines (they find their structure and pass through to its storage). */
+    private val phase5Machines = listOf("dynamic_tank", "dynamic_valve", "structural_glass", "induction_casing", "induction_port")
+    /** Interior blocks of the induction matrix: plain blocks the structure counts. */
+    private val phase5Plain = tiers.flatMap { listOf("${it}_induction_cell", "${it}_induction_provider") }
+
+    /** Ids of Phase 5a content, for the recipe split. */
+    val multiblockIds = sortedSetOf<String>()
+
     private fun generateBlocks(fileName: String, header: String, machineNames: List<String>, transports: Map<String, Int>,
                                extraItems: List<String>, phaseIds: MutableSet<String>, nameKeys: MutableSet<String>,
-                               membership: Map<String, Set<String>>) {
+                               membership: Map<String, Set<String>>, plainBlocks: List<String> = listOf()) {
         val items = linkedMapOf<String, Any?>()
         val blocks = linkedMapOf<String, Any?>()
         val modelsRoot = out.resolve("pack/resourcepack/assets/mekanized/models")
@@ -158,10 +169,14 @@ internal class MekanismContent(
             // Not a full cube: drawn by a display entity (turned to the facing, switching to the active
             // model), over one empty non-occluding state, however many facings it has. Non-occluding
             // states are scarce (about 117 slots), and the blocks around stay drawn (no seeing through walls).
-            val full = !cable && allModels(states).all { CableModels.isFullCube(modelsRoot, it) }
+            // Glass is a full cube that must not hide what is behind it: a non-occluding state.
+            val glass = name == "structural_glass"
+            val full = !cable && !glass && allModels(states).all { CableModels.isFullCube(modelsRoot, it) }
             val finalStates: Map<String, Any?>
             var finalBehavior = behavior
-            if (full || cable) {
+            if (glass) {
+                finalStates = withAutoState(states, "tintable_leaves")
+            } else if (full || cable) {
                 finalStates = states
             } else {
                 val (inactive, active) = displayModels(states)
@@ -202,6 +217,19 @@ internal class MekanismContent(
             nameKeys += "block.mekanism.$name"
             phaseIds += id
             report.count("machine blocks")
+        }
+        for (name in plainBlocks) {
+            val id = "mekanized:$name"
+            val block = block(name) ?: continue
+            blocks[id] = block
+            items[id] = linkedMapOf<String, Any?>(
+                "data" to mapOf("item_name" to "<!i><lang:block.mekanized.$name>"),
+                "model" to (blockItemModel(name) ?: (block["state"] as Map<*, *>).let { (it["model"] as Map<*, *>)["path"] }),
+                "behavior" to mapOf("type" to "block_item", "block" to id),
+            ).withTags(membership[id])
+            nameKeys += "block.mekanism.$name"
+            phaseIds += id
+            report.count("blocks")
         }
         for (name in extraItems) {
             val model = itemDefinition(name)?.let { itemModel(it) } ?: continue
