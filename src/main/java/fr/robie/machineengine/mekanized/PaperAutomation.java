@@ -100,9 +100,19 @@ final class PaperAutomation implements Listener {
         player.getScheduler().run(plugin, task -> {
             Block block = player.getTargetBlockExact(6);
             LoadedMachine machine = block == null ? null : machineAt(block);
+            ItemStack hand = player.getInventory().getItemInMainHand();
+            String held = PaperGear.id(hand);
+            if (("portable_teleporter".equals(held) || "portable_qio_dashboard".equals(held)) && (machine == null || machine.instance() == null)) {
+                hand.editMeta(meta -> {
+                    meta.getPersistentDataContainer().set(ITEM_FREQUENCY, PersistentDataType.STRING, frequency);
+                    meta.lore(List.of(Component.text("Frequency: " + frequency, NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)));
+                });
+                player.sendMessage(Component.text("Frequency of the item set to ", NamedTextColor.GRAY).append(Component.text(frequency, NamedTextColor.YELLOW)));
+                return;
+            }
             if (machine == null || machine.instance() == null
                     || machine.instance().type().data().stream().noneMatch(key -> key.id().equals(AutomationMachines.FREQUENCY.id()))) {
-                player.sendMessage(Component.text("Look at a teleporter, a QIO block or a quantum entangloporter", NamedTextColor.RED));
+                player.sendMessage(Component.text("Look at a teleporter, a QIO block or a quantum entangloporter (or hold a portable teleporter or dashboard)", NamedTextColor.RED));
                 return;
             }
             machine.instance().context().set(AutomationMachines.FREQUENCY, frequency);
@@ -193,6 +203,49 @@ final class PaperAutomation implements Listener {
         } catch (IOException e) {
             this.plugin.getLogger().warning("Could not save " + this.teleporterFile + ": " + e.getMessage());
         }
+    }
+
+    // -- portable teleporter, portable QIO dashboard ------------------------------------------
+
+    /** The frequency of a portable teleporter or dashboard. */
+    static final NamespacedKey ITEM_FREQUENCY = new NamespacedKey(MekanizedContent.NAMESPACE, "frequency");
+
+    @EventHandler(priority = EventPriority.LOW)
+    public void onPortable(PlayerInteractEvent event) {
+        if (event.getHand() != EquipmentSlot.HAND || event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+        Player player = event.getPlayer();
+        ItemStack hand = player.getInventory().getItemInMainHand();
+        String id = PaperGear.id(hand);
+        if (!"portable_teleporter".equals(id) && !"portable_qio_dashboard".equals(id)) return;
+        event.setCancelled(true);
+        String frequency = hand.getItemMeta().getPersistentDataContainer().get(ITEM_FREQUENCY, PersistentDataType.STRING);
+        if (frequency == null || frequency.isEmpty()) {
+            player.sendActionBar(Component.text("No frequency: hold it and use /mekanized frequency <name>", NamedTextColor.RED));
+            return;
+        }
+        if ("portable_qio_dashboard".equals(id)) {
+            new Dashboard(frequency, 0).open(player);
+            return;
+        }
+        Long last = this.lastTeleport.get(player.getUniqueId());
+        if (last != null && System.currentTimeMillis() - last < TELEPORT_COOLDOWN_MS) return;
+        this.lastTeleport.put(player.getUniqueId(), System.currentTimeMillis());
+        WorldPosition from = position(player.getLocation().getBlock());
+        WorldPosition to = Frequencies.teleporters().entrySet().stream()
+                .filter(entry -> entry.getValue().formed() && entry.getValue().frequency().equals(frequency))
+                .map(Map.Entry::getKey).findFirst().orElse(null);
+        World world = to == null ? null : Bukkit.getWorld(new NamespacedKey(to.world().namespace(), to.world().value()));
+        if (world == null) {
+            player.sendActionBar(Component.text("No teleporter with a complete frame on " + frequency, NamedTextColor.RED));
+            return;
+        }
+        long cost = cost(from, to);
+        if (!PaperGear.useEnergy(hand, cost)) {
+            player.sendActionBar(Component.text(String.format(Locale.ROOT, "The portable teleporter needs %,d J", cost), NamedTextColor.RED));
+            return;
+        }
+        player.teleportAsync(new Location(world, to.position().x() + 0.5, to.position().y() + 1, to.position().z() + 0.5,
+                player.getLocation().getYaw(), player.getLocation().getPitch()));
     }
 
     // -- cardboard box, seismic reader, QIO dashboard ----------------------------------------

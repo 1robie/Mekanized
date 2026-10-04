@@ -109,7 +109,7 @@ internal class MekanismContent(
 
     /** Transports -> the low edge of their square section (small 5..11, large 4..12). */
     private val phase2Transports = tiers.associate { "${it}_universal_cable" to 5 }
-    private val phase2Items = listOf("upgrade_speed", "upgrade_energy")
+    private val phase2Items = listOf("upgrade_speed", "upgrade_energy", "solar_panel")
 
     // -- Phase 3: chemical machines, tanks, tubes, pipes, pump ------------------------------------
     private val phase3Machines = listOf(
@@ -190,6 +190,12 @@ internal class MekanismContent(
         GearItem("electric_bow", "bow"),
         GearItem("network_reader", "stick"),
         GearItem("canteen", "paper"),
+        GearItem("portable_teleporter", "paper"),
+        GearItem("portable_qio_dashboard", "paper"),
+        GearItem("configuration_card", "paper"),
+        GearItem("gauge_dropper", "paper"),
+        GearItem("dictionary", "paper"),
+        GearItem("crafting_formula", "paper"),
         GearItem("jetpack", "paper", "chest"),
         GearItem("jetpack_armored", "diamond_chestplate", "chest"),
         GearItem("scuba_tank", "paper", "chest"),

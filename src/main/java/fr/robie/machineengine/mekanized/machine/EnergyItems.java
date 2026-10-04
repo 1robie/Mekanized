@@ -27,6 +27,7 @@ public final class EnergyItems {
             Map.entry(MekanizedContent.key("energy_tablet"), 1_000_000L),
             // Phase 6 wave 5: tools and armour.
             Map.entry(MekanizedContent.key("atomic_disassembler"), 1_000_000L),
+            Map.entry(MekanizedContent.key("portable_teleporter"), 1_000_000L),
             Map.entry(MekanizedContent.key("meka_tool"), 16_000_000L),
             Map.entry(MekanizedContent.key("electric_bow"), 120_000L),
             Map.entry(MekanizedContent.key("free_runners"), 64_000L),

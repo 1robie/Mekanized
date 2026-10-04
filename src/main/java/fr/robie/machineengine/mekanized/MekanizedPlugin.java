@@ -49,7 +49,7 @@ public final class MekanizedPlugin extends JavaPlugin {
             // Phase 6 wave 4: Digital Miner, seismic vibrator, teleporter, QIO, cardboard box.
             "configuration/automation.yml", "configuration/recipes_automation_shaped.yml",
             // Phase 6 wave 5: tools, armour and modules.
-            "configuration/gear.yml", "configuration/recipes_gear_shaped.yml",
+            "configuration/gear.yml", "configuration/recipes_gear_shaped.yml", "configuration/recipes_gear_shapeless.yml",
             // Phase 6 wave 6: chunk loading, the quantum entangloporter, the last upgrades, tools, radiation.
             "configuration/extras.yml", "configuration/recipes_extras_shaped.yml");
     /** Generated MachineEngine definitions installed so far (same rule as {@link #ENABLED_CONFIGURATION}). */
@@ -138,6 +138,7 @@ public final class MekanizedPlugin extends JavaPlugin {
         PaperRadiation.install(this);
         fr.robie.machineengine.paper.ResourceNames.register(MekanizedPlugin::name);
         getServer().getPluginManager().registerEvents(new MekanizedTools(), this);
+        getServer().getPluginManager().registerEvents(new PaperTools(), this);
         MekanizedCommands commands = new MekanizedCommands(this);
         getLifecycleManager().registerEventHandler(io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents.COMMANDS,
                 event -> event.registrar().register(commands.build(), "Mekanized commands"));
