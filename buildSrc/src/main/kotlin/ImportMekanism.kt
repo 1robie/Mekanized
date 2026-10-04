@@ -405,6 +405,8 @@ internal class Recipes(
     private val adaptedIngredients = mapOf(
         "mekanized:chemical_oxidizer" to mapOf("mekanism:dynamic_tank" to "mekanism:basic_fluid_tank",
             "#mekanism:personal_storage" to "minecraft:chest"),
+        // Mekanized has no fluid bucket items: blue ice stands for the liquid hydrogen.
+        "mekanized:module_frost_walker_unit" to mapOf("mekanism:hydrogen_bucket" to "minecraft:blue_ice"),
     )
 
     private fun convert(id: String, json: JsonObject) {

@@ -45,6 +45,11 @@ public final class EnergyItems {
 
         /** The same item holding {@code energy} Joules. */
         @NotNull ResourceVariant withEnergy(@NotNull ResourceVariant item, long energy);
+
+        /** The item's capacity, {@code base} unless something it carries changes it (the MekaSuit's energy unit). */
+        default long capacity(@NotNull ResourceVariant item, long base) {
+            return base;
+        }
     }
 
     private static volatile @Nullable Access access;
@@ -59,7 +64,9 @@ public final class EnergyItems {
     /** The capacity of {@code variant} if it is an energy item, else 0. */
     public static long capacity(@NotNull ResourceVariant variant) {
         ItemData data = variant.type() == Items.ITEM ? variant.components().get(Items.DATA) : null;
-        return data == null ? 0 : CAPACITY.getOrDefault(data.item(), 0L);
+        long base = data == null ? 0 : CAPACITY.getOrDefault(data.item(), 0L);
+        Access current = access;
+        return base <= 0 || current == null ? base : current.capacity(variant, base);
     }
 
     /**

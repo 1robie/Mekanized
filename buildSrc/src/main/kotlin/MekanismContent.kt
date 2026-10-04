@@ -219,6 +219,10 @@ internal class MekanismContent(
         "module_hydraulic_propulsion_unit", "module_excavation_escalation_unit", "module_attack_amplification_unit",
         "module_silk_touch_unit", "module_fortune_unit", "module_vein_mining_unit", "module_teleportation_unit",
         "module_radiation_shielding_unit", "module_geiger_unit", "module_dosimeter_unit",
+        "module_energy_unit", "module_charge_distribution_unit", "module_gyroscopic_stabilization_unit", "module_solar_recharging_unit",
+        "module_geothermal_generator_unit", "module_motorized_servo_unit", "module_hydrostatic_repulsor_unit",
+        "module_magnetic_attraction_unit", "module_frost_walker_unit", "module_soul_surfer_unit", "module_blasting_unit",
+        "module_farming_unit", "module_shearing_unit",
         // Ingredient of the elytra unit.
         "hdpe_elytra")
 
@@ -227,7 +231,7 @@ internal class MekanismContent(
 
     // -- Phase 6 wave 6: chunk loading, entangloporter, the last upgrades, tools, radiation ------------
     private val phase10Machines = listOf("dimensional_stabilizer", "quantum_entangloporter", "radioactive_waste_barrel",
-        "nutritional_liquifier")
+        "nutritional_liquifier", "modification_station")
     private val phase10Items = listOf("upgrade_chemical", "upgrade_filter", "upgrade_anchor", "upgrade_stone_generator",
         "dosimeter", "geiger_counter")
 

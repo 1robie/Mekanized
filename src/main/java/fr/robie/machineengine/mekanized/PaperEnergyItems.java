@@ -23,6 +23,12 @@ final class PaperEnergyItems implements EnergyItems.Access {
     }
 
     @Override
+    public long capacity(@NotNull ResourceVariant item, long base) {
+        ItemStack stack = PaperItems.toItemStack(item, 1);
+        return stack == null || !stack.hasItemMeta() ? base : Math.max(base, PaperGear.capacity(stack));
+    }
+
+    @Override
     public @NotNull ResourceVariant withEnergy(@NotNull ResourceVariant item, long energy) {
         ItemStack stack = PaperItems.toItemStack(item, 1);
         ItemData data = item.components().get(Items.DATA);

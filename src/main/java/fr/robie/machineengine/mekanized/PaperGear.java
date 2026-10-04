@@ -85,7 +85,15 @@ final class PaperGear implements Listener {
             Map.entry("attack_amplification_unit", "meka_tool"), Map.entry("silk_touch_unit", "meka_tool"),
             Map.entry("fortune_unit", "meka_tool"), Map.entry("vein_mining_unit", "meka_tool"), Map.entry("teleportation_unit", "meka_tool"),
             Map.entry("radiation_shielding_unit", "mekasuit"), Map.entry("geiger_unit", "mekasuit_helmet"),
-            Map.entry("dosimeter_unit", "mekasuit_helmet"));
+            Map.entry("dosimeter_unit", "mekasuit_helmet"), Map.entry("energy_unit", "mekasuit"),
+            Map.entry("charge_distribution_unit", "mekasuit_bodyarmor"), Map.entry("gyroscopic_stabilization_unit", "mekasuit_bodyarmor"),
+            Map.entry("solar_recharging_unit", "mekasuit_helmet"), Map.entry("geothermal_generator_unit", "mekasuit_pants"),
+            Map.entry("motorized_servo_unit", "mekasuit_pants"), Map.entry("hydrostatic_repulsor_unit", "mekasuit_pants"),
+            Map.entry("magnetic_attraction_unit", "mekasuit_boots"), Map.entry("frost_walker_unit", "mekasuit_boots"),
+            Map.entry("soul_surfer_unit", "mekasuit_boots"), Map.entry("blasting_unit", "meka_tool"),
+            Map.entry("farming_unit", "meka_tool"), Map.entry("shearing_unit", "meka_tool"));
+    /** The energy unit multiplies a piece's capacity by this. */
+    static final long ENERGY_UNIT_FACTOR = 4;
     private static final Set<PotionEffectType> HARMFUL = Set.of(PotionEffectType.POISON, PotionEffectType.WITHER, PotionEffectType.HUNGER,
             PotionEffectType.NAUSEA, PotionEffectType.BLINDNESS, PotionEffectType.SLOWNESS, PotionEffectType.MINING_FATIGUE,
             PotionEffectType.WEAKNESS, PotionEffectType.DARKNESS);
@@ -154,10 +162,34 @@ final class PaperGear implements Listener {
     }
 
     /** Rewrites the lore (energy, chemical, modules) and the tool speeds of a gear item. */
+    /** The item's energy capacity: its base one, times {@link #ENERGY_UNIT_FACTOR} with an energy unit. */
+    static long capacity(Key item, @Nullable String modules) {
+        long base = EnergyItems.CAPACITY.getOrDefault(item, 0L);
+        return modules != null && List.of(modules.split(",")).contains("energy_unit") ? base * ENERGY_UNIT_FACTOR : base;
+    }
+
+    static long capacity(ItemStack stack) {
+        String id = id(stack);
+        return id == null ? 0 : capacity(MekanizedContent.key(id), stack.getItemMeta().getPersistentDataContainer().get(MODULES, PersistentDataType.STRING));
+    }
+
+    /** Adds up to {@code joules} (what fits); returns what was added. */
+    static long addEnergy(ItemStack stack, long joules) {
+        long energy = energy(stack);
+        long added = Math.max(0, Math.min(joules, capacity(stack) - energy));
+        if (added <= 0) return 0;
+        String id = id(stack);
+        stack.editMeta(meta -> {
+            meta.getPersistentDataContainer().set(PaperEnergyItems.ENERGY, PersistentDataType.LONG, energy + added);
+            refresh(meta, MekanizedContent.key(id));
+        });
+        return added;
+    }
+
     static void refresh(ItemMeta meta, Key item) {
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
         List<Component> lore = new ArrayList<>();
-        long capacity = EnergyItems.CAPACITY.getOrDefault(item, 0L);
+        long capacity = capacity(item, pdc.get(MODULES, PersistentDataType.STRING));
         Long energy = pdc.get(PaperEnergyItems.ENERGY, PersistentDataType.LONG);
         if (capacity > 0) lore.add(line(String.format(Locale.ROOT, "Energy: %,d / %,d J", energy == null ? 0 : energy, capacity)));
         Object[] chemical = CHEMICALS.get(item.value());
@@ -206,8 +238,20 @@ final class PaperGear implements Listener {
         player.getScheduler().runAtFixedRate(this.plugin, task -> {
             if (!player.isOnline()) return;
             jetpack(player);
-            if (++tick[0] % 20 == 0) everySecond(player);
+            if (++tick[0] % 5 == 0) magnet(player);
+            if (tick[0] % 20 == 0) everySecond(player);
         }, null, 1, 1);
+    }
+
+    /** Magnetic attraction unit: items within 8 blocks fly to the player (20 J each, every 5 ticks). */
+    private static void magnet(Player player) {
+        ItemStack boots = player.getInventory().getBoots();
+        if (!"mekasuit_boots".equals(id(boots)) || !modules(boots).contains("magnetic_attraction_unit")) return;
+        Location at = player.getLocation().add(0, 0.5, 0);
+        for (org.bukkit.entity.Item item : player.getWorld().getNearbyEntitiesByType(org.bukkit.entity.Item.class, at, 8)) {
+            if (item.getPickupDelay() > 0 || !useEnergy(boots, 20)) continue;
+            item.setVelocity(at.toVector().subtract(item.getLocation().toVector()).normalize().multiply(0.6));
+        }
     }
 
     /** Hydrogen: up while jumping (Mekanism's 0.15 a tick, up to 0.5, from 0 when falling), 1 mB a tick. */
@@ -302,6 +346,55 @@ final class PaperGear implements Listener {
         if ("mekasuit_boots".equals(id(boots)) && modules(boots).contains("hydraulic_propulsion_unit") && useEnergy(boots, 200)) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST, 40, 1, true, false, false));
         }
+        // Energy makers: sunlight on the helmet, lava or fire around the pants.
+        if ("mekasuit_helmet".equals(id(helmet)) && modules(helmet).contains("solar_recharging_unit")
+                && player.getWorld().isDayTime() && player.getLocation().getBlock().getLightFromSky() >= 15) {
+            addEnergy(helmet, SOLAR_UNIT_JOULES);
+        }
+        if ("mekasuit_pants".equals(id(legs)) && modules(legs).contains("geothermal_generator_unit")
+                && (player.isInLava() || player.getFireTicks() > 0)) {
+            addEnergy(legs, GEOTHERMAL_UNIT_JOULES);
+        }
+        // Charge distribution: the body armour shares its energy with the other pieces and the held item.
+        if ("mekasuit_bodyarmor".equals(id(chest)) && modules(chest).contains("charge_distribution_unit")) {
+            for (ItemStack other : new ItemStack[]{helmet, legs, boots, player.getInventory().getItemInMainHand()}) {
+                if (other == null || id(other) == null || capacity(other) <= 0) continue;
+                long given = addEnergy(other, Math.min(DISTRIBUTION_JOULES, energy(chest)));
+                if (given > 0) useEnergy(chest, given);
+            }
+        }
+        // Motorized servos: step up a full block (Minecraft 1.20.5+).
+        boolean servo = "mekasuit_pants".equals(id(legs)) && modules(legs).contains("motorized_servo_unit") && energy(legs) >= 100;
+        stepHeight(player, servo ? 1.1 : -1);
+        if ("mekasuit_pants".equals(id(legs)) && modules(legs).contains("hydrostatic_repulsor_unit") && player.isInWater()
+                && useEnergy(legs, 500)) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, 40, 0, true, false, false));
+        }
+        // Gyroscopic stabilization: mining in the air or underwater is less slow.
+        if ("mekasuit_bodyarmor".equals(id(chest)) && modules(chest).contains("gyroscopic_stabilization_unit")
+                && (!player.isOnGround() || player.isInWater()) && useEnergy(chest, 200)) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, 40, 2, true, false, false));
+        }
+    }
+
+    private static final long SOLAR_UNIT_JOULES = 2_000;
+    private static final long GEOTHERMAL_UNIT_JOULES = 10_000;
+    private static final long DISTRIBUTION_JOULES = 20_000;
+    /** Players whose step height the servos raised. */
+    private final Set<UUID> stepping = ConcurrentHashMap.newKeySet();
+
+    /** Sets the step height ({@code height} below 0: back to normal, if it was raised). */
+    private void stepHeight(Player player, double height) {
+        if (height < 0 && !this.stepping.remove(player.getUniqueId())) return;
+        org.bukkit.attribute.Attribute attribute = null;
+        for (String key : List.of("step_height", "generic.step_height")) {
+            attribute = org.bukkit.Registry.ATTRIBUTE.get(NamespacedKey.minecraft(key));
+            if (attribute != null) break;
+        }
+        var instance = attribute == null ? null : player.getAttribute(attribute);
+        if (instance == null) return;
+        instance.setBaseValue(height < 0 ? 0.6 : height);
+        if (height >= 0) this.stepping.add(player.getUniqueId());
     }
 
     /** Free runners and MekaSuit boots take the fall for energy (50 J a point of damage). */
@@ -334,6 +427,10 @@ final class PaperGear implements Listener {
         boolean vein = player.isSneaking();
         int limit = "meka_tool".equals(id) && modules(tool).contains("vein_mining_unit") ? 256 : 64;
         Block start = event.getBlock();
+        if (!vein && "meka_tool".equals(id) && modules(tool).contains("blasting_unit")) {
+            blast(player, tool, start);
+            return;
+        }
         boolean veinable = start.getType().getKey().getKey().endsWith("_ore") || Tag.LOGS.isTagged(start.getType());
         if (!vein || !veinable) return;
         Set<Block> seen = new HashSet<>(Set.of(start));
@@ -358,6 +455,52 @@ final class PaperGear implements Listener {
                 }
             }
         }
+    }
+
+    /** Blasting unit: the 3 x 3 square around the block, across the way the player looks (100 J a block). */
+    private void blast(Player player, ItemStack tool, Block start) {
+        Vector look = player.getEyeLocation().getDirection();
+        double ax = Math.abs(look.getX()), ay = Math.abs(look.getY()), az = Math.abs(look.getZ());
+        for (int a = -1; a <= 1; a++) {
+            for (int b = -1; b <= 1; b++) {
+                if (a == 0 && b == 0) continue;
+                Block next = ay >= ax && ay >= az ? start.getRelative(a, 0, b) : ax >= az ? start.getRelative(0, a, b) : start.getRelative(a, b, 0);
+                if (next.getType().isAir() || next.getType().getHardness() < 0 || next.isLiquid()) continue;
+                if (net.momirealms.craftengine.bukkit.api.CraftEngineBlocks.isCustomBlock(next)) continue;
+                if (!useEnergy(tool, 100)) return;
+                this.veining.add(next);
+                try {
+                    if (new BlockBreakEvent(next, player).callEvent()) next.breakNaturally(tool);
+                } finally {
+                    this.veining.remove(next);
+                }
+            }
+        }
+    }
+
+    /** Farming unit: dirt and grass around the clicked block become farmland (100 J a block). */
+    private static void till(Player player, ItemStack tool, Block center) {
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dz = -1; dz <= 1; dz++) {
+                Block block = center.getRelative(dx, 0, dz);
+                boolean soil = block.getType() == Material.DIRT || block.getType() == Material.GRASS_BLOCK || block.getType() == Material.DIRT_PATH;
+                if (!soil || !block.getRelative(BlockFace.UP).getType().isAir() || !useEnergy(tool, 100)) continue;
+                block.setType(Material.FARMLAND);
+            }
+        }
+        player.getWorld().playSound(center.getLocation(), org.bukkit.Sound.ITEM_HOE_TILL, 1f, 1f);
+    }
+
+    /** Shearing unit: right-click a sheep, mooshroom or snow golem to shear it (500 J). */
+    @EventHandler(ignoreCancelled = true)
+    public void onShear(org.bukkit.event.player.PlayerInteractEntityEvent event) {
+        if (event.getHand() != EquipmentSlot.HAND) return;
+        ItemStack tool = event.getPlayer().getInventory().getItemInMainHand();
+        if (!"meka_tool".equals(id(tool)) || !modules(tool).contains("shearing_unit")) return;
+        if (!(event.getRightClicked() instanceof io.papermc.paper.entity.Shearable shearable) || !shearable.readyToBeSheared()) return;
+        if (!useEnergy(tool, 500)) return;
+        event.setCancelled(true);
+        shearable.shear(net.kyori.adventure.sound.Sound.Source.PLAYER);
     }
 
     /** Charged: the disassembler hits for 20 (2 kJ), the Meka-Tool for 10, 30 with attack amplification (3 kJ). */
@@ -400,6 +543,11 @@ final class PaperGear implements Listener {
             return;
         }
         Block block = event.getClickedBlock();
+        if (block != null && !modules(hand).isEmpty() && isStation(block)) {
+            event.setCancelled(true);
+            uninstall(player, hand, id);
+            return;
+        }
         if (block != null && CHEMICALS.containsKey(id) && fill(player, hand, id, block)) {
             event.setCancelled(true);
             return;
@@ -420,6 +568,10 @@ final class PaperGear implements Listener {
             }
             case "meka_tool" -> {
                 if (event.getAction() == Action.RIGHT_CLICK_AIR && modules(hand).contains("teleportation_unit")) teleport(player, hand);
+                if (block != null && event.getBlockFace() == BlockFace.UP && modules(hand).contains("farming_unit")) {
+                    event.setCancelled(true);
+                    till(player, hand, block);
+                }
             }
             default -> {
             }
@@ -464,6 +616,8 @@ final class PaperGear implements Listener {
                 case "elytra_unit" -> setGlider(meta);
                 case "silk_touch_unit" -> meta.addEnchant(Enchantment.SILK_TOUCH, 1, true);
                 case "fortune_unit" -> meta.addEnchant(Enchantment.FORTUNE, 3, true);
+                case "frost_walker_unit" -> meta.addEnchant(Enchantment.FROST_WALKER, 2, true);
+                case "soul_surfer_unit" -> meta.addEnchant(Enchantment.SOUL_SPEED, 3, true);
                 default -> {
                 }
             }
@@ -473,10 +627,47 @@ final class PaperGear implements Listener {
         player.sendActionBar(Component.text("Installed: " + module.replace('_', ' '), NamedTextColor.GREEN));
     }
 
+    private static boolean isStation(Block block) {
+        MachineLocator locator = MachineLocator.current();
+        LoadedMachine machine = locator == null ? null
+                : locator.machine(WorldPosition.of(block.getWorld().getKey(), block.getX(), block.getY(), block.getZ()));
+        return machine != null && machine.inspect().type().equals(MekanizedContent.key("modification_station"));
+    }
+
+    /** At a modification station: the gear's last module comes back out as an item. */
+    private static void uninstall(Player player, ItemStack gear, String id) {
+        List<String> modules = new ArrayList<>(modules(gear));
+        String module = modules.removeLast();
+        gear.editMeta(meta -> {
+            if (modules.isEmpty()) meta.getPersistentDataContainer().remove(MODULES);
+            else meta.getPersistentDataContainer().set(MODULES, PersistentDataType.STRING, String.join(",", modules));
+            switch (module) {
+                case "elytra_unit" -> setGlider(meta, false);
+                case "silk_touch_unit" -> meta.removeEnchant(Enchantment.SILK_TOUCH);
+                case "fortune_unit" -> meta.removeEnchant(Enchantment.FORTUNE);
+                case "frost_walker_unit" -> meta.removeEnchant(Enchantment.FROST_WALKER);
+                case "soul_surfer_unit" -> meta.removeEnchant(Enchantment.SOUL_SPEED);
+                default -> {
+                }
+            }
+            refresh(meta, MekanizedContent.key(id));
+        });
+        // Energy above the capacity left (an energy unit removed) is lost.
+        long capacity = capacity(gear);
+        if (energy(gear) > capacity) useEnergy(gear, energy(gear) - capacity);
+        ItemStack item = PaperItems.itemOf(MekanizedContent.key("module_" + module));
+        if (item != null) player.getInventory().addItem(item).values().forEach(left -> player.getWorld().dropItem(player.getLocation(), left));
+        player.sendActionBar(Component.text("Removed: " + module.replace('_', ' '), NamedTextColor.YELLOW));
+    }
+
     /** The elytra unit: the chestplate glides (Paper 1.21.2+). */
     private static void setGlider(ItemMeta meta) {
+        setGlider(meta, true);
+    }
+
+    private static void setGlider(ItemMeta meta, boolean glider) {
         try {
-            meta.getClass().getMethod("setGlider", boolean.class).invoke(meta, true);
+            meta.getClass().getMethod("setGlider", boolean.class).invoke(meta, glider);
         } catch (ReflectiveOperationException | RuntimeException ignored) {
             // an older server: no gliding
         }

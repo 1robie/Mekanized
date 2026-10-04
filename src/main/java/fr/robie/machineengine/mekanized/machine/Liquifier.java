@@ -64,6 +64,9 @@ public final class Liquifier {
                 .behavior(EjectBehavior.of(ConvertingBehavior.of(liquifier(),
                         new ConvertingBehavior.Conversion("energy_slot", "energy", MekanizedMachines.ENERGY_CONVERSION))))
                 .build());
+        // The modification station takes modules back out of gear (Paper side); the block itself does nothing.
+        context.machineTypes().register(fr.robie.machineengine.api.machine.MachineType.builder(key("modification_station"))
+                .behavior(type -> fr.robie.machineengine.api.machine.MachineContext::sleep).build());
     }
 
     /** Turns one food into paste per {@link #TICKS}, paying the whole energy when it starts. */
