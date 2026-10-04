@@ -72,6 +72,22 @@ final class MekanizedCommands {
                                     return Command.SINGLE_SUCCESS;
                                 })))
                 .then(structures())
+                // Radiation for testing: a source where you stand (Sv/h at one block), or none left.
+                .then(Commands.literal("radiation").requires(MekanizedCommands::admin)
+                        .then(Commands.literal("clear").executes(context -> {
+                            fr.robie.machineengine.mekanized.machine.Radiation.sources().clear();
+                            reply(context, "Every radiation source is gone");
+                            return Command.SINGLE_SUCCESS;
+                        }))
+                        .then(Commands.argument("sieverts", com.mojang.brigadier.arguments.DoubleArgumentType.doubleArg(0))
+                                .executes(context -> {
+                                    Location at = context.getSource().getLocation();
+                                    double strength = com.mojang.brigadier.arguments.DoubleArgumentType.getDouble(context, "sieverts");
+                                    fr.robie.machineengine.mekanized.machine.Radiation.release(
+                                            WorldPosition.of(at.getWorld().getKey(), at.getBlockX(), at.getBlockY(), at.getBlockZ()), strength);
+                                    reply(context, "Released " + strength + " Sv/h here");
+                                    return Command.SINGLE_SUCCESS;
+                                })))
                 .then(PositionArguments.optionalPosition(Commands.literal("test").requires(MekanizedCommands::admin), PositionArguments.Default.PLACEMENT,
                         (context, world, x, y, z) -> {
                             Bukkit.getRegionScheduler().execute(this.plugin, new Location(world, x, y, z), () -> test(context, world, x, y, z));

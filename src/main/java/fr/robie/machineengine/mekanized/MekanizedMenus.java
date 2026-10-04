@@ -292,6 +292,12 @@ final class MekanizedMenus {
         entangloporter.put("chemical", chemical(16, "chemical", "Chemical"));
         entangloporter.put("items", slot(22, "items", "Items"));
         menus.add(new Menu("quantum_entangloporter", entangloporter, -1));
+
+        Map<String, String> barrel = new LinkedHashMap<>();
+        barrel.put("info", display(4, "BARREL", "<green>Radioactive Waste Barrel", "<gray>Holds radioactive chemicals safely",
+                "<gray>while they slowly decay (" + fr.robie.machineengine.mekanized.machine.Radiation.BARREL_DECAY + " mB a second)."));
+        barrel.put("waste", chemical(13, "waste", "Waste"));
+        menus.add(new Menu("radioactive_waste_barrel", barrel, -1));
     }
 
     private static String heat(int slot, String storage, String name) {

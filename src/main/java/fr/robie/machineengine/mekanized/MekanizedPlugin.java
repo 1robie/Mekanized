@@ -123,6 +123,7 @@ public final class MekanizedPlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         PaperEntangloporters.save();
+        PaperRadiation.saveNow();
     }
 
     @Override
@@ -134,6 +135,7 @@ public final class MekanizedPlugin extends JavaPlugin {
         PaperGear.install(this);
         PaperChunkLoaders.install(this);
         PaperEntangloporters.install(this);
+        PaperRadiation.install(this);
         fr.robie.machineengine.paper.ResourceNames.register(MekanizedPlugin::name);
         getServer().getPluginManager().registerEvents(new MekanizedTools(), this);
         MekanizedCommands commands = new MekanizedCommands(this);

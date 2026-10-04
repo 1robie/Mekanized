@@ -17,6 +17,7 @@ import fr.robie.machineengine.mekanized.machine.AutomationMachines;
 import fr.robie.machineengine.mekanized.machine.ChunkLoaders;
 import fr.robie.machineengine.mekanized.machine.Entangloporters;
 import fr.robie.machineengine.mekanized.machine.MekanizedMachines;
+import fr.robie.machineengine.mekanized.machine.Radiation;
 import fr.robie.machineengine.test.FakeWorld;
 import fr.robie.machineengine.test.TestEngine;
 import net.kyori.adventure.key.Key;
@@ -46,6 +47,26 @@ class ExtrasTest {
     void forget() {
         ChunkLoaders.loaders().clear();
         Entangloporters.buffers().clear();
+        Radiation.sources().clear();
+    }
+
+    @Test
+    void radiationFadesWithDistanceAndTime() {
+        Radiation.release(HERE, 1.0);
+        assertEquals(1.0 + Radiation.BACKGROUND, Radiation.levelAt(FakeWorld.WORLD, 0.5, 64.5, 0.5), 1e-9, "at the source");
+        assertEquals(0.01 + Radiation.BACKGROUND, Radiation.levelAt(FakeWorld.WORLD, 10.5, 64.5, 0.5), 1e-9, "over the squared distance");
+        Radiation.decay();
+        assertEquals(Radiation.DECAY_PER_SECOND, Radiation.sources().get(HERE), 1e-12);
+    }
+
+    @Test
+    void aWasteBarrelLetsItsWasteDecay() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        MachineInstanceImpl barrel = world.place(type("radioactive_waste_barrel"), HERE, Direction.NORTH);
+        fill(barrel, "waste", MekanizedContent.chemical("nuclear_waste").stack(100));
+        world.tick(100);
+        long left = amountOf(barrel, "waste", MekanizedContent.chemical("nuclear_waste").variant());
+        assertTrue(left < 100 && left >= 94, "a millibucket a second: " + left);
     }
 
     @Test

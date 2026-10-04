@@ -369,7 +369,19 @@ public final class ReactorMachines {
         long safe = Math.max(1, assemblies) * 5L * FISSION_HEAT_PER_MB;
         if (heat > safe) damage = Math.min(100, damage + Math.max(1, (heat - safe) * 10 / safe));
         else if (damage > 0) damage--;
-        if (damage >= 100 && anchor.get(RUNNING)) anchor.set(RUNNING, false); // SCRAM
+        if (damage >= 100 && anchor.get(RUNNING)) {
+            // SCRAM; the breach lets the waste out as radiation (Mekanism's meltdown, without the explosion).
+            anchor.set(RUNNING, false);
+            long waste = amount(anchor, "waste");
+            if (waste > 0) {
+                try (Transaction transaction = anchor.transactions().openOuter()) {
+                    anchor.storage("waste").extract(chemical("nuclear_waste"), waste, transaction);
+                    transaction.commit();
+                }
+                fr.robie.machineengine.mekanized.machine.Radiation.release(anchor.machine().position(),
+                        waste * fr.robie.machineengine.mekanized.machine.Radiation.RADIOACTIVITY.get("nuclear_waste"));
+            }
+        }
         anchor.set(REACTOR_HEAT, heat);
         anchor.set(DAMAGE, damage);
         String state = !anchor.get(RUNNING) ? (damage >= 100 ? "SCRAM: too hot" : "Stopped")

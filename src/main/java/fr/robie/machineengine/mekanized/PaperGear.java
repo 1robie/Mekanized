@@ -15,6 +15,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
@@ -81,7 +82,9 @@ final class PaperGear implements Listener {
             Map.entry("elytra_unit", "mekasuit_bodyarmor"), Map.entry("locomotive_boosting_unit", "mekasuit_pants"),
             Map.entry("hydraulic_propulsion_unit", "mekasuit_boots"), Map.entry("excavation_escalation_unit", "meka_tool"),
             Map.entry("attack_amplification_unit", "meka_tool"), Map.entry("silk_touch_unit", "meka_tool"),
-            Map.entry("fortune_unit", "meka_tool"), Map.entry("vein_mining_unit", "meka_tool"), Map.entry("teleportation_unit", "meka_tool"));
+            Map.entry("fortune_unit", "meka_tool"), Map.entry("vein_mining_unit", "meka_tool"), Map.entry("teleportation_unit", "meka_tool"),
+            Map.entry("radiation_shielding_unit", "mekasuit"), Map.entry("geiger_unit", "mekasuit_helmet"),
+            Map.entry("dosimeter_unit", "mekasuit_helmet"));
     private static final Set<PotionEffectType> HARMFUL = Set.of(PotionEffectType.POISON, PotionEffectType.WITHER, PotionEffectType.HUNGER,
             PotionEffectType.NAUSEA, PotionEffectType.BLINDNESS, PotionEffectType.SLOWNESS, PotionEffectType.MINING_FATIGUE,
             PotionEffectType.WEAKNESS, PotionEffectType.DARKNESS);
@@ -104,7 +107,7 @@ final class PaperGear implements Listener {
 
     // -- item data ------------------------------------------------------------------------------
 
-    private static @Nullable String id(@Nullable ItemStack stack) {
+    static @Nullable String id(@Nullable ItemStack stack) {
         if (stack == null || stack.isEmpty()) return null;
         Key key = PaperItems.idOf(stack);
         return key.namespace().equals(MekanizedContent.NAMESPACE) ? key.value() : null;
@@ -424,14 +427,22 @@ final class PaperGear implements Listener {
             player.sendActionBar(Component.text("This module does nothing in Mekanized", NamedTextColor.RED));
             return;
         }
+        // "mekasuit": any worn piece that does not have it yet.
+        List<ItemStack> worn = List.of(player.getInventory().getHelmet() == null ? new ItemStack(Material.AIR) : player.getInventory().getHelmet(),
+                player.getInventory().getChestplate() == null ? new ItemStack(Material.AIR) : player.getInventory().getChestplate(),
+                player.getInventory().getLeggings() == null ? new ItemStack(Material.AIR) : player.getInventory().getLeggings(),
+                player.getInventory().getBoots() == null ? new ItemStack(Material.AIR) : player.getInventory().getBoots());
         ItemStack gear = switch (target) {
-            case "mekasuit_helmet" -> player.getInventory().getHelmet();
-            case "mekasuit_bodyarmor" -> player.getInventory().getChestplate();
-            case "mekasuit_pants" -> player.getInventory().getLeggings();
-            case "mekasuit_boots" -> player.getInventory().getBoots();
+            case "mekasuit_helmet" -> worn.get(0);
+            case "mekasuit_bodyarmor" -> worn.get(1);
+            case "mekasuit_pants" -> worn.get(2);
+            case "mekasuit_boots" -> worn.get(3);
+            case "mekasuit" -> worn.stream().filter(piece -> id(piece) != null && id(piece).startsWith("mekasuit_")
+                    && !modules(piece).contains(module)).findFirst().orElse(worn.get(0));
             default -> player.getInventory().getItemInOffHand();
         };
-        if (!target.equals(id(gear))) {
+        String gearId = id(gear);
+        if (target.equals("mekasuit") ? gearId == null || !gearId.startsWith("mekasuit_") : !target.equals(gearId)) {
             player.sendActionBar(Component.text("Wear the " + target.replace('_', ' ') + " (a Meka-Tool: in the off hand) to install it",
                     NamedTextColor.RED));
             return;
@@ -450,7 +461,7 @@ final class PaperGear implements Listener {
                 default -> {
                 }
             }
-            refresh(meta, MekanizedContent.key(target));
+            refresh(meta, MekanizedContent.key(gearId));
         });
         if (player.getGameMode() != GameMode.CREATIVE) moduleStack.setAmount(moduleStack.getAmount() - 1);
         player.sendActionBar(Component.text("Installed: " + module.replace('_', ' '), NamedTextColor.GREEN));

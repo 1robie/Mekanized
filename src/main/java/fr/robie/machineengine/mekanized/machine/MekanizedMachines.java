@@ -129,6 +129,7 @@ public final class MekanizedMachines {
         AutomationMachines.register(context);
         ChunkLoaders.register(context);
         Entangloporters.register(context);
+        Radiation.register(context);
         fr.robie.machineengine.mekanized.multiblock.ReactorMachines.register(context);
         fr.robie.machineengine.mekanized.multiblock.MultiblockMachines.register(context);
     }
