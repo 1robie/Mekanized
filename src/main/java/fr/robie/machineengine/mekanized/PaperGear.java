@@ -205,7 +205,7 @@ final class PaperGear implements Listener {
         }, null, 1, 1);
     }
 
-    /** Hydrogen: up while jumping (Mekanism's 0.15 a tick, up to 0.5), 1 mB a tick. */
+    /** Hydrogen: up while jumping (Mekanism's 0.15 a tick, up to 0.5, from 0 when falling), 1 mB a tick. */
     private void jetpack(Player player) {
         ItemStack chest = player.getInventory().getChestplate();
         String id = id(chest);
@@ -215,7 +215,8 @@ final class PaperGear implements Listener {
         if (!useChemical(chest, 1)) return;
         // The server does not know the player's own horizontal speed: steer with the movement keys.
         Vector velocity = steering(player);
-        velocity.setY(Math.min(player.getVelocity().getY() + 0.15, 0.5));
+        // A fall is cancelled at once: thrusting from a negative speed would only slow it down.
+        velocity.setY(Math.min(Math.max(player.getVelocity().getY(), 0) + 0.15, 0.5));
         player.setVelocity(velocity);
         player.setFallDistance(0);
         player.getWorld().spawnParticle(Particle.FLAME, player.getLocation().add(0, 0.6, 0), 2, 0.15, 0.05, 0.15, 0.01);
