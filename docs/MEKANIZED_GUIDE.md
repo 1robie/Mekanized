@@ -88,6 +88,54 @@ Each structure works as follows:
 The lowest corner block keeps the structure's contents. Breaking another block unforms the structure
 until it is rebuilt; breaking the corner block keeps the contents in its item.
 
+### Upgrades
+Click a machine's upgrade button with the upgrade in hand to install it.
+
+| Upgrade | Effect | Fits |
+|---|---|---|
+| Speed | Faster, uses more energy per tick | Machines with upgrade slots |
+| Energy | Less energy per operation, bigger energy buffer | Machines with upgrade slots |
+| Chemical | Less chemical per tick | Osmium Compressor, Purification and Injection Chambers, their factories |
+| Filter | Pumps heavy water (10 mB a block) out of water | Electric Pump |
+| Anchor | Keeps the machine's chunk loaded, even after a restart | Machines with upgrade slots |
+| Stone Generator | Fills each mined block with stone | Digital Miner |
+
+### Frequencies, chunk loading and the Quantum Entangloporter
+- **Frequencies:** look at a teleporter, QIO block or Quantum Entangloporter and run
+  `/mekanized frequency <name>`. Holding a portable teleporter or portable QIO dashboard instead sets
+  the item's frequency.
+- **Dimensional Stabilizer:** keeps its own chunk loaded, or the 3x3 or 5x5 chunks around it, while it
+  has energy (500 J/t per chunk).
+- **Quantum Entangloporter:** every entangloporter of a frequency shares one buffer of energy, items,
+  fluid and chemical, across the whole server. Set each one to send (fed by cables, pipes, tubes and
+  hoppers) or receive (pushes out of every side) in its menu.
+
+### Radiation
+- **Sources:** a fission reactor reaching 100 % damage SCRAMs and lets its nuclear waste out as
+  radiation. Sources fade by half every few minutes.
+- **Dose:** players take in the radiation around them. A high dose makes them hungry, then sick, then hurts.
+- **Protection:** each hazmat piece, or MekaSuit piece with a radiation shielding unit, stops a quarter.
+- **Tools:** the Geiger counter reads the radiation where you stand, and the dosimeter your dose. A
+  MekaSuit helmet with the matching unit shows them on the action bar.
+- **Radioactive Waste Barrel:** stores up to 512,000 mB of radioactive chemicals while they decay.
+
+### Tools
+| Tool | Use |
+|---|---|
+| Configuration Card | Sneak-right-click a machine to copy its sides, auto-eject and redstone setting; right-click another of the same kind to paste |
+| Dictionary | Right-click a block (or the air, for the item in your off hand) to list its tags |
+| Gauge Dropper | Right-click a machine to take up to 16,000 mB of a fluid or chemical; sneak-right-click to put it back; sneak-right-click the air to empty it |
+| Crafting Formula | Sneak-right-click a Formulaic Assemblicator to record its pattern; right-click one with an empty pattern to set it |
+| Portable Teleporter | Right-click to go to the teleporter of its frequency (energy as a teleporter) |
+| Portable QIO Dashboard | Right-click to open the QIO of its frequency |
+| Canteen | Fill it at a Nutritional Liquifier (food into paste); right-click to eat |
+
+### Gear and modules
+- **Installing:** sneak-right-click with a module while wearing the piece it fits. For the Meka-Tool,
+  hold the tool in your off hand.
+- **Removing:** right-click a Modification Station holding the gear; its last module comes back out.
+- **Not supported:** the color modulation and laser dissipation units (lasers do not hurt in Mekanized).
+
 ## Configuring
 - **`plugins/Mekanized/config.yml`:** network rates per tier, Dynamic Tank capacity, Thermal Evaporation
   rate. Restart to apply.
@@ -101,6 +149,8 @@ until it is rebuilt; breaking the corner block keeps the contents in its item.
 ## Commands (permission `machineengine.admin`)
 | Command | What it does |
 |---|---|
+| `/mekanized build <structure> [x y z]` | Builds the smallest working multiblock (dynamic_tank, induction_matrix, thermal_evaporation, boiler, turbine, fission_reactor, fusion_reactor, sps, teleporter) towards +x, +y, +z |
+| `/mekanized radiation <Sv/h>` / `clear` | Adds a radiation source where you stand / removes every source |
 | `/mekanized test` | Places an Enrichment Chamber, feeds it, and logs the result (2 osmium dust) |
 | `/mekanized test-cable` | A creative energy cube powering a chamber through a cable |
 | `/mekanized test-chemistry` | An Electrolytic Separator feeding a chemical tank through a tube |
@@ -110,7 +160,10 @@ until it is rebuilt; breaking the corner block keeps the contents in its item.
 - **Transporters:** items move between batches instantly, with no items drawn on them. There are no
   restrictive or diversion transporters.
 - **Thermal Evaporation Plant:** its heat is simpler (height, daylight, rain).
-- **Not made yet:** the boiler, fission and fusion reactors, Digital Miner, Teleporter and QIO.
+- **Fission meltdown:** a SCRAM plus radiation, no explosion.
+- **Radiation:** only fission breaches release it; dumping chemicals does not.
+- **Not made:** the security desk, the muffling upgrade (machines make no sound), the QIO redstone
+  adapter, and the color modulation and laser dissipation units.
 - **No ore generation:** use your world's ores, or a world generator plugin.
 
 ## Troubleshooting

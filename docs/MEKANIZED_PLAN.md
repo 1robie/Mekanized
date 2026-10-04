@@ -233,9 +233,32 @@ ways that hide where they came from. Source: `https://github.com/mekanism/Mekani
     - the anchor evaporates once a second by Mekanism's recipes (water to brine, brine to liquid lithium): 10 mB of input per tick per level, halved at night and again in rain (simpler than Mekanism's temperatures);
     - valves fill the input and give the output; bucket slots for both.
 
-### Phase 5: later, not in the first release
-Multiblocks (Dynamic Tank, Induction Matrix, Thermal Evaporation, Boiler, Fission, Fusion), Digital
-Miner, Teleporter, QIO, MekaSuit.
+### Phase 6: the rest of Mekanism (2026-10-03 to 2026-10-04, the owner's choice: "implement all")
+- **Wave 1:** the remaining single-block machines and generators.
+- **Wave 2:** bins, personal storage, chargepad, plenisher, assemblicator, lasers, alarm.
+- **Wave 3:** heat; boiler, turbine, fission and fusion reactors, SPS.
+- **Wave 4:** Digital Miner, seismic vibrator, teleporter, QIO, cardboard box.
+- **Wave 5:** tools, armour and modules; gear models converted from Mekanism's Java models.
+- **Wave 6 (2026-10-04, not yet tried in game):**
+  - **Missing items:** the intermediates the imported recipes used without declaring them (pellets,
+    yellow cake, reprocessed fissile fragment, dirty netherite scrap, solar panel).
+  - **Upgrades:** chemical, filter (heavy water), anchor (chunk loading) and stone generator.
+  - **Machines:** dimensional stabilizer; quantum entangloporter (a shared buffer per frequency, locked
+    and changed after each machine's commit, so it works across Folia regions; saved in
+    `entangloporters.txt`).
+  - **Radiation:** sources from fission breaches; player dose with hazmat or module shielding; waste
+    barrel, dosimeter, Geiger counter.
+  - **Food:** nutritional liquifier and canteen.
+  - **Tools:** configuration card, dictionary, gauge dropper, crafting formula, portable teleporter and
+    QIO dashboard.
+  - **Gear:** the remaining modules, and the modification station that removes them.
+  - **Tests:** `ExtrasTest`.
+- **Left out:**
+  - the security desk;
+  - the muffling upgrade (machines make no sound);
+  - the QIO redstone adapter (no usable blockstate);
+  - restrictive and diversion transporters;
+  - the color modulation and laser dissipation units.
 
 ## MachineEngine features needed (built in the engine, tested headless)
 
@@ -252,6 +275,7 @@ Miner, Teleporter, QIO, MekaSuit.
 | E9 | Chemical and fluid networks (energy and items already work) | Tubes and pipes |
 | E10 | Item tags: an `item-tag:` filter, a provider backed by CraftEngine (`itemIdsByTag`: vanilla and custom items), and aliases such as `c:ores/iron` → `#minecraft:iron_ores` | Every imported recipe (Mekanism uses `#c:` tags) |
 | E11 | Definition item ids resolve CraftEngine custom items, not only vanilla materials | Recipes and filters naming `mekanized:` items |
+| E13 | Process costs per resource category (`StandardModifiers.processCost`, `MachineContext.modifiedCost`) and `placeWorldBlock` | Energy and chemical upgrades, stone generator |
 
 ## Verification per phase
 - **Headless tests:** each processing chain gives exactly the expected yield. For example, 1 ore gives 2 ingots through the Enrichment Chamber and 5 through the full chemical chain. Resources are always conserved.
