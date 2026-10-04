@@ -68,10 +68,13 @@ public final class ChemistryBehaviors {
      * and stores 1000 mB. Flowing fluid is followed to reach sources, up to {@code range} blocks
      * away; blocks of other regions (Folia) are not reached.
      */
+    /** Heavy water a filter-upgraded pump gets from a block of water. */
+    public static final long HEAVY_WATER_PER_BLOCK = 10;
+
     public static @NotNull MachineBehavior.Factory pump(@NotNull String tank, @NotNull String energyStorage, long energy, long ticks,
                                                         int range) {
         return type -> context -> {
-            long cost = context.modified(StandardModifiers.PROCESS_COST, energy);
+            long cost = context.modifiedCost(MekanizedContent.ENERGY, energy);
             long delay = Math.max(1, context.modified(StandardModifiers.PROCESS_DURATION, ticks));
             BlockPosition below = context.machine().position().position().relative(Direction.DOWN);
             WorldFluid start = context.worldFluidAt(below);
@@ -83,8 +86,15 @@ public final class ChemistryBehaviors {
             }
             ResourceHandler storage = context.storage(tank);
             ResourceHandler power = context.storage(energyStorage);
+            // A filter upgrade separates heavy water out of each block of water (Mekanism's 10 mB).
+            long amount = 1000;
+            ResourceType heavyWater = MekanizedContent.fluid("heavy_water");
+            if (heavyWater != null && start.fluid().value().equals("water") && MekanizedMachines.installed(context, MekanizedMachines.FILTER_UPGRADE)) {
+                fluid = heavyWater;
+                amount = HEAVY_WATER_PER_BLOCK;
+            }
             try (Transaction transaction = context.transactions().openOuter()) {
-                if (storage.insert(fluid.variant(), 1000, transaction) != 1000) {
+                if (storage.insert(fluid.variant(), amount, transaction) != amount) {
                     context.setActive(false);
                     context.block(new MachineError.TransferRejected("the tank is full", null), 20);
                     return;

@@ -168,7 +168,7 @@ public final class ChemistryMachines {
         machines.add(withBuckets(MekanizedMachines.base("electric_pump", 40_000), "fluid", 10_000, false, true, IS_FLUID, false)
                 .port(PortDefinition.builder("fluid", "fluid").direction(PortDirection.OUTPUT).filter(IS_FLUID)
                         .sides(RelativeSide.FRONT, RelativeSide.BACK, RelativeSide.LEFT, RelativeSide.RIGHT, RelativeSide.TOP).group("fluid").build())
-                .upgradeSlots(2, ChemistryMachines::upgrade)
+                .upgradeSlots(2, upgrade -> upgrade(upgrade) || upgrade.equals(MekanizedMachines.FILTER_UPGRADE))
                 .behavior(withEnergy(ChemistryBehaviors.pump("fluid", "energy", 2_000, 20, 32), buckets("fluid", false, true)))
                 .build());
         // Tanks: input on every side but the front, output through the front (fluid tanks: in on top, out at the bottom).
@@ -184,7 +184,7 @@ public final class ChemistryMachines {
     }
 
     private static boolean upgrade(fr.robie.machineengine.api.upgrade.UpgradeType upgrade) {
-        return upgrade.equals(SPEED) || upgrade.equals(ENERGY_UPGRADE);
+        return MekanizedMachines.standardUpgrade(upgrade);
     }
 
     private static StorageDefinition chemicalTank(String id, long capacity, ResourcePredicate filter) {

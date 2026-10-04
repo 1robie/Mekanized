@@ -119,7 +119,7 @@ public final class EndgameMachines {
     }
 
     private static boolean upgrade(fr.robie.machineengine.api.upgrade.UpgradeType upgrade) {
-        return upgrade.equals(MekanizedMachines.SPEED) || upgrade.equals(MekanizedMachines.ENERGY_UPGRADE);
+        return MekanizedMachines.standardUpgrade(upgrade);
     }
 
     private static PortDefinition port(String storage, PortDirection direction, ResourcePredicate filter, String group) {

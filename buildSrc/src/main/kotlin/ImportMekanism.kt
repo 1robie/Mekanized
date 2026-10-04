@@ -47,7 +47,7 @@ abstract class ImportMekanism : DefaultTask() {
         val recipes = Recipes(source, out, report, listOf("materials" to content.ids, "machines" to content.machineIds,
             "chemistry" to content.chemistryIds, "logistics" to content.logisticsIds, "multiblocks" to content.multiblockIds,
             "endgame" to content.endgameIds, "reactors" to content.reactorIds,
-            "automation" to content.automationIds, "gear" to content.gearIds), itemTags)
+            "automation" to content.automationIds, "gear" to content.gearIds, "extras" to content.extrasIds), itemTags)
             .also { it.convert() }
         writeAliases(out.resolve("definitions/vanilla_aliases.yml"), recipes.referencedTags + itemTags.keys, itemTags, report)
         source.resolve("LICENSE").copyTo(out.resolve("LICENSE-MEKANISM.txt"), overwrite = true)

@@ -19,7 +19,9 @@ internal class MekanismContent(
     /** Phase 1 materials, by Mekanism item name. */
     private val materialPattern = Regex(
         "^(ingot|nugget|dust|dirty_dust|clump|shard|crystal|raw|alloy|enriched)_.+$|^.+_control_circuit$|" +
-                "^(hdpe_pellet|hdpe_rod|hdpe_sheet|hdpe_stick|substrate|salt|fluorite_gem|bio_fuel|sawdust|dye_base)$"
+                "^(hdpe_pellet|hdpe_rod|hdpe_sheet|hdpe_stick|substrate|salt|fluorite_gem|bio_fuel|sawdust|dye_base)$|" +
+                // Nuclear and netherite intermediates of the imported recipes.
+                "^(pellet_.+|yellow_cake_uranium|reprocessed_fissile_fragment|dirty_netherite_scrap)$"
     )
     private val blockPattern = Regex("^(deepslate_)?(osmium|tin|lead|uranium|fluorite)_ore$|^block_.+$|^steel_casing$")
 
@@ -80,6 +82,8 @@ internal class MekanismContent(
             phase8Machines, mapOf(), phase8Items, automationIds, nameKeys, membership,
             extraModels = mapOf("cardboard_box_storage" to ("mekanized:block/cardboard_box_storage" to "block.mekanized.cardboard_box")))
         generateGear(nameKeys, membership)
+        generateBlocks("extras.yml", "Mekanized chunk loading, quantum entangloporter, the last upgrades and tools (Phase 6 wave 6), generated from Mekanism (MIT).",
+            phase10Machines, mapOf(), phase10Items, extrasIds, nameKeys, membership)
         val chemicals = chemicals()
         nameKeys += chemicals.map { "chemical.mekanism.$it" }
         // Fluids are named by their liquid blocks (block.mekanism.brine).
@@ -212,6 +216,13 @@ internal class MekanismContent(
 
     /** Ids of Phase 6 wave 5 content, for the recipe split. */
     val gearIds = sortedSetOf<String>()
+
+    // -- Phase 6 wave 6: chunk loading, entangloporter, the last upgrades, tools, radiation ------------
+    private val phase10Machines = listOf("dimensional_stabilizer", "quantum_entangloporter")
+    private val phase10Items = listOf("upgrade_chemical", "upgrade_filter", "upgrade_anchor", "upgrade_stone_generator")
+
+    /** Ids of Phase 6 wave 6 content, for the recipe split. */
+    val extrasIds = sortedSetOf<String>()
 
     private fun generateGear(nameKeys: MutableSet<String>, membership: Map<String, Set<String>>) {
         val items = linkedMapOf<String, Any?>()

@@ -49,7 +49,9 @@ public final class MekanizedPlugin extends JavaPlugin {
             // Phase 6 wave 4: Digital Miner, seismic vibrator, teleporter, QIO, cardboard box.
             "configuration/automation.yml", "configuration/recipes_automation_shaped.yml",
             // Phase 6 wave 5: tools, armour and modules.
-            "configuration/gear.yml", "configuration/recipes_gear_shaped.yml");
+            "configuration/gear.yml", "configuration/recipes_gear_shaped.yml",
+            // Phase 6 wave 6: chunk loading, the quantum entangloporter, the last upgrades, tools, radiation.
+            "configuration/extras.yml", "configuration/recipes_extras_shaped.yml");
     /** Generated MachineEngine definitions installed so far (same rule as {@link #ENABLED_CONFIGURATION}). */
     static final java.util.Set<String> ENABLED_DEFINITIONS = java.util.Set.of(
             // Phase 1: item and chemical tags, and the vanilla members of c: tags.
@@ -119,12 +121,19 @@ public final class MekanizedPlugin extends JavaPlugin {
     }
 
     @Override
+    public void onDisable() {
+        PaperEntangloporters.save();
+    }
+
+    @Override
     @SuppressWarnings("UnstableApiUsage")
     public void onEnable() {
         fr.robie.machineengine.mekanized.machine.EnergyItems.setAccess(new PaperEnergyItems());
         PaperUtility.install(this);
         PaperAutomation.install(this);
         PaperGear.install(this);
+        PaperChunkLoaders.install(this);
+        PaperEntangloporters.install(this);
         fr.robie.machineengine.paper.ResourceNames.register(MekanizedPlugin::name);
         getServer().getPluginManager().registerEvents(new MekanizedTools(), this);
         MekanizedCommands commands = new MekanizedCommands(this);

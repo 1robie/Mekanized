@@ -135,7 +135,7 @@ public final class UtilityMachines {
     }
 
     private static boolean upgrade(fr.robie.machineengine.api.upgrade.UpgradeType upgrade) {
-        return upgrade.equals(MekanizedMachines.SPEED) || upgrade.equals(MekanizedMachines.ENERGY_UPGRADE);
+        return MekanizedMachines.standardUpgrade(upgrade);
     }
 
     /** The energy item slot, auto-eject. */

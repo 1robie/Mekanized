@@ -136,6 +136,7 @@ final class MekanizedMenus {
         utilityMenus(menus);
         reactorMenus(menus);
         automationMenus(menus);
+        extrasMenus(menus);
         return menus;
     }
 
@@ -267,6 +268,32 @@ final class MekanizedMenus {
     }
 
     /** A heat buffer gauge. */
+    private static void extrasMenus(List<Menu> menus) {
+        Map<String, String> stabilizer = new LinkedHashMap<>();
+        stabilizer.put("info", display(4, "END_CRYSTAL", "<light_purple>Dimensional Stabilizer", "<gray>Keeps the chunks around it loaded",
+                "<gray>while it has energy (" + fr.robie.machineengine.mekanized.machine.ChunkLoaders.STABILIZER_ENERGY_PER_CHUNK
+                        + " J/t per chunk)."));
+        stabilizer.put("radius", setting(11, "radius", List.of("0", "1", "2"), "COMPASS",
+                "<yellow>Chunks around: %zmenu_machineengine_data_radius%", "<gray>0: its chunk, 1: 3 x 3, 2: 5 x 5"));
+        stabilizer.put("energy", energyDisplay(13));
+        stabilizer.put("status", status(15));
+        stabilizer.put("energy-slot", slot(31, "energy_slot", "Energy item (redstone: 10 kJ each)"));
+        menus.add(new Menu("dimensional_stabilizer", stabilizer));
+
+        Map<String, String> entangloporter = new LinkedHashMap<>();
+        entangloporter.put("info", display(4, "ENDER_EYE", "<light_purple>Quantum Entangloporter",
+                "<gray>Every entangloporter of a frequency shares one buffer.", "<gray>Sending ones fill it from pipes, cables and hoppers;",
+                "<gray>receiving ones empty it out of every side.", "<gray>Frequency: look at it, /mekanized frequency <name>"));
+        entangloporter.put("frequency", display(10, "NAME_TAG", "<yellow>Frequency: %zmenu_machineengine_data_frequency%"));
+        entangloporter.put("mode", setting(12, "entangloporter_mode", List.of("send", "receive"), "COMPARATOR",
+                "<yellow>Mode: %zmenu_machineengine_data_entangloporter_mode%"));
+        entangloporter.put("energy", energyDisplay(14));
+        entangloporter.put("fluid", tank(15, "fluid", "WATER_BUCKET", "<aqua>", "Fluid"));
+        entangloporter.put("chemical", chemical(16, "chemical", "Chemical"));
+        entangloporter.put("items", slot(22, "items", "Items"));
+        menus.add(new Menu("quantum_entangloporter", entangloporter, -1));
+    }
+
     private static String heat(int slot, String storage, String name) {
         String prefix = "%zmenu_machineengine_storage_" + storage + "_";
         return display(slot, "BLAZE_POWDER", "<gold>" + name, "<gray>" + prefix + "amount% / " + prefix + "capacity% J",
@@ -578,7 +605,7 @@ final class MekanizedMenus {
 
     private static String upgrades() {
         return "    type: machineengine_upgrades\n    slot: 8\n    update: true\n" + item("NETHER_STAR", "<aqua>Upgrades",
-                "<gray>Installed: %zmenu_machineengine_upgrades%", "<dark_gray>Click with a speed or energy upgrade to install,",
+                "<gray>Installed: %zmenu_machineengine_upgrades%", "<dark_gray>Click with an upgrade to install,",
                 "<dark_gray>with an empty hand to take one out");
     }
 

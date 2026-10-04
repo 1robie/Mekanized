@@ -59,7 +59,7 @@ public final class UtilityBehaviors {
     public static @NotNull MachineBehavior.Factory plenisher(@NotNull String tank, long energy, long ticks, int range) {
         return type -> context -> {
             long delay = Math.max(1, context.modified(StandardModifiers.PROCESS_DURATION, ticks));
-            long cost = context.modified(StandardModifiers.PROCESS_COST, energy);
+            long cost = context.modifiedCost(MekanizedContent.ENERGY, energy);
             ResourceHandler fluid = context.storage(tank);
             StorageView held = fluid.views().getFirst();
             Key world = held.isEmpty() || held.amount() < 1000 ? null : worldFluid(held.variant());
@@ -151,7 +151,7 @@ public final class UtilityBehaviors {
             }
             Map<ResourceVariant, Long> needed = new HashMap<>();
             for (ResourceVariant cell : grid) if (cell != null) needed.merge(cell, 1L, Long::sum);
-            long cost = context.modified(StandardModifiers.PROCESS_COST, energy);
+            long cost = context.modifiedCost(MekanizedContent.ENERGY, energy);
             boolean crafted;
             try (Transaction transaction = context.transactions().openOuter()) {
                 crafted = context.storage("energy").extract(MekanizedContent.ENERGY.variant(), cost, transaction) == cost;

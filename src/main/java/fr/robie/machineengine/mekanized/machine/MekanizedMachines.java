@@ -60,10 +60,23 @@ public final class MekanizedMachines {
     /** A machine's energy buffer size, scaled by energy upgrades. */
     public static final fr.robie.machineengine.api.upgrade.ModifierType ENERGY_CAPACITY =
             fr.robie.machineengine.api.upgrade.ModifierType.nonNegative(key("energy_capacity"));
+    /** Energy and chemical costs per tick, each lowered by its own upgrade. */
+    public static final fr.robie.machineengine.api.upgrade.ModifierType ENERGY_COST = StandardModifiers.processCost(MekanizedContent.ENERGY_CATEGORY);
+    public static final fr.robie.machineengine.api.upgrade.ModifierType CHEMICAL_COST = StandardModifiers.processCost(MekanizedContent.CHEMICAL);
     /** Mekanism: each energy upgrade lowers the energy a process costs and enlarges the energy buffer (+100 % of the base). */
     public static final UpgradeType ENERGY_UPGRADE = UpgradeType.of(key("upgrade_energy"), 8,
-            Modifier.multiplyTotal(StandardModifiers.PROCESS_COST, -200),
+            Modifier.multiplyTotal(ENERGY_COST, -200),
             Modifier.addMultipliedBase(ENERGY_CAPACITY, 1_000));
+    /** Mekanism: each chemical upgrade lowers the chemical used per tick (compressor, purification and injection chambers, their factories). */
+    public static final UpgradeType CHEMICAL_UPGRADE = UpgradeType.of(key("upgrade_chemical"), 8, Modifier.multiplyTotal(CHEMICAL_COST, -200));
+    /** Electric pump: pumps heavy water out of water (10 mB a block). */
+    public static final UpgradeType FILTER_UPGRADE = UpgradeType.of(key("upgrade_filter"), 1);
+    /** Keeps the machine's chunk loaded (Paper side: {@code ChunkLoaders}). */
+    public static final UpgradeType ANCHOR_UPGRADE = UpgradeType.of(key("upgrade_anchor"), 1);
+    /** Digital Miner: fills each mined block with stone. */
+    public static final UpgradeType STONE_GENERATOR_UPGRADE = UpgradeType.of(key("upgrade_stone_generator"), 1);
+    public static final List<UpgradeType> UPGRADES = List.of(SPEED, ENERGY_UPGRADE, CHEMICAL_UPGRADE, FILTER_UPGRADE, ANCHOR_UPGRADE,
+            STONE_GENERATOR_UPGRADE);
 
     // -- energy transport ------------------------------------------------------------------------
     public static final NetworkType ENERGY_NETWORK = NetworkType.of(key("energy"), NetworkBehavior.distributing());
@@ -78,6 +91,21 @@ public final class MekanizedMachines {
     private MekanizedMachines() {
     }
 
+    /** The upgrades every machine with upgrade slots takes: speed, energy, anchor. */
+    public static boolean standardUpgrade(UpgradeType upgrade) {
+        return upgrade.equals(SPEED) || upgrade.equals(ENERGY_UPGRADE) || upgrade.equals(ANCHOR_UPGRADE);
+    }
+
+    /** Machines using a chemical per tick also take chemical upgrades. */
+    public static boolean chemicalUpgrade(UpgradeType upgrade) {
+        return standardUpgrade(upgrade) || upgrade.equals(CHEMICAL_UPGRADE);
+    }
+
+    /** Whether {@code upgrade} is installed in the machine. */
+    public static boolean installed(fr.robie.machineengine.api.machine.MachineContext context, UpgradeType upgrade) {
+        return context.machine().upgrades().stream().anyMatch(installed -> installed.type().equals(upgrade) && installed.count() > 0);
+    }
+
     private static RecipeType<ProcessingRecipe> recipeType(String name) {
         return RecipeType.of(key(name), ProcessingRecipe.class);
     }
@@ -86,8 +114,9 @@ public final class MekanizedMachines {
         RecipeFilters.attach(context);
         RECIPE_TYPES.forEach(context.recipeTypes()::register);
         context.modifierTypes().register(ENERGY_CAPACITY);
-        context.upgradeTypes().register(SPEED);
-        context.upgradeTypes().register(ENERGY_UPGRADE);
+        context.modifierTypes().register(ENERGY_COST);
+        context.modifierTypes().register(CHEMICAL_COST);
+        UPGRADES.forEach(context.upgradeTypes()::register);
         context.networkTypes().register(ENERGY_NETWORK);
         CABLES.forEach(context.transportTypes()::register);
         machines().forEach(context.machineTypes()::register);
@@ -98,6 +127,8 @@ public final class MekanizedMachines {
         UtilityMachines.register(context);
         HeatMachines.register(context);
         AutomationMachines.register(context);
+        ChunkLoaders.register(context);
+        Entangloporters.register(context);
         fr.robie.machineengine.mekanized.multiblock.ReactorMachines.register(context);
         fr.robie.machineengine.mekanized.multiblock.MultiblockMachines.register(context);
     }
@@ -152,7 +183,7 @@ public final class MekanizedMachines {
                 .storage(StorageDefinition.slots("output", outputSlots, 64).filter(Items.anyItem()))
                 .port(PortDefinition.builder("input", "input").direction(PortDirection.INPUT).group("items").build())
                 .port(PortDefinition.builder("output", "output").direction(PortDirection.OUTPUT).group("items").build())
-                .upgradeSlots(2, upgrade -> upgrade.equals(SPEED) || upgrade.equals(ENERGY_UPGRADE))
+                .upgradeSlots(2, MekanizedMachines::standardUpgrade)
                 .behavior(EjectBehavior.of(ConvertingBehavior.of(process,
                         new ConvertingBehavior.Conversion("energy_slot", "energy", ENERGY_CONVERSION))));
     }
@@ -173,7 +204,7 @@ public final class MekanizedMachines {
                 .port(PortDefinition.builder("input", "input").direction(PortDirection.INPUT).group("items").build())
                 .port(PortDefinition.builder("output", "output").direction(PortDirection.OUTPUT).group("items").build())
                 .port(PortDefinition.builder("chemical", "chemical").direction(PortDirection.INPUT).filter(IS_CHEMICAL).group("chemical").build())
-                .upgradeSlots(2, upgrade -> upgrade.equals(SPEED) || upgrade.equals(ENERGY_UPGRADE))
+                .upgradeSlots(2, chemicalIsInput ? MekanizedMachines::standardUpgrade : MekanizedMachines::chemicalUpgrade)
                 .behavior(EjectBehavior.of(ConvertingBehavior.of(ProcessingBehavior.of(recipes, binding),
                         new ConvertingBehavior.Conversion("chemical_slot", "chemical", CHEMICAL_CONVERSION),
                         new ConvertingBehavior.Conversion("energy_slot", "energy", ENERGY_CONVERSION))));

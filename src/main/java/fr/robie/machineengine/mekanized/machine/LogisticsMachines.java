@@ -90,7 +90,7 @@ public final class LogisticsMachines {
         MachineType.Builder builder = MekanizedMachines.base(tier + "_" + kind.name() + "_factory", kind.energy() * lanes)
                 .storage(StorageDefinition.slots("output", lanes * kind.outputsPerLane(), 64).filter(Items.anyItem()))
                 .port(PortDefinition.builder("output", "output").direction(PortDirection.OUTPUT).group("items").build())
-                .upgradeSlots(2, upgrade -> upgrade.equals(MekanizedMachines.SPEED) || upgrade.equals(MekanizedMachines.ENERGY_UPGRADE))
+                .upgradeSlots(2, kind.chemicalTank() > 0 && !kind.chemicalIsInput() ? MekanizedMachines::chemicalUpgrade : MekanizedMachines::standardUpgrade)
                 .data(FactoryBehavior.PROGRESS);
         for (int lane = 0; lane < lanes; lane++) {
             String storage = FactoryBehavior.laneStorage(lane);

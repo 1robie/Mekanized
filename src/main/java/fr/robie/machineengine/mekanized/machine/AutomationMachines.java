@@ -91,7 +91,7 @@ public final class AutomationMachines {
                 .storage(StorageDefinition.slots("output", 27, 64).filter(Items.anyItem()))
                 .port(PortDefinition.builder("output", "output").direction(PortDirection.OUTPUT).group("items")
                         .sides(RelativeSide.BACK, RelativeSide.TOP).build())
-                .upgradeSlots(2, upgrade -> upgrade.equals(MekanizedMachines.SPEED) || upgrade.equals(MekanizedMachines.ENERGY_UPGRADE))
+                .upgradeSlots(2, upgrade -> MekanizedMachines.standardUpgrade(upgrade) || upgrade.equals(MekanizedMachines.STONE_GENERATOR_UPGRADE))
                 .data(RUNNING).data(RADIUS).data(MIN_Y).data(CURSOR).data(STATUS)
                 .behavior(EjectBehavior.of(ConvertingBehavior.of(miner(),
                         new ConvertingBehavior.Conversion("energy_slot", "energy", ENERGY_CONVERSION))))
@@ -215,7 +215,7 @@ public final class AutomationMachines {
                 idle(context, "Output full", 20);
                 return;
             }
-            long cost = context.modified(StandardModifiers.PROCESS_COST, MINER_ENERGY_PER_BLOCK);
+            long cost = context.modifiedCost(MekanizedContent.ENERGY, MINER_ENERGY_PER_BLOCK);
             if (context.storage("energy").views().getFirst().amount() < cost) {
                 idle(context, "Needs energy", 20);
                 return;
@@ -243,6 +243,10 @@ public final class AutomationMachines {
                         context.storage("output").insert(drop.variant(), drop.amount(), transaction); // what does not fit is lost
                     }
                     transaction.commit();
+                }
+                // Stone generator upgrade: the hole is filled with stone.
+                if (MekanizedMachines.installed(context, MekanizedMachines.STONE_GENERATOR_UPGRADE)) {
+                    context.placeWorldBlock(at, Key.key("minecraft", "stone"));
                 }
                 context.set(CURSOR, cursor + 1);
                 context.setActive(true);

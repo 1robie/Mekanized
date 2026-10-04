@@ -180,7 +180,7 @@ public final class FactoryBehavior implements MachineBehavior {
     private boolean pay(MachineContext context, ProcessingRecipe recipe) {
         try (Transaction transaction = context.transactions().openOuter()) {
             for (ResourceStack cost : recipe.costPerTick()) {
-                long missing = context.modified(StandardModifiers.PROCESS_COST, cost.amount());
+                long missing = context.modifiedCost(cost.type(), cost.amount());
                 for (String id : this.costs) {
                     if (missing <= 0) break;
                     missing -= context.storage(id).extract(cost.variant(), missing, transaction);

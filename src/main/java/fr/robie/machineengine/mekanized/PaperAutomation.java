@@ -102,7 +102,7 @@ final class PaperAutomation implements Listener {
             LoadedMachine machine = block == null ? null : machineAt(block);
             if (machine == null || machine.instance() == null
                     || machine.instance().type().data().stream().noneMatch(key -> key.id().equals(AutomationMachines.FREQUENCY.id()))) {
-                player.sendMessage(Component.text("Look at a teleporter or a QIO block", NamedTextColor.RED));
+                player.sendMessage(Component.text("Look at a teleporter, a QIO block or a quantum entangloporter", NamedTextColor.RED));
                 return;
             }
             machine.instance().context().set(AutomationMachines.FREQUENCY, frequency);
