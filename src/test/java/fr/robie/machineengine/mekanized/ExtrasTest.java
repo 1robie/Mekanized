@@ -60,6 +60,17 @@ class ExtrasTest {
     }
 
     @Test
+    void theLiquifierTurnsFoodIntoPaste() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        MachineInstanceImpl liquifier = world.place(type("nutritional_liquifier"), HERE, Direction.NORTH);
+        fill(liquifier, "energy", MekanizedContent.ENERGY.stack(40_000));
+        fill(liquifier, "input", MekanizedChainTest.item("minecraft:bread").stack(2));
+        liquifier.wake(WakeReason.CONFIG_CHANGED);
+        world.tick(150);
+        assertEquals(500, amountOf(liquifier, "paste", MekanizedContent.fluid("nutritional_paste").variant()), "bread: 5 points, 250 mB");
+    }
+
+    @Test
     void aWasteBarrelLetsItsWasteDecay() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
         MachineInstanceImpl barrel = world.place(type("radioactive_waste_barrel"), HERE, Direction.NORTH);

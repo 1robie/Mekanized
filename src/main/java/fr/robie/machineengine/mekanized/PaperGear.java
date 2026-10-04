@@ -7,6 +7,7 @@ import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.core.machine.LoadedMachine;
 import fr.robie.machineengine.mekanized.machine.EnergyItems;
+import fr.robie.machineengine.mekanized.machine.Liquifier;
 import fr.robie.machineengine.paper.MachineLocator;
 import fr.robie.machineengine.paper.PaperItems;
 import net.kyori.adventure.key.Key;
@@ -73,7 +74,7 @@ final class PaperGear implements Listener {
     private static final Map<String, Object[]> CHEMICALS = Map.of(
             "jetpack", new Object[]{"hydrogen", 24_000L}, "jetpack_armored", new Object[]{"hydrogen", 24_000L},
             "flamethrower", new Object[]{"hydrogen", 24_000L}, "scuba_tank", new Object[]{"oxygen", 24_000L},
-            "mekasuit_bodyarmor", new Object[]{"hydrogen", 24_000L});
+            "mekasuit_bodyarmor", new Object[]{"hydrogen", 24_000L}, "canteen", new Object[]{"fluid/nutritional_paste", 64_000L});
     /** Modules -> the gear they go in. */
     private static final Map<String, String> MODULE_TARGETS = Map.ofEntries(
             Map.entry("electrolytic_breathing_unit", "mekasuit_helmet"), Map.entry("vision_enhancement_unit", "mekasuit_helmet"),
@@ -162,7 +163,8 @@ final class PaperGear implements Listener {
         Object[] chemical = CHEMICALS.get(item.value());
         if (chemical != null) {
             Long held = pdc.get(CHEMICAL, PersistentDataType.LONG);
-            lore.add(line(String.format(Locale.ROOT, "%s: %,d / %,d mB", capitalize((String) chemical[0]), held == null ? 0 : held, (long) chemical[1])));
+            String name = ((String) chemical[0]).replace("fluid/", "").replace('_', ' ');
+            lore.add(line(String.format(Locale.ROOT, "%s: %,d / %,d mB", capitalize(name), held == null ? 0 : held, (long) chemical[1])));
         }
         String modules = pdc.get(MODULES, PersistentDataType.STRING);
         if (modules != null && !modules.isEmpty()) {
@@ -407,6 +409,10 @@ final class PaperGear implements Listener {
                 event.setCancelled(true);
                 flame(player, hand);
             }
+            case "canteen" -> {
+                event.setCancelled(true);
+                drink(player, hand);
+            }
             case "network_reader" -> {
                 if (block == null) return;
                 event.setCancelled(true);
@@ -484,7 +490,8 @@ final class PaperGear implements Listener {
         if (machine == null || machine.instance() == null) return false;
         String chemical = (String) CHEMICALS.get(id)[0];
         long room = (long) CHEMICALS.get(id)[1] - chemical(gear);
-        ResourceType type = MekanizedContent.chemical(chemical);
+        ResourceType type = chemical.startsWith("fluid/") ? MekanizedContent.fluid(chemical.substring("fluid/".length()))
+                : MekanizedContent.chemical(chemical);
         if (type == null || room <= 0) return false;
         var context = machine.instance().context();
         for (String storage : machine.inspect().storages().keySet()) {
@@ -503,10 +510,27 @@ final class PaperGear implements Listener {
                 refresh(meta, MekanizedContent.key(id));
             });
             machine.instance().wake(WakeReason.RESOURCE_EXTRACTED);
-            player.sendActionBar(Component.text(String.format(Locale.ROOT, "Filled %,d mB of %s", taken, chemical), NamedTextColor.GREEN));
+            player.sendActionBar(Component.text(String.format(Locale.ROOT, "Filled %,d mB of %s", taken,
+                    chemical.replace("fluid/", "").replace('_', ' ')), NamedTextColor.GREEN));
             return true;
         }
         return false;
+    }
+
+    /** Drinks nutritional paste: 50 mB per hunger point, up to a full bar. */
+    private static void drink(Player player, ItemStack canteen) {
+        int points = (int) Math.min(20 - player.getFoodLevel(), chemical(canteen) / Liquifier.PASTE_PER_FOOD);
+        if (player.getFoodLevel() >= 20) {
+            player.sendActionBar(Component.text("You are not hungry", NamedTextColor.GRAY));
+            return;
+        }
+        if (points <= 0 || !useChemical(canteen, points * Liquifier.PASTE_PER_FOOD)) {
+            player.sendActionBar(Component.text("Empty: fill it at a nutritional liquifier", NamedTextColor.RED));
+            return;
+        }
+        player.setFoodLevel(player.getFoodLevel() + points);
+        player.setSaturation(Math.min(player.getFoodLevel(), player.getSaturation() + points));
+        player.getWorld().playSound(player.getLocation(), org.bukkit.Sound.ENTITY_GENERIC_DRINK, 1f, 1f);
     }
 
     /** Sets the mobs in front on fire (5 mB of hydrogen a burst). */

@@ -298,6 +298,17 @@ final class MekanizedMenus {
                 "<gray>while they slowly decay (" + fr.robie.machineengine.mekanized.machine.Radiation.BARREL_DECAY + " mB a second)."));
         barrel.put("waste", chemical(13, "waste", "Waste"));
         menus.add(new Menu("radioactive_waste_barrel", barrel, -1));
+
+        Map<String, String> liquifier = new LinkedHashMap<>();
+        liquifier.put("info", display(4, "BREAD", "<gold>Nutritional Liquifier", "<gray>Food into nutritional paste: "
+                + fr.robie.machineengine.mekanized.machine.Liquifier.PASTE_PER_FOOD + " mB per hunger point.",
+                "<gray>Right-click it with a canteen to fill it."));
+        liquifier.put("input", slot(10, "input", "Food"));
+        liquifier.put("paste", tank(14, "paste", "HONEY_BOTTLE", "<gold>", "Nutritional paste"));
+        liquifier.put("energy", energyDisplay(16));
+        liquifier.put("energy-slot", slot(34, "energy_slot", "Energy item (redstone: 10 kJ each)"));
+        liquifier.put("upgrades", upgrades());
+        menus.add(new Menu("nutritional_liquifier", liquifier));
     }
 
     private static String heat(int slot, String storage, String name) {

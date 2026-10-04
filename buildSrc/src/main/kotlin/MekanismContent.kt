@@ -189,6 +189,7 @@ internal class MekanismContent(
         GearItem("flamethrower", "stick"),
         GearItem("electric_bow", "bow"),
         GearItem("network_reader", "stick"),
+        GearItem("canteen", "paper"),
         GearItem("jetpack", "paper", "chest"),
         GearItem("jetpack_armored", "diamond_chestplate", "chest"),
         GearItem("scuba_tank", "paper", "chest"),
@@ -212,14 +213,15 @@ internal class MekanismContent(
         "module_hydraulic_propulsion_unit", "module_excavation_escalation_unit", "module_attack_amplification_unit",
         "module_silk_touch_unit", "module_fortune_unit", "module_vein_mining_unit", "module_teleportation_unit",
         "module_radiation_shielding_unit", "module_geiger_unit", "module_dosimeter_unit",
-        // Ingredients of the elytra and nutritional injection units.
-        "hdpe_elytra", "canteen")
+        // Ingredient of the elytra unit.
+        "hdpe_elytra")
 
     /** Ids of Phase 6 wave 5 content, for the recipe split. */
     val gearIds = sortedSetOf<String>()
 
     // -- Phase 6 wave 6: chunk loading, entangloporter, the last upgrades, tools, radiation ------------
-    private val phase10Machines = listOf("dimensional_stabilizer", "quantum_entangloporter", "radioactive_waste_barrel")
+    private val phase10Machines = listOf("dimensional_stabilizer", "quantum_entangloporter", "radioactive_waste_barrel",
+        "nutritional_liquifier")
     private val phase10Items = listOf("upgrade_chemical", "upgrade_filter", "upgrade_anchor", "upgrade_stone_generator",
         "dosimeter", "geiger_counter")
 
