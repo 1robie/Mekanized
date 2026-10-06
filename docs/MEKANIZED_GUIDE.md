@@ -25,6 +25,13 @@ Mekanized writes its files on the first start:
 **Updates:** updating Mekanized replaces these files only if you have not edited them. An edited file is
 kept, and the log says so; to get the new default, delete it.
 
+**Energy and fluids are MachineEngine's:** Mekanized uses `machineengine:energy` and MachineEngine's
+water and lava (`machineengine:fluid/water`, `…/lava`); its other fluids (`mekanized:fluid/brine`, …)
+join MachineEngine's fluid category, so any fluid pipe or port moves them. Units and the bucket size
+are set in `plugins/MachineEngine/config.yml` (`resources:`). The old keys `mekanized:energy`,
+`mekanized:fluid/water` and `mekanized:fluid/lava` still work in edited definition files and saved
+worlds.
+
 ## Playing
 
 ### Energy and machines

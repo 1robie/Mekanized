@@ -4,6 +4,11 @@ A Mekanism-style content plugin for MachineEngine. It is a separate plugin that 
 MachineEngine's API, its YAML definitions and a CraftEngine pack (D27; it still uses some engine
 internals until RESTRUCTURE_PLAN.md R7). It is also the reference addon since the example was removed.
 
+**Since 2026-10-06 (D29, docs/DEFAULTS_AND_CONFIG_PLAN.md):** energy, water and lava are
+MachineEngine's (`machineengine:energy`, `machineengine:fluid/water|lava`), and Mekanized's fluids
+are in MachineEngine's `machineengine:fluid` category. The phases below describe what was built at
+the time, with the old `mekanized:energy` and `mekanized:fluid` names; those keys remain aliases.
+
 ## Decisions (project owner, 2026-10-02)
 
 | # | Decision |
