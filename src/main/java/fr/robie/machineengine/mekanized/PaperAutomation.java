@@ -9,6 +9,7 @@ import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.core.machine.LoadedMachine;
 import fr.robie.machineengine.mekanized.machine.AutomationMachines.Frequencies;
 import fr.robie.machineengine.mekanized.machine.AutomationMachines;
+import fr.robie.machineengine.mekanized.machine.MachineParts;
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.mekanized.paper.persist.LineStore;
 import fr.robie.machineengine.mekanized.paper.persist.WorldPositions;
@@ -157,7 +158,7 @@ final class PaperAutomation implements Listener {
             long cost = cost(from, to);
             MachineContext context = source.instance().context();
             try (Transaction transaction = context.transactions().openOuter()) {
-                if (context.storage("energy").extract(MekanizedContent.ENERGY.variant(), cost, transaction) != cost) {
+                if (!MachineParts.pay(context.storage("energy"), cost, transaction)) {
                     player.sendActionBar(Component.text(String.format(Locale.ROOT, "The teleporter needs %,d J", cost), NamedTextColor.RED));
                     this.lastTeleport.put(player.getUniqueId(), System.currentTimeMillis());
                     return;

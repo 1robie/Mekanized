@@ -88,8 +88,7 @@ public final class AutomationMachines {
                         .sides(RelativeSide.BACK, RelativeSide.TOP).build())
                 .upgradeSlots(2, upgrade -> MekanizedMachines.standardUpgrade(upgrade) || upgrade.equals(MekanizedMachines.STONE_GENERATOR_UPGRADE))
                 .data(RUNNING).data(RADIUS).data(MIN_Y).data(CURSOR).data(STATUS)
-                .behavior(EjectBehavior.of(ConvertingBehavior.of(miner(),
-                        new ConvertingBehavior.Conversion("energy_slot", "energy", ENERGY_CONVERSION))))
+                .behavior(MachineParts.powered(miner()))
                 .build());
         context.machineTypes().register(MachineType.builder(key("seismic_vibrator"))
                 .storage(StorageDefinition.tank("energy", 20_000).filter(IS_ENERGY))
@@ -277,7 +276,7 @@ public final class AutomationMachines {
         return type -> context -> {
             boolean running;
             try (Transaction transaction = context.transactions().openOuter()) {
-                running = context.storage("energy").extract(MekanizedContent.ENERGY.variant(), VIBRATOR_ENERGY * 20, transaction) == VIBRATOR_ENERGY * 20;
+                running = MachineParts.pay(context.storage("energy"), VIBRATOR_ENERGY * 20, transaction);
                 if (running) transaction.commit();
             }
             context.setActive(running);

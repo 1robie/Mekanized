@@ -89,7 +89,7 @@ public final class ChunkLoaders {
             long cost = context.modifiedCost(MekanizedContent.ENERGY, STABILIZER_ENERGY_PER_CHUNK * chunks) * 20;
             boolean paid;
             try (Transaction transaction = context.transactions().openOuter()) {
-                paid = context.storage("energy").extract(MekanizedContent.ENERGY.variant(), cost, transaction) == cost;
+                paid = MachineParts.pay(context.storage("energy"), cost, transaction);
                 if (paid) transaction.commit();
             }
             WorldPosition here = context.machine().position();

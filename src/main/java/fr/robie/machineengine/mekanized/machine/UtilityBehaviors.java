@@ -78,7 +78,7 @@ public final class UtilityBehaviors {
             BlockPosition target = findSpace(context, below, world, range);
             try (Transaction transaction = context.transactions().openOuter()) {
                 if (target == null
-                        || context.storage("energy").extract(MekanizedContent.ENERGY.variant(), cost, transaction) != cost
+                        || !MachineParts.pay(context.storage("energy"), cost, transaction)
                         || fluid.extract(held.variant(), 1000, transaction) != 1000
                         || !context.world().placeFluid(target, world)) {
                     context.setActive(false);
@@ -164,7 +164,7 @@ public final class UtilityBehaviors {
             long cost = context.modifiedCost(MekanizedContent.ENERGY, energy);
             boolean crafted;
             try (Transaction transaction = context.transactions().openOuter()) {
-                crafted = context.storage("energy").extract(MekanizedContent.ENERGY.variant(), cost, transaction) == cost;
+                crafted = MachineParts.pay(context.storage("energy"), cost, transaction);
                 for (Map.Entry<ResourceVariant, Long> entry : needed.entrySet()) {
                     crafted &= context.storage("input").extract(entry.getKey(), entry.getValue(), transaction) == entry.getValue();
                 }

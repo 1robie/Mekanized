@@ -86,7 +86,7 @@ public final class UtilityMachines {
                 .port(PortDefinition.builder("fluid", "fluid").direction(PortDirection.INPUT).filter(IS_FLUID)
                         .sides(RelativeSide.BACK, RelativeSide.LEFT, RelativeSide.RIGHT, RelativeSide.TOP).group("fluid").build())
                 .upgradeSlots(2, UtilityMachines::upgrade)
-                .behavior(powered(MachineParts.withBuckets(UtilityBehaviors.plenisher("fluid", 2_000, 20, 32), "fluid")))
+                .behavior(MachineParts.powered(MachineParts.withBuckets(UtilityBehaviors.plenisher("fluid", 2_000, 20, 32), "fluid")))
                 .build());
         machines.add(MekanizedMachines.base("formulaic_assemblicator", 40_000)
                 .storage(StorageDefinition.slots("pattern", 9, 1).filter(Items.anyItem()))
@@ -95,7 +95,7 @@ public final class UtilityMachines {
                 .port(PortDefinition.builder("input", "input").direction(PortDirection.INPUT).group("items").build())
                 .port(PortDefinition.builder("output", "output").direction(PortDirection.OUTPUT).group("items").build())
                 .upgradeSlots(2, UtilityMachines::upgrade)
-                .behavior(powered(UtilityBehaviors.assemblicator(4_000, 40)))
+                .behavior(MachineParts.powered(UtilityBehaviors.assemblicator(4_000, 40)))
                 .build());
         // Lasers fire out of their front; they take energy from the other sides.
         machines.add(MachineType.builder(key("laser"))
@@ -136,7 +136,4 @@ public final class UtilityMachines {
     }
 
     /** The energy item slot, auto-eject. */
-    private static MachineBehavior.Factory powered(MachineBehavior.Factory inner) {
-        return EjectBehavior.of(ConvertingBehavior.of(inner, new ConvertingBehavior.Conversion("energy_slot", "energy", ENERGY_CONVERSION)));
-    }
 }

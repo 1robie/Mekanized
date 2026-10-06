@@ -97,7 +97,7 @@ public final class ChemistryBehaviors {
                     context.block(new MachineError.TransferRejected("the tank is full", null), 20);
                     return;
                 }
-                if (power.extract(MekanizedContent.ENERGY.variant(), cost, transaction) != cost) {
+                if (!MachineParts.pay(power, cost, transaction)) {
                     context.setActive(false);
                     context.waitForInput();
                     return;

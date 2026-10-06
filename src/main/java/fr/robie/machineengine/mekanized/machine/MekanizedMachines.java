@@ -190,8 +190,7 @@ public final class MekanizedMachines {
                 .port(PortDefinition.builder("input", "input").direction(PortDirection.INPUT).group("items").build())
                 .port(PortDefinition.builder("output", "output").direction(PortDirection.OUTPUT).group("items").build())
                 .upgradeSlots(2, MekanizedMachines::standardUpgrade)
-                .behavior(EjectBehavior.of(ConvertingBehavior.of(process,
-                        new ConvertingBehavior.Conversion("energy_slot", "energy", ENERGY_CONVERSION))));
+                .behavior(MachineParts.powered(process));
     }
 
     /** Item in, item out, a chemical tank used per tick or as an input, fed by tubes or its item slot. */

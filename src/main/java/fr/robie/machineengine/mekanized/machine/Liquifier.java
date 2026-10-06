@@ -64,8 +64,7 @@ public final class Liquifier {
                 .port(PortDefinition.builder("input", "input").direction(PortDirection.INPUT).group("items").build())
                 .port(PortDefinition.builder("paste", "paste").direction(PortDirection.OUTPUT).filter(paste).group("fluid").build())
                 .upgradeSlots(2, MekanizedMachines::standardUpgrade)
-                .behavior(EjectBehavior.of(ConvertingBehavior.of(liquifier(),
-                        new ConvertingBehavior.Conversion("energy_slot", "energy", MekanizedMachines.ENERGY_CONVERSION))))
+                .behavior(MachineParts.powered(liquifier()))
                 .build());
         // The modification station takes modules back out of gear (Paper side); the block itself does nothing.
         context.machineTypes().register(MachineType.builder(key("modification_station"))
@@ -86,7 +85,7 @@ public final class Liquifier {
             }
             long made = nutrition(food.variant()) * PASTE_PER_FOOD;
             try (Transaction transaction = context.transactions().openOuter()) {
-                boolean done = context.storage("energy").extract(MekanizedContent.ENERGY.variant(), cost, transaction) == cost
+                boolean done = MachineParts.pay(context.storage("energy"), cost, transaction)
                         && context.storage("input").extract(food.variant(), 1, transaction) == 1
                         && context.storage("paste").insert(paste.variant(), made, transaction) == made;
                 if (!done) {

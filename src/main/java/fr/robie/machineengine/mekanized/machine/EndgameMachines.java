@@ -74,7 +74,7 @@ public final class EndgameMachines {
                 .port(port("output", PortDirection.OUTPUT, Items.anyItem(), "items"))
                 .port(port("chemical_output", PortDirection.OUTPUT, IS_CHEMICAL, "chemical"))
                 .upgradeSlots(2, EndgameMachines::upgrade)
-                .behavior(powered(MachineParts.withBuckets(ProcessingBehavior.of(REACTION,
+                .behavior(MachineParts.powered(MachineParts.withBuckets(ProcessingBehavior.of(REACTION,
                         new ProcessBinding(List.of("input", "fluid", "chemical"), "output", List.of("energy"), List.of("chemical_output"))), "fluid")))
                 .build());
         // Chemical to chemical.
@@ -92,7 +92,7 @@ public final class EndgameMachines {
                 .port(port("input", PortDirection.INPUT, Items.anyItem(), "items"))
                 .port(port("output", PortDirection.OUTPUT, IS_CHEMICAL, "chemical"))
                 .upgradeSlots(2, EndgameMachines::upgrade)
-                .behavior(powered(ProcessingBehavior.of(PIGMENT_EXTRACTING, new ProcessBinding(List.of("input"), "output", List.of("energy")))))
+                .behavior(MachineParts.powered(ProcessingBehavior.of(PIGMENT_EXTRACTING, new ProcessBinding(List.of("input"), "output", List.of("energy")))))
                 .build());
         ResourcePredicate mixed = IS_CHEMICAL.and(RecipeFilters.usedBy(PIGMENT_MIXING));
         machines.add(MekanizedMachines.base("pigment_mixer", 40_000)
@@ -106,7 +106,7 @@ public final class EndgameMachines {
                 .port(PortDefinition.builder("output", "output").direction(PortDirection.OUTPUT).filter(IS_CHEMICAL)
                         .sides(RelativeSide.FRONT).group("chemical").build())
                 .upgradeSlots(2, EndgameMachines::upgrade)
-                .behavior(powered(ProcessingBehavior.of(PIGMENT_MIXING, new ProcessBinding(List.of("left", "right"), "output", List.of("energy")))))
+                .behavior(MachineParts.powered(ProcessingBehavior.of(PIGMENT_MIXING, new ProcessBinding(List.of("left", "right"), "output", List.of("energy")))))
                 .build());
         // Generators.
         machines.add(MekanizedMachines.generator("gas_burning_generator", 100_000)
@@ -129,9 +129,6 @@ public final class EndgameMachines {
     }
 
     /** The energy item slot, auto-eject. */
-    private static MachineBehavior.Factory powered(MachineBehavior.Factory inner) {
-        return EjectBehavior.of(ConvertingBehavior.of(inner, new ConvertingBehavior.Conversion("energy_slot", "energy", ENERGY_CONVERSION)));
-    }
 
     /** A chemical tank in, one out; with energy when {@code powered}. */
     private static MachineType.Builder chemicalToChemical(String name, RecipeType<ProcessingRecipe> recipes, long energy, boolean powered) {
@@ -142,7 +139,7 @@ public final class EndgameMachines {
                 .port(port("output", PortDirection.OUTPUT, IS_CHEMICAL, "chemical"));
         if (powered) {
             builder.upgradeSlots(2, EndgameMachines::upgrade)
-                    .behavior(powered(ProcessingBehavior.of(recipes, new ProcessBinding(List.of("input"), "output", List.of("energy")))));
+                    .behavior(MachineParts.powered(ProcessingBehavior.of(recipes, new ProcessBinding(List.of("input"), "output", List.of("energy")))));
         }
         return builder;
     }
@@ -157,7 +154,7 @@ public final class EndgameMachines {
                 .port(port("chemical", PortDirection.INPUT, IS_CHEMICAL, "chemical"))
                 .port(port("output", PortDirection.OUTPUT, Items.anyItem(), "items"))
                 .upgradeSlots(2, EndgameMachines::upgrade)
-                .behavior(powered(ProcessingBehavior.of(recipes,
+                .behavior(MachineParts.powered(ProcessingBehavior.of(recipes,
                         new ProcessBinding(List.of("input", "chemical"), "output", List.of("energy")))));
     }
 
