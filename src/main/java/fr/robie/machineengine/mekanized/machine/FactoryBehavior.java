@@ -50,7 +50,7 @@ public final class FactoryBehavior implements MachineBehavior {
 
     /** One key per lane, shared: a machine finds its data by the key its type declared. */
     private static final List<MachineDataKey<Long>> LANE_PERCENTS = IntStream.rangeClosed(1, 9)
-            .mapToObj(lane -> MachineDataKey.of("lane_" + lane, VersionedCodec.builder(MekanizedContent.key("lane_" + lane), Codecs.LONG).build(), 0L))
+            .mapToObj(lane -> DataKeys.number("lane_" + lane))
             .toList();
 
     private final RecipeType<ProcessingRecipe> recipes;

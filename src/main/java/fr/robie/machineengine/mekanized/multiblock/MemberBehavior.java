@@ -1,8 +1,6 @@
 package fr.robie.machineengine.mekanized.multiblock;
 
 import fr.robie.machineengine.api.capability.Capabilities;
-import fr.robie.machineengine.api.data.Codecs;
-import fr.robie.machineengine.api.data.VersionedCodec;
 import fr.robie.machineengine.api.machine.MachineBehavior;
 import fr.robie.machineengine.api.machine.MachineContext;
 import fr.robie.machineengine.api.machine.MachineDataKey;
@@ -15,7 +13,7 @@ import fr.robie.machineengine.api.transfer.TransactionContext;
 import fr.robie.machineengine.api.transfer.Transfers;
 import fr.robie.machineengine.api.world.RelativeSide;
 import fr.robie.machineengine.api.world.WorldPosition;
-import fr.robie.machineengine.mekanized.MekanizedContent;
+import fr.robie.machineengine.mekanized.machine.DataKeys;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,8 +31,7 @@ import java.util.function.ToLongFunction;
  */
 public final class MemberBehavior implements MachineBehavior {
     /** An induction port's mode: {@code input} (default) or {@code output}, pushing to its neighbors. */
-    public static final MachineDataKey<String> PORT_MODE = MachineDataKey.of("port_mode",
-            VersionedCodec.builder(MekanizedContent.key("port_mode"), Codecs.STRING).build(), "input");
+    public static final MachineDataKey<String> PORT_MODE = DataKeys.string("port_mode", "input");
     private static final long RECHECK_TICKS = 100;
 
     /** Work an anchor does while its structure is formed (e.g. evaporating), every {@code everyTicks}. */

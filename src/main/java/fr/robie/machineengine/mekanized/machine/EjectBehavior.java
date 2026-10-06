@@ -1,14 +1,11 @@
 package fr.robie.machineengine.mekanized.machine;
 
-import fr.robie.machineengine.api.data.Codecs;
-import fr.robie.machineengine.api.data.VersionedCodec;
 import fr.robie.machineengine.api.machine.MachineBehavior;
 import fr.robie.machineengine.api.machine.MachineContext;
 import fr.robie.machineengine.api.machine.MachineDataKey;
 import fr.robie.machineengine.api.machine.PortDefinition;
 import fr.robie.machineengine.api.machine.WakeReason;
 import fr.robie.machineengine.api.world.RelativeSide;
-import fr.robie.machineengine.mekanized.MekanizedContent;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -17,8 +14,7 @@ import org.jetbrains.annotations.NotNull;
  * ports are left alone: generators and cubes push energy themselves.
  */
 public final class EjectBehavior implements MachineBehavior {
-    public static final MachineDataKey<Boolean> EJECT = MachineDataKey.of("eject",
-            VersionedCodec.builder(MekanizedContent.key("eject"), Codecs.BOOL).build(), false);
+    public static final MachineDataKey<Boolean> EJECT = DataKeys.bool("eject", false);
     /** How often an idle machine with outputs left tries again (neighbors freeing space do not wake it). */
     private static final long RETRY_TICKS = 20;
 

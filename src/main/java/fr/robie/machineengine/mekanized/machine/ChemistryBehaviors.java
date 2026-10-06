@@ -1,7 +1,5 @@
 package fr.robie.machineengine.mekanized.machine;
 
-import fr.robie.machineengine.api.data.Codecs;
-import fr.robie.machineengine.api.data.VersionedCodec;
 import fr.robie.machineengine.api.error.MachineError;
 import fr.robie.machineengine.api.machine.MachineBehavior;
 import fr.robie.machineengine.api.machine.MachineContext;
@@ -32,8 +30,7 @@ public final class ChemistryBehaviors {
     /** The rotary condensentrator's mode: {@link #CONDENSING} (chemical to fluid) or {@link #DECONDENSING}. */
     public static final String CONDENSING = "condensing";
     public static final String DECONDENSING = "decondensing";
-    public static final MachineDataKey<String> MODE = MachineDataKey.of("mode",
-            VersionedCodec.builder(MekanizedContent.key("mode"), Codecs.STRING).build(), CONDENSING);
+    public static final MachineDataKey<String> MODE = DataKeys.string("mode", CONDENSING);
 
     private ChemistryBehaviors() {
     }

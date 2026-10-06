@@ -2,8 +2,6 @@ package fr.robie.machineengine.mekanized.machine;
 
 import fr.robie.machineengine.api.addon.RegistrationContext;
 import fr.robie.machineengine.api.capability.Capabilities;
-import fr.robie.machineengine.api.data.Codecs;
-import fr.robie.machineengine.api.data.VersionedCodec;
 import fr.robie.machineengine.api.item.ItemData;
 import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.machine.MachineBehavior;
@@ -54,18 +52,12 @@ public final class AutomationMachines {
     private static final Set<Key> AIR = Set.of(Key.key("minecraft", "air"), Key.key("minecraft", "cave_air"), Key.key("minecraft", "void_air"));
 
     // -- settings ---------------------------------------------------------------------------------
-    public static final MachineDataKey<String> FREQUENCY = string("frequency", "");
-    public static final MachineDataKey<Boolean> RUNNING = MachineDataKey.of("running",
-            VersionedCodec.builder(key("running"), Codecs.BOOL).build(), false);
-    public static final MachineDataKey<String> RADIUS = string("radius", "8");
-    public static final MachineDataKey<String> MIN_Y = string("min_y", "-64");
-    public static final MachineDataKey<Long> CURSOR = MachineDataKey.of("cursor",
-            VersionedCodec.builder(key("cursor"), Codecs.LONG).build(), 0L);
-    public static final MachineDataKey<String> STATUS = string("status", "Stopped");
-
-    private static MachineDataKey<String> string(String id, String value) {
-        return MachineDataKey.of(id, VersionedCodec.builder(key(id), Codecs.STRING).build(), value);
-    }
+    public static final MachineDataKey<String> FREQUENCY = DataKeys.string("frequency", "");
+    public static final MachineDataKey<Boolean> RUNNING = DataKeys.RUNNING;
+    public static final MachineDataKey<String> RADIUS = DataKeys.string("radius", "8");
+    public static final MachineDataKey<String> MIN_Y = DataKeys.string("min_y", "-64");
+    public static final MachineDataKey<Long> CURSOR = DataKeys.number("cursor");
+    public static final MachineDataKey<String> STATUS = DataKeys.STATUS;
 
     /** Digital Miner: Joules per block mined, ticks per block (speed upgrades shorten it). */
     public static final long MINER_ENERGY_PER_BLOCK = 2_000;
@@ -209,9 +201,9 @@ public final class AutomationMachines {
                 context.sleep();
                 return;
             }
-            int radius = parse(context.get(RADIUS), 8, 1, 32);
+            int radius = DataKeys.parseInt(context.get(RADIUS), 8, 1, 32);
             BlockPosition here = context.machine().position().position();
-            int minY = Math.min(parse(context.get(MIN_Y), -64, -2048, 2048), here.y() - 1);
+            int minY = Math.min(DataKeys.parseInt(context.get(MIN_Y), -64, -2048, 2048), here.y() - 1);
             int side = 2 * radius + 1;
             long area = (long) side * side * (here.y() - minY);
             if (context.storage("output").views().stream().noneMatch(StorageView::isEmpty)) {
@@ -276,14 +268,6 @@ public final class AutomationMachines {
         context.setActive(false);
         context.set(STATUS, status);
         context.wakeIn(ticks);
-    }
-
-    private static int parse(String value, int fallback, int min, int max) {
-        try {
-            return Math.max(min, Math.min(max, Integer.parseInt(value.trim())));
-        } catch (NumberFormatException e) {
-            return fallback;
-        }
     }
 
     // -- seismic vibrator ---------------------------------------------------------------------

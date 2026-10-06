@@ -1,8 +1,6 @@
 package fr.robie.machineengine.mekanized.machine;
 
 import fr.robie.machineengine.api.addon.RegistrationContext;
-import fr.robie.machineengine.api.data.Codecs;
-import fr.robie.machineengine.api.data.VersionedCodec;
 import fr.robie.machineengine.api.event.EventPhase;
 import fr.robie.machineengine.api.machine.MachineBehavior;
 import fr.robie.machineengine.api.machine.MachineDataKey;
@@ -31,10 +29,8 @@ public final class ChunkLoaders {
     public static final int MAX_RADIUS = 2;
     /** Joules per tick for each chunk a stabilizer keeps loaded. */
     public static final long STABILIZER_ENERGY_PER_CHUNK = 500;
-    public static final MachineDataKey<String> RADIUS = MachineDataKey.of("radius",
-            VersionedCodec.builder(key("radius"), Codecs.STRING).build(), "0");
-    public static final MachineDataKey<String> STATUS = MachineDataKey.of("status",
-            VersionedCodec.builder(key("status"), Codecs.STRING).build(), "Stopped");
+    public static final MachineDataKey<String> RADIUS = DataKeys.string("radius", "0");
+    public static final MachineDataKey<String> STATUS = DataKeys.STATUS;
 
     /** Machine position -> chunks around its own it keeps loaded (0: only its chunk). */
     private static final Map<WorldPosition, Integer> LOADERS = new ConcurrentHashMap<>();
@@ -88,7 +84,7 @@ public final class ChunkLoaders {
     /** Once a second: pays for its chunks ({@link #STABILIZER_ENERGY_PER_CHUNK} each, per tick) and keeps them loaded. */
     static @NotNull MachineBehavior.Factory stabilizer() {
         return type -> context -> {
-            int radius = Math.max(0, Math.min(MAX_RADIUS, parse(context.get(RADIUS))));
+            int radius = DataKeys.parseInt(context.get(RADIUS), 0, 0, MAX_RADIUS);
             long chunks = (2L * radius + 1) * (2L * radius + 1);
             long cost = context.modifiedCost(MekanizedContent.ENERGY, STABILIZER_ENERGY_PER_CHUNK * chunks) * 20;
             boolean paid;
@@ -107,13 +103,5 @@ public final class ChunkLoaders {
             context.setActive(paid);
             context.wakeIn(20);
         };
-    }
-
-    private static int parse(String value) {
-        try {
-            return Integer.parseInt(value.trim());
-        } catch (NumberFormatException e) {
-            return 0;
-        }
     }
 }

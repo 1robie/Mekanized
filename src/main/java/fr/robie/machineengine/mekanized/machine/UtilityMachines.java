@@ -1,8 +1,6 @@
 package fr.robie.machineengine.mekanized.machine;
 
 import fr.robie.machineengine.api.addon.RegistrationContext;
-import fr.robie.machineengine.api.data.Codecs;
-import fr.robie.machineengine.api.data.VersionedCodec;
 import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.machine.MachineBehavior;
 import fr.robie.machineengine.api.machine.MachineDataKey;
@@ -34,11 +32,9 @@ public final class UtilityMachines {
     public static final long[] BIN_CAPACITY = {4_096, 8_192, 32_768, 262_144, Long.MAX_VALUE / 4};
     public static final String[] BIN_TIERS = {"basic", "advanced", "elite", "ultimate", "creative"};
     /** The player (UUID) a personal chest or barrel belongs to; empty until someone opens it. */
-    public static final MachineDataKey<String> OWNER = MachineDataKey.of("owner",
-            VersionedCodec.builder(key("owner"), Codecs.STRING).build(), "");
+    public static final MachineDataKey<String> OWNER = DataKeys.string("owner", "");
     /** Redstone control of the lasers: ignored, high (works while powered) or low (while not powered). */
-    public static final MachineDataKey<String> REDSTONE = MachineDataKey.of("redstone",
-            VersionedCodec.builder(key("redstone"), Codecs.STRING).build(), "ignored");
+    public static final MachineDataKey<String> REDSTONE = DataKeys.string("redstone", "ignored");
     /** Joules the chargepad gives each player standing on it, per tick. */
     public static final long CHARGEPAD_RATE = 1_024_000 / 20;
     private static final ResourcePredicate IS_FLUID = ResourcePredicate.category(MekanizedContent.FLUID);

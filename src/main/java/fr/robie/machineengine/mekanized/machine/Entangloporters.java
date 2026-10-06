@@ -1,8 +1,6 @@
 package fr.robie.machineengine.mekanized.machine;
 
 import fr.robie.machineengine.api.addon.RegistrationContext;
-import fr.robie.machineengine.api.data.Codecs;
-import fr.robie.machineengine.api.data.VersionedCodec;
 import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.machine.MachineBehavior;
 import fr.robie.machineengine.api.machine.MachineContext;
@@ -41,8 +39,7 @@ import static fr.robie.machineengine.mekanized.MekanizedContent.key;
  */
 public final class Entangloporters {
     /** {@code send} (default) or {@code receive}. */
-    public static final MachineDataKey<String> MODE = MachineDataKey.of("entangloporter_mode",
-            VersionedCodec.builder(key("entangloporter_mode"), Codecs.STRING).build(), "send");
+    public static final MachineDataKey<String> MODE = DataKeys.string("entangloporter_mode", "send");
 
     /** A shared buffer of one kind: its storage in the machine, what it takes, how much the frequency holds. */
     public record Channel(@NotNull String storage, @NotNull ResourcePredicate filter, long capacity, boolean oneKind,

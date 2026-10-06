@@ -1,8 +1,6 @@
 package fr.robie.machineengine.mekanized.machine;
 
 import fr.robie.machineengine.api.addon.RegistrationContext;
-import fr.robie.machineengine.api.data.Codecs;
-import fr.robie.machineengine.api.data.VersionedCodec;
 import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.machine.MachineBehavior;
 import fr.robie.machineengine.api.machine.MachineContext;
@@ -39,8 +37,7 @@ public final class HeatMachines {
     private static final long[] CONDUCTOR_RATES = {10_000, 40_000, 160_000, 640_000};
     private static final String[] TIERS = {"basic", "advanced", "elite", "ultimate"};
     /** Joules of energy per tick the resistive heater turns into heat (a setting in its menu). */
-    public static final MachineDataKey<String> HEATER_RATE = MachineDataKey.of("heater_rate",
-            VersionedCodec.builder(key("heater_rate"), Codecs.STRING).build(), "100");
+    public static final MachineDataKey<String> HEATER_RATE = DataKeys.string("heater_rate", "100");
     /** Heat per tick of a burning fuelwood heater (Mekanism's 400). */
     static final long FUELWOOD_HEAT = 400;
 
@@ -77,12 +74,7 @@ public final class HeatMachines {
     /** Turns its setting's Joules of energy per tick into as much heat, and gives it out. */
     static @NotNull MachineBehavior.Factory resistive() {
         return type -> context -> {
-            long rate;
-            try {
-                rate = Math.max(0, Long.parseLong(context.get(HEATER_RATE)));
-            } catch (NumberFormatException e) {
-                rate = 100;
-            }
+            long rate = DataKeys.parseLong(context.get(HEATER_RATE), 100, 0, Long.MAX_VALUE);
             boolean heated = false;
             var buffer = context.storage("heat").views().getFirst();
             long used = Math.min(buffer.capacity() - buffer.amount(), rate * 20);

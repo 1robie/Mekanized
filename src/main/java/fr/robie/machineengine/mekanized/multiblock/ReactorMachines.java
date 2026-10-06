@@ -19,6 +19,7 @@ import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.BlockPosition;
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.MekanizedContent;
+import fr.robie.machineengine.mekanized.machine.DataKeys;
 import fr.robie.machineengine.mekanized.machine.Radiation;
 import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.NotNull;
@@ -69,27 +70,18 @@ public final class ReactorMachines {
 
     // -- settings and state shown in the menus --------------------------------------------------
     /** What the structure is doing, shown in its menu. */
-    public static final MachineDataKey<String> STATUS = string("status", "Not formed");
-    public static final MachineDataKey<Boolean> RUNNING = MachineDataKey.of("running",
-            VersionedCodec.builder(key("running"), Codecs.BOOL).build(), false);
+    public static final MachineDataKey<String> STATUS = DataKeys.string("status", "Not formed");
+    public static final MachineDataKey<Boolean> RUNNING = DataKeys.RUNNING;
     /** Fission burn rate in mB/t; fusion injection rate in mB/t. */
-    public static final MachineDataKey<String> BURN_RATE = string("burn_rate", "0.1");
-    public static final MachineDataKey<String> INJECTION_RATE = string("injection_rate", "2");
+    public static final MachineDataKey<String> BURN_RATE = DataKeys.string("burn_rate", "0.1");
+    public static final MachineDataKey<String> INJECTION_RATE = DataKeys.string("injection_rate", "2");
     /** Heat the fission reactor holds (J) and its damage (0 to 100, a SCRAM at 100). */
-    public static final MachineDataKey<Long> REACTOR_HEAT = number("reactor_heat");
-    public static final MachineDataKey<Long> DAMAGE = number("damage");
+    public static final MachineDataKey<Long> REACTOR_HEAT = DataKeys.number("reactor_heat");
+    public static final MachineDataKey<Long> DAMAGE = DataKeys.number("damage");
     public static final MachineDataKey<Boolean> IGNITED = MachineDataKey.of("ignited",
             VersionedCodec.builder(key("ignited"), Codecs.BOOL).build(), false);
     /** Polonium processed towards the next mB of antimatter. */
-    public static final MachineDataKey<Long> SPS_PROGRESS = number("sps_progress");
-
-    private static MachineDataKey<String> string(String id, String value) {
-        return MachineDataKey.of(id, VersionedCodec.builder(key(id), Codecs.STRING).build(), value);
-    }
-
-    private static MachineDataKey<Long> number(String id) {
-        return MachineDataKey.of(id, VersionedCodec.builder(key(id), Codecs.LONG).build(), 0L);
-    }
+    public static final MachineDataKey<Long> SPS_PROGRESS = DataKeys.number("sps_progress");
 
     // -- structures ------------------------------------------------------------------------------
 
@@ -348,12 +340,7 @@ public final class ReactorMachines {
         long damage = anchor.get(DAMAGE);
         long burned = 0;
         if (anchor.get(RUNNING) && assemblies > 0) {
-            double rate;
-            try {
-                rate = Math.max(0, Double.parseDouble(anchor.get(BURN_RATE)));
-            } catch (NumberFormatException e) {
-                rate = 0.1;
-            }
+            double rate = DataKeys.parseDouble(anchor.get(BURN_RATE), 0.1, 0, Double.POSITIVE_INFINITY);
             // At most 1 mB/t per fuel assembly.
             burned = Math.min(Math.round(Math.min(rate, assemblies) * EVERY_TICKS), Math.min(amount(anchor, "fuel"), room(anchor, "waste")));
             if (burned > 0) {
@@ -421,12 +408,7 @@ public final class ReactorMachines {
                 return;
             }
         }
-        long rate;
-        try {
-            rate = Math.max(2, Long.parseLong(anchor.get(INJECTION_RATE)));
-        } catch (NumberFormatException e) {
-            rate = 2;
-        }
+        long rate = DataKeys.parseLong(anchor.get(INJECTION_RATE), 2, 2, Long.MAX_VALUE);
         long each = rate / 2 * EVERY_TICKS;
         if (amount(anchor, "deuterium") < each || amount(anchor, "tritium") < each) {
             anchor.set(IGNITED, false); // the plasma goes out

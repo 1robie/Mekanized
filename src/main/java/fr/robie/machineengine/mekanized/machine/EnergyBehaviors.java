@@ -1,7 +1,5 @@
 package fr.robie.machineengine.mekanized.machine;
 
-import fr.robie.machineengine.api.data.Codecs;
-import fr.robie.machineengine.api.data.VersionedCodec;
 import fr.robie.machineengine.api.error.MachineError;
 import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.machine.MachineBehavior;
@@ -28,8 +26,7 @@ public final class EnergyBehaviors {
     public static final String ENERGY = "energy";
     private static final Predicate<ResourceVariant> IS_ENERGY = variant -> variant.type() == MekanizedContent.ENERGY;
     /** Ticks the current fuel item still burns; declared by fuel generators. */
-    public static final MachineDataKey<Long> BURN = MachineDataKey.of("burn",
-            VersionedCodec.builder(MekanizedContent.key("burn"), Codecs.LONG).build(), 0L);
+    public static final MachineDataKey<Long> BURN = DataKeys.number("burn");
 
     private EnergyBehaviors() {
     }
