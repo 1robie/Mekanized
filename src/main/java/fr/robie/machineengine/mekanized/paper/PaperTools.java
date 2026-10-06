@@ -1,6 +1,6 @@
 package fr.robie.machineengine.mekanized.paper;
 
-import fr.robie.machineengine.mekanized.paper.gear.PaperGear;
+import fr.robie.machineengine.mekanized.paper.gear.GearItems;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 
 import fr.robie.machineengine.api.machine.MachineContext;
@@ -75,7 +75,7 @@ public final class PaperTools implements Listener {
         if (!onBlock && event.getAction() != Action.RIGHT_CLICK_AIR) return;
         Player player = event.getPlayer();
         ItemStack hand = player.getInventory().getItemInMainHand();
-        String id = PaperGear.id(hand);
+        String id = GearItems.id(hand);
         if (id == null) return;
         Block block = event.getClickedBlock();
         switch (id) {

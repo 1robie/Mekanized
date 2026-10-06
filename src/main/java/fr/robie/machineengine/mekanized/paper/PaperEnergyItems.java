@@ -1,6 +1,6 @@
 package fr.robie.machineengine.mekanized.paper;
 
-import fr.robie.machineengine.mekanized.paper.gear.PaperGear;
+import fr.robie.machineengine.mekanized.paper.gear.GearItems;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 
 import fr.robie.machineengine.api.item.ItemData;
@@ -13,7 +13,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-/** Energy items on Paper: the charge in the item's persistent data, shown in its lore ({@link PaperGear#refresh}). */
+/** Energy items on Paper: the charge in the item's persistent data, shown in its lore ({@link GearItems#refresh}). */
 public final class PaperEnergyItems implements EnergyItems.Access {
     public static final NamespacedKey ENERGY = new NamespacedKey(MekanizedContent.NAMESPACE, "energy");
 
@@ -27,7 +27,7 @@ public final class PaperEnergyItems implements EnergyItems.Access {
     @Override
     public long capacity(@NotNull ResourceVariant item, long base) {
         ItemStack stack = PaperItems.toItemStack(item, 1);
-        return stack == null || !stack.hasItemMeta() ? base : Math.max(base, PaperGear.capacity(stack));
+        return stack == null || !stack.hasItemMeta() ? base : Math.max(base, GearItems.capacity(stack));
     }
 
     @Override
@@ -37,7 +37,7 @@ public final class PaperEnergyItems implements EnergyItems.Access {
         if (stack == null || data == null) return item;
         stack.editMeta(meta -> {
             ItemLongs.set(meta, ENERGY, energy);
-            PaperGear.refresh(meta, data.item());
+            GearItems.refresh(meta, data.item());
         });
         return PaperItems.toResource(stack, data.item()).variant();
     }

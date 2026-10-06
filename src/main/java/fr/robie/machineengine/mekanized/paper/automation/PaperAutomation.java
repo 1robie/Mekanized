@@ -1,6 +1,6 @@
 package fr.robie.machineengine.mekanized.paper.automation;
 
-import fr.robie.machineengine.mekanized.paper.gear.PaperGear;
+import fr.robie.machineengine.mekanized.paper.gear.GearItems;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 
 import fr.robie.machineengine.api.machine.MachineContext;
@@ -115,7 +115,7 @@ public final class PaperAutomation implements Listener {
             Block block = player.getTargetBlockExact(6);
             LoadedMachine machine = block == null ? null : PaperWorld.machine(block);
             ItemStack hand = player.getInventory().getItemInMainHand();
-            String held = PaperGear.id(hand);
+            String held = GearItems.id(hand);
             if (("portable_teleporter".equals(held) || "portable_qio_dashboard".equals(held)) && (machine == null || machine.instance() == null)) {
                 hand.editMeta(meta -> {
                     meta.getPersistentDataContainer().set(ITEM_FREQUENCY, PersistentDataType.STRING, frequency);
@@ -199,7 +199,7 @@ public final class PaperAutomation implements Listener {
         if (event.getHand() != EquipmentSlot.HAND || event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         Player player = event.getPlayer();
         ItemStack hand = player.getInventory().getItemInMainHand();
-        String id = PaperGear.id(hand);
+        String id = GearItems.id(hand);
         if (!"portable_teleporter".equals(id) && !"portable_qio_dashboard".equals(id)) return;
         event.setCancelled(true);
         String frequency = hand.getItemMeta().getPersistentDataContainer().get(ITEM_FREQUENCY, PersistentDataType.STRING);
@@ -224,7 +224,7 @@ public final class PaperAutomation implements Listener {
             return;
         }
         long cost = Frequencies.cost(from, to);
-        if (!PaperGear.useEnergy(hand, cost)) {
+        if (!GearItems.useEnergy(hand, cost)) {
             player.sendActionBar(Component.text(String.format(Locale.ROOT, "The portable teleporter needs %,d J", cost), NamedTextColor.RED));
             return;
         }

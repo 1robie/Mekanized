@@ -1,6 +1,6 @@
 package fr.robie.machineengine.mekanized.paper;
 
-import fr.robie.machineengine.mekanized.paper.gear.PaperGear;
+import fr.robie.machineengine.mekanized.paper.gear.GearItems;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 
 import fr.robie.machineengine.mekanized.machine.Radiation;
@@ -87,8 +87,8 @@ public final class PaperRadiation implements Listener {
         double dose = dose(player) * DOSE_DECAY + level * (1 - shielding(player)) / 3600;
         player.getPersistentDataContainer().set(DOSE, PersistentDataType.DOUBLE, dose);
         ItemStack helmet = player.getInventory().getHelmet();
-        if ("mekasuit_helmet".equals(PaperGear.id(helmet))) {
-            var modules = PaperGear.modules(helmet);
+        if ("mekasuit_helmet".equals(GearItems.id(helmet))) {
+            var modules = GearItems.modules(helmet);
             String shown = (modules.contains("geiger_unit") ? "Radiation " + Radiation.format(level, "/h") : "")
                     + (modules.contains("geiger_unit") && modules.contains("dosimeter_unit") ? " - " : "")
                     + (modules.contains("dosimeter_unit") ? "Dose " + Radiation.format(dose, "") : "");
@@ -120,8 +120,8 @@ public final class PaperRadiation implements Listener {
                 player.getInventory().getLeggings(), player.getInventory().getBoots()};
         double shielded = 0;
         for (int i = 0; i < 4; i++) {
-            String id = PaperGear.id(armour[i]);
-            if (HAZMAT.get(i).equals(id) || MEKASUIT.get(i).equals(id) && PaperGear.modules(armour[i]).contains("radiation_shielding_unit")) {
+            String id = GearItems.id(armour[i]);
+            if (HAZMAT.get(i).equals(id) || MEKASUIT.get(i).equals(id) && GearItems.modules(armour[i]).contains("radiation_shielding_unit")) {
                 shielded += 0.25;
             }
         }
@@ -138,7 +138,7 @@ public final class PaperRadiation implements Listener {
     public void onUse(PlayerInteractEvent event) {
         if (event.getHand() != EquipmentSlot.HAND || (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK)) return;
         Player player = event.getPlayer();
-        String id = PaperGear.id(event.getItem());
+        String id = GearItems.id(event.getItem());
         if ("geiger_counter".equals(id)) {
             event.setCancelled(true);
             double level = level(player.getLocation());
