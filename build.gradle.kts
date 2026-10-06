@@ -8,14 +8,13 @@ plugins {
 description = "Mekanized: Mekanism-style machines for MachineEngine (textures, models and recipes from Mekanism, MIT)."
 
 dependencies {
-    // A content addon: MachineEngine's API (plus the Paper module for item conversion until
-    // RESTRUCTURE_PLAN.md R7 moves what it needs into the API).
+    // A content addon: MachineEngine's API, plus engine internals until RESTRUCTURE_PLAN.md R7 moves
+    // what it needs into the API.
     compileOnly(project(":api"))
-    compileOnly(project(":machineengine-paper"))
+    compileOnly(project(":common"))
 
     // Headless tests of the imported content (machines, recipes, tags), no server.
     testImplementation(project(":machineengine-test"))
-    testImplementation(project(":machineengine-paper"))
 }
 
 // -- Mekanism import (MEKANIZED_PLAN.md Phase 0, K4) -------------------------------------------------
