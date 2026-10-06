@@ -41,3 +41,10 @@ radiation:
   lethal-dose: 100                  # Sv from which every second does heavy damage
   barrel-capacity: 512000           # mB a radioactive waste barrel holds (a restart rebuilds the machine)
   barrel-decay-per-second: 1        # mB that decay in a barrel each second
+
+# The digital miner.
+digital-miner:
+  energy-per-block: 2000   # J per block mined
+  ticks-per-block: 10      # ticks per block mined (speed upgrades shorten it)
+  scan-per-tick: 2048      # positions it looks at per tick for the next block to mine
+  max-radius: 32           # widest radius (1-128); 32 is a 65 x 65 area

@@ -1,6 +1,8 @@
 package fr.robie.machineengine.mekanized.paper.menu;
 
+import fr.robie.machineengine.mekanized.machine.DigitalMinerSettings;
 import fr.robie.machineengine.mekanized.paper.menu.MenuYaml.Menu;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +13,17 @@ final class AutomationMenus {
     private AutomationMenus() {
     }
 
+    /** The radii the miner menu offers: 4 to 32 blocks, up to the configured maximum (which is offered itself). */
+    private static List<String> radii() {
+        int max = DigitalMinerSettings.maxRadius;
+        List<String> radii = new ArrayList<>();
+        for (int radius : new int[]{4, 8, 16, 24, 32}) {
+            if (radius <= max) radii.add(Integer.toString(radius));
+        }
+        if (radii.isEmpty() || Integer.parseInt(radii.getLast()) < max) radii.add(Integer.toString(max));
+        return radii;
+    }
+
     static void add(List<Menu> menus) {
         Map<String, String> miner = new LinkedHashMap<>();
         miner.put("info", display(4, "DIAMOND_PICKAXE", "<aqua>Digital Miner", "<gray>Mines below it, within its radius, down to its lowest level:",
@@ -19,7 +32,7 @@ final class AutomationMenus {
         miner.put("energy", energyDisplay(2));
         miner.put("running", "    type: machineengine_data\n    data: running\n    slot: 5\n    update: true\n"
                 + item("LEVER", "<red>Running: <yellow>%zmenu_machineengine_data_running%", "<dark_gray>Click to start or stop"));
-        miner.put("radius", setting(6, "radius", List.of("4", "8", "16", "24", "32"), "COMPASS",
+        miner.put("radius", setting(6, "radius", radii(), "COMPASS",
                 "<yellow>Radius: %zmenu_machineengine_data_radius% blocks"));
         miner.put("min-y", setting(7, "min_y", List.of("-64", "-32", "0", "32", "64"), "LADDER",
                 "<yellow>Lowest level: y %zmenu_machineengine_data_min_y%"));

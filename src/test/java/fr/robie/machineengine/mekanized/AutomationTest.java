@@ -18,9 +18,11 @@ import fr.robie.machineengine.core.lifecycle.CoreMachineEngine;
 import fr.robie.machineengine.core.machine.MachineInstanceImpl;
 import fr.robie.machineengine.mekanized.machine.Frequencies;
 import fr.robie.machineengine.mekanized.machine.AutomationMachines;
+import fr.robie.machineengine.mekanized.machine.DigitalMinerSettings;
 import fr.robie.machineengine.test.FakeWorld;
 import fr.robie.machineengine.test.TestEngine;
 import net.kyori.adventure.key.Key;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -45,6 +47,46 @@ class AutomationTest {
     @BeforeEach
     void forget() {
         Frequencies.clear();
+    }
+
+    @AfterEach
+    void resetSettings() {
+        DigitalMinerSettings.reset();
+    }
+
+    @Test
+    void theMinerPaysTheConfiguredEnergyPerBlock() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        DigitalMinerSettings.energyPerBlock = 60_000;
+        MachineInstanceImpl miner = world.place(type("digital_miner"), HERE, Direction.NORTH);
+        world.setBlock(FakeWorld.at(2, 60, -1), Key.key("minecraft", "iron_ore"));
+        fill(miner, "energy", MekanizedContent.ENERGY.stack(50_000));
+        miner.context().set(AutomationMachines.RADIUS, "4");
+        miner.context().set(AutomationMachines.MIN_Y, "50");
+        miner.context().set(AutomationMachines.RUNNING, true);
+        miner.wake(WakeReason.CONFIG_CHANGED);
+        world.tick(40);
+        assertEquals(0, amountOf(miner, "output", MekanizedChainTest.item("minecraft:iron_ore")), "more than it holds per block");
+        assertEquals("Needs energy", miner.context().get(AutomationMachines.STATUS));
+    }
+
+    @Test
+    void theMinersRadiusIsLimitedBySettings() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        DigitalMinerSettings.maxRadius = 4;
+        MachineInstanceImpl miner = world.place(type("digital_miner"), HERE, Direction.NORTH);
+        world.setBlock(FakeWorld.at(6, 60, 0), Key.key("minecraft", "iron_ore"));
+        fill(miner, "energy", MekanizedContent.ENERGY.stack(50_000));
+        miner.context().set(AutomationMachines.RADIUS, "10");
+        miner.context().set(AutomationMachines.MIN_Y, "50");
+        miner.context().set(AutomationMachines.RUNNING, true);
+        miner.wake(WakeReason.CONFIG_CHANGED);
+        world.tick(40);
+        assertEquals(0, amountOf(miner, "output", MekanizedChainTest.item("minecraft:iron_ore")), "radius 10 is cut to 4");
+        DigitalMinerSettings.maxRadius = 32;
+        miner.wake(WakeReason.CONFIG_CHANGED);
+        world.tick(40);
+        assertEquals(1, amountOf(miner, "output", MekanizedChainTest.item("minecraft:iron_ore")), "a raised limit reaches it");
     }
 
     @Test

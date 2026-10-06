@@ -59,11 +59,6 @@ public final class AutomationMachines {
     public static final MachineDataKey<Long> CURSOR = DataKeys.number("cursor");
     public static final MachineDataKey<String> STATUS = DataKeys.STATUS;
 
-    /** Digital Miner: Joules per block mined, ticks per block (speed upgrades shorten it). */
-    public static final long MINER_ENERGY_PER_BLOCK = 2_000;
-    public static final long MINER_TICKS_PER_BLOCK = 10;
-    /** Positions the miner looks at per tick for its next block. */
-    private static final int MINER_SCAN_PER_TICK = 2_048;
     /** Seismic vibrator: Joules per tick while it runs. */
     public static final long VIBRATOR_ENERGY = 50;
     /** QIO drives: items and kinds of item each holds (Mekanism's). */
@@ -124,7 +119,7 @@ public final class AutomationMachines {
     /**
      * Mines the blocks around it, from just below it down to its lowest level, within its radius:
      * those its filters name (an item per filter slot), or every ore ({@code *_ore}, ancient debris)
-     * without filters. One block every {@link #MINER_TICKS_PER_BLOCK} ticks; drops into its output.
+     * without filters. One block every {@link DigitalMinerSettings#ticksPerBlock} ticks; drops into its output.
      */
     static @NotNull MachineBehavior.Factory miner() {
         return type -> context -> {
@@ -134,7 +129,7 @@ public final class AutomationMachines {
                 context.sleep();
                 return;
             }
-            int radius = DataKeys.parseInt(context.get(RADIUS), 8, 1, 32);
+            int radius = DataKeys.parseInt(context.get(RADIUS), 8, 1, DigitalMinerSettings.maxRadius);
             BlockPosition here = context.machine().position().position();
             int minY = Math.min(DataKeys.parseInt(context.get(MIN_Y), -64, -2048, 2048), here.y() - 1);
             int side = 2 * radius + 1;
@@ -143,7 +138,7 @@ public final class AutomationMachines {
                 idle(context, "Output full", 20);
                 return;
             }
-            long cost = context.modifiedCost(MekanizedContent.ENERGY, MINER_ENERGY_PER_BLOCK);
+            long cost = context.modifiedCost(MekanizedContent.ENERGY, DigitalMinerSettings.energyPerBlock);
             if (context.storage("energy").views().getFirst().amount() < cost) {
                 idle(context, "Needs energy", 20);
                 return;
@@ -156,7 +151,7 @@ public final class AutomationMachines {
                 idle(context, "Finished: everything mined", 200);
                 return;
             }
-            for (int scanned = 0; scanned < MINER_SCAN_PER_TICK && cursor < area; scanned++, cursor++) {
+            for (int scanned = 0; scanned < DigitalMinerSettings.scanPerTick && cursor < area; scanned++, cursor++) {
                 int layer = (int) (cursor / ((long) side * side));
                 int index = (int) (cursor % ((long) side * side));
                 BlockPosition at = new BlockPosition(here.x() - radius + index % side, here.y() - 1 - layer, here.z() - radius + index / side);
@@ -179,7 +174,7 @@ public final class AutomationMachines {
                 context.set(CURSOR, cursor + 1);
                 context.setActive(true);
                 context.set(STATUS, String.format(Locale.ROOT, "Mining: %s at y %d", block.value().replace('_', ' '), at.y()));
-                context.wakeIn(Math.max(1, context.modified(StandardModifiers.PROCESS_DURATION, MINER_TICKS_PER_BLOCK)));
+                context.wakeIn(Math.max(1, context.modified(StandardModifiers.PROCESS_DURATION, DigitalMinerSettings.ticksPerBlock)));
                 return;
             }
             context.set(CURSOR, cursor);

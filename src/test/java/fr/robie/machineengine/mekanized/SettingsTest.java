@@ -2,6 +2,7 @@ package fr.robie.machineengine.mekanized;
 
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.machine.ChunkLoadingSettings;
+import fr.robie.machineengine.mekanized.machine.DigitalMinerSettings;
 import fr.robie.machineengine.mekanized.machine.Frequencies;
 import fr.robie.machineengine.mekanized.machine.RadiationSettings;
 import fr.robie.machineengine.mekanized.machine.TeleporterSettings;
@@ -57,6 +58,7 @@ class SettingsTest {
         TeleporterSettings.reset();
         ChunkLoadingSettings.reset();
         RadiationSettings.reset();
+        DigitalMinerSettings.reset();
     }
 
     private void load(String yaml) {
@@ -173,5 +175,35 @@ class SettingsTest {
         assertEquals(1, RadiationSettings.barrelCapacity);
         assertEquals(10, RadiationSettings.damageDose, "not a number: the default");
         assertEquals(4, this.warnings.size(), this.warnings.toString());
+    }
+
+    // -- digital miner ----------------------------------------------------------------------------
+
+    @Test
+    void digitalMinerDefaultsAreTheOldNumbers() {
+        assertEquals(2_000, DigitalMinerSettings.energyPerBlock);
+        assertEquals(10, DigitalMinerSettings.ticksPerBlock);
+        assertEquals(2_048, DigitalMinerSettings.scanPerTick);
+        assertEquals(32, DigitalMinerSettings.maxRadius);
+    }
+
+    @Test
+    void theShippedConfigKeepsTheDigitalMinerDefaults() throws IOException {
+        loadShipped();
+        digitalMinerDefaultsAreTheOldNumbers();
+        assertTrue(this.warnings.isEmpty(), this.warnings.toString());
+    }
+
+    @Test
+    void digitalMinerSettingsAreReadAndLimited() {
+        load("digital-miner:\n  energy-per-block: 500\n  ticks-per-block: 4\n  max-radius: 16\n");
+        assertEquals(500, DigitalMinerSettings.energyPerBlock);
+        assertEquals(4, DigitalMinerSettings.ticksPerBlock);
+        assertEquals(16, DigitalMinerSettings.maxRadius);
+        load("digital-miner:\n  ticks-per-block: 0\n  max-radius: 5000\n  scan-per-tick: many\n");
+        assertEquals(1, DigitalMinerSettings.ticksPerBlock, "at least a tick");
+        assertEquals(128, DigitalMinerSettings.maxRadius);
+        assertEquals(2_048, DigitalMinerSettings.scanPerTick, "not a number: the default");
+        assertEquals(3, this.warnings.size(), this.warnings.toString());
     }
 }

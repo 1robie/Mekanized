@@ -1,6 +1,7 @@
 package fr.robie.machineengine.mekanized;
 
 import fr.robie.machineengine.mekanized.machine.ChunkLoadingSettings;
+import fr.robie.machineengine.mekanized.machine.DigitalMinerSettings;
 import fr.robie.machineengine.mekanized.machine.RadiationSettings;
 import fr.robie.machineengine.mekanized.machine.TeleporterSettings;
 import org.bukkit.configuration.ConfigurationSection;
@@ -45,6 +46,14 @@ public final class MekanizedSettings {
         loadTeleporter(config, logger);
         loadChunkLoading(config, logger);
         loadRadiation(config, logger);
+        loadDigitalMiner(config, logger);
+    }
+
+    private static void loadDigitalMiner(ConfigurationSection config, Logger logger) {
+        DigitalMinerSettings.energyPerBlock = bounded(config, "digital-miner.energy-per-block", DigitalMinerSettings.DEFAULT_ENERGY_PER_BLOCK, 0, MAX_JOULES, logger);
+        DigitalMinerSettings.ticksPerBlock = bounded(config, "digital-miner.ticks-per-block", DigitalMinerSettings.DEFAULT_TICKS_PER_BLOCK, 1, 72_000, logger);
+        DigitalMinerSettings.scanPerTick = (int) bounded(config, "digital-miner.scan-per-tick", DigitalMinerSettings.DEFAULT_SCAN_PER_TICK, 1, 1_000_000, logger);
+        DigitalMinerSettings.maxRadius = (int) bounded(config, "digital-miner.max-radius", DigitalMinerSettings.DEFAULT_MAX_RADIUS, 1, 128, logger);
     }
 
     private static void loadRadiation(ConfigurationSection config, Logger logger) {
