@@ -4,6 +4,7 @@ import fr.robie.machineengine.core.machine.LoadedMachine;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.mekanized.machine.GearRules;
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
+import fr.robie.machineengine.nms.Nms;
 import fr.robie.machineengine.paper.PaperItems;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -119,10 +120,6 @@ public final class GearModules {
     }
 
     private static void setGlider(ItemMeta meta, boolean glider) {
-        try {
-            meta.getClass().getMethod("setGlider", boolean.class).invoke(meta, glider);
-        } catch (ReflectiveOperationException | RuntimeException ignored) {
-            // an older server: no gliding
-        }
+        Nms.get().setGlider(meta, glider); // false on an older server: no gliding
     }
 }

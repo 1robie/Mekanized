@@ -1,6 +1,8 @@
 package fr.robie.machineengine.mekanized.paper.gear;
 
 import fr.robie.machineengine.mekanized.machine.GearSettings;
+import fr.robie.machineengine.nms.Nms;
+import fr.robie.machineengine.nms.PlayerInput;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -104,32 +106,25 @@ public final class SuitTicker implements Listener {
         player.getWorld().spawnParticle(Particle.FLAME, player.getLocation().add(0, 0.6, 0), 2, 0.15, 0.05, 0.15, 0.01);
     }
 
-    /** Horizontal speed from the movement keys held, along where the player looks (Paper 1.21.3+). */
+    /** Horizontal speed from the movement keys held, along where the player looks (1.21.2+; before, the current drift). */
     private static Vector steering(Player player) {
-        try {
-            Object input = player.getClass().getMethod("getCurrentInput").invoke(player);
-            Class<?> type = input.getClass();
-            double forward = ((boolean) type.getMethod("isForward").invoke(input) ? 1 : 0) - ((boolean) type.getMethod("isBackward").invoke(input) ? 1 : 0);
-            double left = ((boolean) type.getMethod("isLeft").invoke(input) ? 1 : 0) - ((boolean) type.getMethod("isRight").invoke(input) ? 1 : 0);
-            double speed = (boolean) type.getMethod("isSprint").invoke(input)
-                    ? GearSettings.jetpackSprintSpeed : GearSettings.jetpackWalkSpeed;
-            double yaw = Math.toRadians(player.getLocation().getYaw());
-            Vector move = new Vector(-Math.sin(yaw) * forward + Math.cos(yaw) * left, 0, Math.cos(yaw) * forward + Math.sin(yaw) * left);
-            return move.lengthSquared() == 0 ? move : move.normalize().multiply(speed);
-        } catch (ReflectiveOperationException | RuntimeException e) {
+        PlayerInput input = Nms.get().input(player);
+        if (input == null) {
             Vector velocity = player.getVelocity();
             return new Vector(velocity.getX(), 0, velocity.getZ());
         }
+        double forward = (input.forward() ? 1 : 0) - (input.backward() ? 1 : 0);
+        double left = (input.left() ? 1 : 0) - (input.right() ? 1 : 0);
+        double speed = input.sprint() ? GearSettings.jetpackSprintSpeed : GearSettings.jetpackWalkSpeed;
+        double yaw = Math.toRadians(player.getLocation().getYaw());
+        Vector move = new Vector(-Math.sin(yaw) * forward + Math.cos(yaw) * left, 0, Math.cos(yaw) * forward + Math.sin(yaw) * left);
+        return move.lengthSquared() == 0 ? move : move.normalize().multiply(speed);
     }
 
-    /** Whether the player holds jump (Paper 1.21.3+; older servers: never, the jetpack needs it). */
+    /** Whether the player holds jump (1.21.2+; older servers: never, the jetpack needs it). */
     private static boolean jumping(Player player) {
-        try {
-            Object input = player.getClass().getMethod("getCurrentInput").invoke(player);
-            return (boolean) input.getClass().getMethod("isJump").invoke(input);
-        } catch (ReflectiveOperationException | RuntimeException e) {
-            return false;
-        }
+        PlayerInput input = Nms.get().input(player);
+        return input != null && input.jump();
     }
 
     /** The MekaSuit and scuba set, once a second. */

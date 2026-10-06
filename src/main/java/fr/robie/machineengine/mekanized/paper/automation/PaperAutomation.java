@@ -18,7 +18,7 @@ import fr.robie.machineengine.mekanized.paper.Lore;
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.mekanized.paper.persist.LineStore;
 import fr.robie.machineengine.mekanized.machine.SaveLines;
-import fr.robie.machineengine.paper.InventoryViews;
+import fr.robie.machineengine.nms.Nms;
 import fr.robie.machineengine.paper.PaperItems;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
@@ -552,7 +552,7 @@ public final class PaperAutomation implements Listener {
     /** Redraws the open dashboard once the arrays published their new contents. */
     private void refresh(Player player) {
         player.getScheduler().runDelayed(this.plugin, task -> {
-            if (InventoryViews.topInventory(player).getHolder(false) instanceof Dashboard dashboard) dashboard.render();
+            if (Nms.get().topInventory(player).getHolder(false) instanceof Dashboard dashboard) dashboard.render();
         }, null, 21);
     }
 
