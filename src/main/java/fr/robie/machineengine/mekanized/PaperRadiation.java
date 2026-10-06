@@ -38,7 +38,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 final class PaperRadiation implements Listener {
     /** The player's dose in Sv. */
-    static final NamespacedKey DOSE = new NamespacedKey("mekanized", "radiation_dose");
+    static final NamespacedKey DOSE = new NamespacedKey(MekanizedContent.NAMESPACE, "radiation_dose");
     /** The dose keeps this much every second (half-life about 11 minutes). */
     private static final double DOSE_DECAY = 0.999;
     private static final List<String> HAZMAT = List.of("hazmat_mask", "hazmat_gown", "hazmat_pants", "hazmat_boots");

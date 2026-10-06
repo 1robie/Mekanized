@@ -18,7 +18,6 @@ import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.RelativeSide;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -173,11 +172,6 @@ public final class Entangloporters {
             Map<ResourceVariant, Long> shared = buffer.get(storage);
             if (shared != null) shared.merge(variant, amount, Long::sum);
         }
-    }
-
-    /** The channel of {@code storage}, or null. */
-    public static @Nullable Channel channel(@NotNull String storage) {
-        return CHANNELS.stream().filter(channel -> channel.storage().equals(storage)).findFirst().orElse(null);
     }
 
     /** Whether {@code category} is carried by the items channel (the platform serializes those differently). */

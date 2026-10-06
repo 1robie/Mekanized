@@ -142,7 +142,7 @@ final class MekanizedStructures {
         for (Map.Entry<List<Integer>, String> block : order) {
             List<Integer> at = block.getKey();
             Location location = new Location(world, x + at.get(0), y + at.get(1), z + at.get(2));
-            if (!CraftEngineBlocks.place(location, Key.of("mekanized", block.getValue()), false)) {
+            if (!CraftEngineBlocks.place(location, Key.of(MekanizedContent.NAMESPACE, block.getValue()), false)) {
                 return "could not place " + block.getValue() + " (is the Mekanized pack loaded?)";
             }
         }

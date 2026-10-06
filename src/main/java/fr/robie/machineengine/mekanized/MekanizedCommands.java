@@ -123,7 +123,7 @@ final class MekanizedCommands {
 
     private void test(CommandContext<CommandSourceStack> context, World world, int x, int y, int z) {
         Location at = new Location(world, x, y, z);
-        if (!CraftEngineBlocks.place(at, Key.of("mekanized", "enrichment_chamber"), false)) {
+        if (!CraftEngineBlocks.place(at, Key.of(MekanizedContent.NAMESPACE, "enrichment_chamber"), false)) {
             reply(context, "mekanized test: could not place the enrichment chamber (is the Mekanized pack loaded?)");
             return;
         }
@@ -232,7 +232,7 @@ final class MekanizedCommands {
     /** Places a Mekanized block; false (nothing placed) if the position belongs to another Folia region. */
     private static boolean place(World world, int x, int y, int z, String block) {
         if (!Bukkit.isOwnedByCurrentRegion(world, x >> 4, z >> 4)) return false;
-        return CraftEngineBlocks.place(new Location(world, x, y, z), Key.of("mekanized", block), false);
+        return CraftEngineBlocks.place(new Location(world, x, y, z), Key.of(MekanizedContent.NAMESPACE, block), false);
     }
 
     private static void reply(CommandContext<CommandSourceStack> context, String message) {
