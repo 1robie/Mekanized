@@ -1,4 +1,6 @@
-package fr.robie.machineengine.mekanized;
+package fr.robie.machineengine.mekanized.paper.menu;
+
+import fr.robie.machineengine.mekanized.EditableFiles;
 
 import fr.robie.machineengine.mekanized.machine.ChunkLoaders;
 import fr.robie.machineengine.mekanized.machine.FactoryBehavior;
@@ -23,7 +25,7 @@ import java.util.Set;
  * like any zMenu inventory; edited menus are never overwritten. Titles are translated on each
  * player's client.
  */
-final class MekanizedMenus {
+public final class MekanizedMenus {
     /**
      * The side configuration menus, one per port group: {@code mekanized_side_config_<group>}. Machine
      * menus and the configurator open the first group the machine has; tabs switch between groups.
@@ -41,7 +43,7 @@ final class MekanizedMenus {
     }
 
     /** The side configuration menu to open for a machine with these port groups, or {@code null}. */
-    static String sideMenuFor(Set<String> groups) {
+    public static String sideMenuFor(Set<String> groups) {
         for (String[] group : GROUPS) {
             if (groups.contains(group[0])) return SIDE_MENU + "_" + group[0];
         }
@@ -96,7 +98,7 @@ final class MekanizedMenus {
         }
     }
 
-    static void install(Plugin plugin, EditableFiles files) {
+    public static void install(Plugin plugin, EditableFiles files) {
         Path folder = plugin.getDataFolder().toPath().getParent().resolve("MachineEngine/menus");
         int installed = 0;
         for (Menu menu : menus()) {

@@ -1,4 +1,6 @@
-package fr.robie.machineengine.mekanized;
+package fr.robie.machineengine.mekanized.paper;
+
+import fr.robie.machineengine.mekanized.MekanizedContent;
 
 import fr.robie.machineengine.api.resource.ResourceType;
 import fr.robie.machineengine.api.resource.ResourceVariant;
@@ -20,7 +22,7 @@ import java.util.Map;
  * Saves the quantum entangloporters' shared buffers in {@code plugins/Mekanized/entangloporters.txt}:
  * every 30 seconds when they changed, and when the plugin stops.
  */
-final class PaperEntangloporters {
+public final class PaperEntangloporters {
     private static final long SAVE_TICKS = 600;
     private static @Nullable Path file;
     private static @Nullable Plugin owner;
@@ -28,7 +30,7 @@ final class PaperEntangloporters {
     private PaperEntangloporters() {
     }
 
-    static void install(Plugin plugin) {
+    public static void install(Plugin plugin) {
         owner = plugin;
         file = plugin.getDataFolder().toPath().resolve("entangloporters.txt");
         load();
@@ -38,7 +40,7 @@ final class PaperEntangloporters {
     }
 
     /** One line per stored resource: frequency, channel, {@code k} and a resource key or {@code i} and item bytes, amount. */
-    static synchronized void save() {
+    public static synchronized void save() {
         if (file == null || owner == null) return;
         Base64.Encoder base64 = Base64.getEncoder();
         StringBuilder text = new StringBuilder();

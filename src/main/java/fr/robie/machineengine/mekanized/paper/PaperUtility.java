@@ -1,4 +1,6 @@
-package fr.robie.machineengine.mekanized;
+package fr.robie.machineengine.mekanized.paper;
+
+import fr.robie.machineengine.mekanized.MekanizedContent;
 
 import fr.robie.machineengine.api.machine.MachineContext;
 import fr.robie.machineengine.api.machine.WakeReason;
@@ -53,7 +55,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * chests and barrels kept to their owner, chargepads charging the players on them, and the server's
  * crafting recipes and items for the Formulaic Assemblicator and the Oredictionificator.
  */
-final class PaperUtility implements Listener {
+public final class PaperUtility implements Listener {
     private static final long CHARGE_EVERY = 10;
     private static final PaperEnergyItems ENERGY_ITEMS = new PaperEnergyItems();
     /** Crafting grids already looked up: recipes do not change while the server runs (bounded). */
@@ -65,7 +67,7 @@ final class PaperUtility implements Listener {
         this.plugin = plugin;
     }
 
-    static void install(Plugin plugin) {
+    public static void install(Plugin plugin) {
         UtilityBehaviors.setItemFactory(id -> {
             ItemStack stack = PaperItems.itemOf(id);
             return stack == null ? null : PaperItems.toResource(stack, id).variant();

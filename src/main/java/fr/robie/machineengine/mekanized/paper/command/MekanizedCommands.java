@@ -1,4 +1,7 @@
-package fr.robie.machineengine.mekanized;
+package fr.robie.machineengine.mekanized.paper.command;
+
+import fr.robie.machineengine.mekanized.paper.automation.PaperAutomation;
+import fr.robie.machineengine.mekanized.MekanizedContent;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.DoubleArgumentType;
@@ -39,10 +42,10 @@ import org.bukkit.plugin.Plugin;
  * and {@code test-chemistry} check energy and chemical transport the same way.
  */
 @SuppressWarnings("UnstableApiUsage")
-final class MekanizedCommands {
+public final class MekanizedCommands {
     private final Plugin plugin;
 
-    MekanizedCommands(Plugin plugin) {
+    public MekanizedCommands(Plugin plugin) {
         this.plugin = plugin;
     }
 
@@ -67,7 +70,7 @@ final class MekanizedCommands {
         return source.getSender().hasPermission("machineengine.admin");
     }
 
-    LiteralCommandNode<CommandSourceStack> build() {
+    public LiteralCommandNode<CommandSourceStack> build() {
         // Players set frequencies; the tests are for admins.
         return Commands.literal("mekanized")
                 .then(Commands.literal("frequency")

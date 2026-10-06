@@ -1,4 +1,7 @@
-package fr.robie.machineengine.mekanized;
+package fr.robie.machineengine.mekanized.paper;
+
+import fr.robie.machineengine.mekanized.paper.gear.PaperGear;
+import fr.robie.machineengine.mekanized.MekanizedContent;
 
 import fr.robie.machineengine.api.machine.MachineContext;
 import fr.robie.machineengine.api.machine.MachineDataKey;
@@ -58,7 +61,7 @@ import java.util.TreeSet;
  *       right-click one with an empty pattern to set it.</li>
  * </ul>
  */
-final class PaperTools implements Listener {
+public final class PaperTools implements Listener {
     private static final NamespacedKey CARD = new NamespacedKey(MekanizedContent.NAMESPACE, "configuration");
     private static final NamespacedKey DROPPER_TYPE = new NamespacedKey(MekanizedContent.NAMESPACE, "dropper_type");
     private static final NamespacedKey DROPPER_AMOUNT = new NamespacedKey(MekanizedContent.NAMESPACE, "dropper_amount");

@@ -25,7 +25,7 @@ import static fr.robie.machineengine.mekanized.machine.MekanizedMachines.IS_ENER
  * Phase 6 wave 2 (MEKANIZED_PLAN.md): Mekanism's utility blocks. Bins (one item, many of it), personal
  * chest and barrel (their owner's), the chargepad, the Fluidic Plenisher, the Formulaic Assemblicator,
  * the lasers, the Oredictionificator and the Industrial Alarm. Players use bins, personal storage and
- * chargepads through {@code MekanizedTools}.
+ * chargepads through {@code PaperConfigurator}.
  */
 public final class UtilityMachines {
     /** Items each bin tier holds (Mekanism's defaults); the creative bin is refilled forever. */
@@ -72,7 +72,7 @@ public final class UtilityMachines {
                     .behavior(UtilityBehaviors.storage("items", false))
                     .build());
         }
-        // Players standing on it are charged by MekanizedTools (a player task).
+        // Players standing on it are charged by PaperConfigurator (a player task).
         machines.add(MachineType.builder(key("chargepad"))
                 .storage(StorageDefinition.tank("energy", 2_400_000).filter(IS_ENERGY))
                 .port(PortDefinition.builder("energy", "energy").direction(PortDirection.INPUT).filter(IS_ENERGY)

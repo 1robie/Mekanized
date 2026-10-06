@@ -1,4 +1,7 @@
-package fr.robie.machineengine.mekanized;
+package fr.robie.machineengine.mekanized.paper.gear;
+
+import fr.robie.machineengine.mekanized.paper.PaperEnergyItems;
+import fr.robie.machineengine.mekanized.MekanizedContent;
 
 import fr.robie.machineengine.api.machine.WakeReason;
 import fr.robie.machineengine.api.resource.ResourceType;
@@ -73,7 +76,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * tablet: energy cubes, chargepads), their chemical (hydrogen, oxygen: right-click a machine holding
  * it), and modules (sneak-use a module while wearing, or holding in the off hand, the gear it fits).
  */
-final class PaperGear implements Listener {
+public final class PaperGear implements Listener {
     static final NamespacedKey CHEMICAL = new NamespacedKey(MekanizedContent.NAMESPACE, "gear_chemical");
     static final NamespacedKey MODULES = new NamespacedKey(MekanizedContent.NAMESPACE, "modules");
 
@@ -115,7 +118,7 @@ final class PaperGear implements Listener {
         this.plugin = plugin;
     }
 
-    static void install(Plugin plugin) {
+    public static void install(Plugin plugin) {
         PaperGear gear = new PaperGear(plugin);
         Bukkit.getPluginManager().registerEvents(gear, plugin);
         for (Player player : Bukkit.getOnlinePlayers()) gear.start(player);
@@ -123,7 +126,7 @@ final class PaperGear implements Listener {
 
     // -- item data ------------------------------------------------------------------------------
 
-    static @Nullable String id(@Nullable ItemStack stack) {
+    public static @Nullable String id(@Nullable ItemStack stack) {
         if (stack == null || stack.isEmpty()) return null;
         Key key = PaperItems.idOf(stack);
         return key.namespace().equals(MekanizedContent.NAMESPACE) ? key.value() : null;
@@ -134,7 +137,7 @@ final class PaperGear implements Listener {
     }
 
     /** Takes {@code joules} from the gear if it has them all. */
-    static boolean useEnergy(ItemStack stack, long joules) {
+    public static boolean useEnergy(ItemStack stack, long joules) {
         long energy = energy(stack);
         if (energy < joules) return false;
         String id = id(stack);
@@ -160,7 +163,7 @@ final class PaperGear implements Listener {
         return true;
     }
 
-    static Set<String> modules(@Nullable ItemStack stack) {
+    public static Set<String> modules(@Nullable ItemStack stack) {
         if (stack == null || stack.isEmpty() || !stack.hasItemMeta()) return Set.of();
         String list = stack.getItemMeta().getPersistentDataContainer().get(MODULES, PersistentDataType.STRING);
         return list == null || list.isEmpty() ? Set.of() : new LinkedHashSet<>(List.of(list.split(",")));
@@ -168,12 +171,12 @@ final class PaperGear implements Listener {
 
     /** Rewrites the lore (energy, chemical, modules) and the tool speeds of a gear item. */
     /** The item's energy capacity: its base one, times {@link #ENERGY_UNIT_FACTOR} with an energy unit. */
-    static long capacity(Key item, @Nullable String modules) {
+    public static long capacity(Key item, @Nullable String modules) {
         long base = EnergyItems.CAPACITY.getOrDefault(item, 0L);
         return modules != null && List.of(modules.split(",")).contains("energy_unit") ? base * ENERGY_UNIT_FACTOR : base;
     }
 
-    static long capacity(ItemStack stack) {
+    public static long capacity(ItemStack stack) {
         String id = id(stack);
         return id == null ? 0 : capacity(MekanizedContent.key(id), stack.getItemMeta().getPersistentDataContainer().get(MODULES, PersistentDataType.STRING));
     }
@@ -191,7 +194,7 @@ final class PaperGear implements Listener {
         return added;
     }
 
-    static void refresh(ItemMeta meta, Key item) {
+    public static void refresh(ItemMeta meta, Key item) {
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
         List<Component> lore = new ArrayList<>();
         long capacity = capacity(item, pdc.get(MODULES, PersistentDataType.STRING));

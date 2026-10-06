@@ -1,4 +1,7 @@
-package fr.robie.machineengine.mekanized;
+package fr.robie.machineengine.mekanized.paper;
+
+import fr.robie.machineengine.mekanized.paper.gear.PaperGear;
+import fr.robie.machineengine.mekanized.MekanizedContent;
 
 import fr.robie.machineengine.mekanized.machine.Radiation;
 import fr.robie.machineengine.mekanized.paper.persist.LineStore;
@@ -36,7 +39,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * a MekaSuit helmet with the matching unit shows them all the time. Sources are saved in
  * {@code plugins/Mekanized/radiation.txt}.
  */
-final class PaperRadiation implements Listener {
+public final class PaperRadiation implements Listener {
     /** The player's dose in Sv. */
     static final NamespacedKey DOSE = new NamespacedKey(MekanizedContent.NAMESPACE, "radiation_dose");
     /** The dose keeps this much every second (half-life about 11 minutes). */
@@ -53,7 +56,7 @@ final class PaperRadiation implements Listener {
         this.file = plugin.getDataFolder().toPath().resolve("radiation.txt");
     }
 
-    static void install(Plugin plugin) {
+    public static void install(Plugin plugin) {
         PaperRadiation radiation = new PaperRadiation(plugin);
         instance = radiation;
         radiation.load();
@@ -171,7 +174,7 @@ final class PaperRadiation implements Listener {
     private static @Nullable PaperRadiation instance;
 
     /** Saves the sources (when the plugin stops). */
-    static void saveNow() {
+    public static void saveNow() {
         if (instance != null) instance.save();
     }
 }

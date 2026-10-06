@@ -1,4 +1,7 @@
-package fr.robie.machineengine.mekanized;
+package fr.robie.machineengine.mekanized.paper;
+
+import fr.robie.machineengine.mekanized.paper.menu.MekanizedMenus;
+import fr.robie.machineengine.mekanized.MekanizedContent;
 
 import fr.robie.machineengine.api.machine.WakeReason;
 import fr.robie.machineengine.api.network.TransportSideMode;
@@ -46,7 +49,7 @@ import java.util.Set;
  * </ul>
  * Runs before CraftEngine's own handling, which then sees a cancelled event and opens no menu.
  */
-final class MekanizedTools implements Listener {
+public final class PaperConfigurator implements Listener {
     private static final String INSTALLER_SUFFIX = "_tier_installer";
     private static final Direction[] TURN = {Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
 

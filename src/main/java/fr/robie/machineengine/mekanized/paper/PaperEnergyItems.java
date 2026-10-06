@@ -1,4 +1,7 @@
-package fr.robie.machineengine.mekanized;
+package fr.robie.machineengine.mekanized.paper;
+
+import fr.robie.machineengine.mekanized.paper.gear.PaperGear;
+import fr.robie.machineengine.mekanized.MekanizedContent;
 
 import fr.robie.machineengine.api.item.ItemData;
 import fr.robie.machineengine.api.item.Items;
@@ -11,8 +14,8 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 /** Energy items on Paper: the charge in the item's persistent data, shown in its lore ({@link PaperGear#refresh}). */
-final class PaperEnergyItems implements EnergyItems.Access {
-    static final NamespacedKey ENERGY = new NamespacedKey(MekanizedContent.NAMESPACE, "energy");
+public final class PaperEnergyItems implements EnergyItems.Access {
+    public static final NamespacedKey ENERGY = new NamespacedKey(MekanizedContent.NAMESPACE, "energy");
 
     @Override
     public long energy(@NotNull ResourceVariant item) {

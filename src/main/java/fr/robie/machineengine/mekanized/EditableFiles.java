@@ -16,7 +16,7 @@ import java.util.zip.CRC32;
  * kept (with a warning), so updates never overwrite a server's changes. Checksums of what was
  * installed live in {@code plugins/Mekanized/installed.properties}.
  */
-final class EditableFiles implements AutoCloseable {
+public final class EditableFiles implements AutoCloseable {
     private final Plugin plugin;
     private final Path index;
     private final Properties installed = new Properties();
@@ -36,7 +36,7 @@ final class EditableFiles implements AutoCloseable {
     }
 
     /** @return whether the file was written */
-    boolean install(Path destination, byte[] content) throws IOException {
+    public boolean install(Path destination, byte[] content) throws IOException {
         String key = this.root.relativize(destination).toString().replace('\\', '/');
         long fresh = crc(content);
         if (Files.exists(destination)) {

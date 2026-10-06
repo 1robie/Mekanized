@@ -1,4 +1,6 @@
-package fr.robie.machineengine.mekanized;
+package fr.robie.machineengine.mekanized.paper.command;
+
+import fr.robie.machineengine.mekanized.MekanizedContent;
 
 import fr.robie.machineengine.api.machine.WakeReason;
 import fr.robie.machineengine.api.transfer.Transaction;
@@ -22,7 +24,7 @@ import java.util.function.Consumer;
  * Ready-made multiblocks for {@code /mekanized build <structure> [x y z]} (admins): the smallest
  * working build of each, from the given corner towards +x, +y and +z, valves and ports set.
  */
-final class MekanizedStructures {
+public final class MekanizedStructures {
     /** A structure: blocks by relative position, and the valves or ports to set to a mode. */
     record Structure(Map<List<Integer>, String> blocks, Map<List<Integer>, String> modes) {
     }

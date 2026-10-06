@@ -1,4 +1,7 @@
-package fr.robie.machineengine.mekanized;
+package fr.robie.machineengine.mekanized.paper.automation;
+
+import fr.robie.machineengine.mekanized.paper.gear.PaperGear;
+import fr.robie.machineengine.mekanized.MekanizedContent;
 
 import fr.robie.machineengine.api.machine.MachineContext;
 import fr.robie.machineengine.api.machine.WakeReason;
@@ -74,7 +77,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * who walk into a teleporter's portal, the cardboard box, the seismic reader and the QIO dashboard
  * (a chest menu of everything the frequency's drive arrays hold).
  */
-final class PaperAutomation implements Listener {
+public final class PaperAutomation implements Listener {
     private static final long TELEPORT_COOLDOWN_MS = 3_000;
     private static final NamespacedKey BOX_BLOCK = new NamespacedKey(MekanizedContent.NAMESPACE, "box_block");
     private static final NamespacedKey BOX_ITEMS = new NamespacedKey(MekanizedContent.NAMESPACE, "box_items");
@@ -97,7 +100,7 @@ final class PaperAutomation implements Listener {
         this.teleporterFile = plugin.getDataFolder().toPath().resolve("teleporters.txt");
     }
 
-    static void install(Plugin plugin) {
+    public static void install(Plugin plugin) {
         PaperAutomation automation = new PaperAutomation(plugin);
         automation.loadTeleporters();
         Frequencies.onTeleportersChanged(automation::saveTeleporters);
@@ -107,7 +110,7 @@ final class PaperAutomation implements Listener {
     // -- frequencies --------------------------------------------------------------------------
 
     /** Sets the frequency of the teleporter or QIO block {@code player} looks at (on the player's thread). */
-    static void setFrequency(Plugin plugin, Player player, String frequency) {
+    public static void setFrequency(Plugin plugin, Player player, String frequency) {
         player.getScheduler().run(plugin, task -> {
             Block block = player.getTargetBlockExact(6);
             LoadedMachine machine = block == null ? null : PaperWorld.machine(block);

@@ -1,5 +1,17 @@
 package fr.robie.machineengine.mekanized;
 
+import fr.robie.machineengine.mekanized.paper.PaperTools;
+import fr.robie.machineengine.mekanized.paper.PaperConfigurator;
+import fr.robie.machineengine.mekanized.paper.PaperUtility;
+import fr.robie.machineengine.mekanized.paper.PaperRadiation;
+import fr.robie.machineengine.mekanized.paper.PaperChunkLoaders;
+import fr.robie.machineengine.mekanized.paper.PaperEntangloporters;
+import fr.robie.machineengine.mekanized.paper.PaperEnergyItems;
+import fr.robie.machineengine.mekanized.paper.gear.PaperGear;
+import fr.robie.machineengine.mekanized.paper.automation.PaperAutomation;
+import fr.robie.machineengine.mekanized.paper.menu.MekanizedMenus;
+import fr.robie.machineengine.mekanized.paper.command.MekanizedCommands;
+
 import fr.robie.machineengine.api.MachineEngine;
 import fr.robie.machineengine.api.addon.AddonRegistration;
 import fr.robie.machineengine.mekanized.paper.persist.LineStore;
@@ -104,7 +116,7 @@ public final class MekanizedPlugin extends JavaPlugin {
         PaperEntangloporters.install(this);
         PaperRadiation.install(this);
         fr.robie.machineengine.paper.ResourceNames.register(MekanizedPlugin::name);
-        getServer().getPluginManager().registerEvents(new MekanizedTools(), this);
+        getServer().getPluginManager().registerEvents(new PaperConfigurator(), this);
         getServer().getPluginManager().registerEvents(new PaperTools(), this);
         MekanizedCommands commands = new MekanizedCommands(this);
         getLifecycleManager().registerEventHandler(io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents.COMMANDS,

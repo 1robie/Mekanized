@@ -1,4 +1,4 @@
-package fr.robie.machineengine.mekanized;
+package fr.robie.machineengine.mekanized.paper;
 
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.machine.ChunkLoaders;
@@ -20,7 +20,7 @@ import java.util.Set;
  * {@code plugins/Mekanized/chunk_loaders.txt} so the chunks load again when the server starts.
  * Tickets change on the global thread's bookkeeping, then on the thread of each chunk's region.
  */
-final class PaperChunkLoaders {
+public final class PaperChunkLoaders {
     private final Plugin plugin;
     private final Path file;
     /** Chunks holding a ticket: world, chunk x, chunk z (global region thread only). */
@@ -34,7 +34,7 @@ final class PaperChunkLoaders {
         this.file = plugin.getDataFolder().toPath().resolve("chunk_loaders.txt");
     }
 
-    static void install(Plugin plugin) {
+    public static void install(Plugin plugin) {
         PaperChunkLoaders loaders = new PaperChunkLoaders(plugin);
         loaders.load();
         ChunkLoaders.onChange(() -> Bukkit.getGlobalRegionScheduler().execute(plugin, () -> {
