@@ -5,6 +5,7 @@ import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.api.resource.ResourceType;
 import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.mekanized.machine.Entangloporters;
+import fr.robie.machineengine.mekanized.machine.SaveLines;
 import fr.robie.machineengine.mekanized.paper.persist.LineStore;
 import fr.robie.machineengine.paper.PaperItems;
 import net.kyori.adventure.key.Key;
@@ -13,7 +14,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Nullable;
 
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.Base64;
 import java.util.Map;
@@ -45,21 +45,21 @@ public final class PaperEntangloporters {
         Base64.Encoder base64 = Base64.getEncoder();
         StringBuilder text = new StringBuilder();
         for (Map.Entry<String, Map<String, Map<ResourceVariant, Long>>> frequency : Entangloporters.buffers().entrySet()) {
-            String name = base64.encodeToString(frequency.getKey().getBytes(StandardCharsets.UTF_8));
             synchronized (frequency.getValue()) {
                 for (Map.Entry<String, Map<ResourceVariant, Long>> channel : frequency.getValue().entrySet()) {
                     for (Map.Entry<ResourceVariant, Long> stored : channel.getValue().entrySet()) {
                         ResourceVariant variant = stored.getKey();
+                        boolean items = Entangloporters.isItems(variant.category());
                         String payload;
-                        if (Entangloporters.isItems(variant.category())) {
+                        if (items) {
                             ItemStack item = PaperItems.toItemStack(variant, 1);
                             if (item == null) continue;
-                            payload = "i|" + base64.encodeToString(item.serializeAsBytes());
+                            payload = base64.encodeToString(item.serializeAsBytes());
                         } else {
-                            payload = "k|" + variant.type().key().asString();
+                            payload = variant.type().key().asString();
                         }
-                        text.append(name).append('|').append(channel.getKey()).append('|').append(payload).append('|')
-                                .append(stored.getValue()).append('\n');
+                        text.append(SaveLines.entangloporter(new SaveLines.Stored(frequency.getKey(), channel.getKey(), items, payload,
+                                stored.getValue())));
                     }
                 }
             }
@@ -70,17 +70,17 @@ public final class PaperEntangloporters {
     private static void load() {
         if (file == null || owner == null) return;
         Base64.Decoder base64 = Base64.getDecoder();
-        LineStore.load(owner, file, 5, parts -> {
-            String frequency = new String(base64.decode(parts[0]), StandardCharsets.UTF_8);
+        LineStore.load(owner, file, SaveLines.ENTANGLOPORTER_FIELDS, parts -> {
+            SaveLines.Stored stored = SaveLines.readEntangloporter(parts);
             ResourceVariant variant;
-            if (parts[2].equals("i")) {
-                variant = PaperItems.toResource(ItemStack.deserializeBytes(base64.decode(parts[3]))).variant();
+            if (stored.item()) {
+                variant = PaperItems.toResource(ItemStack.deserializeBytes(base64.decode(stored.payload()))).variant();
             } else {
-                ResourceType type = type(Key.key(parts[3]));
+                ResourceType type = type(Key.key(stored.payload()));
                 if (type == null) return;
                 variant = type.variant();
             }
-            Entangloporters.load(frequency, parts[1], variant, Long.parseLong(parts[4]));
+            Entangloporters.load(stored.frequency(), stored.channel(), variant, stored.amount());
         });
     }
 

@@ -3,6 +3,8 @@ package fr.robie.machineengine.mekanized.machine;
 import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.api.world.WorldPosition;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -77,6 +79,33 @@ public final class Frequencies {
             if (array.frequency().equals(frequency)) found.add(position);
         });
         return found;
+    }
+
+    /** What the drive arrays of one frequency hold together: items by amount, most first, and the totals. */
+    public record Summary(@NotNull List<Map.Entry<ResourceVariant, Long>> sorted, long stored, long capacity) {
+        /** One page of {@code perPage} entries (empty past the end). */
+        public @NotNull List<Map.Entry<ResourceVariant, Long>> page(int page, int perPage) {
+            long from = (long) page * perPage;
+            if (page < 0 || from >= sorted.size()) return List.of();
+            return sorted.subList((int) from, (int) Math.min(sorted.size(), from + perPage));
+        }
+    }
+
+    /** The contents of every drive array of {@code frequency}, merged: what a QIO dashboard shows. */
+    public static @NotNull Summary summary(@NotNull String frequency) {
+        Map<ResourceVariant, Long> all = new HashMap<>();
+        long stored = 0;
+        long capacity = 0;
+        for (WorldPosition position : arrays(frequency)) {
+            Array array = ARRAYS.get(position);
+            if (array == null) continue;
+            array.contents().forEach((variant, amount) -> all.merge(variant, amount, Long::sum));
+            stored += array.stored();
+            capacity += array.capacity();
+        }
+        List<Map.Entry<ResourceVariant, Long>> sorted = new ArrayList<>(all.entrySet());
+        sorted.sort(Map.Entry.<ResourceVariant, Long>comparingByValue(Comparator.reverseOrder()));
+        return new Summary(List.copyOf(sorted), stored, capacity);
     }
 
     /** Forgets everything (tests). */

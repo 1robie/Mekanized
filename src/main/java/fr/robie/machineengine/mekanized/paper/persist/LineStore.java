@@ -1,5 +1,6 @@
 package fr.robie.machineengine.mekanized.paper.persist;
 
+import fr.robie.machineengine.mekanized.machine.SaveLines;
 import org.bukkit.plugin.Plugin;
 
 import java.io.IOException;
@@ -46,11 +47,7 @@ public final class LineStore {
     public static void load(Plugin plugin, Path file, int fields, Consumer<String[]> record) {
         if (!Files.isRegularFile(file)) return;
         try {
-            for (String line : Files.readAllLines(file, StandardCharsets.UTF_8)) {
-                String[] parts = line.split("\\|");
-                if (parts.length != fields) continue;
-                record.accept(parts);
-            }
+            SaveLines.read(Files.readAllLines(file, StandardCharsets.UTF_8), fields, record);
         } catch (IOException | RuntimeException e) {
             plugin.getLogger().warning("Could not read " + file + ": " + e.getMessage());
         }

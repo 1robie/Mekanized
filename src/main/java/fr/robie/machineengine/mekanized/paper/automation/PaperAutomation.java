@@ -17,7 +17,7 @@ import fr.robie.machineengine.mekanized.machine.MachineParts;
 import fr.robie.machineengine.mekanized.paper.Lore;
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.mekanized.paper.persist.LineStore;
-import fr.robie.machineengine.mekanized.paper.persist.WorldPositions;
+import fr.robie.machineengine.mekanized.machine.SaveLines;
 import fr.robie.machineengine.paper.PaperItems;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
@@ -61,9 +61,7 @@ import java.io.UncheckedIOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -177,15 +175,12 @@ public final class PaperAutomation implements Listener {
     }
 
     private void loadTeleporters() {
-        LineStore.load(this.plugin, this.teleporterFile, 6, parts -> Frequencies.teleporters().put(WorldPositions.read(parts, 1),
-                new Frequencies.Teleporter(parts[0], Boolean.parseBoolean(parts[5]))));
+        LineStore.load(this.plugin, this.teleporterFile, SaveLines.TELEPORTER_FIELDS, SaveLines::readTeleporter);
     }
 
     private synchronized void saveTeleporters() {
         StringBuilder text = new StringBuilder();
-        Frequencies.teleporters().forEach((position, teleporter) -> WorldPositions
-                .append(text.append(teleporter.frequency().replace("|", "")).append('|'), position)
-                .append('|').append(teleporter.formed()).append('\n'));
+        Frequencies.teleporters().forEach((position, teleporter) -> text.append(SaveLines.teleporter(position, teleporter)));
         LineStore.write(this.plugin, this.teleporterFile, text);
     }
 
@@ -417,22 +412,14 @@ public final class PaperAutomation implements Listener {
         }
 
         void render() {
-            Map<ResourceVariant, Long> all = new HashMap<>();
-            long stored = 0;
-            long capacity = 0;
-            for (WorldPosition position : Frequencies.arrays(this.frequency)) {
-                Frequencies.Array array = Frequencies.arrays().get(position);
-                if (array == null) continue;
-                array.contents().forEach((variant, amount) -> all.merge(variant, amount, Long::sum));
-                stored += array.stored();
-                capacity += array.capacity();
-            }
-            List<Map.Entry<ResourceVariant, Long>> sorted = new ArrayList<>(all.entrySet());
-            sorted.sort(Map.Entry.<ResourceVariant, Long>comparingByValue(Comparator.reverseOrder()));
+            Frequencies.Summary summary = Frequencies.summary(this.frequency);
+            long stored = summary.stored();
+            long capacity = summary.capacity();
+            List<Map.Entry<ResourceVariant, Long>> pageEntries = summary.page(this.page, PER_PAGE);
             this.inventory.clear();
             this.shown.clear();
-            for (int i = 0; i < PER_PAGE && this.page * PER_PAGE + i < sorted.size(); i++) {
-                var entry = sorted.get(this.page * PER_PAGE + i);
+            for (int i = 0; i < pageEntries.size(); i++) {
+                var entry = pageEntries.get(i);
                 ItemStack icon = PaperItems.toItemStack(entry.getKey(), 1);
                 if (icon == null) continue;
                 long amount = entry.getValue();

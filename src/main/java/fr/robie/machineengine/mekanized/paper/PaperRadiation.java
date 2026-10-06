@@ -6,7 +6,7 @@ import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.mekanized.machine.Radiation;
 import fr.robie.machineengine.mekanized.machine.RadiationSettings;
 import fr.robie.machineengine.mekanized.paper.persist.LineStore;
-import fr.robie.machineengine.mekanized.paper.persist.WorldPositions;
+import fr.robie.machineengine.mekanized.machine.SaveLines;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -29,7 +29,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.Nullable;
 
 import java.nio.file.Path;
-import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -158,14 +157,12 @@ public final class PaperRadiation implements Listener {
     // -- saving ------------------------------------------------------------------------------------
 
     private void load() {
-        LineStore.load(this.plugin, this.file, 5,
-                parts -> Radiation.sources().put(WorldPositions.read(parts, 0), Double.parseDouble(parts[4])));
+        LineStore.load(this.plugin, this.file, SaveLines.RADIATION_FIELDS, SaveLines::readRadiationSource);
     }
 
     synchronized void save() {
         StringBuilder text = new StringBuilder();
-        Radiation.sources().forEach((at, strength) -> WorldPositions.append(text, at).append('|')
-                .append(String.format(Locale.ROOT, "%.9g", strength)).append('\n'));
+        Radiation.sources().forEach((at, strength) -> text.append(SaveLines.radiationSource(at, strength)));
         LineStore.write(this.plugin, this.file, text);
     }
 

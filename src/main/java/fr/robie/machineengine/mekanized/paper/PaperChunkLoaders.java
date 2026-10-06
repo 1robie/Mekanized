@@ -3,7 +3,7 @@ package fr.robie.machineengine.mekanized.paper;
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.machine.ChunkLoaders;
 import fr.robie.machineengine.mekanized.paper.persist.LineStore;
-import fr.robie.machineengine.mekanized.paper.persist.WorldPositions;
+import fr.robie.machineengine.mekanized.machine.SaveLines;
 import fr.robie.machineengine.paper.PaperWorlds;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
@@ -75,13 +75,12 @@ public final class PaperChunkLoaders {
     }
 
     private void load() {
-        LineStore.load(this.plugin, this.file, 5,
-                parts -> ChunkLoaders.loaders().put(WorldPositions.read(parts, 0), Integer.parseInt(parts[4])));
+        LineStore.load(this.plugin, this.file, SaveLines.CHUNK_LOADER_FIELDS, SaveLines::readChunkLoader);
     }
 
     private void save() {
         StringBuilder text = new StringBuilder();
-        ChunkLoaders.loaders().forEach((position, radius) -> WorldPositions.append(text, position).append('|').append(radius).append('\n'));
+        ChunkLoaders.loaders().forEach((position, radius) -> text.append(SaveLines.chunkLoader(position, radius)));
         LineStore.write(this.plugin, this.file, text);
     }
 }
