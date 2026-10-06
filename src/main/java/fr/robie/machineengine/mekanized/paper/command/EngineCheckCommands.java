@@ -23,7 +23,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
+import org.bukkit.block.Container;
 import org.bukkit.block.Hopper;
 import org.bukkit.block.data.type.RedstoneWire;
 import org.bukkit.entity.Item;
@@ -83,6 +85,7 @@ final class EngineCheckCommands {
     }
 
     private void checkDrop(CommandContext<CommandSourceStack> context, World world, int x, int y, int z) {
+        reset(world, x, y, z, 0, 0);
         ResourceHandler port = placeBin(context, "check-drop", world, x, y, z);
         if (port == null) return;
         ResourceStack iron = PaperItems.toResource(new ItemStack(Material.IRON_INGOT, 100));
@@ -97,6 +100,8 @@ final class EngineCheckCommands {
     }
 
     private void checkHopper(CommandContext<CommandSourceStack> context, World world, int x, int y, int z) {
+        reset(world, x, y, z, 0, 0);
+        for (int dy : new int[] {-2, -1, 1}) reset(world, x, y + dy, z, 0, 0);
         world.getBlockAt(x, y - 2, z).setType(Material.CHEST);
         world.getBlockAt(x, y - 1, z).setBlockData(Bukkit.createBlockData("minecraft:hopper[facing=down]"));
         if (placeBin(context, "check-hopper", world, x, y, z) == null) return;
@@ -116,6 +121,7 @@ final class EngineCheckCommands {
 
     /** Bin, then a comparator reading it (east of it), then redstone dust. */
     private void checkComparator(CommandContext<CommandSourceStack> context, World world, int x, int y, int z) {
+        reset(world, x, y, z, 2, 0);
         for (int dx = 0; dx <= 2; dx++) world.getBlockAt(x + dx, y - 1, z).setType(Material.STONE);
         ResourceHandler port = placeBin(context, "check-comparator", world, x, y, z);
         if (port == null) return;
@@ -146,12 +152,32 @@ final class EngineCheckCommands {
         MekanizedCommands.reply(context, "fill: placed " + placed + " idle crushers");
     }
 
+    /**
+     * Clears the blocks from {@code (x, y, z)} to {@code (x + dx, y, z + dz)} and the items lying around,
+     * so a check can run again at the same place: CraftEngine does not place a block over the same
+     * block, and leftover hoppers, chests or drops would skew the counts.
+     */
+    private static void reset(World world, int x, int y, int z, int dx, int dz) {
+        for (int i = 0; i <= dx; i++) {
+            for (int j = 0; j <= dz; j++) {
+                Block block = world.getBlockAt(x + i, y, z + j);
+                if (CraftEngineBlocks.isCustomBlock(block)) CraftEngineBlocks.remove(block);
+                if (block.getState(false) instanceof Container container) container.getInventory().clear();
+                block.setType(Material.AIR);
+            }
+        }
+        world.getNearbyEntitiesByType(Item.class, new Location(world, x + 0.5, y + 0.5, z + 0.5), 4).forEach(Item::remove);
+    }
+
     /** Places a basic bin and returns its item port, or null (and says why) if it failed. */
     private static ResourceHandler placeBin(CommandContext<CommandSourceStack> context, String check, World world, int x, int y, int z) {
-        MachineInstance bin = MekanizedDebugCommands.place(world, x, y, z, BIN)
-                ? MachineEngine.get().machineAt(WorldPosition.of(world.getKey(), x, y, z)).orElse(null) : null;
-        if (bin == null) {
+        if (!MekanizedDebugCommands.place(world, x, y, z, BIN)) {
             MekanizedCommands.reply(context, check + ": could not place a " + MekanizedContent.NAMESPACE + ":" + BIN);
+            return null;
+        }
+        MachineInstance bin = MachineEngine.get().machineAt(WorldPosition.of(world.getKey(), x, y, z)).orElse(null);
+        if (bin == null) {
+            MekanizedCommands.reply(context, check + ": the " + BIN + " was placed but holds no machine");
             return null;
         }
         return bin.capability(Capabilities.RESOURCE_HANDLER, Direction.UP).orElseThrow();
