@@ -19,6 +19,7 @@ import fr.robie.machineengine.core.machine.MachineInstanceImpl;
 import fr.robie.machineengine.mekanized.machine.Frequencies;
 import fr.robie.machineengine.mekanized.machine.AutomationMachines;
 import fr.robie.machineengine.mekanized.machine.DigitalMinerSettings;
+import fr.robie.machineengine.mekanized.machine.QioSettings;
 import fr.robie.machineengine.test.FakeWorld;
 import fr.robie.machineengine.test.TestEngine;
 import net.kyori.adventure.key.Key;
@@ -52,6 +53,7 @@ class AutomationTest {
     @AfterEach
     void resetSettings() {
         DigitalMinerSettings.reset();
+        QioSettings.reset();
     }
 
     @Test
@@ -189,6 +191,42 @@ class AutomationTest {
             assertEquals(16_000, AutomationMachines.insertIntoArray(context.storage("drives"), context.storage("items"),
                     MekanizedChainTest.item("minecraft:dirt"), 20_000, transaction), "a base drive holds 16,000 items");
         }
+    }
+
+    @Test
+    void driveCapacitiesComeFromSettings() {
+        QioSettings.driveItems = new long[]{100, 128_000, 1_048_000, 16_000_000};
+        QioSettings.driveKinds = new long[]{1, 256, 1_024, 8_192};
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        MachineInstanceImpl array = world.place(type("qio_drive_array"), HERE, Direction.NORTH);
+        var context = array.context();
+        fill(array, "drives", MekanizedChainTest.item("mekanized:qio_drive_base").stack(1));
+        try (Transaction transaction = this.engine.transactions().openOuter()) {
+            assertEquals(100, AutomationMachines.insertIntoArray(context.storage("drives"), context.storage("items"),
+                    MekanizedChainTest.item("minecraft:dirt"), 20_000, transaction), "the configured item limit");
+            assertEquals(0, AutomationMachines.insertIntoArray(context.storage("drives"), context.storage("items"),
+                    MekanizedChainTest.item("minecraft:stone"), 1, transaction), "the configured kind limit: one kind");
+        }
+    }
+
+    @Test
+    void importersMoveTheConfiguredItemsPerSecond() {
+        QioSettings.ioRate = 5;
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        MachineInstanceImpl array = world.place(type("qio_drive_array"), FakeWorld.at(5, 64, 5), Direction.NORTH);
+        fill(array, "drives", MekanizedChainTest.item("mekanized:qio_drive_base").stack(1));
+        MachineInstanceImpl importer = world.place(type("qio_importer"), HERE, Direction.NORTH);
+        array.context().set(AutomationMachines.FREQUENCY, "slow");
+        importer.context().set(AutomationMachines.FREQUENCY, "slow");
+        ResourceHandler chest = CombinedResourceHandler.slots(3, 64);
+        try (Transaction transaction = this.engine.transactions().openOuter()) {
+            chest.insert(MekanizedChainTest.item("minecraft:cobblestone"), 40, transaction);
+            transaction.commit();
+        }
+        world.setContainer(FakeWorld.at(0, 64, -1), chest);
+        world.tick(45);
+        long moved = amount(array, "items");
+        assertTrue(moved >= 5 && moved <= 15, "5 a second, not 64: " + moved);
     }
 
     // ------------------------------------------------------------------------------------------

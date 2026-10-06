@@ -4,6 +4,7 @@ import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.machine.ChunkLoadingSettings;
 import fr.robie.machineengine.mekanized.machine.DigitalMinerSettings;
 import fr.robie.machineengine.mekanized.machine.Frequencies;
+import fr.robie.machineengine.mekanized.machine.QioSettings;
 import fr.robie.machineengine.mekanized.machine.RadiationSettings;
 import fr.robie.machineengine.mekanized.machine.TeleporterSettings;
 import fr.robie.machineengine.test.FakeWorld;
@@ -23,6 +24,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -59,6 +61,7 @@ class SettingsTest {
         ChunkLoadingSettings.reset();
         RadiationSettings.reset();
         DigitalMinerSettings.reset();
+        QioSettings.reset();
     }
 
     private void load(String yaml) {
@@ -204,6 +207,35 @@ class SettingsTest {
         assertEquals(1, DigitalMinerSettings.ticksPerBlock, "at least a tick");
         assertEquals(128, DigitalMinerSettings.maxRadius);
         assertEquals(2_048, DigitalMinerSettings.scanPerTick, "not a number: the default");
+        assertEquals(3, this.warnings.size(), this.warnings.toString());
+    }
+
+    // -- qio --------------------------------------------------------------------------------------
+
+    @Test
+    void qioDefaultsAreTheOldNumbers() {
+        assertArrayEquals(new long[]{16_000, 128_000, 1_048_000, 16_000_000}, QioSettings.driveItems);
+        assertArrayEquals(new long[]{128, 256, 1_024, 8_192}, QioSettings.driveKinds);
+        assertEquals(1_024, QioSettings.arrayKinds);
+        assertEquals(64, QioSettings.ioRate);
+    }
+
+    @Test
+    void theShippedConfigKeepsTheQioDefaults() throws IOException {
+        loadShipped();
+        qioDefaultsAreTheOldNumbers();
+        assertTrue(this.warnings.isEmpty(), this.warnings.toString());
+    }
+
+    @Test
+    void qioSettingsAreReadAndValidated() {
+        load("qio:\n  drive-items: [1, 2, 3, 4]\n  importer-exporter-rate: 8\n");
+        assertArrayEquals(new long[]{1, 2, 3, 4}, QioSettings.driveItems);
+        assertEquals(8, QioSettings.ioRate);
+        load("qio:\n  drive-kinds: [1, 2, 3]\n  array-kinds: 0\n  drive-items: [1, 2, 3, -4]\n");
+        assertArrayEquals(new long[]{128, 256, 1_024, 8_192}, QioSettings.driveKinds, "three numbers: the defaults");
+        assertArrayEquals(new long[]{1, 2, 3, 4}, QioSettings.driveItems, "a negative one: the values before stay");
+        assertEquals(1, QioSettings.arrayKinds);
         assertEquals(3, this.warnings.size(), this.warnings.toString());
     }
 }

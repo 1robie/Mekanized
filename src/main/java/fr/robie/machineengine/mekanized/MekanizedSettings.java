@@ -2,6 +2,7 @@ package fr.robie.machineengine.mekanized;
 
 import fr.robie.machineengine.mekanized.machine.ChunkLoadingSettings;
 import fr.robie.machineengine.mekanized.machine.DigitalMinerSettings;
+import fr.robie.machineengine.mekanized.machine.QioSettings;
 import fr.robie.machineengine.mekanized.machine.RadiationSettings;
 import fr.robie.machineengine.mekanized.machine.TeleporterSettings;
 import org.bukkit.configuration.ConfigurationSection;
@@ -47,6 +48,15 @@ public final class MekanizedSettings {
         loadChunkLoading(config, logger);
         loadRadiation(config, logger);
         loadDigitalMiner(config, logger);
+        loadQio(config, logger);
+    }
+
+    private static void loadQio(ConfigurationSection config, Logger logger) {
+        String drives = "four positive numbers (base, hyper-dense, time-dilating, supermassive drive)";
+        QioSettings.driveItems = fourPositive(config, "qio.drive-items", QioSettings.driveItems, drives, logger);
+        QioSettings.driveKinds = fourPositive(config, "qio.drive-kinds", QioSettings.driveKinds, drives, logger);
+        QioSettings.arrayKinds = (int) bounded(config, "qio.array-kinds", QioSettings.DEFAULT_ARRAY_KINDS, 1, 16_384, logger);
+        QioSettings.ioRate = bounded(config, "qio.importer-exporter-rate", QioSettings.DEFAULT_IO_RATE, 1, 1_000_000, logger);
     }
 
     private static void loadDigitalMiner(ConfigurationSection config, Logger logger) {
@@ -121,10 +131,14 @@ public final class MekanizedSettings {
     }
 
     private static long[] tiers(ConfigurationSection config, String path, long[] fallback, Logger logger) {
+        return fourPositive(config, path, fallback, "four positive numbers (basic, advanced, elite, ultimate)", logger);
+    }
+
+    private static long[] fourPositive(ConfigurationSection config, String path, long[] fallback, String needs, Logger logger) {
         if (!config.contains(path)) return fallback;
         List<Long> values = config.getLongList(path);
         if (values.size() != 4 || values.stream().anyMatch(value -> value <= 0)) {
-            logger.warning(path + " needs four positive numbers (basic, advanced, elite, ultimate); using the defaults");
+            logger.warning(path + " needs " + needs + "; using the defaults");
             return fallback;
         }
         return values.stream().mapToLong(Long::longValue).toArray();

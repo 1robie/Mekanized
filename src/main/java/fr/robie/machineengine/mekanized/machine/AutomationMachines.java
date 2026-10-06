@@ -61,16 +61,9 @@ public final class AutomationMachines {
 
     /** Seismic vibrator: Joules per tick while it runs. */
     public static final long VIBRATOR_ENERGY = 50;
-    /** QIO drives: items and kinds of item each holds (Mekanism's). */
-    public static final Map<Key, long[]> DRIVES = Map.of(
-            key("qio_drive_base"), new long[]{16_000, 128},
-            key("qio_drive_hyper_dense"), new long[]{128_000, 256},
-            key("qio_drive_time_dilating"), new long[]{1_048_000, 1_024},
-            key("qio_drive_supermassive"), new long[]{16_000_000, 8_192});
-    /** Item kinds a drive array can hold at most, whatever its drives (its item slots). */
-    public static final int QIO_KINDS = 1_024;
-    /** Items an importer or exporter moves per second. */
-    public static final long QIO_RATE = 64;
+    /** QIO drive items, in the order of {@link QioSettings}: what each holds is set there (Mekanism's by default). */
+    private static final List<Key> DRIVES = List.of(key("qio_drive_base"), key("qio_drive_hyper_dense"),
+            key("qio_drive_time_dilating"), key("qio_drive_supermassive"));
 
     private AutomationMachines() {
     }
@@ -99,7 +92,7 @@ public final class AutomationMachines {
         context.machineTypes().register(MachineType.builder(key("teleporter_frame")).behavior(type -> MachineContext::sleep).build());
         context.machineTypes().register(MachineType.builder(key("qio_drive_array"))
                 .storage(StorageDefinition.slots("drives", 12, 1).filter((variant, tags) -> drive(variant) != null))
-                .storage(StorageDefinition.slots("items", QIO_KINDS, Long.MAX_VALUE / 4).filter(Items.anyItem()))
+                .storage(StorageDefinition.slots("items", QioSettings.arrayKinds, Long.MAX_VALUE / 4).filter(Items.anyItem()))
                 .data(FREQUENCY)
                 .behavior(driveArray())
                 .build());
@@ -262,7 +255,8 @@ public final class AutomationMachines {
     /** The items and kinds a drive item holds, or null if it is no drive. */
     public static long @Nullable [] drive(@NotNull ResourceVariant variant) {
         ItemData data = variant.components().get(Items.DATA);
-        return data == null ? null : DRIVES.get(data.item());
+        int drive = data == null ? -1 : DRIVES.indexOf(data.item());
+        return drive < 0 ? null : new long[]{QioSettings.driveItems[drive], QioSettings.driveKinds[drive]};
     }
 
     /** A drive array: its drives set how many items (and kinds) it holds; it publishes what it holds. */
@@ -312,7 +306,7 @@ public final class AutomationMachines {
             items += drive[0];
             kinds += drive[1];
         }
-        return new long[]{items, Math.min(kinds, QIO_KINDS)};
+        return new long[]{items, Math.min(kinds, QioSettings.arrayKinds)};
     }
 
     /**
@@ -368,7 +362,7 @@ public final class AutomationMachines {
             context.wakeIn(20);
             if (network.isEmpty() || source == null) return;
             Set<Key> filters = filters(context);
-            long budget = QIO_RATE;
+            long budget = QioSettings.ioRate;
             for (StorageView view : List.copyOf(source.views())) {
                 if (budget <= 0) break;
                 if (view.isEmpty() || !passes(view.variant(), filters, true)) continue;
@@ -397,7 +391,7 @@ public final class AutomationMachines {
             context.wakeIn(20);
             Set<Key> filters = filters(context);
             if (network.isEmpty() || target == null || filters.isEmpty()) return;
-            long budget = QIO_RATE;
+            long budget = QioSettings.ioRate;
             for (ResourceHandler[] array : network) {
                 for (StorageView view : List.copyOf(array[1].views())) {
                     if (budget <= 0) return;

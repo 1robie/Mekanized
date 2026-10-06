@@ -48,3 +48,10 @@ digital-miner:
   ticks-per-block: 10      # ticks per block mined (speed upgrades shorten it)
   scan-per-tick: 2048      # positions it looks at per tick for the next block to mine
   max-radius: 32           # widest radius (1-128); 32 is a 65 x 65 area
+
+# The QIO network. Lists are for the drives: [base, hyper-dense, time-dilating, supermassive].
+qio:
+  drive-items: [16000, 128000, 1048000, 16000000]  # items each drive holds
+  drive-kinds: [128, 256, 1024, 8192]              # kinds of item each drive holds
+  array-kinds: 1024                                # kinds of item a drive array holds at most, whatever its drives (1-16384)
+  importer-exporter-rate: 64                       # items an importer or exporter moves per second
