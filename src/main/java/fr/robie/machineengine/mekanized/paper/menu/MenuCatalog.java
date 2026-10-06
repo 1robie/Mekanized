@@ -35,7 +35,7 @@ public final class MenuCatalog {
         if (installed > 0) plugin.getLogger().info("Installed " + installed + " Mekanized machine menus in " + folder);
     }
 
-    private static List<Menu> menus() {
+    static List<Menu> menus() {
         List<Menu> menus = new ArrayList<>();
         for (String machine : List.of("enrichment_chamber", "crusher", "energized_smelter")) menus.add(processing(machine, false, null));
         menus.add(processing("precision_sawmill", true, null));

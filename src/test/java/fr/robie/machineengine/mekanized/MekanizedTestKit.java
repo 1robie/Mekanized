@@ -58,8 +58,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * helpers. Annotate a test class with {@code @ExtendWith(MekanizedTestKit.ResetStatics.class)} so the
  * static state (settings, hooks, listeners, registries of loaders) starts and ends each test clean.
  */
-final class MekanizedTestKit {
-    static final WorldPosition HERE = FakeWorld.at(0, 64, 0);
+public final class MekanizedTestKit {
+    public static final WorldPosition HERE = FakeWorld.at(0, 64, 0);
 
     /** What the plugin installs, tags first. */
     private static final List<String> DEFINITIONS = manifest().definitions().stream()
@@ -71,7 +71,7 @@ final class MekanizedTestKit {
     // -- the engine -------------------------------------------------------------------------------
 
     /** A started engine with the Mekanized addon and every generated definition. */
-    static CoreMachineEngine engine() {
+    public static CoreMachineEngine engine() {
         return TestEngine.builder()
                 .addon(AddonRegistration.builder("Mekanized", "1.0.0").register(MekanizedContent::register).build())
                 .definitions(MekanizedTestKit::definitions, new DefinitionCompiler.ItemResolver() {
@@ -83,32 +83,32 @@ final class MekanizedTestKit {
                 .start();
     }
 
-    static MachineType type(CoreMachineEngine engine, String name) {
+    public static MachineType type(CoreMachineEngine engine, String name) {
         return engine.registries().registry(Registries.MACHINE_TYPE).getOrThrow(MekanizedContent.key(name));
     }
 
-    static MachineInstanceImpl place(CoreMachineEngine engine, FakeWorld world, String name) {
+    public static MachineInstanceImpl place(CoreMachineEngine engine, FakeWorld world, String name) {
         return world.place(type(engine, name), HERE, Direction.NORTH);
     }
 
     // -- stand-in resources -----------------------------------------------------------------------
 
-    static ResourceVariant item(String id) {
+    public static ResourceVariant item(String id) {
         return Items.variant(new ItemData(Key.key(id), id.getBytes(StandardCharsets.UTF_8)));
     }
 
     /** A chemical (gas, slurry, infuse type...) registered by Mekanized, found through the engine's registry. */
-    static ResourceStack chemical(CoreMachineEngine engine, String name, long amount) {
+    public static ResourceStack chemical(CoreMachineEngine engine, String name, long amount) {
         return engine.registries().registry(Registries.RESOURCE_TYPE).getOrThrow(MekanizedContent.key(name)).stack(amount);
     }
 
-    static ResourceStack fluid(String name, long amount) {
+    public static ResourceStack fluid(String name, long amount) {
         return Objects.requireNonNull(MekanizedContent.fluid(name), name).stack(amount);
     }
 
     // -- filling and reading machines -------------------------------------------------------------
 
-    static long insert(MachineInstanceImpl machine, String storage, ResourceVariant variant, long amount) {
+    public static long insert(MachineInstanceImpl machine, String storage, ResourceVariant variant, long amount) {
         try (Transaction transaction = machine.services().transactions().openOuter()) {
             long inserted = machine.context().storage(storage).insert(variant, amount, transaction);
             transaction.commit();
@@ -117,48 +117,48 @@ final class MekanizedTestKit {
     }
 
     /** Inserts one unit of {@code variant}; how many went in (0 or 1). */
-    static long insert(MachineInstanceImpl machine, String storage, ResourceVariant variant) {
+    public static long insert(MachineInstanceImpl machine, String storage, ResourceVariant variant) {
         return insert(machine, storage, variant, 1);
     }
 
     /** Inserts {@code stack} and asserts that all of it fits. */
-    static void fill(MachineInstanceImpl machine, String storage, ResourceStack stack) {
+    public static void fill(MachineInstanceImpl machine, String storage, ResourceStack stack) {
         assertEquals(stack.amount(), insert(machine, storage, stack.variant(), stack.amount()), stack + " fits in " + storage);
     }
 
     /** Everything in {@code storage}. */
-    static long amount(MachineInstanceImpl machine, String storage) {
+    public static long amount(MachineInstanceImpl machine, String storage) {
         return machine.inspect().storages().get(storage).stream().mapToLong(StorageView::amount).sum();
     }
 
-    static long capacity(MachineInstanceImpl machine, String storage) {
+    public static long capacity(MachineInstanceImpl machine, String storage) {
         return machine.inspect().storages().get(storage).stream().mapToLong(StorageView::capacity).sum();
     }
 
-    static long energy(MachineInstanceImpl machine) {
+    public static long energy(MachineInstanceImpl machine) {
         return amount(machine, "energy");
     }
 
     /** The amount of one variant in {@code storage}. */
-    static long amountOf(MachineInstanceImpl machine, String storage, ResourceVariant variant) {
+    public static long amountOf(MachineInstanceImpl machine, String storage, ResourceVariant variant) {
         return machine.inspect().storages().get(storage).stream().filter(view -> variant.equals(view.variant()))
                 .mapToLong(StorageView::amount).sum();
     }
 
     /** The amount of the stand-in item {@code itemId} in {@code storage}. */
-    static long amount(MachineInstanceImpl machine, String storage, String itemId) {
+    public static long amount(MachineInstanceImpl machine, String storage, String itemId) {
         return amountOf(machine, storage, item(itemId));
     }
 
     /** The amount of the chemical or fluid type {@code type} (a Mekanized key path) in {@code storage}. */
-    static long amountOfType(MachineInstanceImpl machine, String storage, String type) {
+    public static long amountOfType(MachineInstanceImpl machine, String storage, String type) {
         return machine.inspect().storages().get(storage).stream()
                 .filter(view -> view.variant() != null && view.variant().type().key().equals(MekanizedContent.key(type)))
                 .mapToLong(StorageView::amount).sum();
     }
 
     /** Ticks {@code ticks}, keeping the machines' energy buffers full. */
-    static void powered(FakeWorld world, int ticks, MachineInstanceImpl... machines) {
+    public static void powered(FakeWorld world, int ticks, MachineInstanceImpl... machines) {
         for (int done = 0; done < ticks; done += 20) {
             for (MachineInstanceImpl machine : machines) {
                 long free = machine.inspect().storages().get("energy").stream().mapToLong(view -> view.capacity() - view.amount()).sum();
@@ -171,7 +171,7 @@ final class MekanizedTestKit {
     // -- structures -------------------------------------------------------------------------------
 
     /** The walls of a box from (0, 64, 0), {@code size} blocks per side, of {@code casing}; {@code faces} overrides some. */
-    static void box(CoreMachineEngine engine, FakeWorld world, int size, String casing, Map<WorldPosition, String> faces) {
+    public static void box(CoreMachineEngine engine, FakeWorld world, int size, String casing, Map<WorldPosition, String> faces) {
         box(engine, world, size, size, size, casing, faces);
     }
 
@@ -179,7 +179,7 @@ final class MekanizedTestKit {
      * A box from (0, 64, 0) of {@code sx} x {@code sy} x {@code sz} blocks: the walls are {@code casing}, and every
      * position of {@code blocks} (walls or inside) gets the block named there.
      */
-    static void box(CoreMachineEngine engine, FakeWorld world, int sx, int sy, int sz, String casing, Map<WorldPosition, String> blocks) {
+    public static void box(CoreMachineEngine engine, FakeWorld world, int sx, int sy, int sz, String casing, Map<WorldPosition, String> blocks) {
         for (int x = 0; x < sx; x++) for (int y = 64; y < 64 + sy; y++) for (int z = 0; z < sz; z++) {
             WorldPosition at = FakeWorld.at(x, y, z);
             boolean wall = x == 0 || x == sx - 1 || y == 64 || y == 63 + sy || z == 0 || z == sz - 1;
@@ -198,7 +198,7 @@ final class MekanizedTestKit {
         }
     }
 
-    static List<DefinitionFile> definitions() {
+    public static List<DefinitionFile> definitions() {
         List<DefinitionFile> files = new ArrayList<>();
         for (String name : DEFINITIONS) {
             try (InputStream in = MekanizedTestKit.class.getClassLoader().getResourceAsStream("mekanized/definitions/" + name)) {
@@ -230,13 +230,13 @@ final class MekanizedTestKit {
     // -- energy items: the charge lives in the stand-in item's bytes ("id|joules") ----------------
 
     /** The charge of a stand-in item (0 when it has none). */
-    static long chargeOf(ResourceVariant item) {
+    public static long chargeOf(ResourceVariant item) {
         String text = new String(item.components().get(Items.DATA).data(), StandardCharsets.UTF_8);
         return text.contains("|") ? Long.parseLong(text.substring(text.indexOf('|') + 1)) : 0;
     }
 
     /** Installs the headless {@link EnergyItems.Access}; {@link ResetStatics} removes it again. */
-    static void installChargeAccess() {
+    public static void installChargeAccess() {
         EnergyItems.setAccess(new EnergyItems.Access() {
             @Override
             public long energy(ResourceVariant item) {
@@ -259,7 +259,7 @@ final class MekanizedTestKit {
      * the platform listeners of {@link Frequencies} and {@link ChunkLoaders}, and the registries of
      * frequencies, structures, chunk loaders, buffers and radiation sources.
      */
-    static final class ResetStatics implements BeforeEachCallback, AfterEachCallback {
+    public static final class ResetStatics implements BeforeEachCallback, AfterEachCallback {
         @Override
         public void beforeEach(ExtensionContext context) {
             reset();
