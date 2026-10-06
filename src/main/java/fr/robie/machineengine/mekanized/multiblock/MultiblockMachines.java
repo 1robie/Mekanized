@@ -61,6 +61,10 @@ public final class MultiblockMachines {
             structure -> Map.of("input", structure.height() * MekanizedSettings.evaporationTankPerLevel, "output", 10_000L),
             4, true, key("thermal_evaporation_controller"));
 
+    /** Every structure, in the order they are registered; the frame blocks of their walls are the structures' members. */
+    public static final List<Multiblocks.Type> TYPES = List.of(DYNAMIC_TANK, INDUCTION_MATRIX, THERMAL_EVAPORATION, Boilers.BOILER,
+            Turbines.TURBINE, Fission.FISSION, Fusion.FUSION, Sps.SPS);
+
     private MultiblockMachines() {
     }
 

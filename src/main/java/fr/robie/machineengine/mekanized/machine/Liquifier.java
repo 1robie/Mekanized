@@ -4,8 +4,6 @@ import fr.robie.machineengine.api.addon.RegistrationContext;
 import fr.robie.machineengine.api.item.ItemData;
 import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.machine.MachineBehavior;
-import fr.robie.machineengine.api.machine.MachineContext;
-import fr.robie.machineengine.api.machine.MachineType;
 import fr.robie.machineengine.api.machine.PortDefinition;
 import fr.robie.machineengine.api.machine.PortDirection;
 import fr.robie.machineengine.api.machine.StorageDefinition;
@@ -20,10 +18,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
-import static fr.robie.machineengine.mekanized.MekanizedContent.key;
 
 /**
- * The nutritional liquifier (Phase 6 wave 6): food in, nutritional paste out, 50 mB per hunger point
+ * The nutritional liquifier: food in, nutritional paste out, 50 mB per hunger point
  * the food restores. A canteen filled from it feeds its owner.
  */
 public final class Liquifier {
@@ -66,9 +63,6 @@ public final class Liquifier {
                 .upgradeSlots(2, MekanizedRegistry::standardUpgrade)
                 .behavior(MachineParts.powered(liquifier()))
                 .build());
-        // The modification station takes modules back out of gear (Paper side); the block itself does nothing.
-        context.machineTypes().register(MachineType.builder(key("modification_station"))
-                .behavior(type -> MachineContext::sleep).build());
     }
 
     /** Turns one food into paste per {@link #TICKS}, paying the whole energy when it starts. */

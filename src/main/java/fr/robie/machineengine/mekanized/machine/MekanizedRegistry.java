@@ -122,6 +122,7 @@ public final class MekanizedRegistry {
         Entangloporters.register(context);
         Radiation.register(context);
         Liquifier.register(context);
+        ModificationStation.register(context);
         ReactorMachines.register(context);
         MultiblockMachines.register(context);
     }

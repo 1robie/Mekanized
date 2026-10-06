@@ -12,6 +12,7 @@ import fr.robie.machineengine.core.machine.LoadedMachine;
 import fr.robie.machineengine.mekanized.machine.LogisticsMachines;
 import fr.robie.machineengine.mekanized.multiblock.MemberBehavior;
 import fr.robie.machineengine.mekanized.multiblock.Multiblocks;
+import fr.robie.machineengine.mekanized.multiblock.MultiblockMachines;
 import fr.robie.machineengine.mekanized.multiblock.ReactorMachines;
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.paper.MachineLocator;
@@ -37,6 +38,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Mekanized's tools on machines (Phase 4):
@@ -53,12 +55,9 @@ public final class PaperConfigurator implements Listener {
     private static final String INSTALLER_SUFFIX = "_tier_installer";
     private static final Direction[] TURN = {Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
 
-    /** Multiblock frame blocks: they open their structure's menu (the anchor's). */
-    private static final Set<String> MEMBERS = Set.of("dynamic_tank", "dynamic_valve", "structural_glass",
-            "induction_casing", "induction_port", "thermal_evaporation_block", "thermal_evaporation_valve", "thermal_evaporation_controller",
-            "boiler_casing", "boiler_valve", "turbine_casing", "turbine_valve", "turbine_vent", "fission_reactor_casing",
-            "fission_reactor_port", "fission_reactor_logic_adapter", "reactor_glass", "fusion_reactor_frame", "fusion_reactor_port",
-            "fusion_reactor_logic_adapter", "fusion_reactor_controller", "laser_focus_matrix", "sps_casing", "sps_port");
+    /** Multiblock frame blocks (the walls of every structure): they open their structure's menu (the anchor's). */
+    private static final Set<Key> MEMBERS = MultiblockMachines.TYPES.stream().flatMap(type -> type.faces().stream())
+            .collect(Collectors.toUnmodifiableSet());
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onUse(PlayerInteractEvent event) {
@@ -134,7 +133,7 @@ public final class PaperConfigurator implements Listener {
         LoadedMachine member = locator.machine(position);
         if (member == null || member.instance() == null) return false;
         Key type = member.inspect().type();
-        if (!type.namespace().equals(MekanizedContent.NAMESPACE) || !MEMBERS.contains(type.value())) return false;
+        if (!MEMBERS.contains(type)) return false;
         boolean configurator = tool != null && tool.equals(MekanizedContent.key("configurator"));
         List<String> modes = type.value().equals("induction_port") ? List.of("input", "output")
                 : ReactorMachines.MODES.get(type.value());
