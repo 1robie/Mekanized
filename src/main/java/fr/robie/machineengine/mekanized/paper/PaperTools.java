@@ -6,15 +6,15 @@ import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.api.machine.MachineContext;
 import fr.robie.machineengine.api.machine.MachineDataKey;
 import fr.robie.machineengine.api.machine.PortDefinition;
-import fr.robie.machineengine.api.machine.PortDirection;
 import fr.robie.machineengine.api.machine.WakeReason;
 import fr.robie.machineengine.api.resource.ResourceType;
 import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.api.transfer.StorageView;
 import fr.robie.machineengine.api.transfer.Transaction;
-import fr.robie.machineengine.api.world.RelativeSide;
 import fr.robie.machineengine.core.machine.LoadedMachine;
+import fr.robie.machineengine.mekanized.machine.ConfigurationCard;
 import fr.robie.machineengine.mekanized.machine.EjectBehavior;
+import fr.robie.machineengine.mekanized.machine.GaugeDropper;
 import fr.robie.machineengine.mekanized.machine.UtilityMachines;
 import fr.robie.machineengine.mekanized.paper.ItemLongs;
 import fr.robie.machineengine.mekanized.paper.Lore;
@@ -42,7 +42,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -66,7 +65,6 @@ public final class PaperTools implements Listener {
     private static final NamespacedKey DROPPER_TYPE = new NamespacedKey(MekanizedContent.NAMESPACE, "dropper_type");
     private static final NamespacedKey DROPPER_AMOUNT = new NamespacedKey(MekanizedContent.NAMESPACE, "dropper_amount");
     private static final NamespacedKey FORMULA = new NamespacedKey(MekanizedContent.NAMESPACE, "formula");
-    private static final long DROPPER_CAPACITY = 16_000;
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onUse(PlayerInteractEvent event) {
@@ -124,17 +122,15 @@ public final class PaperTools implements Listener {
     /** The card's text: machine type; then per port {@code port=DIRECTION:SIDES}; eject; redstone. */
     private static void copy(Player player, ItemStack card, LoadedMachine machine) {
         MachineContext context = machine.instance().context();
-        List<String> parts = new ArrayList<>();
-        parts.add(machine.inspect().type().asString());
+        List<ConfigurationCard.PortSetting> ports = new ArrayList<>();
         for (PortDefinition port : machine.instance().type().ports()) {
-            StringBuilder sides = new StringBuilder();
-            for (RelativeSide side : context.portSides(port.id())) sides.append(sides.isEmpty() ? "" : "+").append(side.name());
-            parts.add("port:" + port.id() + "=" + context.portDirection(port.id()).name() + ":" + sides);
+            ports.add(new ConfigurationCard.PortSetting(port.id(), context.portDirection(port.id()), context.portSides(port.id())));
         }
-        if (has(machine, EjectBehavior.EJECT)) parts.add("eject=" + context.get(EjectBehavior.EJECT));
-        if (has(machine, UtilityMachines.REDSTONE)) parts.add("redstone=" + context.get(UtilityMachines.REDSTONE));
+        String text = ConfigurationCard.encode(machine.inspect().type().asString(), ports,
+                has(machine, EjectBehavior.EJECT) ? context.get(EjectBehavior.EJECT) : null,
+                has(machine, UtilityMachines.REDSTONE) ? context.get(UtilityMachines.REDSTONE) : null);
         card.editMeta(meta -> {
-            meta.getPersistentDataContainer().set(CARD, PersistentDataType.STRING, String.join(";", parts));
+            meta.getPersistentDataContainer().set(CARD, PersistentDataType.STRING, text);
             meta.lore(List.of(Lore.line("Holds: " + machine.inspect().type().value().replace('_', ' '))));
         });
         player.sendActionBar(Component.text("Configuration copied", NamedTextColor.GREEN));
@@ -146,34 +142,25 @@ public final class PaperTools implements Listener {
             player.sendActionBar(Component.text("Empty: sneak-right-click a machine to copy it", NamedTextColor.RED));
             return;
         }
-        String[] parts = text.split(";");
-        if (!parts[0].equals(machine.inspect().type().asString())) {
-            player.sendActionBar(Component.text("This card holds a " + Key.key(parts[0]).value().replace('_', ' '), NamedTextColor.RED));
+        ConfigurationCard.Card parsed = ConfigurationCard.parse(text);
+        if (!parsed.type().equals(machine.inspect().type().asString())) {
+            player.sendActionBar(Component.text("This card holds a " + Key.key(parsed.type()).value().replace('_', ' '), NamedTextColor.RED));
             return;
         }
         MachineContext context = machine.instance().context();
         Set<String> ports = new HashSet<>();
         machine.instance().type().ports().forEach(port -> ports.add(port.id()));
-        for (int i = 1; i < parts.length; i++) {
-            String part = parts[i];
+        for (ConfigurationCard.PortSetting setting : parsed.ports()) {
+            if (!ports.contains(setting.port())) continue;
             try {
-                if (part.startsWith("port:")) {
-                    String port = part.substring(5, part.indexOf('='));
-                    String[] value = part.substring(part.indexOf('=') + 1).split(":", -1);
-                    if (!ports.contains(port)) continue;
-                    context.setPortDirection(port, PortDirection.valueOf(value[0]));
-                    Set<RelativeSide> sides = EnumSet.noneOf(RelativeSide.class);
-                    if (!value[1].isEmpty()) for (String side : value[1].split("\\+")) sides.add(RelativeSide.valueOf(side));
-                    context.setPortSides(port, sides);
-                } else if (part.startsWith("eject=") && has(machine, EjectBehavior.EJECT)) {
-                    context.set(EjectBehavior.EJECT, Boolean.parseBoolean(part.substring(6)));
-                } else if (part.startsWith("redstone=") && has(machine, UtilityMachines.REDSTONE)) {
-                    context.set(UtilityMachines.REDSTONE, part.substring(9));
-                }
+                context.setPortDirection(setting.port(), setting.direction());
+                if (setting.sides() != null) context.setPortSides(setting.port(), setting.sides());
             } catch (IllegalArgumentException | IndexOutOfBoundsException ignored) {
                 // an old or edited card: skip the part
             }
         }
+        if (parsed.eject() != null && has(machine, EjectBehavior.EJECT)) context.set(EjectBehavior.EJECT, parsed.eject());
+        if (parsed.redstone() != null && has(machine, UtilityMachines.REDSTONE)) context.set(UtilityMachines.REDSTONE, parsed.redstone());
         machine.instance().wake(WakeReason.CONFIG_CHANGED);
         player.sendActionBar(Component.text("Configuration pasted", NamedTextColor.GREEN));
     }
@@ -236,34 +223,20 @@ public final class PaperTools implements Listener {
             }
             pdc.set(DROPPER_TYPE, PersistentDataType.STRING, type.key().asString());
             pdc.set(DROPPER_AMOUNT, PersistentDataType.LONG, amount);
-            meta.lore(List.of(Lore.line(String.format(Locale.ROOT, "%s: %,d / %,d mB",
-                    MekanizedContent.displayName(type), amount, DROPPER_CAPACITY))));
+            meta.lore(List.of(Lore.line(GaugeDropper.lore(type, amount))));
         });
-    }
-
-    private static boolean isLiquid(ResourceVariant variant) {
-        return variant.category() == MekanizedContent.FLUID || variant.category() == MekanizedContent.CHEMICAL;
     }
 
     /** Takes a fluid or chemical (the one it holds, or the first the machine has) into the dropper. */
     private static void take(Player player, ItemStack dropper, LoadedMachine machine) {
         ResourceType held = dropperType(dropper);
-        long room = DROPPER_CAPACITY - dropperAmount(dropper);
-        MachineContext context = machine.instance().context();
-        for (var storage : machine.inspect().storages().entrySet()) {
-            for (StorageView view : storage.getValue()) {
-                if (view.isEmpty() || !isLiquid(view.variant()) || held != null && view.variant().type() != held) continue;
-                long taken;
-                try (Transaction transaction = context.transactions().openOuter()) {
-                    taken = context.storage(storage.getKey()).extract(view.variant(), room, transaction);
-                    transaction.commit();
-                }
-                if (taken <= 0) continue;
-                setDropper(dropper, view.variant().type(), dropperAmount(dropper) + taken);
-                machine.instance().wake(WakeReason.RESOURCE_EXTRACTED);
-                player.sendActionBar(Component.text(String.format(Locale.ROOT, "Took %,d mB", taken), NamedTextColor.GREEN));
-                return;
-            }
+        long room = GaugeDropper.CAPACITY - dropperAmount(dropper);
+        GaugeDropper.Taken taken = GaugeDropper.take(machine.instance().context(), machine.inspect().storages(), held, dropperAmount(dropper));
+        if (taken != null) {
+            setDropper(dropper, taken.type(), dropperAmount(dropper) + taken.amount());
+            machine.instance().wake(WakeReason.RESOURCE_EXTRACTED);
+            player.sendActionBar(Component.text(String.format(Locale.ROOT, "Took %,d mB", taken.amount()), NamedTextColor.GREEN));
+            return;
         }
         player.sendActionBar(Component.text(room <= 0 ? "The dropper is full" : "Nothing to take", NamedTextColor.RED));
     }
@@ -276,14 +249,8 @@ public final class PaperTools implements Listener {
             player.sendActionBar(Component.text("The dropper is empty", NamedTextColor.RED));
             return;
         }
-        MachineContext context = machine.instance().context();
-        for (String storage : machine.inspect().storages().keySet()) {
-            long given;
-            try (Transaction transaction = context.transactions().openOuter()) {
-                given = context.storage(storage).insert(held.variant(), amount, transaction);
-                transaction.commit();
-            }
-            if (given <= 0) continue;
+        long given = GaugeDropper.putBack(machine.instance().context(), machine.inspect().storages().keySet(), held, amount);
+        if (given > 0) {
             setDropper(dropper, held, amount - given);
             machine.instance().wake(WakeReason.RESOURCE_INSERTED);
             player.sendActionBar(Component.text(String.format(Locale.ROOT, "Put in %,d mB", given), NamedTextColor.GREEN));
