@@ -46,7 +46,14 @@ val importMekanism = tasks.register<ImportMekanism>("importMekanism") {
     group = "mekanized"
     description = "Converts the Mekanism checkout into Mekanized assets, recipes and tags."
     dependsOn(fetchMekanism)
-    sourceDirectory = rootProject.layout.projectDirectory.dir(".mekanism/source")
+    commit = fetchMekanism.flatMap { it.commit }
+    sourceDirectory = fetchMekanism.flatMap { it.sourceDirectory }
+    // Only the folders fetchMekanism checks out (and the import reads), never the checkout's .git folder.
+    sources.from(fetchMekanism.flatMap { fetch ->
+        fetch.sourceDirectory.zip(fetch.paths) { directory, paths ->
+            objects.fileTree().setDir(directory).include(paths.map { it.removePrefix("/") + if (it.endsWith("/")) "**" else "" })
+        }
+    })
     outputDirectory = layout.buildDirectory.dir("generated/mekanized")
 }
 
