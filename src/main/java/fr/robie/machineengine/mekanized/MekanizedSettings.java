@@ -1,155 +1,152 @@
 package fr.robie.machineengine.mekanized;
 
+import fr.robie.machineengine.api.config.ConfigFile;
+import fr.robie.machineengine.api.config.ConfigKey;
+import fr.robie.machineengine.api.config.ConfigValues;
 import fr.robie.machineengine.mekanized.machine.ChunkLoadingSettings;
 import fr.robie.machineengine.mekanized.machine.DigitalMinerSettings;
+import fr.robie.machineengine.mekanized.machine.GearSettings;
 import fr.robie.machineengine.mekanized.machine.QioSettings;
 import fr.robie.machineengine.mekanized.machine.RadiationSettings;
 import fr.robie.machineengine.mekanized.machine.TeleporterSettings;
-import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.Map;
 
 /**
- * Server owners' settings ({@code plugins/Mekanized/config.yml}), read once when the plugin loads,
- * before Mekanized registers its machines. Defaults are Mekanism's numbers; headless tests use them.
- * Recipes (durations, energy, outputs) are edited in their own definition files instead.
+ * Server owners' settings ({@code plugins/Mekanized/config.yml}, keys in {@link MekanizedConfig}), read
+ * once when the plugin loads, before Mekanized registers its machines. Defaults are Mekanism's numbers;
+ * headless tests use them. Recipes (durations, energy, outputs) are edited in their own definition files instead.
  */
 public final class MekanizedSettings {
+    public static final long[] DEFAULT_CABLE_RATES = {8_000, 128_000, 1_024_000, 8_192_000};
+    public static final long[] DEFAULT_TUBE_RATES = {750, 2_000, 64_000, 256_000};
+    public static final long[] DEFAULT_PIPE_RATES = {250, 1_000, 8_000, 32_000};
+    public static final long[] DEFAULT_TRANSPORTER_RATES = {8, 16, 32, 64};
+    public static final long DEFAULT_TANK_FLUID_PER_BLOCK = 350_000;
+    public static final long DEFAULT_TANK_CHEMICAL_PER_BLOCK = 16_000_000;
+    public static final long DEFAULT_EVAPORATION_PER_LEVEL = 10;
+    public static final long DEFAULT_EVAPORATION_TANK_PER_LEVEL = 16_000;
+
     /** Per tier (basic, advanced, elite, ultimate): Joules per tick a universal cable network moves. */
-    public static long[] cableRates = {8_000, 128_000, 1_024_000, 8_192_000};
+    public static long[] cableRates = DEFAULT_CABLE_RATES.clone();
     /** mB per tick a pressurized tube network moves. */
-    public static long[] tubeRates = {750, 2_000, 64_000, 256_000};
+    public static long[] tubeRates = DEFAULT_TUBE_RATES.clone();
     /** mB per tick a mechanical pipe network moves. */
-    public static long[] pipeRates = {250, 1_000, 8_000, 32_000};
+    public static long[] pipeRates = DEFAULT_PIPE_RATES.clone();
     /** Items a logistical transporter network moves every 10 ticks. */
-    public static long[] transporterRates = {8, 16, 32, 64};
+    public static long[] transporterRates = DEFAULT_TRANSPORTER_RATES.clone();
     /** Dynamic Tank: mB of fluid, and of chemical, per block inside. */
-    public static long tankFluidPerBlock = 350_000;
-    public static long tankChemicalPerBlock = 16_000_000;
+    public static long tankFluidPerBlock = DEFAULT_TANK_FLUID_PER_BLOCK;
+    public static long tankChemicalPerBlock = DEFAULT_TANK_CHEMICAL_PER_BLOCK;
     /** Thermal Evaporation Plant: input mB evaporated per tick per level (by day), input tank mB per level. */
-    public static long evaporationPerLevel = 10;
-    public static long evaporationTankPerLevel = 16_000;
+    public static long evaporationPerLevel = DEFAULT_EVAPORATION_PER_LEVEL;
+    public static long evaporationTankPerLevel = DEFAULT_EVAPORATION_TANK_PER_LEVEL;
 
     private MekanizedSettings() {
     }
 
-    static void load(@NotNull ConfigurationSection config, @NotNull Logger logger) {
-        cableRates = tiers(config, "transport.universal-cable", cableRates, logger);
-        tubeRates = tiers(config, "transport.pressurized-tube", tubeRates, logger);
-        pipeRates = tiers(config, "transport.mechanical-pipe", pipeRates, logger);
-        transporterRates = tiers(config, "transport.logistical-transporter", transporterRates, logger);
-        tankFluidPerBlock = positive(config, "dynamic-tank.fluid-per-block", tankFluidPerBlock, logger);
-        tankChemicalPerBlock = positive(config, "dynamic-tank.chemical-per-block", tankChemicalPerBlock, logger);
-        evaporationPerLevel = positive(config, "thermal-evaporation.input-per-level-per-tick", evaporationPerLevel, logger);
-        evaporationTankPerLevel = positive(config, "thermal-evaporation.input-tank-per-level", evaporationTankPerLevel, logger);
-        loadTeleporter(config, logger);
-        loadChunkLoading(config, logger);
-        loadRadiation(config, logger);
-        loadDigitalMiner(config, logger);
-        loadQio(config, logger);
-        GearSettingsLoader.load(config, logger);
+    /** Loads {@code config.yml}, adding the settings it is missing, and applies it. */
+    static void load(@NotNull Plugin plugin) {
+        apply(ConfigFile.load(plugin, "config.yml", MekanizedConfig.SPEC));
     }
 
-    private static void loadQio(ConfigurationSection config, Logger logger) {
-        String drives = "four positive numbers (base, hyper-dense, time-dilating, supermassive drive)";
-        QioSettings.driveItems = fourPositive(config, "qio.drive-items", QioSettings.driveItems, drives, logger);
-        QioSettings.driveKinds = fourPositive(config, "qio.drive-kinds", QioSettings.driveKinds, drives, logger);
-        QioSettings.arrayKinds = (int) bounded(config, "qio.array-kinds", QioSettings.DEFAULT_ARRAY_KINDS, 1, 16_384, logger);
-        QioSettings.ioRate = bounded(config, "qio.importer-exporter-rate", QioSettings.DEFAULT_IO_RATE, 1, 1_000_000, logger);
+    /** Copies the settings into the classes that use them. */
+    public static void apply(@NotNull ConfigValues config) {
+        cableRates = longs(config.get(MekanizedConfig.UNIVERSAL_CABLE));
+        tubeRates = longs(config.get(MekanizedConfig.PRESSURIZED_TUBE));
+        pipeRates = longs(config.get(MekanizedConfig.MECHANICAL_PIPE));
+        transporterRates = longs(config.get(MekanizedConfig.LOGISTICAL_TRANSPORTER));
+        tankFluidPerBlock = config.get(MekanizedConfig.TANK_FLUID_PER_BLOCK);
+        tankChemicalPerBlock = config.get(MekanizedConfig.TANK_CHEMICAL_PER_BLOCK);
+        evaporationPerLevel = config.get(MekanizedConfig.EVAPORATION_PER_LEVEL);
+        evaporationTankPerLevel = config.get(MekanizedConfig.EVAPORATION_TANK_PER_LEVEL);
+
+        TeleporterSettings.baseCost = config.get(MekanizedConfig.TELEPORT_BASE_COST);
+        TeleporterSettings.costPerBlock = config.get(MekanizedConfig.TELEPORT_COST_PER_BLOCK);
+        TeleporterSettings.otherWorldCost = config.get(MekanizedConfig.TELEPORT_OTHER_WORLD_COST);
+        TeleporterSettings.cooldownMs = Math.round(config.get(MekanizedConfig.TELEPORT_COOLDOWN) * 1000);
+        ChunkLoadingSettings.maxRadius = config.get(MekanizedConfig.CHUNK_MAX_RADIUS);
+        ChunkLoadingSettings.energyPerChunk = config.get(MekanizedConfig.CHUNK_ENERGY);
+
+        RadiationSettings.background = config.get(MekanizedConfig.RADIATION_BACKGROUND);
+        RadiationSettings.sourceDecayPerSecond = config.get(MekanizedConfig.SOURCE_DECAY);
+        RadiationSettings.minSource = config.get(MekanizedConfig.MIN_SOURCE);
+        RadiationSettings.doseDecayPerSecond = config.get(MekanizedConfig.DOSE_DECAY);
+        RadiationSettings.shieldingPerPiece = config.get(MekanizedConfig.SHIELDING);
+        RadiationSettings.sicknessDose = config.get(MekanizedConfig.SICKNESS_DOSE);
+        RadiationSettings.damageDose = config.get(MekanizedConfig.DAMAGE_DOSE);
+        RadiationSettings.lethalDose = config.get(MekanizedConfig.LETHAL_DOSE);
+        RadiationSettings.barrelCapacity = config.get(MekanizedConfig.BARREL_CAPACITY);
+        RadiationSettings.barrelDecay = config.get(MekanizedConfig.BARREL_DECAY);
+
+        DigitalMinerSettings.energyPerBlock = config.get(MekanizedConfig.MINER_ENERGY);
+        DigitalMinerSettings.ticksPerBlock = config.get(MekanizedConfig.MINER_TICKS);
+        DigitalMinerSettings.scanPerTick = config.get(MekanizedConfig.MINER_SCAN);
+        DigitalMinerSettings.maxRadius = config.get(MekanizedConfig.MINER_MAX_RADIUS);
+        QioSettings.driveItems = longs(config.get(MekanizedConfig.QIO_DRIVE_ITEMS));
+        QioSettings.driveKinds = longs(config.get(MekanizedConfig.QIO_DRIVE_KINDS));
+        QioSettings.arrayKinds = config.get(MekanizedConfig.QIO_ARRAY_KINDS);
+        QioSettings.ioRate = config.get(MekanizedConfig.QIO_IO_RATE);
+
+        applyGear(config);
     }
 
-    private static void loadDigitalMiner(ConfigurationSection config, Logger logger) {
-        DigitalMinerSettings.energyPerBlock = bounded(config, "digital-miner.energy-per-block", DigitalMinerSettings.DEFAULT_ENERGY_PER_BLOCK, 0, MAX_JOULES, logger);
-        DigitalMinerSettings.ticksPerBlock = bounded(config, "digital-miner.ticks-per-block", DigitalMinerSettings.DEFAULT_TICKS_PER_BLOCK, 1, 72_000, logger);
-        DigitalMinerSettings.scanPerTick = (int) bounded(config, "digital-miner.scan-per-tick", DigitalMinerSettings.DEFAULT_SCAN_PER_TICK, 1, 1_000_000, logger);
-        DigitalMinerSettings.maxRadius = (int) bounded(config, "digital-miner.max-radius", DigitalMinerSettings.DEFAULT_MAX_RADIUS, 1, 128, logger);
+    private static void applyGear(ConfigValues config) {
+        GearSettings.energyCapacity = groups(config, MekanizedConfig.ENERGY_CAPACITY);
+        GearSettings.energyUnitFactor = config.get(MekanizedConfig.ENERGY_UNIT_FACTOR);
+        GearSettings.chemicalCapacity = groups(config, MekanizedConfig.CHEMICAL_CAPACITY);
+        GearSettings.scubaOxygen = config.get(MekanizedConfig.SCUBA_OXYGEN);
+
+        GearSettings.toolEnergyPerBlock = config.get(MekanizedConfig.TOOL_ENERGY_PER_BLOCK);
+        GearSettings.veinLimit = config.get(MekanizedConfig.VEIN_LIMIT);
+        GearSettings.veinLimitWithUnit = config.get(MekanizedConfig.VEIN_LIMIT_WITH_UNIT);
+        GearSettings.shearEnergy = config.get(MekanizedConfig.SHEAR_ENERGY);
+        GearSettings.disassemblerHitEnergy = config.get(MekanizedConfig.DISASSEMBLER_HIT_ENERGY);
+        GearSettings.disassemblerDamage = config.get(MekanizedConfig.DISASSEMBLER_DAMAGE);
+        GearSettings.mekaToolHitEnergy = config.get(MekanizedConfig.MEKA_TOOL_HIT_ENERGY);
+        GearSettings.mekaToolDamage = config.get(MekanizedConfig.MEKA_TOOL_DAMAGE);
+        GearSettings.mekaToolAmplifiedDamage = config.get(MekanizedConfig.MEKA_TOOL_AMPLIFIED_DAMAGE);
+        GearSettings.bowEnergyPerShot = config.get(MekanizedConfig.BOW_ENERGY);
+        GearSettings.teleportRange = config.get(MekanizedConfig.TELEPORT_RANGE);
+        GearSettings.flamethrowerHydrogen = config.get(MekanizedConfig.FLAMETHROWER_HYDROGEN);
+        GearSettings.flamethrowerDamage = config.get(MekanizedConfig.FLAMETHROWER_DAMAGE);
+
+        GearSettings.jetpackHydrogenPerTick = config.get(MekanizedConfig.JETPACK_HYDROGEN);
+        GearSettings.jetpackThrust = config.get(MekanizedConfig.JETPACK_THRUST);
+        GearSettings.jetpackMaxSpeed = config.get(MekanizedConfig.JETPACK_MAX_SPEED);
+        GearSettings.jetpackWalkSpeed = config.get(MekanizedConfig.JETPACK_WALK_SPEED);
+        GearSettings.jetpackSprintSpeed = config.get(MekanizedConfig.JETPACK_SPRINT_SPEED);
+
+        GearSettings.fallEnergyPerDamage = config.get(MekanizedConfig.FALL_ENERGY);
+        GearSettings.magnetEnergyPerItem = config.get(MekanizedConfig.MAGNET_ENERGY);
+        GearSettings.magnetRange = config.get(MekanizedConfig.MAGNET_RANGE);
+        GearSettings.breathingEnergy = config.get(MekanizedConfig.BREATHING_ENERGY);
+        GearSettings.visionEnergy = config.get(MekanizedConfig.VISION_ENERGY);
+        GearSettings.nutritionEnergy = config.get(MekanizedConfig.NUTRITION_ENERGY);
+        GearSettings.purificationEnergy = config.get(MekanizedConfig.PURIFICATION_ENERGY);
+        GearSettings.flightEnergy = config.get(MekanizedConfig.FLIGHT_ENERGY);
+        GearSettings.locomotiveEnergy = config.get(MekanizedConfig.LOCOMOTIVE_ENERGY);
+        GearSettings.hydraulicEnergy = config.get(MekanizedConfig.HYDRAULIC_ENERGY);
+        GearSettings.repulsorEnergy = config.get(MekanizedConfig.REPULSOR_ENERGY);
+        GearSettings.gyroscopicEnergy = config.get(MekanizedConfig.GYROSCOPIC_ENERGY);
+        GearSettings.servoMinEnergy = config.get(MekanizedConfig.SERVO_MIN_ENERGY);
+        GearSettings.solarEnergy = config.get(MekanizedConfig.SOLAR_ENERGY);
+        GearSettings.geothermalEnergy = config.get(MekanizedConfig.GEOTHERMAL_ENERGY);
+        GearSettings.distributionEnergy = config.get(MekanizedConfig.DISTRIBUTION_ENERGY);
     }
 
-    private static void loadRadiation(ConfigurationSection config, Logger logger) {
-        RadiationSettings.background = boundedDouble(config, "radiation.background", RadiationSettings.DEFAULT_BACKGROUND, 0, 1, logger);
-        RadiationSettings.sourceDecayPerSecond = boundedDouble(config, "radiation.source-decay-per-second",
-                RadiationSettings.DEFAULT_SOURCE_DECAY_PER_SECOND, 0.5, 1, logger);
-        RadiationSettings.minSource = boundedDouble(config, "radiation.min-source", RadiationSettings.DEFAULT_MIN_SOURCE, 0, 1, logger);
-        RadiationSettings.doseDecayPerSecond = boundedDouble(config, "radiation.dose-decay-per-second",
-                RadiationSettings.DEFAULT_DOSE_DECAY_PER_SECOND, 0.5, 1, logger);
-        RadiationSettings.shieldingPerPiece = boundedDouble(config, "radiation.shielding-per-piece",
-                RadiationSettings.DEFAULT_SHIELDING_PER_PIECE, 0, 0.25, logger);
-        RadiationSettings.sicknessDose = boundedDouble(config, "radiation.sickness-dose", RadiationSettings.DEFAULT_SICKNESS_DOSE, 0, 1_000_000, logger);
-        RadiationSettings.damageDose = boundedDouble(config, "radiation.damage-dose", RadiationSettings.DEFAULT_DAMAGE_DOSE, 0, 1_000_000, logger);
-        RadiationSettings.lethalDose = boundedDouble(config, "radiation.lethal-dose", RadiationSettings.DEFAULT_LETHAL_DOSE, 0, 1_000_000, logger);
-        RadiationSettings.barrelCapacity = bounded(config, "radiation.barrel-capacity", RadiationSettings.DEFAULT_BARREL_CAPACITY, 1, MAX_JOULES, logger);
-        RadiationSettings.barrelDecay = bounded(config, "radiation.barrel-decay-per-second", RadiationSettings.DEFAULT_BARREL_DECAY, 0, MAX_JOULES, logger);
+    /** Each group's number written to every item of the group. */
+    private static Map<String, Long> groups(ConfigValues config, Map<ConfigKey<Long>, List<String>> groups) {
+        Map<String, Long> capacities = new HashMap<>();
+        groups.forEach((key, items) -> items.forEach(item -> capacities.put(item, config.get(key))));
+        return Map.copyOf(capacities);
     }
 
-    private static void loadChunkLoading(ConfigurationSection config, Logger logger) {
-        ChunkLoadingSettings.maxRadius = (int) bounded(config, "chunk-loading.max-radius", ChunkLoadingSettings.DEFAULT_MAX_RADIUS, 0, 8, logger);
-        ChunkLoadingSettings.energyPerChunk = bounded(config, "chunk-loading.energy-per-chunk", ChunkLoadingSettings.DEFAULT_ENERGY_PER_CHUNK, 0, MAX_JOULES, logger);
-    }
-
-    private static void loadTeleporter(ConfigurationSection config, Logger logger) {
-        TeleporterSettings.baseCost = bounded(config, "teleporter.base-cost", TeleporterSettings.DEFAULT_BASE_COST, 0, MAX_JOULES, logger);
-        TeleporterSettings.costPerBlock = bounded(config, "teleporter.cost-per-block", TeleporterSettings.DEFAULT_COST_PER_BLOCK, 0, MAX_JOULES, logger);
-        TeleporterSettings.otherWorldCost = bounded(config, "teleporter.other-world-cost", TeleporterSettings.DEFAULT_OTHER_WORLD_COST, 0, MAX_JOULES, logger);
-        TeleporterSettings.cooldownMs = Math.round(boundedDouble(config, "teleporter.cooldown-seconds",
-                TeleporterSettings.DEFAULT_COOLDOWN_MS / 1000.0, 0, 3600, logger) * 1000);
-    }
-
-    /** Upper bound of a Joule setting: far above any real value, small enough that sums never overflow. */
-    private static final long MAX_JOULES = 1_000_000_000_000L;
-
-    /**
-     * A whole number between {@code min} and {@code max}: the default when the key is missing or is
-     * not a number, the nearest bound (with a warning) when it is out of range.
-     */
-    static long bounded(ConfigurationSection config, String path, long fallback, long min, long max, Logger logger) {
-        if (!config.contains(path)) return fallback;
-        Object raw = config.get(path);
-        if (!(raw instanceof Number number) || number.doubleValue() != Math.rint(number.doubleValue())) {
-            logger.warning(path + " needs a whole number; using the default " + fallback);
-            return fallback;
-        }
-        long value = number.longValue();
-        if (value >= min && value <= max) return value;
-        long clamped = Math.max(min, Math.min(max, value));
-        logger.warning(path + " must be between " + min + " and " + max + "; using " + clamped);
-        return clamped;
-    }
-
-    /** Like {@link #bounded} for a decimal number. */
-    static double boundedDouble(ConfigurationSection config, String path, double fallback, double min, double max, Logger logger) {
-        if (!config.contains(path)) return fallback;
-        if (!(config.get(path) instanceof Number number) || Double.isNaN(number.doubleValue())) {
-            logger.warning(path + " needs a number; using the default " + fallback);
-            return fallback;
-        }
-        double value = number.doubleValue();
-        if (value >= min && value <= max) return value;
-        double clamped = Math.max(min, Math.min(max, value));
-        logger.warning(path + " must be between " + min + " and " + max + "; using " + clamped);
-        return clamped;
-    }
-
-    private static long[] tiers(ConfigurationSection config, String path, long[] fallback, Logger logger) {
-        return fourPositive(config, path, fallback, "four positive numbers (basic, advanced, elite, ultimate)", logger);
-    }
-
-    private static long[] fourPositive(ConfigurationSection config, String path, long[] fallback, String needs, Logger logger) {
-        if (!config.contains(path)) return fallback;
-        List<Long> values = config.getLongList(path);
-        if (values.size() != 4 || values.stream().anyMatch(value -> value <= 0)) {
-            logger.warning(path + " needs " + needs + "; using the defaults");
-            return fallback;
-        }
+    private static long[] longs(List<Long> values) {
         return values.stream().mapToLong(Long::longValue).toArray();
-    }
-
-    private static long positive(ConfigurationSection config, String path, long fallback, Logger logger) {
-        if (!config.contains(path)) return fallback;
-        long value = config.getLong(path);
-        if (value > 0) return value;
-        logger.warning(path + " needs a positive number; using the default " + fallback);
-        return fallback;
     }
 }

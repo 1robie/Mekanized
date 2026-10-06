@@ -146,9 +146,9 @@ Click a machine's upgrade button with the upgrade in hand to install it.
 ## Configuring
 - **`plugins/Mekanized/config.yml`:** the gameplay numbers. Restart to apply. The defaults are Mekanism's
   (or what Mekanized shipped with), so a server that never edits the file plays as before. A key you leave out
-  keeps its default; a wrong value is replaced or limited to its nearest allowed value, with a warning in the log.
-  Servers that already have a `config.yml` keep their file: copy the new sections from the one inside the jar
-  (or delete the file to get all of them).
+  keeps its default; a wrong value is replaced or limited to its nearest allowed value, with a warning in the log
+  (the file keeps what you wrote, for you to fix). Settings added by an update are written into your file, with
+  their comments, at the next start; your values and comments are kept.
   - `transport`, `dynamic-tank`, `thermal-evaporation`: network rates per tier, Dynamic Tank capacity,
     Thermal Evaporation rate.
   - `gear`: energy and chemical capacities (`energy-capacity`, `chemical-capacity`, `energy-unit-factor`),

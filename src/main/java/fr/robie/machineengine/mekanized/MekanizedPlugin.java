@@ -52,8 +52,7 @@ public final class MekanizedPlugin extends JavaPlugin {
         // Every class now: if the jar is replaced while the server runs, nothing breaks later.
         fr.robie.machineengine.api.paper.ClassPreloader.preload(MekanizedPlugin.class, "fr/robie/machineengine/mekanized/");
         // Before anything builds the machines and transports from them.
-        saveDefaultConfig();
-        MekanizedSettings.load(getConfig(), getLogger());
+        MekanizedSettings.load(this);
         MekanizedRegistry.furnaceRecipes(PaperFurnaceRecipes::provide);
         MachineEngine.register(AddonRegistration.builder(getName(), getPluginMeta().getVersion())
                 .requiresApi("[0.1,1.0)")

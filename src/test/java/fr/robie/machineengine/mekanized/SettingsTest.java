@@ -10,21 +10,25 @@ import fr.robie.machineengine.mekanized.machine.QioSettings;
 import fr.robie.machineengine.mekanized.machine.RadiationSettings;
 import fr.robie.machineengine.mekanized.machine.TeleporterSettings;
 import fr.robie.machineengine.test.FakeWorld;
+import fr.robie.machineengine.api.config.ConfigFile;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.StringReader;
+import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Handler;
+import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import net.kyori.adventure.key.Key;
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.io.TempDir;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -39,13 +43,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class SettingsTest {
     private final List<String> warnings = new ArrayList<>();
     private final Logger logger = Logger.getAnonymousLogger();
+    @TempDir
+    Path folder;
+    private Path file;
+
+    @BeforeEach
+    void setUpFile() {
+        this.file = this.folder.resolve("config.yml");
+    }
 
     SettingsTest() {
         this.logger.setUseParentHandlers(false);
         this.logger.addHandler(new Handler() {
             @Override
             public void publish(LogRecord record) {
-                SettingsTest.this.warnings.add(record.getMessage());
+                if (record.getLevel() == Level.WARNING) SettingsTest.this.warnings.add(record.getMessage());
             }
 
             @Override
@@ -58,16 +70,61 @@ class SettingsTest {
         });
     }
 
+    /** Loads {@code yaml} as the server's config.yml, as the plugin does (missing keys are added to it). */
     private void load(String yaml) {
-        MekanizedSettings.load(YamlConfiguration.loadConfiguration(new StringReader(yaml)), this.logger);
+        try {
+            Files.writeString(this.file, yaml, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+        MekanizedSettings.apply(ConfigFile.load(this.file, MekanizedConfig.SPEC, this.logger));
     }
 
-    /** The config.yml shipped in the jar. */
+    /** The config.yml a new server gets, generated from {@link MekanizedConfig#SPEC}. */
     private void loadShipped() throws IOException {
-        try (InputStream in = SettingsTest.class.getResourceAsStream("/config.yml")) {
-            Reader reader = new InputStreamReader(in, StandardCharsets.UTF_8);
-            MekanizedSettings.load(YamlConfiguration.loadConfiguration(reader), this.logger);
+        Files.deleteIfExists(this.file);
+        MekanizedSettings.apply(ConfigFile.load(this.file, MekanizedConfig.SPEC, this.logger));
+    }
+
+    private static String resource(String name) throws IOException {
+        try (InputStream in = Objects.requireNonNull(SettingsTest.class.getResourceAsStream(name))) {
+            return new String(in.readAllBytes(), StandardCharsets.UTF_8).replace("\r\n", "\n");
         }
+    }
+
+    // -- the file ---------------------------------------------------------------------------------
+
+    /**
+     * The config.yml a new server gets. A change to {@link MekanizedConfig} changes it: update
+     * {@code config/mekanized-config.yml} in the test resources so the change shows up in review.
+     */
+    @Test
+    void aNewServerGetsTheExpectedFile() throws IOException {
+        loadShipped();
+        assertEquals(resource("/config/mekanized-config.yml"), Files.readString(this.file, StandardCharsets.UTF_8).replace("\r\n", "\n"));
+        assertTrue(this.warnings.isEmpty(), this.warnings.toString());
+    }
+
+    /** The config.yml Mekanized shipped before it was generated: every setting there, so it loads as it is. */
+    @Test
+    void theOldShippedFileLoadsUnchangedWithItsValues() throws IOException {
+        String old = resource("/config/shipped-config-0.1.yml");
+        load(old);
+        assertEquals(old, Files.readString(this.file, StandardCharsets.UTF_8).replace("\r\n", "\n"), "nothing missing: not rewritten");
+        assertTrue(this.warnings.isEmpty(), this.warnings.toString());
+        gearDefaultsAreTheOldNumbers();
+        qioDefaultsAreTheOldNumbers();
+        assertArrayEquals(new long[]{8_000, 128_000, 1_024_000, 8_192_000}, MekanizedSettings.cableRates);
+    }
+
+    @Test
+    void aMissingSettingIsAddedToTheFile() throws IOException {
+        load("teleporter:\n  base-cost: 200\n");
+        String text = Files.readString(this.file, StandardCharsets.UTF_8);
+        assertTrue(text.contains("base-cost: 200"), text);
+        assertTrue(text.contains("cost-per-block: 10"), text);
+        assertTrue(text.contains("# J per animal sheared"), text);
+        assertEquals(200, TeleporterSettings.baseCost);
     }
 
     // -- teleporter -------------------------------------------------------------------------------
@@ -228,7 +285,7 @@ class SettingsTest {
         assertEquals(8, QioSettings.ioRate);
         load("qio:\n  drive-kinds: [1, 2, 3]\n  array-kinds: 0\n  drive-items: [1, 2, 3, -4]\n");
         assertArrayEquals(new long[]{128, 256, 1_024, 8_192}, QioSettings.driveKinds, "three numbers: the defaults");
-        assertArrayEquals(new long[]{1, 2, 3, 4}, QioSettings.driveItems, "a negative one: the values before stay");
+        assertArrayEquals(new long[]{16_000, 128_000, 1_048_000, 16_000_000}, QioSettings.driveItems, "a negative one: the defaults");
         assertEquals(1, QioSettings.arrayKinds);
         assertEquals(3, this.warnings.size(), this.warnings.toString());
     }

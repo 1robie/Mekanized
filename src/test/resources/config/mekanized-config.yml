@@ -1,0 +1,201 @@
+# Mekanized settings. Read when the server starts: restart to apply changes.
+# Defaults are Mekanism's. Recipes (durations, energy per tick, outputs) are edited in
+# plugins/MachineEngine/definitions/mekanized/ instead, and reload with the server's recipes.
+# Missing settings are added with their defaults when the server starts.
+
+# How much a network moves per tick, per tier: [basic, advanced, elite, ultimate].
+transport:
+  # Joules per tick
+  universal-cable:
+  - 8000
+  - 128000
+  - 1024000
+  - 8192000
+  # mB per tick
+  pressurized-tube:
+  - 750
+  - 2000
+  - 64000
+  - 256000
+  # mB per tick
+  mechanical-pipe:
+  - 250
+  - 1000
+  - 8000
+  - 32000
+  # items every 10 ticks
+  logistical-transporter:
+  - 8
+  - 16
+  - 32
+  - 64
+
+dynamic-tank:
+  # mB of fluid per block inside the tank
+  fluid-per-block: 350000
+  # mB of chemical per block inside the tank
+  chemical-per-block: 16000000
+
+thermal-evaporation:
+  # mB of input evaporated per tick per level, by day (half at night, half again in rain)
+  input-per-level-per-tick: 10
+  # mB of input the tower holds per level
+  input-tank-per-level: 16000
+
+# The teleporter and the portable teleporter. Costs are Joules; defaults are Mekanism's.
+teleporter:
+  # J of any teleport
+  base-cost: 1000
+  # J more per block travelled in one world
+  cost-per-block: 10
+  # J of a teleport to another world (distance does not count)
+  other-world-cost: 100000
+  # seconds a player waits between two teleports
+  cooldown-seconds: 3.0
+
+# The dimensional stabilizer. Anchor upgrades always load only the machine's own chunk, for free.
+chunk-loading:
+  # chunks around its own a stabilizer can load (0-8); 2 is a 5 x 5 area
+  max-radius: 2
+  # J per tick for each chunk it keeps loaded
+  energy-per-chunk: 500
+
+# Radiation (Mekanism's, simplified). Dose and radiation are in Sieverts (Sv, Sv/h).
+radiation:
+  # Sv/h everywhere
+  background: 1.0E-7
+  # a released source keeps this much of its strength each second (0.5-1; half-life about 2.3 minutes)
+  source-decay-per-second: 0.995
+  # Sv/h below which a source is forgotten
+  min-source: 1.0E-6
+  # a player's dose keeps this much each second (0.5-1; half-life about 11 minutes)
+  dose-decay-per-second: 0.999
+  # share of radiation each hazmat piece (or MekaSuit piece with a shielding unit) stops (0-0.25)
+  shielding-per-piece: 0.25
+  # Sv from which players get hungry
+  sickness-dose: 1.0
+  # Sv from which players get nauseous, weak and hurt
+  damage-dose: 10.0
+  # Sv from which every second does heavy damage
+  lethal-dose: 100.0
+  # mB a radioactive waste barrel holds (a restart rebuilds the machine)
+  barrel-capacity: 512000
+  # mB that decay in a barrel each second
+  barrel-decay-per-second: 1
+
+# The digital miner.
+digital-miner:
+  # J per block mined
+  energy-per-block: 2000
+  # ticks per block mined (speed upgrades shorten it)
+  ticks-per-block: 10
+  # positions it looks at per tick for the next block to mine
+  scan-per-tick: 2048
+  # widest radius (1-128); 32 is a 65 x 65 area
+  max-radius: 32
+
+# The QIO network. Lists are for the drives: [base, hyper-dense, time-dilating, supermassive].
+qio:
+  # items each drive holds
+  drive-items:
+  - 16000
+  - 128000
+  - 1048000
+  - 16000000
+  # kinds of item each drive holds
+  drive-kinds:
+  - 128
+  - 256
+  - 1024
+  - 8192
+  # kinds of item a drive array holds at most, whatever its drives (1-16384)
+  array-kinds: 1024
+  # items an importer or exporter moves per second
+  importer-exporter-rate: 64
+
+# Gear: tools, suits, packs and modules. Energy is in Joules, chemicals in mB.
+gear:
+  # Joules each item holds when full. free-runners also covers the armored ones; mekasuit covers all four pieces.
+  energy-capacity:
+    energy-tablet: 1000000
+    atomic-disassembler: 1000000
+    portable-teleporter: 1000000
+    meka-tool: 16000000
+    electric-bow: 120000
+    free-runners: 64000
+    mekasuit: 16000000
+  # an energy unit multiplies a piece's capacity by this
+  energy-unit-factor: 4
+  # mB of chemical each item holds. jetpack also covers the armored jetpack and the MekaSuit body armor.
+  chemical-capacity:
+    jetpack: 24000
+    flamethrower: 24000
+    scuba-tank: 24000
+    canteen: 64000
+  # mB of oxygen each time the tank refills the player's air
+  scuba-oxygen-per-second: 20
+  tools:
+    # J per block mined (and the charge a disassembler or Meka-Tool needs to mine fast)
+    energy-per-block: 100
+    # blocks one vein mining breaks (sneaking)
+    vein-limit: 64
+    # the same with the vein mining unit
+    vein-limit-with-unit: 256
+    # J per animal sheared
+    shear-energy: 500
+    # J per hit of a charged atomic disassembler
+    disassembler-hit-energy: 2000
+    # damage it deals at least (20 is ten hearts)
+    disassembler-damage: 20.0
+    # J per hit of a charged Meka-Tool
+    meka-tool-hit-energy: 3000
+    # damage it deals at least
+    meka-tool-damage: 10.0
+    # the same with the attack amplification unit
+    meka-tool-amplified-damage: 30.0
+    # J per shot of the electric bow
+    bow-energy-per-shot: 120
+    # blocks the teleportation unit looks ahead (1-256); its cost is under teleporter
+    teleport-range: 100
+    # mB of hydrogen per burst
+    flamethrower-hydrogen: 5
+    # damage of a burst
+    flamethrower-damage: 2.0
+  jetpack:
+    # mB of hydrogen per tick of thrust
+    hydrogen-per-tick: 1
+    # upward speed added each tick
+    thrust: 0.15
+    # top upward speed
+    max-speed: 0.5
+    # horizontal speed steered with the movement keys
+    walk-speed: 0.3
+    # the same while sprinting
+    sprint-speed: 0.45
+  # J per second unless said otherwise.
+  modules:
+    # J per point of fall damage absorbed (free runners, MekaSuit boots)
+    fall-energy-per-damage: 50
+    # J per item pulled
+    magnetic-attraction-energy: 20
+    # blocks
+    magnetic-attraction-range: 8
+    electrolytic-breathing-energy: 2000
+    vision-enhancement-energy: 200
+    nutritional-injection-energy: 2500
+    # per harmful effect removed
+    inhalation-purification-energy: 2000
+    # while flying; the charge needed to start flying
+    gravitational-modulating-energy: 20000
+    locomotive-boosting-energy: 2000
+    hydraulic-propulsion-energy: 200
+    hydrostatic-repulsor-energy: 500
+    gyroscopic-stabilization-energy: 200
+    # the charge the legs need to step up blocks
+    motorized-servo-min-energy: 100
+    # J made per second in daylight
+    solar-recharging-energy: 2000
+    # J made per second in lava or on fire
+    geothermal-generator-energy: 10000
+    # J given to each other piece per second
+    charge-distribution-energy: 20000
