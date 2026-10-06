@@ -2,13 +2,13 @@ package fr.robie.machineengine.mekanized.paper.gear;
 
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.mekanized.machine.EnergyItems;
+import fr.robie.machineengine.mekanized.machine.GearRules;
 import fr.robie.machineengine.mekanized.machine.GearSettings;
 import fr.robie.machineengine.mekanized.paper.ItemLongs;
 import fr.robie.machineengine.mekanized.paper.Lore;
 import fr.robie.machineengine.mekanized.paper.PaperEnergyItems;
 import fr.robie.machineengine.paper.PaperItems;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -84,7 +84,7 @@ public final class GearItems {
     public static Set<String> modules(@Nullable ItemStack stack) {
         if (stack == null || stack.isEmpty() || !stack.hasItemMeta()) return Set.of();
         String list = stack.getItemMeta().getPersistentDataContainer().get(MODULES, PersistentDataType.STRING);
-        return list == null || list.isEmpty() ? Set.of() : new LinkedHashSet<>(List.of(list.split(",")));
+        return GearRules.parseModules(list);
     }
 
     /** The item's energy capacity: its base one, times {@link GearSettings#energyUnitFactor} with an energy unit. */
