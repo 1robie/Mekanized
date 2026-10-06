@@ -9,7 +9,7 @@ import fr.robie.machineengine.api.resource.ResourceStack;
 import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.WorldPosition;
-import fr.robie.machineengine.core.machine.LoadedMachine;
+import fr.robie.machineengine.api.machine.MachineInstance;
 import fr.robie.machineengine.mekanized.machine.Frequencies;
 import fr.robie.machineengine.mekanized.machine.TeleporterSettings;
 import fr.robie.machineengine.mekanized.machine.AutomationMachines;
@@ -112,10 +112,10 @@ public final class PaperAutomation implements Listener {
     public static void setFrequency(Plugin plugin, Player player, String frequency) {
         player.getScheduler().run(plugin, task -> {
             Block block = player.getTargetBlockExact(6);
-            LoadedMachine machine = block == null ? null : PaperWorld.machine(block);
+            MachineInstance machine = block == null ? null : PaperWorld.machine(block);
             ItemStack hand = player.getInventory().getItemInMainHand();
             String held = GearItems.id(hand);
-            if (("portable_teleporter".equals(held) || "portable_qio_dashboard".equals(held)) && (machine == null || machine.instance() == null)) {
+            if (("portable_teleporter".equals(held) || "portable_qio_dashboard".equals(held)) && (machine == null)) {
                 hand.editMeta(meta -> {
                     meta.getPersistentDataContainer().set(ITEM_FREQUENCY, PersistentDataType.STRING, frequency);
                     meta.lore(List.of(Lore.line("Frequency: " + frequency)));
@@ -123,13 +123,13 @@ public final class PaperAutomation implements Listener {
                 player.sendMessage(Component.text("Frequency of the item set to ", NamedTextColor.GRAY).append(Component.text(frequency, NamedTextColor.YELLOW)));
                 return;
             }
-            if (machine == null || machine.instance() == null
-                    || machine.instance().type().data().stream().noneMatch(key -> key.id().equals(AutomationMachines.FREQUENCY.id()))) {
+            if (machine == null
+                    || machine.type().data().stream().noneMatch(key -> key.id().equals(AutomationMachines.FREQUENCY.id()))) {
                 player.sendMessage(Component.text("Look at a teleporter, a QIO block or a quantum entangloporter (or hold a portable teleporter or dashboard)", NamedTextColor.RED));
                 return;
             }
-            machine.instance().context().set(AutomationMachines.FREQUENCY, frequency);
-            machine.instance().wake(WakeReason.CONFIG_CHANGED);
+            machine.context().set(AutomationMachines.FREQUENCY, frequency);
+            machine.wake(WakeReason.CONFIG_CHANGED);
             player.sendMessage(Component.text("Frequency set to ", NamedTextColor.GRAY).append(Component.text(frequency, NamedTextColor.YELLOW)));
         }, null);
     }
@@ -155,10 +155,10 @@ public final class PaperAutomation implements Listener {
                 return;
             }
             World world = PaperWorld.world(to);
-            LoadedMachine source = PaperWorld.machine(below);
-            if (world == null || source == null || source.instance() == null) return;
+            MachineInstance source = PaperWorld.machine(below);
+            if (world == null || source == null) return;
             long cost = Frequencies.cost(from, to);
-            MachineContext context = source.instance().context();
+            MachineContext context = source.context();
             try (Transaction transaction = context.transactions().openOuter()) {
                 if (!MachineParts.pay(context.storage("energy"), cost, transaction)) {
                     player.sendActionBar(Component.text(String.format(Locale.ROOT, "The teleporter needs %,d J", cost), NamedTextColor.RED));
@@ -245,19 +245,19 @@ public final class PaperAutomation implements Listener {
             event.setCancelled(true);
             unpack(player, block.getRelative(event.getBlockFace()), hand);
         } else if (MekanizedContent.key("seismic_reader").equals(tool)) {
-            LoadedMachine machine = PaperWorld.machine(block);
-            if (machine == null || machine.instance() == null || !machine.inspect().type().equals(MekanizedContent.key("seismic_vibrator"))) return;
+            MachineInstance machine = PaperWorld.machine(block);
+            if (machine == null || !machine.inspect().type().equals(MekanizedContent.key("seismic_vibrator"))) return;
             event.setCancelled(true);
-            if (!machine.instance().isActive()) {
+            if (!machine.isActive()) {
                 player.sendActionBar(Component.text("The seismic vibrator needs energy", NamedTextColor.RED));
                 return;
             }
             read(player, block);
         } else if (!player.isSneaking()) {
-            LoadedMachine machine = PaperWorld.machine(block);
-            if (machine == null || machine.instance() == null || !machine.inspect().type().equals(MekanizedContent.key("qio_dashboard"))) return;
+            MachineInstance machine = PaperWorld.machine(block);
+            if (machine == null || !machine.inspect().type().equals(MekanizedContent.key("qio_dashboard"))) return;
             event.setCancelled(true);
-            String frequency = machine.instance().context().get(AutomationMachines.FREQUENCY);
+            String frequency = machine.context().get(AutomationMachines.FREQUENCY);
             if (frequency.isEmpty()) {
                 player.sendActionBar(Component.text("No frequency: look at it and use /mekanized frequency <name>", NamedTextColor.RED));
                 return;
@@ -509,14 +509,14 @@ public final class PaperAutomation implements Listener {
         }
         Bukkit.getRegionScheduler().run(this.plugin, location, task -> {
             long inserted = 0;
-            LoadedMachine array = PaperWorld.machine(position);
-            if (array != null && array.instance() != null) {
-                MachineContext context = array.instance().context();
+            MachineInstance array = PaperWorld.machine(position);
+            if (array != null) {
+                MachineContext context = array.context();
                 try (Transaction transaction = context.transactions().openOuter()) {
                     inserted = AutomationMachines.insertIntoArray(context.storage("drives"), context.storage("items"), variant, amount, transaction);
                     transaction.commit();
                 }
-                if (inserted > 0) array.instance().wake(WakeReason.RESOURCE_INSERTED);
+                if (inserted > 0) array.wake(WakeReason.RESOURCE_INSERTED);
             }
             depositInto(player, arrays, index + 1, variant, amount - inserted);
         });
@@ -530,14 +530,14 @@ public final class PaperAutomation implements Listener {
             if (array == null || location == null || !array.contents().containsKey(variant)) continue;
             Bukkit.getRegionScheduler().run(this.plugin, location, task -> {
                 long taken = 0;
-                LoadedMachine machine = PaperWorld.machine(position);
-                if (machine != null && machine.instance() != null) {
-                    MachineContext context = machine.instance().context();
+                MachineInstance machine = PaperWorld.machine(position);
+                if (machine != null) {
+                    MachineContext context = machine.context();
                     try (Transaction transaction = context.transactions().openOuter()) {
                         taken = context.storage("items").extract(variant, wanted, transaction);
                         transaction.commit();
                     }
-                    if (taken > 0) machine.instance().wake(WakeReason.RESOURCE_EXTRACTED);
+                    if (taken > 0) machine.wake(WakeReason.RESOURCE_EXTRACTED);
                 }
                 long finalTaken = taken;
                 player.getScheduler().run(this.plugin, give -> {

@@ -154,16 +154,16 @@ public final class MekanizedStructures {
             WorldPosition position = WorldPosition.of(world.getKey(), x + at.get(0), y + at.get(1), z + at.get(2));
             String mode = structure.modes().get(at);
             var loaded = PaperWorld.machine(position);
-            if (loaded == null || loaded.instance() == null) continue;
-            if (mode != null) loaded.instance().context().set(MemberBehavior.PORT_MODE, mode);
+            if (loaded == null) continue;
+            if (mode != null) loaded.context().set(MemberBehavior.PORT_MODE, mode);
             if (block.getValue().equals("turbine_rotor") && blade != null) {
-                var context = loaded.instance().context();
+                var context = loaded.context();
                 try (Transaction transaction = context.transactions().openOuter()) {
                     context.storage("blades").insert(PaperItems.toResource(blade).variant(), 2, transaction);
                     transaction.commit();
                 }
             }
-            loaded.instance().wake(WakeReason.CONFIG_CHANGED);
+            loaded.wake(WakeReason.CONFIG_CHANGED);
         }
         return null;
     }

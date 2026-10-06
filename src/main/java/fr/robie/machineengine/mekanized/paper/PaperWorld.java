@@ -1,10 +1,12 @@
 package fr.robie.machineengine.mekanized.paper;
 
+import fr.robie.machineengine.api.MachineEngine;
+import fr.robie.machineengine.api.machine.MachineInstance;
 import fr.robie.machineengine.api.world.WorldPosition;
-import fr.robie.machineengine.core.machine.LoadedMachine;
-import fr.robie.machineengine.paper.MachineLocator;
-import fr.robie.machineengine.paper.PaperWorlds;
+import net.kyori.adventure.key.Key;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -21,21 +23,34 @@ public final class PaperWorld {
         return WorldPosition.of(block.getWorld().getKey(), block.getX(), block.getY(), block.getZ());
     }
 
-    /** The machine at {@code block}, or {@code null} (no machine, or no locator yet). It may not be running ({@code instance() == null}). */
-    public static @Nullable LoadedMachine machine(Block block) {
-        MachineLocator locator = MachineLocator.current();
-        return locator == null ? null : locator.machine(position(block));
+    /** The running machine at {@code block}, or {@code null} (none, a placeholder, or MachineEngine not enabled yet). Owner thread. */
+    public static @Nullable MachineInstance machine(Block block) {
+        return machine(position(block));
     }
 
-    /** The machine at {@code position}, or {@code null}. */
-    public static @Nullable LoadedMachine machine(WorldPosition position) {
-        MachineLocator locator = MachineLocator.current();
-        return locator == null ? null : locator.machine(position);
+    /** The running machine at {@code position}, or {@code null}. Owner thread. */
+    public static @Nullable MachineInstance machine(WorldPosition position) {
+        try {
+            return MachineEngine.get().machineAt(position).orElse(null);
+        } catch (IllegalStateException e) {
+            return null; // MachineEngine has not enabled yet
+        }
+    }
+
+    /** Whether the current thread owns {@code position} (Folia: its region; Paper: the main thread); false while its world is not loaded. */
+    public static boolean isOwnedByCurrentThread(WorldPosition position) {
+        World world = world(position);
+        return world != null && Bukkit.isOwnedByCurrentRegion(world, position.position().x() >> 4, position.position().z() >> 4);
+    }
+
+    /** The loaded world with this key, or {@code null}. */
+    public static @Nullable World world(Key key) {
+        return Bukkit.getWorld(new NamespacedKey(key.namespace(), key.value()));
     }
 
     /** The loaded world of {@code position}, or {@code null}. */
     public static @Nullable World world(WorldPosition position) {
-        return PaperWorlds.world(position.world());
+        return world(position.world());
     }
 
     /** The block corner of {@code position}, or {@code null} while its world is not loaded. */

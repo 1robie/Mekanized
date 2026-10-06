@@ -1,6 +1,6 @@
 package fr.robie.machineengine.mekanized.paper.gear;
 
-import fr.robie.machineengine.core.machine.LoadedMachine;
+import fr.robie.machineengine.api.machine.MachineInstance;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.mekanized.machine.GearRules;
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
@@ -83,7 +83,7 @@ public final class GearModules {
     }
 
     static boolean isStation(Block block) {
-        LoadedMachine machine = PaperWorld.machine(block);
+        MachineInstance machine = PaperWorld.machine(block);
         return machine != null && machine.inspect().type().equals(MekanizedContent.key("modification_station"));
     }
 

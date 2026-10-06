@@ -8,15 +8,15 @@ import fr.robie.machineengine.api.network.TransportSideMode;
 import fr.robie.machineengine.api.transfer.StorageView;
 import fr.robie.machineengine.api.world.Direction;
 import fr.robie.machineengine.api.world.WorldPosition;
-import fr.robie.machineengine.core.machine.LoadedMachine;
+import fr.robie.machineengine.api.machine.MachineInstance;
 import fr.robie.machineengine.mekanized.machine.LogisticsMachines;
 import fr.robie.machineengine.mekanized.multiblock.MemberBehavior;
 import fr.robie.machineengine.mekanized.multiblock.Multiblocks;
 import fr.robie.machineengine.mekanized.multiblock.MultiblockMachines;
 import fr.robie.machineengine.mekanized.multiblock.ReactorMachines;
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
-import fr.robie.machineengine.paper.MachineLocator;
-import fr.robie.machineengine.paper.MachineMenuService;
+import fr.robie.machineengine.api.paper.MachineBlocks;
+import fr.robie.machineengine.api.paper.MachineMenus;
 import fr.robie.machineengine.api.paper.PaperItems;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
@@ -72,10 +72,10 @@ public final class PaperConfigurator implements Listener {
         if (!tool.namespace().equals(MekanizedContent.NAMESPACE)) return;
         boolean installer = tool.value().endsWith(INSTALLER_SUFFIX);
         if (!installer && !tool.value().equals("configurator")) return;
-        MachineLocator locator = MachineLocator.current();
+        MachineBlocks blocks = MachineBlocks.current();
         WorldPosition position = PaperWorld.position(block);
-        LoadedMachine machine = locator == null ? null : locator.machine(position);
-        if (!installer && locator != null && (machine == null || machine.instance() == null)) {
+        MachineInstance machine = PaperWorld.machine(position);
+        if (!installer && blocks != null && machine == null) {
             // A transport: the configurator cycles how the clicked side connects (Mekanism's connection types).
             var face = event.getBlockFace();
             Direction side;
@@ -84,13 +84,13 @@ public final class PaperConfigurator implements Listener {
             } catch (IllegalArgumentException e) {
                 return;
             }
-            var mode = locator.cycleTransportSide(position, side);
+            var mode = blocks.cycleTransportSide(position, side);
             String what = mode == null ? null : face.name().toLowerCase(Locale.ROOT) + " side of the transport: ";
             if (mode == null && block.getState(false) instanceof Container) {
                 // A container: the transports touching it change the side that faces it (easier to hit than a pipe's face).
                 for (Direction direction : Direction.values()) {
                     WorldPosition neighbor = position.relative(direction);
-                    var changed = locator.cycleTransportSide(neighbor, direction.opposite());
+                    var changed = blocks.cycleTransportSide(neighbor, direction.opposite());
                     if (changed != null && mode == null) mode = changed;
                 }
                 what = "transport side facing this container: ";
@@ -100,21 +100,21 @@ public final class PaperConfigurator implements Listener {
             event.getPlayer().sendActionBar(Component.text(what, NamedTextColor.GRAY).append(Component.text(describe(mode), NamedTextColor.YELLOW)));
             return;
         }
-        if (machine == null || machine.instance() == null) return;
+        if (machine == null) return;
         event.setCancelled(true);
         Player player = event.getPlayer();
         if (installer) {
-            install(player, item, locator, machine, tool.value().substring(0, tool.value().length() - INSTALLER_SUFFIX.length()));
+            install(player, item, blocks, machine, tool.value().substring(0, tool.value().length() - INSTALLER_SUFFIX.length()));
         } else if (player.isSneaking()) {
-            turn(player, locator, machine);
+            turn(player, blocks, machine);
         } else {
-            MachineMenuService menus = MachineMenuService.current();
+            MachineMenus menus = MachineMenus.current();
             Set<String> groups = new HashSet<>();
-            machine.instance().type().ports().forEach(port -> {
+            machine.type().ports().forEach(port -> {
                 if (port.group() != null) groups.add(port.group());
             });
             String menu = SideMenus.sideMenuFor(groups);
-            if (menus == null || menu == null || !menus.open(player, machine, menu)) {
+            if (menus == null || menu == null || !menus.open(player, machine.position(), menu)) {
                 player.sendActionBar(Component.text("No side configuration menu", NamedTextColor.RED));
             }
         }
@@ -127,11 +127,9 @@ public final class PaperConfigurator implements Listener {
      * @return whether the click was handled
      */
     private static boolean multiblock(PlayerInteractEvent event, Block block, @org.jetbrains.annotations.Nullable Key tool) {
-        MachineLocator locator = MachineLocator.current();
-        if (locator == null) return false;
         WorldPosition position = PaperWorld.position(block);
-        LoadedMachine member = locator.machine(position);
-        if (member == null || member.instance() == null) return false;
+        MachineInstance member = PaperWorld.machine(position);
+        if (member == null) return false;
         Key type = member.inspect().type();
         if (!MEMBERS.contains(type)) return false;
         boolean configurator = tool != null && tool.equals(MekanizedContent.key("configurator"));
@@ -141,24 +139,24 @@ public final class PaperConfigurator implements Listener {
         event.setCancelled(true);
         Player player = event.getPlayer();
         if (configurator) {
-            var context = member.instance().context();
+            var context = member.context();
             String current = context.get(MemberBehavior.PORT_MODE);
             String mode = modes.get((modes.indexOf(current) + 1) % modes.size());
             context.set(MemberBehavior.PORT_MODE, mode);
-            member.instance().wake(WakeReason.CONFIG_CHANGED);
+            member.wake(WakeReason.CONFIG_CHANGED);
             player.sendActionBar(Component.text(type.value().replace('_', ' ') + ": ", NamedTextColor.GRAY)
                     .append(Component.text(mode.replace('_', ' '), NamedTextColor.YELLOW)));
             return true;
         }
         var structure = Multiblocks.containing(position);
-        LoadedMachine anchor = structure == null ? null : locator.machine(structure.anchor());
-        MachineMenuService menus = MachineMenuService.current();
+        MachineInstance anchor = structure == null ? null : PaperWorld.machine(structure.anchor());
+        MachineMenus menus = MachineMenus.current();
         if (anchor == null || menus == null) {
             player.sendActionBar(Component.text("Not formed: build a closed box (3 to 18 blocks a side), casings on every edge",
                     NamedTextColor.RED));
             return true;
         }
-        menus.open(player, anchor);
+        menus.open(player, anchor.position());
         return true;
     }
 
@@ -170,14 +168,14 @@ public final class PaperConfigurator implements Listener {
      */
     private static boolean blades(PlayerInteractEvent event, Block block, @org.jetbrains.annotations.Nullable ItemStack item,
                                   @org.jetbrains.annotations.Nullable Key tool) {
-        LoadedMachine rotor = PaperWorld.machine(block);
-        if (rotor == null || rotor.instance() == null || !rotor.inspect().type().equals(MekanizedContent.key("turbine_rotor"))) return false;
+        MachineInstance rotor = PaperWorld.machine(block);
+        if (rotor == null || !rotor.inspect().type().equals(MekanizedContent.key("turbine_rotor"))) return false;
         Player player = event.getPlayer();
         boolean add = tool != null && tool.equals(MekanizedContent.key("turbine_blade"));
         boolean take = tool == null && player.isSneaking();
         if (!add && !take) return false;
         event.setCancelled(true);
-        var context = rotor.instance().context();
+        var context = rotor.context();
         var storage = context.storage("blades");
         try (var transaction = context.transactions().openOuter()) {
             if (add) {
@@ -210,13 +208,13 @@ public final class PaperConfigurator implements Listener {
         };
     }
 
-    private static void install(Player player, ItemStack item, MachineLocator locator, LoadedMachine machine, String tier) {
+    private static void install(Player player, ItemStack item, @org.jetbrains.annotations.Nullable MachineBlocks blocks, MachineInstance machine, String tier) {
         Key next = LogisticsMachines.upgrade(machine.inspect().type(), tier);
         if (next == null) {
             player.sendActionBar(Component.text("This " + tier + " tier installer does not fit this machine", NamedTextColor.RED));
             return;
         }
-        if (!locator.replaceBlock(machine.position(), next)) {
+        if (blocks == null || !blocks.replaceBlock(machine.position(), next)) {
             player.sendActionBar(Component.text("The machine is busy; try again", NamedTextColor.RED));
             return;
         }
@@ -225,11 +223,11 @@ public final class PaperConfigurator implements Listener {
     }
 
     /** Turns the machine a quarter clockwise (it keeps what it holds; a running operation restarts). */
-    private static void turn(Player player, MachineLocator locator, LoadedMachine machine) {
+    private static void turn(Player player, @org.jetbrains.annotations.Nullable MachineBlocks blocks, MachineInstance machine) {
         Direction facing = machine.inspect().facing();
         int index = Arrays.asList(TURN).indexOf(facing);
         Direction next = TURN[(index + 1) % TURN.length];
-        if (!locator.replaceBlock(machine.position(), machine.inspect().type(), next)) {
+        if (blocks == null || !blocks.replaceBlock(machine.position(), machine.inspect().type(), next)) {
             player.sendActionBar(Component.text("The machine is busy; try again", NamedTextColor.RED));
         }
     }

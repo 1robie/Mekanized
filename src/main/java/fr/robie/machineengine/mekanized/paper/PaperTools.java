@@ -11,7 +11,7 @@ import fr.robie.machineengine.api.resource.ResourceType;
 import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.api.transfer.StorageView;
 import fr.robie.machineengine.api.transfer.Transaction;
-import fr.robie.machineengine.core.machine.LoadedMachine;
+import fr.robie.machineengine.api.machine.MachineInstance;
 import fr.robie.machineengine.mekanized.machine.ConfigurationCard;
 import fr.robie.machineengine.mekanized.machine.EjectBehavior;
 import fr.robie.machineengine.mekanized.machine.GaugeDropper;
@@ -78,7 +78,7 @@ public final class PaperTools implements Listener {
         Block block = event.getClickedBlock();
         switch (id) {
             case "configuration_card" -> {
-                LoadedMachine machine = onBlock ? machine(block) : null;
+                MachineInstance machine = onBlock ? machine(block) : null;
                 if (machine == null) return;
                 event.setCancelled(true);
                 if (player.isSneaking()) copy(player, hand, machine);
@@ -90,7 +90,7 @@ public final class PaperTools implements Listener {
             }
             case "gauge_dropper" -> {
                 event.setCancelled(true);
-                LoadedMachine machine = onBlock ? machine(block) : null;
+                MachineInstance machine = onBlock ? machine(block) : null;
                 if (machine == null) {
                     if (player.isSneaking()) setDropper(hand, null, 0);
                     player.sendActionBar(Component.text(player.isSneaking() ? "Emptied" : "Right-click a machine", NamedTextColor.GRAY));
@@ -101,7 +101,7 @@ public final class PaperTools implements Listener {
                 }
             }
             case "crafting_formula" -> {
-                LoadedMachine machine = onBlock ? machine(block) : null;
+                MachineInstance machine = onBlock ? machine(block) : null;
                 if (machine == null || !machine.inspect().type().equals(MekanizedContent.key("formulaic_assemblicator"))) return;
                 event.setCancelled(true);
                 formula(player, hand, machine);
@@ -111,19 +111,19 @@ public final class PaperTools implements Listener {
         }
     }
 
-    private static @Nullable LoadedMachine machine(@Nullable Block block) {
+    private static @Nullable MachineInstance machine(@Nullable Block block) {
         if (block == null) return null;
-        LoadedMachine machine = PaperWorld.machine(block);
-        return machine == null || machine.instance() == null ? null : machine;
+        MachineInstance machine = PaperWorld.machine(block);
+        return machine == null ? null : machine;
     }
 
     // -- configuration card ---------------------------------------------------------------------
 
     /** The card's text: machine type; then per port {@code port=DIRECTION:SIDES}; eject; redstone. */
-    private static void copy(Player player, ItemStack card, LoadedMachine machine) {
-        MachineContext context = machine.instance().context();
+    private static void copy(Player player, ItemStack card, MachineInstance machine) {
+        MachineContext context = machine.context();
         List<ConfigurationCard.PortSetting> ports = new ArrayList<>();
-        for (PortDefinition port : machine.instance().type().ports()) {
+        for (PortDefinition port : machine.type().ports()) {
             ports.add(new ConfigurationCard.PortSetting(port.id(), context.portDirection(port.id()), context.portSides(port.id())));
         }
         String text = ConfigurationCard.encode(machine.inspect().type().asString(), ports,
@@ -136,7 +136,7 @@ public final class PaperTools implements Listener {
         player.sendActionBar(Component.text("Configuration copied", NamedTextColor.GREEN));
     }
 
-    private static void paste(Player player, ItemStack card, LoadedMachine machine) {
+    private static void paste(Player player, ItemStack card, MachineInstance machine) {
         String text = card.getItemMeta().getPersistentDataContainer().get(CARD, PersistentDataType.STRING);
         if (text == null) {
             player.sendActionBar(Component.text("Empty: sneak-right-click a machine to copy it", NamedTextColor.RED));
@@ -147,9 +147,9 @@ public final class PaperTools implements Listener {
             player.sendActionBar(Component.text("This card holds a " + Key.key(parsed.type()).value().replace('_', ' '), NamedTextColor.RED));
             return;
         }
-        MachineContext context = machine.instance().context();
+        MachineContext context = machine.context();
         Set<String> ports = new HashSet<>();
-        machine.instance().type().ports().forEach(port -> ports.add(port.id()));
+        machine.type().ports().forEach(port -> ports.add(port.id()));
         for (ConfigurationCard.PortSetting setting : parsed.ports()) {
             if (!ports.contains(setting.port())) continue;
             try {
@@ -161,12 +161,12 @@ public final class PaperTools implements Listener {
         }
         if (parsed.eject() != null && has(machine, EjectBehavior.EJECT)) context.set(EjectBehavior.EJECT, parsed.eject());
         if (parsed.redstone() != null && has(machine, UtilityMachines.REDSTONE)) context.set(UtilityMachines.REDSTONE, parsed.redstone());
-        machine.instance().wake(WakeReason.CONFIG_CHANGED);
+        machine.wake(WakeReason.CONFIG_CHANGED);
         player.sendActionBar(Component.text("Configuration pasted", NamedTextColor.GREEN));
     }
 
-    private static boolean has(LoadedMachine machine, MachineDataKey<?> key) {
-        return machine.instance().type().data().stream().anyMatch(data -> data.id().equals(key.id()));
+    private static boolean has(MachineInstance machine, MachineDataKey<?> key) {
+        return machine.type().data().stream().anyMatch(data -> data.id().equals(key.id()));
     }
 
     // -- dictionary --------------------------------------------------------------------------------
@@ -195,7 +195,7 @@ public final class PaperTools implements Listener {
     }
 
     private static String blockId(Block block) {
-        LoadedMachine machine = PaperWorld.machine(block);
+        MachineInstance machine = PaperWorld.machine(block);
         if (machine != null) return machine.inspect().type().asString();
         return block.getType().getKey().asString();
     }
@@ -228,13 +228,13 @@ public final class PaperTools implements Listener {
     }
 
     /** Takes a fluid or chemical (the one it holds, or the first the machine has) into the dropper. */
-    private static void take(Player player, ItemStack dropper, LoadedMachine machine) {
+    private static void take(Player player, ItemStack dropper, MachineInstance machine) {
         ResourceType held = dropperType(dropper);
         long room = GaugeDropper.CAPACITY - dropperAmount(dropper);
-        GaugeDropper.Taken taken = GaugeDropper.take(machine.instance().context(), machine.inspect().storages(), held, dropperAmount(dropper));
+        GaugeDropper.Taken taken = GaugeDropper.take(machine.context(), machine.inspect().storages(), held, dropperAmount(dropper));
         if (taken != null) {
             setDropper(dropper, taken.type(), dropperAmount(dropper) + taken.amount());
-            machine.instance().wake(WakeReason.RESOURCE_EXTRACTED);
+            machine.wake(WakeReason.RESOURCE_EXTRACTED);
             player.sendActionBar(Component.text(String.format(Locale.ROOT, "Took %,d mB", taken.amount()), NamedTextColor.GREEN));
             return;
         }
@@ -242,17 +242,17 @@ public final class PaperTools implements Listener {
     }
 
     /** Puts what the dropper holds into the first storage of the machine that takes it. */
-    private static void putBack(Player player, ItemStack dropper, LoadedMachine machine) {
+    private static void putBack(Player player, ItemStack dropper, MachineInstance machine) {
         ResourceType held = dropperType(dropper);
         long amount = dropperAmount(dropper);
         if (held == null || amount <= 0) {
             player.sendActionBar(Component.text("The dropper is empty", NamedTextColor.RED));
             return;
         }
-        long given = GaugeDropper.putBack(machine.instance().context(), machine.inspect().storages().keySet(), held, amount);
+        long given = GaugeDropper.putBack(machine.context(), machine.inspect().storages().keySet(), held, amount);
         if (given > 0) {
             setDropper(dropper, held, amount - given);
-            machine.instance().wake(WakeReason.RESOURCE_INSERTED);
+            machine.wake(WakeReason.RESOURCE_INSERTED);
             player.sendActionBar(Component.text(String.format(Locale.ROOT, "Put in %,d mB", given), NamedTextColor.GREEN));
             return;
         }
@@ -262,8 +262,8 @@ public final class PaperTools implements Listener {
     // -- crafting formula --------------------------------------------------------------------------
 
     /** Sneaking: records the assemblicator's pattern. Otherwise: sets its pattern, if it has none. */
-    private static void formula(Player player, ItemStack formula, LoadedMachine machine) {
-        MachineContext context = machine.instance().context();
+    private static void formula(Player player, ItemStack formula, MachineInstance machine) {
+        MachineContext context = machine.context();
         List<StorageView> pattern = new ArrayList<>(context.storage("pattern").views());
         Base64.Encoder encoder = Base64.getEncoder();
         if (player.isSneaking()) {
@@ -315,7 +315,7 @@ public final class PaperTools implements Listener {
             player.sendActionBar(Component.text("This formula cannot be read", NamedTextColor.RED));
             return;
         }
-        machine.instance().wake(WakeReason.CONFIG_CHANGED);
+        machine.wake(WakeReason.CONFIG_CHANGED);
         player.sendActionBar(Component.text("Pattern set", NamedTextColor.GREEN));
     }
 }

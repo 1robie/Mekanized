@@ -4,7 +4,7 @@ import fr.robie.machineengine.api.machine.WakeReason;
 import fr.robie.machineengine.api.resource.ResourceType;
 import fr.robie.machineengine.api.transfer.StorageView;
 import fr.robie.machineengine.api.transfer.Transaction;
-import fr.robie.machineengine.core.machine.LoadedMachine;
+import fr.robie.machineengine.api.machine.MachineInstance;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.mekanized.machine.Frequencies;
 import fr.robie.machineengine.mekanized.machine.GearSettings;
@@ -249,13 +249,13 @@ public final class GearTools implements Listener {
 
     /** Fills the gear's chemical from a machine holding it. */
     private boolean fill(Player player, ItemStack gear, String id, Block block) {
-        LoadedMachine machine = PaperWorld.machine(block);
-        if (machine == null || machine.instance() == null) return false;
+        MachineInstance machine = PaperWorld.machine(block);
+        if (machine == null) return false;
         String chemical = CHEMICALS.get(id);
         long room = GearSettings.chemicalCapacity(id) - chemical(gear);
         ResourceType type = MekanizedContent.resourceType(chemical);
         if (type == null || room <= 0) return false;
-        var context = machine.instance().context();
+        var context = machine.context();
         for (String storage : machine.inspect().storages().keySet()) {
             boolean holds = machine.inspect().storages().get(storage).stream()
                     .anyMatch(view -> !view.isEmpty() && view.variant().type() == type);
@@ -271,7 +271,7 @@ public final class GearTools implements Listener {
                 ItemLongs.set(meta, CHEMICAL, total);
                 refresh(meta, MekanizedContent.key(id));
             });
-            machine.instance().wake(WakeReason.RESOURCE_EXTRACTED);
+            machine.wake(WakeReason.RESOURCE_EXTRACTED);
             player.sendActionBar(Component.text(String.format(Locale.ROOT, "Filled %,d mB of %s", taken,
                     MekanizedContent.displayName(chemical)), NamedTextColor.GREEN));
             return true;
@@ -317,7 +317,7 @@ public final class GearTools implements Listener {
 
     /** What a machine holds, in chat. */
     private static void read(Player player, Block block) {
-        LoadedMachine machine = PaperWorld.machine(block);
+        MachineInstance machine = PaperWorld.machine(block);
         if (machine == null) {
             player.sendMessage(Component.text("Not a machine", NamedTextColor.GRAY));
             return;

@@ -4,7 +4,6 @@ import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.machine.ChunkLoaders;
 import fr.robie.machineengine.mekanized.paper.persist.LineStore;
 import fr.robie.machineengine.mekanized.machine.SaveLines;
-import fr.robie.machineengine.paper.PaperWorlds;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -65,7 +64,7 @@ public final class PaperChunkLoaders {
     }
 
     private boolean ticket(Chunk chunk, boolean add) {
-        World world = PaperWorlds.world(chunk.world());
+        World world = PaperWorld.world(chunk.world());
         if (world == null) return false;
         Bukkit.getRegionScheduler().execute(this.plugin, world, chunk.x(), chunk.z(), () -> {
             if (add) world.addPluginChunkTicket(chunk.x(), chunk.z(), this.plugin);

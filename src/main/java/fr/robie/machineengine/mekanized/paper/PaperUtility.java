@@ -10,14 +10,12 @@ import fr.robie.machineengine.api.transfer.ResourceHandler;
 import fr.robie.machineengine.api.transfer.StorageView;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.WorldPosition;
-import fr.robie.machineengine.core.machine.LoadedMachine;
+import fr.robie.machineengine.api.machine.MachineInstance;
 import fr.robie.machineengine.mekanized.machine.EnergyItems;
 import fr.robie.machineengine.mekanized.machine.UtilityBehaviors;
 import fr.robie.machineengine.mekanized.machine.UtilityMachines;
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
-import fr.robie.machineengine.paper.MachineLocator;
 import fr.robie.machineengine.api.paper.PaperItems;
-import fr.robie.machineengine.paper.PaperWorlds;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -89,7 +87,7 @@ public final class PaperUtility implements Listener {
                 if (matrix[i] == null) matrix[i] = ItemStack.empty();
             }
             // The machine's own world: the one this region thread may touch.
-            World at = PaperWorlds.world(world);
+            World at = PaperWorld.world(world);
             if (at == null) return Optional.empty();
             Recipe recipe = Bukkit.getCraftingRecipe(matrix, at);
             if (recipe == null || recipe.getResult().isEmpty()) return Optional.empty();
@@ -104,11 +102,11 @@ public final class PaperUtility implements Listener {
         if (event.getHand() != EquipmentSlot.HAND) return;
         Block block = event.getClickedBlock();
         if (block == null) return;
-        LoadedMachine machine = PaperWorld.machine(block);
-        if (machine == null || machine.instance() == null) return;
+        MachineInstance machine = PaperWorld.machine(block);
+        if (machine == null) return;
         var type = machine.inspect().type();
         Player player = event.getPlayer();
-        MachineContext context = machine.instance().context();
+        MachineContext context = machine.context();
         if (UtilityMachines.isPersonal(type) && event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             String owner = context.get(UtilityMachines.OWNER);
             String self = player.getUniqueId().toString();
@@ -133,7 +131,7 @@ public final class PaperUtility implements Listener {
             }
             if (inserted > 0) {
                 hand.setAmount(hand.getAmount() - (int) inserted);
-                machine.instance().wake(WakeReason.RESOURCE_INSERTED);
+                machine.wake(WakeReason.RESOURCE_INSERTED);
             } else {
                 player.sendActionBar(Component.text("The bin holds another item, or is full", NamedTextColor.RED));
             }
@@ -153,7 +151,7 @@ public final class PaperUtility implements Listener {
             for (ItemStack stack : PaperItems.toItemStacks(new ResourceStack(variant, taken))) {
                 PaperWorld.give(player, stack);
             }
-            machine.instance().wake(WakeReason.RESOURCE_EXTRACTED);
+            machine.wake(WakeReason.RESOURCE_EXTRACTED);
             player.sendActionBar(Component.text(String.format(Locale.ROOT, "%,d left", Math.max(0, held.amount())), NamedTextColor.GRAY));
         }
     }
@@ -182,13 +180,11 @@ public final class PaperUtility implements Listener {
 
     /** The owner of the personal chest or barrel at {@code block} ("" if none yet), or null if it is not one. */
     private static @Nullable String personalOwner(Block block) {
-        MachineLocator locator = MachineLocator.current();
-        if (locator == null) return null;
         WorldPosition position = PaperWorld.position(block);
-        if (!locator.isOwnedByCurrentThread(position)) return null;
-        LoadedMachine machine = locator.machine(position);
-        if (machine == null || machine.instance() == null || !UtilityMachines.isPersonal(machine.inspect().type())) return null;
-        return machine.instance().context().get(UtilityMachines.OWNER);
+        if (!PaperWorld.isOwnedByCurrentThread(position)) return null;
+        MachineInstance machine = PaperWorld.machine(position);
+        if (machine == null || !UtilityMachines.isPersonal(machine.inspect().type())) return null;
+        return machine.context().get(UtilityMachines.OWNER);
     }
 
     // -- chargepads --------------------------------------------------------------------------
@@ -204,21 +200,20 @@ public final class PaperUtility implements Listener {
     }
 
     private static void charge(Player player) {
-        MachineLocator locator = MachineLocator.current();
-        if (locator == null || !player.isOnline()) return;
+        if (!player.isOnline()) return;
         Block feet = player.getLocation().getBlock();
-        LoadedMachine pad = null;
+        MachineInstance pad = null;
         for (Block block : new Block[]{feet, feet.getRelative(BlockFace.DOWN)}) {
             WorldPosition position = PaperWorld.position(block);
-            if (!locator.isOwnedByCurrentThread(position)) continue;
-            LoadedMachine machine = locator.machine(position);
-            if (machine != null && machine.instance() != null && machine.inspect().type().equals(MekanizedContent.key("chargepad"))) {
+            if (!PaperWorld.isOwnedByCurrentThread(position)) continue;
+            MachineInstance machine = PaperWorld.machine(position);
+            if (machine != null && machine.inspect().type().equals(MekanizedContent.key("chargepad"))) {
                 pad = machine;
                 break;
             }
         }
         if (pad == null) return;
-        MachineContext context = pad.instance().context();
+        MachineContext context = pad.context();
         long budget = UtilityMachines.CHARGEPAD_RATE * CHARGE_EVERY;
         PlayerInventory inventory = player.getInventory();
         boolean charged = false;
@@ -242,6 +237,6 @@ public final class PaperUtility implements Listener {
             budget -= taken;
             charged = true;
         }
-        if (charged) pad.instance().wake(WakeReason.RESOURCE_EXTRACTED);
+        if (charged) pad.wake(WakeReason.RESOURCE_EXTRACTED);
     }
 }

@@ -8,12 +8,11 @@ plugins {
 description = "Mekanized: Mekanism-style machines for MachineEngine (textures, models and recipes from Mekanism, MIT)."
 
 dependencies {
-    // A content addon: MachineEngine's API, plus engine internals until RESTRUCTURE_PLAN.md R7 moves
-    // what it needs into the API.
+    // A content addon: MachineEngine's public API only (D27).
     compileOnly(project(":api"))
-    compileOnly(project(":common"))
 
-    // Headless tests of the imported content (machines, recipes, tags), no server.
+    // Headless tests of the imported content (machines, recipes, tags), no server. The harness exposes
+    // engine internals; that is allowed in tests (D28).
     testImplementation(project(":test"))
 }
 
