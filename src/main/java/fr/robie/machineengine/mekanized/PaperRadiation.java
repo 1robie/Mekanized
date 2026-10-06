@@ -1,7 +1,8 @@
 package fr.robie.machineengine.mekanized;
 
-import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.machine.Radiation;
+import fr.robie.machineengine.mekanized.paper.persist.LineStore;
+import fr.robie.machineengine.mekanized.paper.persist.WorldPositions;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -23,9 +24,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Locale;
@@ -159,25 +157,15 @@ final class PaperRadiation implements Listener {
     // -- saving ------------------------------------------------------------------------------------
 
     private void load() {
-        if (!Files.isRegularFile(this.file)) return;
-        try {
-            for (String line : Files.readAllLines(this.file, StandardCharsets.UTF_8)) {
-                String[] parts = line.split("\\|");
-                if (parts.length != 5) continue;
-                Radiation.sources().put(WorldPosition.of(Key.key(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]),
-                        Integer.parseInt(parts[3])), Double.parseDouble(parts[4]));
-            }
-        } catch (IOException | RuntimeException e) {
-            this.plugin.getLogger().warning("Could not read " + this.file + ": " + e.getMessage());
-        }
+        LineStore.load(this.plugin, this.file, 5,
+                parts -> Radiation.sources().put(WorldPositions.read(parts, 0), Double.parseDouble(parts[4])));
     }
 
     synchronized void save() {
         StringBuilder text = new StringBuilder();
-        Radiation.sources().forEach((at, strength) -> text.append(at.world().asString()).append('|').append(at.position().x())
-                .append('|').append(at.position().y()).append('|').append(at.position().z()).append('|')
+        Radiation.sources().forEach((at, strength) -> WorldPositions.append(text, at).append('|')
                 .append(String.format(Locale.ROOT, "%.9g", strength)).append('\n'));
-        PaperFiles.write(this.plugin, this.file, text);
+        LineStore.write(this.plugin, this.file, text);
     }
 
     private static @Nullable PaperRadiation instance;

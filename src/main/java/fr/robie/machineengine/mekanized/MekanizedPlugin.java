@@ -2,6 +2,7 @@ package fr.robie.machineengine.mekanized;
 
 import fr.robie.machineengine.api.MachineEngine;
 import fr.robie.machineengine.api.addon.AddonRegistration;
+import fr.robie.machineengine.mekanized.paper.persist.LineStore;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
@@ -124,7 +125,7 @@ public final class MekanizedPlugin extends JavaPlugin {
     public void onDisable() {
         PaperEntangloporters.save();
         PaperRadiation.saveNow();
-        PaperFiles.flush();
+        LineStore.flush();
     }
 
     @Override

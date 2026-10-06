@@ -3,6 +3,7 @@ package fr.robie.machineengine.mekanized;
 import fr.robie.machineengine.api.resource.ResourceType;
 import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.mekanized.machine.Entangloporters;
+import fr.robie.machineengine.mekanized.paper.persist.LineStore;
 import fr.robie.machineengine.paper.PaperItems;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
@@ -10,9 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Base64;
 import java.util.Map;
@@ -63,30 +62,24 @@ final class PaperEntangloporters {
                 }
             }
         }
-        PaperFiles.write(owner, file, text);
+        LineStore.write(owner, file, text);
     }
 
     private static void load() {
-        if (file == null || !Files.isRegularFile(file)) return;
+        if (file == null || owner == null) return;
         Base64.Decoder base64 = Base64.getDecoder();
-        try {
-            for (String line : Files.readAllLines(file, StandardCharsets.UTF_8)) {
-                String[] parts = line.split("\\|");
-                if (parts.length != 5) continue;
-                String frequency = new String(base64.decode(parts[0]), StandardCharsets.UTF_8);
-                ResourceVariant variant;
-                if (parts[2].equals("i")) {
-                    variant = PaperItems.toResource(ItemStack.deserializeBytes(base64.decode(parts[3]))).variant();
-                } else {
-                    ResourceType type = type(Key.key(parts[3]));
-                    if (type == null) continue;
-                    variant = type.variant();
-                }
-                Entangloporters.load(frequency, parts[1], variant, Long.parseLong(parts[4]));
+        LineStore.load(owner, file, 5, parts -> {
+            String frequency = new String(base64.decode(parts[0]), StandardCharsets.UTF_8);
+            ResourceVariant variant;
+            if (parts[2].equals("i")) {
+                variant = PaperItems.toResource(ItemStack.deserializeBytes(base64.decode(parts[3]))).variant();
+            } else {
+                ResourceType type = type(Key.key(parts[3]));
+                if (type == null) return;
+                variant = type.variant();
             }
-        } catch (IOException | RuntimeException e) {
-            if (owner != null) owner.getLogger().warning("Could not read " + file + ": " + e.getMessage());
-        }
+            Entangloporters.load(frequency, parts[1], variant, Long.parseLong(parts[4]));
+        });
     }
 
     private static @Nullable ResourceType type(Key key) {

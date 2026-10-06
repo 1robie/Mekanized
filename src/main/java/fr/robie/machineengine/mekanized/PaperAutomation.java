@@ -10,6 +10,8 @@ import fr.robie.machineengine.core.machine.LoadedMachine;
 import fr.robie.machineengine.mekanized.machine.AutomationMachines.Frequencies;
 import fr.robie.machineengine.mekanized.machine.AutomationMachines;
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
+import fr.robie.machineengine.mekanized.paper.persist.LineStore;
+import fr.robie.machineengine.mekanized.paper.persist.WorldPositions;
 import fr.robie.machineengine.paper.PaperItems;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
@@ -51,8 +53,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -180,25 +180,16 @@ final class PaperAutomation implements Listener {
     }
 
     private void loadTeleporters() {
-        if (!Files.isRegularFile(this.teleporterFile)) return;
-        try {
-            for (String line : Files.readAllLines(this.teleporterFile, StandardCharsets.UTF_8)) {
-                String[] parts = line.split("\\|");
-                if (parts.length != 6) continue;
-                WorldPosition position = WorldPosition.of(Key.key(parts[1]), Integer.parseInt(parts[2]), Integer.parseInt(parts[3]), Integer.parseInt(parts[4]));
-                Frequencies.teleporters().put(position, new Frequencies.Teleporter(parts[0], Boolean.parseBoolean(parts[5])));
-            }
-        } catch (IOException | RuntimeException e) {
-            this.plugin.getLogger().warning("Could not read " + this.teleporterFile + ": " + e.getMessage());
-        }
+        LineStore.load(this.plugin, this.teleporterFile, 6, parts -> Frequencies.teleporters().put(WorldPositions.read(parts, 1),
+                new Frequencies.Teleporter(parts[0], Boolean.parseBoolean(parts[5]))));
     }
 
     private synchronized void saveTeleporters() {
         StringBuilder text = new StringBuilder();
-        Frequencies.teleporters().forEach((position, teleporter) -> text.append(teleporter.frequency().replace("|", "")).append('|')
-                .append(position.world().asString()).append('|').append(position.position().x()).append('|').append(position.position().y())
-                .append('|').append(position.position().z()).append('|').append(teleporter.formed()).append('\n'));
-        PaperFiles.write(this.plugin, this.teleporterFile, text);
+        Frequencies.teleporters().forEach((position, teleporter) -> WorldPositions
+                .append(text.append(teleporter.frequency().replace("|", "")).append('|'), position)
+                .append('|').append(teleporter.formed()).append('\n'));
+        LineStore.write(this.plugin, this.teleporterFile, text);
     }
 
     // -- portable teleporter, portable QIO dashboard ------------------------------------------

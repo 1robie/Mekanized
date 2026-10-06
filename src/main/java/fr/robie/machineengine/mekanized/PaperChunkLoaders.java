@@ -2,15 +2,14 @@ package fr.robie.machineengine.mekanized;
 
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.machine.ChunkLoaders;
+import fr.robie.machineengine.mekanized.paper.persist.LineStore;
+import fr.robie.machineengine.mekanized.paper.persist.WorldPositions;
 import fr.robie.machineengine.paper.PaperWorlds;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.Map;
@@ -76,24 +75,13 @@ final class PaperChunkLoaders {
     }
 
     private void load() {
-        if (!Files.isRegularFile(this.file)) return;
-        try {
-            for (String line : Files.readAllLines(this.file, StandardCharsets.UTF_8)) {
-                String[] parts = line.split("\\|");
-                if (parts.length != 5) continue;
-                WorldPosition position = WorldPosition.of(Key.key(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]), Integer.parseInt(parts[3]));
-                ChunkLoaders.loaders().put(position, Integer.parseInt(parts[4]));
-            }
-        } catch (IOException | RuntimeException e) {
-            this.plugin.getLogger().warning("Could not read " + this.file + ": " + e.getMessage());
-        }
+        LineStore.load(this.plugin, this.file, 5,
+                parts -> ChunkLoaders.loaders().put(WorldPositions.read(parts, 0), Integer.parseInt(parts[4])));
     }
 
     private void save() {
         StringBuilder text = new StringBuilder();
-        ChunkLoaders.loaders().forEach((position, radius) -> text.append(position.world().asString()).append('|')
-                .append(position.position().x()).append('|').append(position.position().y()).append('|')
-                .append(position.position().z()).append('|').append(radius).append('\n'));
-        PaperFiles.write(this.plugin, this.file, text);
+        ChunkLoaders.loaders().forEach((position, radius) -> WorldPositions.append(text, position).append('|').append(radius).append('\n'));
+        LineStore.write(this.plugin, this.file, text);
     }
 }
