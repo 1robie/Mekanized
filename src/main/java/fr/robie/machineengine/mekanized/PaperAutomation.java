@@ -10,6 +10,7 @@ import fr.robie.machineengine.core.machine.LoadedMachine;
 import fr.robie.machineengine.mekanized.machine.AutomationMachines.Frequencies;
 import fr.robie.machineengine.mekanized.machine.AutomationMachines;
 import fr.robie.machineengine.mekanized.machine.MachineParts;
+import fr.robie.machineengine.mekanized.paper.Lore;
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.mekanized.paper.persist.LineStore;
 import fr.robie.machineengine.mekanized.paper.persist.WorldPositions;
@@ -17,7 +18,6 @@ import fr.robie.machineengine.paper.PaperItems;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -116,7 +116,7 @@ final class PaperAutomation implements Listener {
             if (("portable_teleporter".equals(held) || "portable_qio_dashboard".equals(held)) && (machine == null || machine.instance() == null)) {
                 hand.editMeta(meta -> {
                     meta.getPersistentDataContainer().set(ITEM_FREQUENCY, PersistentDataType.STRING, frequency);
-                    meta.lore(List.of(Component.text("Frequency: " + frequency, NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)));
+                    meta.lore(List.of(Lore.line("Frequency: " + frequency)));
                 });
                 player.sendMessage(Component.text("Frequency of the item set to ", NamedTextColor.GRAY).append(Component.text(frequency, NamedTextColor.YELLOW)));
                 return;
@@ -297,8 +297,7 @@ final class PaperAutomation implements Listener {
             pdc.set(BOX_BLOCK, PersistentDataType.STRING, data);
             if (finalItems != null) pdc.set(BOX_ITEMS, PersistentDataType.BYTE_ARRAY, finalItems);
             if (finalSpawned != null) pdc.set(BOX_SPAWNER, PersistentDataType.STRING, finalSpawned);
-            meta.lore(List.of(Component.text("Contains: " + block.getType().getKey().getKey().replace('_', ' '), NamedTextColor.GRAY)
-                    .decoration(TextDecoration.ITALIC, false)));
+            meta.lore(List.of(Lore.line("Contains: " + block.getType().getKey().getKey().replace('_', ' '))));
         });
         block.setType(Material.AIR, false);
         box.setAmount(box.getAmount() - 1);
@@ -437,8 +436,8 @@ final class PaperAutomation implements Listener {
                 icon.setAmount((int) Math.max(1, Math.min(64, amount)));
                 icon.editMeta(meta -> {
                     List<Component> lore = new ArrayList<>(meta.hasLore() ? Objects.requireNonNull(meta.lore()) : List.of());
-                    lore.add(Component.text(String.format(Locale.ROOT, "Stored: %,d", amount), NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false));
-                    lore.add(Component.text("Left: a stack, right: one", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false));
+                    lore.add(Lore.line(String.format(Locale.ROOT, "Stored: %,d", amount), NamedTextColor.YELLOW));
+                    lore.add(Lore.line("Left: a stack, right: one", NamedTextColor.DARK_GRAY));
                     meta.lore(lore);
                 });
                 this.inventory.setItem(i, icon);
@@ -451,7 +450,7 @@ final class PaperAutomation implements Listener {
 
         private ItemStack button(Material material, String name) {
             ItemStack stack = new ItemStack(material);
-            stack.editMeta(meta -> meta.displayName(Component.text(name, NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false)));
+            stack.editMeta(meta -> meta.displayName(Lore.line(name, NamedTextColor.WHITE)));
             return stack;
         }
     }

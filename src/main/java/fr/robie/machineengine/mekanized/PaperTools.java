@@ -13,12 +13,13 @@ import fr.robie.machineengine.api.world.RelativeSide;
 import fr.robie.machineengine.core.machine.LoadedMachine;
 import fr.robie.machineengine.mekanized.machine.EjectBehavior;
 import fr.robie.machineengine.mekanized.machine.UtilityMachines;
+import fr.robie.machineengine.mekanized.paper.ItemLongs;
+import fr.robie.machineengine.mekanized.paper.Lore;
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.paper.PaperItems;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -131,8 +132,7 @@ final class PaperTools implements Listener {
         if (has(machine, UtilityMachines.REDSTONE)) parts.add("redstone=" + context.get(UtilityMachines.REDSTONE));
         card.editMeta(meta -> {
             meta.getPersistentDataContainer().set(CARD, PersistentDataType.STRING, String.join(";", parts));
-            meta.lore(List.of(Component.text("Holds: " + machine.inspect().type().value().replace('_', ' '), NamedTextColor.GRAY)
-                    .decoration(TextDecoration.ITALIC, false)));
+            meta.lore(List.of(Lore.line("Holds: " + machine.inspect().type().value().replace('_', ' '))));
         });
         player.sendActionBar(Component.text("Configuration copied", NamedTextColor.GREEN));
     }
@@ -219,8 +219,7 @@ final class PaperTools implements Listener {
     }
 
     private static long dropperAmount(ItemStack dropper) {
-        Long amount = dropper.getItemMeta().getPersistentDataContainer().get(DROPPER_AMOUNT, PersistentDataType.LONG);
-        return amount == null ? 0 : amount;
+        return ItemLongs.get(dropper, DROPPER_AMOUNT);
     }
 
     private static void setDropper(ItemStack dropper, @Nullable ResourceType type, long amount) {
@@ -234,9 +233,8 @@ final class PaperTools implements Listener {
             }
             pdc.set(DROPPER_TYPE, PersistentDataType.STRING, type.key().asString());
             pdc.set(DROPPER_AMOUNT, PersistentDataType.LONG, amount);
-            meta.lore(List.of(Component.text(String.format(Locale.ROOT, "%s: %,d / %,d mB",
-                            MekanizedContent.displayName(type), amount, DROPPER_CAPACITY), NamedTextColor.GRAY)
-                    .decoration(TextDecoration.ITALIC, false)));
+            meta.lore(List.of(Lore.line(String.format(Locale.ROOT, "%s: %,d / %,d mB",
+                    MekanizedContent.displayName(type), amount, DROPPER_CAPACITY))));
         });
     }
 
@@ -312,8 +310,7 @@ final class PaperTools implements Listener {
             }
             formula.editMeta(meta -> {
                 meta.getPersistentDataContainer().set(FORMULA, PersistentDataType.STRING, String.join(",", cells));
-                meta.lore(List.of(Component.text("Encoded", NamedTextColor.AQUA)
-                        .decoration(TextDecoration.ITALIC, false)));
+                meta.lore(List.of(Lore.line("Encoded", NamedTextColor.AQUA)));
             });
             player.sendActionBar(Component.text("Pattern recorded", NamedTextColor.GREEN));
             return;

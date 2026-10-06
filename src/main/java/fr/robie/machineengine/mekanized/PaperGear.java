@@ -8,13 +8,14 @@ import fr.robie.machineengine.core.machine.LoadedMachine;
 import fr.robie.machineengine.mekanized.machine.AutomationMachines;
 import fr.robie.machineengine.mekanized.machine.EnergyItems;
 import fr.robie.machineengine.mekanized.machine.Liquifier;
+import fr.robie.machineengine.mekanized.paper.ItemLongs;
+import fr.robie.machineengine.mekanized.paper.Lore;
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.paper.PaperItems;
 import io.papermc.paper.entity.Shearable;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -129,8 +130,7 @@ final class PaperGear implements Listener {
     }
 
     static long energy(ItemStack stack) {
-        Long energy = stack.getItemMeta().getPersistentDataContainer().get(PaperEnergyItems.ENERGY, PersistentDataType.LONG);
-        return energy == null ? 0 : energy;
+        return ItemLongs.get(stack, PaperEnergyItems.ENERGY);
     }
 
     /** Takes {@code joules} from the gear if it has them all. */
@@ -139,15 +139,14 @@ final class PaperGear implements Listener {
         if (energy < joules) return false;
         String id = id(stack);
         stack.editMeta(meta -> {
-            meta.getPersistentDataContainer().set(PaperEnergyItems.ENERGY, PersistentDataType.LONG, energy - joules);
+            ItemLongs.set(meta, PaperEnergyItems.ENERGY, energy - joules);
             refresh(meta, MekanizedContent.key(id));
         });
         return true;
     }
 
     static long chemical(ItemStack stack) {
-        Long amount = stack.getItemMeta().getPersistentDataContainer().get(CHEMICAL, PersistentDataType.LONG);
-        return amount == null ? 0 : amount;
+        return ItemLongs.get(stack, CHEMICAL);
     }
 
     private static boolean useChemical(ItemStack stack, long amount) {
@@ -155,7 +154,7 @@ final class PaperGear implements Listener {
         if (held < amount) return false;
         String id = id(stack);
         stack.editMeta(meta -> {
-            meta.getPersistentDataContainer().set(CHEMICAL, PersistentDataType.LONG, held - amount);
+            ItemLongs.set(meta, CHEMICAL, held - amount);
             refresh(meta, MekanizedContent.key(id));
         });
         return true;
@@ -186,7 +185,7 @@ final class PaperGear implements Listener {
         if (added <= 0) return 0;
         String id = id(stack);
         stack.editMeta(meta -> {
-            meta.getPersistentDataContainer().set(PaperEnergyItems.ENERGY, PersistentDataType.LONG, energy + added);
+            ItemLongs.set(meta, PaperEnergyItems.ENERGY, energy + added);
             refresh(meta, MekanizedContent.key(id));
         });
         return added;
@@ -196,22 +195,21 @@ final class PaperGear implements Listener {
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
         List<Component> lore = new ArrayList<>();
         long capacity = capacity(item, pdc.get(MODULES, PersistentDataType.STRING));
-        Long energy = pdc.get(PaperEnergyItems.ENERGY, PersistentDataType.LONG);
-        if (capacity > 0) lore.add(line(String.format(Locale.ROOT, "Energy: %,d / %,d J", energy == null ? 0 : energy, capacity)));
+        long energy = ItemLongs.get(pdc, PaperEnergyItems.ENERGY);
+        if (capacity > 0) lore.add(Lore.line(String.format(Locale.ROOT, "Energy: %,d / %,d J", energy, capacity)));
         Object[] chemical = CHEMICALS.get(item.value());
         if (chemical != null) {
-            Long held = pdc.get(CHEMICAL, PersistentDataType.LONG);
             String name = MekanizedContent.displayName((String) chemical[0]);
-            lore.add(line(String.format(Locale.ROOT, "%s: %,d / %,d mB", capitalize(name), held == null ? 0 : held, (long) chemical[1])));
+            lore.add(Lore.line(String.format(Locale.ROOT, "%s: %,d / %,d mB", capitalize(name), ItemLongs.get(pdc, CHEMICAL), (long) chemical[1])));
         }
         String modules = pdc.get(MODULES, PersistentDataType.STRING);
         if (modules != null && !modules.isEmpty()) {
-            for (String module : modules.split(",")) lore.add(line("+ " + capitalize(module.replace('_', ' '))).color(NamedTextColor.AQUA));
+            for (String module : modules.split(",")) lore.add(Lore.line("+ " + capitalize(module.replace('_', ' '))).color(NamedTextColor.AQUA));
         }
         meta.lore(lore);
         // Disassembler and Meka-Tool: fast on what pickaxes, axes, shovels and hoes mine while charged.
         if (item.value().equals("atomic_disassembler") || item.value().equals("meka_tool")) {
-            boolean charged = energy != null && energy >= 100;
+            boolean charged = energy >= 100;
             float speed = !charged ? 1f : modules != null && modules.contains("excavation_escalation_unit") ? 32f : 16f;
             ToolComponent tool = meta.getTool();
             tool.setRules(new ArrayList<>());
@@ -222,10 +220,6 @@ final class PaperGear implements Listener {
             }
             meta.setTool(tool);
         }
-    }
-
-    private static Component line(String text) {
-        return Component.text(text, NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false);
     }
 
     private static String capitalize(String text) {
@@ -701,7 +695,7 @@ final class PaperGear implements Listener {
             if (taken <= 0) continue;
             long total = chemical(gear) + taken;
             gear.editMeta(meta -> {
-                meta.getPersistentDataContainer().set(CHEMICAL, PersistentDataType.LONG, total);
+                ItemLongs.set(meta, CHEMICAL, total);
                 refresh(meta, MekanizedContent.key(id));
             });
             machine.instance().wake(WakeReason.RESOURCE_EXTRACTED);
