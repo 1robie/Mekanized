@@ -58,7 +58,7 @@ public final class ChunkLoaders {
     }
 
     static void register(RegistrationContext context) {
-        context.machineTypes().register(MekanizedMachines.base("dimensional_stabilizer", 1_000_000)
+        context.machineTypes().register(BasicMachines.base("dimensional_stabilizer", 1_000_000)
                 .data(RADIUS).data(STATUS)
                 .behavior(stabilizer())
                 .build());
@@ -76,7 +76,7 @@ public final class ChunkLoaders {
     private static void anchor(MachineInstance machine) {
         if (isStabilizer(machine)) return;
         boolean anchored = machine.upgrades().stream()
-                .anyMatch(upgrade -> upgrade.type().equals(MekanizedMachines.ANCHOR_UPGRADE) && upgrade.count() > 0);
+                .anyMatch(upgrade -> upgrade.type().equals(MekanizedRegistry.ANCHOR_UPGRADE) && upgrade.count() > 0);
         if (anchored) set(machine.position(), 0);
         else if (LOADERS.containsKey(machine.position())) set(machine.position(), null);
     }

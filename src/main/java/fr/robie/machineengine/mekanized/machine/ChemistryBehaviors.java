@@ -87,7 +87,7 @@ public final class ChemistryBehaviors {
             // A filter upgrade separates heavy water out of each block of water (Mekanism's 10 mB).
             long amount = 1000;
             ResourceType heavyWater = MekanizedContent.fluid("heavy_water");
-            if (heavyWater != null && start.fluid().value().equals("water") && MekanizedMachines.installed(context, MekanizedMachines.FILTER_UPGRADE)) {
+            if (heavyWater != null && start.fluid().value().equals("water") && MekanizedRegistry.installed(context, MekanizedRegistry.FILTER_UPGRADE)) {
                 fluid = heavyWater;
                 amount = HEAVY_WATER_PER_BLOCK;
             }

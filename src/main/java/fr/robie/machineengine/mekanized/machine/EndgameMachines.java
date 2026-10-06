@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.Map;
 
 import static fr.robie.machineengine.mekanized.MekanizedContent.key;
-import static fr.robie.machineengine.mekanized.machine.MekanizedMachines.ENERGY_CONVERSION;
-import static fr.robie.machineengine.mekanized.machine.MekanizedMachines.IS_CHEMICAL;
+import static fr.robie.machineengine.mekanized.machine.MekanizedRegistry.ENERGY_CONVERSION;
+import static fr.robie.machineengine.mekanized.machine.MekanizedRegistry.IS_CHEMICAL;
 
 /**
  * Phase 6 (MEKANIZED_PLAN.md): the remaining single-block machines (Pressurized Reaction Chamber,
@@ -60,7 +60,7 @@ public final class EndgameMachines {
     static List<MachineType> machines() {
         List<MachineType> machines = new ArrayList<>();
         // Item, fluid and chemical in; item and chemical out.
-        machines.add(MekanizedMachines.base("pressurized_reaction_chamber", 100_000)
+        machines.add(BasicMachines.base("pressurized_reaction_chamber", 100_000)
                 .storage(StorageDefinition.slots("input", 1, 64).filter(RecipeFilters.inputOf(REACTION)))
                 .storage(StorageDefinition.tank("fluid", 10_000).filter(IS_FLUID.and(RecipeFilters.usedBy(REACTION))))
                 .storage(StorageDefinition.tank("chemical", 10_000).filter(IS_CHEMICAL.and(RecipeFilters.usedBy(REACTION))))
@@ -86,7 +86,7 @@ public final class EndgameMachines {
         machines.add(itemAndChemical("antiprotonic_nucleosynthesizer", NUCLEOSYNTHESIZING, 1_000_000, 1_000).build());
         machines.add(itemAndChemical("painting_machine", PAINTING, 40_000, 4_000).build());
         // Item to pigment; two pigments to one.
-        machines.add(MekanizedMachines.base("pigment_extractor", 40_000)
+        machines.add(BasicMachines.base("pigment_extractor", 40_000)
                 .storage(StorageDefinition.slots("input", 1, 64).filter(RecipeFilters.inputOf(PIGMENT_EXTRACTING)))
                 .storage(StorageDefinition.tank("output", 1_000).filter(IS_CHEMICAL))
                 .port(port("input", PortDirection.INPUT, Items.anyItem(), "items"))
@@ -95,7 +95,7 @@ public final class EndgameMachines {
                 .behavior(MachineParts.powered(ProcessingBehavior.of(PIGMENT_EXTRACTING, new ProcessBinding(List.of("input"), "output", List.of("energy")))))
                 .build());
         ResourcePredicate mixed = IS_CHEMICAL.and(RecipeFilters.usedBy(PIGMENT_MIXING));
-        machines.add(MekanizedMachines.base("pigment_mixer", 40_000)
+        machines.add(BasicMachines.base("pigment_mixer", 40_000)
                 .storage(StorageDefinition.tank("left", 1_000).filter(mixed))
                 .storage(StorageDefinition.tank("right", 1_000).filter(mixed))
                 .storage(StorageDefinition.tank("output", 1_000).filter(IS_CHEMICAL))
@@ -109,19 +109,19 @@ public final class EndgameMachines {
                 .behavior(MachineParts.powered(ProcessingBehavior.of(PIGMENT_MIXING, new ProcessBinding(List.of("left", "right"), "output", List.of("energy")))))
                 .build());
         // Generators.
-        machines.add(MekanizedMachines.generator("gas_burning_generator", 100_000)
+        machines.add(BasicMachines.generator("gas_burning_generator", 100_000)
                 .storage(StorageDefinition.tank("fuel", 18_000).filter(IS_CHEMICAL.and((variant, tags) ->
                         GAS_FUELS.containsKey(variant.type().key().value()))))
                 .port(port("fuel", PortDirection.INPUT, IS_CHEMICAL, "chemical"))
                 .behavior(EnergyBehaviors.gasBurning("fuel", GAS_FUELS))
                 .build());
-        machines.add(MekanizedMachines.generator("wind_generator", 200_000).behavior(EnergyBehaviors.wind(480)).build());
-        machines.add(MekanizedMachines.generator("advanced_solar_generator", 200_000).behavior(EnergyBehaviors.solar(300)).build());
+        machines.add(BasicMachines.generator("wind_generator", 200_000).behavior(EnergyBehaviors.wind(480)).build());
+        machines.add(BasicMachines.generator("advanced_solar_generator", 200_000).behavior(EnergyBehaviors.solar(300)).build());
         return machines;
     }
 
     private static boolean upgrade(UpgradeType upgrade) {
-        return MekanizedMachines.standardUpgrade(upgrade);
+        return MekanizedRegistry.standardUpgrade(upgrade);
     }
 
     private static PortDefinition port(String storage, PortDirection direction, ResourcePredicate filter, String group) {
@@ -132,7 +132,7 @@ public final class EndgameMachines {
 
     /** A chemical tank in, one out; with energy when {@code powered}. */
     private static MachineType.Builder chemicalToChemical(String name, RecipeType<ProcessingRecipe> recipes, long energy, boolean powered) {
-        MachineType.Builder builder = powered ? MekanizedMachines.base(name, energy) : MachineType.builder(key(name));
+        MachineType.Builder builder = powered ? BasicMachines.base(name, energy) : MachineType.builder(key(name));
         builder.storage(StorageDefinition.tank("input", 10_000).filter(IS_CHEMICAL.and(RecipeFilters.usedBy(recipes))))
                 .storage(StorageDefinition.tank("output", 10_000).filter(IS_CHEMICAL))
                 .port(port("input", PortDirection.INPUT, IS_CHEMICAL, "chemical"))
@@ -146,7 +146,7 @@ public final class EndgameMachines {
 
     /** An item and a chemical (antimatter, a pigment) in, an item out. */
     private static MachineType.Builder itemAndChemical(String name, RecipeType<ProcessingRecipe> recipes, long energy, long tank) {
-        return MekanizedMachines.base(name, energy)
+        return BasicMachines.base(name, energy)
                 .storage(StorageDefinition.slots("input", 1, 64).filter(RecipeFilters.inputOf(recipes)))
                 .storage(StorageDefinition.tank("chemical", tank).filter(IS_CHEMICAL.and(RecipeFilters.usedBy(recipes))))
                 .storage(StorageDefinition.slots("output", 1, 64).filter(Items.anyItem()))

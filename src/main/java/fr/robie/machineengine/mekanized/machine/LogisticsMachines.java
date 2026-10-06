@@ -24,9 +24,9 @@ import java.util.List;
 import java.util.Map;
 
 import static fr.robie.machineengine.mekanized.MekanizedContent.key;
-import static fr.robie.machineengine.mekanized.machine.MekanizedMachines.CHEMICAL_CONVERSION;
-import static fr.robie.machineengine.mekanized.machine.MekanizedMachines.ENERGY_CONVERSION;
-import static fr.robie.machineengine.mekanized.machine.MekanizedMachines.IS_CHEMICAL;
+import static fr.robie.machineengine.mekanized.machine.MekanizedRegistry.CHEMICAL_CONVERSION;
+import static fr.robie.machineengine.mekanized.machine.MekanizedRegistry.ENERGY_CONVERSION;
+import static fr.robie.machineengine.mekanized.machine.MekanizedRegistry.IS_CHEMICAL;
 
 /**
  * Phase 4 (MEKANIZED_PLAN.md): logistical transporters, the logistical sorter and the factories, with
@@ -45,15 +45,15 @@ public final class LogisticsMachines {
     }
 
     public static final List<Kind> KINDS = List.of(
-            new Kind("smelting", "energized_smelter", MekanizedMachines.SMELTING, 20_000, 0, false, false, 1),
-            new Kind("enriching", "enrichment_chamber", MekanizedMachines.ENRICHING, 20_000, 0, false, false, 1),
-            new Kind("crushing", "crusher", MekanizedMachines.CRUSHING, 20_000, 0, false, false, 1),
-            new Kind("compressing", "osmium_compressor", MekanizedMachines.COMPRESSING, 80_000, 210, false, false, 1),
-            new Kind("combining", "combiner", MekanizedMachines.COMBINING, 40_000, 0, false, true, 1),
-            new Kind("purifying", "purification_chamber", MekanizedMachines.PURIFYING, 80_000, 210, false, false, 1),
+            new Kind("smelting", "energized_smelter", MekanizedRegistry.SMELTING, 20_000, 0, false, false, 1),
+            new Kind("enriching", "enrichment_chamber", MekanizedRegistry.ENRICHING, 20_000, 0, false, false, 1),
+            new Kind("crushing", "crusher", MekanizedRegistry.CRUSHING, 20_000, 0, false, false, 1),
+            new Kind("compressing", "osmium_compressor", MekanizedRegistry.COMPRESSING, 80_000, 210, false, false, 1),
+            new Kind("combining", "combiner", MekanizedRegistry.COMBINING, 40_000, 0, false, true, 1),
+            new Kind("purifying", "purification_chamber", MekanizedRegistry.PURIFYING, 80_000, 210, false, false, 1),
             new Kind("injecting", "chemical_injection_chamber", ChemistryMachines.INJECTING, 160_000, 210, false, false, 1),
-            new Kind("infusing", "metallurgic_infuser", MekanizedMachines.METALLURGIC_INFUSING, 20_000, 1_000, true, false, 1),
-            new Kind("sawing", "precision_sawmill", MekanizedMachines.SAWING, 20_000, 0, false, false, 2));
+            new Kind("infusing", "metallurgic_infuser", MekanizedRegistry.METALLURGIC_INFUSING, 20_000, 1_000, true, false, 1),
+            new Kind("sawing", "precision_sawmill", MekanizedRegistry.SAWING, 20_000, 0, false, false, 2));
 
     private LogisticsMachines() {
     }
@@ -89,10 +89,10 @@ public final class LogisticsMachines {
     }
 
     private static MachineType factory(String tier, int lanes, Kind kind) {
-        MachineType.Builder builder = MekanizedMachines.base(tier + "_" + kind.name() + "_factory", kind.energy() * lanes)
+        MachineType.Builder builder = BasicMachines.base(tier + "_" + kind.name() + "_factory", kind.energy() * lanes)
                 .storage(StorageDefinition.slots("output", lanes * kind.outputsPerLane(), 64).filter(Items.anyItem()))
                 .port(PortDefinition.builder("output", "output").direction(PortDirection.OUTPUT).group("items").build())
-                .upgradeSlots(2, kind.chemicalTank() > 0 && !kind.chemicalIsInput() ? MekanizedMachines::chemicalUpgrade : MekanizedMachines::standardUpgrade)
+                .upgradeSlots(2, kind.chemicalTank() > 0 && !kind.chemicalIsInput() ? MekanizedRegistry::chemicalUpgrade : MekanizedRegistry::standardUpgrade)
                 .data(FactoryBehavior.PROGRESS);
         for (int lane = 0; lane < lanes; lane++) {
             String storage = FactoryBehavior.laneStorage(lane);

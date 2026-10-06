@@ -3,7 +3,7 @@ package fr.robie.machineengine.mekanized;
 import fr.robie.machineengine.api.addon.RegistrationContext;
 import fr.robie.machineengine.api.resource.ResourceCategory;
 import fr.robie.machineengine.api.resource.ResourceType;
-import fr.robie.machineengine.mekanized.machine.MekanizedMachines;
+import fr.robie.machineengine.mekanized.machine.MekanizedRegistry;
 import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -96,7 +96,7 @@ public final class MekanizedContent {
             ResourceType type = FLUIDS.computeIfAbsent(fluid, name -> ResourceType.of(key("fluid/" + name), FLUID));
             context.resourceTypes().register(type);
         }
-        MekanizedMachines.register(context);
+        MekanizedRegistry.register(context);
     }
 
     private static List<String> lines(String resource) {

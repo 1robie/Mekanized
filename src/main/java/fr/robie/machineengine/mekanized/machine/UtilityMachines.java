@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static fr.robie.machineengine.mekanized.MekanizedContent.key;
-import static fr.robie.machineengine.mekanized.machine.MekanizedMachines.ENERGY_CONVERSION;
-import static fr.robie.machineengine.mekanized.machine.MekanizedMachines.IS_ENERGY;
+import static fr.robie.machineengine.mekanized.machine.MekanizedRegistry.ENERGY_CONVERSION;
+import static fr.robie.machineengine.mekanized.machine.MekanizedRegistry.IS_ENERGY;
 
 /**
  * Phase 6 wave 2 (MEKANIZED_PLAN.md): Mekanism's utility blocks. Bins (one item, many of it), personal
@@ -79,7 +79,7 @@ public final class UtilityMachines {
                         .sides(RelativeSide.BACK, RelativeSide.BOTTOM, RelativeSide.LEFT, RelativeSide.RIGHT).group("energy").build())
                 .behavior(UtilityBehaviors.storage("energy", false))
                 .build());
-        machines.add(MekanizedMachines.base("fluidic_plenisher", 40_000)
+        machines.add(BasicMachines.base("fluidic_plenisher", 40_000)
                 .storage(StorageDefinition.tank("fluid", 10_000).filter(IS_FLUID.and((variant, tags) -> UtilityBehaviors.worldFluid(variant) != null)))
                 .storage(StorageDefinition.slots("bucket_in", 1, 16).filter(Items.anyItem()))
                 .storage(StorageDefinition.slots("bucket_out", 1, 16).filter(Items.anyItem()))
@@ -88,7 +88,7 @@ public final class UtilityMachines {
                 .upgradeSlots(2, UtilityMachines::upgrade)
                 .behavior(MachineParts.powered(MachineParts.withBuckets(UtilityBehaviors.plenisher("fluid", 2_000, 20, 32), "fluid")))
                 .build());
-        machines.add(MekanizedMachines.base("formulaic_assemblicator", 40_000)
+        machines.add(BasicMachines.base("formulaic_assemblicator", 40_000)
                 .storage(StorageDefinition.slots("pattern", 9, 1).filter(Items.anyItem()))
                 .storage(StorageDefinition.slots("input", 18, 64).filter(Items.anyItem()))
                 .storage(StorageDefinition.slots("output", 3, 64).filter(Items.anyItem()))
@@ -132,7 +132,7 @@ public final class UtilityMachines {
     }
 
     private static boolean upgrade(UpgradeType upgrade) {
-        return MekanizedMachines.standardUpgrade(upgrade);
+        return MekanizedRegistry.standardUpgrade(upgrade);
     }
 
     /** The energy item slot, auto-eject. */

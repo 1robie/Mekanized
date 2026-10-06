@@ -52,7 +52,7 @@ final class FurnaceRecipes {
                     continue;
                 }
                 Key id = Key.key(MekanizedContent.NAMESPACE, "smelting/" + furnace.getKey().getNamespace() + "/" + furnace.getKey().getKey());
-                reload.register(ProcessingRecipe.builder(id, MekanizedMachines.SMELTING)
+                reload.register(ProcessingRecipe.builder(id, MekanizedRegistry.SMELTING)
                         .input(ResourceMatcher.of(input, 1))
                         .output(PaperItems.toResource(result))
                         .costPerTick(MekanizedContent.ENERGY.stack(JOULES_PER_TICK))

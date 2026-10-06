@@ -15,7 +15,7 @@ import fr.robie.machineengine.core.lifecycle.CoreMachineEngine;
 import fr.robie.machineengine.core.machine.MachineInstanceImpl;
 import fr.robie.machineengine.mekanized.machine.EjectBehavior;
 import fr.robie.machineengine.mekanized.machine.LogisticsMachines;
-import fr.robie.machineengine.mekanized.machine.MekanizedMachines;
+import fr.robie.machineengine.mekanized.machine.MekanizedRegistry;
 import fr.robie.machineengine.test.FakeWorld;
 import fr.robie.machineengine.test.TestEngine;
 import net.kyori.adventure.key.Key;
@@ -62,7 +62,7 @@ class LoadBenchmarkTest {
         for (int row = 0; row < rows; row++) {
             int z = row * 2;
             world.place(type("creative_energy_cube"), FakeWorld.at(0, 64, z), Direction.EAST);
-            for (int x = 1; x <= 4; x++) world.placeTransport(MekanizedMachines.CABLES.get(3), FakeWorld.at(x, 64, z));
+            for (int x = 1; x <= 4; x++) world.placeTransport(MekanizedRegistry.CABLES.get(3), FakeWorld.at(x, 64, z));
             MachineInstanceImpl chamber = world.place(type("enrichment_chamber"), FakeWorld.at(5, 64, z), Direction.NORTH);
             chamber.context().set(EjectBehavior.EJECT, true);
             fill(chamber, "input", MekanizedChainTest.item("mekanized:osmium_ore").stack(64));

@@ -50,8 +50,8 @@ public final class HeatMachines {
             context.transportTypes().register(TransportType.of(key(TIERS[i] + "_thermodynamic_conductor"), HEAT_NETWORK, CONDUCTOR_RATES[i], IS_HEAT));
         }
         context.machineTypes().register(heater("resistive_heater")
-                .storage(StorageDefinition.tank("energy", 100_000).filter(MekanizedMachines.IS_ENERGY))
-                .port(PortDefinition.builder("energy", "energy").direction(PortDirection.INPUT).filter(MekanizedMachines.IS_ENERGY)
+                .storage(StorageDefinition.tank("energy", 100_000).filter(MekanizedRegistry.IS_ENERGY))
+                .port(PortDefinition.builder("energy", "energy").direction(PortDirection.INPUT).filter(MekanizedRegistry.IS_ENERGY)
                         .group("energy").build())
                 .data(HEATER_RATE)
                 .behavior(resistive())

@@ -24,7 +24,7 @@ public final class MachineParts {
     /** {@code inner}, plus the energy item slot (charged items and redstone become energy) and auto-eject. */
     public static @NotNull MachineBehavior.Factory powered(@NotNull MachineBehavior.Factory inner) {
         return EjectBehavior.of(ConvertingBehavior.of(inner,
-                new ConvertingBehavior.Conversion("energy_slot", "energy", MekanizedMachines.ENERGY_CONVERSION)));
+                new ConvertingBehavior.Conversion("energy_slot", "energy", MekanizedRegistry.ENERGY_CONVERSION)));
     }
 
     /** Takes {@code joules} from {@code energy} in {@code transaction}; true only if all of it was there. */

@@ -58,12 +58,12 @@ public final class Liquifier {
     static void register(RegistrationContext context) {
         ResourcePredicate food = (variant, tags) -> nutrition(variant) > 0;
         ResourcePredicate paste = (variant, tags) -> variant.type() == MekanizedContent.fluid("nutritional_paste");
-        context.machineTypes().register(MekanizedMachines.base("nutritional_liquifier", 40_000)
+        context.machineTypes().register(BasicMachines.base("nutritional_liquifier", 40_000)
                 .storage(StorageDefinition.slots("input", 1, 64).filter(food))
                 .storage(StorageDefinition.tank("paste", 10_000).filter(paste))
                 .port(PortDefinition.builder("input", "input").direction(PortDirection.INPUT).group("items").build())
                 .port(PortDefinition.builder("paste", "paste").direction(PortDirection.OUTPUT).filter(paste).group("fluid").build())
-                .upgradeSlots(2, MekanizedMachines::standardUpgrade)
+                .upgradeSlots(2, MekanizedRegistry::standardUpgrade)
                 .behavior(MachineParts.powered(liquifier()))
                 .build());
         // The modification station takes modules back out of gear (Paper side); the block itself does nothing.

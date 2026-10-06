@@ -40,8 +40,8 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static fr.robie.machineengine.mekanized.MekanizedContent.key;
-import static fr.robie.machineengine.mekanized.machine.MekanizedMachines.ENERGY_CONVERSION;
-import static fr.robie.machineengine.mekanized.machine.MekanizedMachines.IS_ENERGY;
+import static fr.robie.machineengine.mekanized.machine.MekanizedRegistry.ENERGY_CONVERSION;
+import static fr.robie.machineengine.mekanized.machine.MekanizedRegistry.IS_ENERGY;
 
 /**
  * Phase 6 wave 4 (MEKANIZED_PLAN.md): the Digital Miner, the seismic vibrator, the teleporter and
@@ -81,12 +81,12 @@ public final class AutomationMachines {
     }
 
     static void register(RegistrationContext context) {
-        context.machineTypes().register(MekanizedMachines.base("digital_miner", 50_000)
+        context.machineTypes().register(BasicMachines.base("digital_miner", 50_000)
                 .storage(StorageDefinition.slots("filter", 9, 1).filter(Items.anyItem()))
                 .storage(StorageDefinition.slots("output", 27, 64).filter(Items.anyItem()))
                 .port(PortDefinition.builder("output", "output").direction(PortDirection.OUTPUT).group("items")
                         .sides(RelativeSide.BACK, RelativeSide.TOP).build())
-                .upgradeSlots(2, upgrade -> MekanizedMachines.standardUpgrade(upgrade) || upgrade.equals(MekanizedMachines.STONE_GENERATOR_UPGRADE))
+                .upgradeSlots(2, upgrade -> MekanizedRegistry.standardUpgrade(upgrade) || upgrade.equals(MekanizedRegistry.STONE_GENERATOR_UPGRADE))
                 .data(RUNNING).data(RADIUS).data(MIN_Y).data(CURSOR).data(STATUS)
                 .behavior(MachineParts.powered(miner()))
                 .build());
@@ -251,7 +251,7 @@ public final class AutomationMachines {
                     transaction.commit();
                 }
                 // Stone generator upgrade: the hole is filled with stone.
-                if (MekanizedMachines.installed(context, MekanizedMachines.STONE_GENERATOR_UPGRADE)) {
+                if (MekanizedRegistry.installed(context, MekanizedRegistry.STONE_GENERATOR_UPGRADE)) {
                     context.world().placeBlock(at, Key.key("minecraft", "stone"));
                 }
                 context.set(CURSOR, cursor + 1);

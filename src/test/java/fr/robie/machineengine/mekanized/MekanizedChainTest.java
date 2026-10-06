@@ -32,7 +32,7 @@ import fr.robie.machineengine.mekanized.machine.ChemistryMachines;
 import fr.robie.machineengine.mekanized.machine.EjectBehavior;
 import fr.robie.machineengine.mekanized.machine.EnergyItems;
 import fr.robie.machineengine.mekanized.machine.LogisticsMachines;
-import fr.robie.machineengine.mekanized.machine.MekanizedMachines;
+import fr.robie.machineengine.mekanized.machine.MekanizedRegistry;
 import fr.robie.machineengine.test.FakeWorld;
 import fr.robie.machineengine.test.TestEngine;
 import net.kyori.adventure.key.Key;
@@ -150,7 +150,7 @@ class MekanizedChainTest {
     void speedUpgradesMakeItFasterAndCostlier() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
         MachineInstanceImpl chamber = place(world, "enrichment_chamber");
-        world.runInRegionOf(HERE, () -> assertTrue(chamber.installUpgrade(MekanizedMachines.SPEED, 2).isOk()));
+        world.runInRegionOf(HERE, () -> assertTrue(chamber.installUpgrade(MekanizedRegistry.SPEED, 2).isOk()));
         fill(chamber, "energy", MekanizedContent.ENERGY.stack(20_000));
         fill(chamber, "input", item("mekanized:osmium_ore").stack(1));
         world.tick(114);
@@ -274,7 +274,7 @@ class MekanizedChainTest {
     void energyUpgradesEnlargeTheBufferAndLowerTheCost() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
         MachineInstanceImpl chamber = place(world, "enrichment_chamber");
-        world.runInRegionOf(HERE, () -> assertTrue(chamber.installUpgrade(MekanizedMachines.ENERGY_UPGRADE, 2).isOk()));
+        world.runInRegionOf(HERE, () -> assertTrue(chamber.installUpgrade(MekanizedRegistry.ENERGY_UPGRADE, 2).isOk()));
         fill(chamber, "energy", MekanizedContent.ENERGY.stack(60_000)); // 20 kJ base, +100 % per upgrade
         assertEquals(60_000, energy(chamber));
         fill(chamber, "input", item("mekanized:osmium_ore").stack(1));
@@ -291,7 +291,7 @@ class MekanizedChainTest {
     void speedUpgradesRunOneTickRecipesSeveralTimesPerTick() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
         MachineInstanceImpl separator = place(world, "electrolytic_separator");
-        separator.installUpgrade(MekanizedMachines.SPEED, 2);
+        separator.installUpgrade(MekanizedRegistry.SPEED, 2);
         fill(separator, "input", fluid("water", 1_000));
         powered(world, 10, separator);
         // 1 + 2 operations per tick, 2 mB of water each.

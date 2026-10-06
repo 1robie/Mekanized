@@ -46,10 +46,10 @@ public final class Entangloporters {
     }
 
     public static final List<Channel> CHANNELS = List.of(
-            new Channel("energy", MekanizedMachines.IS_ENERGY, 64_000_000, false, "energy"),
+            new Channel("energy", MekanizedRegistry.IS_ENERGY, 64_000_000, false, "energy"),
             new Channel("items", Items.anyItem(), 64, true, "items"),
             new Channel("fluid", ResourcePredicate.category(MekanizedContent.FLUID), 256_000, true, "fluid"),
-            new Channel("chemical", MekanizedMachines.IS_CHEMICAL, 256_000, true, "chemical"));
+            new Channel("chemical", MekanizedRegistry.IS_CHEMICAL, 256_000, true, "chemical"));
 
     /** Frequency -> channel storage -> what the buffer holds. */
     private static final Map<String, Map<String, Map<ResourceVariant, Long>>> BUFFERS = new ConcurrentHashMap<>();

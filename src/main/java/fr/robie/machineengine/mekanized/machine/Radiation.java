@@ -94,7 +94,7 @@ public final class Radiation {
     }
 
     static void register(RegistrationContext context) {
-        ResourcePredicate radioactive = MekanizedMachines.IS_CHEMICAL.and((variant, tags) -> radioactivity(variant) > 0);
+        ResourcePredicate radioactive = MekanizedRegistry.IS_CHEMICAL.and((variant, tags) -> radioactivity(variant) > 0);
         context.machineTypes().register(MachineType.builder(key("radioactive_waste_barrel"))
                 .storage(StorageDefinition.tank("waste", BARREL_CAPACITY).filter(radioactive))
                 .port(PortDefinition.builder("waste", "waste").direction(PortDirection.INPUT).filter(radioactive).group("chemical").build())

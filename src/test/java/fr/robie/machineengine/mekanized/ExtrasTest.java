@@ -18,7 +18,7 @@ import fr.robie.machineengine.core.machine.MachineInstanceImpl;
 import fr.robie.machineengine.mekanized.machine.AutomationMachines;
 import fr.robie.machineengine.mekanized.machine.ChunkLoaders;
 import fr.robie.machineengine.mekanized.machine.Entangloporters;
-import fr.robie.machineengine.mekanized.machine.MekanizedMachines;
+import fr.robie.machineengine.mekanized.machine.MekanizedRegistry;
 import fr.robie.machineengine.mekanized.machine.Radiation;
 import fr.robie.machineengine.test.FakeWorld;
 import fr.robie.machineengine.test.TestEngine;
@@ -87,13 +87,13 @@ class ExtrasTest {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
         MachineInstanceImpl compressor = world.place(type("osmium_compressor"), HERE, Direction.NORTH);
         var osmium = MekanizedContent.chemical("osmium");
-        world.runInRegionOf(HERE, () -> assertTrue(compressor.installUpgrade(MekanizedMachines.ENERGY_UPGRADE, 2).isOk()));
+        world.runInRegionOf(HERE, () -> assertTrue(compressor.installUpgrade(MekanizedRegistry.ENERGY_UPGRADE, 2).isOk()));
         assertEquals(640, compressor.context().modifiedCost(MekanizedContent.ENERGY, 1_000), "-20 % twice");
         assertEquals(1_000, compressor.context().modifiedCost(osmium, 1_000), "energy upgrades leave chemicals alone");
-        world.runInRegionOf(HERE, () -> assertTrue(compressor.installUpgrade(MekanizedMachines.CHEMICAL_UPGRADE, 1).isOk()));
+        world.runInRegionOf(HERE, () -> assertTrue(compressor.installUpgrade(MekanizedRegistry.CHEMICAL_UPGRADE, 1).isOk()));
         assertEquals(800, compressor.context().modifiedCost(osmium, 1_000));
         MachineInstanceImpl crusher = world.place(type("crusher"), FakeWorld.at(5, 64, 0), Direction.NORTH);
-        world.runInRegionOf(crusher.position(), () -> assertFalse(crusher.installUpgrade(MekanizedMachines.CHEMICAL_UPGRADE, 1).isOk(),
+        world.runInRegionOf(crusher.position(), () -> assertFalse(crusher.installUpgrade(MekanizedRegistry.CHEMICAL_UPGRADE, 1).isOk(),
                 "the crusher uses no chemical"));
     }
 
@@ -101,7 +101,7 @@ class ExtrasTest {
     void aFilteredPumpSeparatesHeavyWater() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
         MachineInstanceImpl pump = world.place(type("electric_pump"), HERE, Direction.NORTH);
-        world.runInRegionOf(HERE, () -> assertTrue(pump.installUpgrade(MekanizedMachines.FILTER_UPGRADE, 1).isOk()));
+        world.runInRegionOf(HERE, () -> assertTrue(pump.installUpgrade(MekanizedRegistry.FILTER_UPGRADE, 1).isOk()));
         fill(pump, "energy", MekanizedContent.ENERGY.stack(40_000));
         world.setFluid(FakeWorld.at(0, 63, 0), new WorldFluid(Key.key("minecraft", "water"), true));
         world.tick(2);
@@ -112,7 +112,7 @@ class ExtrasTest {
     void theStoneGeneratorFillsWhatTheMinerDigs() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
         MachineInstanceImpl miner = world.place(type("digital_miner"), HERE, Direction.NORTH);
-        world.runInRegionOf(HERE, () -> assertTrue(miner.installUpgrade(MekanizedMachines.STONE_GENERATOR_UPGRADE, 1).isOk()));
+        world.runInRegionOf(HERE, () -> assertTrue(miner.installUpgrade(MekanizedRegistry.STONE_GENERATOR_UPGRADE, 1).isOk()));
         world.setBlock(FakeWorld.at(1, 60, 1), Key.key("minecraft", "iron_ore"));
         fill(miner, "energy", MekanizedContent.ENERGY.stack(50_000));
         miner.context().set(AutomationMachines.RADIUS, "4");
@@ -141,7 +141,7 @@ class ExtrasTest {
     void anAnchorUpgradeKeepsItsMachinesChunkLoaded() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
         MachineInstanceImpl crusher = world.place(type("crusher"), HERE, Direction.NORTH);
-        world.runInRegionOf(HERE, () -> assertTrue(crusher.installUpgrade(MekanizedMachines.ANCHOR_UPGRADE, 1).isOk()));
+        world.runInRegionOf(HERE, () -> assertTrue(crusher.installUpgrade(MekanizedRegistry.ANCHOR_UPGRADE, 1).isOk()));
         assertEquals(0, ChunkLoaders.loaders().get(HERE));
         world.remove(HERE);
         assertNull(ChunkLoaders.loaders().get(HERE), "removed with its machine");
