@@ -12,14 +12,15 @@ import fr.robie.machineengine.core.machine.LoadedMachine;
 import fr.robie.machineengine.mekanized.machine.EnergyItems;
 import fr.robie.machineengine.mekanized.machine.UtilityBehaviors;
 import fr.robie.machineengine.mekanized.machine.UtilityMachines;
+import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.paper.MachineLocator;
 import fr.robie.machineengine.paper.PaperItems;
+import fr.robie.machineengine.paper.PaperWorlds;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.momirealms.craftengine.bukkit.api.event.CustomBlockBreakEvent;
 import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -86,7 +87,7 @@ final class PaperUtility implements Listener {
                 if (matrix[i] == null) matrix[i] = ItemStack.empty();
             }
             // The machine's own world: the one this region thread may touch.
-            World at = Bukkit.getWorld(new NamespacedKey(world.namespace(), world.value()));
+            World at = PaperWorlds.world(world);
             if (at == null) return Optional.empty();
             Recipe recipe = Bukkit.getCraftingRecipe(matrix, at);
             if (recipe == null || recipe.getResult().isEmpty()) return Optional.empty();
@@ -101,9 +102,7 @@ final class PaperUtility implements Listener {
         if (event.getHand() != EquipmentSlot.HAND) return;
         Block block = event.getClickedBlock();
         if (block == null) return;
-        MachineLocator locator = MachineLocator.current();
-        if (locator == null) return;
-        LoadedMachine machine = locator.machine(WorldPosition.of(block.getWorld().getKey(), block.getX(), block.getY(), block.getZ()));
+        LoadedMachine machine = PaperWorld.machine(block);
         if (machine == null || machine.instance() == null) return;
         var type = machine.inspect().type();
         Player player = event.getPlayer();
@@ -150,7 +149,7 @@ final class PaperUtility implements Listener {
                 transaction.commit();
             }
             for (ItemStack stack : PaperItems.toItemStacks(new ResourceStack(variant, taken))) {
-                player.getInventory().addItem(stack).values().forEach(left -> player.getWorld().dropItem(player.getLocation(), left));
+                PaperWorld.give(player, stack);
             }
             machine.instance().wake(WakeReason.RESOURCE_EXTRACTED);
             player.sendActionBar(Component.text(String.format(Locale.ROOT, "%,d left", Math.max(0, held.amount())), NamedTextColor.GRAY));
@@ -183,7 +182,7 @@ final class PaperUtility implements Listener {
     private static @Nullable String personalOwner(Block block) {
         MachineLocator locator = MachineLocator.current();
         if (locator == null) return null;
-        WorldPosition position = WorldPosition.of(block.getWorld().getKey(), block.getX(), block.getY(), block.getZ());
+        WorldPosition position = PaperWorld.position(block);
         if (!locator.isOwnedByCurrentThread(position)) return null;
         LoadedMachine machine = locator.machine(position);
         if (machine == null || machine.instance() == null || !UtilityMachines.isPersonal(machine.inspect().type())) return null;
@@ -208,7 +207,7 @@ final class PaperUtility implements Listener {
         Block feet = player.getLocation().getBlock();
         LoadedMachine pad = null;
         for (Block block : new Block[]{feet, feet.getRelative(BlockFace.DOWN)}) {
-            WorldPosition position = WorldPosition.of(block.getWorld().getKey(), block.getX(), block.getY(), block.getZ());
+            WorldPosition position = PaperWorld.position(block);
             if (!locator.isOwnedByCurrentThread(position)) continue;
             LoadedMachine machine = locator.machine(position);
             if (machine != null && machine.instance() != null && machine.inspect().type().equals(MekanizedContent.key("chargepad"))) {

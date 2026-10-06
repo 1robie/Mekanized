@@ -10,6 +10,7 @@ import fr.robie.machineengine.mekanized.machine.LogisticsMachines;
 import fr.robie.machineengine.mekanized.multiblock.MemberBehavior;
 import fr.robie.machineengine.mekanized.multiblock.Multiblocks;
 import fr.robie.machineengine.mekanized.multiblock.ReactorMachines;
+import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.paper.MachineLocator;
 import fr.robie.machineengine.paper.MachineMenuService;
 import fr.robie.machineengine.paper.PaperItems;
@@ -70,7 +71,7 @@ final class MekanizedTools implements Listener {
         boolean installer = tool.value().endsWith(INSTALLER_SUFFIX);
         if (!installer && !tool.value().equals("configurator")) return;
         MachineLocator locator = MachineLocator.current();
-        WorldPosition position = WorldPosition.of(block.getWorld().getKey(), block.getX(), block.getY(), block.getZ());
+        WorldPosition position = PaperWorld.position(block);
         LoadedMachine machine = locator == null ? null : locator.machine(position);
         if (!installer && locator != null && (machine == null || machine.instance() == null)) {
             // A transport: the configurator cycles how the clicked side connects (Mekanism's connection types).
@@ -126,7 +127,7 @@ final class MekanizedTools implements Listener {
     private static boolean multiblock(PlayerInteractEvent event, Block block, @org.jetbrains.annotations.Nullable Key tool) {
         MachineLocator locator = MachineLocator.current();
         if (locator == null) return false;
-        WorldPosition position = WorldPosition.of(block.getWorld().getKey(), block.getX(), block.getY(), block.getZ());
+        WorldPosition position = PaperWorld.position(block);
         LoadedMachine member = locator.machine(position);
         if (member == null || member.instance() == null) return false;
         Key type = member.inspect().type();
@@ -167,9 +168,7 @@ final class MekanizedTools implements Listener {
      */
     private static boolean blades(PlayerInteractEvent event, Block block, @org.jetbrains.annotations.Nullable ItemStack item,
                                   @org.jetbrains.annotations.Nullable Key tool) {
-        MachineLocator locator = MachineLocator.current();
-        if (locator == null) return false;
-        LoadedMachine rotor = locator.machine(WorldPosition.of(block.getWorld().getKey(), block.getX(), block.getY(), block.getZ()));
+        LoadedMachine rotor = PaperWorld.machine(block);
         if (rotor == null || rotor.instance() == null || !rotor.inspect().type().equals(MekanizedContent.key("turbine_rotor"))) return false;
         Player player = event.getPlayer();
         boolean add = tool != null && tool.equals(MekanizedContent.key("turbine_blade"));
@@ -191,8 +190,7 @@ final class MekanizedTools implements Listener {
                 if (blade != null && storage.extract(blade, 1, transaction) == 1) {
                     var stack = PaperItems.toItemStack(blade, 1);
                     transaction.commit();
-                    if (stack != null) player.getInventory().addItem(stack).values()
-                            .forEach(left -> player.getWorld().dropItem(player.getLocation(), left));
+                    if (stack != null) PaperWorld.give(player, stack);
                 }
             }
         }

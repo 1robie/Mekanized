@@ -10,11 +10,10 @@ import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.api.transfer.StorageView;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.RelativeSide;
-import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.core.machine.LoadedMachine;
 import fr.robie.machineengine.mekanized.machine.EjectBehavior;
 import fr.robie.machineengine.mekanized.machine.UtilityMachines;
-import fr.robie.machineengine.paper.MachineLocator;
+import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.paper.PaperItems;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
@@ -111,9 +110,8 @@ final class PaperTools implements Listener {
     }
 
     private static @Nullable LoadedMachine machine(@Nullable Block block) {
-        MachineLocator locator = MachineLocator.current();
-        if (block == null || locator == null) return null;
-        LoadedMachine machine = locator.machine(WorldPosition.of(block.getWorld().getKey(), block.getX(), block.getY(), block.getZ()));
+        if (block == null) return null;
+        LoadedMachine machine = PaperWorld.machine(block);
         return machine == null || machine.instance() == null ? null : machine;
     }
 
@@ -207,11 +205,8 @@ final class PaperTools implements Listener {
     }
 
     private static String blockId(Block block) {
-        MachineLocator locator = MachineLocator.current();
-        if (locator != null) {
-            LoadedMachine machine = locator.machine(WorldPosition.of(block.getWorld().getKey(), block.getX(), block.getY(), block.getZ()));
-            if (machine != null) return machine.inspect().type().asString();
-        }
+        LoadedMachine machine = PaperWorld.machine(block);
+        if (machine != null) return machine.inspect().type().asString();
         return block.getType().getKey().asString();
     }
 

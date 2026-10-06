@@ -2,9 +2,9 @@ package fr.robie.machineengine.mekanized;
 
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.machine.ChunkLoaders;
+import fr.robie.machineengine.paper.PaperWorlds;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 
@@ -66,7 +66,7 @@ final class PaperChunkLoaders {
     }
 
     private boolean ticket(Chunk chunk, boolean add) {
-        World world = Bukkit.getWorld(new NamespacedKey(chunk.world().namespace(), chunk.world().value()));
+        World world = PaperWorlds.world(chunk.world());
         if (world == null) return false;
         Bukkit.getRegionScheduler().execute(this.plugin, world, chunk.x(), chunk.z(), () -> {
             if (add) world.addPluginChunkTicket(chunk.x(), chunk.z(), this.plugin);

@@ -9,7 +9,7 @@ import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.core.machine.LoadedMachine;
 import fr.robie.machineengine.mekanized.machine.AutomationMachines.Frequencies;
 import fr.robie.machineengine.mekanized.machine.AutomationMachines;
-import fr.robie.machineengine.paper.MachineLocator;
+import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.paper.PaperItems;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
@@ -44,7 +44,6 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -110,7 +109,7 @@ final class PaperAutomation implements Listener {
     static void setFrequency(Plugin plugin, Player player, String frequency) {
         player.getScheduler().run(plugin, task -> {
             Block block = player.getTargetBlockExact(6);
-            LoadedMachine machine = block == null ? null : machineAt(block);
+            LoadedMachine machine = block == null ? null : PaperWorld.machine(block);
             ItemStack hand = player.getInventory().getItemInMainHand();
             String held = PaperGear.id(hand);
             if (("portable_teleporter".equals(held) || "portable_qio_dashboard".equals(held)) && (machine == null || machine.instance() == null)) {
@@ -132,15 +131,6 @@ final class PaperAutomation implements Listener {
         }, null);
     }
 
-    private static @Nullable LoadedMachine machineAt(Block block) {
-        MachineLocator locator = MachineLocator.current();
-        return locator == null ? null : locator.machine(position(block));
-    }
-
-    private static WorldPosition position(Block block) {
-        return WorldPosition.of(block.getWorld().getKey(), block.getX(), block.getY(), block.getZ());
-    }
-
     // -- teleporters --------------------------------------------------------------------------
 
     @EventHandler(ignoreCancelled = true)
@@ -152,7 +142,7 @@ final class PaperAutomation implements Listener {
         if (last != null && System.currentTimeMillis() - last < TELEPORT_COOLDOWN_MS) return;
         Block feet = event.getTo().getBlock();
         for (Block below : new Block[]{feet.getRelative(BlockFace.DOWN), feet.getRelative(BlockFace.DOWN, 2)}) {
-            WorldPosition from = position(below);
+            WorldPosition from = PaperWorld.position(below);
             Frequencies.Teleporter teleporter = Frequencies.teleporters().get(from);
             if (teleporter == null || !teleporter.formed()) continue;
             WorldPosition to = Frequencies.destination(from, teleporter.frequency());
@@ -161,8 +151,8 @@ final class PaperAutomation implements Listener {
                 this.lastTeleport.put(player.getUniqueId(), System.currentTimeMillis());
                 return;
             }
-            World world = Bukkit.getWorld(new NamespacedKey(to.world().namespace(), to.world().value()));
-            LoadedMachine source = machineAt(below);
+            World world = PaperWorld.world(to);
+            LoadedMachine source = PaperWorld.machine(below);
             if (world == null || source == null || source.instance() == null) return;
             long cost = cost(from, to);
             MachineContext context = source.instance().context();
@@ -236,11 +226,11 @@ final class PaperAutomation implements Listener {
         Long last = this.lastTeleport.get(player.getUniqueId());
         if (last != null && System.currentTimeMillis() - last < TELEPORT_COOLDOWN_MS) return;
         this.lastTeleport.put(player.getUniqueId(), System.currentTimeMillis());
-        WorldPosition from = position(player.getLocation().getBlock());
+        WorldPosition from = PaperWorld.position(player.getLocation().getBlock());
         WorldPosition to = Frequencies.teleporters().entrySet().stream()
                 .filter(entry -> entry.getValue().formed() && entry.getValue().frequency().equals(frequency))
                 .map(Map.Entry::getKey).findFirst().orElse(null);
-        World world = to == null ? null : Bukkit.getWorld(new NamespacedKey(to.world().namespace(), to.world().value()));
+        World world = to == null ? null : PaperWorld.world(to);
         if (world == null) {
             player.sendActionBar(Component.text("No teleporter with a complete frame on " + frequency, NamedTextColor.RED));
             return;
@@ -271,7 +261,7 @@ final class PaperAutomation implements Listener {
             event.setCancelled(true);
             unpack(player, block.getRelative(event.getBlockFace()), hand);
         } else if (MekanizedContent.key("seismic_reader").equals(tool)) {
-            LoadedMachine machine = machineAt(block);
+            LoadedMachine machine = PaperWorld.machine(block);
             if (machine == null || machine.instance() == null || !machine.inspect().type().equals(MekanizedContent.key("seismic_vibrator"))) return;
             event.setCancelled(true);
             if (!machine.instance().isActive()) {
@@ -280,7 +270,7 @@ final class PaperAutomation implements Listener {
             }
             read(player, block);
         } else if (!player.isSneaking()) {
-            LoadedMachine machine = machineAt(block);
+            LoadedMachine machine = PaperWorld.machine(block);
             if (machine == null || machine.instance() == null || !machine.inspect().type().equals(MekanizedContent.key("qio_dashboard"))) return;
             event.setCancelled(true);
             String frequency = machine.instance().context().get(AutomationMachines.FREQUENCY);
@@ -327,7 +317,7 @@ final class PaperAutomation implements Listener {
         });
         block.setType(Material.AIR, false);
         box.setAmount(box.getAmount() - 1);
-        give(player, full);
+        PaperWorld.give(player, full);
     }
 
     /** Places the boxed block back where there is room, with what it held. */
@@ -357,7 +347,7 @@ final class PaperAutomation implements Listener {
         }
         box.setAmount(box.getAmount() - 1);
         ItemStack empty = PaperItems.itemOf(MekanizedContent.key("cardboard_box"));
-        if (empty != null) give(player, empty);
+        if (empty != null) PaperWorld.give(player, empty);
     }
 
     /** Slots as length-prefixed serialized items (an empty slot: length 0). */
@@ -411,10 +401,6 @@ final class PaperAutomation implements Listener {
         found.forEach((name, levels) -> player.sendMessage(Component.text("  " + name.replace('_', ' '), NamedTextColor.YELLOW)
                 .append(Component.text(" x" + levels.size() + " (y " + levels.getFirst() + (levels.size() > 1 ? " to " + levels.getLast() : "") + ")",
                         NamedTextColor.GRAY))));
-    }
-
-    private static void give(Player player, ItemStack stack) {
-        player.getInventory().addItem(stack).values().forEach(left -> player.getWorld().dropItem(player.getLocation(), left));
     }
 
     // -- QIO dashboard ------------------------------------------------------------------------
@@ -534,21 +520,21 @@ final class PaperAutomation implements Listener {
         }
         if (index >= arrays.size()) {
             player.getScheduler().run(this.plugin, task -> {
-                for (ItemStack left : PaperItems.toItemStacks(new ResourceStack(variant, amount))) give(player, left);
+                for (ItemStack left : PaperItems.toItemStacks(new ResourceStack(variant, amount))) PaperWorld.give(player, left);
                 player.sendActionBar(Component.text("The drive arrays are full", NamedTextColor.RED));
                 refresh(player);
             }, null);
             return;
         }
         WorldPosition position = arrays.get(index);
-        Location location = location(position);
+        Location location = PaperWorld.location(position);
         if (location == null) {
             depositInto(player, arrays, index + 1, variant, amount);
             return;
         }
         Bukkit.getRegionScheduler().run(this.plugin, location, task -> {
             long inserted = 0;
-            LoadedMachine array = MachineLocator.current() == null ? null : MachineLocator.current().machine(position);
+            LoadedMachine array = PaperWorld.machine(position);
             if (array != null && array.instance() != null) {
                 MachineContext context = array.instance().context();
                 try (Transaction transaction = context.transactions().openOuter()) {
@@ -565,11 +551,11 @@ final class PaperAutomation implements Listener {
     private void withdraw(Player player, Dashboard dashboard, ResourceVariant variant, long wanted) {
         for (WorldPosition position : Frequencies.arrays(dashboard.frequency)) {
             Frequencies.Array array = Frequencies.arrays().get(position);
-            Location location = location(position);
+            Location location = PaperWorld.location(position);
             if (array == null || location == null || !array.contents().containsKey(variant)) continue;
             Bukkit.getRegionScheduler().run(this.plugin, location, task -> {
                 long taken = 0;
-                LoadedMachine machine = MachineLocator.current() == null ? null : MachineLocator.current().machine(position);
+                LoadedMachine machine = PaperWorld.machine(position);
                 if (machine != null && machine.instance() != null) {
                     MachineContext context = machine.instance().context();
                     try (Transaction transaction = context.transactions().openOuter()) {
@@ -580,7 +566,7 @@ final class PaperAutomation implements Listener {
                 }
                 long finalTaken = taken;
                 player.getScheduler().run(this.plugin, give -> {
-                    for (ItemStack stack : PaperItems.toItemStacks(new ResourceStack(variant, finalTaken))) give(player, stack);
+                    for (ItemStack stack : PaperItems.toItemStacks(new ResourceStack(variant, finalTaken))) PaperWorld.give(player, stack);
                     refresh(player);
                 }, null);
             });
@@ -595,8 +581,4 @@ final class PaperAutomation implements Listener {
         }, null, 21);
     }
 
-    private static @Nullable Location location(WorldPosition position) {
-        World world = Bukkit.getWorld(new NamespacedKey(position.world().namespace(), position.world().value()));
-        return world == null ? null : new Location(world, position.position().x(), position.position().y(), position.position().z());
-    }
 }

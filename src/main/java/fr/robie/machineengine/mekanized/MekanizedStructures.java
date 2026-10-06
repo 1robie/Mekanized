@@ -4,7 +4,7 @@ import fr.robie.machineengine.api.machine.WakeReason;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.multiblock.MemberBehavior;
-import fr.robie.machineengine.paper.MachineLocator;
+import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.paper.PaperItems;
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
 import net.momirealms.craftengine.core.util.Key;
@@ -151,8 +151,7 @@ final class MekanizedStructures {
             List<Integer> at = block.getKey();
             WorldPosition position = WorldPosition.of(world.getKey(), x + at.get(0), y + at.get(1), z + at.get(2));
             String mode = structure.modes().get(at);
-            var locator = MachineLocator.current();
-            var loaded = locator == null ? null : locator.machine(position);
+            var loaded = PaperWorld.machine(position);
             if (loaded == null || loaded.instance() == null) continue;
             if (mode != null) loaded.instance().context().set(MemberBehavior.PORT_MODE, mode);
             if (block.getValue().equals("turbine_rotor") && blade != null) {

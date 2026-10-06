@@ -18,6 +18,7 @@ import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.Direction;
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.machine.Radiation;
+import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.paper.PaperItems;
 import fr.robie.machineengine.paper.PositionArguments;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
@@ -89,8 +90,7 @@ final class MekanizedCommands {
                                 .executes(context -> {
                                     Location at = context.getSource().getLocation();
                                     double strength = DoubleArgumentType.getDouble(context, "sieverts");
-                                    Radiation.release(
-                                            WorldPosition.of(at.getWorld().getKey(), at.getBlockX(), at.getBlockY(), at.getBlockZ()), strength);
+                                    Radiation.release(PaperWorld.position(at.getBlock()), strength);
                                     reply(context, "Released " + strength + " Sv/h here");
                                     return Command.SINGLE_SUCCESS;
                                 })))

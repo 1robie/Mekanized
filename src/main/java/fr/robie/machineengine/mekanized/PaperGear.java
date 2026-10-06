@@ -4,11 +4,10 @@ import fr.robie.machineengine.api.machine.WakeReason;
 import fr.robie.machineengine.api.resource.ResourceType;
 import fr.robie.machineengine.api.transfer.StorageView;
 import fr.robie.machineengine.api.transfer.Transaction;
-import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.core.machine.LoadedMachine;
 import fr.robie.machineengine.mekanized.machine.EnergyItems;
 import fr.robie.machineengine.mekanized.machine.Liquifier;
-import fr.robie.machineengine.paper.MachineLocator;
+import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.paper.PaperItems;
 import io.papermc.paper.entity.Shearable;
 import net.kyori.adventure.key.Key;
@@ -637,9 +636,7 @@ final class PaperGear implements Listener {
     }
 
     private static boolean isStation(Block block) {
-        MachineLocator locator = MachineLocator.current();
-        LoadedMachine machine = locator == null ? null
-                : locator.machine(WorldPosition.of(block.getWorld().getKey(), block.getX(), block.getY(), block.getZ()));
+        LoadedMachine machine = PaperWorld.machine(block);
         return machine != null && machine.inspect().type().equals(MekanizedContent.key("modification_station"));
     }
 
@@ -665,7 +662,7 @@ final class PaperGear implements Listener {
         long capacity = capacity(gear);
         if (energy(gear) > capacity) useEnergy(gear, energy(gear) - capacity);
         ItemStack item = PaperItems.itemOf(MekanizedContent.key("module_" + module));
-        if (item != null) player.getInventory().addItem(item).values().forEach(left -> player.getWorld().dropItem(player.getLocation(), left));
+        if (item != null) PaperWorld.give(player, item);
         player.sendActionBar(Component.text("Removed: " + module.replace('_', ' '), NamedTextColor.YELLOW));
     }
 
@@ -684,9 +681,7 @@ final class PaperGear implements Listener {
 
     /** Fills the gear's chemical from a machine holding it. */
     private boolean fill(Player player, ItemStack gear, String id, Block block) {
-        MachineLocator locator = MachineLocator.current();
-        LoadedMachine machine = locator == null ? null
-                : locator.machine(WorldPosition.of(block.getWorld().getKey(), block.getX(), block.getY(), block.getZ()));
+        LoadedMachine machine = PaperWorld.machine(block);
         if (machine == null || machine.instance() == null) return false;
         String chemical = (String) CHEMICALS.get(id)[0];
         long room = (long) CHEMICALS.get(id)[1] - chemical(gear);
@@ -755,9 +750,7 @@ final class PaperGear implements Listener {
 
     /** What a machine holds, in chat. */
     private static void read(Player player, Block block) {
-        MachineLocator locator = MachineLocator.current();
-        LoadedMachine machine = locator == null ? null
-                : locator.machine(WorldPosition.of(block.getWorld().getKey(), block.getX(), block.getY(), block.getZ()));
+        LoadedMachine machine = PaperWorld.machine(block);
         if (machine == null) {
             player.sendMessage(Component.text("Not a machine", NamedTextColor.GRAY));
             return;
