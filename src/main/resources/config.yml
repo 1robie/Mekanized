@@ -23,3 +23,8 @@ teleporter:
   cost-per-block: 10        # J more per block travelled in one world
   other-world-cost: 100000  # J of a teleport to another world (distance does not count)
   cooldown-seconds: 3       # seconds a player waits between two teleports
+
+# The dimensional stabilizer. Anchor upgrades always load only the machine's own chunk, for free.
+chunk-loading:
+  max-radius: 2          # chunks around its own a stabilizer can load (0-8); 2 is a 5 x 5 area
+  energy-per-chunk: 500  # J per tick for each chunk it keeps loaded

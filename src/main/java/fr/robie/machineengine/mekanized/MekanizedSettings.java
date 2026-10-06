@@ -1,5 +1,6 @@
 package fr.robie.machineengine.mekanized;
 
+import fr.robie.machineengine.mekanized.machine.ChunkLoadingSettings;
 import fr.robie.machineengine.mekanized.machine.TeleporterSettings;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
@@ -41,6 +42,12 @@ public final class MekanizedSettings {
         evaporationPerLevel = positive(config, "thermal-evaporation.input-per-level-per-tick", evaporationPerLevel, logger);
         evaporationTankPerLevel = positive(config, "thermal-evaporation.input-tank-per-level", evaporationTankPerLevel, logger);
         loadTeleporter(config, logger);
+        loadChunkLoading(config, logger);
+    }
+
+    private static void loadChunkLoading(ConfigurationSection config, Logger logger) {
+        ChunkLoadingSettings.maxRadius = (int) bounded(config, "chunk-loading.max-radius", ChunkLoadingSettings.DEFAULT_MAX_RADIUS, 0, 8, logger);
+        ChunkLoadingSettings.energyPerChunk = bounded(config, "chunk-loading.energy-per-chunk", ChunkLoadingSettings.DEFAULT_ENERGY_PER_CHUNK, 0, MAX_JOULES, logger);
     }
 
     private static void loadTeleporter(ConfigurationSection config, Logger logger) {

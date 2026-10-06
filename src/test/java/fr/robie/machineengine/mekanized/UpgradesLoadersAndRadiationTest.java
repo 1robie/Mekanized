@@ -17,12 +17,14 @@ import fr.robie.machineengine.core.lifecycle.CoreMachineEngine;
 import fr.robie.machineengine.core.machine.MachineInstanceImpl;
 import fr.robie.machineengine.mekanized.machine.AutomationMachines;
 import fr.robie.machineengine.mekanized.machine.ChunkLoaders;
+import fr.robie.machineengine.mekanized.machine.ChunkLoadingSettings;
 import fr.robie.machineengine.mekanized.machine.Entangloporters;
 import fr.robie.machineengine.mekanized.machine.MekanizedRegistry;
 import fr.robie.machineengine.mekanized.machine.Radiation;
 import fr.robie.machineengine.test.FakeWorld;
 import fr.robie.machineengine.test.TestEngine;
 import net.kyori.adventure.key.Key;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -44,6 +46,11 @@ class UpgradesLoadersAndRadiationTest {
                 }
             })
             .start();
+
+    @AfterEach
+    void resetSettings() {
+        ChunkLoadingSettings.reset();
+    }
 
     @BeforeEach
     void forget() {
@@ -135,6 +142,33 @@ class UpgradesLoadersAndRadiationTest {
         assertEquals(1, ChunkLoaders.loaders().get(HERE));
         world.tick(60);
         assertNull(ChunkLoaders.loaders().get(HERE), "out of energy: the chunks may unload");
+    }
+
+    @Test
+    void theStabilizersRadiusIsLimitedBySettings() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        MachineInstanceImpl stabilizer = world.place(type("dimensional_stabilizer"), HERE, Direction.NORTH);
+        stabilizer.context().set(ChunkLoaders.RADIUS, "3");
+        fill(stabilizer, "energy", MekanizedContent.ENERGY.stack(1_000_000));
+        stabilizer.wake(WakeReason.CONFIG_CHANGED);
+        world.tick(1);
+        assertEquals(2, ChunkLoaders.loaders().get(HERE), "the default limit: a 5 x 5 area");
+        ChunkLoadingSettings.maxRadius = 3;
+        stabilizer.wake(WakeReason.CONFIG_CHANGED);
+        world.tick(1);
+        assertEquals(3, ChunkLoaders.loaders().get(HERE), "a raised limit is used");
+    }
+
+    @Test
+    void aStabilizerPaysTheConfiguredEnergyPerChunk() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        ChunkLoadingSettings.energyPerChunk = 10_000;
+        MachineInstanceImpl stabilizer = world.place(type("dimensional_stabilizer"), HERE, Direction.NORTH);
+        // Its own chunk only: 10 kJ x 20 ticks = 200 kJ a second, more than it holds.
+        fill(stabilizer, "energy", MekanizedContent.ENERGY.stack(150_000));
+        stabilizer.wake(WakeReason.CONFIG_CHANGED);
+        world.tick(1);
+        assertNull(ChunkLoaders.loaders().get(HERE), "too expensive for what it holds");
     }
 
     @Test

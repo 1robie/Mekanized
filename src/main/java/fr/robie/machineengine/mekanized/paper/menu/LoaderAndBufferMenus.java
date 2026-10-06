@@ -1,9 +1,10 @@
 package fr.robie.machineengine.mekanized.paper.menu;
 
-import fr.robie.machineengine.mekanized.machine.ChunkLoaders;
+import fr.robie.machineengine.mekanized.machine.ChunkLoadingSettings;
 import fr.robie.machineengine.mekanized.machine.Liquifier;
 import fr.robie.machineengine.mekanized.machine.Radiation;
 import fr.robie.machineengine.mekanized.paper.menu.MenuYaml.Menu;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,13 +15,31 @@ final class LoaderAndBufferMenus {
     private LoaderAndBufferMenus() {
     }
 
+    /** The radii the stabilizer allows: 0 up to the configured maximum. */
+    private static List<String> radii() {
+        List<String> radii = new ArrayList<>();
+        for (int radius = 0; radius <= ChunkLoadingSettings.maxRadius; radius++) radii.add(Integer.toString(radius));
+        return radii;
+    }
+
+    /** "0: its chunk, 1: 3 x 3, 2: 5 x 5": the area each radius loads. */
+    private static String radiusAreas() {
+        StringBuilder text = new StringBuilder();
+        for (int radius = 0; radius <= ChunkLoadingSettings.maxRadius; radius++) {
+            if (radius > 0) text.append(", ");
+            int side = 2 * radius + 1;
+            text.append(radius).append(": ").append(radius == 0 ? "its chunk" : side + " x " + side);
+        }
+        return text.toString();
+    }
+
     static void add(List<Menu> menus) {
         Map<String, String> stabilizer = new LinkedHashMap<>();
         stabilizer.put("info", display(4, "END_CRYSTAL", "<light_purple>Dimensional Stabilizer", "<gray>Keeps the chunks around it loaded",
-                "<gray>while it has energy (" + ChunkLoaders.STABILIZER_ENERGY_PER_CHUNK
+                "<gray>while it has energy (" + ChunkLoadingSettings.energyPerChunk
                         + " J/t per chunk)."));
-        stabilizer.put("radius", setting(11, "radius", List.of("0", "1", "2"), "COMPASS",
-                "<yellow>Chunks around: %zmenu_machineengine_data_radius%", "<gray>0: its chunk, 1: 3 x 3, 2: 5 x 5"));
+        stabilizer.put("radius", setting(11, "radius", radii(), "COMPASS",
+                "<yellow>Chunks around: %zmenu_machineengine_data_radius%", "<gray>" + radiusAreas()));
         stabilizer.put("energy", energyDisplay(13));
         stabilizer.put("status", status(15));
         stabilizer.put("energy-slot", slot(31, "energy_slot", "Energy item (redstone: 10 kJ each)"));

@@ -1,6 +1,7 @@
 package fr.robie.machineengine.mekanized;
 
 import fr.robie.machineengine.api.world.WorldPosition;
+import fr.robie.machineengine.mekanized.machine.ChunkLoadingSettings;
 import fr.robie.machineengine.mekanized.machine.Frequencies;
 import fr.robie.machineengine.mekanized.machine.TeleporterSettings;
 import fr.robie.machineengine.test.FakeWorld;
@@ -53,6 +54,7 @@ class SettingsTest {
     @AfterEach
     void reset() {
         TeleporterSettings.reset();
+        ChunkLoadingSettings.reset();
     }
 
     private void load(String yaml) {
@@ -106,5 +108,31 @@ class SettingsTest {
         assertEquals(10, TeleporterSettings.costPerBlock, "not a number: the default");
         assertEquals(3_600_000, TeleporterSettings.cooldownMs, "too long: the highest allowed");
         assertEquals(3, this.warnings.size(), this.warnings.toString());
+    }
+
+    // -- chunk loading ----------------------------------------------------------------------------
+
+    @Test
+    void chunkLoadingDefaultsAreTheOldNumbers() {
+        assertEquals(2, ChunkLoadingSettings.maxRadius);
+        assertEquals(500, ChunkLoadingSettings.energyPerChunk);
+    }
+
+    @Test
+    void theShippedConfigKeepsTheChunkLoadingDefaults() throws IOException {
+        loadShipped();
+        chunkLoadingDefaultsAreTheOldNumbers();
+        assertTrue(this.warnings.isEmpty(), this.warnings.toString());
+    }
+
+    @Test
+    void chunkLoadingSettingsAreReadAndLimited() {
+        load("chunk-loading:\n  max-radius: 3\n  energy-per-chunk: 250\n");
+        assertEquals(3, ChunkLoadingSettings.maxRadius);
+        assertEquals(250, ChunkLoadingSettings.energyPerChunk);
+        load("chunk-loading:\n  max-radius: 40\n  energy-per-chunk: -1\n");
+        assertEquals(8, ChunkLoadingSettings.maxRadius, "a 17 x 17 area at most");
+        assertEquals(0, ChunkLoadingSettings.energyPerChunk);
+        assertEquals(2, this.warnings.size(), this.warnings.toString());
     }
 }

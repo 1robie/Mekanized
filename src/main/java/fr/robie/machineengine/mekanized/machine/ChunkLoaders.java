@@ -25,10 +25,6 @@ import static fr.robie.machineengine.mekanized.MekanizedContent.key;
  * knows which machine wants which chunks; the platform adds the chunk tickets and saves the list.
  */
 public final class ChunkLoaders {
-    /** Chunks around its own the stabilizer can load: up to 2, a 5 x 5 area like Mekanism's. */
-    public static final int MAX_RADIUS = 2;
-    /** Joules per tick for each chunk a stabilizer keeps loaded. */
-    public static final long STABILIZER_ENERGY_PER_CHUNK = 500;
     public static final MachineDataKey<String> RADIUS = DataKeys.string("radius", "0");
     public static final MachineDataKey<String> STATUS = DataKeys.STATUS;
 
@@ -81,12 +77,12 @@ public final class ChunkLoaders {
         else if (LOADERS.containsKey(machine.position())) set(machine.position(), null);
     }
 
-    /** Once a second: pays for its chunks ({@link #STABILIZER_ENERGY_PER_CHUNK} each, per tick) and keeps them loaded. */
+    /** Once a second: pays for its chunks ({@link ChunkLoadingSettings#energyPerChunk} each, per tick) and keeps them loaded. */
     static @NotNull MachineBehavior.Factory stabilizer() {
         return type -> context -> {
-            int radius = DataKeys.parseInt(context.get(RADIUS), 0, 0, MAX_RADIUS);
+            int radius = DataKeys.parseInt(context.get(RADIUS), 0, 0, ChunkLoadingSettings.maxRadius);
             long chunks = (2L * radius + 1) * (2L * radius + 1);
-            long cost = context.modifiedCost(MekanizedContent.ENERGY, STABILIZER_ENERGY_PER_CHUNK * chunks) * 20;
+            long cost = context.modifiedCost(MekanizedContent.ENERGY, ChunkLoadingSettings.energyPerChunk * chunks) * 20;
             boolean paid;
             try (Transaction transaction = context.transactions().openOuter()) {
                 paid = MachineParts.pay(context.storage("energy"), cost, transaction);
