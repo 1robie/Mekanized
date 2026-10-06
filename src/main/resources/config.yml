@@ -55,3 +55,60 @@ qio:
   drive-kinds: [128, 256, 1024, 8192]              # kinds of item each drive holds
   array-kinds: 1024                                # kinds of item a drive array holds at most, whatever its drives (1-16384)
   importer-exporter-rate: 64                       # items an importer or exporter moves per second
+
+# Gear: tools, suits, packs and modules. Energy is in Joules, chemicals in mB.
+gear:
+  # Joules each item holds when full. free-runners also covers the armored ones; mekasuit covers all four pieces.
+  energy-capacity:
+    energy-tablet: 1000000
+    atomic-disassembler: 1000000
+    portable-teleporter: 1000000
+    meka-tool: 16000000
+    electric-bow: 120000
+    free-runners: 64000
+    mekasuit: 16000000
+  energy-unit-factor: 4      # an energy unit multiplies a piece's capacity by this
+  # mB of chemical each item holds. jetpack also covers the armored jetpack and the MekaSuit body armor.
+  chemical-capacity:
+    jetpack: 24000
+    flamethrower: 24000
+    scuba-tank: 24000
+    canteen: 64000
+  scuba-oxygen-per-second: 20  # mB of oxygen each time the tank refills the player's air
+  tools:
+    energy-per-block: 100                # J per block mined (and the charge a disassembler or Meka-Tool needs to mine fast)
+    vein-limit: 64                       # blocks one vein mining breaks (sneaking)
+    vein-limit-with-unit: 256            # the same with the vein mining unit
+    shear-energy: 500                    # J per animal sheared
+    disassembler-hit-energy: 2000        # J per hit of a charged atomic disassembler
+    disassembler-damage: 20              # damage it deals at least (20 is ten hearts)
+    meka-tool-hit-energy: 3000           # J per hit of a charged Meka-Tool
+    meka-tool-damage: 10                 # damage it deals at least
+    meka-tool-amplified-damage: 30       # the same with the attack amplification unit
+    bow-energy-per-shot: 120             # J per shot of the electric bow
+    teleport-range: 100                  # blocks the teleportation unit looks ahead (1-256); its cost is under teleporter
+    flamethrower-hydrogen: 5             # mB of hydrogen per burst
+    flamethrower-damage: 2               # damage of a burst
+  jetpack:
+    hydrogen-per-tick: 1       # mB of hydrogen per tick of thrust
+    thrust: 0.15               # upward speed added each tick
+    max-speed: 0.5             # top upward speed
+    walk-speed: 0.3            # horizontal speed steered with the movement keys
+    sprint-speed: 0.45         # the same while sprinting
+  modules:                     # J per second unless said otherwise
+    fall-energy-per-damage: 50              # J per point of fall damage absorbed (free runners, MekaSuit boots)
+    magnetic-attraction-energy: 20          # J per item pulled
+    magnetic-attraction-range: 8            # blocks
+    electrolytic-breathing-energy: 2000
+    vision-enhancement-energy: 200
+    nutritional-injection-energy: 2500
+    inhalation-purification-energy: 2000    # per harmful effect removed
+    gravitational-modulating-energy: 20000  # while flying; the charge needed to start flying
+    locomotive-boosting-energy: 2000
+    hydraulic-propulsion-energy: 200
+    hydrostatic-repulsor-energy: 500
+    gyroscopic-stabilization-energy: 200
+    motorized-servo-min-energy: 100         # the charge the legs need to step up blocks
+    solar-recharging-energy: 2000           # J made per second in daylight
+    geothermal-generator-energy: 10000      # J made per second in lava or on fire
+    charge-distribution-energy: 20000       # J given to each other piece per second

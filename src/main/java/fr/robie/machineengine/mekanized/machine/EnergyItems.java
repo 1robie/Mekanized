@@ -13,8 +13,6 @@ import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Map;
-
 /**
  * Items that store energy (E4), such as the Energy Tablet: a charged one in a machine's energy slot
  * powers it, an energy cube's charge slot fills one. The energy lives in the item's own data, so the
@@ -22,20 +20,6 @@ import java.util.Map;
  * ({@link #setAccess}, Paper: the item's persistent data).
  */
 public final class EnergyItems {
-    /** Joules each energy item holds when full. */
-    public static final Map<Key, Long> CAPACITY = Map.ofEntries(
-            Map.entry(MekanizedContent.key("energy_tablet"), 1_000_000L),
-            // Tools and armour.
-            Map.entry(MekanizedContent.key("atomic_disassembler"), 1_000_000L),
-            Map.entry(MekanizedContent.key("portable_teleporter"), 1_000_000L),
-            Map.entry(MekanizedContent.key("meka_tool"), 16_000_000L),
-            Map.entry(MekanizedContent.key("electric_bow"), 120_000L),
-            Map.entry(MekanizedContent.key("free_runners"), 64_000L),
-            Map.entry(MekanizedContent.key("free_runners_armored"), 64_000L),
-            Map.entry(MekanizedContent.key("mekasuit_helmet"), 16_000_000L),
-            Map.entry(MekanizedContent.key("mekasuit_bodyarmor"), 16_000_000L),
-            Map.entry(MekanizedContent.key("mekasuit_pants"), 16_000_000L),
-            Map.entry(MekanizedContent.key("mekasuit_boots"), 16_000_000L));
     /** Matches energy items, whatever their charge. */
     public static final ResourcePredicate IS_ENERGY_ITEM = (variant, tags) -> capacity(variant) > 0;
 
@@ -54,6 +38,17 @@ public final class EnergyItems {
 
     private static volatile @Nullable Access access;
 
+    /** Joules {@code item} holds when full, without modules ({@link GearSettings#energyCapacity}); 0 if it holds no energy. */
+    public static long baseCapacity(@NotNull Key item) {
+        return item.namespace().equals(MekanizedContent.NAMESPACE) ? GearSettings.energyCapacity.getOrDefault(item.value(), 0L) : 0;
+    }
+
+    /** {@code item}'s capacity with the comma-separated {@code modules} it carries: an energy unit multiplies it. */
+    public static long capacity(@NotNull Key item, @Nullable String modules) {
+        long base = baseCapacity(item);
+        return modules != null && java.util.List.of(modules.split(",")).contains("energy_unit") ? base * GearSettings.energyUnitFactor : base;
+    }
+
     private EnergyItems() {
     }
 
@@ -64,7 +59,7 @@ public final class EnergyItems {
     /** The capacity of {@code variant} if it is an energy item, else 0. */
     public static long capacity(@NotNull ResourceVariant variant) {
         ItemData data = variant.type() == Items.ITEM ? variant.components().get(Items.DATA) : null;
-        long base = data == null ? 0 : CAPACITY.getOrDefault(data.item(), 0L);
+        long base = data == null ? 0 : baseCapacity(data.item());
         Access current = access;
         return base <= 0 || current == null ? base : current.capacity(variant, base);
     }

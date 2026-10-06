@@ -2,6 +2,7 @@ package fr.robie.machineengine.mekanized.paper.gear;
 
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.mekanized.machine.EnergyItems;
+import fr.robie.machineengine.mekanized.machine.GearSettings;
 import fr.robie.machineengine.mekanized.paper.ItemLongs;
 import fr.robie.machineengine.mekanized.paper.Lore;
 import fr.robie.machineengine.mekanized.paper.PaperEnergyItems;
@@ -36,14 +37,10 @@ public final class GearItems {
     public static final NamespacedKey CHEMICAL = new NamespacedKey(MekanizedContent.NAMESPACE, "gear_chemical");
     public static final NamespacedKey MODULES = new NamespacedKey(MekanizedContent.NAMESPACE, "modules");
 
-    /** Gear holding a chemical: item -> {chemical, capacity in mB}. */
-    static final Map<String, Object[]> CHEMICALS = Map.of(
-            "jetpack", new Object[]{"hydrogen", 24_000L}, "jetpack_armored", new Object[]{"hydrogen", 24_000L},
-            "flamethrower", new Object[]{"hydrogen", 24_000L}, "scuba_tank", new Object[]{"oxygen", 24_000L},
-            "mekasuit_bodyarmor", new Object[]{"hydrogen", 24_000L}, "canteen", new Object[]{"fluid/nutritional_paste", 64_000L});
-
-    /** The energy unit multiplies a piece's capacity by this. */
-    static final long ENERGY_UNIT_FACTOR = 4;
+    /** Gear holding a chemical: item -> the chemical (the capacity in mB is {@link GearSettings#chemicalCapacity}). */
+    static final Map<String, String> CHEMICALS = Map.of(
+            "jetpack", "hydrogen", "jetpack_armored", "hydrogen", "flamethrower", "hydrogen", "scuba_tank", "oxygen",
+            "mekasuit_bodyarmor", "hydrogen", "canteen", "fluid/nutritional_paste");
 
     // -- item data ------------------------------------------------------------------------------
 
@@ -90,10 +87,9 @@ public final class GearItems {
         return list == null || list.isEmpty() ? Set.of() : new LinkedHashSet<>(List.of(list.split(",")));
     }
 
-    /** The item's energy capacity: its base one, times {@link #ENERGY_UNIT_FACTOR} with an energy unit. */
+    /** The item's energy capacity: its base one, times {@link GearSettings#energyUnitFactor} with an energy unit. */
     public static long capacity(Key item, @Nullable String modules) {
-        long base = EnergyItems.CAPACITY.getOrDefault(item, 0L);
-        return modules != null && List.of(modules.split(",")).contains("energy_unit") ? base * ENERGY_UNIT_FACTOR : base;
+        return EnergyItems.capacity(item, modules);
     }
 
     public static long capacity(ItemStack stack) {
@@ -121,10 +117,11 @@ public final class GearItems {
         long capacity = capacity(item, pdc.get(MODULES, PersistentDataType.STRING));
         long energy = ItemLongs.get(pdc, PaperEnergyItems.ENERGY);
         if (capacity > 0) lore.add(Lore.line(String.format(Locale.ROOT, "Energy: %,d / %,d J", energy, capacity)));
-        Object[] chemical = CHEMICALS.get(item.value());
+        String chemical = CHEMICALS.get(item.value());
         if (chemical != null) {
-            String name = MekanizedContent.displayName((String) chemical[0]);
-            lore.add(Lore.line(String.format(Locale.ROOT, "%s: %,d / %,d mB", capitalize(name), ItemLongs.get(pdc, CHEMICAL), (long) chemical[1])));
+            String name = MekanizedContent.displayName(chemical);
+            lore.add(Lore.line(String.format(Locale.ROOT, "%s: %,d / %,d mB", capitalize(name), ItemLongs.get(pdc, CHEMICAL),
+                    GearSettings.chemicalCapacity(item.value()))));
         }
         String modules = pdc.get(MODULES, PersistentDataType.STRING);
         if (modules != null && !modules.isEmpty()) {
@@ -133,7 +130,7 @@ public final class GearItems {
         meta.lore(lore);
         // Disassembler and Meka-Tool: fast on what pickaxes, axes, shovels and hoes mine while charged.
         if (item.value().equals("atomic_disassembler") || item.value().equals("meka_tool")) {
-            boolean charged = energy >= 100;
+            boolean charged = energy >= GearSettings.toolEnergyPerBlock;
             float speed = !charged ? 1f : modules != null && modules.contains("excavation_escalation_unit") ? 32f : 16f;
             ToolComponent tool = meta.getTool();
             tool.setRules(new ArrayList<>());

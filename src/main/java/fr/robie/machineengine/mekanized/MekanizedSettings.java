@@ -49,6 +49,7 @@ public final class MekanizedSettings {
         loadRadiation(config, logger);
         loadDigitalMiner(config, logger);
         loadQio(config, logger);
+        GearSettingsLoader.load(config, logger);
     }
 
     private static void loadQio(ConfigurationSection config, Logger logger) {

@@ -537,7 +537,7 @@ class MekanizedChainTest {
                 fill(cube, "charge", item("mekanized:" + gear).stack(1));
                 world.tick(200);
                 ResourceVariant charged = cube.inspect().storages().get("charge").getFirst().variant();
-                assertEquals(EnergyItems.CAPACITY.get(MekanizedContent.key(gear)), chargeOf(charged),
+                assertEquals(EnergyItems.baseCapacity(MekanizedContent.key(gear)), chargeOf(charged),
                         gear + " charges to its capacity");
                 try (Transaction transaction = this.engine.transactions().openOuter()) {
                     cube.context().storage("charge").extract(charged, 1, transaction);

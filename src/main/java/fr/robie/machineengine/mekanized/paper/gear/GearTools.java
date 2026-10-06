@@ -7,6 +7,7 @@ import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.core.machine.LoadedMachine;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.mekanized.machine.Frequencies;
+import fr.robie.machineengine.mekanized.machine.GearSettings;
 import fr.robie.machineengine.mekanized.machine.Liquifier;
 import fr.robie.machineengine.mekanized.paper.ItemLongs;
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
@@ -76,7 +77,7 @@ public final class GearTools implements Listener {
 
     // -- tools ----------------------------------------------------------------------------------
 
-    /** Every block costs the tool energy; sneaking, whole veins of ore and logs (64 blocks, 256 with the vein mining unit). */
+    /** Every block costs the tool energy; sneaking, whole veins of ore and logs (64 blocks, 256 with the vein mining unit, by default). */
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onBreak(BlockBreakEvent event) {
         if (this.veining.contains(event.getBlock())) return;
@@ -84,9 +85,10 @@ public final class GearTools implements Listener {
         ItemStack tool = player.getInventory().getItemInMainHand();
         String id = id(tool);
         if (!"atomic_disassembler".equals(id) && !"meka_tool".equals(id)) return;
-        if (!useEnergy(tool, 100)) return;
+        if (!useEnergy(tool, GearSettings.toolEnergyPerBlock)) return;
         boolean vein = player.isSneaking();
-        int limit = "meka_tool".equals(id) && modules(tool).contains("vein_mining_unit") ? 256 : 64;
+        int limit = "meka_tool".equals(id) && modules(tool).contains("vein_mining_unit")
+                ? GearSettings.veinLimitWithUnit : GearSettings.veinLimit;
         Block start = event.getBlock();
         if (!vein && "meka_tool".equals(id) && modules(tool).contains("blasting_unit")) {
             blast(player, tool, start);
@@ -104,7 +106,7 @@ public final class GearTools implements Listener {
                 // Folia: blocks of another region are not this thread's to read or break.
                 if (!Bukkit.isOwnedByCurrentRegion(next)) continue;
                 if (next.getType() != start.getType() || !seen.add(next)) continue;
-                if (!useEnergy(tool, 100)) return;
+                if (!useEnergy(tool, GearSettings.toolEnergyPerBlock)) return;
                 // Protection plugins decide for each block, as for breaking it by hand.
                 this.veining.add(next);
                 try {
@@ -131,7 +133,7 @@ public final class GearTools implements Listener {
                 if (!Bukkit.isOwnedByCurrentRegion(next)) continue;
                 if (next.getType().isAir() || next.getType().getHardness() < 0 || next.isLiquid()) continue;
                 if (CraftEngineBlocks.isCustomBlock(next)) continue;
-                if (!useEnergy(tool, 100)) return;
+                if (!useEnergy(tool, GearSettings.toolEnergyPerBlock)) return;
                 this.veining.add(next);
                 try {
                     if (new BlockBreakEvent(next, player).callEvent()) next.breakNaturally(tool);
@@ -148,35 +150,37 @@ public final class GearTools implements Listener {
             for (int dz = -1; dz <= 1; dz++) {
                 Block block = center.getRelative(dx, 0, dz);
                 boolean soil = block.getType() == Material.DIRT || block.getType() == Material.GRASS_BLOCK || block.getType() == Material.DIRT_PATH;
-                if (!soil || !block.getRelative(BlockFace.UP).getType().isAir() || !useEnergy(tool, 100)) continue;
+                if (!soil || !block.getRelative(BlockFace.UP).getType().isAir()
+                        || !useEnergy(tool, GearSettings.toolEnergyPerBlock)) continue;
                 block.setType(Material.FARMLAND);
             }
         }
         player.getWorld().playSound(center.getLocation(), org.bukkit.Sound.ITEM_HOE_TILL, 1f, 1f);
     }
 
-    /** Shearing unit: right-click a sheep, mooshroom or snow golem to shear it (500 J). */
+    /** Shearing unit: right-click a sheep, mooshroom or snow golem to shear it (500 J by default). */
     @EventHandler(ignoreCancelled = true)
     public void onShear(PlayerInteractEntityEvent event) {
         if (event.getHand() != EquipmentSlot.HAND) return;
         ItemStack tool = event.getPlayer().getInventory().getItemInMainHand();
         if (!"meka_tool".equals(id(tool)) || !modules(tool).contains("shearing_unit")) return;
         if (!(event.getRightClicked() instanceof Shearable shearable) || !shearable.readyToBeSheared()) return;
-        if (!useEnergy(tool, 500)) return;
+        if (!useEnergy(tool, GearSettings.shearEnergy)) return;
         event.setCancelled(true);
         shearable.shear(net.kyori.adventure.sound.Sound.Source.PLAYER);
     }
 
-    /** Charged: the disassembler hits for 20 (2 kJ), the Meka-Tool for 10, 30 with attack amplification (3 kJ). */
+    /** Charged: by default the disassembler hits for 20 (2 kJ), the Meka-Tool for 10, 30 with attack amplification (3 kJ). */
     @EventHandler(ignoreCancelled = true)
     public void onHit(EntityDamageByEntityEvent event) {
         if (!(event.getDamager() instanceof Player player)) return;
         ItemStack tool = player.getInventory().getItemInMainHand();
         String id = id(tool);
-        if ("atomic_disassembler".equals(id) && useEnergy(tool, 2_000)) {
-            event.setDamage(Math.max(event.getDamage(), 20));
-        } else if ("meka_tool".equals(id) && useEnergy(tool, 3_000)) {
-            event.setDamage(Math.max(event.getDamage(), modules(tool).contains("attack_amplification_unit") ? 30 : 10));
+        if ("atomic_disassembler".equals(id) && useEnergy(tool, GearSettings.disassemblerHitEnergy)) {
+            event.setDamage(Math.max(event.getDamage(), GearSettings.disassemblerDamage));
+        } else if ("meka_tool".equals(id) && useEnergy(tool, GearSettings.mekaToolHitEnergy)) {
+            event.setDamage(Math.max(event.getDamage(), modules(tool).contains("attack_amplification_unit")
+                    ? GearSettings.mekaToolAmplifiedDamage : GearSettings.mekaToolDamage));
         }
     }
 
@@ -184,7 +188,7 @@ public final class GearTools implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onShoot(EntityShootBowEvent event) {
         ItemStack bow = event.getBow();
-        if (!"electric_bow".equals(id(bow)) || !useEnergy(bow, 120)) return;
+        if (!"electric_bow".equals(id(bow)) || !useEnergy(bow, GearSettings.bowEnergyPerShot)) return;
         event.setConsumeItem(false);
         if (event.getProjectile() instanceof AbstractArrow arrow) {
             arrow.setPickupStatus(AbstractArrow.PickupStatus.CREATIVE_ONLY);
@@ -247,8 +251,8 @@ public final class GearTools implements Listener {
     private boolean fill(Player player, ItemStack gear, String id, Block block) {
         LoadedMachine machine = PaperWorld.machine(block);
         if (machine == null || machine.instance() == null) return false;
-        String chemical = (String) CHEMICALS.get(id)[0];
-        long room = (long) CHEMICALS.get(id)[1] - chemical(gear);
+        String chemical = CHEMICALS.get(id);
+        long room = GearSettings.chemicalCapacity(id) - chemical(gear);
         ResourceType type = MekanizedContent.resourceType(chemical);
         if (type == null || room <= 0) return false;
         var context = machine.instance().context();
@@ -293,7 +297,7 @@ public final class GearTools implements Listener {
 
     /** Sets the mobs in front on fire (5 mB of hydrogen a burst). */
     private static void flame(Player player, ItemStack thrower) {
-        if (!useChemical(thrower, 5)) {
+        if (!useChemical(thrower, GearSettings.flamethrowerHydrogen)) {
             player.sendActionBar(Component.text("Out of hydrogen", NamedTextColor.RED));
             return;
         }
@@ -307,7 +311,7 @@ public final class GearTools implements Listener {
             Vector to = living.getLocation().add(0, 1, 0).toVector().subtract(eye.toVector());
             if (to.length() > 8 || to.normalize().dot(direction) < 0.9) continue;
             living.setFireTicks(Math.max(living.getFireTicks(), 100));
-            living.damage(2, player);
+            living.damage(GearSettings.flamethrowerDamage, player);
         }
     }
 
@@ -329,9 +333,9 @@ public final class GearTools implements Listener {
         });
     }
 
-    /** The teleportation unit: to the block looked at, up to 100 blocks (1 kJ plus 10 J a block). */
+    /** The teleportation unit: to the block looked at, up to {@link GearSettings#teleportRange} blocks (the teleporter's cost: 1 kJ plus 10 J a block by default). */
     private static void teleport(Player player, ItemStack tool) {
-        Block target = targetBlock(player, 100);
+        Block target = targetBlock(player, GearSettings.teleportRange);
         if (target == null) return;
         Location destination = target.getLocation().add(0.5, 1, 0.5);
         if (!Bukkit.isOwnedByCurrentRegion(destination.clone().add(0, 1, 0))) return;
