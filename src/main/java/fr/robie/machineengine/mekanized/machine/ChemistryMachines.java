@@ -15,10 +15,13 @@ import fr.robie.machineengine.api.process.ProcessBinding;
 import fr.robie.machineengine.api.recipe.ProcessingRecipe;
 import fr.robie.machineengine.api.recipe.RecipeType;
 import fr.robie.machineengine.api.resource.match.ResourcePredicate;
+import fr.robie.machineengine.api.upgrade.UpgradeType;
 import fr.robie.machineengine.api.world.RelativeSide;
 import fr.robie.machineengine.mekanized.MekanizedContent;
+import fr.robie.machineengine.mekanized.MekanizedSettings;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static fr.robie.machineengine.mekanized.MekanizedContent.key;
@@ -57,9 +60,9 @@ public final class ChemistryMachines {
     public static final NetworkType FLUID_NETWORK = NetworkType.of(key("fluid"), NetworkBehavior.distributing());
     private static final String[] TIERS = {"basic", "advanced", "elite", "ultimate"};
     public static final List<TransportType> TUBES = transports("pressurized_tube", CHEMICAL_NETWORK, IS_CHEMICAL,
-            fr.robie.machineengine.mekanized.MekanizedSettings.tubeRates);
+            MekanizedSettings.tubeRates);
     public static final List<TransportType> PIPES = transports("mechanical_pipe", FLUID_NETWORK, IS_FLUID,
-            fr.robie.machineengine.mekanized.MekanizedSettings.pipeRates);
+            MekanizedSettings.pipeRates);
 
     private ChemistryMachines() {
     }
@@ -183,7 +186,7 @@ public final class ChemistryMachines {
         return machines;
     }
 
-    private static boolean upgrade(fr.robie.machineengine.api.upgrade.UpgradeType upgrade) {
+    private static boolean upgrade(UpgradeType upgrade) {
         return MekanizedMachines.standardUpgrade(upgrade);
     }
 
@@ -194,7 +197,7 @@ public final class ChemistryMachines {
     private static PortDefinition input(String storage, ResourcePredicate filter, RelativeSide... sides) {
         PortDefinition.Builder port = PortDefinition.builder(storage, storage).direction(PortDirection.INPUT).filter(filter)
                 .group(groupOf(filter));
-        if (sides.length > 0) port.sides(sides[0], java.util.Arrays.copyOfRange(sides, 1, sides.length));
+        if (sides.length > 0) port.sides(sides[0], Arrays.copyOfRange(sides, 1, sides.length));
         return port.build();
     }
 

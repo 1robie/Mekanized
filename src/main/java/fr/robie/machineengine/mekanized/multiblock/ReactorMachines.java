@@ -11,12 +11,15 @@ import fr.robie.machineengine.api.machine.MachineType;
 import fr.robie.machineengine.api.machine.PortDefinition;
 import fr.robie.machineengine.api.machine.StorageDefinition;
 import fr.robie.machineengine.api.resource.ResourceType;
+import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.api.resource.match.ResourcePredicate;
 import fr.robie.machineengine.api.transfer.ResourceHandler;
 import fr.robie.machineengine.api.transfer.StorageView;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.BlockPosition;
+import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.MekanizedContent;
+import fr.robie.machineengine.mekanized.machine.Radiation;
 import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.NotNull;
 
@@ -307,7 +310,7 @@ public final class ReactorMachines {
             if (block == null) continue;
             if (block.equals(key("turbine_vent"))) vents++;
             else if (block.equals(key("turbine_rotor"))) {
-                blades += anchor.machines().storage(new fr.robie.machineengine.api.world.WorldPosition(structure.world(), at), "blades")
+                blades += anchor.machines().storage(new WorldPosition(structure.world(), at), "blades")
                         .map(handler -> handler.views().stream().mapToLong(StorageView::amount).sum()).orElse(0L);
             }
         }
@@ -378,8 +381,8 @@ public final class ReactorMachines {
                     anchor.storage("waste").extract(chemical("nuclear_waste"), waste, transaction);
                     transaction.commit();
                 }
-                fr.robie.machineengine.mekanized.machine.Radiation.release(anchor.machine().position(),
-                        waste * fr.robie.machineengine.mekanized.machine.Radiation.RADIOACTIVITY.get("nuclear_waste"));
+                Radiation.release(anchor.machine().position(),
+                        waste * Radiation.RADIOACTIVITY.get("nuclear_waste"));
             }
         }
         anchor.set(REACTOR_HEAT, heat);
@@ -391,7 +394,7 @@ public final class ReactorMachines {
     }
 
     /** Moves up to {@code heat} of the reactor's heat into coolant; returns the heat taken. */
-    private static long cool(MachineContext anchor, String from, String to, fr.robie.machineengine.api.resource.ResourceVariant made, long heat) {
+    private static long cool(MachineContext anchor, String from, String to, ResourceVariant made, long heat) {
         long amount = Math.min(Math.min(amount(anchor, from), room(anchor, to)), heat / HEAT_PER_MB);
         if (amount <= 0) return 0;
         try (Transaction transaction = anchor.transactions().openOuter()) {
@@ -482,18 +485,18 @@ public final class ReactorMachines {
         return anchor.storage(storage).views().stream().mapToLong(view -> view.capacity() - view.amount()).sum();
     }
 
-    private static fr.robie.machineengine.api.resource.ResourceVariant variant(MachineContext anchor, String storage) {
+    private static ResourceVariant variant(MachineContext anchor, String storage) {
         ResourceHandler handler = anchor.storage(storage);
         return handler.views().stream().filter(view -> !view.isEmpty()).findFirst().orElseThrow().variant();
     }
 
-    private static fr.robie.machineengine.api.resource.ResourceVariant chemical(String name) {
+    private static ResourceVariant chemical(String name) {
         ResourceType type = MekanizedContent.chemical(name);
         if (type == null) throw new IllegalStateException("no chemical " + name);
         return type.variant();
     }
 
-    private static fr.robie.machineengine.api.resource.ResourceVariant fluid(String name) {
+    private static ResourceVariant fluid(String name) {
         ResourceType type = MekanizedContent.fluid(name);
         if (type == null) throw new IllegalStateException("no fluid " + name);
         return type.variant();

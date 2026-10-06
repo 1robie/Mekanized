@@ -9,6 +9,7 @@ import fr.robie.machineengine.api.resource.match.ResourceMatcher;
 import fr.robie.machineengine.api.transfer.ResourceHandler;
 import fr.robie.machineengine.api.transfer.StorageView;
 import fr.robie.machineengine.api.transfer.Transaction;
+import fr.robie.machineengine.mekanized.MekanizedSettings;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -63,6 +64,6 @@ final class Evaporation implements MemberBehavior.AnchorTask {
         long levels = Math.max(1, structure.height() - 1); // the open top counts, the floor does not
         double heat = environment.daytime() ? 1.0 : 0.5;
         if (environment.raining()) heat /= 2;
-        return (long) (fr.robie.machineengine.mekanized.MekanizedSettings.evaporationPerLevel * EVERY_TICKS * levels * heat);
+        return (long) (MekanizedSettings.evaporationPerLevel * EVERY_TICKS * levels * heat);
     }
 }

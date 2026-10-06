@@ -20,6 +20,7 @@ import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 /** Generators and energy storage (MEKANIZED_PLAN.md, Phase 2). Energy is {@link MekanizedContent#ENERGY}, in Joules. */
@@ -110,7 +111,7 @@ public final class EnergyBehaviors {
      * Mekanism's gas-burning generator: burns 1 mB per tick of a fuel in {@code tank}, making the
      * fuel's Joules per mB, and pushes energy to every neighbor. Pauses while the buffer is full.
      */
-    public static @NotNull MachineBehavior.Factory gasBurning(@NotNull String tank, @NotNull java.util.Map<String, Long> joulesPerMb) {
+    public static @NotNull MachineBehavior.Factory gasBurning(@NotNull String tank, @NotNull Map<String, Long> joulesPerMb) {
         return type -> context -> {
             pushAround(context, 20_000);
             ResourceHandler fuel = context.storage(tank);

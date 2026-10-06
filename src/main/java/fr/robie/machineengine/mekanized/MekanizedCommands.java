@@ -1,6 +1,9 @@
 package fr.robie.machineengine.mekanized;
 
 import com.mojang.brigadier.Command;
+import com.mojang.brigadier.arguments.DoubleArgumentType;
+import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import fr.robie.machineengine.api.MachineEngine;
@@ -14,14 +17,17 @@ import fr.robie.machineengine.api.transfer.StorageView;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.Direction;
 import fr.robie.machineengine.api.world.WorldPosition;
+import fr.robie.machineengine.mekanized.machine.Radiation;
 import fr.robie.machineengine.paper.PaperItems;
 import fr.robie.machineengine.paper.PositionArguments;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
+import net.momirealms.craftengine.core.util.Key;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
@@ -40,7 +46,7 @@ final class MekanizedCommands {
     }
 
     /** {@code /mekanized build <structure> [<x y z>]}: a working multiblock, its lowest corner there. */
-    private com.mojang.brigadier.builder.LiteralArgumentBuilder<CommandSourceStack> structures() {
+    private LiteralArgumentBuilder<CommandSourceStack> structures() {
         var build = Commands.literal("build").requires(MekanizedCommands::admin);
         for (String name : MekanizedStructures.STRUCTURES.keySet()) {
             build.then(PositionArguments.optionalPosition(Commands.literal(name), PositionArguments.Default.PLACEMENT,
@@ -64,26 +70,26 @@ final class MekanizedCommands {
         // Players set frequencies; the tests are for admins.
         return Commands.literal("mekanized")
                 .then(Commands.literal("frequency")
-                        .requires(source -> source.getSender() instanceof org.bukkit.entity.Player)
-                        .then(Commands.argument("name", com.mojang.brigadier.arguments.StringArgumentType.word())
+                        .requires(source -> source.getSender() instanceof Player)
+                        .then(Commands.argument("name", StringArgumentType.word())
                                 .executes(context -> {
-                                    PaperAutomation.setFrequency(this.plugin, (org.bukkit.entity.Player) context.getSource().getSender(),
-                                            com.mojang.brigadier.arguments.StringArgumentType.getString(context, "name"));
+                                    PaperAutomation.setFrequency(this.plugin, (Player) context.getSource().getSender(),
+                                            StringArgumentType.getString(context, "name"));
                                     return Command.SINGLE_SUCCESS;
                                 })))
                 .then(structures())
                 // Radiation for testing: a source where you stand (Sv/h at one block), or none left.
                 .then(Commands.literal("radiation").requires(MekanizedCommands::admin)
                         .then(Commands.literal("clear").executes(context -> {
-                            fr.robie.machineengine.mekanized.machine.Radiation.sources().clear();
+                            Radiation.sources().clear();
                             reply(context, "Every radiation source is gone");
                             return Command.SINGLE_SUCCESS;
                         }))
-                        .then(Commands.argument("sieverts", com.mojang.brigadier.arguments.DoubleArgumentType.doubleArg(0))
+                        .then(Commands.argument("sieverts", DoubleArgumentType.doubleArg(0))
                                 .executes(context -> {
                                     Location at = context.getSource().getLocation();
-                                    double strength = com.mojang.brigadier.arguments.DoubleArgumentType.getDouble(context, "sieverts");
-                                    fr.robie.machineengine.mekanized.machine.Radiation.release(
+                                    double strength = DoubleArgumentType.getDouble(context, "sieverts");
+                                    Radiation.release(
                                             WorldPosition.of(at.getWorld().getKey(), at.getBlockX(), at.getBlockY(), at.getBlockZ()), strength);
                                     reply(context, "Released " + strength + " Sv/h here");
                                     return Command.SINGLE_SUCCESS;
@@ -117,7 +123,7 @@ final class MekanizedCommands {
 
     private void test(CommandContext<CommandSourceStack> context, World world, int x, int y, int z) {
         Location at = new Location(world, x, y, z);
-        if (!CraftEngineBlocks.place(at, net.momirealms.craftengine.core.util.Key.of("mekanized", "enrichment_chamber"), false)) {
+        if (!CraftEngineBlocks.place(at, Key.of("mekanized", "enrichment_chamber"), false)) {
             reply(context, "mekanized test: could not place the enrichment chamber (is the Mekanized pack loaded?)");
             return;
         }
@@ -226,7 +232,7 @@ final class MekanizedCommands {
     /** Places a Mekanized block; false (nothing placed) if the position belongs to another Folia region. */
     private static boolean place(World world, int x, int y, int z, String block) {
         if (!Bukkit.isOwnedByCurrentRegion(world, x >> 4, z >> 4)) return false;
-        return CraftEngineBlocks.place(new Location(world, x, y, z), net.momirealms.craftengine.core.util.Key.of("mekanized", block), false);
+        return CraftEngineBlocks.place(new Location(world, x, y, z), Key.of("mekanized", block), false);
     }
 
     private static void reply(CommandContext<CommandSourceStack> context, String message) {

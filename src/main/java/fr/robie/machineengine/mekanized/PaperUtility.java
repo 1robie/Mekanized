@@ -14,15 +14,22 @@ import fr.robie.machineengine.mekanized.machine.UtilityBehaviors;
 import fr.robie.machineengine.mekanized.machine.UtilityMachines;
 import fr.robie.machineengine.paper.MachineLocator;
 import fr.robie.machineengine.paper.PaperItems;
+import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.momirealms.craftengine.bukkit.api.event.CustomBlockBreakEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
+import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockExplodeEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -33,7 +40,9 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -66,9 +75,9 @@ final class PaperUtility implements Listener {
         for (Player player : Bukkit.getOnlinePlayers()) listener.startCharging(player);
     }
 
-    private static @Nullable ResourceStack craft(net.kyori.adventure.key.Key world, List<@Nullable ResourceVariant> grid) {
+    private static @Nullable ResourceStack craft(Key world, List<@Nullable ResourceVariant> grid) {
         if (CRAFTED.size() > 1024) CRAFTED.clear();
-        List<ResourceVariant> key = java.util.Collections.unmodifiableList(new ArrayList<>(grid));
+        List<ResourceVariant> key = Collections.unmodifiableList(new ArrayList<>(grid));
         return CRAFTED.computeIfAbsent(key, cells -> {
             ItemStack[] matrix = new ItemStack[9];
             for (int i = 0; i < 9 && i < cells.size(); i++) {
@@ -77,7 +86,7 @@ final class PaperUtility implements Listener {
                 if (matrix[i] == null) matrix[i] = ItemStack.empty();
             }
             // The machine's own world: the one this region thread may touch.
-            org.bukkit.World at = Bukkit.getWorld(new org.bukkit.NamespacedKey(world.namespace(), world.value()));
+            World at = Bukkit.getWorld(new NamespacedKey(world.namespace(), world.value()));
             if (at == null) return Optional.empty();
             Recipe recipe = Bukkit.getCraftingRecipe(matrix, at);
             if (recipe == null || recipe.getResult().isEmpty()) return Optional.empty();
@@ -144,13 +153,13 @@ final class PaperUtility implements Listener {
                 player.getInventory().addItem(stack).values().forEach(left -> player.getWorld().dropItem(player.getLocation(), left));
             }
             machine.instance().wake(WakeReason.RESOURCE_EXTRACTED);
-            player.sendActionBar(Component.text(String.format(java.util.Locale.ROOT, "%,d left", Math.max(0, held.amount())), NamedTextColor.GRAY));
+            player.sendActionBar(Component.text(String.format(Locale.ROOT, "%,d left", Math.max(0, held.amount())), NamedTextColor.GRAY));
         }
     }
 
     /** Only its owner breaks a personal chest or barrel (or players with the bypass permission). */
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
-    public void onBreak(net.momirealms.craftengine.bukkit.api.event.CustomBlockBreakEvent event) {
+    public void onBreak(CustomBlockBreakEvent event) {
         String owner = personalOwner(event.bukkitBlock());
         if (owner == null || owner.isEmpty()) return;
         Player player = event.getPlayer();
@@ -161,12 +170,12 @@ final class PaperUtility implements Listener {
 
     /** Explosions leave personal storage alone. */
     @EventHandler(ignoreCancelled = true)
-    public void onExplode(org.bukkit.event.entity.EntityExplodeEvent event) {
+    public void onExplode(EntityExplodeEvent event) {
         event.blockList().removeIf(block -> personalOwner(block) != null);
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onExplode(org.bukkit.event.block.BlockExplodeEvent event) {
+    public void onExplode(BlockExplodeEvent event) {
         event.blockList().removeIf(block -> personalOwner(block) != null);
     }
 
@@ -198,7 +207,7 @@ final class PaperUtility implements Listener {
         if (locator == null || !player.isOnline()) return;
         Block feet = player.getLocation().getBlock();
         LoadedMachine pad = null;
-        for (Block block : new Block[]{feet, feet.getRelative(org.bukkit.block.BlockFace.DOWN)}) {
+        for (Block block : new Block[]{feet, feet.getRelative(BlockFace.DOWN)}) {
             WorldPosition position = WorldPosition.of(block.getWorld().getKey(), block.getX(), block.getY(), block.getZ());
             if (!locator.isOwnedByCurrentThread(position)) continue;
             LoadedMachine machine = locator.machine(position);

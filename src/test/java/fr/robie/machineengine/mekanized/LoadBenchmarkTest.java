@@ -7,11 +7,13 @@ import fr.robie.machineengine.api.registry.Registries;
 import fr.robie.machineengine.api.resource.ResourceStack;
 import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.api.transfer.Transaction;
+import fr.robie.machineengine.api.transfer.storage.CombinedResourceHandler;
 import fr.robie.machineengine.api.world.Direction;
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.core.definition.DefinitionCompiler;
 import fr.robie.machineengine.core.lifecycle.CoreMachineEngine;
 import fr.robie.machineengine.core.machine.MachineInstanceImpl;
+import fr.robie.machineengine.mekanized.machine.EjectBehavior;
 import fr.robie.machineengine.mekanized.machine.LogisticsMachines;
 import fr.robie.machineengine.mekanized.machine.MekanizedMachines;
 import fr.robie.machineengine.test.FakeWorld;
@@ -62,15 +64,15 @@ class LoadBenchmarkTest {
             world.place(type("creative_energy_cube"), FakeWorld.at(0, 64, z), Direction.EAST);
             for (int x = 1; x <= 4; x++) world.placeTransport(MekanizedMachines.CABLES.get(3), FakeWorld.at(x, 64, z));
             MachineInstanceImpl chamber = world.place(type("enrichment_chamber"), FakeWorld.at(5, 64, z), Direction.NORTH);
-            chamber.context().set(fr.robie.machineengine.mekanized.machine.EjectBehavior.EJECT, true);
+            chamber.context().set(EjectBehavior.EJECT, true);
             fill(chamber, "input", MekanizedChainTest.item("mekanized:osmium_ore").stack(64));
             machines.add(chamber);
             world.placeTransport(LogisticsMachines.TRANSPORTERS.get(3), FakeWorld.at(6, 64, z));
             MachineInstanceImpl factory = world.place(type("ultimate_enriching_factory"), FakeWorld.at(7, 64, z), Direction.NORTH);
-            fill(factory, "energy", fr.robie.machineengine.mekanized.MekanizedContent.ENERGY.stack(1_000_000));
+            fill(factory, "energy", MekanizedContent.ENERGY.stack(1_000_000));
             fill(factory, "input", MekanizedChainTest.item("mekanized:osmium_ore").stack(64));
             machines.add(factory);
-            world.setContainer(FakeWorld.at(8, 64, z), fr.robie.machineengine.api.transfer.storage.CombinedResourceHandler.slots(27, 64));
+            world.setContainer(FakeWorld.at(8, 64, z), CombinedResourceHandler.slots(27, 64));
         }
         world.tick(100); // warm up: networks form, processes start
         int ticks = 400;

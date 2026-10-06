@@ -1,6 +1,7 @@
 package fr.robie.machineengine.mekanized;
 
 import fr.robie.machineengine.api.addon.AddonRegistration;
+import fr.robie.machineengine.api.error.Result;
 import fr.robie.machineengine.api.machine.MachineType;
 import fr.robie.machineengine.api.registry.Registries;
 import fr.robie.machineengine.api.resource.ResourceStack;
@@ -10,9 +11,11 @@ import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.Direction;
 import fr.robie.machineengine.api.world.WorldFluid;
 import fr.robie.machineengine.api.world.WorldPosition;
+import fr.robie.machineengine.core.definition.DefinitionCompiler;
 import fr.robie.machineengine.core.lifecycle.CoreMachineEngine;
 import fr.robie.machineengine.core.machine.MachineInstanceImpl;
 import fr.robie.machineengine.mekanized.machine.UtilityBehaviors;
+import fr.robie.machineengine.mekanized.machine.UtilityMachines;
 import fr.robie.machineengine.test.FakeWorld;
 import fr.robie.machineengine.test.TestEngine;
 import net.kyori.adventure.key.Key;
@@ -32,10 +35,10 @@ class UtilityTest {
 
     private final CoreMachineEngine engine = TestEngine.builder()
             .addon(AddonRegistration.builder("Mekanized", "1.0.0").register(MekanizedContent::register).build())
-            .definitions(MekanizedChainTest::definitions, new fr.robie.machineengine.core.definition.DefinitionCompiler.ItemResolver() {
+            .definitions(MekanizedChainTest::definitions, new DefinitionCompiler.ItemResolver() {
                 @Override
-                public fr.robie.machineengine.api.error.Result<ResourceVariant> item(Key id) {
-                    return fr.robie.machineengine.api.error.Result.ok(MekanizedChainTest.item(id.asString()));
+                public Result<ResourceVariant> item(Key id) {
+                    return Result.ok(MekanizedChainTest.item(id.asString()));
                 }
             })
             .start();
@@ -115,7 +118,7 @@ class UtilityTest {
         WorldPosition at = HERE.relative(Direction.NORTH).relative(Direction.NORTH);
         MachineInstanceImpl amplifier = world.place(type("laser_amplifier"), at, Direction.NORTH);
         // High: fires only while powered, and nothing powers it.
-        amplifier.context().set(fr.robie.machineengine.mekanized.machine.UtilityMachines.REDSTONE, "high");
+        amplifier.context().set(UtilityMachines.REDSTONE, "high");
         fill(laser, "energy", MekanizedContent.ENERGY.stack(100_000));
         world.tick(30);
         assertEquals(100_000, amount(amplifier, "energy"), "the laser's energy went into the amplifier");

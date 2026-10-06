@@ -1,9 +1,15 @@
 package fr.robie.machineengine.mekanized;
 
+import fr.robie.machineengine.api.machine.WakeReason;
+import fr.robie.machineengine.api.network.TransportSideMode;
+import fr.robie.machineengine.api.transfer.StorageView;
 import fr.robie.machineengine.api.world.Direction;
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.core.machine.LoadedMachine;
 import fr.robie.machineengine.mekanized.machine.LogisticsMachines;
+import fr.robie.machineengine.mekanized.multiblock.MemberBehavior;
+import fr.robie.machineengine.mekanized.multiblock.Multiblocks;
+import fr.robie.machineengine.mekanized.multiblock.ReactorMachines;
 import fr.robie.machineengine.paper.MachineLocator;
 import fr.robie.machineengine.paper.MachineMenuService;
 import fr.robie.machineengine.paper.PaperItems;
@@ -12,6 +18,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.GameMode;
 import org.bukkit.block.Block;
+import org.bukkit.block.Container;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -20,6 +27,12 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
 
 /**
  * Mekanized's tools on machines (Phase 4):
@@ -37,7 +50,7 @@ final class MekanizedTools implements Listener {
     private static final Direction[] TURN = {Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
 
     /** Multiblock frame blocks: they open their structure's menu (the anchor's). */
-    private static final java.util.Set<String> MEMBERS = java.util.Set.of("dynamic_tank", "dynamic_valve", "structural_glass",
+    private static final Set<String> MEMBERS = Set.of("dynamic_tank", "dynamic_valve", "structural_glass",
             "induction_casing", "induction_port", "thermal_evaporation_block", "thermal_evaporation_valve", "thermal_evaporation_controller",
             "boiler_casing", "boiler_valve", "turbine_casing", "turbine_valve", "turbine_vent", "fission_reactor_casing",
             "fission_reactor_port", "fission_reactor_logic_adapter", "reactor_glass", "fusion_reactor_frame", "fusion_reactor_port",
@@ -69,8 +82,8 @@ final class MekanizedTools implements Listener {
                 return;
             }
             var mode = locator.cycleTransportSide(position, side);
-            String what = mode == null ? null : face.name().toLowerCase(java.util.Locale.ROOT) + " side of the transport: ";
-            if (mode == null && block.getState(false) instanceof org.bukkit.block.Container) {
+            String what = mode == null ? null : face.name().toLowerCase(Locale.ROOT) + " side of the transport: ";
+            if (mode == null && block.getState(false) instanceof Container) {
                 // A container: the transports touching it change the side that faces it (easier to hit than a pipe's face).
                 for (Direction direction : Direction.values()) {
                     WorldPosition neighbor = position.relative(direction);
@@ -93,7 +106,7 @@ final class MekanizedTools implements Listener {
             turn(player, locator, machine);
         } else {
             MachineMenuService menus = MachineMenuService.current();
-            java.util.Set<String> groups = new java.util.HashSet<>();
+            Set<String> groups = new HashSet<>();
             machine.instance().type().ports().forEach(port -> {
                 if (port.group() != null) groups.add(port.group());
             });
@@ -119,22 +132,22 @@ final class MekanizedTools implements Listener {
         Key type = member.inspect().type();
         if (!type.namespace().equals(MekanizedContent.NAMESPACE) || !MEMBERS.contains(type.value())) return false;
         boolean configurator = tool != null && tool.equals(MekanizedContent.key("configurator"));
-        java.util.List<String> modes = type.value().equals("induction_port") ? java.util.List.of("input", "output")
-                : fr.robie.machineengine.mekanized.multiblock.ReactorMachines.MODES.get(type.value());
+        List<String> modes = type.value().equals("induction_port") ? List.of("input", "output")
+                : ReactorMachines.MODES.get(type.value());
         if (configurator && modes == null) return false; // side configuration, turning
         event.setCancelled(true);
         Player player = event.getPlayer();
         if (configurator) {
             var context = member.instance().context();
-            String current = context.get(fr.robie.machineengine.mekanized.multiblock.MemberBehavior.PORT_MODE);
+            String current = context.get(MemberBehavior.PORT_MODE);
             String mode = modes.get((modes.indexOf(current) + 1) % modes.size());
-            context.set(fr.robie.machineengine.mekanized.multiblock.MemberBehavior.PORT_MODE, mode);
-            member.instance().wake(fr.robie.machineengine.api.machine.WakeReason.CONFIG_CHANGED);
+            context.set(MemberBehavior.PORT_MODE, mode);
+            member.instance().wake(WakeReason.CONFIG_CHANGED);
             player.sendActionBar(Component.text(type.value().replace('_', ' ') + ": ", NamedTextColor.GRAY)
                     .append(Component.text(mode.replace('_', ' '), NamedTextColor.YELLOW)));
             return true;
         }
-        var structure = fr.robie.machineengine.mekanized.multiblock.Multiblocks.containing(position);
+        var structure = Multiblocks.containing(position);
         LoadedMachine anchor = structure == null ? null : locator.machine(structure.anchor());
         MachineMenuService menus = MachineMenuService.current();
         if (anchor == null || menus == null) {
@@ -183,12 +196,12 @@ final class MekanizedTools implements Listener {
                 }
             }
         }
-        long count = storage.views().stream().mapToLong(fr.robie.machineengine.api.transfer.StorageView::amount).sum();
+        long count = storage.views().stream().mapToLong(StorageView::amount).sum();
         player.sendActionBar(Component.text("Rotor blades: " + count + " / 2", NamedTextColor.YELLOW));
         return true;
     }
 
-    private static String describe(fr.robie.machineengine.api.network.TransportSideMode mode) {
+    private static String describe(TransportSideMode mode) {
         return switch (mode) {
             case DEFAULT -> "default (machines in and out, containers filled)";
             case PULL -> "pull (takes from the block)";
@@ -214,7 +227,7 @@ final class MekanizedTools implements Listener {
     /** Turns the machine a quarter clockwise (it keeps what it holds; a running operation restarts). */
     private static void turn(Player player, MachineLocator locator, LoadedMachine machine) {
         Direction facing = machine.inspect().facing();
-        int index = java.util.Arrays.asList(TURN).indexOf(facing);
+        int index = Arrays.asList(TURN).indexOf(facing);
         Direction next = TURN[(index + 1) % TURN.length];
         if (!locator.replaceBlock(machine.position(), machine.inspect().type(), next)) {
             player.sendActionBar(Component.text("The machine is busy; try again", NamedTextColor.RED));

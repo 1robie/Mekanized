@@ -3,6 +3,7 @@ package fr.robie.machineengine.mekanized.machine;
 import fr.robie.machineengine.api.addon.RegistrationContext;
 import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.machine.MachineBehavior;
+import fr.robie.machineengine.api.machine.MachineContext;
 import fr.robie.machineengine.api.machine.MachineType;
 import fr.robie.machineengine.api.machine.PortDefinition;
 import fr.robie.machineengine.api.machine.PortDirection;
@@ -16,11 +17,14 @@ import fr.robie.machineengine.api.recipe.ProcessingRecipe;
 import fr.robie.machineengine.api.recipe.RecipeType;
 import fr.robie.machineengine.api.resource.match.ResourcePredicate;
 import fr.robie.machineengine.api.upgrade.Modifier;
+import fr.robie.machineengine.api.upgrade.ModifierType;
 import fr.robie.machineengine.api.upgrade.StandardModifiers;
 import fr.robie.machineengine.api.upgrade.UpgradeType;
 import fr.robie.machineengine.api.world.RelativeSide;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.mekanized.MekanizedSettings;
+import fr.robie.machineengine.mekanized.multiblock.MultiblockMachines;
+import fr.robie.machineengine.mekanized.multiblock.ReactorMachines;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,11 +62,11 @@ public final class MekanizedMachines {
             Modifier.multiplyTotal(StandardModifiers.PROCESS_COST, 333),
             Modifier.add(StandardModifiers.PROCESSES_PER_TICK, 1));
     /** A machine's energy buffer size, scaled by energy upgrades. */
-    public static final fr.robie.machineengine.api.upgrade.ModifierType ENERGY_CAPACITY =
-            fr.robie.machineengine.api.upgrade.ModifierType.nonNegative(key("energy_capacity"));
+    public static final ModifierType ENERGY_CAPACITY =
+            ModifierType.nonNegative(key("energy_capacity"));
     /** Energy and chemical costs per tick, each lowered by its own upgrade. */
-    public static final fr.robie.machineengine.api.upgrade.ModifierType ENERGY_COST = StandardModifiers.processCost(MekanizedContent.ENERGY_CATEGORY);
-    public static final fr.robie.machineengine.api.upgrade.ModifierType CHEMICAL_COST = StandardModifiers.processCost(MekanizedContent.CHEMICAL);
+    public static final ModifierType ENERGY_COST = StandardModifiers.processCost(MekanizedContent.ENERGY_CATEGORY);
+    public static final ModifierType CHEMICAL_COST = StandardModifiers.processCost(MekanizedContent.CHEMICAL);
     /** Mekanism: each energy upgrade lowers the energy a process costs and enlarges the energy buffer (+100 % of the base). */
     public static final UpgradeType ENERGY_UPGRADE = UpgradeType.of(key("upgrade_energy"), 8,
             Modifier.multiplyTotal(ENERGY_COST, -200),
@@ -102,7 +106,7 @@ public final class MekanizedMachines {
     }
 
     /** Whether {@code upgrade} is installed in the machine. */
-    public static boolean installed(fr.robie.machineengine.api.machine.MachineContext context, UpgradeType upgrade) {
+    public static boolean installed(MachineContext context, UpgradeType upgrade) {
         return context.machine().upgrades().stream().anyMatch(installed -> installed.type().equals(upgrade) && installed.count() > 0);
     }
 
@@ -131,8 +135,8 @@ public final class MekanizedMachines {
         Entangloporters.register(context);
         Radiation.register(context);
         Liquifier.register(context);
-        fr.robie.machineengine.mekanized.multiblock.ReactorMachines.register(context);
-        fr.robie.machineengine.mekanized.multiblock.MultiblockMachines.register(context);
+        ReactorMachines.register(context);
+        MultiblockMachines.register(context);
     }
 
     static List<MachineType> machines() {

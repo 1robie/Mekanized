@@ -1,8 +1,11 @@
 package fr.robie.machineengine.mekanized.machine;
 
 import fr.robie.machineengine.api.addon.RegistrationContext;
+import fr.robie.machineengine.api.item.ItemData;
 import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.machine.MachineBehavior;
+import fr.robie.machineengine.api.machine.MachineContext;
+import fr.robie.machineengine.api.machine.MachineType;
 import fr.robie.machineengine.api.machine.PortDefinition;
 import fr.robie.machineengine.api.machine.PortDirection;
 import fr.robie.machineengine.api.machine.StorageDefinition;
@@ -47,7 +50,7 @@ public final class Liquifier {
 
     /** Hunger points {@code item} restores; 0 if it is not a food. */
     public static int nutrition(@NotNull ResourceVariant item) {
-        fr.robie.machineengine.api.item.ItemData data = item.components().get(Items.DATA);
+        ItemData data = item.components().get(Items.DATA);
         if (item.type() != Items.ITEM || data == null || !data.item().namespace().equals("minecraft")) return 0;
         return NUTRITION.getOrDefault(data.item().value(), 0);
     }
@@ -65,8 +68,8 @@ public final class Liquifier {
                         new ConvertingBehavior.Conversion("energy_slot", "energy", MekanizedMachines.ENERGY_CONVERSION))))
                 .build());
         // The modification station takes modules back out of gear (Paper side); the block itself does nothing.
-        context.machineTypes().register(fr.robie.machineengine.api.machine.MachineType.builder(key("modification_station"))
-                .behavior(type -> fr.robie.machineengine.api.machine.MachineContext::sleep).build());
+        context.machineTypes().register(MachineType.builder(key("modification_station"))
+                .behavior(type -> MachineContext::sleep).build());
     }
 
     /** Turns one food into paste per {@link #TICKS}, paying the whole energy when it starts. */

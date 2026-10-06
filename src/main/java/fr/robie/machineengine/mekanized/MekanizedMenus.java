@@ -1,5 +1,11 @@
 package fr.robie.machineengine.mekanized;
 
+import fr.robie.machineengine.mekanized.machine.ChunkLoaders;
+import fr.robie.machineengine.mekanized.machine.FactoryBehavior;
+import fr.robie.machineengine.mekanized.machine.Liquifier;
+import fr.robie.machineengine.mekanized.machine.LogisticsMachines;
+import fr.robie.machineengine.mekanized.machine.Radiation;
+import fr.robie.machineengine.mekanized.machine.UtilityMachines;
 import org.bukkit.plugin.Plugin;
 
 import java.io.IOException;
@@ -10,6 +16,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * zMenu menus of the Mekanized machines, written to {@code plugins/MachineEngine/menus/} as
@@ -35,7 +42,7 @@ final class MekanizedMenus {
     }
 
     /** The side configuration menu to open for a machine with these port groups, or {@code null}. */
-    static String sideMenuFor(java.util.Set<String> groups) {
+    static String sideMenuFor(Set<String> groups) {
         for (String[] group : GROUPS) {
             if (groups.contains(group[0])) return SIDE_MENU + "_" + group[0];
         }
@@ -271,7 +278,7 @@ final class MekanizedMenus {
     private static void extrasMenus(List<Menu> menus) {
         Map<String, String> stabilizer = new LinkedHashMap<>();
         stabilizer.put("info", display(4, "END_CRYSTAL", "<light_purple>Dimensional Stabilizer", "<gray>Keeps the chunks around it loaded",
-                "<gray>while it has energy (" + fr.robie.machineengine.mekanized.machine.ChunkLoaders.STABILIZER_ENERGY_PER_CHUNK
+                "<gray>while it has energy (" + ChunkLoaders.STABILIZER_ENERGY_PER_CHUNK
                         + " J/t per chunk)."));
         stabilizer.put("radius", setting(11, "radius", List.of("0", "1", "2"), "COMPASS",
                 "<yellow>Chunks around: %zmenu_machineengine_data_radius%", "<gray>0: its chunk, 1: 3 x 3, 2: 5 x 5"));
@@ -295,13 +302,13 @@ final class MekanizedMenus {
 
         Map<String, String> barrel = new LinkedHashMap<>();
         barrel.put("info", display(4, "BARREL", "<green>Radioactive Waste Barrel", "<gray>Holds radioactive chemicals safely",
-                "<gray>while they slowly decay (" + fr.robie.machineengine.mekanized.machine.Radiation.BARREL_DECAY + " mB a second)."));
+                "<gray>while they slowly decay (" + Radiation.BARREL_DECAY + " mB a second)."));
         barrel.put("waste", chemical(13, "waste", "Waste"));
         menus.add(new Menu("radioactive_waste_barrel", barrel, -1));
 
         Map<String, String> liquifier = new LinkedHashMap<>();
         liquifier.put("info", display(4, "BREAD", "<gold>Nutritional Liquifier", "<gray>Food into nutritional paste: "
-                + fr.robie.machineengine.mekanized.machine.Liquifier.PASTE_PER_FOOD + " mB per hunger point.",
+                + Liquifier.PASTE_PER_FOOD + " mB per hunger point.",
                 "<gray>Right-click it with a canteen to fill it."));
         liquifier.put("input", slot(10, "input", "Food"));
         liquifier.put("paste", tank(14, "paste", "HONEY_BOTTLE", "<gold>", "Nutritional paste"));
@@ -337,7 +344,7 @@ final class MekanizedMenus {
             for (int i = 0; i < 54; i++) buttons.put("slot-" + (i + 1), slotOf(i, "items", i + 1, ""));
             menus.add(new Menu(name, buttons, -1, 54));
         }
-        for (String tier : fr.robie.machineengine.mekanized.machine.UtilityMachines.BIN_TIERS) {
+        for (String tier : UtilityMachines.BIN_TIERS) {
             Map<String, String> bin = new LinkedHashMap<>();
             bin.put("info", display(4, "BARREL", "<yellow>Bin", "<gray>One kind of item, many of it.",
                     "<gray>Right-click the block with items to store them,", "<gray>left-click to take a stack (sneak: one)"));
@@ -484,15 +491,15 @@ final class MekanizedMenus {
         menus.add(new Menu("logistical_sorter", sorter));
 
         for (String tier : List.of("basic", "advanced", "elite", "ultimate")) {
-            int lanes = fr.robie.machineengine.mekanized.machine.LogisticsMachines.LANES_BY_TIER.get(tier);
-            for (var kind : fr.robie.machineengine.mekanized.machine.LogisticsMachines.KINDS) {
+            int lanes = LogisticsMachines.LANES_BY_TIER.get(tier);
+            for (var kind : LogisticsMachines.KINDS) {
                 menus.add(factory(tier, lanes, kind));
             }
         }
     }
 
     /** Lanes in columns: input, progress, output (and the sawmill's second outputs); energy and extras on top. */
-    private static Menu factory(String tier, int lanes, fr.robie.machineengine.mekanized.machine.LogisticsMachines.Kind kind) {
+    private static Menu factory(String tier, int lanes, LogisticsMachines.Kind kind) {
         Map<String, String> buttons = new LinkedHashMap<>();
         buttons.put("energy-slot", slot(0, "energy_slot", "Energy item (redstone: 10 kJ each)"));
         buttons.put("energy", energyDisplay(1));
@@ -505,7 +512,7 @@ final class MekanizedMenus {
         int first = (9 - lanes) / 2;
         for (int lane = 0; lane < lanes; lane++) {
             int column = first + lane;
-            buttons.put("input-" + (lane + 1), slot(9 + column, fr.robie.machineengine.mekanized.machine.FactoryBehavior.laneStorage(lane),
+            buttons.put("input-" + (lane + 1), slot(9 + column, FactoryBehavior.laneStorage(lane),
                     "Lane " + (lane + 1)));
             buttons.put("progress-" + (lane + 1), display(18 + column, "BLAZE_POWDER", "<yellow>Lane " + (lane + 1),
                     "<gray>%zmenu_machineengine_data_lane_" + (lane + 1) + "% %"));

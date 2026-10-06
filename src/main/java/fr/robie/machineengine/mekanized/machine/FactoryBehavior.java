@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 /**
  * Mekanism's factories (E7): one machine running several operations at once, one per lane. Lane 1
@@ -48,7 +49,7 @@ public final class FactoryBehavior implements MachineBehavior {
     }
 
     /** One key per lane, shared: a machine finds its data by the key its type declared. */
-    private static final List<MachineDataKey<Long>> LANE_PERCENTS = java.util.stream.IntStream.rangeClosed(1, 9)
+    private static final List<MachineDataKey<Long>> LANE_PERCENTS = IntStream.rangeClosed(1, 9)
             .mapToObj(lane -> MachineDataKey.of("lane_" + lane, VersionedCodec.builder(MekanizedContent.key("lane_" + lane), Codecs.LONG).build(), 0L))
             .toList();
 

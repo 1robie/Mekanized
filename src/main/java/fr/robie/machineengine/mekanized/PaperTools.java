@@ -19,6 +19,7 @@ import fr.robie.machineengine.paper.PaperItems;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -39,6 +40,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -132,7 +134,7 @@ final class PaperTools implements Listener {
         card.editMeta(meta -> {
             meta.getPersistentDataContainer().set(CARD, PersistentDataType.STRING, String.join(";", parts));
             meta.lore(List.of(Component.text("Holds: " + machine.inspect().type().value().replace('_', ' '), NamedTextColor.GRAY)
-                    .decoration(net.kyori.adventure.text.format.TextDecoration.ITALIC, false)));
+                    .decoration(TextDecoration.ITALIC, false)));
         });
         player.sendActionBar(Component.text("Configuration copied", NamedTextColor.GREEN));
     }
@@ -149,7 +151,7 @@ final class PaperTools implements Listener {
             return;
         }
         MachineContext context = machine.instance().context();
-        Set<String> ports = new java.util.HashSet<>();
+        Set<String> ports = new HashSet<>();
         machine.instance().type().ports().forEach(port -> ports.add(port.id()));
         for (int i = 1; i < parts.length; i++) {
             String part = parts[i];
@@ -240,7 +242,7 @@ final class PaperTools implements Listener {
             pdc.set(DROPPER_AMOUNT, PersistentDataType.LONG, amount);
             meta.lore(List.of(Component.text(String.format(Locale.ROOT, "%s: %,d / %,d mB",
                             type.key().value().replace("fluid/", "").replace('_', ' '), amount, DROPPER_CAPACITY), NamedTextColor.GRAY)
-                    .decoration(net.kyori.adventure.text.format.TextDecoration.ITALIC, false)));
+                    .decoration(TextDecoration.ITALIC, false)));
         });
     }
 
@@ -317,7 +319,7 @@ final class PaperTools implements Listener {
             formula.editMeta(meta -> {
                 meta.getPersistentDataContainer().set(FORMULA, PersistentDataType.STRING, String.join(",", cells));
                 meta.lore(List.of(Component.text("Encoded", NamedTextColor.AQUA)
-                        .decoration(net.kyori.adventure.text.format.TextDecoration.ITALIC, false)));
+                        .decoration(TextDecoration.ITALIC, false)));
             });
             player.sendActionBar(Component.text("Pattern recorded", NamedTextColor.GREEN));
             return;

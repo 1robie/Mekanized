@@ -7,14 +7,15 @@ import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.core.machine.LoadedMachine;
-import fr.robie.machineengine.mekanized.machine.AutomationMachines;
 import fr.robie.machineengine.mekanized.machine.AutomationMachines.Frequencies;
+import fr.robie.machineengine.mekanized.machine.AutomationMachines;
 import fr.robie.machineengine.paper.MachineLocator;
 import fr.robie.machineengine.paper.PaperItems;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -45,16 +46,26 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -69,11 +80,11 @@ final class PaperAutomation implements Listener {
     private static final NamespacedKey BOX_ITEMS = new NamespacedKey(MekanizedContent.NAMESPACE, "box_items");
     private static final NamespacedKey BOX_SPAWNER = new NamespacedKey(MekanizedContent.NAMESPACE, "box_spawner");
     /** Blocks the cardboard box leaves alone. */
-    private static final java.util.Set<Material> UNBOXABLE = java.util.EnumSet.of(Material.BEDROCK, Material.END_PORTAL_FRAME,
+    private static final Set<Material> UNBOXABLE = EnumSet.of(Material.BEDROCK, Material.END_PORTAL_FRAME,
             Material.END_PORTAL, Material.NETHER_PORTAL, Material.END_GATEWAY, Material.BARRIER, Material.COMMAND_BLOCK,
             Material.CHAIN_COMMAND_BLOCK, Material.REPEATING_COMMAND_BLOCK, Material.STRUCTURE_BLOCK, Material.JIGSAW);
     /** Common blocks the seismic reader does not list. */
-    private static final java.util.Set<String> COMMON = java.util.Set.of("stone", "deepslate", "dirt", "grass_block", "gravel", "tuff",
+    private static final Set<String> COMMON = Set.of("stone", "deepslate", "dirt", "grass_block", "gravel", "tuff",
             "andesite", "diorite", "granite", "bedrock", "air", "cave_air", "water", "lava", "netherrack", "sand", "sandstone", "calcite",
             "cobbled_deepslate", "clay", "mud", "red_sand", "terracotta", "end_stone", "basalt", "blackstone", "soul_sand", "soul_soil");
 
@@ -284,7 +295,7 @@ final class PaperAutomation implements Listener {
     /** Puts the block (with its contents, or a spawner's mob) into the box. */
     private void pack(Player player, Block block, ItemStack box) {
         if (block.getType().isAir() || UNBOXABLE.contains(block.getType()) || block.getType().getHardness() < 0) return;
-        if (net.momirealms.craftengine.bukkit.api.CraftEngineBlocks.isCustomBlock(block)) {
+        if (CraftEngineBlocks.isCustomBlock(block)) {
             player.sendActionBar(Component.text("Machines keep their contents when broken: no need for a box", NamedTextColor.RED));
             return;
         }
@@ -333,7 +344,7 @@ final class PaperAutomation implements Listener {
         byte[] items = pdc.get(BOX_ITEMS, PersistentDataType.BYTE_ARRAY);
         if (items != null && target.getState(false) instanceof Container container) {
             ItemStack[] contents = deserialize(items);
-            container.getInventory().setContents(java.util.Arrays.copyOf(contents, container.getInventory().getSize()));
+            container.getInventory().setContents(Arrays.copyOf(contents, container.getInventory().getSize()));
         }
         String spawned = pdc.get(BOX_SPAWNER, PersistentDataType.STRING);
         if (spawned != null && target.getState(false) instanceof CreatureSpawner spawner) {
@@ -351,8 +362,8 @@ final class PaperAutomation implements Listener {
 
     /** Slots as length-prefixed serialized items (an empty slot: length 0). */
     private static byte[] serialize(ItemStack[] contents) {
-        java.io.ByteArrayOutputStream bytes = new java.io.ByteArrayOutputStream();
-        try (java.io.DataOutputStream out = new java.io.DataOutputStream(bytes)) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        try (DataOutputStream out = new DataOutputStream(bytes)) {
             out.writeInt(contents.length);
             for (ItemStack item : contents) {
                 byte[] one = item == null || item.isEmpty() ? new byte[0] : item.serializeAsBytes();
@@ -360,13 +371,13 @@ final class PaperAutomation implements Listener {
                 out.write(one);
             }
         } catch (IOException e) {
-            throw new java.io.UncheckedIOException(e);
+            throw new UncheckedIOException(e);
         }
         return bytes.toByteArray();
     }
 
     private static ItemStack[] deserialize(byte[] data) {
-        try (java.io.DataInputStream in = new java.io.DataInputStream(new java.io.ByteArrayInputStream(data))) {
+        try (DataInputStream in = new DataInputStream(new ByteArrayInputStream(data))) {
             ItemStack[] contents = new ItemStack[in.readInt()];
             for (int i = 0; i < contents.length; i++) {
                 byte[] one = new byte[in.readInt()];
@@ -375,19 +386,19 @@ final class PaperAutomation implements Listener {
             }
             return contents;
         } catch (IOException e) {
-            throw new java.io.UncheckedIOException(e);
+            throw new UncheckedIOException(e);
         }
     }
 
     /** Lists the uncommon blocks in the column under the vibrator, top to bottom. */
     private static void read(Player player, Block vibrator) {
-        Map<String, List<Integer>> found = new java.util.LinkedHashMap<>();
+        Map<String, List<Integer>> found = new LinkedHashMap<>();
         World world = vibrator.getWorld();
         for (int y = vibrator.getY() - 1; y >= world.getMinHeight(); y--) {
             Block block = world.getBlockAt(vibrator.getX(), y, vibrator.getZ());
             String name;
-            if (net.momirealms.craftengine.bukkit.api.CraftEngineBlocks.isCustomBlock(block)) {
-                var state = net.momirealms.craftengine.bukkit.api.CraftEngineBlocks.getCustomBlockState(block);
+            if (CraftEngineBlocks.isCustomBlock(block)) {
+                var state = CraftEngineBlocks.getCustomBlockState(block);
                 name = state == null ? block.getType().getKey().getKey() : state.owner().value().id().value();
             } else {
                 name = block.getType().getKey().getKey();
@@ -454,7 +465,7 @@ final class PaperAutomation implements Listener {
                 long amount = entry.getValue();
                 icon.setAmount((int) Math.max(1, Math.min(64, amount)));
                 icon.editMeta(meta -> {
-                    List<Component> lore = new ArrayList<>(meta.hasLore() ? java.util.Objects.requireNonNull(meta.lore()) : List.of());
+                    List<Component> lore = new ArrayList<>(meta.hasLore() ? Objects.requireNonNull(meta.lore()) : List.of());
                     lore.add(Component.text(String.format(Locale.ROOT, "Stored: %,d", amount), NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false));
                     lore.add(Component.text("Left: a stack, right: one", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false));
                     meta.lore(lore);

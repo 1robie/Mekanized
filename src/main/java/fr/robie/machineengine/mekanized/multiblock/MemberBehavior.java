@@ -20,7 +20,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.function.ToLongFunction;
 
 /**
@@ -49,14 +51,14 @@ public final class MemberBehavior implements MachineBehavior {
     private final @Nullable AnchorTask task;
     private final long taskTicks;
     /** Modal valves and ports: by mode ({@link #PORT_MODE}), the anchor's storages given out; null for others. */
-    private @Nullable java.util.Map<String, List<String>> pushes;
+    private @Nullable Map<String, List<String>> pushes;
 
     private MemberBehavior(List<Multiblocks.Type> types, List<String> insertInto, List<String> extractFrom, boolean exclusive,
                            @Nullable ToLongFunction<Multiblocks.Structure> outputRate, @Nullable AnchorTask task, long taskTicks) {
         this.types = List.copyOf(types);
         this.insertInto = List.copyOf(insertInto);
         this.extractFrom = List.copyOf(extractFrom);
-        java.util.LinkedHashSet<String> all = new java.util.LinkedHashSet<>(insertInto);
+        LinkedHashSet<String> all = new LinkedHashSet<>(insertInto);
         all.addAll(extractFrom);
         this.storages = List.copyOf(all);
         this.exclusive = exclusive;
@@ -96,12 +98,12 @@ public final class MemberBehavior implements MachineBehavior {
      * or {@code active} when not in {@code input}).
      */
     public static @NotNull MachineBehavior.Factory modal(@NotNull List<Multiblocks.Type> types, @NotNull List<String> insertInto,
-                                                         @NotNull java.util.Map<String, List<String>> pushes) {
+                                                         @NotNull Map<String, List<String>> pushes) {
         return type -> {
             List<String> all = new ArrayList<>();
             pushes.values().forEach(all::addAll);
             MemberBehavior behavior = new MemberBehavior(types, insertInto, all, false, null, null, RECHECK_TICKS);
-            behavior.pushes = java.util.Map.copyOf(pushes);
+            behavior.pushes = Map.copyOf(pushes);
             return behavior;
         };
     }

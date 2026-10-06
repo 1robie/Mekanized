@@ -13,6 +13,8 @@ import fr.robie.machineengine.api.network.TransportType;
 import fr.robie.machineengine.api.recipe.ProcessingRecipe;
 import fr.robie.machineengine.api.recipe.RecipeType;
 import fr.robie.machineengine.api.world.RelativeSide;
+import fr.robie.machineengine.mekanized.MekanizedContent;
+import fr.robie.machineengine.mekanized.MekanizedSettings;
 import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -61,7 +63,7 @@ public final class LogisticsMachines {
         for (int i = 0; i < TIERS.length; i++) {
             // Items per batch (every 10 ticks), from the settings.
             transporters.add(TransportType.of(key(TIERS[i] + "_logistical_transporter"), ITEM_NETWORK,
-                    fr.robie.machineengine.mekanized.MekanizedSettings.transporterRates[i], Items.anyItem()));
+                    MekanizedSettings.transporterRates[i], Items.anyItem()));
         }
         return List.copyOf(transporters);
     }
@@ -125,7 +127,7 @@ public final class LogisticsMachines {
      * factory, a higher one turns a factory of the tier below into its own tier. {@code null} otherwise.
      */
     public static @Nullable Key upgrade(@NotNull Key machine, @NotNull String installerTier) {
-        if (!machine.namespace().equals(fr.robie.machineengine.mekanized.MekanizedContent.NAMESPACE)) return null;
+        if (!machine.namespace().equals(MekanizedContent.NAMESPACE)) return null;
         int tier = List.of(TIERS).indexOf(installerTier);
         if (tier < 0) return null;
         for (Kind kind : KINDS) {

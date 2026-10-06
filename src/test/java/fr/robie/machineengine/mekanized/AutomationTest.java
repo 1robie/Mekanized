@@ -1,7 +1,9 @@
 package fr.robie.machineengine.mekanized;
 
 import fr.robie.machineengine.api.addon.AddonRegistration;
+import fr.robie.machineengine.api.error.Result;
 import fr.robie.machineengine.api.machine.MachineType;
+import fr.robie.machineengine.api.machine.WakeReason;
 import fr.robie.machineengine.api.registry.Registries;
 import fr.robie.machineengine.api.resource.ResourceStack;
 import fr.robie.machineengine.api.resource.ResourceVariant;
@@ -11,10 +13,11 @@ import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.transfer.storage.CombinedResourceHandler;
 import fr.robie.machineengine.api.world.Direction;
 import fr.robie.machineengine.api.world.WorldPosition;
+import fr.robie.machineengine.core.definition.DefinitionCompiler;
 import fr.robie.machineengine.core.lifecycle.CoreMachineEngine;
 import fr.robie.machineengine.core.machine.MachineInstanceImpl;
-import fr.robie.machineengine.mekanized.machine.AutomationMachines;
 import fr.robie.machineengine.mekanized.machine.AutomationMachines.Frequencies;
+import fr.robie.machineengine.mekanized.machine.AutomationMachines;
 import fr.robie.machineengine.test.FakeWorld;
 import fr.robie.machineengine.test.TestEngine;
 import net.kyori.adventure.key.Key;
@@ -31,10 +34,10 @@ class AutomationTest {
 
     private final CoreMachineEngine engine = TestEngine.builder()
             .addon(AddonRegistration.builder("Mekanized", "1.0.0").register(MekanizedContent::register).build())
-            .definitions(MekanizedChainTest::definitions, new fr.robie.machineengine.core.definition.DefinitionCompiler.ItemResolver() {
+            .definitions(MekanizedChainTest::definitions, new DefinitionCompiler.ItemResolver() {
                 @Override
-                public fr.robie.machineengine.api.error.Result<ResourceVariant> item(Key id) {
-                    return fr.robie.machineengine.api.error.Result.ok(MekanizedChainTest.item(id.asString()));
+                public Result<ResourceVariant> item(Key id) {
+                    return Result.ok(MekanizedChainTest.item(id.asString()));
                 }
             })
             .start();
@@ -54,7 +57,7 @@ class AutomationTest {
         miner.context().set(AutomationMachines.RADIUS, "4");
         miner.context().set(AutomationMachines.MIN_Y, "50");
         miner.context().set(AutomationMachines.RUNNING, true);
-        miner.wake(fr.robie.machineengine.api.machine.WakeReason.CONFIG_CHANGED);
+        miner.wake(WakeReason.CONFIG_CHANGED);
         world.tick(40);
         assertEquals(1, amountOf(miner, "output", MekanizedChainTest.item("minecraft:iron_ore")), "the ore: " + miner.context().get(AutomationMachines.STATUS));
         assertEquals(Key.key("minecraft", "stone"), world.blockAt(FakeWorld.at(1, 58, 1)), "no filters: only ores");
@@ -71,7 +74,7 @@ class AutomationTest {
         miner.context().set(AutomationMachines.RADIUS, "4");
         miner.context().set(AutomationMachines.MIN_Y, "55");
         miner.context().set(AutomationMachines.RUNNING, true);
-        miner.wake(fr.robie.machineengine.api.machine.WakeReason.CONFIG_CHANGED);
+        miner.wake(WakeReason.CONFIG_CHANGED);
         world.tick(40);
         assertEquals(1, amountOf(miner, "output", MekanizedChainTest.item("minecraft:stone")));
         assertEquals(Key.key("minecraft", "coal_ore"), world.blockAt(FakeWorld.at(0, 62, 0)), "not in the filters");

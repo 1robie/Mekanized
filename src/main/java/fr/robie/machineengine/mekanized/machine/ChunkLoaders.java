@@ -1,19 +1,20 @@
 package fr.robie.machineengine.mekanized.machine;
 
 import fr.robie.machineengine.api.addon.RegistrationContext;
+import fr.robie.machineengine.api.data.Codecs;
+import fr.robie.machineengine.api.data.VersionedCodec;
 import fr.robie.machineengine.api.event.EventPhase;
 import fr.robie.machineengine.api.machine.MachineBehavior;
 import fr.robie.machineengine.api.machine.MachineDataKey;
 import fr.robie.machineengine.api.machine.MachineEvents;
 import fr.robie.machineengine.api.machine.MachineInstance;
-import fr.robie.machineengine.api.data.Codecs;
-import fr.robie.machineengine.api.data.VersionedCodec;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -98,7 +99,7 @@ public final class ChunkLoaders {
             WorldPosition here = context.machine().position();
             if (paid) {
                 set(here, radius);
-                context.set(STATUS, String.format(java.util.Locale.ROOT, "Loading %d chunk%s", chunks, chunks == 1 ? "" : "s"));
+                context.set(STATUS, String.format(Locale.ROOT, "Loading %d chunk%s", chunks, chunks == 1 ? "" : "s"));
             } else {
                 set(here, null);
                 context.set(STATUS, "Needs energy");

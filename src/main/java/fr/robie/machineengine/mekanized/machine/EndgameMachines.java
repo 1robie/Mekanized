@@ -13,6 +13,8 @@ import fr.robie.machineengine.api.process.ProcessBinding;
 import fr.robie.machineengine.api.recipe.ProcessingRecipe;
 import fr.robie.machineengine.api.recipe.RecipeType;
 import fr.robie.machineengine.api.resource.match.ResourcePredicate;
+import fr.robie.machineengine.api.upgrade.UpgradeType;
+import fr.robie.machineengine.api.world.RelativeSide;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 
 import java.util.ArrayList;
@@ -98,11 +100,11 @@ public final class EndgameMachines {
                 .storage(StorageDefinition.tank("right", 1_000).filter(mixed))
                 .storage(StorageDefinition.tank("output", 1_000).filter(IS_CHEMICAL))
                 .port(PortDefinition.builder("left", "left").direction(PortDirection.INPUT).filter(IS_CHEMICAL)
-                        .sides(fr.robie.machineengine.api.world.RelativeSide.LEFT).group("chemical").build())
+                        .sides(RelativeSide.LEFT).group("chemical").build())
                 .port(PortDefinition.builder("right", "right").direction(PortDirection.INPUT).filter(IS_CHEMICAL)
-                        .sides(fr.robie.machineengine.api.world.RelativeSide.RIGHT).group("chemical").build())
+                        .sides(RelativeSide.RIGHT).group("chemical").build())
                 .port(PortDefinition.builder("output", "output").direction(PortDirection.OUTPUT).filter(IS_CHEMICAL)
-                        .sides(fr.robie.machineengine.api.world.RelativeSide.FRONT).group("chemical").build())
+                        .sides(RelativeSide.FRONT).group("chemical").build())
                 .upgradeSlots(2, EndgameMachines::upgrade)
                 .behavior(powered(ProcessingBehavior.of(PIGMENT_MIXING, new ProcessBinding(List.of("left", "right"), "output", List.of("energy")))))
                 .build());
@@ -118,7 +120,7 @@ public final class EndgameMachines {
         return machines;
     }
 
-    private static boolean upgrade(fr.robie.machineengine.api.upgrade.UpgradeType upgrade) {
+    private static boolean upgrade(UpgradeType upgrade) {
         return MekanizedMachines.standardUpgrade(upgrade);
     }
 

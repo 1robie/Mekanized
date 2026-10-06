@@ -1,5 +1,6 @@
 package fr.robie.machineengine.mekanized.machine;
 
+import fr.robie.machineengine.api.item.ItemData;
 import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.recipe.ProcessingRecipe;
 import fr.robie.machineengine.api.registry.ReloadContext;
@@ -18,6 +19,10 @@ import org.bukkit.inventory.RecipeChoice;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Logger;
 
 /**
  * The energized smelter runs every furnace recipe of the server (vanilla, datapacks, and CraftEngine's,
@@ -33,7 +38,7 @@ final class FurnaceRecipes {
     static void provide(ReloadContext<fr.robie.machineengine.api.recipe.Recipe> reload) {
         if (Bukkit.getServer() == null) return; // headless tests
         int registered = 0;
-        java.util.Map<String, Integer> skipped = new java.util.TreeMap<>();
+        Map<String, Integer> skipped = new TreeMap<>();
         Iterator<Recipe> recipes = Bukkit.recipeIterator();
         while (recipes.hasNext()) {
             if (!(recipes.next() instanceof FurnaceRecipe furnace)) continue;
@@ -59,7 +64,7 @@ final class FurnaceRecipes {
             }
         }
         var plugin = Bukkit.getPluginManager().getPlugin("Mekanized");
-        java.util.logging.Logger logger = plugin != null ? plugin.getLogger() : Bukkit.getLogger();
+        Logger logger = plugin != null ? plugin.getLogger() : Bukkit.getLogger();
         logger.info("Energized smelter: " + registered + " furnace recipes" + (skipped.isEmpty() ? "" : ", skipped " + skipped));
     }
 
@@ -68,9 +73,9 @@ final class FurnaceRecipes {
      * the choice itself, once per item id.
      */
     private static ResourcePredicate tested(RecipeChoice choice) {
-        java.util.Map<Key, Boolean> answers = new java.util.concurrent.ConcurrentHashMap<>();
+        Map<Key, Boolean> answers = new ConcurrentHashMap<>();
         return (variant, tags) -> {
-            fr.robie.machineengine.api.item.ItemData data = variant.type() == Items.ITEM ? variant.components().get(Items.DATA) : null;
+            ItemData data = variant.type() == Items.ITEM ? variant.components().get(Items.DATA) : null;
             if (data == null) return false;
             return answers.computeIfAbsent(data.item(), id -> {
                 ItemStack stack = PaperItems.toItemStack(variant, 1);

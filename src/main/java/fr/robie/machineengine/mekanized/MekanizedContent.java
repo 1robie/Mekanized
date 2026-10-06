@@ -3,7 +3,10 @@ package fr.robie.machineengine.mekanized;
 import fr.robie.machineengine.api.addon.RegistrationContext;
 import fr.robie.machineengine.api.resource.ResourceCategory;
 import fr.robie.machineengine.api.resource.ResourceType;
+import fr.robie.machineengine.mekanized.machine.MekanizedMachines;
 import net.kyori.adventure.key.Key;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,8 +18,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Mekanized's resources (docs/MEKANIZED_PLAN.md). Registered in Java, not in YAML definitions:
@@ -76,7 +77,7 @@ public final class MekanizedContent {
             ResourceType type = FLUIDS.computeIfAbsent(fluid, name -> ResourceType.of(key("fluid/" + name), FLUID));
             context.resourceTypes().register(type);
         }
-        fr.robie.machineengine.mekanized.machine.MekanizedMachines.register(context);
+        MekanizedMachines.register(context);
     }
 
     private static List<String> lines(String resource) {

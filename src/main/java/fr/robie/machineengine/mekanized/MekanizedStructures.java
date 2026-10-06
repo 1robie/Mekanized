@@ -7,6 +7,8 @@ import fr.robie.machineengine.mekanized.multiblock.MemberBehavior;
 import fr.robie.machineengine.paper.MachineLocator;
 import fr.robie.machineengine.paper.PaperItems;
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
+import net.momirealms.craftengine.core.util.Key;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
@@ -125,7 +127,7 @@ final class MekanizedStructures {
         if (structure == null) return "unknown structure " + name;
         // Folia: the whole structure must belong to the region running the command.
         for (List<Integer> at : structure.blocks().keySet()) {
-            if (!org.bukkit.Bukkit.isOwnedByCurrentRegion(world, (x + at.get(0)) >> 4, (z + at.get(2)) >> 4)) {
+            if (!Bukkit.isOwnedByCurrentRegion(world, (x + at.get(0)) >> 4, (z + at.get(2)) >> 4)) {
                 return "the structure crosses into another region: build it a few blocks away";
             }
         }
@@ -140,7 +142,7 @@ final class MekanizedStructures {
         for (Map.Entry<List<Integer>, String> block : order) {
             List<Integer> at = block.getKey();
             Location location = new Location(world, x + at.get(0), y + at.get(1), z + at.get(2));
-            if (!CraftEngineBlocks.place(location, net.momirealms.craftengine.core.util.Key.of("mekanized", block.getValue()), false)) {
+            if (!CraftEngineBlocks.place(location, Key.of("mekanized", block.getValue()), false)) {
                 return "could not place " + block.getValue() + " (is the Mekanized pack loaded?)";
             }
         }

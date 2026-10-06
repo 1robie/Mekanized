@@ -20,6 +20,7 @@ import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.api.transfer.ResourceHandler;
 import fr.robie.machineengine.api.transfer.StorageView;
 import fr.robie.machineengine.api.transfer.Transaction;
+import fr.robie.machineengine.api.transfer.TransactionContext;
 import fr.robie.machineengine.api.upgrade.StandardModifiers;
 import fr.robie.machineengine.api.world.BlockPosition;
 import fr.robie.machineengine.api.world.Direction;
@@ -32,9 +33,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -159,7 +162,7 @@ public final class AutomationMachines {
 
         static void teleporter(WorldPosition position, @Nullable Teleporter teleporter) {
             Teleporter old = teleporter == null ? TELEPORTERS.remove(position) : TELEPORTERS.put(position, teleporter);
-            if (!java.util.Objects.equals(old, teleporter)) {
+            if (!Objects.equals(old, teleporter)) {
                 Runnable listener = onTeleportersChanged;
                 if (listener != null) listener.run();
             }
@@ -261,7 +264,7 @@ public final class AutomationMachines {
     }
 
     private static Set<Key> filters(MachineContext context) {
-        Set<Key> filters = new java.util.HashSet<>();
+        Set<Key> filters = new HashSet<>();
         for (StorageView view : context.storage("filter").views()) {
             ItemData data = view.isEmpty() ? null : view.variant().components().get(Items.DATA);
             if (data != null) filters.add(data.item());
@@ -405,7 +408,7 @@ public final class AutomationMachines {
      * within what its drives hold (items and kinds).
      */
     public static long insertIntoArray(@NotNull ResourceHandler drives, @NotNull ResourceHandler items, @NotNull ResourceVariant variant,
-                                       long amount, @NotNull fr.robie.machineengine.api.transfer.TransactionContext transaction) {
+                                       long amount, @NotNull TransactionContext transaction) {
         long[] limits = limits(drives);
         long stored = 0;
         long kinds = 0;

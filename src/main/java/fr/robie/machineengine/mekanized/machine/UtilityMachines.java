@@ -11,6 +11,7 @@ import fr.robie.machineengine.api.machine.PortDefinition;
 import fr.robie.machineengine.api.machine.PortDirection;
 import fr.robie.machineengine.api.machine.StorageDefinition;
 import fr.robie.machineengine.api.resource.match.ResourcePredicate;
+import fr.robie.machineengine.api.upgrade.UpgradeType;
 import fr.robie.machineengine.api.world.RelativeSide;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import net.kyori.adventure.key.Key;
@@ -134,7 +135,7 @@ public final class UtilityMachines {
         return machines;
     }
 
-    private static boolean upgrade(fr.robie.machineengine.api.upgrade.UpgradeType upgrade) {
+    private static boolean upgrade(UpgradeType upgrade) {
         return MekanizedMachines.standardUpgrade(upgrade);
     }
 

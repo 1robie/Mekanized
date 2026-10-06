@@ -10,21 +10,27 @@ import fr.robie.machineengine.mekanized.machine.EnergyItems;
 import fr.robie.machineengine.mekanized.machine.Liquifier;
 import fr.robie.machineengine.paper.MachineLocator;
 import fr.robie.machineengine.paper.PaperItems;
+import io.papermc.paper.entity.Shearable;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.Material;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
+import org.bukkit.Registry;
 import org.bukkit.Tag;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.AbstractArrow;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,6 +41,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -210,7 +217,7 @@ final class PaperGear implements Listener {
             tool.setRules(new ArrayList<>());
             tool.setDefaultMiningSpeed(charged ? 4f : 1f);
             tool.setDamagePerBlock(0);
-            for (Tag<org.bukkit.Material> tag : List.of(Tag.MINEABLE_PICKAXE, Tag.MINEABLE_AXE, Tag.MINEABLE_SHOVEL, Tag.MINEABLE_HOE)) {
+            for (Tag<Material> tag : List.of(Tag.MINEABLE_PICKAXE, Tag.MINEABLE_AXE, Tag.MINEABLE_SHOVEL, Tag.MINEABLE_HOE)) {
                 tool.addRule(tag, speed, charged);
             }
             meta.setTool(tool);
@@ -247,7 +254,7 @@ final class PaperGear implements Listener {
         ItemStack boots = player.getInventory().getBoots();
         if (!"mekasuit_boots".equals(id(boots)) || !modules(boots).contains("magnetic_attraction_unit")) return;
         Location at = player.getLocation().add(0, 0.5, 0);
-        for (org.bukkit.entity.Item item : player.getWorld().getNearbyEntitiesByType(org.bukkit.entity.Item.class, at, 8)) {
+        for (Item item : player.getWorld().getNearbyEntitiesByType(Item.class, at, 8)) {
             if (item.getPickupDelay() > 0 || !useEnergy(boots, 20)) continue;
             item.setVelocity(at.toVector().subtract(item.getLocation().toVector()).normalize().multiply(0.6));
         }
@@ -385,9 +392,9 @@ final class PaperGear implements Listener {
     /** Sets the step height ({@code height} below 0: back to normal, if it was raised). */
     private void stepHeight(Player player, double height) {
         if (height < 0 && !this.stepping.remove(player.getUniqueId())) return;
-        org.bukkit.attribute.Attribute attribute = null;
+        Attribute attribute = null;
         for (String key : List.of("step_height", "generic.step_height")) {
-            attribute = org.bukkit.Registry.ATTRIBUTE.get(NamespacedKey.minecraft(key));
+            attribute = Registry.ATTRIBUTE.get(NamespacedKey.minecraft(key));
             if (attribute != null) break;
         }
         var instance = attribute == null ? null : player.getAttribute(attribute);
@@ -468,7 +475,7 @@ final class PaperGear implements Listener {
                 Block next = ay >= ax && ay >= az ? start.getRelative(a, 0, b) : ax >= az ? start.getRelative(0, a, b) : start.getRelative(a, b, 0);
                 if (!Bukkit.isOwnedByCurrentRegion(next)) continue;
                 if (next.getType().isAir() || next.getType().getHardness() < 0 || next.isLiquid()) continue;
-                if (net.momirealms.craftengine.bukkit.api.CraftEngineBlocks.isCustomBlock(next)) continue;
+                if (CraftEngineBlocks.isCustomBlock(next)) continue;
                 if (!useEnergy(tool, 100)) return;
                 this.veining.add(next);
                 try {
@@ -495,11 +502,11 @@ final class PaperGear implements Listener {
 
     /** Shearing unit: right-click a sheep, mooshroom or snow golem to shear it (500 J). */
     @EventHandler(ignoreCancelled = true)
-    public void onShear(org.bukkit.event.player.PlayerInteractEntityEvent event) {
+    public void onShear(PlayerInteractEntityEvent event) {
         if (event.getHand() != EquipmentSlot.HAND) return;
         ItemStack tool = event.getPlayer().getInventory().getItemInMainHand();
         if (!"meka_tool".equals(id(tool)) || !modules(tool).contains("shearing_unit")) return;
-        if (!(event.getRightClicked() instanceof io.papermc.paper.entity.Shearable shearable) || !shearable.readyToBeSheared()) return;
+        if (!(event.getRightClicked() instanceof Shearable shearable) || !shearable.readyToBeSheared()) return;
         if (!useEnergy(tool, 500)) return;
         event.setCancelled(true);
         shearable.shear(net.kyori.adventure.sound.Sound.Source.PLAYER);
@@ -524,8 +531,8 @@ final class PaperGear implements Listener {
         ItemStack bow = event.getBow();
         if (!"electric_bow".equals(id(bow)) || !useEnergy(bow, 120)) return;
         event.setConsumeItem(false);
-        if (event.getProjectile() instanceof org.bukkit.entity.AbstractArrow arrow) {
-            arrow.setPickupStatus(org.bukkit.entity.AbstractArrow.PickupStatus.CREATIVE_ONLY);
+        if (event.getProjectile() instanceof AbstractArrow arrow) {
+            arrow.setPickupStatus(AbstractArrow.PickupStatus.CREATIVE_ONLY);
         }
         if (event.getEntity() instanceof Player player) player.getScheduler().run(this.plugin, task -> player.updateInventory(), null);
     }

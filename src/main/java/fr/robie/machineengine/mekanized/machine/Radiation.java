@@ -12,8 +12,10 @@ import fr.robie.machineengine.api.transfer.StorageView;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.MekanizedContent;
+import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -62,7 +64,7 @@ public final class Radiation {
     }
 
     /** Radiation at a point: background plus every source of the world, over the squared distance. */
-    public static double levelAt(@NotNull net.kyori.adventure.key.Key world, double x, double y, double z) {
+    public static double levelAt(@NotNull Key world, double x, double y, double z) {
         double level = BACKGROUND;
         for (Map.Entry<WorldPosition, Double> source : SOURCES.entrySet()) {
             WorldPosition at = source.getKey();
@@ -88,7 +90,7 @@ public final class Radiation {
             value *= 1000;
             unit++;
         }
-        return String.format(java.util.Locale.ROOT, "%.2f %s%s", value, units[unit], suffix);
+        return String.format(Locale.ROOT, "%.2f %s%s", value, units[unit], suffix);
     }
 
     static void register(RegistrationContext context) {

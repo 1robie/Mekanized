@@ -6,9 +6,13 @@ import fr.robie.machineengine.api.machine.MachineType;
 import fr.robie.machineengine.api.machine.PortDefinition;
 import fr.robie.machineengine.api.machine.PortDirection;
 import fr.robie.machineengine.api.machine.StorageDefinition;
+import fr.robie.machineengine.api.recipe.ProcessingRecipe;
+import fr.robie.machineengine.api.recipe.RecipeType;
 import fr.robie.machineengine.api.resource.match.ResourcePredicate;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.mekanized.MekanizedSettings;
+import fr.robie.machineengine.mekanized.machine.ChemistryMachines;
+import fr.robie.machineengine.mekanized.machine.ConvertingBehavior;
 import fr.robie.machineengine.mekanized.machine.MachineParts;
 import net.kyori.adventure.key.Key;
 
@@ -43,8 +47,8 @@ public final class MultiblockMachines {
             structure -> Map.of("energy", sum(structure, "_induction_cell", CELLS)));
 
     /** Mekanism's evaporating recipes: water to brine, brine to liquid lithium. */
-    public static final fr.robie.machineengine.api.recipe.RecipeType<fr.robie.machineengine.api.recipe.ProcessingRecipe> EVAPORATING =
-            fr.robie.machineengine.api.recipe.RecipeType.of(key("evaporating"), fr.robie.machineengine.api.recipe.ProcessingRecipe.class);
+    public static final RecipeType<ProcessingRecipe> EVAPORATING =
+            RecipeType.of(key("evaporating"), ProcessingRecipe.class);
 
     /**
      * A 4x4 tower, 3 to 18 blocks high, open at the top, with exactly one controller. The input tank
@@ -77,12 +81,12 @@ public final class MultiblockMachines {
                 .storage(StorageDefinition.slots("bucket_in", 1, 16).filter(Items.anyItem()))
                 .storage(StorageDefinition.slots("output_bucket", 1, 16).filter(Items.anyItem()))
                 .storage(StorageDefinition.slots("bucket_out", 1, 16).filter(Items.anyItem()))
-                .behavior(fr.robie.machineengine.mekanized.machine.ConvertingBehavior.of(
+                .behavior(ConvertingBehavior.of(
                         MemberBehavior.frame(tower, new Evaporation(EVAPORATING), Evaporation.EVERY_TICKS),
-                        new fr.robie.machineengine.mekanized.machine.ConvertingBehavior.Conversion("bucket_in", "input",
-                                fr.robie.machineengine.mekanized.machine.ChemistryMachines.BUCKET_FILLING, "bucket_out"),
-                        new fr.robie.machineengine.mekanized.machine.ConvertingBehavior.Conversion("output_bucket", "output",
-                                fr.robie.machineengine.mekanized.machine.ChemistryMachines.BUCKET_DRAINING, "bucket_out")))
+                        new ConvertingBehavior.Conversion("bucket_in", "input",
+                                ChemistryMachines.BUCKET_FILLING, "bucket_out"),
+                        new ConvertingBehavior.Conversion("output_bucket", "output",
+                                ChemistryMachines.BUCKET_DRAINING, "bucket_out")))
                 .build());
         context.machineTypes().register(MachineType.builder(key("thermal_evaporation_valve"))
                 .storage(StorageDefinition.tank("fluid", 1).filter(IS_FLUID))

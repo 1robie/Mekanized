@@ -26,6 +26,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static fr.robie.machineengine.mekanized.MekanizedContent.key;
 
@@ -56,7 +57,7 @@ public final class Entangloporters {
 
     /** Frequency -> channel storage -> what the buffer holds. */
     private static final Map<String, Map<String, Map<ResourceVariant, Long>>> BUFFERS = new ConcurrentHashMap<>();
-    private static final java.util.concurrent.atomic.AtomicBoolean DIRTY = new java.util.concurrent.atomic.AtomicBoolean();
+    private static final AtomicBoolean DIRTY = new AtomicBoolean();
 
     private Entangloporters() {
     }

@@ -19,6 +19,7 @@ import fr.robie.machineengine.api.world.Direction;
 import fr.robie.machineengine.api.world.RelativeSide;
 import fr.robie.machineengine.api.world.WorldFluid;
 import fr.robie.machineengine.mekanized.MekanizedContent;
+import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -118,7 +119,7 @@ public final class ChemistryBehaviors {
     }
 
     /** The nearest source block of {@code fluid} reached through that fluid from {@code start}. */
-    private static @Nullable BlockPosition findSource(MachineContext context, BlockPosition start, net.kyori.adventure.key.Key fluid, int range) {
+    private static @Nullable BlockPosition findSource(MachineContext context, BlockPosition start, Key fluid, int range) {
         ArrayDeque<BlockPosition> queue = new ArrayDeque<>();
         Set<BlockPosition> seen = new HashSet<>();
         queue.add(start);

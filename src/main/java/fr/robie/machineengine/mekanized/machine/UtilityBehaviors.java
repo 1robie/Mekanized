@@ -1,9 +1,11 @@
 package fr.robie.machineengine.mekanized.machine;
 
+import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.machine.MachineBehavior;
 import fr.robie.machineengine.api.machine.MachineContext;
 import fr.robie.machineengine.api.resource.ResourceStack;
 import fr.robie.machineengine.api.resource.ResourceVariant;
+import fr.robie.machineengine.api.resource.tag.ResourceTags;
 import fr.robie.machineengine.api.transfer.ResourceHandler;
 import fr.robie.machineengine.api.transfer.StorageView;
 import fr.robie.machineengine.api.transfer.Transaction;
@@ -13,6 +15,7 @@ import fr.robie.machineengine.api.world.Direction;
 import fr.robie.machineengine.api.world.WorldFluid;
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.MekanizedContent;
+import fr.robie.machineengine.mekanized.multiblock.Multiblocks;
 import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -23,7 +26,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 
 /** Behaviors of Mekanism's utility blocks (Phase 6 wave 2): bins, plenisher, assemblicator, lasers, alarm. */
 public final class UtilityBehaviors {
@@ -128,7 +134,7 @@ public final class UtilityBehaviors {
          * @param grid  9 cells, row by row, {@code null} for empty ones
          * @return the result, or null
          */
-        @Nullable ResourceStack craft(@NotNull net.kyori.adventure.key.Key world, @NotNull List<@Nullable ResourceVariant> grid);
+        @Nullable ResourceStack craft(@NotNull Key world, @NotNull List<@Nullable ResourceVariant> grid);
     }
 
     private static volatile @Nullable Crafting crafting;
@@ -147,7 +153,7 @@ public final class UtilityBehaviors {
             List<StorageView> pattern = context.storage("pattern").views();
             List<ResourceVariant> grid = new ArrayList<>();
             for (StorageView cell : pattern) grid.add(cell.isEmpty() ? null : cell.variant());
-            ResourceStack result = current == null || grid.stream().allMatch(java.util.Objects::isNull) ? null : current.craft(context.machine().position().world(), grid);
+            ResourceStack result = current == null || grid.stream().allMatch(Objects::isNull) ? null : current.craft(context.machine().position().world(), grid);
             if (result == null) {
                 context.setActive(false);
                 context.waitForInput();
@@ -251,7 +257,7 @@ public final class UtilityBehaviors {
                     if (block == null) return at; // not loaded: the beam stops
                     if (block.equals(MekanizedContent.key("laser_focus_matrix"))) {
                         // A fusion reactor's window: the beam heats its plasma (ignition).
-                        var structure = fr.robie.machineengine.mekanized.multiblock.Multiblocks.containing(new WorldPosition(origin.world(), at));
+                        var structure = Multiblocks.containing(new WorldPosition(origin.world(), at));
                         if (structure != null) {
                             context.machines().storage(structure.anchor(), "ignition").ifPresent(ignition -> {
                                 try (Transaction transaction = context.transactions().openOuter()) {
@@ -307,9 +313,9 @@ public final class UtilityBehaviors {
     // -- Oredictionificator -----------------------------------------------------------------
 
     /** Makes the platform's item {@code id} (a plain one), or null if there is none. */
-    private static volatile @Nullable java.util.function.Function<Key, ResourceVariant> itemFactory;
+    private static volatile @Nullable Function<Key, ResourceVariant> itemFactory;
 
-    public static void setItemFactory(@Nullable java.util.function.Function<Key, ResourceVariant> value) {
+    public static void setItemFactory(@Nullable Function<Key, ResourceVariant> value) {
         itemFactory = value;
     }
 
@@ -322,7 +328,7 @@ public final class UtilityBehaviors {
      * The Mekanized item that stands for {@code item}'s {@code c:} tag (an osmium ingot from another
      * plugin becomes {@code mekanized:ingot_osmium}); null if {@code item} is already it or in none.
      */
-    static @Nullable Key standardItem(fr.robie.machineengine.api.resource.tag.ResourceTags tags, Key item) {
+    static @Nullable Key standardItem(ResourceTags tags, Key item) {
         for (String material : MATERIALS) {
             String[][] families = {{"ingots", "ingot_" + material}, {"dusts", "dust_" + material}, {"nuggets", "nugget_" + material},
                     {"storage_blocks", "block_" + material}, {"raw_materials", "raw_" + material}, {"ores", material + "_ore"}};
@@ -339,7 +345,7 @@ public final class UtilityBehaviors {
     /** Turns the items of its {@code input} into their standard Mekanized item (Mekanism's default filters). */
     public static @NotNull MachineBehavior.Factory oredictionificator() {
         return type -> new MachineBehavior() {
-            private final Map<ResourceVariant, java.util.Optional<ResourceVariant>> known = new HashMap<>();
+            private final Map<ResourceVariant, Optional<ResourceVariant>> known = new HashMap<>();
 
             @Override
             public void tick(@NotNull MachineContext context) {
@@ -348,11 +354,11 @@ public final class UtilityBehaviors {
                 for (StorageView view : input.views()) {
                     if (view.isEmpty() || factory == null) continue;
                     ResourceVariant from = view.variant();
-                    var data = from.components().get(fr.robie.machineengine.api.item.Items.DATA);
+                    var data = from.components().get(Items.DATA);
                     if (data == null) continue;
                     ResourceVariant to = this.known.computeIfAbsent(from, variant -> {
                         Key target = standardItem(context.tags(), data.item());
-                        return java.util.Optional.ofNullable(target == null ? null : factory.apply(target));
+                        return Optional.ofNullable(target == null ? null : factory.apply(target));
                     }).orElse(null);
                     try (Transaction transaction = context.transactions().openOuter()) {
                         long moved = context.storage("output").insert(to == null ? from : to, view.amount(), transaction);

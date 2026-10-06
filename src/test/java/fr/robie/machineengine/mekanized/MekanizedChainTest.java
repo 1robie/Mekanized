@@ -1,6 +1,7 @@
 package fr.robie.machineengine.mekanized;
 
 import fr.robie.machineengine.api.addon.AddonRegistration;
+import fr.robie.machineengine.api.capability.Capabilities;
 import fr.robie.machineengine.api.data.DataMap;
 import fr.robie.machineengine.api.data.DataValue;
 import fr.robie.machineengine.api.definition.DefinitionFile;
@@ -10,16 +11,27 @@ import fr.robie.machineengine.api.item.ItemData;
 import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.machine.MachineEnvironment;
 import fr.robie.machineengine.api.machine.MachineType;
+import fr.robie.machineengine.api.machine.PortDirection;
+import fr.robie.machineengine.api.machine.WakeReason;
+import fr.robie.machineengine.api.network.TransportSideMode;
 import fr.robie.machineengine.api.registry.Registries;
 import fr.robie.machineengine.api.resource.ResourceStack;
 import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.api.transfer.StorageView;
 import fr.robie.machineengine.api.transfer.Transaction;
+import fr.robie.machineengine.api.transfer.storage.CombinedResourceHandler;
 import fr.robie.machineengine.api.world.Direction;
+import fr.robie.machineengine.api.world.RelativeSide;
+import fr.robie.machineengine.api.world.WorldFluid;
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.core.definition.DefinitionCompiler;
 import fr.robie.machineengine.core.lifecycle.CoreMachineEngine;
 import fr.robie.machineengine.core.machine.MachineInstanceImpl;
+import fr.robie.machineengine.mekanized.machine.ChemistryBehaviors;
+import fr.robie.machineengine.mekanized.machine.ChemistryMachines;
+import fr.robie.machineengine.mekanized.machine.EjectBehavior;
+import fr.robie.machineengine.mekanized.machine.EnergyItems;
+import fr.robie.machineengine.mekanized.machine.LogisticsMachines;
 import fr.robie.machineengine.mekanized.machine.MekanizedMachines;
 import fr.robie.machineengine.test.FakeWorld;
 import fr.robie.machineengine.test.TestEngine;
@@ -27,12 +39,19 @@ import net.kyori.adventure.key.Key;
 import org.junit.jupiter.api.Test;
 import org.yaml.snakeyaml.Yaml;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.EnumSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -45,7 +64,7 @@ class MekanizedChainTest {
     private static final WorldPosition HERE = FakeWorld.at(0, 64, 0);
     /** What the plugin installs, tags first. */
     private static final List<String> DEFINITIONS = MekanizedPlugin.ENABLED_DEFINITIONS.stream()
-            .sorted(java.util.Comparator.comparing((String name) -> name.startsWith("recipes_")).thenComparing(name -> name)).toList();
+            .sorted(Comparator.comparing((String name) -> name.startsWith("recipes_")).thenComparing(name -> name)).toList();
 
     static ResourceVariant item(String id) {
         return Items.variant(new ItemData(Key.key(id), id.getBytes(StandardCharsets.UTF_8)));
@@ -280,15 +299,15 @@ class MekanizedChainTest {
         fill(rotary, "chemical", chemical("oxygen", 50));
         world.tick(60);
         assertEquals(50, amountOfType(rotary, "fluid", "fluid/oxygen"), "condensing: chemical to fluid");
-        assertEquals(fr.robie.machineengine.api.machine.PortDirection.OUTPUT, rotary.context().portDirection("fluid"));
+        assertEquals(PortDirection.OUTPUT, rotary.context().portDirection("fluid"));
 
-        rotary.context().set(fr.robie.machineengine.mekanized.machine.ChemistryBehaviors.MODE, "decondensing");
-        rotary.wake(fr.robie.machineengine.api.machine.WakeReason.CONFIG_CHANGED);
+        rotary.context().set(ChemistryBehaviors.MODE, "decondensing");
+        rotary.wake(WakeReason.CONFIG_CHANGED);
         world.tick(60);
         assertEquals(50, amountOfType(rotary, "chemical", "oxygen"), "decondensing: fluid back to chemical");
-        assertEquals(fr.robie.machineengine.api.machine.PortDirection.INPUT, rotary.context().portDirection("fluid"),
+        assertEquals(PortDirection.INPUT, rotary.context().portDirection("fluid"),
                 "the fluid side became the input");
-        assertEquals(fr.robie.machineengine.api.machine.PortDirection.OUTPUT, rotary.context().portDirection("chemical"));
+        assertEquals(PortDirection.OUTPUT, rotary.context().portDirection("chemical"));
     }
 
     @Test
@@ -318,8 +337,8 @@ class MekanizedChainTest {
         fill(pump, "energy", MekanizedContent.ENERGY.stack(40_000));
         Key water = Key.key("minecraft", "water");
         // Flowing water below the pump, a source next to it.
-        world.setFluid(FakeWorld.at(0, 63, 0), new fr.robie.machineengine.api.world.WorldFluid(water, false));
-        world.setFluid(FakeWorld.at(1, 63, 0), new fr.robie.machineengine.api.world.WorldFluid(water, true));
+        world.setFluid(FakeWorld.at(0, 63, 0), new WorldFluid(water, false));
+        world.setFluid(FakeWorld.at(1, 63, 0), new WorldFluid(water, true));
         world.tick(2);
         assertEquals(1_000, amountOfType(pump, "fluid", "fluid/water"), "one source block is 1000 mB");
         assertEquals(null, world.fluidAt(FakeWorld.at(1, 63, 0)), "the source block is gone");
@@ -333,7 +352,7 @@ class MekanizedChainTest {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
         MachineInstanceImpl tank = world.place(type("basic_chemical_tank"), FakeWorld.at(0, 64, 0), Direction.EAST);
         fill(tank, "chemical", chemical("brine", 30));
-        world.placeTransport(fr.robie.machineengine.mekanized.machine.ChemistryMachines.TUBES.get(0), FakeWorld.at(1, 64, 0));
+        world.placeTransport(ChemistryMachines.TUBES.get(0), FakeWorld.at(1, 64, 0));
         MachineInstanceImpl crystallizer = world.place(type("chemical_crystallizer"), FakeWorld.at(2, 64, 0), Direction.NORTH);
         powered(world, 2 * 200 + 10, crystallizer);
         assertEquals(0, amountOfType(tank, "chemical", "brine"), "the tube emptied the tank's front");
@@ -346,10 +365,10 @@ class MekanizedChainTest {
     void sideConfigurationMovesPortsAndIsSaved() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
         MachineInstanceImpl crusher = place(world, "crusher");
-        java.util.Set<fr.robie.machineengine.api.world.RelativeSide> left = java.util.EnumSet.of(fr.robie.machineengine.api.world.RelativeSide.LEFT);
+        Set<RelativeSide> left = EnumSet.of(RelativeSide.LEFT);
         crusher.context().setPortSides("output", left);
-        Direction west = fr.robie.machineengine.api.world.RelativeSide.LEFT.toAbsolute(Direction.NORTH);
-        Direction east = fr.robie.machineengine.api.world.RelativeSide.RIGHT.toAbsolute(Direction.NORTH);
+        Direction west = RelativeSide.LEFT.toAbsolute(Direction.NORTH);
+        Direction east = RelativeSide.RIGHT.toAbsolute(Direction.NORTH);
         fill(crusher, "output", item("mekanized:dust_osmium").stack(3));
         assertEquals(3, extractThrough(crusher, west, "mekanized:dust_osmium", 3), "the output port is on the left now");
         fill(crusher, "output", item("mekanized:dust_osmium").stack(3));
@@ -358,7 +377,7 @@ class MekanizedChainTest {
         var saved = world.unload(HERE);
         MachineInstanceImpl reloaded = (MachineInstanceImpl) world.load(HERE, saved);
         assertEquals(left, reloaded.context().portSides("output"), "side configuration is saved with the machine");
-        assertEquals(java.util.EnumSet.allOf(fr.robie.machineengine.api.world.RelativeSide.class), reloaded.context().portSides("input"),
+        assertEquals(EnumSet.allOf(RelativeSide.class), reloaded.context().portSides("input"),
                 "ports left alone keep the type's sides");
     }
 
@@ -373,8 +392,8 @@ class MekanizedChainTest {
         assertEquals(15, amountOfType(oxidizer, "output", "brine"), "without auto-eject the brine stays");
         assertEquals(0, amountOfType(tank, "chemical", "brine"));
 
-        oxidizer.context().set(fr.robie.machineengine.mekanized.machine.EjectBehavior.EJECT, true);
-        oxidizer.wake(fr.robie.machineengine.api.machine.WakeReason.CONFIG_CHANGED);
+        oxidizer.context().set(EjectBehavior.EJECT, true);
+        oxidizer.wake(WakeReason.CONFIG_CHANGED);
         powered(world, 105, oxidizer);
         assertEquals(30, amountOfType(tank, "chemical", "brine"), "auto-eject pushed both batches into the tank");
         assertEquals(0, amountOfType(oxidizer, "output", "brine"));
@@ -419,19 +438,19 @@ class MekanizedChainTest {
         assertEquals(type("basic_enriching_factory"), factory.type());
         assertEquals(15_000 - 20 * 50, energy(factory), "energy carries over");
         assertEquals(5, amount(factory, "input", "mekanized:osmium_ore"), "the input is lane 1's");
-        assertEquals(mekanizedKey("basic_enriching_factory"), fr.robie.machineengine.mekanized.machine.LogisticsMachines
+        assertEquals(mekanizedKey("basic_enriching_factory"), LogisticsMachines
                 .upgrade(mekanizedKey("enrichment_chamber"), "basic"));
-        assertEquals(mekanizedKey("advanced_enriching_factory"), fr.robie.machineengine.mekanized.machine.LogisticsMachines
+        assertEquals(mekanizedKey("advanced_enriching_factory"), LogisticsMachines
                 .upgrade(mekanizedKey("basic_enriching_factory"), "advanced"));
-        assertEquals(null, fr.robie.machineengine.mekanized.machine.LogisticsMachines
+        assertEquals(null, LogisticsMachines
                 .upgrade(mekanizedKey("enrichment_chamber"), "advanced"), "tiers go one at a time");
     }
 
     @Test
     void aSorterFeedsAChestThroughTransporters() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        var from = fr.robie.machineengine.api.transfer.storage.CombinedResourceHandler.slots(3, 64);
-        var to = fr.robie.machineengine.api.transfer.storage.CombinedResourceHandler.slots(3, 64);
+        var from = CombinedResourceHandler.slots(3, 64);
+        var to = CombinedResourceHandler.slots(3, 64);
         try (Transaction transaction = this.engine.transactions().openOuter()) {
             from.insert(item("minecraft:cobblestone"), 10, transaction);
             from.insert(item("minecraft:dirt"), 4, transaction);
@@ -441,8 +460,8 @@ class MekanizedChainTest {
         world.setContainer(FakeWorld.at(4, 64, 0), to);
         MachineInstanceImpl sorter = world.place(type("logistical_sorter"), FakeWorld.at(1, 64, 0), Direction.EAST);
         fill(sorter, "filter", item("minecraft:cobblestone").stack(1));
-        world.placeTransport(fr.robie.machineengine.mekanized.machine.LogisticsMachines.TRANSPORTERS.get(0), FakeWorld.at(2, 64, 0));
-        world.placeTransport(fr.robie.machineengine.mekanized.machine.LogisticsMachines.TRANSPORTERS.get(0), FakeWorld.at(3, 64, 0));
+        world.placeTransport(LogisticsMachines.TRANSPORTERS.get(0), FakeWorld.at(2, 64, 0));
+        world.placeTransport(LogisticsMachines.TRANSPORTERS.get(0), FakeWorld.at(3, 64, 0));
         world.tick(60);
         assertEquals(10, to.amountOf(item("minecraft:cobblestone")), "the sorter pulled the cobblestone, the transporters delivered it");
         assertEquals(0, to.amountOf(item("minecraft:dirt")), "dirt does not match the filter");
@@ -453,7 +472,7 @@ class MekanizedChainTest {
     @Test
     void energyCubesChargeTabletsThatPowerMachines() {
         // Headless: the charge is kept in the stand-in item's bytes ("id|joules").
-        fr.robie.machineengine.mekanized.machine.EnergyItems.setAccess(new fr.robie.machineengine.mekanized.machine.EnergyItems.Access() {
+        EnergyItems.setAccess(new EnergyItems.Access() {
             @Override
             public long energy(ResourceVariant item) {
                 String text = new String(item.components().get(Items.DATA).data(), StandardCharsets.UTF_8);
@@ -473,7 +492,7 @@ class MekanizedChainTest {
             fill(cube, "charge", item("mekanized:energy_tablet").stack(1));
             world.tick(10);
             ResourceVariant tablet = cube.inspect().storages().get("charge").getFirst().variant();
-            assertEquals(40_000, fr.robie.machineengine.mekanized.machine.EnergyItems.capacity(tablet) > 0 ? chargeOf(tablet) : -1,
+            assertEquals(40_000, EnergyItems.capacity(tablet) > 0 ? chargeOf(tablet) : -1,
                     "the basic cube charges at its output rate, 4 kJ per tick");
             assertEquals(60_000, energy(cube));
 
@@ -484,13 +503,13 @@ class MekanizedChainTest {
             assertEquals(40_000 - energy(chamber), chargeOf(chamber.inspect().storages().get("energy_slot").getFirst().variant()),
                     "energy is conserved");
         } finally {
-            fr.robie.machineengine.mekanized.machine.EnergyItems.setAccess(null);
+            EnergyItems.setAccess(null);
         }
     }
 
     @Test
     void energyCubesChargeGear() {
-        fr.robie.machineengine.mekanized.machine.EnergyItems.setAccess(new fr.robie.machineengine.mekanized.machine.EnergyItems.Access() {
+        EnergyItems.setAccess(new EnergyItems.Access() {
             @Override
             public long energy(ResourceVariant item) {
                 return chargeOf(item);
@@ -510,7 +529,7 @@ class MekanizedChainTest {
                 fill(cube, "charge", item("mekanized:" + gear).stack(1));
                 world.tick(200);
                 ResourceVariant charged = cube.inspect().storages().get("charge").getFirst().variant();
-                assertEquals(fr.robie.machineengine.mekanized.machine.EnergyItems.CAPACITY.get(MekanizedContent.key(gear)), chargeOf(charged),
+                assertEquals(EnergyItems.CAPACITY.get(MekanizedContent.key(gear)), chargeOf(charged),
                         gear + " charges to its capacity");
                 try (Transaction transaction = this.engine.transactions().openOuter()) {
                     cube.context().storage("charge").extract(charged, 1, transaction);
@@ -518,7 +537,7 @@ class MekanizedChainTest {
                 }
             }
         } finally {
-            fr.robie.machineengine.mekanized.machine.EnergyItems.setAccess(null);
+            EnergyItems.setAccess(null);
         }
     }
 
@@ -530,8 +549,8 @@ class MekanizedChainTest {
     @Test
     void transportSidesPullFromContainersAndFillOthers() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        var barrel = fr.robie.machineengine.api.transfer.storage.CombinedResourceHandler.slots(3, 64);
-        var chest = fr.robie.machineengine.api.transfer.storage.CombinedResourceHandler.slots(3, 64);
+        var barrel = CombinedResourceHandler.slots(3, 64);
+        var chest = CombinedResourceHandler.slots(3, 64);
         try (Transaction transaction = this.engine.transactions().openOuter()) {
             barrel.insert(item("mekanized:osmium_ore"), 5, transaction);
             transaction.commit();
@@ -539,23 +558,23 @@ class MekanizedChainTest {
         WorldPosition transporter = FakeWorld.at(0, 65, 0);
         world.setContainer(FakeWorld.at(0, 66, 0), barrel);
         world.setContainer(FakeWorld.at(1, 65, 0), chest);
-        world.placeTransport(fr.robie.machineengine.mekanized.machine.LogisticsMachines.TRANSPORTERS.get(0), transporter);
+        world.placeTransport(LogisticsMachines.TRANSPORTERS.get(0), transporter);
         var networks = this.engine.machines().networks();
 
         world.tick(25);
         assertEquals(5, barrel.amountOf(item("mekanized:osmium_ore")), "default: containers are only filled, never emptied");
 
-        networks.setSideMode(transporter, Direction.UP, fr.robie.machineengine.api.network.TransportSideMode.PULL);
+        networks.setSideMode(transporter, Direction.UP, TransportSideMode.PULL);
         world.tick(25);
         assertEquals(5, chest.amountOf(item("mekanized:osmium_ore")), "a pull side empties the barrel into the chest");
         assertEquals(0, barrel.amountOf(item("mekanized:osmium_ore")));
 
-        networks.setSideMode(transporter, Direction.EAST, fr.robie.machineengine.api.network.TransportSideMode.PULL);
-        networks.setSideMode(transporter, Direction.UP, fr.robie.machineengine.api.network.TransportSideMode.PUSH);
+        networks.setSideMode(transporter, Direction.EAST, TransportSideMode.PULL);
+        networks.setSideMode(transporter, Direction.UP, TransportSideMode.PUSH);
         world.tick(25);
         assertEquals(5, barrel.amountOf(item("mekanized:osmium_ore")), "and back: pull the chest, push into the barrel");
 
-        networks.setSideMode(transporter, Direction.UP, fr.robie.machineengine.api.network.TransportSideMode.NONE);
+        networks.setSideMode(transporter, Direction.UP, TransportSideMode.NONE);
         MachineInstanceImpl chamber = place(world, "enrichment_chamber"); // below the transporter, at (0, 64, 0)
         try (Transaction transaction = this.engine.transactions().openOuter()) {
             chest.insert(item("mekanized:osmium_ore"), 3, transaction);
@@ -570,8 +589,8 @@ class MekanizedChainTest {
     @Test
     void aSideSetToNoneCutsTwoTransportsApart() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        var barrel = fr.robie.machineengine.api.transfer.storage.CombinedResourceHandler.slots(3, 64);
-        var chest = fr.robie.machineengine.api.transfer.storage.CombinedResourceHandler.slots(3, 64);
+        var barrel = CombinedResourceHandler.slots(3, 64);
+        var chest = CombinedResourceHandler.slots(3, 64);
         try (Transaction transaction = this.engine.transactions().openOuter()) {
             barrel.insert(item("minecraft:cobblestone"), 6, transaction);
             transaction.commit();
@@ -580,19 +599,19 @@ class MekanizedChainTest {
         world.setContainer(FakeWorld.at(3, 64, 0), chest);
         WorldPosition first = FakeWorld.at(1, 64, 0);
         WorldPosition second = FakeWorld.at(2, 64, 0);
-        var transporter = fr.robie.machineengine.mekanized.machine.LogisticsMachines.TRANSPORTERS.get(0);
+        var transporter = LogisticsMachines.TRANSPORTERS.get(0);
         world.placeTransport(transporter, first);
         world.placeTransport(transporter, second);
         var networks = this.engine.machines().networks();
-        networks.setSideMode(first, Direction.WEST, fr.robie.machineengine.api.network.TransportSideMode.PULL);
-        networks.setSideMode(first, Direction.EAST, fr.robie.machineengine.api.network.TransportSideMode.NONE);
+        networks.setSideMode(first, Direction.WEST, TransportSideMode.PULL);
+        networks.setSideMode(first, Direction.EAST, TransportSideMode.NONE);
         world.tick(25);
         assertEquals(0, chest.amountOf(item("minecraft:cobblestone")), "the two transporters are not linked");
         assertEquals(6, barrel.amountOf(item("minecraft:cobblestone")));
-        assertEquals(java.util.Set.of(), networks.connections(second, world, List.of(item("minecraft:cobblestone")))
-                .stream().filter(side -> side == Direction.WEST).collect(java.util.stream.Collectors.toSet()), "no arm toward the cut side");
+        assertEquals(Set.of(), networks.connections(second, world, List.of(item("minecraft:cobblestone")))
+                .stream().filter(side -> side == Direction.WEST).collect(Collectors.toSet()), "no arm toward the cut side");
 
-        networks.setSideMode(first, Direction.EAST, fr.robie.machineengine.api.network.TransportSideMode.DEFAULT);
+        networks.setSideMode(first, Direction.EAST, TransportSideMode.DEFAULT);
         world.tick(25);
         assertEquals(6, chest.amountOf(item("minecraft:cobblestone")), "linked again");
     }
@@ -602,7 +621,7 @@ class MekanizedChainTest {
     }
 
     private static long extractThrough(MachineInstanceImpl machine, Direction side, String itemId, long amount) {
-        var handler = machine.capability(fr.robie.machineengine.api.capability.Capabilities.RESOURCE_HANDLER, side);
+        var handler = machine.capability(Capabilities.RESOURCE_HANDLER, side);
         if (handler.isEmpty()) return 0;
         try (Transaction transaction = machine.services().transactions().openOuter()) {
             long moved = handler.get().extract(item(itemId), amount, transaction);
@@ -633,7 +652,7 @@ class MekanizedChainTest {
         world.tick(60);
         assertEquals(0, amountOfType(activator, "output", "tritium"), "night: nothing");
         world.setEnvironment(new MachineEnvironment(true, true, false, 15));
-        activator.wake(fr.robie.machineengine.api.machine.WakeReason.CONFIG_CHANGED);
+        activator.wake(WakeReason.CONFIG_CHANGED);
         world.tick(60);
         assertTrue(amountOfType(activator, "output", "tritium") > 0, "daylight: lithium to tritium");
     }
@@ -660,7 +679,7 @@ class MekanizedChainTest {
     }
 
     private ResourceStack fluid(String name, long amount) {
-        return java.util.Objects.requireNonNull(MekanizedContent.fluid(name), name).stack(amount);
+        return Objects.requireNonNull(MekanizedContent.fluid(name), name).stack(amount);
     }
 
     // -- the generated definitions, read from the jar like the plugin installs them ---------------
@@ -672,8 +691,8 @@ class MekanizedChainTest {
                 if (in == null) throw new IllegalStateException("missing generated definitions " + name);
                 Map<String, Object> yaml = new Yaml().load(in);
                 files.add(new DefinitionFile("definitions/mekanized/" + name, (DataMap) toData(yaml)));
-            } catch (java.io.IOException e) {
-                throw new java.io.UncheckedIOException(e);
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
             }
         }
         return files;

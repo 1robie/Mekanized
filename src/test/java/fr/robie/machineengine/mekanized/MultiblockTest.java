@@ -2,6 +2,7 @@ package fr.robie.machineengine.mekanized;
 
 import fr.robie.machineengine.api.addon.AddonRegistration;
 import fr.robie.machineengine.api.capability.Capabilities;
+import fr.robie.machineengine.api.error.Result;
 import fr.robie.machineengine.api.machine.MachineType;
 import fr.robie.machineengine.api.machine.WakeReason;
 import fr.robie.machineengine.api.registry.Registries;
@@ -11,6 +12,7 @@ import fr.robie.machineengine.api.transfer.StorageView;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.Direction;
 import fr.robie.machineengine.api.world.WorldPosition;
+import fr.robie.machineengine.core.definition.DefinitionCompiler;
 import fr.robie.machineengine.core.lifecycle.CoreMachineEngine;
 import fr.robie.machineengine.core.machine.MachineInstanceImpl;
 import fr.robie.machineengine.mekanized.multiblock.MemberBehavior;
@@ -21,6 +23,8 @@ import net.kyori.adventure.key.Key;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -29,10 +33,10 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 class MultiblockTest {
     private final CoreMachineEngine engine = TestEngine.builder()
             .addon(AddonRegistration.builder("Mekanized", "1.0.0").register(MekanizedContent::register).build())
-            .definitions(MekanizedChainTest::definitions, new fr.robie.machineengine.core.definition.DefinitionCompiler.ItemResolver() {
+            .definitions(MekanizedChainTest::definitions, new DefinitionCompiler.ItemResolver() {
                 @Override
-                public fr.robie.machineengine.api.error.Result<ResourceVariant> item(Key id) {
-                    return fr.robie.machineengine.api.error.Result.ok(MekanizedChainTest.item(id.asString()));
+                public Result<ResourceVariant> item(Key id) {
+                    return Result.ok(MekanizedChainTest.item(id.asString()));
                 }
             })
             .start();
@@ -47,7 +51,7 @@ class MultiblockTest {
     }
 
     /** The walls of a box from (0, 64, 0), {@code size} blocks per side, of {@code casing}; {@code faces} overrides some. */
-    private void box(FakeWorld world, int size, String casing, java.util.Map<WorldPosition, String> faces) {
+    private void box(FakeWorld world, int size, String casing, Map<WorldPosition, String> faces) {
         for (int x = 0; x < size; x++) for (int y = 64; y < 64 + size; y++) for (int z = 0; z < size; z++) {
             boolean wall = x == 0 || x == size - 1 || y == 64 || y == 63 + size || z == 0 || z == size - 1;
             if (!wall) continue;
@@ -76,7 +80,7 @@ class MultiblockTest {
     void aDynamicTankFormsAndHoldsOneFluidThroughItsValves() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
         WorldPosition valveAt = FakeWorld.at(1, 65, 0);
-        box(world, 3, "dynamic_tank", java.util.Map.of(valveAt, "dynamic_valve", FakeWorld.at(1, 66, 1), "structural_glass"));
+        box(world, 3, "dynamic_tank", Map.of(valveAt, "dynamic_valve", FakeWorld.at(1, 66, 1), "structural_glass"));
         world.tick(3);
         MachineInstanceImpl anchor = world.machine(FakeWorld.at(0, 64, 0));
         assertNotNull(Multiblocks.containing(valveAt), "a closed 3x3x3 box forms");
@@ -109,7 +113,7 @@ class MultiblockTest {
         world.setBlock(FakeWorld.at(1, 65, 1), MekanizedContent.key("basic_induction_cell"));
         world.setBlock(FakeWorld.at(2, 65, 1), MekanizedContent.key("basic_induction_cell"));
         world.setBlock(FakeWorld.at(1, 66, 1), MekanizedContent.key("basic_induction_provider"));
-        box(world, 4, "induction_casing", java.util.Map.of(portAt, "induction_port"));
+        box(world, 4, "induction_casing", Map.of(portAt, "induction_port"));
         world.tick(3);
         MachineInstanceImpl anchor = world.machine(FakeWorld.at(0, 64, 0));
         assertEquals(16_000_000_000L, capacity(anchor, "energy"), "2 basic cells of 8 GJ");
@@ -162,7 +166,7 @@ class MultiblockTest {
     void aBoxWithSomethingInsideDoesNotForm() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
         world.setBlock(FakeWorld.at(1, 65, 1), Key.key("minecraft", "stone"));
-        box(world, 3, "dynamic_tank", java.util.Map.of());
+        box(world, 3, "dynamic_tank", Map.of());
         world.tick(3);
         assertNull(Multiblocks.containing(FakeWorld.at(0, 64, 0)), "stone inside a tank");
     }
