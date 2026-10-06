@@ -168,7 +168,7 @@ public final class MekanizedStructures {
         return null;
     }
 
-    private static boolean isFrame(String block) {
+    static boolean isFrame(String block) {
         return block.endsWith("_casing") || block.endsWith("_frame") || block.equals("dynamic_tank")
                 || block.equals("thermal_evaporation_block");
     }

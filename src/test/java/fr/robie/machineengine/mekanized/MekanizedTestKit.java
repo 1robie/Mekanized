@@ -270,7 +270,7 @@ public final class MekanizedTestKit {
             reset();
         }
 
-        static void reset() {
+        public static void reset() {
             TeleporterSettings.reset();
             ChunkLoadingSettings.reset();
             RadiationSettings.reset();
