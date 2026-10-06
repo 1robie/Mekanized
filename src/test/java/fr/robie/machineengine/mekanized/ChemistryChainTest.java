@@ -1,5 +1,6 @@
 package fr.robie.machineengine.mekanized;
 
+import fr.robie.machineengine.api.resource.Fluids;
 import fr.robie.machineengine.api.machine.MachineEnvironment;
 import fr.robie.machineengine.api.machine.PortDirection;
 import fr.robie.machineengine.api.machine.WakeReason;
@@ -41,7 +42,7 @@ class ChemistryChainTest {
         fill(washer, "fluid", fluid("water", 10_000));
         powered(world, 1_001, washer);
         assertEquals(1_000, amountOfType(washer, "output", "clean_osmium"), "washing is one to one");
-        assertEquals(10_000 - 5_000, amountOfType(washer, "fluid", "fluid/water"), "5 mB of water per mB of slurry");
+        assertEquals(10_000 - 5_000, amountOf(washer, "fluid", Fluids.water().variant()), "5 mB of water per mB of slurry");
 
         MachineInstanceImpl crystallizer = world.place(type(this.engine, "chemical_crystallizer"), FakeWorld.at(4, 64, 0), Direction.NORTH);
         fill(crystallizer, "input", chemical(this.engine, "clean_osmium", 1_000));
@@ -58,7 +59,7 @@ class ChemistryChainTest {
         world.tick(110);
         assertEquals(200, amountOfType(separator, "output", "hydrogen"), "2 mB of water give 2 mB of hydrogen");
         assertEquals(100, amountOfType(separator, "output", "oxygen"), "and 1 mB of oxygen");
-        assertEquals(0, amountOfType(separator, "input", "fluid/water"));
+        assertEquals(0, amountOf(separator, "input", Fluids.water().variant()));
     }
 
     @Test
@@ -69,7 +70,7 @@ class ChemistryChainTest {
         fill(separator, "input", fluid("water", 1_000));
         powered(world, 10, separator);
         // 1 + 2 operations per tick, 2 mB of water each.
-        assertEquals(1_000 - 10 * 3 * 2, amountOfType(separator, "input", "fluid/water"));
+        assertEquals(1_000 - 10 * 3 * 2, amountOf(separator, "input", Fluids.water().variant()));
         assertEquals(10 * 3 * 2, amountOfType(separator, "output", "hydrogen"));
     }
 
@@ -98,7 +99,7 @@ class ChemistryChainTest {
         MachineInstanceImpl tank = place(this.engine, world, "basic_fluid_tank");
         fill(tank, "bucket_in", item("minecraft:water_bucket").stack(1));
         world.tick(2);
-        assertEquals(1_000, amountOfType(tank, "fluid", "fluid/water"), "the bucket empties into the tank");
+        assertEquals(1_000, amountOf(tank, "fluid", Fluids.water().variant()), "the bucket empties into the tank");
         assertEquals(1, amount(tank, "bucket_out", "minecraft:bucket"), "and comes back empty");
 
         // The player takes the empty bucket and puts it back in.
@@ -108,7 +109,7 @@ class ChemistryChainTest {
         }
         fill(tank, "bucket_in", item("minecraft:bucket").stack(1));
         world.tick(2);
-        assertEquals(0, amountOfType(tank, "fluid", "fluid/water"), "an empty bucket takes 1000 mB");
+        assertEquals(0, amountOf(tank, "fluid", Fluids.water().variant()), "an empty bucket takes 1000 mB");
         assertEquals(1, amount(tank, "bucket_out", "minecraft:water_bucket"));
     }
 
@@ -122,11 +123,11 @@ class ChemistryChainTest {
         world.setFluid(FakeWorld.at(0, 63, 0), new WorldFluid(water, false));
         world.setFluid(FakeWorld.at(1, 63, 0), new WorldFluid(water, true));
         world.tick(2);
-        assertEquals(1_000, amountOfType(pump, "fluid", "fluid/water"), "one source block is 1000 mB");
+        assertEquals(1_000, amountOf(pump, "fluid", Fluids.water().variant()), "one source block is 1000 mB");
         assertEquals(null, world.fluidAt(FakeWorld.at(1, 63, 0)), "the source block is gone");
         assertEquals(40_000 - 2_000, energy(pump), "2 kJ per block");
         world.tick(100);
-        assertEquals(1_000, amountOfType(pump, "fluid", "fluid/water"), "only flowing water is left: nothing more to take");
+        assertEquals(1_000, amountOf(pump, "fluid", Fluids.water().variant()), "only flowing water is left: nothing more to take");
     }
 
     @Test

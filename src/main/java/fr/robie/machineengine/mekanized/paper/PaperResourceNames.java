@@ -1,5 +1,6 @@
 package fr.robie.machineengine.mekanized.paper;
 
+import fr.robie.machineengine.api.resource.Fluids;
 import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 
@@ -14,9 +15,10 @@ public final class PaperResourceNames {
         if (type == MekanizedContent.ENERGY) return "Energy";
         String value = type.key().value();
         if (type.category() == MekanizedContent.CHEMICAL) return "<lang:chemical.mekanized." + value + ">";
-        if (type.category() == MekanizedContent.FLUID) {
-            String fluid = value.substring(value.indexOf('/') + 1);
-            return fluid.equals("water") || fluid.equals("lava") ? "<lang:block.minecraft." + fluid + ">" : "<lang:block.mekanized." + fluid + ">";
+        if (type == Fluids.water() || type == Fluids.lava()) return "<lang:block.minecraft." + value.substring(value.indexOf('/') + 1) + ">";
+        // Only Mekanized's own fluids: other addons' fluids are in the same global category.
+        if (type.category() == MekanizedContent.FLUID && type.key().namespace().equals(MekanizedContent.NAMESPACE)) {
+            return "<lang:block.mekanized." + value.substring(value.indexOf('/') + 1) + ">";
         }
         return null;
     }

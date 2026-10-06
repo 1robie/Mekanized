@@ -3,6 +3,7 @@ package fr.robie.machineengine.mekanized.machine;
 import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.machine.MachineBehavior;
 import fr.robie.machineengine.api.machine.MachineContext;
+import fr.robie.machineengine.api.resource.Fluids;
 import fr.robie.machineengine.api.resource.ResourceStack;
 import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.api.resource.tag.ResourceTags;
@@ -59,7 +60,7 @@ public final class UtilityBehaviors {
 
     /**
      * The pump the other way round: every {@code ticks} (shorter with speed upgrades) it places a
-     * water or lava source block (1000 mB) in the nearest air or flowing fluid below it, up to
+     * water or lava source block (a bucket, 1000 mB by default) in the nearest air or flowing fluid below it, up to
      * {@code range} blocks away, for {@code energy} Joules.
      */
     public static @NotNull MachineBehavior.Factory plenisher(@NotNull String tank, long energy, long ticks, int range) {
@@ -68,7 +69,8 @@ public final class UtilityBehaviors {
             long cost = context.modifiedCost(MekanizedContent.ENERGY, energy);
             ResourceHandler fluid = context.storage(tank);
             StorageView held = fluid.views().getFirst();
-            Key world = held.isEmpty() || held.amount() < 1000 ? null : worldFluid(held.variant());
+            long bucket = Fluids.bucket();
+            Key world = held.isEmpty() || held.amount() < bucket ? null : worldFluid(held.variant());
             if (world == null) {
                 context.setActive(false);
                 context.waitForInput();
@@ -79,7 +81,7 @@ public final class UtilityBehaviors {
             try (Transaction transaction = context.transactions().openOuter()) {
                 if (target == null
                         || !MachineParts.pay(context.storage("energy"), cost, transaction)
-                        || fluid.extract(held.variant(), 1000, transaction) != 1000
+                        || fluid.extract(held.variant(), bucket, transaction) != bucket
                         || !context.world().placeFluid(target, world)) {
                     context.setActive(false);
                     context.wakeIn(40);
@@ -92,14 +94,9 @@ public final class UtilityBehaviors {
         };
     }
 
-    /** {@code mekanized:fluid/water} as the world's {@code minecraft:water}; null for fluids with no block. */
+    /** Water or lava as the world's {@code minecraft:water} or {@code minecraft:lava}; null for fluids with no block. */
     static @Nullable Key worldFluid(ResourceVariant variant) {
-        String value = variant.type().key().value();
-        return switch (value) {
-            case "fluid/water" -> Key.key("minecraft", "water");
-            case "fluid/lava" -> Key.key("minecraft", "lava");
-            default -> null;
-        };
+        return Fluids.worldFluid(variant.type());
     }
 
     private static @Nullable BlockPosition findSpace(MachineContext context, BlockPosition start, Key fluid, int range) {

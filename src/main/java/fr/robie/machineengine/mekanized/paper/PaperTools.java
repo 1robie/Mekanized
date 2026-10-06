@@ -7,6 +7,8 @@ import fr.robie.machineengine.api.machine.MachineContext;
 import fr.robie.machineengine.api.machine.MachineDataKey;
 import fr.robie.machineengine.api.machine.PortDefinition;
 import fr.robie.machineengine.api.machine.WakeReason;
+import fr.robie.machineengine.api.MachineEngine;
+import fr.robie.machineengine.api.registry.Registries;
 import fr.robie.machineengine.api.resource.ResourceType;
 import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.api.transfer.StorageView;
@@ -205,7 +207,8 @@ public final class PaperTools implements Listener {
     private static @Nullable ResourceType dropperType(ItemStack dropper) {
         String key = dropper.getItemMeta().getPersistentDataContainer().get(DROPPER_TYPE, PersistentDataType.STRING);
         if (key == null) return null;
-        return MekanizedContent.resourceType(Key.key(key));
+        // Through the registry, so keys saved before a rename (mekanized:fluid/water) follow its aliases.
+        return MachineEngine.get().registries().registry(Registries.RESOURCE_TYPE).get(Key.key(key)).orElse(null);
     }
 
     private static long dropperAmount(ItemStack dropper) {

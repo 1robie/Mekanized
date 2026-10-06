@@ -32,6 +32,9 @@ internal class MekanismSource(val root: File) {
             .map { it.nameWithoutExtension }.filter { it != "gaseous" }
     }
 
-    /** Mekanism's fluids plus water and lava: resources `mekanized:fluid/<name>`, apart from the chemicals of the same name. */
+    /**
+     * Mekanism's fluids plus water and lava. Water and lava are MachineEngine's (`machineengine:fluid/<name>`,
+     * D29); the others are `mekanized:fluid/<name>`, apart from the chemicals of the same name.
+     */
     val fluids: List<String> by lazy { mekanismFluids.plus(listOf("water", "lava")).distinct().sorted() }
 }

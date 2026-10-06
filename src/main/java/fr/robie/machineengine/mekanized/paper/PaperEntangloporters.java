@@ -2,6 +2,8 @@ package fr.robie.machineengine.mekanized.paper;
 
 import fr.robie.machineengine.mekanized.MekanizedContent;
 
+import fr.robie.machineengine.api.MachineEngine;
+import fr.robie.machineengine.api.registry.Registries;
 import fr.robie.machineengine.api.resource.ResourceType;
 import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.mekanized.machine.Entangloporters;
@@ -84,8 +86,8 @@ public final class PaperEntangloporters {
         });
     }
 
+    /** Through the registry, so keys saved before a rename (mekanized:energy) follow its aliases. */
     private static @Nullable ResourceType type(Key key) {
-        if (key.equals(MekanizedContent.ENERGY.key())) return MekanizedContent.ENERGY;
-        return MekanizedContent.resourceType(key);
+        return MachineEngine.get().registries().registry(Registries.RESOURCE_TYPE).get(key).orElse(null);
     }
 }

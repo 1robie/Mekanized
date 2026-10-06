@@ -1,6 +1,7 @@
 package fr.robie.machineengine.mekanized;
 
 import fr.robie.machineengine.api.addon.RegistrationContext;
+import fr.robie.machineengine.api.resource.Energy;
 import fr.robie.machineengine.api.resource.Fluids;
 import fr.robie.machineengine.api.resource.ResourceCategory;
 import fr.robie.machineengine.api.resource.ResourceType;
@@ -25,11 +26,12 @@ import java.util.concurrent.ConcurrentHashMap;
  * machines need them when they register, and definitions run after every addon.
  *
  * <ul>
- *   <li>{@link #ENERGY}: energy in Joules;</li>
+ *   <li>{@link #ENERGY}: MachineEngine's energy ({@code machineengine:energy}, D29), in Joules by default;</li>
  *   <li>chemicals: gases, infuse types and slurries (Mekanism 1.21 unifies them), one resource type
  *       each in {@link #CHEMICAL}, from the imported {@code mekanized/chemicals.txt};</li>
- *   <li>fluids: {@code mekanized:fluid/<name>} in {@link #FLUID} (water, lava and Mekanism's fluids,
- *       from {@code mekanized/fluids.txt}), apart from the chemicals of the same name.</li>
+ *   <li>fluids, in MachineEngine's global {@link #FLUID} category: water and lava are MachineEngine's
+ *       ({@code machineengine:fluid/water}); Mekanism's others are {@code mekanized:fluid/<name>}, from
+ *       {@code mekanized/fluids.txt}, apart from the chemicals of the same name.</li>
  * </ul>
  *
  * Items, blocks, tags and recipes are CraftEngine content and YAML definitions installed by
@@ -37,15 +39,15 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public final class MekanizedContent {
     public static final String NAMESPACE = "mekanized";
-    public static final ResourceCategory ENERGY_CATEGORY = ResourceCategory.builder(key("energy")).unit("J").build();
-    public static final ResourceType ENERGY = ResourceType.of(key("energy"), ENERGY_CATEGORY);
+    public static final ResourceCategory ENERGY_CATEGORY = Energy.category();
+    public static final ResourceType ENERGY = Energy.type();
     public static final ResourceCategory CHEMICAL = ResourceCategory.builder(key("chemical")).unit("mB").build();
     /** MachineEngine's global fluid category (D29): Mekanized's fluids flow through any fluid pipe or port. */
     public static final ResourceCategory FLUID = Fluids.category();
     /** Heat in Joules: heaters make it, thermodynamic conductors carry it, boilers use it. */
     public static final ResourceCategory HEAT_CATEGORY = ResourceCategory.builder(key("heat")).unit("J").build();
     public static final ResourceType HEAT = ResourceType.of(key("heat"), HEAT_CATEGORY);
-    private static final Map<String, ResourceType> FLUIDS = new ConcurrentHashMap<>();
+    private static final Map<String, ResourceType> FLUIDS = new ConcurrentHashMap<>(Map.of("water", Fluids.water(), "lava", Fluids.lava()));
     private static final Map<String, ResourceType> CHEMICALS = new ConcurrentHashMap<>();
 
     private MekanizedContent() {
@@ -55,7 +57,7 @@ public final class MekanizedContent {
         return Key.key(NAMESPACE, value);
     }
 
-    /** The fluid {@code mekanized:fluid/<name>}, e.g. {@code water}; {@code null} if there is none. */
+    /** The fluid named {@code name}, e.g. {@code water} (MachineEngine's) or {@code brine}; {@code null} if there is none. */
     public static @Nullable ResourceType fluid(@NotNull String name) {
         return FLUIDS.get(name);
     }
@@ -85,8 +87,11 @@ public final class MekanizedContent {
     }
 
     static void register(RegistrationContext context) {
-        context.resourceCategories().register(ENERGY_CATEGORY);
-        context.resourceTypes().register(ENERGY);
+        // Energy, water and lava used to be Mekanized's: worlds and edited definitions may still name the old keys.
+        context.resourceTypes().alias(key("energy"), Energy.KEY);
+        context.resourceTypes().alias(key("fluid/water"), Fluids.WATER_KEY);
+        context.resourceTypes().alias(key("fluid/lava"), Fluids.LAVA_KEY);
+        context.modifierTypes().alias(key("process_cost/energy"), MekanizedRegistry.ENERGY_COST.key());
         context.resourceCategories().register(HEAT_CATEGORY);
         context.resourceTypes().register(HEAT);
         context.resourceCategories().register(CHEMICAL);
@@ -94,7 +99,7 @@ public final class MekanizedContent {
             context.resourceTypes().register(CHEMICALS.computeIfAbsent(chemical, name -> ResourceType.of(key(name), CHEMICAL)));
         }
         for (String fluid : lines("mekanized/fluids.txt")) {
-            ResourceType type = FLUIDS.computeIfAbsent(fluid, name -> ResourceType.of(key("fluid/" + name), FLUID));
+            ResourceType type = FLUIDS.computeIfAbsent(fluid, name -> Fluids.create(key("fluid/" + name)));
             context.resourceTypes().register(type);
         }
         MekanizedRegistry.register(context);

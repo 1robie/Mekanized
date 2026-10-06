@@ -1,5 +1,6 @@
 package fr.robie.machineengine.mekanized;
 
+import fr.robie.machineengine.api.resource.Fluids;
 import fr.robie.machineengine.api.resource.ResourceType;
 import fr.robie.machineengine.core.lifecycle.CoreMachineEngine;
 import fr.robie.machineengine.core.machine.MachineInstanceImpl;
@@ -50,13 +51,13 @@ class GaugeDropperTest {
         assertNotNull(first);
         assertEquals(WATER, first.type());
         assertEquals(10_000, first.amount());
-        assertEquals(0, amountOfType(tank, "fluid", "fluid/water"), "the tank gave it all");
+        assertEquals(0, amountOf(tank, "fluid", Fluids.water().variant()), "the tank gave it all");
 
         fill(tank, "fluid", WATER.stack(10_000));
         GaugeDropper.Taken second = GaugeDropper.take(tank.context(), tank.inspect().storages(), WATER, 10_000);
         assertNotNull(second);
         assertEquals(6_000, second.amount(), "only the room left in the dropper");
-        assertEquals(4_000, amountOfType(tank, "fluid", "fluid/water"));
+        assertEquals(4_000, amountOf(tank, "fluid", Fluids.water().variant()));
     }
 
     @Test
@@ -64,7 +65,7 @@ class GaugeDropperTest {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
         MachineInstanceImpl tank = tank(world, 5_000);
         assertNull(GaugeDropper.take(tank.context(), tank.inspect().storages(), WATER, GaugeDropper.CAPACITY), "no room");
-        assertEquals(5_000, amountOfType(tank, "fluid", "fluid/water"));
+        assertEquals(5_000, amountOf(tank, "fluid", Fluids.water().variant()));
         MachineInstanceImpl empty = place(this.engine, world, "basic_fluid_tank");
         assertNull(GaugeDropper.take(empty.context(), empty.inspect().storages(), null, 0), "nothing to take");
     }
@@ -80,7 +81,7 @@ class GaugeDropperTest {
         assertNotNull(taken);
         assertEquals(plutonium, taken.type());
         assertEquals(500, taken.amount());
-        assertEquals(1_000, amountOfType(chamber, "fluid", "fluid/water"), "the water stayed");
+        assertEquals(1_000, amountOf(chamber, "fluid", Fluids.water().variant()), "the water stayed");
     }
 
     @Test
@@ -89,7 +90,7 @@ class GaugeDropperTest {
         MachineInstanceImpl tank = tank(world, 0);
         long given = GaugeDropper.putBack(tank.context(), tank.inspect().storages().keySet(), WATER, 2_500);
         assertEquals(2_500, given);
-        assertEquals(2_500, amountOfType(tank, "fluid", "fluid/water"));
+        assertEquals(2_500, amountOf(tank, "fluid", Fluids.water().variant()));
 
         MachineInstanceImpl chemicals = place(this.engine, world, "basic_chemical_tank");
         assertEquals(0, GaugeDropper.putBack(chemicals.context(), chemicals.inspect().storages().keySet(), WATER, 100),

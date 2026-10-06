@@ -7,6 +7,7 @@ import fr.robie.machineengine.api.machine.MachineDataKey;
 import fr.robie.machineengine.api.machine.PortDirection;
 import fr.robie.machineengine.api.machine.PushResult;
 import fr.robie.machineengine.api.machine.WakeReason;
+import fr.robie.machineengine.api.resource.Fluids;
 import fr.robie.machineengine.api.resource.ResourceType;
 import fr.robie.machineengine.api.transfer.ResourceHandler;
 import fr.robie.machineengine.api.transfer.StorageView;
@@ -63,7 +64,7 @@ public final class ChemistryBehaviors {
     /**
      * Mekanism's electric pump: every {@code ticks} (shorter with speed upgrades) it takes one source
      * block of water or lava, below it or connected to the fluid below it, for {@code energy} Joules,
-     * and stores 1000 mB. Flowing fluid is followed to reach sources, up to {@code range} blocks
+     * and stores a bucket of it (Fluids.bucket(), 1000 mB by default). Flowing fluid is followed to reach sources, up to {@code range} blocks
      * away; blocks of other regions (Folia) are not reached.
      */
     /** Heavy water a filter-upgraded pump gets from a block of water. */
@@ -76,7 +77,7 @@ public final class ChemistryBehaviors {
             long delay = Math.max(1, context.modified(StandardModifiers.PROCESS_DURATION, ticks));
             BlockPosition below = context.machine().position().position().relative(Direction.DOWN);
             WorldFluid start = context.world().fluidAt(below);
-            ResourceType fluid = start == null ? null : MekanizedContent.fluid(start.fluid().value());
+            ResourceType fluid = start == null ? null : Fluids.fromWorld(start.fluid());
             if (fluid == null) {
                 context.setActive(false);
                 context.wakeIn(40); // the world changing does not wake machines: look again later
@@ -85,9 +86,9 @@ public final class ChemistryBehaviors {
             ResourceHandler storage = context.storage(tank);
             ResourceHandler power = context.storage(energyStorage);
             // A filter upgrade separates heavy water out of each block of water (Mekanism's 10 mB).
-            long amount = 1000;
+            long amount = Fluids.bucket();
             ResourceType heavyWater = MekanizedContent.fluid("heavy_water");
-            if (heavyWater != null && start.fluid().value().equals("water") && MekanizedRegistry.installed(context, MekanizedRegistry.FILTER_UPGRADE)) {
+            if (heavyWater != null && fluid == Fluids.water() && MekanizedRegistry.installed(context, MekanizedRegistry.FILTER_UPGRADE)) {
                 fluid = heavyWater;
                 amount = HEAVY_WATER_PER_BLOCK;
             }

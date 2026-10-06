@@ -55,7 +55,7 @@ public final class MekanizedRegistry {
     /** A machine's energy buffer size, scaled by energy upgrades. */
     public static final ModifierType ENERGY_CAPACITY =
             ModifierType.nonNegative(key("energy_capacity"));
-    /** Energy and chemical costs per tick, each lowered by its own upgrade. */
+    /** Energy and chemical costs per tick, each lowered by its own upgrade. MachineEngine registers the energy one (its category). */
     public static final ModifierType ENERGY_COST = StandardModifiers.processCost(MekanizedContent.ENERGY_CATEGORY);
     public static final ModifierType CHEMICAL_COST = StandardModifiers.processCost(MekanizedContent.CHEMICAL);
     /** Mekanism: each energy upgrade lowers the energy a process costs and enlarges the energy buffer (+100 % of the base). */
@@ -115,7 +115,6 @@ public final class MekanizedRegistry {
         RecipeFilters.attach(context);
         RECIPE_TYPES.forEach(context.recipeTypes()::register);
         context.modifierTypes().register(ENERGY_CAPACITY);
-        context.modifierTypes().register(ENERGY_COST);
         context.modifierTypes().register(CHEMICAL_COST);
         UPGRADES.forEach(context.upgradeTypes()::register);
         context.networkTypes().register(ENERGY_NETWORK);
