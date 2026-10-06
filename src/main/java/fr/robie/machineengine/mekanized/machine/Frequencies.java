@@ -48,16 +48,16 @@ public final class Frequencies {
         }
     }
 
-    /** Mekanism's teleport cost: 1 kJ, plus 10 J per block; 100 kJ to another world. */
+    /** Mekanism's teleport cost by default: 1 kJ, plus 10 J per block; 100 kJ to another world ({@link TeleporterSettings}). */
     public static long cost(@NotNull WorldPosition from, @NotNull WorldPosition to) {
-        if (!from.world().equals(to.world())) return 100_000;
+        if (!from.world().equals(to.world())) return TeleporterSettings.otherWorldCost;
         double dx = from.position().x() - to.position().x(), dy = from.position().y() - to.position().y(), dz = from.position().z() - to.position().z();
         return cost(Math.sqrt(dx * dx + dy * dy + dz * dz));
     }
 
-    /** The cost of a teleport over {@code blocks} blocks in one world: 1 kJ, plus 10 J per block. */
+    /** The cost of a teleport over {@code blocks} blocks in one world: a base cost plus a cost per block ({@link TeleporterSettings}). */
     public static long cost(double blocks) {
-        return 1_000 + (long) (blocks * 10);
+        return TeleporterSettings.baseCost + (long) (blocks * TeleporterSettings.costPerBlock);
     }
 
     /** The other teleporter of {@code frequency} with a complete frame, or null. */

@@ -11,6 +11,7 @@ import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.core.machine.LoadedMachine;
 import fr.robie.machineengine.mekanized.machine.Frequencies;
+import fr.robie.machineengine.mekanized.machine.TeleporterSettings;
 import fr.robie.machineengine.mekanized.machine.AutomationMachines;
 import fr.robie.machineengine.mekanized.machine.MachineParts;
 import fr.robie.machineengine.mekanized.paper.Lore;
@@ -78,7 +79,6 @@ import java.util.concurrent.ConcurrentHashMap;
  * (a chest menu of everything the frequency's drive arrays hold).
  */
 public final class PaperAutomation implements Listener {
-    private static final long TELEPORT_COOLDOWN_MS = 3_000;
     private static final NamespacedKey BOX_BLOCK = new NamespacedKey(MekanizedContent.NAMESPACE, "box_block");
     private static final NamespacedKey BOX_ITEMS = new NamespacedKey(MekanizedContent.NAMESPACE, "box_items");
     private static final NamespacedKey BOX_SPAWNER = new NamespacedKey(MekanizedContent.NAMESPACE, "box_spawner");
@@ -143,7 +143,7 @@ public final class PaperAutomation implements Listener {
                 && event.getFrom().getBlockZ() == event.getTo().getBlockZ()) return;
         Player player = event.getPlayer();
         Long last = this.lastTeleport.get(player.getUniqueId());
-        if (last != null && System.currentTimeMillis() - last < TELEPORT_COOLDOWN_MS) return;
+        if (last != null && System.currentTimeMillis() - last < TeleporterSettings.cooldownMs) return;
         Block feet = event.getTo().getBlock();
         for (Block below : new Block[]{feet.getRelative(BlockFace.DOWN), feet.getRelative(BlockFace.DOWN, 2)}) {
             WorldPosition from = PaperWorld.position(below);
@@ -212,7 +212,7 @@ public final class PaperAutomation implements Listener {
             return;
         }
         Long last = this.lastTeleport.get(player.getUniqueId());
-        if (last != null && System.currentTimeMillis() - last < TELEPORT_COOLDOWN_MS) return;
+        if (last != null && System.currentTimeMillis() - last < TeleporterSettings.cooldownMs) return;
         this.lastTeleport.put(player.getUniqueId(), System.currentTimeMillis());
         WorldPosition from = PaperWorld.position(player.getLocation().getBlock());
         WorldPosition to = Frequencies.teleporters().entrySet().stream()

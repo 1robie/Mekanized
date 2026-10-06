@@ -16,3 +16,10 @@ dynamic-tank:
 thermal-evaporation:
   input-per-level-per-tick: 10    # mB of input evaporated per tick per level, by day (half at night, half again in rain)
   input-tank-per-level: 16000     # mB of input the tower holds per level
+
+# The teleporter and the portable teleporter. Costs are Joules; defaults are Mekanism's.
+teleporter:
+  base-cost: 1000           # J of any teleport
+  cost-per-block: 10        # J more per block travelled in one world
+  other-world-cost: 100000  # J of a teleport to another world (distance does not count)
+  cooldown-seconds: 3       # seconds a player waits between two teleports
