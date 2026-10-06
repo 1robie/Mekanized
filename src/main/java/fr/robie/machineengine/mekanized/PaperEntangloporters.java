@@ -84,7 +84,6 @@ final class PaperEntangloporters {
 
     private static @Nullable ResourceType type(Key key) {
         if (key.equals(MekanizedContent.ENERGY.key())) return MekanizedContent.ENERGY;
-        if (key.value().startsWith("fluid/")) return MekanizedContent.fluid(key.value().substring("fluid/".length()));
-        return MekanizedContent.chemical(key.value());
+        return MekanizedContent.resourceType(key);
     }
 }

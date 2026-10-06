@@ -200,7 +200,7 @@ final class PaperGear implements Listener {
         Object[] chemical = CHEMICALS.get(item.value());
         if (chemical != null) {
             Long held = pdc.get(CHEMICAL, PersistentDataType.LONG);
-            String name = ((String) chemical[0]).replace("fluid/", "").replace('_', ' ');
+            String name = MekanizedContent.displayName((String) chemical[0]);
             lore.add(line(String.format(Locale.ROOT, "%s: %,d / %,d mB", capitalize(name), held == null ? 0 : held, (long) chemical[1])));
         }
         String modules = pdc.get(MODULES, PersistentDataType.STRING);
@@ -685,8 +685,7 @@ final class PaperGear implements Listener {
         if (machine == null || machine.instance() == null) return false;
         String chemical = (String) CHEMICALS.get(id)[0];
         long room = (long) CHEMICALS.get(id)[1] - chemical(gear);
-        ResourceType type = chemical.startsWith("fluid/") ? MekanizedContent.fluid(chemical.substring("fluid/".length()))
-                : MekanizedContent.chemical(chemical);
+        ResourceType type = MekanizedContent.resourceType(chemical);
         if (type == null || room <= 0) return false;
         var context = machine.instance().context();
         for (String storage : machine.inspect().storages().keySet()) {
@@ -706,7 +705,7 @@ final class PaperGear implements Listener {
             });
             machine.instance().wake(WakeReason.RESOURCE_EXTRACTED);
             player.sendActionBar(Component.text(String.format(Locale.ROOT, "Filled %,d mB of %s", taken,
-                    chemical.replace("fluid/", "").replace('_', ' ')), NamedTextColor.GREEN));
+                    MekanizedContent.displayName(chemical)), NamedTextColor.GREEN));
             return true;
         }
         return false;

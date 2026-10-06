@@ -63,6 +63,25 @@ public final class MekanizedContent {
         return CHEMICALS.get(name);
     }
 
+    /** The fluid or chemical named by a resource key value: {@code fluid/<name>} or a chemical's name; {@code null} if there is none. */
+    public static @Nullable ResourceType resourceType(@NotNull String value) {
+        return value.startsWith("fluid/") ? fluid(value.substring("fluid/".length())) : chemical(value);
+    }
+
+    /** {@link #resourceType(String)} for the value of a resource key (the namespace is not checked). */
+    public static @Nullable ResourceType resourceType(@NotNull Key key) {
+        return resourceType(key.value());
+    }
+
+    /** What a player reads for a fluid or chemical named by a resource key value: {@code fluid/nutritional_paste} is "nutritional paste". */
+    public static String displayName(@NotNull String value) {
+        return value.replace("fluid/", "").replace('_', ' ');
+    }
+
+    public static String displayName(@NotNull ResourceType type) {
+        return displayName(type.key().value());
+    }
+
     static void register(RegistrationContext context) {
         context.resourceCategories().register(ENERGY_CATEGORY);
         context.resourceTypes().register(ENERGY);

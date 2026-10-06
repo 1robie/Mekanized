@@ -215,8 +215,7 @@ final class PaperTools implements Listener {
     private static @Nullable ResourceType dropperType(ItemStack dropper) {
         String key = dropper.getItemMeta().getPersistentDataContainer().get(DROPPER_TYPE, PersistentDataType.STRING);
         if (key == null) return null;
-        Key parsed = Key.key(key);
-        return parsed.value().startsWith("fluid/") ? MekanizedContent.fluid(parsed.value().substring(6)) : MekanizedContent.chemical(parsed.value());
+        return MekanizedContent.resourceType(Key.key(key));
     }
 
     private static long dropperAmount(ItemStack dropper) {
@@ -236,7 +235,7 @@ final class PaperTools implements Listener {
             pdc.set(DROPPER_TYPE, PersistentDataType.STRING, type.key().asString());
             pdc.set(DROPPER_AMOUNT, PersistentDataType.LONG, amount);
             meta.lore(List.of(Component.text(String.format(Locale.ROOT, "%s: %,d / %,d mB",
-                            type.key().value().replace("fluid/", "").replace('_', ' '), amount, DROPPER_CAPACITY), NamedTextColor.GRAY)
+                            MekanizedContent.displayName(type), amount, DROPPER_CAPACITY), NamedTextColor.GRAY)
                     .decoration(TextDecoration.ITALIC, false)));
         });
     }
