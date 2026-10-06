@@ -260,6 +260,12 @@ ways that hide where they came from. Source: `https://github.com/mekanism/Mekani
   - restrictive and diversion transporters;
   - the color modulation and laser dissipation units.
 
+## Settings (cleanup stage 5, 2026-10-06, the owner's choice)
+- **`config.yml`:** gameplay numbers moved from code into sections: `gear`, `radiation`, `teleporter`, `chunk-loading`, `qio` and `digital-miner`, next to the earlier `transport`, `dynamic-tank` and `thermal-evaporation`. Server owners tune them; read when the server starts. The defaults equal the numbers that were in the code, so behaviour is unchanged out of the box.
+- **Code:** each family has a plain Java holder in `machine/` (`GearSettings`, `RadiationSettings`, `TeleporterSettings`, `ChunkLoadingSettings`, `QioSettings`, `DigitalMinerSettings`) with static fields, a `DEFAULT_*` constant for each, and `reset()` for tests. Machine and multiblock code read the holders, so they stay free of Bukkit. `MekanizedSettings.load` (and `GearSettingsLoader`) reads the file in `onLoad`, before machines are registered, and validates every value: a missing key keeps the default, a value that is not a number is replaced by the default, an out-of-range number is limited to its nearest bound, each with a warning in the log.
+- **Tests:** `SettingsTest` checks that the defaults equal the old numbers, that the `config.yml` shipped in the jar loads without a warning and gives them, that overridden values are read, and that bad values are limited. Behaviour tests check an overridden teleport cost, stabilizer radius and energy, miner energy and radius, drive sizes and importer rate, radiation decay and barrel decay.
+- **Left in code:** numbers that are not gameplay constants (animation and potion durations, step height, mining speeds, chemical radioactivity per chemical, buffer sizes of machines, menu layouts), and the seismic vibrator's energy.
+
 ## MachineEngine features needed (built in the engine, tested headless)
 
 | # | Feature | For |

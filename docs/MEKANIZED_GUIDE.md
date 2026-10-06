@@ -20,7 +20,7 @@ Mekanized writes its files on the first start:
 | `plugins/CraftEngine/resources/mekanized/` | Blocks, items, crafting recipes, names in every language Mekanism has |
 | `plugins/MachineEngine/definitions/mekanized/` | Machine recipes and tags |
 | `plugins/MachineEngine/menus/mekanized_*.yml` | Machine menus (zMenu) |
-| `plugins/Mekanized/config.yml` | Transport rates and multiblock numbers |
+| `plugins/Mekanized/config.yml` | Gameplay numbers: transport rates, multiblocks, gear, radiation, teleporters, chunk loading, QIO, digital miner |
 
 **Updates:** updating Mekanized replaces these files only if you have not edited them. An edited file is
 kept, and the log says so; to get the new default, delete it.
@@ -137,8 +137,24 @@ Click a machine's upgrade button with the upgrade in hand to install it.
 - **Not supported:** the color modulation and laser dissipation units (lasers do not hurt in Mekanized).
 
 ## Configuring
-- **`plugins/Mekanized/config.yml`:** network rates per tier, Dynamic Tank capacity, Thermal Evaporation
-  rate. Restart to apply.
+- **`plugins/Mekanized/config.yml`:** the gameplay numbers. Restart to apply. The defaults are Mekanism's
+  (or what Mekanized shipped with), so a server that never edits the file plays as before. A key you leave out
+  keeps its default; a wrong value is replaced or limited to its nearest allowed value, with a warning in the log.
+  Servers that already have a `config.yml` keep their file: copy the new sections from the one inside the jar
+  (or delete the file to get all of them).
+  - `transport`, `dynamic-tank`, `thermal-evaporation`: network rates per tier, Dynamic Tank capacity,
+    Thermal Evaporation rate.
+  - `gear`: energy and chemical capacities (`energy-capacity`, `chemical-capacity`, `energy-unit-factor`),
+    the tools (`tools`: energy per block, vein mining limits, hit energy and damage, bow, teleport range,
+    flamethrower), the jetpack (`jetpack`: hydrogen, thrust, speeds), `scuba-oxygen-per-second`, and the energy
+    each module uses or makes (`modules`).
+  - `radiation`: background, how fast sources and doses fade, how much each hazmat or shielded piece stops,
+    the doses that make players sick, hurt them and kill them, and the waste barrel.
+  - `teleporter`: Joules per teleport (base, per block, to another world) and the cooldown between teleports.
+    The Meka-Tool's teleportation unit uses the same costs.
+  - `chunk-loading`: the dimensional stabilizer's widest radius and its energy per chunk.
+  - `qio`: what each drive holds (items and kinds), kinds per drive array, items per second of importers and exporters.
+  - `digital-miner`: energy and ticks per block, positions scanned per tick, widest radius.
 - **Recipes** (durations, energy per tick, inputs and outputs): edit
   `plugins/MachineEngine/definitions/mekanized/recipes_*.yml`. They reload with the server's recipes.
   The Energized Smelter uses every furnace recipe of the server, datapacks included.
