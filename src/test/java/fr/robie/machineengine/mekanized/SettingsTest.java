@@ -3,6 +3,7 @@ package fr.robie.machineengine.mekanized;
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.machine.ChunkLoadingSettings;
 import fr.robie.machineengine.mekanized.machine.Frequencies;
+import fr.robie.machineengine.mekanized.machine.RadiationSettings;
 import fr.robie.machineengine.mekanized.machine.TeleporterSettings;
 import fr.robie.machineengine.test.FakeWorld;
 import java.io.IOException;
@@ -55,6 +56,7 @@ class SettingsTest {
     void reset() {
         TeleporterSettings.reset();
         ChunkLoadingSettings.reset();
+        RadiationSettings.reset();
     }
 
     private void load(String yaml) {
@@ -134,5 +136,42 @@ class SettingsTest {
         assertEquals(8, ChunkLoadingSettings.maxRadius, "a 17 x 17 area at most");
         assertEquals(0, ChunkLoadingSettings.energyPerChunk);
         assertEquals(2, this.warnings.size(), this.warnings.toString());
+    }
+
+    // -- radiation --------------------------------------------------------------------------------
+
+    @Test
+    void radiationDefaultsAreTheOldNumbers() {
+        assertEquals(100e-9, RadiationSettings.background);
+        assertEquals(0.995, RadiationSettings.sourceDecayPerSecond);
+        assertEquals(1e-6, RadiationSettings.minSource);
+        assertEquals(0.999, RadiationSettings.doseDecayPerSecond);
+        assertEquals(0.25, RadiationSettings.shieldingPerPiece);
+        assertEquals(1, RadiationSettings.sicknessDose);
+        assertEquals(10, RadiationSettings.damageDose);
+        assertEquals(100, RadiationSettings.lethalDose);
+        assertEquals(512_000, RadiationSettings.barrelCapacity);
+        assertEquals(1, RadiationSettings.barrelDecay);
+    }
+
+    @Test
+    void theShippedConfigKeepsTheRadiationDefaults() throws IOException {
+        loadShipped();
+        radiationDefaultsAreTheOldNumbers();
+        assertTrue(this.warnings.isEmpty(), this.warnings.toString());
+    }
+
+    @Test
+    void radiationSettingsAreReadAndLimited() {
+        load("radiation:\n  lethal-dose: 50\n  barrel-decay-per-second: 4\n  source-decay-per-second: 0.9\n");
+        assertEquals(50, RadiationSettings.lethalDose);
+        assertEquals(4, RadiationSettings.barrelDecay);
+        assertEquals(0.9, RadiationSettings.sourceDecayPerSecond);
+        load("radiation:\n  source-decay-per-second: 1.5\n  shielding-per-piece: 0.5\n  barrel-capacity: 0\n  damage-dose: high\n");
+        assertEquals(1, RadiationSettings.sourceDecayPerSecond, "a source cannot grow");
+        assertEquals(0.25, RadiationSettings.shieldingPerPiece, "four pieces stop everything at most");
+        assertEquals(1, RadiationSettings.barrelCapacity);
+        assertEquals(10, RadiationSettings.damageDose, "not a number: the default");
+        assertEquals(4, this.warnings.size(), this.warnings.toString());
     }
 }

@@ -24,23 +24,14 @@ import static fr.robie.machineengine.mekanized.MekanizedContent.key;
 /**
  * Radiation, a simpler take on Mekanism's: radioactive chemicals released into the
  * world (a fission reactor reaching full damage) become a source, in Sv/h, that fades by half every
- * few minutes. The platform measures each player's exposure (background, plus each source over the
+ * few minutes ({@link RadiationSettings} has the numbers). The platform measures each player's exposure (background, plus each source over the
  * squared distance), adds up their dose, applies its effects and saves the sources.
  */
 public final class Radiation {
-    /** Sv/h everywhere, as in Mekanism. */
-    public static final double BACKGROUND = 100e-9;
-    /** Each source keeps this much of its strength every second (half-life about 2.3 minutes). */
-    public static final double DECAY_PER_SECOND = 0.995;
-    /** Sources weaker than this are forgotten. */
-    public static final double MIN_SOURCE = 1e-6;
     /** Sv/h a released millibucket of each chemical adds (Mekanism's radioactivity). */
     public static final Map<String, Double> RADIOACTIVITY = Map.of(
             "nuclear_waste", 0.01, "spent_nuclear_waste", 0.01, "fissile_fuel", 0.01, "polonium", 0.05,
             "plutonium", 0.02, "uranium_oxide", 0.001, "uranium_hexafluoride", 0.001);
-    /** Radioactive waste barrel: what it holds, and how many mB decay every 20 ticks. */
-    public static final long BARREL_CAPACITY = 512_000;
-    public static final long BARREL_DECAY = 1;
 
     /** Source position -> its strength (Sv/h at one block). */
     private static final Map<WorldPosition, Double> SOURCES = new ConcurrentHashMap<>();
@@ -65,7 +56,7 @@ public final class Radiation {
 
     /** Radiation at a point: background plus every source of the world, over the squared distance. */
     public static double levelAt(@NotNull Key world, double x, double y, double z) {
-        double level = BACKGROUND;
+        double level = RadiationSettings.background;
         for (Map.Entry<WorldPosition, Double> source : SOURCES.entrySet()) {
             WorldPosition at = source.getKey();
             if (!at.world().equals(world)) continue;
@@ -77,8 +68,8 @@ public final class Radiation {
 
     /** Called once a second: sources fade. */
     public static void decay() {
-        SOURCES.replaceAll((at, strength) -> strength * DECAY_PER_SECOND);
-        SOURCES.values().removeIf(strength -> strength < MIN_SOURCE);
+        SOURCES.replaceAll((at, strength) -> strength * RadiationSettings.sourceDecayPerSecond);
+        SOURCES.values().removeIf(strength -> strength < RadiationSettings.minSource);
     }
 
     /** "1.23 mSv/h" style: the unit that keeps the number readable. */
@@ -96,20 +87,20 @@ public final class Radiation {
     static void register(RegistrationContext context) {
         ResourcePredicate radioactive = MekanizedRegistry.IS_CHEMICAL.and((variant, tags) -> radioactivity(variant) > 0);
         context.machineTypes().register(MachineType.builder(key("radioactive_waste_barrel"))
-                .storage(StorageDefinition.tank("waste", BARREL_CAPACITY).filter(radioactive))
+                .storage(StorageDefinition.tank("waste", RadiationSettings.barrelCapacity).filter(radioactive))
                 .port(PortDefinition.builder("waste", "waste").direction(PortDirection.INPUT).filter(radioactive).group("chemical").build())
                 .behavior(barrel())
                 .build());
     }
 
-    /** Lets {@link #BARREL_DECAY} mB of what it holds decay every second. */
+    /** Lets {@link RadiationSettings#barrelDecay} mB of what it holds decay every second. */
     static @NotNull MachineBehavior.Factory barrel() {
         return type -> context -> {
             boolean decayed = false;
             try (Transaction transaction = context.transactions().openOuter()) {
                 for (StorageView view : context.storage("waste").views()) {
                     if (view.isEmpty()) continue;
-                    decayed = context.storage("waste").extract(view.variant(), BARREL_DECAY, transaction) > 0;
+                    decayed = context.storage("waste").extract(view.variant(), RadiationSettings.barrelDecay, transaction) > 0;
                     break;
                 }
                 transaction.commit();

@@ -1,6 +1,7 @@
 package fr.robie.machineengine.mekanized;
 
 import fr.robie.machineengine.mekanized.machine.ChunkLoadingSettings;
+import fr.robie.machineengine.mekanized.machine.RadiationSettings;
 import fr.robie.machineengine.mekanized.machine.TeleporterSettings;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
@@ -43,6 +44,23 @@ public final class MekanizedSettings {
         evaporationTankPerLevel = positive(config, "thermal-evaporation.input-tank-per-level", evaporationTankPerLevel, logger);
         loadTeleporter(config, logger);
         loadChunkLoading(config, logger);
+        loadRadiation(config, logger);
+    }
+
+    private static void loadRadiation(ConfigurationSection config, Logger logger) {
+        RadiationSettings.background = boundedDouble(config, "radiation.background", RadiationSettings.DEFAULT_BACKGROUND, 0, 1, logger);
+        RadiationSettings.sourceDecayPerSecond = boundedDouble(config, "radiation.source-decay-per-second",
+                RadiationSettings.DEFAULT_SOURCE_DECAY_PER_SECOND, 0.5, 1, logger);
+        RadiationSettings.minSource = boundedDouble(config, "radiation.min-source", RadiationSettings.DEFAULT_MIN_SOURCE, 0, 1, logger);
+        RadiationSettings.doseDecayPerSecond = boundedDouble(config, "radiation.dose-decay-per-second",
+                RadiationSettings.DEFAULT_DOSE_DECAY_PER_SECOND, 0.5, 1, logger);
+        RadiationSettings.shieldingPerPiece = boundedDouble(config, "radiation.shielding-per-piece",
+                RadiationSettings.DEFAULT_SHIELDING_PER_PIECE, 0, 0.25, logger);
+        RadiationSettings.sicknessDose = boundedDouble(config, "radiation.sickness-dose", RadiationSettings.DEFAULT_SICKNESS_DOSE, 0, 1_000_000, logger);
+        RadiationSettings.damageDose = boundedDouble(config, "radiation.damage-dose", RadiationSettings.DEFAULT_DAMAGE_DOSE, 0, 1_000_000, logger);
+        RadiationSettings.lethalDose = boundedDouble(config, "radiation.lethal-dose", RadiationSettings.DEFAULT_LETHAL_DOSE, 0, 1_000_000, logger);
+        RadiationSettings.barrelCapacity = bounded(config, "radiation.barrel-capacity", RadiationSettings.DEFAULT_BARREL_CAPACITY, 1, MAX_JOULES, logger);
+        RadiationSettings.barrelDecay = bounded(config, "radiation.barrel-decay-per-second", RadiationSettings.DEFAULT_BARREL_DECAY, 0, MAX_JOULES, logger);
     }
 
     private static void loadChunkLoading(ConfigurationSection config, Logger logger) {

@@ -28,3 +28,16 @@ teleporter:
 chunk-loading:
   max-radius: 2          # chunks around its own a stabilizer can load (0-8); 2 is a 5 x 5 area
   energy-per-chunk: 500  # J per tick for each chunk it keeps loaded
+
+# Radiation (Mekanism's, simplified). Dose and radiation are in Sieverts (Sv, Sv/h).
+radiation:
+  background: 0.0000001             # Sv/h everywhere
+  source-decay-per-second: 0.995    # a released source keeps this much of its strength each second (0.5-1; half-life about 2.3 minutes)
+  min-source: 0.000001              # Sv/h below which a source is forgotten
+  dose-decay-per-second: 0.999      # a player's dose keeps this much each second (0.5-1; half-life about 11 minutes)
+  shielding-per-piece: 0.25         # share of radiation each hazmat piece (or MekaSuit piece with a shielding unit) stops (0-0.25)
+  sickness-dose: 1                  # Sv from which players get hungry
+  damage-dose: 10                   # Sv from which players get nauseous, weak and hurt
+  lethal-dose: 100                  # Sv from which every second does heavy damage
+  barrel-capacity: 512000           # mB a radioactive waste barrel holds (a restart rebuilds the machine)
+  barrel-decay-per-second: 1        # mB that decay in a barrel each second

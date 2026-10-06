@@ -2,7 +2,7 @@ package fr.robie.machineengine.mekanized.paper.menu;
 
 import fr.robie.machineengine.mekanized.machine.ChunkLoadingSettings;
 import fr.robie.machineengine.mekanized.machine.Liquifier;
-import fr.robie.machineengine.mekanized.machine.Radiation;
+import fr.robie.machineengine.mekanized.machine.RadiationSettings;
 import fr.robie.machineengine.mekanized.paper.menu.MenuYaml.Menu;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -60,7 +60,7 @@ final class LoaderAndBufferMenus {
 
         Map<String, String> barrel = new LinkedHashMap<>();
         barrel.put("info", display(4, "BARREL", "<green>Radioactive Waste Barrel", "<gray>Holds radioactive chemicals safely",
-                "<gray>while they slowly decay (" + Radiation.BARREL_DECAY + " mB a second)."));
+                "<gray>while they slowly decay (" + RadiationSettings.barrelDecay + " mB a second)."));
         barrel.put("waste", chemical(13, "waste", "Waste"));
         menus.add(new Menu("radioactive_waste_barrel", barrel, -1));
 

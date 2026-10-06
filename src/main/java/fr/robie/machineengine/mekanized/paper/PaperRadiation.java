@@ -4,6 +4,7 @@ import fr.robie.machineengine.mekanized.paper.gear.GearItems;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 
 import fr.robie.machineengine.mekanized.machine.Radiation;
+import fr.robie.machineengine.mekanized.machine.RadiationSettings;
 import fr.robie.machineengine.mekanized.paper.persist.LineStore;
 import fr.robie.machineengine.mekanized.paper.persist.WorldPositions;
 import net.kyori.adventure.key.Key;
@@ -34,7 +35,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * The player side of {@link Radiation}: each second a player takes in the radiation where they stand
- * (less what hazmat pieces and MekaSuit radiation shielding units stop, a quarter each), their dose
+ * (less what hazmat pieces and MekaSuit radiation shielding units stop, a quarter each by default), their dose
  * fades slowly, and a high dose hurts. The Geiger counter reads the radiation, the dosimeter the dose;
  * a MekaSuit helmet with the matching unit shows them all the time. Sources are saved in
  * {@code plugins/Mekanized/radiation.txt}.
@@ -42,8 +43,6 @@ import java.util.concurrent.ThreadLocalRandom;
 public final class PaperRadiation implements Listener {
     /** The player's dose in Sv. */
     static final NamespacedKey DOSE = new NamespacedKey(MekanizedContent.NAMESPACE, "radiation_dose");
-    /** The dose keeps this much every second (half-life about 11 minutes). */
-    private static final double DOSE_DECAY = 0.999;
     private static final List<String> HAZMAT = List.of("hazmat_mask", "hazmat_gown", "hazmat_pants", "hazmat_boots");
     private static final List<String> MEKASUIT = List.of("mekasuit_helmet", "mekasuit_bodyarmor", "mekasuit_pants", "mekasuit_boots");
     private static final long SAVE_SECONDS = 30;
@@ -84,7 +83,7 @@ public final class PaperRadiation implements Listener {
     private void expose(Player player) {
         Location at = player.getLocation();
         double level = level(at);
-        double dose = dose(player) * DOSE_DECAY + level * (1 - shielding(player)) / 3600;
+        double dose = dose(player) * RadiationSettings.doseDecayPerSecond + level * (1 - shielding(player)) / 3600;
         player.getPersistentDataContainer().set(DOSE, PersistentDataType.DOUBLE, dose);
         ItemStack helmet = player.getInventory().getHelmet();
         if ("mekasuit_helmet".equals(GearItems.id(helmet))) {
@@ -92,17 +91,17 @@ public final class PaperRadiation implements Listener {
             String shown = (modules.contains("geiger_unit") ? "Radiation " + Radiation.format(level, "/h") : "")
                     + (modules.contains("geiger_unit") && modules.contains("dosimeter_unit") ? " - " : "")
                     + (modules.contains("dosimeter_unit") ? "Dose " + Radiation.format(dose, "") : "");
-            if (!shown.isEmpty() && level > Radiation.BACKGROUND * 10) player.sendActionBar(Component.text(shown, NamedTextColor.GREEN));
+            if (!shown.isEmpty() && level > RadiationSettings.background * 10) player.sendActionBar(Component.text(shown, NamedTextColor.GREEN));
         }
         // Mekanism's thresholds: a high dose makes you sick, a very high one hurts, a fatal one kills.
         ThreadLocalRandom random = ThreadLocalRandom.current();
-        if (dose >= 1 && random.nextInt(10) == 0) player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 200, 0));
-        if (dose >= 10) {
+        if (dose >= RadiationSettings.sicknessDose && random.nextInt(10) == 0) player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 200, 0));
+        if (dose >= RadiationSettings.damageDose) {
             if (random.nextInt(10) == 0) player.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 200, 0));
             player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 40, 0, true, false, false));
             if (random.nextInt(5) == 0) player.damage(1);
         }
-        if (dose >= 100) player.damage(4);
+        if (dose >= RadiationSettings.lethalDose) player.damage(4);
     }
 
     static double level(Location at) {
@@ -114,7 +113,7 @@ public final class PaperRadiation implements Listener {
         return dose == null ? 0 : dose;
     }
 
-    /** Hazmat pieces and MekaSuit pieces with a radiation shielding unit stop a quarter each. */
+    /** Hazmat pieces and MekaSuit pieces with a radiation shielding unit stop a quarter each by default ({@link RadiationSettings#shieldingPerPiece}). */
     private static double shielding(Player player) {
         ItemStack[] armour = {player.getInventory().getHelmet(), player.getInventory().getChestplate(),
                 player.getInventory().getLeggings(), player.getInventory().getBoots()};
@@ -122,7 +121,7 @@ public final class PaperRadiation implements Listener {
         for (int i = 0; i < 4; i++) {
             String id = GearItems.id(armour[i]);
             if (HAZMAT.get(i).equals(id) || MEKASUIT.get(i).equals(id) && GearItems.modules(armour[i]).contains("radiation_shielding_unit")) {
-                shielded += 0.25;
+                shielded += RadiationSettings.shieldingPerPiece;
             }
         }
         return shielded;

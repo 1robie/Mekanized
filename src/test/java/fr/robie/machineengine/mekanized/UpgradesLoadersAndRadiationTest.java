@@ -21,6 +21,7 @@ import fr.robie.machineengine.mekanized.machine.ChunkLoadingSettings;
 import fr.robie.machineengine.mekanized.machine.Entangloporters;
 import fr.robie.machineengine.mekanized.machine.MekanizedRegistry;
 import fr.robie.machineengine.mekanized.machine.Radiation;
+import fr.robie.machineengine.mekanized.machine.RadiationSettings;
 import fr.robie.machineengine.test.FakeWorld;
 import fr.robie.machineengine.test.TestEngine;
 import net.kyori.adventure.key.Key;
@@ -50,6 +51,7 @@ class UpgradesLoadersAndRadiationTest {
     @AfterEach
     void resetSettings() {
         ChunkLoadingSettings.reset();
+        RadiationSettings.reset();
     }
 
     @BeforeEach
@@ -62,10 +64,10 @@ class UpgradesLoadersAndRadiationTest {
     @Test
     void radiationFadesWithDistanceAndTime() {
         Radiation.release(HERE, 1.0);
-        assertEquals(1.0 + Radiation.BACKGROUND, Radiation.levelAt(FakeWorld.WORLD, 0.5, 64.5, 0.5), 1e-9, "at the source");
-        assertEquals(0.01 + Radiation.BACKGROUND, Radiation.levelAt(FakeWorld.WORLD, 10.5, 64.5, 0.5), 1e-9, "over the squared distance");
+        assertEquals(1.0 + RadiationSettings.background, Radiation.levelAt(FakeWorld.WORLD, 0.5, 64.5, 0.5), 1e-9, "at the source");
+        assertEquals(0.01 + RadiationSettings.background, Radiation.levelAt(FakeWorld.WORLD, 10.5, 64.5, 0.5), 1e-9, "over the squared distance");
         Radiation.decay();
-        assertEquals(Radiation.DECAY_PER_SECOND, Radiation.sources().get(HERE), 1e-12);
+        assertEquals(RadiationSettings.sourceDecayPerSecond, Radiation.sources().get(HERE), 1e-12);
     }
 
     @Test
@@ -87,6 +89,30 @@ class UpgradesLoadersAndRadiationTest {
         world.tick(100);
         long left = amountOf(barrel, "waste", MekanizedContent.chemical("nuclear_waste").variant());
         assertTrue(left < 100 && left >= 94, "a millibucket a second: " + left);
+    }
+
+    @Test
+    void theRadiationSettingsChangeBackgroundAndDecay() {
+        RadiationSettings.background = 0.5;
+        RadiationSettings.sourceDecayPerSecond = 0.5;
+        RadiationSettings.minSource = 0.3;
+        Radiation.release(HERE, 1.0);
+        assertEquals(1.5, Radiation.levelAt(FakeWorld.WORLD, 0.5, 64.5, 0.5), 1e-9, "the configured background");
+        Radiation.decay();
+        assertEquals(0.5, Radiation.sources().get(HERE), 1e-12, "the configured decay");
+        Radiation.decay();
+        assertNull(Radiation.sources().get(HERE), "below the configured minimum: forgotten");
+    }
+
+    @Test
+    void aWasteBarrelDecaysAtTheConfiguredRate() {
+        RadiationSettings.barrelDecay = 10;
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        MachineInstanceImpl barrel = world.place(type("radioactive_waste_barrel"), HERE, Direction.NORTH);
+        fill(barrel, "waste", MekanizedContent.chemical("nuclear_waste").stack(100));
+        world.tick(100);
+        long left = amountOf(barrel, "waste", MekanizedContent.chemical("nuclear_waste").variant());
+        assertTrue(left <= 60 && left >= 40, "ten millibuckets a second: " + left);
     }
 
     @Test
