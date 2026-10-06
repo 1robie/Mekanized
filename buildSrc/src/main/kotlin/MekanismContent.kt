@@ -11,7 +11,7 @@ import java.io.File
  * @param itemTags tag -> members ("#tag" includes), already renamed to `mekanized:`
  */
 internal class MekanismContent(
-    private val source: File,
+    private val source: MekanismSource,
     private val out: File,
     private val itemTags: Map<String, List<String>>,
     private val report: Report,
@@ -44,18 +44,11 @@ internal class MekanismContent(
             if (isBlock) {
                 val block = block(name) ?: continue
                 blocks[id] = block
-                items[id] = linkedMapOf<String, Any?>(
-                    "data" to mapOf("item_name" to "<!i><lang:block.mekanized.$name>"),
-                    "model" to Ids.rename(model),
-                    "behavior" to mapOf("type" to "block_item", "block" to id),
-                ).withTags(membership[id])
+                items[id] = itemYaml("block.mekanized.$name", Ids.rename(model), blockItemBehavior(id), membership[id])
                 nameKeys += "block.mekanism.$name"
                 report.count("blocks")
             } else {
-                items[id] = linkedMapOf<String, Any?>(
-                    "data" to mapOf("item_name" to "<!i><lang:item.mekanized.$name>"),
-                    "model" to Ids.rename(model),
-                ).withTags(membership[id])
+                items[id] = itemYaml("item.mekanized.$name", Ids.rename(model), tags = membership[id])
                 nameKeys += "item.mekanism.$name"
                 report.count("items")
             }
@@ -72,9 +65,7 @@ internal class MekanismContent(
         val chemicals = chemicals()
         nameKeys += chemicals.map { "chemical.mekanism.$it" }
         // Fluids are named by their liquid blocks (block.mekanism.brine).
-        nameKeys += source.resolve("src/datagen/generated").listFiles().orEmpty()
-            .flatMap { it.resolve("data/c/tags/fluid").listFiles().orEmpty().toList() }
-            .map { it.nameWithoutExtension }.filter { it != "gaseous" }.map { "block.mekanism.$it" }
+        nameKeys += source.mekanismFluids.map { "block.mekanism.$it" }
         out.resolve("chemicals.txt").writeText(chemicals.joinToString("\n", postfix = "\n"))
         writeYaml(out.resolve("pack/configuration/lang.yml"),
             "Names of Mekanized items, blocks and chemicals in every language Mekanism ships (Mekanism, MIT).\n" +
@@ -100,9 +91,7 @@ internal class MekanismContent(
         }
         for (name in phase.modules) {
             val model = itemDefinition(name)?.let { itemModel(it) } ?: continue
-            items["mekanized:$name"] = linkedMapOf<String, Any?>(
-                "data" to mapOf("item_name" to "<!i><lang:item.mekanized.$name>"), "model" to Ids.rename(model))
-                .withTags(membership["mekanized:$name"])
+            items["mekanized:$name"] = itemYaml("item.mekanized.$name", Ids.rename(model), tags = membership["mekanized:$name"])
             nameKeys += "item.mekanism.$name"
             gearIds += "mekanized:$name"
         }
@@ -217,11 +206,8 @@ internal class MekanismContent(
                     "overrides" to mapOf("hardness" to 3.5, "resistance" to 8.0, "push_reaction" to "block",
                         "tags" to listOf("minecraft:mineable/pickaxe"), "correct_tools" to listOf("#minecraft:pickaxes"), "required_break_power" to 1)),
             ).apply { putAll(finalStates) }
-            items[id] = linkedMapOf<String, Any?>(
-                "data" to mapOf("item_name" to "<!i><lang:block.mekanized.$name>"),
-                "model" to (itemModel ?: blockItemModel(name) ?: firstModel(states)),
-                "behavior" to mapOf("type" to "block_item", "block" to id),
-            ).withTags(membership[id])
+            items[id] = itemYaml("block.mekanized.$name", itemModel ?: blockItemModel(name) ?: firstModel(states),
+                blockItemBehavior(id), membership[id])
             nameKeys += "block.mekanism.$name"
             phaseIds += id
             report.count("machine blocks")
@@ -230,11 +216,9 @@ internal class MekanismContent(
             val id = "mekanized:$name"
             val block = block(name) ?: continue
             blocks[id] = block
-            items[id] = linkedMapOf<String, Any?>(
-                "data" to mapOf("item_name" to "<!i><lang:block.mekanized.$name>"),
-                "model" to (blockItemModel(name) ?: (block["state"] as Map<*, *>).let { (it["model"] as Map<*, *>)["path"] }),
-                "behavior" to mapOf("type" to "block_item", "block" to id),
-            ).withTags(membership[id])
+            items[id] = itemYaml("block.mekanized.$name",
+                blockItemModel(name) ?: (block["state"] as Map<*, *>).let { (it["model"] as Map<*, *>)["path"] as String },
+                blockItemBehavior(id), membership[id])
             nameKeys += "block.mekanism.$name"
             phaseIds += id
             report.count("blocks")
@@ -243,26 +227,20 @@ internal class MekanismContent(
             val model = itemDefinition(name)?.let { itemModel(it) } ?: continue
             // Blocks used as items only here (the cardboard box) keep their block name.
             val kind = if (source.resolve("src/main/resources/assets/mekanism/blockstates/$name.json").isFile) "block" else "item"
-            items["mekanized:$name"] = linkedMapOf<String, Any?>(
-                "data" to mapOf("item_name" to "<!i><lang:$kind.mekanized.$name>"),
-                "model" to Ids.rename(model),
-            ).withTags(membership["mekanized:$name"])
+            items["mekanized:$name"] = itemYaml("$kind.mekanized.$name", Ids.rename(model), tags = membership["mekanized:$name"])
             nameKeys += "$kind.mekanism.$name"
             phaseIds += "mekanized:$name"
         }
         // Items with only a model and a name (the full cardboard box): name -> (model, name key).
         for ((name, model) in extraModels) {
-            items["mekanized:$name"] = linkedMapOf<String, Any?>(
-                "data" to mapOf("item_name" to "<!i><lang:${model.second}>"), "model" to model.first)
+            items["mekanized:$name"] = itemYaml(model.second, model.first)
             phaseIds += "mekanized:$name"
         }
         writeYaml(out.resolve("pack/configuration/$fileName"), header, linkedMapOf("items" to items, "blocks" to blocks))
     }
 
-    private fun itemDefinition(name: String): File? = listOf(
-        "src/datagen/generated/mekanism/assets/mekanism/items/$name.json",
-        "src/datagen/generated/mekanismgenerators/assets/mekanismgenerators/items/$name.json",
-    ).map { source.resolve(it) }.firstOrNull { it.isFile }
+    private fun itemDefinition(name: String): File? = source.assetRoots.filter { "/datagen/" in it }
+        .map { source.resolve("$it/items/$name.json") }.firstOrNull { it.isFile }
 
     /** The item model: a plain model, or the base of a special one (energy cubes). */
     private fun blockItemModel(name: String): String? {
@@ -289,9 +267,7 @@ internal class MekanismContent(
      * is replaced by the block's item model (a plain cube for energy cubes).
      */
     private fun machineStates(name: String): Map<String, Any?>? {
-        val file = listOf("src/main/resources/assets/mekanism", "src/generators/resources/assets/mekanismgenerators",
-            "src/datagen/generated/mekanism/assets/mekanism", "src/datagen/generated/mekanismgenerators/assets/mekanismgenerators")
-            .map { source.resolve("$it/blockstates/$name.json") }.firstOrNull { it.isFile } ?: return null
+        val file = source.asset("blockstates/$name.json") ?: return null
         val variants = JsonParser.parseString(file.readText()).asJsonObject.getAsJsonObject("variants") ?: return null
         val values = linkedMapOf<String, MutableSet<String>>()
         val appearances = linkedMapOf<String, Any?>()
@@ -371,9 +347,8 @@ internal class MekanismContent(
     private fun needsLoader(modelRef: String): Boolean {
         val path = modelRef.substringAfter(":")
         val module = if (modelRef.startsWith("mekanismgenerators:")) "mekanismgenerators" else "mekanism"
-        return listOf("src/main/resources/assets/$module/models", "src/generators/resources/assets/$module/models",
-            "src/datagen/generated/$module/assets/$module/models")
-            .map { source.resolve("$it/$path.json") }.firstOrNull { it.isFile }?.readText()
+        return source.assetRoots.filter { it.endsWith("/$module") }
+            .map { source.resolve("$it/models/$path.json") }.firstOrNull { it.isFile }?.readText()
             // energy_cube and composite models are flattened into vanilla ones by the import.
             ?.let { "\"loader\"" in flattenLoaderModel(Ids.renameInText(it), mekanismModels(source)) } ?: true
     }
@@ -407,7 +382,7 @@ internal class MekanismContent(
             JsonParser.parseString(Ids.renameInText(file.readText())).asJsonObject.getAsJsonObject("textures")
                 ?.entrySet()?.forEach { (key, value) -> textures.add(key, value) }
         }
-        val gson = com.google.gson.GsonBuilder().setPrettyPrinting().create()
+        val gson = prettyGson
         fun write(part: String, elements: com.google.gson.JsonArray): String {
             val model = JsonObject()
             model.addProperty("parent", "minecraft:block/block")
@@ -454,7 +429,7 @@ internal class MekanismContent(
             texture.parentFile.mkdirs()
             javax.imageio.ImageIO.write(tinted, "png", texture)
         }
-        val gson = com.google.gson.GsonBuilder().setPrettyPrinting().create()
+        val gson = prettyGson
         for (level in 1..CORE_LEVELS) {
             val half = 1.0 + level * 1.0 // 4 to 10 pixels wide
             val face = mapOf("uv" to listOf(0, 0, 16, 16), "texture" to "#core")
@@ -517,7 +492,7 @@ internal class MekanismContent(
     private fun emptyModel(modelsRoot: File, name: String, realModel: String): String {
         val file = modelsRoot.resolve("block/display_empty/$name.json")
         file.parentFile.mkdirs()
-        file.writeText(com.google.gson.GsonBuilder().setPrettyPrinting().create().toJson(mapOf(
+        file.writeText(prettyGson.toJson(mapOf(
             "textures" to mapOf("particle" to (particle(modelsRoot, realModel) ?: "minecraft:block/iron_block")),
             "elements" to listOf<Any>())))
         return "mekanized:block/display_empty/$name"
@@ -561,11 +536,6 @@ internal class MekanismContent(
         return (appearance["model"] as Map<String, Any?>)["path"] as String
     }
 
-    private fun MutableMap<String, Any?>.withTags(tags: Set<String>?): MutableMap<String, Any?> {
-        if (!tags.isNullOrEmpty()) this["settings"] = mapOf("tags" to tags.sorted())
-        return this
-    }
-
     /** The model of a plain item definition (`minecraft:model`), else null (special items come later). */
     private fun itemModel(file: File): String? {
         var model = JsonParser.parseString(file.readText()).asJsonObject.getAsJsonObject("model") ?: return null
@@ -599,7 +569,7 @@ internal class MekanismContent(
     }
 
     private fun blockState(name: String): String? {
-        for (root in listOf("src/main/resources/assets/mekanism", "src/datagen/generated/mekanism/assets/mekanism")) {
+        for (root in source.assetRoots.take(2)) {
             val file = source.resolve("$root/blockstates/$name.json")
             if (!file.isFile) continue
             val variants = JsonParser.parseString(file.readText()).asJsonObject.getAsJsonObject("variants") ?: return null
@@ -661,9 +631,7 @@ internal class MekanismContent(
     private fun languages(keys: Set<String>): Map<String, Any?> {
         val languages = sortedMapOf<String, Any?>()
         // Generators' names are merged into the same language (one namespace, K1).
-        val files = listOf("src/main/resources/assets/mekanism/lang", "src/datagen/generated/mekanism/assets/mekanism/lang",
-            "src/generators/resources/assets/mekanismgenerators/lang", "src/datagen/generated/mekanismgenerators/assets/mekanismgenerators/lang")
-            .flatMap { source.resolve(it).listFiles().orEmpty().toList() }
+        val files = source.assetRoots.flatMap { source.resolve("$it/lang").listFiles().orEmpty().toList() }
             .filter { it.extension == "json" }
         for (file in files) {
             val json: JsonObject = JsonParser.parseString(file.readText()).asJsonObject

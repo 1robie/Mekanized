@@ -36,7 +36,7 @@ abstract class ImportMekanism : DefaultTask() {
 
     @TaskAction
     fun import() {
-        val source = sourceDirectory.get().asFile
+        val source = MekanismSource(sourceDirectory.get().asFile)
         val out = outputDirectory.get().asFile
         out.deleteRecursively()
         val report = Report()
@@ -134,17 +134,10 @@ internal fun writeYaml(file: File, header: String, content: Map<String, Any?>) {
 
 // -- assets ---------------------------------------------------------------------------------------
 
-internal class Assets(private val source: File, private val target: File, private val report: Report) {
-    private val roots = listOf(
-        "src/main/resources/assets/mekanism",
-        "src/datagen/generated/mekanism/assets/mekanism",
-        "src/generators/resources/assets/mekanismgenerators",
-        "src/datagen/generated/mekanismgenerators/assets/mekanismgenerators",
-    )
-
+internal class Assets(private val source: MekanismSource, private val target: File, private val report: Report) {
     fun copy() {
         val origin = mutableMapOf<String, String>()
-        for (root in roots) {
+        for (root in source.assetRoots) {
             for (folder in listOf("textures", "models")) {
                 val base = source.resolve(root).resolve(folder)
                 if (!base.isDirectory) continue
@@ -197,11 +190,9 @@ internal class Assets(private val source: File, private val target: File, privat
  * Reads a renamed model reference (`mekanized:block/x`) from Mekanism's sources, renamed too; null if
  * it is not one of Mekanism's models.
  */
-internal fun mekanismModels(source: File): (String) -> JsonObject? = { ref ->
+internal fun mekanismModels(source: MekanismSource): (String) -> JsonObject? = { ref ->
     if (!ref.startsWith("mekanized:")) null
-    else listOf("src/main/resources/assets/mekanism", "src/generators/resources/assets/mekanismgenerators",
-        "src/datagen/generated/mekanism/assets/mekanism", "src/datagen/generated/mekanismgenerators/assets/mekanismgenerators")
-        .map { source.resolve("$it/models/${ref.removePrefix("mekanized:")}.json") }.firstOrNull { it.isFile }
+    else source.asset("models/${ref.removePrefix("mekanized:")}.json")
         ?.let { JsonParser.parseString(Ids.renameInText(it.readText())).asJsonObject }
 }
 
@@ -257,7 +248,7 @@ internal fun flattenLoaderModel(text: String, resolve: (String) -> JsonObject? =
     }
     json.remove("loader")
     json.add("elements", elements)
-    return com.google.gson.GsonBuilder().setPrettyPrinting().create().toJson(json)
+    return prettyGson.toJson(json)
 }
 
 internal fun Assets.vanillaMetadata(text: String, relative: String): String? {
@@ -268,7 +259,7 @@ internal fun Assets.vanillaMetadata(text: String, relative: String): String? {
         if (frames != null && frames.isJsonArray && frames.asJsonArray.isEmpty) animation.remove("frames")
     }
     if (json.size() == 0) return null
-    return com.google.gson.GsonBuilder().setPrettyPrinting().create().toJson(json)
+    return prettyGson.toJson(json)
 }
 
 // -- recipes --------------------------------------------------------------------------------------
@@ -278,7 +269,7 @@ internal fun Assets.vanillaMetadata(text: String, relative: String): String? {
  * running that recipe type; they are written into every recipe so server owners can tune them.
  */
 internal class Recipes(
-    private val source: File,
+    private val source: MekanismSource,
     private val out: File,
     private val report: Report,
     /**
@@ -292,9 +283,7 @@ internal class Recipes(
      * Mekanism's fluids (its `c:` fluid tags, one per fluid), plus water and lava: resources
      * `mekanized:fluid/<name>`, apart from the chemicals of the same name.
      */
-    val fluids: List<String> = source.resolve("src/datagen/generated").listFiles().orEmpty()
-        .flatMap { it.resolve("data/c/tags/fluid").listFiles().orEmpty().toList() }
-        .map { it.nameWithoutExtension }.filter { it != "gaseous" }.plus(listOf("water", "lava")).distinct().sorted()
+    val fluids: List<String> get() = source.fluids
 
     /** A fluid id or `c:`/`minecraft:` fluid tag as a fluid resource type. */
     private fun fluidType(ref: String): String {
@@ -316,7 +305,7 @@ internal class Recipes(
         val path = tag.substringAfter(":")
         // Already renamed: Mekanism's own tags live under its original namespaces.
         val namespaces = if (namespace == "mekanized") listOf("mekanism", "mekanismgenerators") else listOf(namespace)
-        for (module in source.resolve("src/datagen/generated").listFiles().orEmpty()) for (namespace in namespaces) {
+        for (module in source.datagenModules) for (namespace in namespaces) {
             for (folder in listOf("tags/mekanism/chemical", "tags/chemical")) {
                 val file = module.resolve("data/$namespace/$folder/$path.json")
                 if (!file.isFile) continue
@@ -715,12 +704,11 @@ internal class Recipes(
  * Item and chemical tags. Mekanism's datagen only lists its own items in `c:` tags (NeoForge adds
  * the vanilla members); the vanilla members are added by the Mekanized overlay (Phase 1, E10).
  */
-internal class Tags(private val source: File, private val target: File, private val report: Report) {
+internal class Tags(private val source: MekanismSource, private val target: File, private val report: Report) {
     fun convert(): Map<String, List<String>> {
         val itemTags = sortedMapOf<String, Any?>()
         val chemicalTags = sortedMapOf<String, Any?>()
-        val data = source.resolve("src/datagen/generated")
-        data.listFiles()?.forEach { module ->
+        source.datagenModules.forEach { module ->
             val namespaces = module.resolve("data").listFiles() ?: return@forEach
             for (namespace in namespaces) {
                 read(namespace.resolve("tags/item"), namespace.name, itemTags, "item tags")
