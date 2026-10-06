@@ -1,6 +1,7 @@
 package fr.robie.machineengine.mekanized;
 
 import fr.robie.machineengine.api.addon.RegistrationContext;
+import fr.robie.machineengine.api.resource.Fluids;
 import fr.robie.machineengine.api.resource.ResourceCategory;
 import fr.robie.machineengine.api.resource.ResourceType;
 import fr.robie.machineengine.mekanized.machine.MekanizedRegistry;
@@ -39,7 +40,8 @@ public final class MekanizedContent {
     public static final ResourceCategory ENERGY_CATEGORY = ResourceCategory.builder(key("energy")).unit("J").build();
     public static final ResourceType ENERGY = ResourceType.of(key("energy"), ENERGY_CATEGORY);
     public static final ResourceCategory CHEMICAL = ResourceCategory.builder(key("chemical")).unit("mB").build();
-    public static final ResourceCategory FLUID = ResourceCategory.builder(key("fluid")).unit("mB").build();
+    /** MachineEngine's global fluid category (D29): Mekanized's fluids flow through any fluid pipe or port. */
+    public static final ResourceCategory FLUID = Fluids.category();
     /** Heat in Joules: heaters make it, thermodynamic conductors carry it, boilers use it. */
     public static final ResourceCategory HEAT_CATEGORY = ResourceCategory.builder(key("heat")).unit("J").build();
     public static final ResourceType HEAT = ResourceType.of(key("heat"), HEAT_CATEGORY);
@@ -91,7 +93,6 @@ public final class MekanizedContent {
         for (String chemical : lines("mekanized/chemicals.txt")) {
             context.resourceTypes().register(CHEMICALS.computeIfAbsent(chemical, name -> ResourceType.of(key(name), CHEMICAL)));
         }
-        context.resourceCategories().register(FLUID);
         for (String fluid : lines("mekanized/fluids.txt")) {
             ResourceType type = FLUIDS.computeIfAbsent(fluid, name -> ResourceType.of(key("fluid/" + name), FLUID));
             context.resourceTypes().register(type);
