@@ -14,6 +14,8 @@ import fr.robie.machineengine.core.definition.DefinitionCompiler;
 import fr.robie.machineengine.core.lifecycle.CoreMachineEngine;
 import fr.robie.machineengine.core.machine.MachineInstanceImpl;
 import fr.robie.machineengine.mekanized.multiblock.Multiblocks;
+import fr.robie.machineengine.mekanized.multiblock.Fission;
+import fr.robie.machineengine.mekanized.multiblock.Fusion;
 import fr.robie.machineengine.mekanized.multiblock.ReactorMachines;
 import fr.robie.machineengine.test.FakeWorld;
 import fr.robie.machineengine.test.TestEngine;
@@ -93,7 +95,7 @@ class ReactorTest {
         MachineInstanceImpl anchor = world.machine(FakeWorld.at(0, 64, 0));
         fill(anchor, "fuel", chemical("fissile_fuel", 100));
         fill(anchor, "water", fluid("water", 100_000));
-        anchor.context().set(ReactorMachines.BURN_RATE, "1");
+        anchor.context().set(Fission.BURN_RATE, "1");
         anchor.context().set(ReactorMachines.RUNNING, true);
         world.tick(41);
         assertTrue(amount(anchor, "waste") > 0, "fuel became waste: " + anchor.context().get(ReactorMachines.STATUS));
@@ -107,11 +109,11 @@ class ReactorTest {
         world.tick(5);
         MachineInstanceImpl anchor = world.machine(FakeWorld.at(0, 64, 0));
         fill(anchor, "fuel", chemical("fissile_fuel", 8_000));
-        anchor.context().set(ReactorMachines.BURN_RATE, "1");
+        anchor.context().set(Fission.BURN_RATE, "1");
         anchor.context().set(ReactorMachines.RUNNING, true);
         world.tick(1_200);
         assertFalse(anchor.context().get(ReactorMachines.RUNNING), "too hot without coolant: " + anchor.context().get(ReactorMachines.STATUS));
-        assertEquals(100, anchor.context().get(ReactorMachines.DAMAGE));
+        assertEquals(100, anchor.context().get(Fission.DAMAGE));
     }
 
     @Test
@@ -125,9 +127,9 @@ class ReactorTest {
         MachineInstanceImpl anchor = world.machine(FakeWorld.at(0, 64, 0));
         fill(anchor, "deuterium", chemical("deuterium", 1_000));
         fill(anchor, "tritium", chemical("tritium", 1_000));
-        fill(amplifier, "energy", MekanizedContent.ENERGY.stack(ReactorMachines.FUSION_IGNITION));
+        fill(amplifier, "energy", MekanizedContent.ENERGY.stack(Fusion.FUSION_IGNITION));
         world.tick(200);
-        assertTrue(anchor.context().get(ReactorMachines.IGNITED), "ignited: " + anchor.context().get(ReactorMachines.STATUS));
+        assertTrue(anchor.context().get(Fusion.IGNITED), "ignited: " + anchor.context().get(ReactorMachines.STATUS));
         assertTrue(amount(anchor, "energy") > 0);
         assertTrue(amount(anchor, "deuterium") < 1_000, "it burns its fuel");
     }
