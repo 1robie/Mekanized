@@ -1,6 +1,6 @@
 package fr.robie.machineengine.mekanized.paper;
 
-import fr.robie.machineengine.mekanized.paper.menu.MekanizedMenus;
+import fr.robie.machineengine.mekanized.paper.menu.SideMenus;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 
 import fr.robie.machineengine.api.machine.WakeReason;
@@ -114,7 +114,7 @@ public final class PaperConfigurator implements Listener {
             machine.instance().type().ports().forEach(port -> {
                 if (port.group() != null) groups.add(port.group());
             });
-            String menu = MekanizedMenus.sideMenuFor(groups);
+            String menu = SideMenus.sideMenuFor(groups);
             if (menus == null || menu == null || !menus.open(player, machine, menu)) {
                 player.sendActionBar(Component.text("No side configuration menu", NamedTextColor.RED));
             }

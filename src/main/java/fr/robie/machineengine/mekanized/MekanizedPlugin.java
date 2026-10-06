@@ -10,7 +10,7 @@ import fr.robie.machineengine.mekanized.paper.PaperEnergyItems;
 import fr.robie.machineengine.mekanized.paper.gear.GearTools;
 import fr.robie.machineengine.mekanized.paper.gear.SuitTicker;
 import fr.robie.machineengine.mekanized.paper.automation.PaperAutomation;
-import fr.robie.machineengine.mekanized.paper.menu.MekanizedMenus;
+import fr.robie.machineengine.mekanized.paper.menu.MenuCatalog;
 import fr.robie.machineengine.mekanized.paper.command.MekanizedCommands;
 
 import fr.robie.machineengine.api.MachineEngine;
@@ -64,7 +64,7 @@ public final class MekanizedPlugin extends JavaPlugin {
         try (EditableFiles files = new EditableFiles(this)) {
             installCraftEnginePack(files);
             installDefinitions(files);
-            MekanizedMenus.install(this, files);
+            MenuCatalog.install(this, files);
         } catch (IOException e) {
             getLogger().warning("Could not record the installed Mekanized files: " + e.getMessage());
         }
