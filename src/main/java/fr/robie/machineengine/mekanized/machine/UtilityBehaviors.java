@@ -123,8 +123,12 @@ public final class UtilityBehaviors {
 
     /** What a 3x3 crafting grid makes (the server's crafting recipes), given by the platform. */
     public interface Crafting {
-        /** @param grid 9 cells, row by row, {@code null} for empty ones; @return the result, or null */
-        @Nullable ResourceStack craft(@NotNull List<@Nullable ResourceVariant> grid);
+        /**
+         * @param world the machine's world (Folia: the recipe is looked up there, on its thread)
+         * @param grid  9 cells, row by row, {@code null} for empty ones
+         * @return the result, or null
+         */
+        @Nullable ResourceStack craft(@NotNull net.kyori.adventure.key.Key world, @NotNull List<@Nullable ResourceVariant> grid);
     }
 
     private static volatile @Nullable Crafting crafting;
@@ -143,7 +147,7 @@ public final class UtilityBehaviors {
             List<StorageView> pattern = context.storage("pattern").views();
             List<ResourceVariant> grid = new ArrayList<>();
             for (StorageView cell : pattern) grid.add(cell.isEmpty() ? null : cell.variant());
-            ResourceStack result = current == null || grid.stream().allMatch(java.util.Objects::isNull) ? null : current.craft(grid);
+            ResourceStack result = current == null || grid.stream().allMatch(java.util.Objects::isNull) ? null : current.craft(context.machine().position().world(), grid);
             if (result == null) {
                 context.setActive(false);
                 context.waitForInput();

@@ -32,13 +32,16 @@ abstract class FetchMekanism : DefaultTask() {
     @get:Inject
     abstract val execOperations: ExecOperations
 
-    init {
-        outputs.upToDateWhen { currentCommit() == commit.get() }
-    }
-
     @TaskAction
     fun fetch() {
         val source = sourceDirectory.get().asFile
+        // Gradle cannot tell this task is up to date (it has no declared outputs), so it checks itself:
+        // the pinned commit already checked out with the same folders means no network at all.
+        val sparse = source.resolve(".git/info/sparse-checkout")
+        if (currentCommit() == commit.get() && sparse.isFile && sparse.readLines().filter { it.isNotBlank() } == paths.get()) {
+            logger.info("Mekanism ${commit.get().take(10)} already checked out")
+            return
+        }
         if (!source.resolve(".git").isDirectory) {
             source.mkdirs()
             git(source, "init", "--quiet")

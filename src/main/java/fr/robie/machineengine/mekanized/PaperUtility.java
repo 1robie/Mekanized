@@ -66,7 +66,7 @@ final class PaperUtility implements Listener {
         for (Player player : Bukkit.getOnlinePlayers()) listener.startCharging(player);
     }
 
-    private static @Nullable ResourceStack craft(List<@Nullable ResourceVariant> grid) {
+    private static @Nullable ResourceStack craft(net.kyori.adventure.key.Key world, List<@Nullable ResourceVariant> grid) {
         if (CRAFTED.size() > 1024) CRAFTED.clear();
         List<ResourceVariant> key = java.util.Collections.unmodifiableList(new ArrayList<>(grid));
         return CRAFTED.computeIfAbsent(key, cells -> {
@@ -76,7 +76,10 @@ final class PaperUtility implements Listener {
                 matrix[i] = cell == null ? ItemStack.empty() : PaperItems.toItemStack(cell, 1);
                 if (matrix[i] == null) matrix[i] = ItemStack.empty();
             }
-            Recipe recipe = Bukkit.getCraftingRecipe(matrix, Bukkit.getWorlds().getFirst());
+            // The machine's own world: the one this region thread may touch.
+            org.bukkit.World at = Bukkit.getWorld(new org.bukkit.NamespacedKey(world.namespace(), world.value()));
+            if (at == null) return Optional.empty();
+            Recipe recipe = Bukkit.getCraftingRecipe(matrix, at);
             if (recipe == null || recipe.getResult().isEmpty()) return Optional.empty();
             return Optional.of(PaperItems.toResource(recipe.getResult()));
         }).orElse(null);

@@ -580,13 +580,18 @@ internal class Recipes(
         // generated) and every Mekanized ingredient.
         val ingredients = mekanizedIds(recipe) + listOf(result).filter { it.startsWith("mekanized:") }
         val known = mutableSetOf<String>()
-        var file = group
+        var file: String? = null
         for ((prefix, ids) in phases) {
             known += ids
             if (ingredients.all { it in known }) {
                 file = "${prefix}_$group"
                 break
             }
+        }
+        if (file == null) {
+            // Its result or an ingredient is content Mekanized does not have: nothing would install it.
+            report.skip("crafting recipe for content Mekanized does not have", id)
+            return
         }
         craftEngineRecipes["$file|$id"] = recipe.toMutableMap()
         report.count("crafting/smelting recipes")

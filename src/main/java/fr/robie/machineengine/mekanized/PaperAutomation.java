@@ -197,12 +197,7 @@ final class PaperAutomation implements Listener {
         Frequencies.teleporters().forEach((position, teleporter) -> text.append(teleporter.frequency().replace("|", "")).append('|')
                 .append(position.world().asString()).append('|').append(position.position().x()).append('|').append(position.position().y())
                 .append('|').append(position.position().z()).append('|').append(teleporter.formed()).append('\n'));
-        try {
-            Files.createDirectories(this.teleporterFile.getParent());
-            Files.writeString(this.teleporterFile, text, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            this.plugin.getLogger().warning("Could not save " + this.teleporterFile + ": " + e.getMessage());
-        }
+        PaperFiles.write(this.plugin, this.teleporterFile, text);
     }
 
     // -- portable teleporter, portable QIO dashboard ------------------------------------------

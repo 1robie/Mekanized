@@ -124,6 +124,7 @@ public final class MekanizedPlugin extends JavaPlugin {
     public void onDisable() {
         PaperEntangloporters.save();
         PaperRadiation.saveNow();
+        PaperFiles.flush();
     }
 
     @Override

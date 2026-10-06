@@ -94,11 +94,6 @@ final class PaperChunkLoaders {
         ChunkLoaders.loaders().forEach((position, radius) -> text.append(position.world().asString()).append('|')
                 .append(position.position().x()).append('|').append(position.position().y()).append('|')
                 .append(position.position().z()).append('|').append(radius).append('\n'));
-        try {
-            Files.createDirectories(this.file.getParent());
-            Files.writeString(this.file, text, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            this.plugin.getLogger().warning("Could not save " + this.file + ": " + e.getMessage());
-        }
+        PaperFiles.write(this.plugin, this.file, text);
     }
 }

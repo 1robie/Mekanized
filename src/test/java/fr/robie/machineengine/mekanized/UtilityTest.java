@@ -80,7 +80,7 @@ class UtilityTest {
     void aFormulaicAssemblicatorCraftsItsPattern() {
         ResourceVariant plank = MekanizedChainTest.item("minecraft:oak_planks");
         ResourceVariant table = MekanizedChainTest.item("minecraft:crafting_table");
-        UtilityBehaviors.setCrafting(grid -> grid.stream().filter(Objects::nonNull).count() == 4 && grid.get(0) != null
+        UtilityBehaviors.setCrafting((world, grid) -> grid.stream().filter(Objects::nonNull).count() == 4 && grid.get(0) != null
                 && grid.get(0).equals(plank) ? table.stack(1) : null);
         FakeWorld world = FakeWorld.singleRegion(this.engine);
         MachineInstanceImpl assemblicator = world.place(type("formulaic_assemblicator"), HERE, Direction.NORTH);

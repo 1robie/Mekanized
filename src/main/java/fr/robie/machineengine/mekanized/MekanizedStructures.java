@@ -123,6 +123,12 @@ final class MekanizedStructures {
     static String build(String name, World world, int x, int y, int z) {
         Structure structure = STRUCTURES.get(name);
         if (structure == null) return "unknown structure " + name;
+        // Folia: the whole structure must belong to the region running the command.
+        for (List<Integer> at : structure.blocks().keySet()) {
+            if (!org.bukkit.Bukkit.isOwnedByCurrentRegion(world, (x + at.get(0)) >> 4, (z + at.get(2)) >> 4)) {
+                return "the structure crosses into another region: build it a few blocks away";
+            }
+        }
         for (List<Integer> at : structure.blocks().keySet()) {
             if (!world.getBlockAt(x + at.get(0), y + at.get(1), z + at.get(2)).getType().isAir()) {
                 return "the space is not empty at " + (x + at.get(0)) + " " + (y + at.get(1)) + " " + (z + at.get(2));

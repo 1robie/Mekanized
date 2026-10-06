@@ -46,7 +46,6 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.Nullable;
 
@@ -440,6 +439,8 @@ final class PaperGear implements Listener {
             Block at = queue.poll();
             for (BlockFace face : List.of(BlockFace.UP, BlockFace.DOWN, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST)) {
                 Block next = at.getRelative(face);
+                // Folia: blocks of another region are not this thread's to read or break.
+                if (!Bukkit.isOwnedByCurrentRegion(next)) continue;
                 if (next.getType() != start.getType() || !seen.add(next)) continue;
                 if (!useEnergy(tool, 100)) return;
                 // Protection plugins decide for each block, as for breaking it by hand.
@@ -465,6 +466,7 @@ final class PaperGear implements Listener {
             for (int b = -1; b <= 1; b++) {
                 if (a == 0 && b == 0) continue;
                 Block next = ay >= ax && ay >= az ? start.getRelative(a, 0, b) : ax >= az ? start.getRelative(0, a, b) : start.getRelative(a, b, 0);
+                if (!Bukkit.isOwnedByCurrentRegion(next)) continue;
                 if (next.getType().isAir() || next.getType().getHardness() < 0 || next.isLiquid()) continue;
                 if (net.momirealms.craftengine.bukkit.api.CraftEngineBlocks.isCustomBlock(next)) continue;
                 if (!useEnergy(tool, 100)) return;
@@ -766,10 +768,10 @@ final class PaperGear implements Listener {
 
     /** The teleportation unit: to the block looked at, up to 100 blocks (1 kJ plus 10 J a block). */
     private static void teleport(Player player, ItemStack tool) {
-        RayTraceResult hit = player.rayTraceBlocks(100);
-        if (hit == null || hit.getHitBlock() == null) return;
-        Block target = hit.getHitBlock();
+        Block target = targetBlock(player, 100);
+        if (target == null) return;
         Location destination = target.getLocation().add(0.5, 1, 0.5);
+        if (!Bukkit.isOwnedByCurrentRegion(destination.clone().add(0, 1, 0))) return;
         if (!destination.getBlock().isPassable() || !destination.clone().add(0, 1, 0).getBlock().isPassable()) return;
         long cost = 1_000 + (long) (player.getLocation().distance(destination) * 10);
         if (!useEnergy(tool, cost)) {
@@ -779,5 +781,22 @@ final class PaperGear implements Listener {
         destination.setYaw(player.getLocation().getYaw());
         destination.setPitch(player.getLocation().getPitch());
         player.teleportAsync(destination);
+    }
+
+    /**
+     * The first solid block the player looks at within {@code range}, stopping where the player's
+     * region ends (Folia: other regions' blocks are not readable from here).
+     */
+    private static @Nullable Block targetBlock(Player player, int range) {
+        Location eye = player.getEyeLocation();
+        Vector step = eye.getDirection().multiply(0.25);
+        Location at = eye.clone();
+        for (int i = 0; i < range * 4; i++) {
+            at.add(step);
+            if (!Bukkit.isOwnedByCurrentRegion(at)) return null;
+            Block block = at.getBlock();
+            if (!block.isPassable()) return block;
+        }
+        return null;
     }
 }

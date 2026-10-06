@@ -40,7 +40,7 @@ final class PaperEntangloporters {
 
     /** One line per stored resource: frequency, channel, {@code k} and a resource key or {@code i} and item bytes, amount. */
     static synchronized void save() {
-        if (file == null) return;
+        if (file == null || owner == null) return;
         Base64.Encoder base64 = Base64.getEncoder();
         StringBuilder text = new StringBuilder();
         for (Map.Entry<String, Map<String, Map<ResourceVariant, Long>>> frequency : Entangloporters.buffers().entrySet()) {
@@ -63,12 +63,7 @@ final class PaperEntangloporters {
                 }
             }
         }
-        try {
-            Files.createDirectories(file.getParent());
-            Files.writeString(file, text, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            if (owner != null) owner.getLogger().warning("Could not save " + file + ": " + e.getMessage());
-        }
+        PaperFiles.write(owner, file, text);
     }
 
     private static void load() {

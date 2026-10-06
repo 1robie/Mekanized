@@ -56,7 +56,7 @@ public final class Entangloporters {
 
     /** Frequency -> channel storage -> what the buffer holds. */
     private static final Map<String, Map<String, Map<ResourceVariant, Long>>> BUFFERS = new ConcurrentHashMap<>();
-    private static volatile boolean dirty;
+    private static final java.util.concurrent.atomic.AtomicBoolean DIRTY = new java.util.concurrent.atomic.AtomicBoolean();
 
     private Entangloporters() {
     }
@@ -68,9 +68,7 @@ public final class Entangloporters {
 
     /** Whether a buffer changed since the last call (the platform saves then). */
     public static boolean takeDirty() {
-        boolean was = dirty;
-        dirty = false;
-        return was;
+        return DIRTY.getAndSet(false);
     }
 
     static Map<String, Map<ResourceVariant, Long>> buffer(String frequency) {
@@ -116,7 +114,7 @@ public final class Entangloporters {
                     moved |= receive ? receive(context, channel, shared) : send(context, channel, shared);
                 }
             }
-            if (moved) dirty = true;
+            if (moved) DIRTY.set(true);
             if (receive) {
                 for (Channel channel : CHANNELS) {
                     for (RelativeSide side : RelativeSide.values()) context.push(side, channel.storage(), variant -> true, Long.MAX_VALUE);

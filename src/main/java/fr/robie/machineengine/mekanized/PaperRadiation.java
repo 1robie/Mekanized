@@ -177,12 +177,7 @@ final class PaperRadiation implements Listener {
         Radiation.sources().forEach((at, strength) -> text.append(at.world().asString()).append('|').append(at.position().x())
                 .append('|').append(at.position().y()).append('|').append(at.position().z()).append('|')
                 .append(String.format(Locale.ROOT, "%.9g", strength)).append('\n'));
-        try {
-            Files.createDirectories(this.file.getParent());
-            Files.writeString(this.file, text, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            this.plugin.getLogger().warning("Could not save " + this.file + ": " + e.getMessage());
-        }
+        PaperFiles.write(this.plugin, this.file, text);
     }
 
     private static @Nullable PaperRadiation instance;
