@@ -29,7 +29,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.Nullable;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -43,8 +42,6 @@ import java.util.concurrent.ThreadLocalRandom;
 public final class PaperRadiation implements Listener {
     /** The player's dose in Sv. */
     static final NamespacedKey DOSE = new NamespacedKey(MekanizedContent.NAMESPACE, "radiation_dose");
-    private static final List<String> HAZMAT = List.of("hazmat_mask", "hazmat_gown", "hazmat_pants", "hazmat_boots");
-    private static final List<String> MEKASUIT = List.of("mekasuit_helmet", "mekasuit_bodyarmor", "mekasuit_pants", "mekasuit_boots");
     private static final long SAVE_SECONDS = 30;
 
     private final Plugin plugin;
@@ -83,7 +80,7 @@ public final class PaperRadiation implements Listener {
     private void expose(Player player) {
         Location at = player.getLocation();
         double level = level(at);
-        double dose = dose(player) * RadiationSettings.doseDecayPerSecond + level * (1 - shielding(player)) / 3600;
+        double dose = Radiation.nextDose(dose(player), level, shielding(player));
         player.getPersistentDataContainer().set(DOSE, PersistentDataType.DOUBLE, dose);
         ItemStack helmet = player.getInventory().getHelmet();
         if ("mekasuit_helmet".equals(GearItems.id(helmet))) {
@@ -95,13 +92,13 @@ public final class PaperRadiation implements Listener {
         }
         // Mekanism's thresholds: a high dose makes you sick, a very high one hurts, a fatal one kills.
         ThreadLocalRandom random = ThreadLocalRandom.current();
-        if (dose >= RadiationSettings.sicknessDose && random.nextInt(10) == 0) player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 200, 0));
-        if (dose >= RadiationSettings.damageDose) {
+        if (Radiation.causesSickness(dose) && random.nextInt(10) == 0) player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 200, 0));
+        if (Radiation.causesDamage(dose)) {
             if (random.nextInt(10) == 0) player.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 200, 0));
             player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 40, 0, true, false, false));
             if (random.nextInt(5) == 0) player.damage(1);
         }
-        if (dose >= RadiationSettings.lethalDose) player.damage(4);
+        if (Radiation.isLethal(dose)) player.damage(4);
     }
 
     static double level(Location at) {
@@ -117,14 +114,12 @@ public final class PaperRadiation implements Listener {
     private static double shielding(Player player) {
         ItemStack[] armour = {player.getInventory().getHelmet(), player.getInventory().getChestplate(),
                 player.getInventory().getLeggings(), player.getInventory().getBoots()};
-        double shielded = 0;
+        int pieces = 0;
         for (int i = 0; i < 4; i++) {
-            String id = GearItems.id(armour[i]);
-            if (HAZMAT.get(i).equals(id) || MEKASUIT.get(i).equals(id) && GearItems.modules(armour[i]).contains("radiation_shielding_unit")) {
-                shielded += RadiationSettings.shieldingPerPiece;
-            }
+            ItemStack piece = armour[i];
+            if (Radiation.shields(i, GearItems.id(piece), () -> GearItems.modules(piece))) pieces++;
         }
-        return shielded;
+        return Radiation.shielding(pieces);
     }
 
     @EventHandler
@@ -153,7 +148,11 @@ public final class PaperRadiation implements Listener {
 
     /** Green below 0.1 Sv, yellow below 1, red above (for an hour's worth of a level, or a dose). */
     private static NamedTextColor color(double sieverts) {
-        return sieverts < 0.1 ? NamedTextColor.GREEN : sieverts < 1 ? NamedTextColor.YELLOW : NamedTextColor.RED;
+        return switch (Radiation.severity(sieverts)) {
+            case LOW -> NamedTextColor.GREEN;
+            case MEDIUM -> NamedTextColor.YELLOW;
+            case HIGH -> NamedTextColor.RED;
+        };
     }
 
     // -- saving ------------------------------------------------------------------------------------

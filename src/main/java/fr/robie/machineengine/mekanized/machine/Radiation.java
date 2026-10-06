@@ -14,9 +14,13 @@ import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
+import java.util.function.Supplier;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static fr.robie.machineengine.mekanized.MekanizedContent.key;
@@ -70,6 +74,54 @@ public final class Radiation {
     public static void decay() {
         SOURCES.replaceAll((at, strength) -> strength * RadiationSettings.sourceDecayPerSecond);
         SOURCES.values().removeIf(strength -> strength < RadiationSettings.minSource);
+    }
+
+    private static final List<String> HAZMAT = List.of("hazmat_mask", "hazmat_gown", "hazmat_pants", "hazmat_boots");
+    private static final List<String> MEKASUIT = List.of("mekasuit_helmet", "mekasuit_bodyarmor", "mekasuit_pants", "mekasuit_boots");
+
+    /** How worrying a level (an hour's worth of it) or a dose is, in Sv. */
+    public enum Severity {
+        LOW, MEDIUM, HIGH
+    }
+
+    /** Below 0.1 Sv low, below 1 medium, above high. */
+    public static @NotNull Severity severity(double sieverts) {
+        return sieverts < 0.1 ? Severity.LOW : sieverts < 1 ? Severity.MEDIUM : Severity.HIGH;
+    }
+
+    /**
+     * Whether the armour piece in {@code slot} (0 helmet, 1 chestplate, 2 leggings, 3 boots) wearing the gear
+     * {@code id} (null: none) stops radiation: a hazmat piece, or a MekaSuit piece with a radiation shielding unit.
+     */
+    public static boolean shields(int slot, @Nullable String id, @NotNull Supplier<Set<String>> modules) {
+        return HAZMAT.get(slot).equals(id) || MEKASUIT.get(slot).equals(id) && modules.get().contains("radiation_shielding_unit");
+    }
+
+    /** The share of radiation {@code pieces} shielding pieces stop ({@link RadiationSettings#shieldingPerPiece} each). */
+    public static double shielding(int pieces) {
+        double shielded = 0;
+        for (int i = 0; i < pieces; i++) shielded += RadiationSettings.shieldingPerPiece;
+        return shielded;
+    }
+
+    /** A player's dose one second later: the old one fades, and the radiation they took in (less what is shielded) adds up per hour of seconds. */
+    public static double nextDose(double dose, double level, double shielding) {
+        return dose * RadiationSettings.doseDecayPerSecond + level * (1 - shielding) / 3600;
+    }
+
+    /** From this dose a player gets hungry. */
+    public static boolean causesSickness(double dose) {
+        return dose >= RadiationSettings.sicknessDose;
+    }
+
+    /** From this dose a player gets nauseous and weak and hurt. */
+    public static boolean causesDamage(double dose) {
+        return dose >= RadiationSettings.damageDose;
+    }
+
+    /** From this dose every second hurts badly. */
+    public static boolean isLethal(double dose) {
+        return dose >= RadiationSettings.lethalDose;
     }
 
     /** "1.23 mSv/h" style: the unit that keeps the number readable. */
