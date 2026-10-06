@@ -10,7 +10,7 @@ description = "Mekanized: Mekanism-style machines for MachineEngine (textures, m
 dependencies {
     // A content addon: MachineEngine's API (plus the Paper module for item conversion until
     // RESTRUCTURE_PLAN.md R7 moves what it needs into the API).
-    compileOnly(project(":machineengine-api"))
+    compileOnly(project(":api"))
     compileOnly(project(":machineengine-paper"))
 
     // Headless tests of the imported content (machines, recipes, tags), no server.
