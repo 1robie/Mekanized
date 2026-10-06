@@ -1,30 +1,20 @@
 package fr.robie.machineengine.mekanized;
 
-import fr.robie.machineengine.api.addon.AddonRegistration;
 import fr.robie.machineengine.api.capability.Capabilities;
-import fr.robie.machineengine.api.data.DataMap;
-import fr.robie.machineengine.api.data.DataValue;
-import fr.robie.machineengine.api.definition.DefinitionFile;
 import fr.robie.machineengine.api.diagnostic.Diagnostic;
-import fr.robie.machineengine.api.error.Result;
-import fr.robie.machineengine.api.item.ItemData;
 import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.machine.MachineEnvironment;
-import fr.robie.machineengine.api.machine.MachineType;
 import fr.robie.machineengine.api.machine.PortDirection;
 import fr.robie.machineengine.api.machine.WakeReason;
 import fr.robie.machineengine.api.network.TransportSideMode;
 import fr.robie.machineengine.api.registry.Registries;
-import fr.robie.machineengine.api.resource.ResourceStack;
 import fr.robie.machineengine.api.resource.ResourceVariant;
-import fr.robie.machineengine.api.transfer.StorageView;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.transfer.storage.CombinedResourceHandler;
 import fr.robie.machineengine.api.world.Direction;
 import fr.robie.machineengine.api.world.RelativeSide;
 import fr.robie.machineengine.api.world.WorldFluid;
 import fr.robie.machineengine.api.world.WorldPosition;
-import fr.robie.machineengine.core.definition.DefinitionCompiler;
 import fr.robie.machineengine.core.lifecycle.CoreMachineEngine;
 import fr.robie.machineengine.core.machine.MachineInstanceImpl;
 import fr.robie.machineengine.mekanized.machine.ChemistryBehaviors;
@@ -34,25 +24,17 @@ import fr.robie.machineengine.mekanized.machine.EnergyItems;
 import fr.robie.machineengine.mekanized.machine.LogisticsMachines;
 import fr.robie.machineengine.mekanized.machine.MekanizedRegistry;
 import fr.robie.machineengine.test.FakeWorld;
-import fr.robie.machineengine.test.TestEngine;
 import net.kyori.adventure.key.Key;
 import org.junit.jupiter.api.Test;
-import org.yaml.snakeyaml.Yaml;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UncheckedIOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.EnumSet;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static fr.robie.machineengine.mekanized.MekanizedTestKit.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -60,33 +42,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * The imported content working end to end, headless: Mekanism's recipes and tags (as installed on a
  * server), Mekanized's machines and the MachineEngine core. Items are stand-ins identified by id.
  */
+@ExtendWith(MekanizedTestKit.ResetStatics.class)
 class MekanizedChainTest {
-    private static final WorldPosition HERE = FakeWorld.at(0, 64, 0);
-    /** What the plugin installs, tags first. */
-    private static final List<String> DEFINITIONS = manifest().definitions().stream()
-            .sorted(Comparator.comparing((String name) -> name.startsWith("recipes_")).thenComparing(name -> name)).toList();
-
-    private static GeneratedManifest manifest() {
-        try {
-            return GeneratedManifest.load(MekanizedChainTest.class.getClassLoader());
-        } catch (java.io.IOException e) {
-            throw new java.io.UncheckedIOException(e);
-        }
-    }
-
-    static ResourceVariant item(String id) {
-        return Items.variant(new ItemData(Key.key(id), id.getBytes(StandardCharsets.UTF_8)));
-    }
-
-    private final CoreMachineEngine engine = TestEngine.builder()
-            .addon(AddonRegistration.builder("Mekanized", "1.0.0").register(MekanizedContent::register).build())
-            .definitions(MekanizedChainTest::definitions, new DefinitionCompiler.ItemResolver() {
-                @Override
-                public Result<ResourceVariant> item(Key id) {
-                    return Result.ok(MekanizedChainTest.item(id.asString()));
-                }
-            })
-            .start();
+    private final CoreMachineEngine engine = MekanizedTestKit.engine();
 
     @Test
     void everyImportedRecipeAndTagLoads() {
@@ -99,7 +57,7 @@ class MekanizedChainTest {
     @Test
     void anEnrichmentChamberDoublesOre() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        MachineInstanceImpl chamber = place(world, "enrichment_chamber");
+        MachineInstanceImpl chamber = place(this.engine, world, "enrichment_chamber");
         fill(chamber, "energy", MekanizedContent.ENERGY.stack(20_000));
         fill(chamber, "input", item("mekanized:osmium_ore").stack(1));
         world.tick(201);
@@ -110,7 +68,7 @@ class MekanizedChainTest {
     @Test
     void machinesNeedEnergy() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        MachineInstanceImpl chamber = place(world, "enrichment_chamber");
+        MachineInstanceImpl chamber = place(this.engine, world, "enrichment_chamber");
         fill(chamber, "input", item("mekanized:osmium_ore").stack(1));
         world.tick(400);
         assertEquals(0, amount(chamber, "output", "mekanized:dust_osmium"), "no energy, no dust");
@@ -120,7 +78,7 @@ class MekanizedChainTest {
     @Test
     void aMetallurgicInfuserMakesInfusedAlloyFromRedstone() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        MachineInstanceImpl infuser = place(world, "metallurgic_infuser");
+        MachineInstanceImpl infuser = place(this.engine, world, "metallurgic_infuser");
         fill(infuser, "energy", MekanizedContent.ENERGY.stack(20_000));
         fill(infuser, "chemical_slot", item("minecraft:redstone").stack(1));
         fill(infuser, "input", item("minecraft:copper_ingot").stack(1));
@@ -131,25 +89,17 @@ class MekanizedChainTest {
     @Test
     void slotsOnlyTakeWhatTheirRecipesUse() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        MachineInstanceImpl infuser = place(world, "metallurgic_infuser");
+        MachineInstanceImpl infuser = place(this.engine, world, "metallurgic_infuser");
         assertEquals(0, insert(infuser, "input", item("minecraft:redstone")), "redstone is no infusing input");
         assertEquals(0, insert(infuser, "energy_slot", item("mekanized:osmium_ore")), "an ore gives no energy");
         assertEquals(1, insert(infuser, "chemical_slot", item("minecraft:redstone")), "redstone is an infuse source");
         assertEquals(1, insert(infuser, "input", item("minecraft:copper_ingot")));
     }
 
-    private static long insert(MachineInstanceImpl machine, String storage, ResourceVariant variant) {
-        try (Transaction transaction = machine.services().transactions().openOuter()) {
-            long inserted = machine.context().storage(storage).insert(variant, 1, transaction);
-            transaction.commit();
-            return inserted;
-        }
-    }
-
     @Test
     void speedUpgradesMakeItFasterAndCostlier() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        MachineInstanceImpl chamber = place(world, "enrichment_chamber");
+        MachineInstanceImpl chamber = place(this.engine, world, "enrichment_chamber");
         world.runInRegionOf(HERE, () -> assertTrue(chamber.installUpgrade(MekanizedRegistry.SPEED, 2).isOk()));
         fill(chamber, "energy", MekanizedContent.ENERGY.stack(20_000));
         fill(chamber, "input", item("mekanized:osmium_ore").stack(1));
@@ -160,9 +110,9 @@ class MekanizedChainTest {
     @Test
     void aPurificationChamberTriplesOreWithOxygenFromItsTank() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        MachineInstanceImpl chamber = place(world, "purification_chamber");
+        MachineInstanceImpl chamber = place(this.engine, world, "purification_chamber");
         fill(chamber, "energy", MekanizedContent.ENERGY.stack(80_000));
-        fill(chamber, "chemical", chemical("oxygen", 210));
+        fill(chamber, "chemical", chemical(this.engine, "oxygen", 210));
         fill(chamber, "input", item("mekanized:osmium_ore").stack(1));
         world.tick(201);
         assertEquals(3, amount(chamber, "output", "mekanized:clump_osmium"), "1 ore gives 3 clumps");
@@ -172,7 +122,7 @@ class MekanizedChainTest {
     @Test
     void redstoneInTheEnergySlotBecomesEnergy() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        MachineInstanceImpl chamber = place(world, "crusher");
+        MachineInstanceImpl chamber = place(this.engine, world, "crusher");
         fill(chamber, "energy_slot", item("minecraft:redstone").stack(1));
         world.tick(2);
         assertEquals(10_000, energy(chamber), "Mekanism: 10 kJ per redstone (vanilla redstone is in c:dusts/redstone)");
@@ -181,14 +131,14 @@ class MekanizedChainTest {
     @Test
     void generatorsMakeEnergy() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        MachineInstanceImpl heat = place(world, "heat_generator");
+        MachineInstanceImpl heat = place(this.engine, world, "heat_generator");
         fill(heat, "fuel", item("minecraft:coal").stack(1));
         world.tick(11);
         assertTrue(energy(heat) >= 10 * 200, "200 J per tick while coal burns: " + energy(heat));
 
         WorldPosition there = FakeWorld.at(10, 64, 0);
         world.setEnvironment(new MachineEnvironment(true, true, false, 15));
-        MachineInstanceImpl solar = world.place(type("solar_generator"), there, Direction.NORTH);
+        MachineInstanceImpl solar = world.place(type(this.engine, "solar_generator"), there, Direction.NORTH);
         world.tick(41);
         assertTrue(energy(solar) >= 2 * 20 * 50, "50 J per tick in the sun: " + energy(solar));
         assertTrue(solar.isActive());
@@ -196,64 +146,28 @@ class MekanizedChainTest {
 
     // ------------------------------------------------------------------------------------------
 
-    private MachineType type(String name) {
-        return this.engine.registries().registry(Registries.MACHINE_TYPE).getOrThrow(MekanizedContent.key(name));
-    }
-
-    private MachineInstanceImpl place(FakeWorld world, String name) {
-        return world.place(type(name), HERE, Direction.NORTH);
-    }
-
-    private ResourceStack chemical(String name, long amount) {
-        return this.engine.registries().registry(Registries.RESOURCE_TYPE).getOrThrow(MekanizedContent.key(name)).stack(amount);
-    }
-
-    private static void fill(MachineInstanceImpl machine, String storage, ResourceStack stack) {
-        try (Transaction transaction = machine.services().transactions().openOuter()) {
-            long inserted = machine.context().storage(storage).insert(stack.variant(), stack.amount(), transaction);
-            assertEquals(stack.amount(), inserted, stack + " fits in " + storage);
-            transaction.commit();
-        }
-    }
-
-    private static long energy(MachineInstanceImpl machine) {
-        return machine.inspect().storages().get("energy").stream().mapToLong(StorageView::amount).sum();
-    }
-
-    private static long amount(MachineInstanceImpl machine, String storage, String itemId) {
-        ResourceVariant expected = item(itemId);
-        return machine.inspect().storages().get(storage).stream().filter(view -> expected.equals(view.variant()))
-                .mapToLong(StorageView::amount).sum();
-    }
-
-    private static long amountOfType(MachineInstanceImpl machine, String storage, String chemical) {
-        return machine.inspect().storages().get(storage).stream()
-                .filter(view -> view.variant() != null && view.variant().type().key().equals(MekanizedContent.key(chemical)))
-                .mapToLong(StorageView::amount).sum();
-    }
-
     // -- Phase 3: chemicals and fluids ----------------------------------------------------------
 
     @Test
     void theChemicalChainGivesFiveCrystalsPerOre() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        MachineInstanceImpl dissolution = world.place(type("chemical_dissolution_chamber"), FakeWorld.at(0, 64, 0), Direction.NORTH);
+        MachineInstanceImpl dissolution = world.place(type(this.engine, "chemical_dissolution_chamber"), FakeWorld.at(0, 64, 0), Direction.NORTH);
         fill(dissolution, "energy", MekanizedContent.ENERGY.stack(160_000));
-        fill(dissolution, "chemical", chemical("sulfuric_acid", 1_000));
+        fill(dissolution, "chemical", chemical(this.engine, "sulfuric_acid", 1_000));
         fill(dissolution, "input", item("mekanized:osmium_ore").stack(1));
         world.tick(101);
         assertEquals(1_000, amountOfType(dissolution, "output", "dirty_osmium"), "1 osmium ore dissolves into 1000 mB of dirty slurry");
         assertEquals(1_000 - 100, amountOfType(dissolution, "chemical", "sulfuric_acid"), "1 mB of acid per tick");
 
-        MachineInstanceImpl washer = world.place(type("chemical_washer"), FakeWorld.at(2, 64, 0), Direction.NORTH);
-        fill(washer, "input", chemical("dirty_osmium", 1_000));
+        MachineInstanceImpl washer = world.place(type(this.engine, "chemical_washer"), FakeWorld.at(2, 64, 0), Direction.NORTH);
+        fill(washer, "input", chemical(this.engine, "dirty_osmium", 1_000));
         fill(washer, "fluid", fluid("water", 10_000));
         powered(world, 1_001, washer);
         assertEquals(1_000, amountOfType(washer, "output", "clean_osmium"), "washing is one to one");
         assertEquals(10_000 - 5_000, amountOfType(washer, "fluid", "fluid/water"), "5 mB of water per mB of slurry");
 
-        MachineInstanceImpl crystallizer = world.place(type("chemical_crystallizer"), FakeWorld.at(4, 64, 0), Direction.NORTH);
-        fill(crystallizer, "input", chemical("clean_osmium", 1_000));
+        MachineInstanceImpl crystallizer = world.place(type(this.engine, "chemical_crystallizer"), FakeWorld.at(4, 64, 0), Direction.NORTH);
+        fill(crystallizer, "input", chemical(this.engine, "clean_osmium", 1_000));
         powered(world, 5 * 200 + 5, crystallizer);
         assertEquals(5, amount(crystallizer, "output", "mekanized:crystal_osmium"), "200 mB of clean slurry per crystal");
     }
@@ -261,7 +175,7 @@ class MekanizedChainTest {
     @Test
     void anElectrolyticSeparatorSplitsWater() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        MachineInstanceImpl separator = place(world, "electrolytic_separator");
+        MachineInstanceImpl separator = place(this.engine, world, "electrolytic_separator");
         fill(separator, "energy", MekanizedContent.ENERGY.stack(160_000));
         fill(separator, "input", fluid("water", 200));
         world.tick(110);
@@ -273,7 +187,7 @@ class MekanizedChainTest {
     @Test
     void energyUpgradesEnlargeTheBufferAndLowerTheCost() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        MachineInstanceImpl chamber = place(world, "enrichment_chamber");
+        MachineInstanceImpl chamber = place(this.engine, world, "enrichment_chamber");
         world.runInRegionOf(HERE, () -> assertTrue(chamber.installUpgrade(MekanizedRegistry.ENERGY_UPGRADE, 2).isOk()));
         fill(chamber, "energy", MekanizedContent.ENERGY.stack(60_000)); // 20 kJ base, +100 % per upgrade
         assertEquals(60_000, energy(chamber));
@@ -290,7 +204,7 @@ class MekanizedChainTest {
     @Test
     void speedUpgradesRunOneTickRecipesSeveralTimesPerTick() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        MachineInstanceImpl separator = place(world, "electrolytic_separator");
+        MachineInstanceImpl separator = place(this.engine, world, "electrolytic_separator");
         separator.installUpgrade(MekanizedRegistry.SPEED, 2);
         fill(separator, "input", fluid("water", 1_000));
         powered(world, 10, separator);
@@ -302,9 +216,9 @@ class MekanizedChainTest {
     @Test
     void aRotaryCondensentratorGoesBothWays() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        MachineInstanceImpl rotary = place(world, "rotary_condensentrator");
+        MachineInstanceImpl rotary = place(this.engine, world, "rotary_condensentrator");
         fill(rotary, "energy", MekanizedContent.ENERGY.stack(20_000));
-        fill(rotary, "chemical", chemical("oxygen", 50));
+        fill(rotary, "chemical", chemical(this.engine, "oxygen", 50));
         world.tick(60);
         assertEquals(50, amountOfType(rotary, "fluid", "fluid/oxygen"), "condensing: chemical to fluid");
         assertEquals(PortDirection.OUTPUT, rotary.context().portDirection("fluid"));
@@ -321,7 +235,7 @@ class MekanizedChainTest {
     @Test
     void bucketsFillAndEmptyFluidTanks() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        MachineInstanceImpl tank = place(world, "basic_fluid_tank");
+        MachineInstanceImpl tank = place(this.engine, world, "basic_fluid_tank");
         fill(tank, "bucket_in", item("minecraft:water_bucket").stack(1));
         world.tick(2);
         assertEquals(1_000, amountOfType(tank, "fluid", "fluid/water"), "the bucket empties into the tank");
@@ -341,7 +255,7 @@ class MekanizedChainTest {
     @Test
     void anElectricPumpTakesSourceBlocksBelowIt() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        MachineInstanceImpl pump = place(world, "electric_pump");
+        MachineInstanceImpl pump = place(this.engine, world, "electric_pump");
         fill(pump, "energy", MekanizedContent.ENERGY.stack(40_000));
         Key water = Key.key("minecraft", "water");
         // Flowing water below the pump, a source next to it.
@@ -358,10 +272,10 @@ class MekanizedChainTest {
     @Test
     void pressurizedTubesCarryChemicals() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        MachineInstanceImpl tank = world.place(type("basic_chemical_tank"), FakeWorld.at(0, 64, 0), Direction.EAST);
-        fill(tank, "chemical", chemical("brine", 30));
+        MachineInstanceImpl tank = world.place(type(this.engine, "basic_chemical_tank"), FakeWorld.at(0, 64, 0), Direction.EAST);
+        fill(tank, "chemical", chemical(this.engine, "brine", 30));
         world.placeTransport(ChemistryMachines.TUBES.get(0), FakeWorld.at(1, 64, 0));
-        MachineInstanceImpl crystallizer = world.place(type("chemical_crystallizer"), FakeWorld.at(2, 64, 0), Direction.NORTH);
+        MachineInstanceImpl crystallizer = world.place(type(this.engine, "chemical_crystallizer"), FakeWorld.at(2, 64, 0), Direction.NORTH);
         powered(world, 2 * 200 + 10, crystallizer);
         assertEquals(0, amountOfType(tank, "chemical", "brine"), "the tube emptied the tank's front");
         assertEquals(2, amount(crystallizer, "output", "mekanized:salt"), "15 mB of brine per salt");
@@ -372,7 +286,7 @@ class MekanizedChainTest {
     @Test
     void sideConfigurationMovesPortsAndIsSaved() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        MachineInstanceImpl crusher = place(world, "crusher");
+        MachineInstanceImpl crusher = place(this.engine, world, "crusher");
         Set<RelativeSide> left = EnumSet.of(RelativeSide.LEFT);
         crusher.context().setPortSides("output", left);
         Direction west = RelativeSide.LEFT.toAbsolute(Direction.NORTH);
@@ -392,9 +306,9 @@ class MekanizedChainTest {
     @Test
     void autoEjectPushesOutputsIntoNeighbors() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        MachineInstanceImpl oxidizer = world.place(type("chemical_oxidizer"), FakeWorld.at(0, 64, 0), Direction.NORTH);
+        MachineInstanceImpl oxidizer = world.place(type(this.engine, "chemical_oxidizer"), FakeWorld.at(0, 64, 0), Direction.NORTH);
         // The tank's back (an input) touches the oxidizer.
-        MachineInstanceImpl tank = world.place(type("basic_chemical_tank"), FakeWorld.at(1, 64, 0), Direction.EAST);
+        MachineInstanceImpl tank = world.place(type(this.engine, "basic_chemical_tank"), FakeWorld.at(1, 64, 0), Direction.EAST);
         fill(oxidizer, "input", item("mekanized:salt").stack(2));
         powered(world, 105, oxidizer);
         assertEquals(15, amountOfType(oxidizer, "output", "brine"), "without auto-eject the brine stays");
@@ -410,7 +324,7 @@ class MekanizedChainTest {
     @Test
     void aFactoryRunsItsLanesAtOnce() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        MachineInstanceImpl factory = place(world, "basic_enriching_factory");
+        MachineInstanceImpl factory = place(this.engine, world, "basic_enriching_factory");
         fill(factory, "input", item("mekanized:osmium_ore").stack(3));
         powered(world, 205, factory);
         assertEquals(6, amount(factory, "output", "mekanized:dust_osmium"), "3 ores spread over 3 lanes, enriched at once");
@@ -423,8 +337,8 @@ class MekanizedChainTest {
     void anInfusingFactoryUsesItsInfuseType() {
         // Mekanism lists the infuse type before the item: a lane must still find its recipe.
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        MachineInstanceImpl factory = place(world, "basic_infusing_factory");
-        fill(factory, "chemical", chemical("redstone", 60));
+        MachineInstanceImpl factory = place(this.engine, world, "basic_infusing_factory");
+        fill(factory, "chemical", chemical(this.engine, "redstone", 60));
         fill(factory, "input", item("mekanized:ingot_osmium").stack(3));
         powered(world, 205, factory);
         assertEquals(3, amount(factory, "output", "mekanized:basic_control_circuit"), "3 lanes, 20 mB of redstone each");
@@ -434,16 +348,16 @@ class MekanizedChainTest {
     @Test
     void aTierInstallerKeepsWhatTheMachineHolds() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        MachineInstanceImpl chamber = place(world, "enrichment_chamber");
+        MachineInstanceImpl chamber = place(this.engine, world, "enrichment_chamber");
         fill(chamber, "energy", MekanizedContent.ENERGY.stack(15_000));
         fill(chamber, "input", item("mekanized:osmium_ore").stack(5));
         world.tick(20); // a process is running: it is cancelled, its ore given back
         chamber.context().process().cancel();
         var packed = this.engine.machines().pack(chamber).orElseThrow();
         WorldPosition next = FakeWorld.at(5, 64, 0);
-        MachineInstanceImpl fresh = world.place(type("basic_enriching_factory"), next, Direction.NORTH);
+        MachineInstanceImpl fresh = world.place(type(this.engine, "basic_enriching_factory"), next, Direction.NORTH);
         MachineInstanceImpl factory = (MachineInstanceImpl) this.engine.machines().restoreAs(fresh, packed.state(), world);
-        assertEquals(type("basic_enriching_factory"), factory.type());
+        assertEquals(type(this.engine, "basic_enriching_factory"), factory.type());
         assertEquals(15_000 - 20 * 50, energy(factory), "energy carries over");
         assertEquals(5, amount(factory, "input", "mekanized:osmium_ore"), "the input is lane 1's");
         assertEquals(mekanizedKey("basic_enriching_factory"), LogisticsMachines
@@ -466,7 +380,7 @@ class MekanizedChainTest {
         }
         world.setContainer(FakeWorld.at(0, 64, 0), from);
         world.setContainer(FakeWorld.at(4, 64, 0), to);
-        MachineInstanceImpl sorter = world.place(type("logistical_sorter"), FakeWorld.at(1, 64, 0), Direction.EAST);
+        MachineInstanceImpl sorter = world.place(type(this.engine, "logistical_sorter"), FakeWorld.at(1, 64, 0), Direction.EAST);
         fill(sorter, "filter", item("minecraft:cobblestone").stack(1));
         world.placeTransport(LogisticsMachines.TRANSPORTERS.get(0), FakeWorld.at(2, 64, 0));
         world.placeTransport(LogisticsMachines.TRANSPORTERS.get(0), FakeWorld.at(3, 64, 0));
@@ -480,22 +394,10 @@ class MekanizedChainTest {
     @Test
     void energyCubesChargeTabletsThatPowerMachines() {
         // Headless: the charge is kept in the stand-in item's bytes ("id|joules").
-        EnergyItems.setAccess(new EnergyItems.Access() {
-            @Override
-            public long energy(ResourceVariant item) {
-                String text = new String(item.components().get(Items.DATA).data(), StandardCharsets.UTF_8);
-                return text.contains("|") ? Long.parseLong(text.substring(text.indexOf('|') + 1)) : 0;
-            }
-
-            @Override
-            public ResourceVariant withEnergy(ResourceVariant item, long energy) {
-                Key id = item.components().get(Items.DATA).item();
-                return Items.variant(new ItemData(id, (id.asString() + "|" + energy).getBytes(StandardCharsets.UTF_8)));
-            }
-        });
-        try {
+        installChargeAccess();
+        {
             FakeWorld world = FakeWorld.singleRegion(this.engine);
-            MachineInstanceImpl cube = place(world, "basic_energy_cube");
+            MachineInstanceImpl cube = place(this.engine, world, "basic_energy_cube");
             fill(cube, "energy", MekanizedContent.ENERGY.stack(100_000));
             fill(cube, "charge", item("mekanized:energy_tablet").stack(1));
             world.tick(10);
@@ -504,34 +406,21 @@ class MekanizedChainTest {
                     "the basic cube charges at its output rate, 4 kJ per tick");
             assertEquals(60_000, energy(cube));
 
-            MachineInstanceImpl chamber = world.place(type("enrichment_chamber"), FakeWorld.at(3, 64, 0), Direction.NORTH);
+            MachineInstanceImpl chamber = world.place(type(this.engine, "enrichment_chamber"), FakeWorld.at(3, 64, 0), Direction.NORTH);
             fill(chamber, "energy_slot", tablet.stack(1));
             world.tick(2);
             assertTrue(energy(chamber) >= 10_000, "the tablet powers the machine: " + energy(chamber));
             assertEquals(40_000 - energy(chamber), chargeOf(chamber.inspect().storages().get("energy_slot").getFirst().variant()),
                     "energy is conserved");
-        } finally {
-            EnergyItems.setAccess(null);
         }
     }
 
     @Test
     void energyCubesChargeGear() {
-        EnergyItems.setAccess(new EnergyItems.Access() {
-            @Override
-            public long energy(ResourceVariant item) {
-                return chargeOf(item);
-            }
-
-            @Override
-            public ResourceVariant withEnergy(ResourceVariant item, long energy) {
-                Key id = item.components().get(Items.DATA).item();
-                return Items.variant(new ItemData(id, (id.asString() + "|" + energy).getBytes(StandardCharsets.UTF_8)));
-            }
-        });
-        try {
+        installChargeAccess();
+        {
             FakeWorld world = FakeWorld.singleRegion(this.engine);
-            MachineInstanceImpl cube = place(world, "ultimate_energy_cube");
+            MachineInstanceImpl cube = place(this.engine, world, "ultimate_energy_cube");
             fill(cube, "energy", MekanizedContent.ENERGY.stack(100_000_000));
             for (String gear : List.of("mekasuit_bodyarmor", "atomic_disassembler", "free_runners")) {
                 fill(cube, "charge", item("mekanized:" + gear).stack(1));
@@ -544,14 +433,7 @@ class MekanizedChainTest {
                     transaction.commit();
                 }
             }
-        } finally {
-            EnergyItems.setAccess(null);
         }
-    }
-
-    private static long chargeOf(ResourceVariant tablet) {
-        String text = new String(tablet.components().get(Items.DATA).data(), StandardCharsets.UTF_8);
-        return text.contains("|") ? Long.parseLong(text.substring(text.indexOf('|') + 1)) : 0;
     }
 
     @Test
@@ -583,7 +465,7 @@ class MekanizedChainTest {
         assertEquals(5, barrel.amountOf(item("mekanized:osmium_ore")), "and back: pull the chest, push into the barrel");
 
         networks.setSideMode(transporter, Direction.UP, TransportSideMode.NONE);
-        MachineInstanceImpl chamber = place(world, "enrichment_chamber"); // below the transporter, at (0, 64, 0)
+        MachineInstanceImpl chamber = place(this.engine, world, "enrichment_chamber"); // below the transporter, at (0, 64, 0)
         try (Transaction transaction = this.engine.transactions().openOuter()) {
             chest.insert(item("mekanized:osmium_ore"), 3, transaction);
             transaction.commit();
@@ -643,10 +525,10 @@ class MekanizedChainTest {
     @Test
     void aPressurizedReactionChamberMakesAnItemAndAChemical() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        MachineInstanceImpl chamber = place(world, "pressurized_reaction_chamber");
+        MachineInstanceImpl chamber = place(this.engine, world, "pressurized_reaction_chamber");
         fill(chamber, "input", item("mekanized:dust_fluorite").stack(1));
         fill(chamber, "fluid", fluid("water", 1_000));
-        fill(chamber, "chemical", chemical("plutonium", 1_000));
+        fill(chamber, "chemical", chemical(this.engine, "plutonium", 1_000));
         powered(world, 105, chamber);
         assertEquals(1, amount(chamber, "output", "mekanized:pellet_plutonium"), "the item into the item slot");
         assertEquals(1_000, amountOfType(chamber, "chemical_output", "spent_nuclear_waste"), "the chemical into its tank");
@@ -655,8 +537,8 @@ class MekanizedChainTest {
     @Test
     void aSolarNeutronActivatorWorksOnlyInDaylight() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        MachineInstanceImpl activator = place(world, "solar_neutron_activator");
-        fill(activator, "input", chemical("lithium", 100));
+        MachineInstanceImpl activator = place(this.engine, world, "solar_neutron_activator");
+        fill(activator, "input", chemical(this.engine, "lithium", 100));
         world.tick(60);
         assertEquals(0, amountOfType(activator, "output", "tritium"), "night: nothing");
         world.setEnvironment(new MachineEnvironment(true, true, false, 15));
@@ -668,56 +550,11 @@ class MekanizedChainTest {
     @Test
     void aGasBurningGeneratorBurnsHydrogen() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        MachineInstanceImpl generator = place(world, "gas_burning_generator");
-        fill(generator, "fuel", chemical("hydrogen", 10));
+        MachineInstanceImpl generator = place(this.engine, world, "gas_burning_generator");
+        fill(generator, "fuel", chemical(this.engine, "hydrogen", 10));
         world.tick(20);
         assertEquals(10 * 200, energy(generator), "200 J per mB of hydrogen");
         assertEquals(0, amountOfType(generator, "fuel", "hydrogen"));
     }
 
-    /** Ticks {@code ticks}, keeping the machines' energy buffers full. */
-    private static void powered(FakeWorld world, int ticks, MachineInstanceImpl... machines) {
-        for (int done = 0; done < ticks; done += 20) {
-            for (MachineInstanceImpl machine : machines) {
-                long free = machine.inspect().storages().get("energy").stream().mapToLong(view -> view.capacity() - view.amount()).sum();
-                if (free > 0) fill(machine, "energy", MekanizedContent.ENERGY.stack(free));
-            }
-            world.tick(Math.min(20, ticks - done));
-        }
-    }
-
-    private ResourceStack fluid(String name, long amount) {
-        return Objects.requireNonNull(MekanizedContent.fluid(name), name).stack(amount);
-    }
-
-    // -- the generated definitions, read from the jar like the plugin installs them ---------------
-
-    static List<DefinitionFile> definitions() {
-        List<DefinitionFile> files = new ArrayList<>();
-        for (String name : DEFINITIONS) {
-            try (InputStream in = MekanizedChainTest.class.getClassLoader().getResourceAsStream("mekanized/definitions/" + name)) {
-                if (in == null) throw new IllegalStateException("missing generated definitions " + name);
-                Map<String, Object> yaml = new Yaml().load(in);
-                files.add(new DefinitionFile("definitions/mekanized/" + name, (DataMap) toData(yaml)));
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
-            }
-        }
-        return files;
-    }
-
-    private static DataValue toData(Object value) {
-        return switch (value) {
-            case Map<?, ?> map -> {
-                Map<String, DataValue> entries = new LinkedHashMap<>();
-                map.forEach((key, element) -> entries.put(String.valueOf(key), toData(element)));
-                yield DataMap.of(entries);
-            }
-            case List<?> list -> DataValue.list(list.stream().map(MekanizedChainTest::toData).toList());
-            case Boolean bool -> DataValue.of(bool);
-            case Double number -> DataValue.of(number);
-            case Number number -> DataValue.of(number.longValue());
-            default -> DataValue.of(String.valueOf(value));
-        };
-    }
 }

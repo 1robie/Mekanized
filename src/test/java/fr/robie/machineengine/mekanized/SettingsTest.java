@@ -23,8 +23,8 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import net.kyori.adventure.key.Key;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -35,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * (so nothing changes out of the box), the shipped file says the same, an overridden value is used, and a
  * bad value is clamped or replaced with a warning.
  */
+@ExtendWith(MekanizedTestKit.ResetStatics.class)
 class SettingsTest {
     private final List<String> warnings = new ArrayList<>();
     private final Logger logger = Logger.getAnonymousLogger();
@@ -55,16 +56,6 @@ class SettingsTest {
             public void close() {
             }
         });
-    }
-
-    @AfterEach
-    void reset() {
-        TeleporterSettings.reset();
-        ChunkLoadingSettings.reset();
-        RadiationSettings.reset();
-        DigitalMinerSettings.reset();
-        QioSettings.reset();
-        GearSettings.reset();
     }
 
     private void load(String yaml) {
