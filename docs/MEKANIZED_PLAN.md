@@ -24,7 +24,7 @@ ways that hide where they came from. Source: `https://github.com/mekanism/Mekani
 ## Phases
 
 ### Phase 0: setup and import tooling
-- **Module:** `machineengine-mekanized` (Paper plugin, dev servers install it next to MachineEngine).
+- **Module:** `mekanized` (Paper plugin, dev servers install it next to MachineEngine).
 - **`importMekanism` task:** downloads the pinned commit as an archive and caches it under `.mekanism/`.
   - It copies the textures, models and `.mcmeta` animations that Mekanized uses into the CraftEngine pack, renaming the namespace to `mekanized`.
   - It converts Mekanism recipes into Mekanized YAML: recipe types map to ours (enriching, crushing, …), and crafting and smelting recipes become CraftEngine recipes.
@@ -33,7 +33,7 @@ ways that hide where they came from. Source: `https://github.com/mekanism/Mekani
 
 **Status: done (2026-10-02).**
 - **Pin:** `gradle.properties` pins `mekanism_commit` (branch 26.1, `4718860`).
-- **`:machineengine-mekanized:fetchMekanism`:** a shallow, sparse, blob-filtered clone into `.mekanism/source` (about 25 MB).
+- **`:mekanized:fetchMekanism`:** a shallow, sparse, blob-filtered clone into `.mekanism/source` (about 25 MB).
 - **`importMekanism` (buildSrc `ImportMekanism`):**
   - Assets: 1,038 textures and 680 models.
   - Recipes: 950 machine recipes in 18 recipe types (`definitions/recipes_<type>.yml`, with durations and Joules per tick from Mekanism's machine defaults), and 353 crafting, smelting and blasting recipes (CraftEngine `configuration/recipes_<group>.yml`).
