@@ -4,7 +4,7 @@ import fr.robie.machineengine.core.machine.LoadedMachine;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.mekanized.machine.GearRules;
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
-import fr.robie.machineengine.nms.Nms;
+import fr.robie.machineengine.api.platform.Nms;
 import fr.robie.machineengine.paper.PaperItems;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;

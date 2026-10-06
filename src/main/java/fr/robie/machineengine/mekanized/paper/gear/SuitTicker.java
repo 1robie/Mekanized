@@ -1,8 +1,8 @@
 package fr.robie.machineengine.mekanized.paper.gear;
 
 import fr.robie.machineengine.mekanized.machine.GearSettings;
-import fr.robie.machineengine.nms.Nms;
-import fr.robie.machineengine.nms.PlayerInput;
+import fr.robie.machineengine.api.platform.Nms;
+import fr.robie.machineengine.api.platform.PlayerInput;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
