@@ -303,11 +303,11 @@ public final class ReactorMachines {
         BlockPosition max = structure.max();
         for (int x = min.x(); x <= max.x(); x++) for (int y = min.y(); y <= max.y(); y++) for (int z = min.z(); z <= max.z(); z++) {
             BlockPosition at = new BlockPosition(x, y, z);
-            Key block = anchor.blockAt(at);
+            Key block = anchor.world().blockAt(at);
             if (block == null) continue;
             if (block.equals(key("turbine_vent"))) vents++;
             else if (block.equals(key("turbine_rotor"))) {
-                blades += anchor.storageAt(new fr.robie.machineengine.api.world.WorldPosition(structure.world(), at), "blades")
+                blades += anchor.machines().storage(new fr.robie.machineengine.api.world.WorldPosition(structure.world(), at), "blades")
                         .map(handler -> handler.views().stream().mapToLong(StorageView::amount).sum()).orElse(0L);
             }
         }

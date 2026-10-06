@@ -74,7 +74,7 @@ public final class UtilityBehaviors {
                 if (target == null
                         || context.storage("energy").extract(MekanizedContent.ENERGY.variant(), cost, transaction) != cost
                         || fluid.extract(held.variant(), 1000, transaction) != 1000
-                        || !context.placeWorldFluid(target, world)) {
+                        || !context.world().placeFluid(target, world)) {
                     context.setActive(false);
                     context.wakeIn(40);
                     return;
@@ -102,8 +102,8 @@ public final class UtilityBehaviors {
         int budget = 4096;
         while (!queue.isEmpty() && budget-- > 0) {
             BlockPosition at = queue.poll();
-            Key block = context.blockAt(at);
-            WorldFluid there = context.worldFluidAt(at);
+            Key block = context.world().blockAt(at);
+            WorldFluid there = context.world().fluidAt(at);
             boolean air = there == null && block != null && AIR.contains(block);
             boolean flowing = there != null && there.fluid().equals(fluid) && !there.source();
             boolean source = there != null && there.fluid().equals(fluid) && there.source();
@@ -179,8 +179,8 @@ public final class UtilityBehaviors {
      */
     static boolean redstoneAllows(MachineContext context) {
         return switch (context.get(UtilityMachines.REDSTONE)) {
-            case "high" -> context.redstonePower() > 0;
-            case "low" -> context.redstonePower() == 0;
+            case "high" -> context.world().redstonePower() > 0;
+            case "low" -> context.world().redstonePower() == 0;
             default -> true;
         };
     }
@@ -227,7 +227,7 @@ public final class UtilityBehaviors {
                 context.setActive(true);
                 BlockPosition end = fire(context, fired);
                 if (end != null && context.gameTime() - this.lastParticles >= 10) {
-                    context.particleLine(end, BEAM_COLOR);
+                    context.world().particleLine(end, BEAM_COLOR);
                     this.lastParticles = context.gameTime();
                 }
                 context.wakeIn(1);
@@ -247,13 +247,13 @@ public final class UtilityBehaviors {
                 BlockPosition at = origin.position();
                 for (int step = 1; step <= BEAM_RANGE; step++) {
                     at = at.relative(facing);
-                    Key block = context.blockAt(at);
+                    Key block = context.world().blockAt(at);
                     if (block == null) return at; // not loaded: the beam stops
                     if (block.equals(MekanizedContent.key("laser_focus_matrix"))) {
                         // A fusion reactor's window: the beam heats its plasma (ignition).
                         var structure = fr.robie.machineengine.mekanized.multiblock.Multiblocks.containing(new WorldPosition(origin.world(), at));
                         if (structure != null) {
-                            context.storageAt(structure.anchor(), "ignition").ifPresent(ignition -> {
+                            context.machines().storage(structure.anchor(), "ignition").ifPresent(ignition -> {
                                 try (Transaction transaction = context.transactions().openOuter()) {
                                     ignition.insert(MekanizedContent.ENERGY.variant(), joules, transaction);
                                     transaction.commit();
@@ -263,26 +263,26 @@ public final class UtilityBehaviors {
                         return at;
                     }
                     if (LASER_RECEIVERS.contains(block.value()) && block.namespace().equals(MekanizedContent.NAMESPACE)) {
-                        var receiver = context.storageAt(new WorldPosition(origin.world(), at), "energy");
+                        var receiver = context.machines().storage(new WorldPosition(origin.world(), at), "energy");
                         if (receiver.isPresent()) {
                             try (Transaction transaction = context.transactions().openOuter()) {
                                 receiver.get().insert(MekanizedContent.ENERGY.variant(), joules, transaction);
                                 transaction.commit();
                             }
-                            context.wakeMachine(new WorldPosition(origin.world(), at));
+                            context.machines().wake(new WorldPosition(origin.world(), at));
                         }
                         return at;
                     }
-                    if (AIR.contains(block) || context.worldFluidAt(at) != null) continue;
+                    if (AIR.contains(block) || context.world().fluidAt(at) != null) continue;
                     if (UtilityMachines.isPersonal(block)) return at; // nobody's beam opens someone's storage
-                    float hardness = context.worldBlockHardness(at);
+                    float hardness = context.world().blockHardness(at);
                     if (hardness < 0) return at; // unbreakable
                     if (!at.equals(this.target)) {
                         this.target = at;
                         this.heat = 0;
                     }
                     this.heat += joules;
-                    if (this.heat >= (long) Math.max(1, hardness * ENERGY_PER_HARDNESS) && context.breakWorldBlock(at)) {
+                    if (this.heat >= (long) Math.max(1, hardness * ENERGY_PER_HARDNESS) && context.world().breakBlock(at)) {
                         this.target = null;
                         this.heat = 0;
                         if (collects) collect(context, at);
@@ -294,7 +294,7 @@ public final class UtilityBehaviors {
 
             private void collect(MachineContext context, BlockPosition at) {
                 ResourceHandler items = context.storage("items");
-                for (ResourceStack stack : context.collectWorldItems(at)) {
+                for (ResourceStack stack : context.world().collectItems(at)) {
                     try (Transaction transaction = context.transactions().openOuter()) {
                         items.insert(stack.variant(), stack.amount(), transaction); // what does not fit is lost, like Mekanism's
                         transaction.commit();
@@ -370,9 +370,9 @@ public final class UtilityBehaviors {
     /** Sounds every two seconds while its block is powered by redstone (and shows it). */
     public static @NotNull MachineBehavior.Factory alarm(@NotNull Key sound) {
         return type -> context -> {
-            boolean powered = context.redstonePower() > 0;
+            boolean powered = context.world().redstonePower() > 0;
             context.setActive(powered);
-            if (powered) context.playSound(sound, 2.0f, 1.0f);
+            if (powered) context.world().playSound(sound, 2.0f, 1.0f);
             context.wakeIn(40);
         };
     }

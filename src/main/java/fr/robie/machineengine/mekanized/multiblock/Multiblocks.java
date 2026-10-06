@@ -113,7 +113,7 @@ public final class Multiblocks {
      * this thread. {@code null} if there is no valid structure.
      */
     public static @Nullable Structure detect(@NotNull MachineContext context, @NotNull WorldPosition start, @NotNull Type type) {
-        Function<BlockPosition, Key> blockAt = context::blockAt;
+        Function<BlockPosition, Key> blockAt = context.world()::blockAt;
         Key first = blockAt.apply(start.position());
         if (first == null || !type.faces().contains(first)) return null;
         // The frame blocks connected to the start, within the largest box.

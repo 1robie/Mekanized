@@ -77,7 +77,7 @@ public final class ChemistryBehaviors {
             long cost = context.modifiedCost(MekanizedContent.ENERGY, energy);
             long delay = Math.max(1, context.modified(StandardModifiers.PROCESS_DURATION, ticks));
             BlockPosition below = context.machine().position().position().relative(Direction.DOWN);
-            WorldFluid start = context.worldFluidAt(below);
+            WorldFluid start = context.world().fluidAt(below);
             ResourceType fluid = start == null ? null : MekanizedContent.fluid(start.fluid().value());
             if (fluid == null) {
                 context.setActive(false);
@@ -105,7 +105,7 @@ public final class ChemistryBehaviors {
                     return;
                 }
                 BlockPosition source = findSource(context, below, start.fluid(), range);
-                if (source == null || !context.takeWorldFluid(source)) {
+                if (source == null || !context.world().takeFluid(source)) {
                     context.setActive(false);
                     context.wakeIn(40);
                     return;
@@ -126,7 +126,7 @@ public final class ChemistryBehaviors {
         int budget = 4096;
         while (!queue.isEmpty() && budget-- > 0) {
             BlockPosition at = queue.poll();
-            WorldFluid here = context.worldFluidAt(at);
+            WorldFluid here = context.world().fluidAt(at);
             if (here == null || !here.fluid().equals(fluid)) continue;
             if (here.source()) return at;
             for (Direction direction : Direction.values()) {

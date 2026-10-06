@@ -232,21 +232,21 @@ public final class AutomationMachines {
                 int layer = (int) (cursor / ((long) side * side));
                 int index = (int) (cursor % ((long) side * side));
                 BlockPosition at = new BlockPosition(here.x() - radius + index % side, here.y() - 1 - layer, here.z() - radius + index / side);
-                Key block = context.blockAt(at);
+                Key block = context.world().blockAt(at);
                 if (block == null || AIR.contains(block) || machineTypes.get(block).isPresent()) continue;
                 boolean wanted = filters.isEmpty() ? block.value().endsWith("_ore") || block.value().equals("ancient_debris") : filters.contains(block);
-                if (!wanted || context.worldBlockHardness(at) < 0) continue;
-                if (!context.breakWorldBlock(at)) continue;
+                if (!wanted || context.world().blockHardness(at) < 0) continue;
+                if (!context.world().breakBlock(at)) continue;
                 try (Transaction transaction = context.transactions().openOuter()) {
                     context.storage("energy").extract(MekanizedContent.ENERGY.variant(), cost, transaction);
-                    for (ResourceStack drop : context.collectWorldItems(at)) {
+                    for (ResourceStack drop : context.world().collectItems(at)) {
                         context.storage("output").insert(drop.variant(), drop.amount(), transaction); // what does not fit is lost
                     }
                     transaction.commit();
                 }
                 // Stone generator upgrade: the hole is filled with stone.
                 if (MekanizedMachines.installed(context, MekanizedMachines.STONE_GENERATOR_UPGRADE)) {
-                    context.placeWorldBlock(at, Key.key("minecraft", "stone"));
+                    context.world().placeBlock(at, Key.key("minecraft", "stone"));
                 }
                 context.set(CURSOR, cursor + 1);
                 context.setActive(true);
@@ -334,9 +334,9 @@ public final class AutomationMachines {
             boolean complete = true;
             for (int dy = 0; dy <= 3 && complete; dy++) {
                 BlockPosition row = new BlockPosition(here.x(), here.y() + dy, here.z());
-                complete = frame.equals(context.blockAt(row.relative(axis))) && frame.equals(context.blockAt(row.relative(axis.opposite())));
+                complete = frame.equals(context.world().blockAt(row.relative(axis))) && frame.equals(context.world().blockAt(row.relative(axis.opposite())));
             }
-            complete = complete && frame.equals(context.blockAt(new BlockPosition(here.x(), here.y() + 3, here.z())));
+            complete = complete && frame.equals(context.world().blockAt(new BlockPosition(here.x(), here.y() + 3, here.z())));
             if (complete) return true;
         }
         return false;
@@ -428,8 +428,8 @@ public final class AutomationMachines {
         List<ResourceHandler[]> arrays = new ArrayList<>();
         if (frequency.isEmpty()) return arrays;
         for (WorldPosition position : Frequencies.arrays(frequency)) {
-            var drives = context.storageAt(position, "drives");
-            var items = context.storageAt(position, "items");
+            var drives = context.machines().storage(position, "drives");
+            var items = context.machines().storage(position, "items");
             if (drives.isPresent() && items.isPresent()) arrays.add(new ResourceHandler[]{drives.get(), items.get()});
         }
         return arrays;

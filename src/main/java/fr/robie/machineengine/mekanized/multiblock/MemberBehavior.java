@@ -139,7 +139,7 @@ public final class MemberBehavior implements MachineBehavior {
         }
         if (this.pushes != null) {
             String mode = context.get(PORT_MODE);
-            context.setBlockProperty("mode", mode);
+            context.world().setBlockProperty("mode", mode);
             context.setActive(!"input".equals(mode));
             List<String> given = this.pushes.getOrDefault(mode, List.of());
             if (structure != null && !given.isEmpty()) {
@@ -168,7 +168,7 @@ public final class MemberBehavior implements MachineBehavior {
         }
         if (found == null) return null;
         Multiblocks.form(found);
-        if (!found.anchor().equals(here)) context.wakeMachine(found.anchor()); // it sizes its storages
+        if (!found.anchor().equals(here)) context.machines().wake(found.anchor()); // it sizes its storages
         return found;
     }
 
@@ -179,7 +179,7 @@ public final class MemberBehavior implements MachineBehavior {
 
     /** The anchor's {@code storage} into every neighbor outside the structure, up to {@code budget}. */
     private static void pushOut(MachineContext context, Multiblocks.Structure structure, String storage, long budget) {
-        ResourceHandler source = context.storageAt(structure.anchor(), storage).orElse(null);
+        ResourceHandler source = context.machines().storage(structure.anchor(), storage).orElse(null);
         if (source == null) return;
         for (RelativeSide side : RelativeSide.values()) {
             if (budget <= 0) return;
@@ -201,7 +201,7 @@ public final class MemberBehavior implements MachineBehavior {
         Multiblocks.Structure structure = Multiblocks.containing(context.machine().position());
         if (structure == null) return;
         Multiblocks.unform(structure);
-        context.wakeMachine(structure.anchor()); // keeps its contents, unformed
+        context.machines().wake(structure.anchor()); // keeps its contents, unformed
     }
 
     @Override
@@ -225,7 +225,7 @@ public final class MemberBehavior implements MachineBehavior {
             if (structure == null) return List.of();
             List<ResourceHandler> targets = new ArrayList<>();
             for (String storage : storages) {
-                this.context.storageAt(structure.anchor(), storage).ifPresent(targets::add);
+                this.context.machines().storage(structure.anchor(), storage).ifPresent(targets::add);
             }
             return targets;
         }
