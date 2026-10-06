@@ -26,50 +26,10 @@ public final class MekanizedPlugin extends JavaPlugin {
     /** Inside the jar: what the Gradle import generated, under {@code mekanized/}. */
     private static final String GENERATED = "mekanized/";
     /**
-     * Generated CraftEngine configuration files installed so far. Each plan phase adds the files whose
-     * items and blocks exist; the others stay in the jar (they would only produce warnings).
+     * The generated files to install, as listed by the import ({@code mekanized/manifest.yml}): a file
+     * the import writes is installed, with no list kept by hand to forget it in.
      */
-    private static final java.util.Set<String> ENABLED_CONFIGURATION = java.util.Set.of(
-            // Phase 1: materials, ores, storage blocks, their names and recipes.
-            "configuration/materials.yml", "configuration/lang.yml", "configuration/recipes_materials_shaped.yml",
-            "configuration/recipes_materials_shapeless.yml", "configuration/recipes_materials_cooking.yml",
-            // Phase 2: machines, generators, energy cubes, cables, upgrades and their crafting recipes.
-            "configuration/machines.yml", "configuration/recipes_machines_shaped.yml",
-            // Phase 3: chemical machines, tanks, tubes, pipes, the pump and their crafting recipes.
-            "configuration/chemistry.yml", "configuration/recipes_chemistry_shaped.yml",
-            // Phase 4: transporters, the logistical sorter, factories, tier installers, the configurator.
-            "configuration/logistics.yml", "configuration/recipes_logistics_shaped.yml",
-            // Phase 5a: the Dynamic Tank and the Induction Matrix.
-            "configuration/multiblocks.yml", "configuration/recipes_multiblocks_shaped.yml",
-            // Phase 6: the remaining single-block machines and generators.
-            "configuration/endgame.yml", "configuration/recipes_endgame_shaped.yml",
-            // Phase 6 wave 2: bins, personal storage, chargepad, plenisher, assemblicator, lasers, alarm.
-            "configuration/utility.yml",
-            // Phase 6 wave 3: heaters, conductors, boiler, turbine, fission and fusion reactors, SPS.
-            "configuration/reactors.yml", "configuration/recipes_reactors_shaped.yml",
-            // Phase 6 wave 4: Digital Miner, seismic vibrator, teleporter, QIO, cardboard box.
-            "configuration/automation.yml", "configuration/recipes_automation_shaped.yml",
-            // Phase 6 wave 5: tools, armour and modules.
-            "configuration/gear.yml", "configuration/recipes_gear_shaped.yml", "configuration/recipes_gear_shapeless.yml",
-            // Phase 6 wave 6: chunk loading, the quantum entangloporter, the last upgrades, tools, radiation.
-            "configuration/extras.yml", "configuration/recipes_extras_shaped.yml");
-    /** Generated MachineEngine definitions installed so far (same rule as {@link #ENABLED_CONFIGURATION}). */
-    static final java.util.Set<String> ENABLED_DEFINITIONS = java.util.Set.of(
-            // Phase 1: item and chemical tags, and the vanilla members of c: tags.
-            "tags.yml", "vanilla_aliases.yml",
-            // Phase 2: recipes of the basic machines, and the item -> energy / chemical conversions.
-            "recipes_enriching.yml", "recipes_crushing.yml", "recipes_combining.yml", "recipes_sawing.yml",
-            "recipes_metallurgic_infusing.yml", "recipes_compressing.yml", "recipes_purifying.yml",
-            "recipes_chemical_conversion.yml", "recipes_energy_conversion.yml",
-            // Phase 3: chemical machines (4x and 5x ore processing), the rotary condensentrator, bucket slots.
-            "recipes_oxidizing.yml", "recipes_chemical_infusing.yml", "recipes_injecting.yml", "recipes_dissolution.yml",
-            "recipes_washing.yml", "recipes_crystallizing.yml", "recipes_separating.yml", "recipes_condensing.yml",
-            "recipes_decondensing.yml", "recipes_buckets.yml",
-            // Phase 5a: the Thermal Evaporation Plant.
-            "recipes_evaporating.yml",
-            // Phase 6: reactions, late-game chemistry, painting.
-            "recipes_reaction.yml", "recipes_centrifuging.yml", "recipes_activating.yml", "recipes_nucleosynthesizing.yml",
-            "recipes_painting.yml", "recipes_pigment_extracting.yml", "recipes_pigment_mixing.yml");
+    private GeneratedManifest manifest = new GeneratedManifest(java.util.Set.of(), java.util.List.of());
 
     @Override
     public void onLoad() {
@@ -82,6 +42,11 @@ public final class MekanizedPlugin extends JavaPlugin {
                 .requiresApi("[0.1,1.0)")
                 .register(MekanizedContent::register)
                 .build());
+        try {
+            this.manifest = GeneratedManifest.load(getClassLoader());
+        } catch (IOException | RuntimeException e) {
+            getLogger().severe("Could not read the list of generated Mekanized files: " + e.getMessage());
+        }
         // Editable generated files are updated only while nobody changed them (EditableFiles).
         try (EditableFiles files = new EditableFiles(this)) {
             installCraftEnginePack(files);
@@ -93,12 +58,12 @@ public final class MekanizedPlugin extends JavaPlugin {
     }
 
     /**
-     * Copies the enabled generated definitions to {@code plugins/MachineEngine/definitions/mekanized/}:
+     * Copies the generated definitions the manifest lists to {@code plugins/MachineEngine/definitions/mekanized/}:
      * server owners edit them there; edited files are never overwritten (delete one to get the default).
      */
     private void installDefinitions(EditableFiles files) {
         Path target = getDataFolder().toPath().getParent().resolve("MachineEngine/definitions/mekanized");
-        for (String file : ENABLED_DEFINITIONS) {
+        for (String file : this.manifest.definitions()) {
             try (InputStream in = getResource(GENERATED + "definitions/" + file)) {
                 if (in == null) throw new IOException("missing resource " + file);
                 files.install(target.resolve(file), in.readAllBytes());
@@ -166,7 +131,7 @@ public final class MekanizedPlugin extends JavaPlugin {
                 Path destination = target.resolve(relative);
                 boolean asset = relative.startsWith("resourcepack/");
                 if (!asset) {
-                    if (!ENABLED_CONFIGURATION.contains(relative)) continue;
+                    if (!this.manifest.pack().contains(relative)) continue;
                     try (InputStream in = jar.getInputStream(entry)) {
                         if (files.install(destination, in.readAllBytes())) copied++;
                     }
