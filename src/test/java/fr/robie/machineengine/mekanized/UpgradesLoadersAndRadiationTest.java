@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /** Phase 6 wave 6, headless: the last upgrades, chunk loading, the quantum entangloporter. */
-class ExtrasTest {
+class UpgradesLoadersAndRadiationTest {
     private static final WorldPosition HERE = FakeWorld.at(0, 64, 0);
 
     private final CoreMachineEngine engine = TestEngine.builder()

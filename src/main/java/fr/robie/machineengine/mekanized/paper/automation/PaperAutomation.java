@@ -10,7 +10,7 @@ import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.core.machine.LoadedMachine;
-import fr.robie.machineengine.mekanized.machine.AutomationMachines.Frequencies;
+import fr.robie.machineengine.mekanized.machine.Frequencies;
 import fr.robie.machineengine.mekanized.machine.AutomationMachines;
 import fr.robie.machineengine.mekanized.machine.MachineParts;
 import fr.robie.machineengine.mekanized.paper.Lore;

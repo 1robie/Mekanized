@@ -6,7 +6,7 @@ import fr.robie.machineengine.api.transfer.StorageView;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.core.machine.LoadedMachine;
 import fr.robie.machineengine.mekanized.MekanizedContent;
-import fr.robie.machineengine.mekanized.machine.AutomationMachines;
+import fr.robie.machineengine.mekanized.machine.Frequencies;
 import fr.robie.machineengine.mekanized.machine.Liquifier;
 import fr.robie.machineengine.mekanized.paper.ItemLongs;
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
@@ -336,7 +336,7 @@ public final class GearTools implements Listener {
         Location destination = target.getLocation().add(0.5, 1, 0.5);
         if (!Bukkit.isOwnedByCurrentRegion(destination.clone().add(0, 1, 0))) return;
         if (!destination.getBlock().isPassable() || !destination.clone().add(0, 1, 0).getBlock().isPassable()) return;
-        long cost = AutomationMachines.Frequencies.cost(player.getLocation().distance(destination));
+        long cost = Frequencies.cost(player.getLocation().distance(destination));
         if (!useEnergy(tool, cost)) {
             player.sendActionBar(Component.text(String.format(Locale.ROOT, "Needs %,d J", cost), NamedTextColor.RED));
             return;

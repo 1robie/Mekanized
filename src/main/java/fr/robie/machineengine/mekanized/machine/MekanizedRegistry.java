@@ -114,7 +114,7 @@ public final class MekanizedRegistry {
         context.recipes(FurnaceRecipes::provide);
         ChemistryMachines.register(context);
         LogisticsMachines.register(context);
-        EndgameMachines.register(context);
+        ReactionAndPigmentMachines.register(context);
         UtilityMachines.register(context);
         HeatMachines.register(context);
         AutomationMachines.register(context);

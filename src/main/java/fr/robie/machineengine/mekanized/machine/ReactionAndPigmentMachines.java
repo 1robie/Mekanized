@@ -30,7 +30,7 @@ import static fr.robie.machineengine.mekanized.machine.MekanizedRegistry.IS_CHEM
  * Isotopic Centrifuge, Solar Neutron Activator, Antiprotonic Nucleosynthesizer, the painting machines)
  * and generators (gas-burning, wind, advanced solar).
  */
-public final class EndgameMachines {
+public final class ReactionAndPigmentMachines {
     public static final RecipeType<ProcessingRecipe> REACTION = recipeType("reaction");
     public static final RecipeType<ProcessingRecipe> CENTRIFUGING = recipeType("centrifuging");
     public static final RecipeType<ProcessingRecipe> ACTIVATING = recipeType("activating");
@@ -43,7 +43,7 @@ public final class EndgameMachines {
     /** Joules per mB the gas-burning generator gets from each fuel. */
     public static final Map<String, Long> GAS_FUELS = Map.of("hydrogen", 200L, "ethene", 1_500L);
 
-    private EndgameMachines() {
+    private ReactionAndPigmentMachines() {
     }
 
     private static RecipeType<ProcessingRecipe> recipeType(String name) {
@@ -73,7 +73,7 @@ public final class EndgameMachines {
                 .port(port("chemical", PortDirection.INPUT, IS_CHEMICAL, "chemical"))
                 .port(port("output", PortDirection.OUTPUT, Items.anyItem(), "items"))
                 .port(port("chemical_output", PortDirection.OUTPUT, IS_CHEMICAL, "chemical"))
-                .upgradeSlots(2, EndgameMachines::upgrade)
+                .upgradeSlots(2, ReactionAndPigmentMachines::upgrade)
                 .behavior(MachineParts.powered(MachineParts.withBuckets(ProcessingBehavior.of(REACTION,
                         new ProcessBinding(List.of("input", "fluid", "chemical"), "output", List.of("energy"), List.of("chemical_output"))), "fluid")))
                 .build());
@@ -91,7 +91,7 @@ public final class EndgameMachines {
                 .storage(StorageDefinition.tank("output", 1_000).filter(IS_CHEMICAL))
                 .port(port("input", PortDirection.INPUT, Items.anyItem(), "items"))
                 .port(port("output", PortDirection.OUTPUT, IS_CHEMICAL, "chemical"))
-                .upgradeSlots(2, EndgameMachines::upgrade)
+                .upgradeSlots(2, ReactionAndPigmentMachines::upgrade)
                 .behavior(MachineParts.powered(ProcessingBehavior.of(PIGMENT_EXTRACTING, new ProcessBinding(List.of("input"), "output", List.of("energy")))))
                 .build());
         ResourcePredicate mixed = IS_CHEMICAL.and(RecipeFilters.usedBy(PIGMENT_MIXING));
@@ -105,7 +105,7 @@ public final class EndgameMachines {
                         .sides(RelativeSide.RIGHT).group("chemical").build())
                 .port(PortDefinition.builder("output", "output").direction(PortDirection.OUTPUT).filter(IS_CHEMICAL)
                         .sides(RelativeSide.FRONT).group("chemical").build())
-                .upgradeSlots(2, EndgameMachines::upgrade)
+                .upgradeSlots(2, ReactionAndPigmentMachines::upgrade)
                 .behavior(MachineParts.powered(ProcessingBehavior.of(PIGMENT_MIXING, new ProcessBinding(List.of("left", "right"), "output", List.of("energy")))))
                 .build());
         // Generators.
@@ -138,7 +138,7 @@ public final class EndgameMachines {
                 .port(port("input", PortDirection.INPUT, IS_CHEMICAL, "chemical"))
                 .port(port("output", PortDirection.OUTPUT, IS_CHEMICAL, "chemical"));
         if (powered) {
-            builder.upgradeSlots(2, EndgameMachines::upgrade)
+            builder.upgradeSlots(2, ReactionAndPigmentMachines::upgrade)
                     .behavior(MachineParts.powered(ProcessingBehavior.of(recipes, new ProcessBinding(List.of("input"), "output", List.of("energy")))));
         }
         return builder;
@@ -153,7 +153,7 @@ public final class EndgameMachines {
                 .port(port("input", PortDirection.INPUT, Items.anyItem(), "items"))
                 .port(port("chemical", PortDirection.INPUT, IS_CHEMICAL, "chemical"))
                 .port(port("output", PortDirection.OUTPUT, Items.anyItem(), "items"))
-                .upgradeSlots(2, EndgameMachines::upgrade)
+                .upgradeSlots(2, ReactionAndPigmentMachines::upgrade)
                 .behavior(MachineParts.powered(ProcessingBehavior.of(recipes,
                         new ProcessBinding(List.of("input", "chemical"), "output", List.of("energy")))));
     }

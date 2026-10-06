@@ -16,7 +16,7 @@ import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.core.definition.DefinitionCompiler;
 import fr.robie.machineengine.core.lifecycle.CoreMachineEngine;
 import fr.robie.machineengine.core.machine.MachineInstanceImpl;
-import fr.robie.machineengine.mekanized.machine.AutomationMachines.Frequencies;
+import fr.robie.machineengine.mekanized.machine.Frequencies;
 import fr.robie.machineengine.mekanized.machine.AutomationMachines;
 import fr.robie.machineengine.test.FakeWorld;
 import fr.robie.machineengine.test.TestEngine;
