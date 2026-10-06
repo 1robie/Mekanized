@@ -16,7 +16,7 @@ import fr.robie.machineengine.mekanized.machine.UtilityBehaviors;
 import fr.robie.machineengine.mekanized.machine.UtilityMachines;
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.paper.MachineLocator;
-import fr.robie.machineengine.paper.PaperItems;
+import fr.robie.machineengine.api.paper.PaperItems;
 import fr.robie.machineengine.paper.PaperWorlds;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;

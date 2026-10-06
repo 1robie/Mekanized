@@ -17,7 +17,7 @@ import fr.robie.machineengine.mekanized.multiblock.ReactorMachines;
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.paper.MachineLocator;
 import fr.robie.machineengine.paper.MachineMenuService;
-import fr.robie.machineengine.paper.PaperItems;
+import fr.robie.machineengine.api.paper.PaperItems;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;

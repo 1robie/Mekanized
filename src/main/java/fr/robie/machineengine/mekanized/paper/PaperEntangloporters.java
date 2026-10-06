@@ -7,7 +7,7 @@ import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.mekanized.machine.Entangloporters;
 import fr.robie.machineengine.mekanized.machine.SaveLines;
 import fr.robie.machineengine.mekanized.paper.persist.LineStore;
-import fr.robie.machineengine.paper.PaperItems;
+import fr.robie.machineengine.api.paper.PaperItems;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
