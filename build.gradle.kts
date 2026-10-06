@@ -1,26 +1,21 @@
 import net.minecrell.pluginyml.paper.PaperPluginDescription
 
 plugins {
-    id("machineengine.java-conventions")
+    id("machineengine.platform")
     alias(libs.plugins.plugin.yml.paper)
 }
 
 description = "Mekanized: Mekanism-style machines for MachineEngine (textures, models and recipes from Mekanism, MIT)."
 
-val craftEngineVersion = providers.gradleProperty("craftengine_version").get()
-
 dependencies {
-    // A content addon: MachineEngine's API (plus the Paper module for item conversion) and CraftEngine.
+    // A content addon: MachineEngine's API (plus the Paper module for item conversion until
+    // RESTRUCTURE_PLAN.md R7 moves what it needs into the API).
     compileOnly(project(":machineengine-api"))
     compileOnly(project(":machineengine-paper"))
-    compileOnly(libs.paper.api)
-    compileOnly("net.momirealms:craft-engine-core:$craftEngineVersion") { isTransitive = false }
-    compileOnly("net.momirealms:craft-engine-bukkit:$craftEngineVersion") { isTransitive = false }
 
     // Headless tests of the imported content (machines, recipes, tags), no server.
     testImplementation(project(":machineengine-test"))
     testImplementation(project(":machineengine-paper"))
-    testImplementation(libs.paper.api)
 }
 
 // -- Mekanism import (MEKANIZED_PLAN.md Phase 0, K4) -------------------------------------------------
