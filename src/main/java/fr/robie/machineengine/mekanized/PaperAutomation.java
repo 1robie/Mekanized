@@ -155,7 +155,7 @@ final class PaperAutomation implements Listener {
             World world = PaperWorld.world(to);
             LoadedMachine source = PaperWorld.machine(below);
             if (world == null || source == null || source.instance() == null) return;
-            long cost = cost(from, to);
+            long cost = Frequencies.cost(from, to);
             MachineContext context = source.instance().context();
             try (Transaction transaction = context.transactions().openOuter()) {
                 if (!MachineParts.pay(context.storage("energy"), cost, transaction)) {
@@ -171,13 +171,6 @@ final class PaperAutomation implements Listener {
             player.teleportAsync(target);
             return;
         }
-    }
-
-    /** Mekanism's cost: 1 kJ, plus 10 J per block; 100 kJ to another world. */
-    static long cost(WorldPosition from, WorldPosition to) {
-        if (!from.world().equals(to.world())) return 100_000;
-        double dx = from.position().x() - to.position().x(), dy = from.position().y() - to.position().y(), dz = from.position().z() - to.position().z();
-        return 1_000 + (long) (Math.sqrt(dx * dx + dy * dy + dz * dz) * 10);
     }
 
     private void loadTeleporters() {
@@ -227,7 +220,7 @@ final class PaperAutomation implements Listener {
             player.sendActionBar(Component.text("No teleporter with a complete frame on " + frequency, NamedTextColor.RED));
             return;
         }
-        long cost = cost(from, to);
+        long cost = Frequencies.cost(from, to);
         if (!PaperGear.useEnergy(hand, cost)) {
             player.sendActionBar(Component.text(String.format(Locale.ROOT, "The portable teleporter needs %,d J", cost), NamedTextColor.RED));
             return;

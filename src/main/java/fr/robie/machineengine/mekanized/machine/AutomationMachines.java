@@ -159,6 +159,18 @@ public final class AutomationMachines {
             }
         }
 
+        /** Mekanism's teleport cost: 1 kJ, plus 10 J per block; 100 kJ to another world. */
+        public static long cost(@NotNull WorldPosition from, @NotNull WorldPosition to) {
+            if (!from.world().equals(to.world())) return 100_000;
+            double dx = from.position().x() - to.position().x(), dy = from.position().y() - to.position().y(), dz = from.position().z() - to.position().z();
+            return cost(Math.sqrt(dx * dx + dy * dy + dz * dz));
+        }
+
+        /** The cost of a teleport over {@code blocks} blocks in one world: 1 kJ, plus 10 J per block. */
+        public static long cost(double blocks) {
+            return 1_000 + (long) (blocks * 10);
+        }
+
         /** The other teleporter of {@code frequency} with a complete frame, or null. */
         public static @Nullable WorldPosition destination(@NotNull WorldPosition from, @NotNull String frequency) {
             for (Map.Entry<WorldPosition, Teleporter> entry : TELEPORTERS.entrySet()) {
