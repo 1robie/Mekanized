@@ -44,13 +44,10 @@ abstract class ImportMekanism : DefaultTask() {
         GearModels(source, out.resolve("pack/resourcepack/assets/mekanized"), report).write()
         val itemTags = Tags(source, out.resolve("definitions"), report).convert()
         val content = MekanismContent(source, out, itemTags, report).also { it.generate() }
-        val recipes = Recipes(source, out, report, listOf("materials" to content.ids, "machines" to content.machineIds,
-            "chemistry" to content.chemistryIds, "logistics" to content.logisticsIds, "multiblocks" to content.multiblockIds,
-            "endgame" to content.endgameIds, "reactors" to content.reactorIds,
-            "automation" to content.automationIds, "gear" to content.gearIds, "extras" to content.extrasIds), itemTags)
-            .also { it.convert() }
+        val recipes = Recipes(source, out, report, content.ids.toList(), itemTags).also { it.convert() }
         writeAliases(out.resolve("definitions/vanilla_aliases.yml"), recipes.referencedTags + itemTags.keys, itemTags, report)
         source.resolve("LICENSE").copyTo(out.resolve("LICENSE-MEKANISM.txt"), overwrite = true)
+        writeManifest(out)
         out.resolve("import-report.txt").writeText(report.format())
         logger.lifecycle(report.summary())
     }
@@ -333,40 +330,40 @@ internal class Recipes(
     }
     /** Every item tag the recipes reference, for the vanilla aliases. */
     val referencedTags = sortedSetOf<String>()
-    private data class Machine(val duration: Int, val energyPerTick: Long, val phase: Int)
+    private data class Machine(val duration: Int, val energyPerTick: Long)
 
     private val machines = mapOf(
-        "enriching" to Machine(200, 50, 2),
-        "crushing" to Machine(200, 50, 2),
-        "combining" to Machine(200, 50, 2),
-        "sawing" to Machine(200, 50, 2),
-        "metallurgic_infusing" to Machine(200, 50, 2),
-        "compressing" to Machine(200, 100, 2),
-        "purifying" to Machine(200, 200, 2),
-        "injecting" to Machine(200, 400, 3),
-        "oxidizing" to Machine(100, 200, 3),
-        "dissolution" to Machine(100, 400, 3),
-        "washing" to Machine(1, 200, 3),
-        "crystallizing" to Machine(200, 160, 3),
-        "chemical_infusing" to Machine(1, 200, 3),
-        "separating" to Machine(1, 400, 3),
+        "enriching" to Machine(200, 50),
+        "crushing" to Machine(200, 50),
+        "combining" to Machine(200, 50),
+        "sawing" to Machine(200, 50),
+        "metallurgic_infusing" to Machine(200, 50),
+        "compressing" to Machine(200, 100),
+        "purifying" to Machine(200, 200),
+        "injecting" to Machine(200, 400),
+        "oxidizing" to Machine(100, 200),
+        "dissolution" to Machine(100, 400),
+        "washing" to Machine(1, 200),
+        "crystallizing" to Machine(200, 160),
+        "chemical_infusing" to Machine(1, 200),
+        "separating" to Machine(1, 400),
         // Rotary recipes go both ways: split into one recipe type per direction (the machine's mode).
         // Phase 6 machines (Mekanism's default usage): painting and pigments, late-game chemistry.
-        "painting" to Machine(256, 100, 6),
-        "pigment_extracting" to Machine(100, 200, 6),
-        "pigment_mixing" to Machine(1, 200, 6),
-        "centrifuging" to Machine(1, 200, 6),
-        "activating" to Machine(1, 0, 6),
-        "nucleosynthesizing" to Machine(500, 100_000, 6),
+        "painting" to Machine(256, 100),
+        "pigment_extracting" to Machine(100, 200),
+        "pigment_mixing" to Machine(1, 200),
+        "centrifuging" to Machine(1, 200),
+        "activating" to Machine(1, 0),
+        "nucleosynthesizing" to Machine(500, 100_000),
         // The Thermal Evaporation Plant: no energy, its rate comes from its height and the sun (Phase 5a).
-        "evaporating" to Machine(1, 0, 5),
-        "condensing" to Machine(1, 100, 3),
-        "decondensing" to Machine(1, 100, 3),
+        "evaporating" to Machine(1, 0),
+        "condensing" to Machine(1, 100),
+        "decondensing" to Machine(1, 100),
         // The Pressurized Reaction Chamber: 100 J/t, plus each recipe's energy_required.
-        "reaction" to Machine(100, 100, 6),
+        "reaction" to Machine(100, 100),
         // Not machines: items turned into a chemical or energy when put into a machine's slot.
-        "chemical_conversion" to Machine(0, 0, 2),
-        "energy_conversion" to Machine(0, 0, 2),
+        "chemical_conversion" to Machine(0, 0),
+        "energy_conversion" to Machine(0, 0),
     )
 
     private val outOfPlan = mapOf(
@@ -698,11 +695,10 @@ internal class Recipes(
             "Mekanized bucket slots: a full bucket empties into the tank, an empty one is filled from it (1000 mB).\n" +
                     "Edit freely: updates replace this file only while it is unedited.", linkedMapOf("recipes" to buckets))
         machineRecipes.entries.groupBy { it.key.substringBefore("|") }.forEach { (kind, entries) ->
-            val machine = machines.getValue(kind)
             writeYaml(out.resolve("definitions/recipes_$kind.yml"),
                 "Mekanized $kind recipes, generated from Mekanism (MIT, see LICENSE-MEKANISM.txt).\n" +
                         "Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.\n" +
-                        "Durations are ticks; energy is Joules per tick. Phase ${machine.phase} of MEKANIZED_PLAN.md.",
+                        "Durations are ticks; energy is Joules per tick. Phase ${ContentPhases.planPhase(kind)} of MEKANIZED_PLAN.md.",
                 linkedMapOf("recipes" to entries.associate { it.key.substringAfter("|") to it.value }))
         }
         craftEngineRecipes.entries.groupBy { it.key.substringBefore("|") }.forEach { (group, entries) ->

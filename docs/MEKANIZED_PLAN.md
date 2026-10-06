@@ -38,7 +38,7 @@ ways that hide where they came from. Source: `https://github.com/mekanism/Mekani
   - Recipes: 950 machine recipes in 18 recipe types (`definitions/recipes_<type>.yml`, with durations and Joules per tick from Mekanism's machine defaults), and 353 crafting, smelting and blasting recipes (CraftEngine `configuration/recipes_<group>.yml`).
   - Tags: 191 item tags and 17 chemical tags (`definitions/tags.yml`).
   - Skipped, and listed in `import-report.txt`: 637 recipes for other mods, 370 painting and pigment recipes, endgame and multiblock recipes, and 90 models that need NeoForge loaders (83 composite, which can be flattened later, 6 OBJ and 1 energy cube).
-- **Plugin:** installs the CraftEngine pack with the imported assets, refreshed on every start. Generated configuration files are only installed once their phase defines the items they reference (`ENABLED_CONFIGURATION`). `LICENSE-MEKANISM.txt` ships in the jar and in the pack.
+- **Plugin:** installs the CraftEngine pack with the imported assets, refreshed on every start. The import writes `manifest.yml`, the list of generated files the plugin installs (one declarative phase table, `ContentPhases.kt`, decides which exist). `LICENSE-MEKANISM.txt` ships in the jar and in the pack.
 - **Verified:** the pack loads on Paper 1.20.6.
 
 ### Phase 1: materials and energy

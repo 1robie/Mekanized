@@ -25,8 +25,8 @@ internal class MekanismContent(
     )
     private val blockPattern = Regex("^(deepslate_)?(osmium|tin|lead|uranium|fluorite)_ore$|^block_.+$|^steel_casing$")
 
-    /** Ids (`mekanized:x`) of the content generated here, for the recipe split. */
-    val ids = sortedSetOf<String>()
+    /** Ids (`mekanized:x`) of the content generated per phase (by phase key), for the recipe split. */
+    val ids: Map<String, MutableSet<String>> = ContentPhases.all.associate { it.key to sortedSetOf<String>() }
 
     fun generate() {
         val generated = source.resolve("src/datagen/generated/mekanism/assets/mekanism")
@@ -59,31 +59,16 @@ internal class MekanismContent(
                 nameKeys += "item.mekanism.$name"
                 report.count("items")
             }
-            ids += id
+            ids.getValue("materials").add(id)
         }
         writeYaml(out.resolve("pack/configuration/materials.yml"),
             "Mekanized materials, ores and storage blocks (Phase 1), generated from Mekanism (MIT, see LICENSE-MEKANISM.txt).",
             linkedMapOf("items" to items, "blocks" to blocks))
-        generateBlocks("machines.yml", "Mekanized machines, generators, energy cubes, cables and upgrades (Phase 2), generated from Mekanism (MIT).",
-            phase2Machines, phase2Transports, phase2Items, machineIds, nameKeys, membership)
-        generateBlocks("chemistry.yml", "Mekanized chemical machines, tanks, tubes, pipes and the pump (Phase 3), generated from Mekanism (MIT).",
-            phase3Machines, phase3Transports, phase3Items, chemistryIds, nameKeys, membership)
-        generateBlocks("logistics.yml", "Mekanized transporters, the logistical sorter, factories, tier installers and the configurator (Phase 4), generated from Mekanism (MIT).",
-            phase4Machines, phase4Transports, phase4Items, logisticsIds, nameKeys, membership)
-        generateBlocks("multiblocks.yml", "Mekanized multiblocks: Dynamic Tank, Induction Matrix, Thermal Evaporation Plant (Phase 5a), generated from Mekanism (MIT).",
-            phase5Machines, mapOf(), listOf(), multiblockIds, nameKeys, membership, phase5Plain)
-        generateBlocks("endgame.yml", "Mekanized late-game machines and generators (Phase 6), generated from Mekanism (MIT).",
-            phase6Machines, mapOf(), listOf(), endgameIds, nameKeys, membership)
-        generateBlocks("utility.yml", "Mekanized bins, personal storage, chargepad, plenisher, assemblicator, lasers (Phase 6), generated from Mekanism (MIT).",
-            phase6Utility, mapOf(), listOf(), endgameIds, nameKeys, membership)
-        generateBlocks("reactors.yml", "Mekanized heaters, thermodynamic conductors, boiler, turbine, fission and fusion reactors, SPS (Phase 6 wave 3), generated from Mekanism (MIT).",
-            phase7Machines, phase7Transports, phase7Items, reactorIds, nameKeys, membership)
-        generateBlocks("automation.yml", "Mekanized Digital Miner, seismic vibrator, teleporter, QIO and the cardboard box (Phase 6 wave 4), generated from Mekanism (MIT).",
-            phase8Machines, mapOf(), phase8Items, automationIds, nameKeys, membership,
-            extraModels = mapOf("cardboard_box_storage" to ("mekanized:block/cardboard_box_storage" to "block.mekanized.cardboard_box")))
-        generateGear(nameKeys, membership)
-        generateBlocks("extras.yml", "Mekanized chunk loading, quantum entangloporter, the last upgrades and tools (Phase 6 wave 6), generated from Mekanism (MIT).",
-            phase10Machines, mapOf(), phase10Items, extrasIds, nameKeys, membership)
+        for (phase in ContentPhases.all) {
+            val phaseIds = ids.getValue(phase.key)
+            phase.files.forEach { generateBlocks(it, phaseIds, nameKeys, membership) }
+            if (phase.gear.isNotEmpty()) generateGear(phase, phaseIds, nameKeys, membership)
+        }
         val chemicals = chemicals()
         nameKeys += chemicals.map { "chemical.mekanism.$it" }
         // Fluids are named by their liquid blocks (block.mekanism.brine).
@@ -97,150 +82,9 @@ internal class MekanismContent(
             linkedMapOf("lang" to languages(nameKeys)))
     }
 
-    // -- Phase 2: machines, generators, energy cubes, cables, upgrades ----------------------------
-
-    /** Machine blocks of Phase 2: block name -> the MachineEngine machine (or transport) behind it. */
-    private val phase2Machines = listOf(
-        "enrichment_chamber", "crusher", "energized_smelter", "osmium_compressor", "combiner", "metallurgic_infuser",
-        "purification_chamber", "precision_sawmill", "heat_generator", "solar_generator", "bio_generator",
-        "basic_energy_cube", "advanced_energy_cube", "elite_energy_cube", "ultimate_energy_cube", "creative_energy_cube",
-    )
-    private val tiers = listOf("basic", "advanced", "elite", "ultimate")
-
-    /** Transports -> the low edge of their square section (small 5..11, large 4..12). */
-    private val phase2Transports = tiers.associate { "${it}_universal_cable" to 5 }
-    private val phase2Items = listOf("upgrade_speed", "upgrade_energy", "solar_panel")
-
-    // -- Phase 3: chemical machines, tanks, tubes, pipes, pump ------------------------------------
-    private val phase3Machines = listOf(
-        "chemical_oxidizer", "chemical_infuser", "chemical_injection_chamber", "chemical_dissolution_chamber",
-        "chemical_washer", "chemical_crystallizer", "electrolytic_separator", "rotary_condensentrator", "electric_pump",
-    ) + (tiers + "creative").flatMap { listOf("${it}_chemical_tank", "${it}_fluid_tank") }
-    /** Crafting ingredients of Phase 3 machines (the tablet charges items in Phase 4). */
-    private val phase3Items = listOf("electrolytic_core", "energy_tablet")
-    private val phase3Transports = tiers.associate { "${it}_pressurized_tube" to 5 } + tiers.associate { "${it}_mechanical_pipe" to 4 }
-
-    /** Ids of Phase 2 content, for the recipe split. */
-    val machineIds = sortedSetOf<String>()
-
-    /** Ids of Phase 3 content, for the recipe split. */
-    val chemistryIds = sortedSetOf<String>()
-
-    // -- Phase 4: logistics, factories, tier installers, tools ------------------------------------
-    /** Mekanism's factory kinds: each runs several processes of one machine at once. */
-    val factoryKinds = listOf("smelting", "enriching", "crushing", "compressing", "combining", "purifying", "injecting", "infusing", "sawing")
-    private val phase4Machines = listOf("logistical_sorter") + tiers.flatMap { tier -> factoryKinds.map { "${tier}_${it}_factory" } }
-    private val phase4Transports = tiers.associate { "${it}_logistical_transporter" to 4 }
-    private val phase4Items = tiers.map { "${it}_tier_installer" } + "configurator"
-
-    /** Ids of Phase 4 content, for the recipe split. */
-    val logisticsIds = sortedSetOf<String>()
-
-    // -- Phase 5a: multiblocks ---------------------------------------------------------------------
-    /** Frame blocks: machines (they find their structure and pass through to its storage). */
-    private val phase5Machines = listOf("dynamic_tank", "dynamic_valve", "structural_glass", "induction_casing", "induction_port",
-        "thermal_evaporation_block", "thermal_evaporation_valve", "thermal_evaporation_controller")
-    /** Interior blocks of the induction matrix: plain blocks the structure counts. */
-    private val phase5Plain = tiers.flatMap { listOf("${it}_induction_cell", "${it}_induction_provider") }
-
-    /** Ids of Phase 5a content, for the recipe split. */
-    val multiblockIds = sortedSetOf<String>()
-
-    // -- Phase 6: the remaining single-block machines and generators ---------------------------
-    private val phase6Machines = listOf("pressurized_reaction_chamber", "isotopic_centrifuge", "solar_neutron_activator",
-        "antiprotonic_nucleosynthesizer", "painting_machine", "pigment_extractor", "pigment_mixer",
-        "gas_burning_generator", "wind_generator", "advanced_solar_generator")
-
-    /** Ids of Phase 6 content, for the recipe split. */
-    val endgameIds = sortedSetOf<String>()
-
-    // -- Phase 6 wave 2: storage and utility blocks ------------------------------------------------
-    // -- Phase 6 wave 3: heat, boiler, turbine, fission and fusion reactors, SPS -------------------
-    /** Frames, valves and ports, and the blocks inside the structures (machines too: their structure counts them). */
-    private val phase7Machines = listOf("resistive_heater", "fuelwood_heater",
-        "boiler_casing", "boiler_valve", "pressure_disperser", "superheating_element",
-        "turbine_casing", "turbine_valve", "turbine_vent", "turbine_rotor", "rotational_complex", "electromagnetic_coil", "saturating_condenser",
-        "fission_reactor_casing", "fission_reactor_port", "fission_reactor_logic_adapter", "reactor_glass", "fission_fuel_assembly", "control_rod_assembly",
-        "fusion_reactor_controller", "fusion_reactor_frame", "fusion_reactor_port", "fusion_reactor_logic_adapter", "laser_focus_matrix",
-        "sps_casing", "sps_port", "supercharged_coil")
-    private val phase7Transports = tiers.associate { "${it}_thermodynamic_conductor" to 5 }
-    private val phase7Items = listOf("turbine_blade")
-
-    /** Ids of Phase 6 wave 3 content, for the recipe split. */
-    val reactorIds = sortedSetOf<String>()
-
-    // -- Phase 6 wave 4: Digital Miner, seismic vibrator, teleporter, QIO, cardboard box -----------
-    private val phase8Machines = listOf("digital_miner", "seismic_vibrator", "teleporter", "teleporter_frame",
-        "qio_drive_array", "qio_dashboard", "qio_importer", "qio_exporter", "qio_redstone_adapter")
-    private val phase8Items = listOf("cardboard_box", "teleportation_core", "robit", "seismic_reader", "qio_drive_base", "qio_drive_hyper_dense",
-        "qio_drive_time_dilating", "qio_drive_supermassive")
-
-    /** Ids of Phase 6 wave 4 content, for the recipe split. */
-    val automationIds = sortedSetOf<String>()
-
-    // -- Phase 6 wave 5: tools and armour -------------------------------------------------------
-    /** A gear item: the vanilla item it is built on, the slot it is worn in, whether it shows the vanilla armour. */
-    private data class GearItem(val name: String, val material: String, val slot: String? = null, val vanillaLook: Boolean = false,
-                                val model: String? = null)
-
-    private val phase9Gear = listOf(
-        GearItem("atomic_disassembler", "netherite_pickaxe"),
-        GearItem("meka_tool", "netherite_pickaxe", model = "mekanized:item/atomic_disassembler"),
-        GearItem("flamethrower", "stick"),
-        GearItem("electric_bow", "bow"),
-        GearItem("network_reader", "stick"),
-        GearItem("canteen", "paper"),
-        GearItem("portable_teleporter", "paper"),
-        GearItem("portable_qio_dashboard", "paper"),
-        GearItem("configuration_card", "paper"),
-        GearItem("gauge_dropper", "paper"),
-        GearItem("dictionary", "paper"),
-        GearItem("crafting_formula", "paper"),
-        GearItem("jetpack", "paper", "chest"),
-        GearItem("jetpack_armored", "diamond_chestplate", "chest"),
-        GearItem("scuba_tank", "paper", "chest"),
-        GearItem("scuba_mask", "paper", "head"),
-        GearItem("free_runners", "leather_boots", "feet"),
-        GearItem("free_runners_armored", "diamond_boots", "feet"),
-        GearItem("mekasuit_helmet", "netherite_helmet", vanillaLook = true),
-        GearItem("mekasuit_bodyarmor", "netherite_chestplate", vanillaLook = true),
-        GearItem("mekasuit_pants", "netherite_leggings", vanillaLook = true),
-        GearItem("mekasuit_boots", "netherite_boots", vanillaLook = true),
-        GearItem("hazmat_mask", "leather_helmet", vanillaLook = true),
-        GearItem("hazmat_gown", "leather_chestplate", vanillaLook = true),
-        GearItem("hazmat_pants", "leather_leggings", vanillaLook = true),
-        GearItem("hazmat_boots", "leather_boots", vanillaLook = true),
-    )
-
-    /** Modules that work in Mekanized (installed by sneak-using them while wearing or holding the gear). */
-    private val phase9Modules = listOf("module_base", "module_electrolytic_breathing_unit", "module_vision_enhancement_unit",
-        "module_nutritional_injection_unit", "module_inhalation_purification_unit", "module_jetpack_unit",
-        "module_gravitational_modulating_unit", "module_elytra_unit", "module_locomotive_boosting_unit",
-        "module_hydraulic_propulsion_unit", "module_excavation_escalation_unit", "module_attack_amplification_unit",
-        "module_silk_touch_unit", "module_fortune_unit", "module_vein_mining_unit", "module_teleportation_unit",
-        "module_radiation_shielding_unit", "module_geiger_unit", "module_dosimeter_unit",
-        "module_energy_unit", "module_charge_distribution_unit", "module_gyroscopic_stabilization_unit", "module_solar_recharging_unit",
-        "module_geothermal_generator_unit", "module_motorized_servo_unit", "module_hydrostatic_repulsor_unit",
-        "module_magnetic_attraction_unit", "module_frost_walker_unit", "module_soul_surfer_unit", "module_blasting_unit",
-        "module_farming_unit", "module_shearing_unit",
-        // Ingredient of the elytra unit.
-        "hdpe_elytra")
-
-    /** Ids of Phase 6 wave 5 content, for the recipe split. */
-    val gearIds = sortedSetOf<String>()
-
-    // -- Phase 6 wave 6: chunk loading, entangloporter, the last upgrades, tools, radiation ------------
-    private val phase10Machines = listOf("dimensional_stabilizer", "quantum_entangloporter", "radioactive_waste_barrel",
-        "nutritional_liquifier", "modification_station")
-    private val phase10Items = listOf("upgrade_chemical", "upgrade_filter", "upgrade_anchor", "upgrade_stone_generator",
-        "dosimeter", "geiger_counter")
-
-    /** Ids of Phase 6 wave 6 content, for the recipe split. */
-    val extrasIds = sortedSetOf<String>()
-
-    private fun generateGear(nameKeys: MutableSet<String>, membership: Map<String, Set<String>>) {
+    private fun generateGear(phase: Phase, gearIds: MutableSet<String>, nameKeys: MutableSet<String>, membership: Map<String, Set<String>>) {
         val items = linkedMapOf<String, Any?>()
-        for (gear in phase9Gear) {
+        for (gear in phase.gear) {
             val model = gear.model ?: itemDefinition(gear.name)?.let { itemModel(it) }?.let { Ids.rename(it) } ?: run {
                 report.skip("gear item without a usable model", gear.name)
                 continue
@@ -254,7 +98,7 @@ internal class MekanismContent(
             nameKeys += "item.mekanism.${gear.name}"
             gearIds += "mekanized:${gear.name}"
         }
-        for (name in phase9Modules) {
+        for (name in phase.modules) {
             val model = itemDefinition(name)?.let { itemModel(it) } ?: continue
             items["mekanized:$name"] = linkedMapOf<String, Any?>(
                 "data" to mapOf("item_name" to "<!i><lang:item.mekanized.$name>"), "model" to Ids.rename(model))
@@ -268,6 +112,8 @@ internal class MekanismContent(
 
     /** Tiered display-rendered blocks: every tier shares the basic tier's state. */
     private val TIERED = listOf("energy_cube", "chemical_tank", "fluid_tank")
+    private val tiers = ContentPhases.tiers
+    private val factoryKinds = ContentPhases.factoryKinds
 
     /** Shared empty models of display-rendered blocks, by family (see generateBlocks). */
     private val displayFamilies = mutableMapOf<String, String>()
@@ -275,14 +121,15 @@ internal class MekanismContent(
     /** Display-rendered blocks players walk on: a thin state with no collision instead of a full leaves block. */
     private val THIN_STATES = mapOf("chargepad" to "pressure_plate")
 
-    private val phase6Utility = (tiers + "creative").map { "${it}_bin" } + listOf("personal_chest", "personal_barrel", "chargepad",
-        "fluidic_plenisher", "formulaic_assemblicator", "laser", "laser_amplifier", "laser_tractor_beam", "oredictionificator",
-        "industrial_alarm")
-
-    private fun generateBlocks(fileName: String, header: String, machineNames: List<String>, transports: Map<String, Int>,
-                               extraItems: List<String>, phaseIds: MutableSet<String>, nameKeys: MutableSet<String>,
-                               membership: Map<String, Set<String>>, plainBlocks: List<String> = listOf(),
-                               extraModels: Map<String, Pair<String, String>> = mapOf()) {
+    private fun generateBlocks(file: ContentFile, phaseIds: MutableSet<String>, nameKeys: MutableSet<String>,
+                               membership: Map<String, Set<String>>) {
+        val fileName = file.fileName
+        val header = file.header
+        val machineNames = file.machines
+        val transports = file.transports
+        val extraItems = file.items
+        val plainBlocks = file.plain
+        val extraModels = file.extraModels
         val items = linkedMapOf<String, Any?>()
         val blocks = linkedMapOf<String, Any?>()
         val modelsRoot = out.resolve("pack/resourcepack/assets/mekanized/models")

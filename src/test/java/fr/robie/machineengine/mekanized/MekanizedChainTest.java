@@ -44,8 +44,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class MekanizedChainTest {
     private static final WorldPosition HERE = FakeWorld.at(0, 64, 0);
     /** What the plugin installs, tags first. */
-    private static final List<String> DEFINITIONS = MekanizedPlugin.ENABLED_DEFINITIONS.stream()
+    private static final List<String> DEFINITIONS = manifest().definitions().stream()
             .sorted(java.util.Comparator.comparing((String name) -> name.startsWith("recipes_")).thenComparing(name -> name)).toList();
+
+    private static GeneratedManifest manifest() {
+        try {
+            return GeneratedManifest.load(MekanizedChainTest.class.getClassLoader());
+        } catch (java.io.IOException e) {
+            throw new java.io.UncheckedIOException(e);
+        }
+    }
 
     static ResourceVariant item(String id) {
         return Items.variant(new ItemData(Key.key(id), id.getBytes(StandardCharsets.UTF_8)));
