@@ -6,7 +6,9 @@ import fr.robie.machineengine.api.network.NetworkBehavior;
 import fr.robie.machineengine.api.network.NetworkType;
 import fr.robie.machineengine.api.network.TransportType;
 import fr.robie.machineengine.api.recipe.ProcessingRecipe;
+import fr.robie.machineengine.api.recipe.Recipe;
 import fr.robie.machineengine.api.recipe.RecipeType;
+import fr.robie.machineengine.api.registry.ReloadContext;
 import fr.robie.machineengine.api.resource.match.ResourcePredicate;
 import fr.robie.machineengine.api.upgrade.Modifier;
 import fr.robie.machineengine.api.upgrade.ModifierType;
@@ -17,6 +19,7 @@ import fr.robie.machineengine.mekanized.MekanizedSettings;
 import fr.robie.machineengine.mekanized.multiblock.MultiblockMachines;
 import fr.robie.machineengine.mekanized.multiblock.ReactorMachines;
 import java.util.List;
+import java.util.function.Consumer;
 import static fr.robie.machineengine.mekanized.MekanizedContent.key;
 
 /**
@@ -80,7 +83,14 @@ public final class MekanizedRegistry {
             TransportType.of(key("elite_universal_cable"), ENERGY_NETWORK, MekanizedSettings.cableRates[2], IS_ENERGY),
             TransportType.of(key("ultimate_universal_cable"), ENERGY_NETWORK, MekanizedSettings.cableRates[3], IS_ENERGY));
 
+    /** The server's furnace recipes for the energized smelter, set by the platform (none in headless tests). */
+    private static volatile Consumer<ReloadContext<Recipe>> furnaceRecipes;
+
     private MekanizedRegistry() {
+    }
+
+    public static void furnaceRecipes(Consumer<ReloadContext<Recipe>> provider) {
+        furnaceRecipes = provider;
     }
 
     /** The upgrades every machine with upgrade slots takes: speed, energy, anchor. */
@@ -111,7 +121,8 @@ public final class MekanizedRegistry {
         context.networkTypes().register(ENERGY_NETWORK);
         CABLES.forEach(context.transportTypes()::register);
         BasicMachines.machines().forEach(context.machineTypes()::register);
-        context.recipes(FurnaceRecipes::provide);
+        Consumer<ReloadContext<Recipe>> furnaces = furnaceRecipes;
+        if (furnaces != null) context.recipes(furnaces::accept);
         ChemistryMachines.register(context);
         LogisticsMachines.register(context);
         ReactionAndPigmentMachines.register(context);

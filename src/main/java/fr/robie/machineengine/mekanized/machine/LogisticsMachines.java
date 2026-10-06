@@ -29,7 +29,7 @@ import static fr.robie.machineengine.mekanized.machine.MekanizedRegistry.ENERGY_
 import static fr.robie.machineengine.mekanized.machine.MekanizedRegistry.IS_CHEMICAL;
 
 /**
- * Phase 4 (MEKANIZED_PLAN.md): logistical transporters, the logistical sorter and the factories, with
+ * Logistical transporters, the logistical sorter and the factories, with
  * the tier installers' upgrade paths (machine to basic factory, then tier by tier).
  */
 public final class LogisticsMachines {

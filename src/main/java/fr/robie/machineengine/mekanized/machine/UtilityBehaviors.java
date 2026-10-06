@@ -31,7 +31,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 
-/** Behaviors of Mekanism's utility blocks (Phase 6 wave 2): bins, plenisher, assemblicator, lasers, alarm. */
+/** Behaviors of Mekanism's utility blocks: bins, plenisher, assemblicator, lasers, alarm. */
 public final class UtilityBehaviors {
     private static final Set<Key> AIR = Set.of(Key.key("minecraft", "air"), Key.key("minecraft", "cave_air"), Key.key("minecraft", "void_air"));
 

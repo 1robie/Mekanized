@@ -41,7 +41,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Mekanized's tools on machines (Phase 4):
+ * Mekanized's tools on machines:
  * <ul>
  *   <li>tier installers: a machine becomes its basic factory, a factory its next tier, keeping what it
  *       holds (the running operation is cancelled, its inputs given back);</li>

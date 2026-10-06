@@ -18,7 +18,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
- * Mekanism's multiblocks (MEKANIZED_PLAN.md, Phase 5a): hollow boxes of frame blocks. The formed
+ * Mekanism's multiblocks: hollow boxes of frame blocks. The formed
  * structures, by anchor (their lowest corner, a casing that holds their storage).
  */
 public final class Multiblocks {

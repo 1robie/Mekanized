@@ -20,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import static fr.robie.machineengine.mekanized.MekanizedContent.key;
 
 /**
- * Chunk loading (Phase 6 wave 6): machines with an anchor upgrade keep their own chunk loaded; the
+ * Chunk loading: machines with an anchor upgrade keep their own chunk loaded; the
  * dimensional stabilizer keeps the chunks around it loaded while it has energy. This class only
  * knows which machine wants which chunks; the platform adds the chunk tickets and saves the list.
  */

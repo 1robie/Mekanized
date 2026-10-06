@@ -1,4 +1,4 @@
-package fr.robie.machineengine.mekanized.machine;
+package fr.robie.machineengine.mekanized.paper;
 
 import fr.robie.machineengine.api.item.ItemData;
 import fr.robie.machineengine.api.item.Items;
@@ -7,6 +7,7 @@ import fr.robie.machineengine.api.registry.ReloadContext;
 import fr.robie.machineengine.api.resource.match.ResourceMatcher;
 import fr.robie.machineengine.api.resource.match.ResourcePredicate;
 import fr.robie.machineengine.mekanized.MekanizedContent;
+import fr.robie.machineengine.mekanized.machine.MekanizedRegistry;
 import fr.robie.machineengine.paper.PaperItems;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
@@ -29,13 +30,13 @@ import java.util.logging.Logger;
  * which include Mekanized's dust smelting), like Mekanism's: same ingredient, output and duration,
  * 50 J per tick. Re-read on every recipe reload.
  */
-final class FurnaceRecipes {
+public final class PaperFurnaceRecipes {
     private static final long JOULES_PER_TICK = 50;
 
-    private FurnaceRecipes() {
+    private PaperFurnaceRecipes() {
     }
 
-    static void provide(ReloadContext<fr.robie.machineengine.api.recipe.Recipe> reload) {
+    public static void provide(ReloadContext<fr.robie.machineengine.api.recipe.Recipe> reload) {
         if (Bukkit.getServer() == null) return; // headless tests
         int registered = 0;
         Map<String, Integer> skipped = new TreeMap<>();

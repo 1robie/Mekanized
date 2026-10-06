@@ -73,7 +73,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * The Paper side of Phase 6 wave 4: frequencies ({@code /mekanized frequency}), teleporting players
+ * The Paper side of the automation machines: frequencies ({@code /mekanized frequency}), teleporting players
  * who walk into a teleporter's portal, the cardboard box, the seismic reader and the QIO dashboard
  * (a chest menu of everything the frequency's drive arrays hold).
  */

@@ -103,7 +103,7 @@ final class BasicMachines {
 
     /**
      * Energy buffer (input from every side) and the slot that turns redstone into energy. Conversion
-     * slots have no port: what hoppers and pipes insert goes to the input (side configuration, Phase 4).
+     * slots have no port: what hoppers and pipes insert goes to the input (side configuration).
      */
     static MachineType.Builder base(String name, long energy) {
         return MachineType.builder(key(name))

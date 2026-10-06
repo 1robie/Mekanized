@@ -22,7 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import static fr.robie.machineengine.mekanized.MekanizedContent.key;
 
 /**
- * Radiation (Phase 6 wave 6), a simpler take on Mekanism's: radioactive chemicals released into the
+ * Radiation, a simpler take on Mekanism's: radioactive chemicals released into the
  * world (a fission reactor reaching full damage) become a source, in Sv/h, that fades by half every
  * few minutes. The platform measures each player's exposure (background, plus each source over the
  * squared distance), adds up their dose, applies its effects and saves the sources.

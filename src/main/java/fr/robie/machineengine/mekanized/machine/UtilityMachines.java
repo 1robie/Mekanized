@@ -22,7 +22,7 @@ import static fr.robie.machineengine.mekanized.machine.MekanizedRegistry.ENERGY_
 import static fr.robie.machineengine.mekanized.machine.MekanizedRegistry.IS_ENERGY;
 
 /**
- * Phase 6 wave 2 (MEKANIZED_PLAN.md): Mekanism's utility blocks. Bins (one item, many of it), personal
+ * Mekanism's utility blocks. Bins (one item, many of it), personal
  * chest and barrel (their owner's), the chargepad, the Fluidic Plenisher, the Formulaic Assemblicator,
  * the lasers, the Oredictionificator and the Industrial Alarm. Players use bins, personal storage and
  * chargepads through {@code PaperConfigurator}.

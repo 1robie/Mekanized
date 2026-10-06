@@ -25,7 +25,7 @@ import java.util.function.Predicate;
 import static fr.robie.machineengine.mekanized.MekanizedContent.key;
 
 /**
- * Phase 6 wave 3 (MEKANIZED_PLAN.md): heat. Heat is a resource ({@link MekanizedContent#HEAT}, in
+ * Heat. Heat is a resource ({@link MekanizedContent#HEAT}, in
  * Joules): the resistive heater turns energy into it, the fuelwood heater burns furnace fuels for it,
  * thermodynamic conductors carry it, and a boiler's valves take it in.
  */

@@ -28,7 +28,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import static fr.robie.machineengine.mekanized.MekanizedContent.key;
 
 /**
- * The quantum entangloporter (Phase 6 wave 6): every entangloporter of a frequency shares one buffer
+ * The quantum entangloporter: every entangloporter of a frequency shares one buffer
  * of energy, items, fluid and chemical. A sending one moves what pipes, cables and hoppers give it
  * into the buffer; a receiving one takes from the buffer and pushes it out of every side.
  *

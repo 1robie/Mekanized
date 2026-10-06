@@ -50,7 +50,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * Mekanism's small tools (Phase 6 wave 6), on Paper:
+ * Mekanism's small tools, on Paper:
  * <ul>
  *   <li>configuration card: sneak-right-click a machine to copy its side configuration, auto-eject and
  *       redstone control; right-click another machine of the same kind to paste them;</li>

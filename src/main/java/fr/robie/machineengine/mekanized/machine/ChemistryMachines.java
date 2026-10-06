@@ -32,7 +32,7 @@ import static fr.robie.machineengine.mekanized.machine.MekanizedRegistry.IS_CHEM
 import static fr.robie.machineengine.mekanized.machine.MekanizedRegistry.SPEED;
 
 /**
- * Phase 3 (MEKANIZED_PLAN.md): chemical machines, chemical and fluid tanks, pressurized tubes,
+ * Chemical machines, chemical and fluid tanks, pressurized tubes,
  * mechanical pipes and the electric pump. Mekanism's numbers (Joules, mB); recipe durations and
  * per-tick energy come from the imported recipe files.
  */

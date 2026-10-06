@@ -26,7 +26,7 @@ import static fr.robie.machineengine.mekanized.machine.MekanizedRegistry.ENERGY_
 import static fr.robie.machineengine.mekanized.machine.MekanizedRegistry.IS_CHEMICAL;
 
 /**
- * Phase 6 (MEKANIZED_PLAN.md): the remaining single-block machines (Pressurized Reaction Chamber,
+ * The remaining single-block machines (Pressurized Reaction Chamber,
  * Isotopic Centrifuge, Solar Neutron Activator, Antiprotonic Nucleosynthesizer, the painting machines)
  * and generators (gas-burning, wind, advanced solar).
  */

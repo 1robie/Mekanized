@@ -25,7 +25,7 @@ public final class EnergyItems {
     /** Joules each energy item holds when full. */
     public static final Map<Key, Long> CAPACITY = Map.ofEntries(
             Map.entry(MekanizedContent.key("energy_tablet"), 1_000_000L),
-            // Phase 6 wave 5: tools and armour.
+            // Tools and armour.
             Map.entry(MekanizedContent.key("atomic_disassembler"), 1_000_000L),
             Map.entry(MekanizedContent.key("portable_teleporter"), 1_000_000L),
             Map.entry(MekanizedContent.key("meka_tool"), 16_000_000L),

@@ -15,6 +15,9 @@ import fr.robie.machineengine.mekanized.paper.command.MekanizedCommands;
 
 import fr.robie.machineengine.api.MachineEngine;
 import fr.robie.machineengine.api.addon.AddonRegistration;
+import fr.robie.machineengine.mekanized.machine.MekanizedRegistry;
+import fr.robie.machineengine.mekanized.paper.PaperFurnaceRecipes;
+import fr.robie.machineengine.mekanized.paper.PaperResourceNames;
 import fr.robie.machineengine.mekanized.paper.persist.LineStore;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -51,6 +54,7 @@ public final class MekanizedPlugin extends JavaPlugin {
         // Before anything builds the machines and transports from them.
         saveDefaultConfig();
         MekanizedSettings.load(getConfig(), getLogger());
+        MekanizedRegistry.furnaceRecipes(PaperFurnaceRecipes::provide);
         MachineEngine.register(AddonRegistration.builder(getName(), getPluginMeta().getVersion())
                 .requiresApi("[0.1,1.0)")
                 .register(MekanizedContent::register)
@@ -86,19 +90,6 @@ public final class MekanizedPlugin extends JavaPlugin {
         }
     }
 
-    /** Menu names of Mekanized resources, translated on each player's client (Mekanism's language files). */
-    private static String name(fr.robie.machineengine.api.resource.ResourceVariant variant) {
-        var type = variant.type();
-        if (type == MekanizedContent.ENERGY) return "Energy";
-        String value = type.key().value();
-        if (type.category() == MekanizedContent.CHEMICAL) return "<lang:chemical.mekanized." + value + ">";
-        if (type.category() == MekanizedContent.FLUID) {
-            String fluid = value.substring(value.indexOf('/') + 1);
-            return fluid.equals("water") || fluid.equals("lava") ? "<lang:block.minecraft." + fluid + ">" : "<lang:block.mekanized." + fluid + ">";
-        }
-        return null;
-    }
-
     @Override
     public void onDisable() {
         PaperEntangloporters.save();
@@ -117,7 +108,7 @@ public final class MekanizedPlugin extends JavaPlugin {
         PaperChunkLoaders.install(this);
         PaperEntangloporters.install(this);
         PaperRadiation.install(this);
-        fr.robie.machineengine.paper.ResourceNames.register(MekanizedPlugin::name);
+        fr.robie.machineengine.paper.ResourceNames.register(PaperResourceNames::name);
         getServer().getPluginManager().registerEvents(new PaperConfigurator(), this);
         getServer().getPluginManager().registerEvents(new PaperTools(), this);
         MekanizedCommands commands = new MekanizedCommands(this);

@@ -23,7 +23,7 @@ import java.util.Set;
 import static fr.robie.machineengine.mekanized.MekanizedContent.key;
 
 /**
- * Phase 5a (MEKANIZED_PLAN.md): the Dynamic Tank and the Induction Matrix, with Mekanism's numbers:
+ * The Dynamic Tank and the Induction Matrix, with Mekanism's numbers:
  * 350,000 mB of fluid or 16,000,000 mB of chemical per block inside a tank; induction cells of 8 GJ to
  * 4 TJ, providers of 256 kJ/t to 131 MJ/t.
  */

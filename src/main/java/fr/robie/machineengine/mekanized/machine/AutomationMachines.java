@@ -44,7 +44,7 @@ import static fr.robie.machineengine.mekanized.machine.MekanizedRegistry.ENERGY_
 import static fr.robie.machineengine.mekanized.machine.MekanizedRegistry.IS_ENERGY;
 
 /**
- * Phase 6 wave 4 (MEKANIZED_PLAN.md): the Digital Miner, the seismic vibrator, the teleporter and
+ * The Digital Miner, the seismic vibrator, the teleporter and
  * QIO (drive arrays, importers, exporters; the dashboard is a Paper menu). Teleporters and QIO blocks
  * share a frequency, a name set with {@code /mekanized frequency <name>}.
  */

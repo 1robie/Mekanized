@@ -25,7 +25,7 @@ import java.util.ArrayDeque;
 import java.util.HashSet;
 import java.util.Set;
 
-/** Tanks, the electric pump and the rotary condensentrator (MEKANIZED_PLAN.md, Phase 3). */
+/** Tanks, the electric pump and the rotary condensentrator. */
 public final class ChemistryBehaviors {
     /** The rotary condensentrator's mode: {@link #CONDENSING} (chemical to fluid) or {@link #DECONDENSING}. */
     public static final String CONDENSING = "condensing";

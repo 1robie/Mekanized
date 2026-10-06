@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Mekanized's resources (docs/MEKANIZED_PLAN.md). Registered in Java, not in YAML definitions:
- * machines (Phase 2) need them when they register, and definitions run after every addon.
+ * machines need them when they register, and definitions run after every addon.
  *
  * <ul>
  *   <li>{@link #ENERGY}: energy in Joules;</li>
@@ -40,7 +40,7 @@ public final class MekanizedContent {
     public static final ResourceType ENERGY = ResourceType.of(key("energy"), ENERGY_CATEGORY);
     public static final ResourceCategory CHEMICAL = ResourceCategory.builder(key("chemical")).unit("mB").build();
     public static final ResourceCategory FLUID = ResourceCategory.builder(key("fluid")).unit("mB").build();
-    /** Heat in Joules: heaters make it, thermodynamic conductors carry it, boilers use it (Phase 6 wave 3). */
+    /** Heat in Joules: heaters make it, thermodynamic conductors carry it, boilers use it. */
     public static final ResourceCategory HEAT_CATEGORY = ResourceCategory.builder(key("heat")).unit("J").build();
     public static final ResourceType HEAT = ResourceType.of(key("heat"), HEAT_CATEGORY);
     private static final Map<String, ResourceType> FLUIDS = new ConcurrentHashMap<>();

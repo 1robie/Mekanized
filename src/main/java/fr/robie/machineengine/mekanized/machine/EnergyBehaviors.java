@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
-/** Generators and energy storage (MEKANIZED_PLAN.md, Phase 2). Energy is {@link MekanizedContent#ENERGY}, in Joules. */
+/** Generators and energy storage . Energy is {@link MekanizedContent#ENERGY}, in Joules. */
 public final class EnergyBehaviors {
     public static final String ENERGY = "energy";
     private static final Predicate<ResourceVariant> IS_ENERGY = variant -> variant.type() == MekanizedContent.ENERGY;

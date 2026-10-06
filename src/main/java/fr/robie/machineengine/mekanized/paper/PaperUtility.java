@@ -51,7 +51,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * The Paper side of the utility blocks (Phase 6 wave 2): bins taken from and filled by hand, personal
+ * The Paper side of the utility blocks: bins taken from and filled by hand, personal
  * chests and barrels kept to their owner, chargepads charging the players on them, and the server's
  * crafting recipes and items for the Formulaic Assemblicator and the Oredictionificator.
  */
