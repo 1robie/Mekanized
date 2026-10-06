@@ -1,7 +1,8 @@
 # Mekanized: plan
 
-A Mekanism-style content plugin for MachineEngine. Like the example addon, it is a separate plugin
-that depends only on MachineEngine's API, its YAML definitions and a CraftEngine pack.
+A Mekanism-style content plugin for MachineEngine. It is a separate plugin that depends only on
+MachineEngine's API, its YAML definitions and a CraftEngine pack (D27; it still uses some engine
+internals until RESTRUCTURE_PLAN.md R7). It is also the reference addon since the example was removed.
 
 ## Decisions (project owner, 2026-10-02)
 
@@ -23,7 +24,7 @@ ways that hide where they came from. Source: `https://github.com/mekanism/Mekani
 ## Phases
 
 ### Phase 0: setup and import tooling
-- **Module:** `machineengine-mekanized` (Paper plugin, dev servers install it like the example).
+- **Module:** `machineengine-mekanized` (Paper plugin, dev servers install it next to MachineEngine).
 - **`importMekanism` task:** downloads the pinned commit as an archive and caches it under `.mekanism/`.
   - It copies the textures, models and `.mcmeta` animations that Mekanized uses into the CraftEngine pack, renaming the namespace to `mekanized`.
   - It converts Mekanism recipes into Mekanized YAML: recipe types map to ours (enriching, crushing, …), and crafting and smelting recipes become CraftEngine recipes.

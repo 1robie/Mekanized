@@ -184,7 +184,7 @@ final class MekanizedDebugCommands {
     }
 
     /** Places a Mekanized block; false (nothing placed) if the position belongs to another Folia region. */
-    private static boolean place(World world, int x, int y, int z, String block) {
+    static boolean place(World world, int x, int y, int z, String block) {
         if (!Bukkit.isOwnedByCurrentRegion(world, x >> 4, z >> 4)) return false;
         return CraftEngineBlocks.place(new Location(world, x, y, z), Key.of(MekanizedContent.NAMESPACE, block), false);
     }

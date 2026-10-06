@@ -20,16 +20,19 @@ import org.bukkit.plugin.Plugin;
 
 /**
  * The {@code /mekanized} command: {@code frequency <name>} (players), {@code build <structure>} and
- * {@code radiation} (admins). The server-side checks are in {@link MekanizedDebugCommands}.
+ * {@code radiation} (admins). The server-side checks are in {@link MekanizedDebugCommands} (Mekanized
+ * content) and {@link EngineCheckCommands} (engine features).
  */
 @SuppressWarnings("UnstableApiUsage")
 public final class MekanizedCommands {
     private final Plugin plugin;
     private final MekanizedDebugCommands debug;
+    private final EngineCheckCommands engineChecks;
 
     public MekanizedCommands(Plugin plugin) {
         this.plugin = plugin;
         this.debug = new MekanizedDebugCommands(plugin);
+        this.engineChecks = new EngineCheckCommands(plugin);
     }
 
     /** {@code /mekanized build <structure> [<x y z>]}: a working multiblock, its lowest corner there. */
@@ -81,6 +84,7 @@ public final class MekanizedCommands {
                                     return Command.SINGLE_SUCCESS;
                                 })));
         this.debug.addTo(root);
+        this.engineChecks.addTo(root);
         return root.build();
     }
 
