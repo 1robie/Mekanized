@@ -14,7 +14,7 @@ dependencies {
     compileOnly(project(":common"))
 
     // Headless tests of the imported content (machines, recipes, tags), no server.
-    testImplementation(project(":machineengine-test"))
+    testImplementation(project(":test"))
 }
 
 // -- Mekanism import (MEKANIZED_PLAN.md Phase 0, K4) -------------------------------------------------
