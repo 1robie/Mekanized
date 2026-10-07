@@ -5,14 +5,10 @@ import fr.robie.machineengine.api.paper.PaperItemResources;
 import fr.robie.machineengine.api.paper.PaperItems;
 import fr.robie.machineengine.api.resource.Energy;
 import fr.robie.machineengine.mekanized.MekanizedContent;
-import fr.robie.machineengine.mekanized.paper.Lore;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 import net.kyori.adventure.key.Key;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.inventory.ItemStack;
@@ -88,29 +84,21 @@ public final class GearItems {
         return joules <= 0 ? 0 : PaperItemResources.add(stack, Energy.KEY, joules);
     }
 
-    /** Rewrites the lore (energy, chemical, modules) and the tool speeds of a Mekanized item. */
+    /**
+     * After a change: a mining tool's speed follows its charge. The lore is drawn for each player when the
+     * item is sent ({@code mekanized:gear_lore}, {@code machineengine:resource_lore}); the English lore the
+     * server wrote before is removed.
+     */
     public static void refresh(ItemStack stack) {
-        String id = id(stack);
-        if (id == null) return;
-        long capacity = capacity(stack);
-        long energy = energy(stack);
-        Key chemical = chemicalType(stack);
-        long chemicalAmount = chemical == null ? 0 : PaperItemResources.amount(stack, chemical);
-        long chemicalCapacity = chemical == null ? 0 : PaperItemResources.capacity(stack, chemical);
-        Set<String> modules = modules(stack);
-        List<Component> lore = new ArrayList<>();
-        if (capacity > 0) lore.add(Lore.line(String.format(Locale.ROOT, "Energy: %,d / %,d J", energy, capacity)));
-        if (chemical != null) {
-            String name = MekanizedContent.displayName(chemical.value());
-            lore.add(Lore.line(String.format(Locale.ROOT, "%s: %,d / %,d mB", capitalize(name), chemicalAmount, chemicalCapacity)));
-        }
-        for (String module : modules) lore.add(Lore.line("+ " + capitalize(module.replace('_', ' '))).color(NamedTextColor.AQUA));
+        if (id(stack) == null) return;
         GearBehaviors.MiningTool mining = GearBehaviors.options(stack, GearBehaviors.MiningTool.class);
-        boolean tool = mining != null;
-        if (lore.isEmpty() && !tool) return;
+        boolean oldLore = stack.hasItemMeta() && stack.getItemMeta().hasLore();
+        if (mining == null && !oldLore) return;
+        long energy = mining == null ? 0 : energy(stack);
+        Set<String> modules = mining == null ? Set.of() : modules(stack);
         stack.editMeta(meta -> {
-            meta.lore(lore);
-            if (!tool) return;
+            if (oldLore) meta.lore(null);
+            if (mining == null) return;
             // Mining tools: fast on what pickaxes, axes, shovels and hoes mine while charged.
             boolean charged = energy >= mining.energyPerBlock();
             float speed = !charged ? 1f : modules.contains("excavation_escalation_unit") ? mining.amplifiedSpeed() : mining.chargedSpeed();
@@ -125,7 +113,4 @@ public final class GearItems {
         });
     }
 
-    private static String capitalize(String text) {
-        return text.isEmpty() ? text : Character.toUpperCase(text.charAt(0)) + text.substring(1);
-    }
 }

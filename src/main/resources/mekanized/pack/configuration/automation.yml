@@ -116,6 +116,9 @@ items:
     data:
       item_name: <!i><lang:block.mekanized.cardboard_box>
     model: mekanized:block/cardboard_box_storage
+    client-bound-data:
+      mekanized:gear_lore: {}
+      machineengine:resource_lore: {}
 blocks:
   mekanized:digital_miner:
     behavior:

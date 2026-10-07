@@ -540,6 +540,9 @@ items:
     data:
       item_name: <!i><lang:item.mekanized.energy_tablet>
     model: mekanized:item/energy_tablet
+    client-bound-data:
+      mekanized:gear_lore: {}
+      machineengine:resource_lore: {}
 blocks:
   mekanized:chemical_oxidizer:
     behavior:

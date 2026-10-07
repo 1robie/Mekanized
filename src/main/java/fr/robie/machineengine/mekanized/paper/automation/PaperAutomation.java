@@ -127,7 +127,6 @@ public final class PaperAutomation implements Listener {
             ItemStack hand = player.getInventory().getItemInMainHand();
             if (GearBehaviors.of(hand, PortableBehavior.class) != null && machine == null) {
                 ItemData.setString(hand, ItemData.Field.FREQUENCY, frequency);
-                hand.editMeta(meta -> meta.lore(List.of(Lore.line("Frequency: " + frequency))));
                 player.sendMessage(Component.text("Frequency of the item set to ", NamedTextColor.GRAY).append(Component.text(frequency, NamedTextColor.YELLOW)));
                 return;
             }
@@ -327,7 +326,6 @@ public final class PaperAutomation implements Listener {
         ItemData.setString(full, ItemData.Field.BOX_BLOCK, data);
         ItemData.setBytes(full, ItemData.Field.BOX_ITEMS, finalItems);
         ItemData.setString(full, ItemData.Field.BOX_SPAWNER, finalSpawned);
-        full.editMeta(meta -> meta.lore(List.of(Lore.line("Contains: " + block.getType().getKey().getKey().replace('_', ' ')))));
         block.setType(Material.AIR, false);
         box.setAmount(box.getAmount() - 1);
         PaperWorld.give(player, full);

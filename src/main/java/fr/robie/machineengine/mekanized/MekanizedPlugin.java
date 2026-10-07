@@ -54,6 +54,7 @@ public final class MekanizedPlugin extends JavaPlugin {
         MekanizedSettings.load(this);
         MekanizedRegistry.furnaceRecipes(PaperFurnaceRecipes::provide);
         MekanizedItemBehaviors.register();
+        MekanizedItemBehaviors.registerProcessors();
         MachineEngine.register(AddonRegistration.builder(getName(), getPluginMeta().getVersion())
                 .requiresApi("[0.1,1.0)")
                 .register(MekanizedContent::register)

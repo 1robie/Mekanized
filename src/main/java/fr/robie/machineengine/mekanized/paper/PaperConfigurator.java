@@ -33,7 +33,6 @@ import fr.robie.machineengine.api.paper.PaperItemBehavior;
 import fr.robie.machineengine.api.item.MachineTool;
 import fr.robie.machineengine.api.paper.MachineInteractions;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -53,7 +52,6 @@ import java.util.stream.Collectors;
  * On a vanilla container that opens, sneak to reach the transports beside it.
  */
 public final class PaperConfigurator {
-    private static final Direction[] TURN = {Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
 
     /** Multiblock frame blocks (the walls of every structure): they open their structure's menu (the anchor's). */
     private static final Set<Key> MEMBERS = MultiblockMachines.TYPES.stream().flatMap(type -> type.shape().blocks().stream())
@@ -96,10 +94,8 @@ public final class PaperConfigurator {
             MachineInstance machine = PaperWorld.machine(position);
             if (machine != null && !use.sneaking() && cyclePortMode(player, machine)) return true;
             if (machine == null) return blocks != null && cycleTransport(player, blocks, block, position, use.face());
-            if (use.sneaking()) {
-                turn(player, blocks, machine);
-                return true;
-            }
+            // Sneaking: turning the machine is the engine's wrench (machineengine:wrench, before this behavior).
+            if (use.sneaking()) return false;
             MachineMenus menus = MachineMenus.current();
             Set<String> groups = new HashSet<>();
             machine.type().ports().forEach(port -> {
@@ -266,15 +262,5 @@ public final class PaperConfigurator {
         }
         if (player.getGameMode() != GameMode.CREATIVE) item.setAmount(item.getAmount() - 1);
         player.sendActionBar(Component.text("Upgraded to " + next.value().replace('_', ' '), NamedTextColor.GREEN));
-    }
-
-    /** Turns the machine a quarter clockwise (it keeps what it holds; a running operation restarts). */
-    private static void turn(Player player, @Nullable MachineBlocks blocks, MachineInstance machine) {
-        Direction facing = machine.inspect().facing();
-        int index = Arrays.asList(TURN).indexOf(facing);
-        Direction next = TURN[(index + 1) % TURN.length];
-        if (blocks == null || !blocks.replaceBlock(machine.position(), machine.inspect().type(), next)) {
-            player.sendActionBar(Component.text("The machine is busy; try again", NamedTextColor.RED));
-        }
     }
 }

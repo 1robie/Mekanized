@@ -71,16 +71,7 @@ public final class ItemData {
 
     /** A list of strings; an old comma-separated string reads as its parts. */
     public static @NotNull List<String> getStrings(@Nullable ItemStack stack, @NotNull Field field) {
-        Tag tag = read(stack, field);
-        List<String> values = new ArrayList<>();
-        if (tag instanceof ListTag list) {
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i) instanceof StringTag string) values.add(string.value());
-            }
-        } else if (tag instanceof StringTag string && !string.value().isEmpty()) {
-            for (String part : string.value().split(",")) if (!part.isBlank()) values.add(part.trim());
-        }
-        return values;
+        return strings(read(stack, field));
     }
 
     /** Sets the string, or removes the field ({@code null}). */
@@ -108,7 +99,39 @@ public final class ItemData {
         write(stack, field, list);
     }
 
+    // -- reading a CraftEngine item (an item being sent: never changed) ---------------------------
+
+    /** The field's value on {@code item}, new or old place, without moving it. */
+    public static @Nullable Tag peek(@NotNull Item item, @NotNull Field field) {
+        Tag tag = item.getSparrowTag(ROOT, field.name);
+        return tag != null ? tag : item.getSparrowTag(OLD_PDC, ROOT + ":" + field.name);
+    }
+
+    public static @Nullable String peekString(@NotNull Item item, @NotNull Field field) {
+        return peek(item, field) instanceof StringTag tag ? tag.value() : null;
+    }
+
+    public static long peekLong(@NotNull Item item, @NotNull Field field) {
+        return peek(item, field) instanceof NumericTag tag ? tag.getAsLong() : 0;
+    }
+
+    public static @NotNull List<String> peekStrings(@NotNull Item item, @NotNull Field field) {
+        return strings(peek(item, field));
+    }
+
     // -- internals ---------------------------------------------------------------------------------
+
+    private static List<String> strings(@Nullable Tag tag) {
+        List<String> values = new ArrayList<>();
+        if (tag instanceof ListTag list) {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i) instanceof StringTag string) values.add(string.value());
+            }
+        } else if (tag instanceof StringTag string && !string.value().isEmpty()) {
+            for (String part : string.value().split(",")) if (!part.isBlank()) values.add(part.trim());
+        }
+        return values;
+    }
 
     private static @Nullable Tag read(@Nullable ItemStack stack, Field field) {
         if (stack == null || stack.isEmpty()) return null;

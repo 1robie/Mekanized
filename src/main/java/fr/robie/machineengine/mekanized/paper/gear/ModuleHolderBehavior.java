@@ -15,6 +15,8 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Set;
+
 /**
  * The CraftEngine item behavior {@code mekanized:module_holder}: gear that takes modules (the MekaSuit,
  * the Meka-Tool). Installed modules with a {@code capacity-factor} (the energy unit) multiply the item's
@@ -66,13 +68,16 @@ public final class ModuleHolderBehavior extends PaperItemBehavior implements Ite
      *     enchantment: minecraft:fortune   # the gear gets this enchantment while installed
      *     enchantment-level: 3
      *     glider: true                # the elytra unit: the chestplate glides (Paper 1.21.2+)
+     *     fits: [mekanized:mekasuit_helmet]   # the items it goes into (worn, or the off hand)
      * }</pre>
      */
     public static final class Module extends PaperItemBehavior {
         public static final ItemBehaviorFactory<Module> FACTORY = (pack, path, id, section) -> new Module(
                 section.getNonEmptyString("module"), section.getLong("energy", 0), section.getInt("range", 0),
                 section.getLong("capacity-factor", 1), section.getString("enchantment", (String) null),
-                section.getInt("enchantment-level", 1), section.getBoolean("glider", false));
+                section.getInt("enchantment-level", 1), section.getBoolean("glider", false),
+                section.getValue("fits", value -> value.getAsStringList().stream().map(net.kyori.adventure.key.Key::key)
+                        .collect(java.util.stream.Collectors.toUnmodifiableSet()), Set.of()));
 
         private final String module;
         private final long energy;
@@ -81,9 +86,11 @@ public final class ModuleHolderBehavior extends PaperItemBehavior implements Ite
         private final @Nullable String enchantment;
         private final int enchantmentLevel;
         private final boolean glider;
+        private final Set<net.kyori.adventure.key.Key> fits;
 
         private Module(String module, long energy, int range, long capacityFactor, @Nullable String enchantment,
-                       int enchantmentLevel, boolean glider) {
+                       int enchantmentLevel, boolean glider, Set<net.kyori.adventure.key.Key> fits) {
+            this.fits = fits;
             this.module = module;
             this.energy = Math.max(0, energy);
             this.range = Math.max(0, range);
@@ -127,7 +134,7 @@ public final class ModuleHolderBehavior extends PaperItemBehavior implements Ite
         @Override
         protected boolean use(@NotNull Use use) {
             if (!use.sneaking()) return false;
-            GearModules.install(use.player(), use.item(), this.module);
+            GearModules.install(use.player(), use.item(), this.module, this.fits);
             return true;
         }
     }

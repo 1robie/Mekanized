@@ -13,13 +13,14 @@ import java.util.Set;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.GameMode;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import fr.robie.machineengine.mekanized.paper.ItemData;
+import org.bukkit.inventory.PlayerInventory;
+import net.kyori.adventure.key.Key;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.capacity;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.energy;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.id;
@@ -32,33 +33,26 @@ public final class GearModules {
     private GearModules() {
     }
 
-    /** Puts the module into the gear it fits: the worn armour piece, or the Meka-Tool in the off hand. */
-    static void install(Player player, ItemStack moduleStack, String module) {
-        String target = GearRules.target(module);
-        if (target == null) {
+    /**
+     * Puts the module into the first worn piece (then the item in the off hand) that it {@code fits} and that
+     * does not have it yet.
+     */
+    static void install(Player player, ItemStack moduleStack, String module, Set<Key> fits) {
+        if (fits.isEmpty()) {
             player.sendActionBar(Component.text("This module does nothing in Mekanized", NamedTextColor.RED));
             return;
         }
-        // "mekasuit": any worn piece that does not have it yet.
-        List<ItemStack> worn = List.of(player.getInventory().getHelmet() == null ? new ItemStack(Material.AIR) : player.getInventory().getHelmet(),
-                player.getInventory().getChestplate() == null ? new ItemStack(Material.AIR) : player.getInventory().getChestplate(),
-                player.getInventory().getLeggings() == null ? new ItemStack(Material.AIR) : player.getInventory().getLeggings(),
-                player.getInventory().getBoots() == null ? new ItemStack(Material.AIR) : player.getInventory().getBoots());
-        ItemStack gear = switch (target) {
-            case "mekasuit_helmet" -> worn.get(0);
-            case "mekasuit_bodyarmor" -> worn.get(1);
-            case "mekasuit_pants" -> worn.get(2);
-            case "mekasuit_boots" -> worn.get(3);
-            case GearRules.ANY_MEKASUIT -> worn.get(GearRules.pickMekasuitPiece(worn.size(), i -> id(worn.get(i)),
-                    i -> modules(worn.get(i)), module));
-            default -> player.getInventory().getItemInOffHand();
-        };
-        String gearId = id(gear);
-        if (!GearRules.fits(target, gearId)) {
-            player.sendActionBar(Component.text("Wear the " + target.replace('_', ' ') + " (a Meka-Tool: in the off hand) to install it",
-                    NamedTextColor.RED));
+        PlayerInventory inventory = player.getInventory();
+        List<ItemStack> candidates = java.util.Arrays.asList(inventory.getHelmet(), inventory.getChestplate(), inventory.getLeggings(),
+                inventory.getBoots(), inventory.getItemInOffHand());
+        List<Key> ids = candidates.stream().map(stack -> stack == null || stack.isEmpty() ? null : PaperItems.idOf(stack)).toList();
+        int at = GearRules.pick(ids, i -> modules(candidates.get(i)), fits, module);
+        if (at < 0) {
+            String names = fits.stream().map(key -> key.value().replace('_', ' ')).sorted().reduce((x, y) -> x + ", " + y).orElse("");
+            player.sendActionBar(Component.text("Wear or hold in the off hand: " + names, NamedTextColor.RED));
             return;
         }
+        ItemStack gear = candidates.get(at);
         Set<String> modules = new LinkedHashSet<>(modules(gear));
         if (!modules.add(module)) {
             player.sendActionBar(Component.text("Already installed", NamedTextColor.RED));

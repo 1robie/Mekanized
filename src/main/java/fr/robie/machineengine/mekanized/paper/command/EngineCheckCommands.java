@@ -247,6 +247,18 @@ final class EngineCheckCommands {
                 fr.robie.machineengine.api.resource.Energy.KEY) + " (expected 7000), modules "
                 + fr.robie.machineengine.mekanized.paper.ItemData.getStrings(tool, fr.robie.machineengine.mekanized.paper.ItemData.Field.MODULES)
                 + " (expected [silk_touch_unit]), old persistent data gone: " + oldGone + " (expected true)");
+        // The lore a player gets: the item's client-bound processors, run on a copy as when it is sent.
+        var item = net.momirealms.craftengine.bukkit.api.BukkitAdaptor.adapt(tool).copy();
+        var definition = item.getDefinitionOrNull();
+        if (definition == null) {
+            log("check-item-data: the Meka-Tool has no CraftEngine definition");
+            return;
+        }
+        var context = net.momirealms.craftengine.core.item.ItemBuildContext.of(null, item,
+                net.momirealms.craftengine.core.plugin.context.ContextHolder.empty());
+        for (var processor : definition.clientBoundProcessors()) processor.apply(context);
+        log("check-item-data: lore sent " + context.item().loreJson().map(Object::toString).orElse("none")
+                + " (expected a silk touch unit line, then energy 7,000 / 16,000,000 J)");
     }
 
     private void log(String message) {

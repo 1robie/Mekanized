@@ -17,7 +17,6 @@ import fr.robie.machineengine.mekanized.machine.ConfigurationCard;
 import fr.robie.machineengine.mekanized.machine.EjectBehavior;
 import fr.robie.machineengine.mekanized.machine.GaugeDropper;
 import fr.robie.machineengine.mekanized.machine.UtilityMachines;
-import fr.robie.machineengine.mekanized.paper.Lore;
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.api.paper.PaperItems;
 import net.kyori.adventure.key.Key;
@@ -136,7 +135,6 @@ public final class PaperTools {
                 has(machine, EjectBehavior.EJECT) ? context.get(EjectBehavior.EJECT) : null,
                 has(machine, UtilityMachines.REDSTONE) ? context.get(UtilityMachines.REDSTONE) : null);
         ItemData.setString(card, ItemData.Field.CONFIGURATION, text);
-        card.editMeta(meta -> meta.lore(List.of(Lore.line("Holds: " + machine.inspect().type().value().replace('_', ' ')))));
         player.sendActionBar(Component.text("Configuration copied", NamedTextColor.GREEN));
     }
 
@@ -221,7 +219,6 @@ public final class PaperTools {
         boolean empty = type == null || amount <= 0;
         ItemData.setString(dropper, ItemData.Field.DROPPER_TYPE, empty ? null : type.key().asString());
         ItemData.setLong(dropper, ItemData.Field.DROPPER_AMOUNT, empty ? 0 : amount);
-        dropper.editMeta(meta -> meta.lore(empty ? List.of() : List.of(Lore.line(GaugeDropper.lore(type, amount)))));
     }
 
     /** Takes a fluid or chemical (the one it holds, or the first the machine has) into the dropper. */
@@ -276,7 +273,6 @@ public final class PaperTools {
                 return;
             }
             ItemData.setString(formula, ItemData.Field.FORMULA, String.join(",", cells));
-            formula.editMeta(meta -> meta.lore(List.of(Lore.line("Encoded", NamedTextColor.AQUA))));
             player.sendActionBar(Component.text("Pattern recorded", NamedTextColor.GREEN));
             return;
         }

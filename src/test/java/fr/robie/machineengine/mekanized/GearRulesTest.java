@@ -1,6 +1,7 @@
 package fr.robie.machineengine.mekanized;
 
 import fr.robie.machineengine.mekanized.machine.GearRules;
+import net.kyori.adventure.key.Key;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -8,46 +9,33 @@ import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /** Gear capacity and module rules, with no Bukkit item in sight. */
 @ExtendWith(MekanizedTestKit.ResetStatics.class)
 class GearRulesTest {
+    private static final Key HELMET = MekanizedContent.key("mekasuit_helmet");
+    private static final Key BOOTS = MekanizedContent.key("mekasuit_boots");
+    private static final Key TOOL = MekanizedContent.key("meka_tool");
+
     @Test
-    void everyModuleHasAPlaceToGo() {
-        assertEquals(31, GearRules.modules().size());
-        assertEquals("mekasuit_helmet", GearRules.target("geiger_unit"));
-        assertEquals("meka_tool", GearRules.target("vein_mining_unit"));
-        assertEquals(GearRules.ANY_MEKASUIT, GearRules.target("energy_unit"));
-        assertNull(GearRules.target("not_a_module"), "an unknown module does nothing");
-        for (String module : GearRules.modules()) {
-            String target = GearRules.target(module);
-            assertTrue(target.equals(GearRules.ANY_MEKASUIT) || target.equals("meka_tool") || target.startsWith("mekasuit_"), module + " -> " + target);
-        }
+    void aModuleGoesIntoTheFirstFittingPieceWithoutIt() {
+        List<Key> worn = java.util.Arrays.asList(HELMET, null, null, BOOTS, TOOL);
+        List<Set<String>> modules = List.of(Set.of("energy_unit"), Set.of(), Set.of(), Set.of(), Set.of());
+        assertEquals(3, GearRules.pick(worn, modules::get, Set.of(HELMET, BOOTS), "energy_unit"), "the helmet has it already");
+        assertEquals(0, GearRules.pick(worn, modules::get, Set.of(HELMET, BOOTS), "geiger_unit"));
+        assertEquals(4, GearRules.pick(worn, modules::get, Set.of(TOOL), "vein_mining_unit"), "the Meka-Tool in the off hand");
+        List<Set<String>> all = List.of(Set.of("x"), Set.of(), Set.of(), Set.of("x"), Set.of());
+        assertEquals(0, GearRules.pick(worn, all::get, Set.of(HELMET, BOOTS), "x"), "all have it: the first, which says 'already installed'");
+        assertEquals(-1, GearRules.pick(worn, modules::get, Set.of(MekanizedContent.key("mekasuit_pants")), "x"), "not worn");
     }
 
     @Test
-    void aTargetFitsItsGearOnly() {
-        assertTrue(GearRules.fits("mekasuit_helmet", "mekasuit_helmet"));
-        assertFalse(GearRules.fits("mekasuit_helmet", "mekasuit_boots"));
-        assertFalse(GearRules.fits("meka_tool", null), "nothing in hand");
-        assertTrue(GearRules.fits(GearRules.ANY_MEKASUIT, "mekasuit_pants"), "any MekaSuit piece takes an energy unit");
-        assertFalse(GearRules.fits(GearRules.ANY_MEKASUIT, "meka_tool"));
-        assertFalse(GearRules.fits(GearRules.ANY_MEKASUIT, null));
-    }
-
-    @Test
-    void anyMekasuitPicksTheFirstPieceWithoutTheModule() {
-        List<String> ids = List.of("mekasuit_helmet", "mekasuit_bodyarmor", "mekasuit_pants", "mekasuit_boots");
-        List<Set<String>> modules = List.of(Set.of("energy_unit"), Set.of(), Set.of(), Set.of());
-        assertEquals(1, GearRules.pickMekasuitPiece(4, ids::get, modules::get, "energy_unit"), "the helmet has it already");
-        assertEquals(0, GearRules.pickMekasuitPiece(4, ids::get, modules::get, "geiger_unit"));
-        List<Set<String>> all = List.of(Set.of("x"), Set.of("x"), Set.of("x"), Set.of("x"));
-        assertEquals(0, GearRules.pickMekasuitPiece(4, ids::get, all::get, "x"), "all have it: the first, which says 'already installed'");
-        List<String> none = java.util.Arrays.asList(null, "iron_helmet", null, "meka_tool");
-        assertEquals(0, GearRules.pickMekasuitPiece(4, none::get, i -> Set.of(), "x"));
+    void everyModuleItemSaysWhereItFits() {
+        assertEquals(List.of("mekanized:mekasuit_helmet", "mekanized:mekasuit_bodyarmor", "mekanized:mekasuit_pants",
+                "mekanized:mekasuit_boots"), ShippedItems.option("module_energy_unit", "mekanized:module", "fits"), "any MekaSuit piece");
+        assertEquals(List.of("mekanized:meka_tool"), ShippedItems.option("module_vein_mining_unit", "mekanized:module", "fits"));
+        assertEquals(List.of("mekanized:mekasuit_helmet"), ShippedItems.option("module_geiger_unit", "mekanized:module", "fits"));
     }
 
     @Test

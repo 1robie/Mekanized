@@ -617,6 +617,8 @@ items:
     model: mekanized:item/ultimate_tier_installer
   mekanized:configurator:
     behaviors:
+    - type: machineengine:wrench
+      sneak-click: rotate
     - type: mekanized:configurator
     data:
       item_name: <!i><lang:item.mekanized.configurator>

@@ -3412,6 +3412,12 @@ lang:
     item.mekanized.upgrade_stone_generator: ǝpɐɹᵷd∩ ɹoʇɐɹǝuǝ⅁ ǝuoʇS
     item.mekanized.yellow_cake_uranium: ɯnᴉuɐɹ∩ ǝʞɐƆ ʍoꞁꞁǝ⅄
   en_us:
+    mekanized.lore.module: "<aqua>+ %s"
+    mekanized.lore.card: "<gray>Holds: %s"
+    mekanized.lore.dropper: "<gray>%s: %s / %s mB"
+    mekanized.lore.formula: "<aqua>Encoded"
+    mekanized.lore.frequency: "<gray>Frequency: %s"
+    mekanized.lore.box: "<gray>Contains: %s"
     block.mekanized.advanced_bin: Advanced Bin
     block.mekanized.advanced_chemical_tank: Advanced Chemical Tank
     block.mekanized.advanced_combining_factory: Advanced Combining Factory

@@ -7,10 +7,12 @@ import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.mekanized.paper.automation.PaperAutomation;
 import fr.robie.machineengine.mekanized.paper.gear.GearBehaviors;
 import fr.robie.machineengine.mekanized.paper.gear.GearItems;
+import fr.robie.machineengine.mekanized.paper.gear.GearLoreProcessor;
 import fr.robie.machineengine.mekanized.paper.gear.GearTools;
 import fr.robie.machineengine.mekanized.paper.gear.ModuleHolderBehavior;
 import net.momirealms.craftengine.core.item.behavior.ItemBehaviorFactory;
 import net.momirealms.craftengine.core.item.behavior.ItemBehaviors;
+import net.momirealms.craftengine.core.item.processor.ItemProcessors;
 import net.momirealms.craftengine.core.util.Key;
 
 /**
@@ -48,6 +50,11 @@ public final class MekanizedItemBehaviors {
         register("cardboard_box", PaperAutomation.BoxBehavior.FACTORY);
         register("cardboard_box_storage", PaperAutomation.FullBoxBehavior.FACTORY);
         register("seismic_reader", PaperAutomation.SeismicReaderBehavior.FACTORY);
+    }
+
+    /** In {@code onLoad} too: item processors for {@code client-bound-data}. */
+    public static void registerProcessors() {
+        ItemProcessors.register(Key.of(MekanizedContent.NAMESPACE, "gear_lore"), GearLoreProcessor.FACTORY);
     }
 
     private static void register(String name, ItemBehaviorFactory<?> factory) {

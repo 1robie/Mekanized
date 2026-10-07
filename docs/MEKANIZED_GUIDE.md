@@ -180,7 +180,8 @@ Click a machine's upgrade button with the upgrade in hand to install it.
   | `mekanized:scuba_tank` | scuba tank | `oxygen-per-refill`, `mask` |
   | `mekanized:fall_absorber` | free runners, MekaSuit boots | `energy-per-damage` |
   | `mekanized:radiation_shielding` | hazmat suit, MekaSuit | `protection` (0.25 a piece), `requires-module` |
-  | `mekanized:module` | `module_*` items | `module`, `energy` (per second, per use or made), `range`, `capacity-factor`, `enchantment`, `enchantment-level`, `glider` |
+  | `machineengine:wrench` | configurator | `click`, `sneak-click`: `rotate`, `dismantle` or `none` |
+  | `mekanized:module` | `module_*` items | `module`, `energy` (per second, per use or made), `range`, `capacity-factor`, `enchantment`, `enchantment-level`, `glider`, `fits` (the items it goes into) |
 
 ## Commands (permission `machineengine.admin`)
 | Command | What it does |
