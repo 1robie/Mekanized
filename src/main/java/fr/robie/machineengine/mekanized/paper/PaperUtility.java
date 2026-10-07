@@ -11,7 +11,8 @@ import fr.robie.machineengine.api.transfer.StorageView;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.api.machine.MachineInstance;
-import fr.robie.machineengine.mekanized.machine.EnergyItems;
+import fr.robie.machineengine.api.paper.PaperItemResources;
+import fr.robie.machineengine.api.resource.Energy;
 import fr.robie.machineengine.mekanized.machine.UtilityBehaviors;
 import fr.robie.machineengine.mekanized.machine.UtilityMachines;
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
@@ -55,7 +56,6 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public final class PaperUtility implements Listener {
     private static final long CHARGE_EVERY = 10;
-    private static final PaperEnergyItems ENERGY_ITEMS = new PaperEnergyItems();
     /** Crafting grids already looked up: recipes do not change while the server runs (bounded). */
     private static final Map<List<ResourceVariant>, Optional<ResourceStack>> CRAFTED = new ConcurrentHashMap<>();
 
@@ -220,10 +220,9 @@ public final class PaperUtility implements Listener {
         for (int slot = 0; slot < inventory.getSize() && budget > 0; slot++) {
             ItemStack stack = inventory.getItem(slot);
             if (stack == null || stack.isEmpty() || stack.getAmount() != 1) continue;
-            ResourceVariant variant = PaperItems.toResource(stack).variant();
-            long capacity = EnergyItems.capacity(variant);
+            long capacity = PaperItemResources.capacity(stack, Energy.KEY);
             if (capacity <= 0) continue;
-            long stored = ENERGY_ITEMS.energy(variant);
+            long stored = PaperItemResources.amount(stack, Energy.KEY);
             long wanted = Math.min(budget, capacity - stored);
             if (wanted <= 0) continue;
             long taken;
@@ -232,8 +231,7 @@ public final class PaperUtility implements Listener {
                 transaction.commit();
             }
             if (taken <= 0) break;
-            ItemStack updated = PaperItems.toItemStack(ENERGY_ITEMS.withEnergy(variant, stored + taken), 1);
-            if (updated != null) inventory.setItem(slot, updated);
+            PaperItemResources.withAmount(stack, Energy.KEY, stored + taken);
             budget -= taken;
             charged = true;
         }

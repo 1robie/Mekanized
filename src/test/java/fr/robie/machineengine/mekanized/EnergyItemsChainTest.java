@@ -5,7 +5,7 @@ import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.Direction;
 import fr.robie.machineengine.core.lifecycle.CoreMachineEngine;
 import fr.robie.machineengine.core.machine.MachineInstanceImpl;
-import fr.robie.machineengine.mekanized.machine.EnergyItems;
+import fr.robie.machineengine.api.item.ItemResources;
 import fr.robie.machineengine.test.FakeWorld;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,7 +31,7 @@ class EnergyItemsChainTest {
         fill(cube, "charge", item("mekanized:energy_tablet").stack(1));
         world.tick(10);
         ResourceVariant tablet = cube.inspect().storages().get("charge").getFirst().variant();
-        assertEquals(40_000, EnergyItems.capacity(tablet) > 0 ? chargeOf(tablet) : -1,
+        assertEquals(40_000, ItemResources.capacity(tablet, MekanizedContent.ENERGY) > 0 ? chargeOf(tablet) : -1,
                 "the basic cube charges at its output rate, 4 kJ per tick");
         assertEquals(60_000, energy(cube));
 
@@ -53,7 +53,7 @@ class EnergyItemsChainTest {
             fill(cube, "charge", item("mekanized:" + gear).stack(1));
             world.tick(200);
             ResourceVariant charged = cube.inspect().storages().get("charge").getFirst().variant();
-            assertEquals(EnergyItems.baseCapacity(MekanizedContent.key(gear)), chargeOf(charged),
+            assertEquals(ShippedItems.capacity(gear, "machineengine:energy"), chargeOf(charged),
                     gear + " charges to its capacity");
             try (Transaction transaction = this.engine.transactions().openOuter()) {
                 cube.context().storage("charge").extract(charged, 1, transaction);

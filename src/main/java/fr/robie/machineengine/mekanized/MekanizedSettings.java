@@ -96,9 +96,7 @@ public final class MekanizedSettings {
     }
 
     private static void applyGear(ConfigValues config) {
-        GearSettings.energyCapacity = groups(config, MekanizedConfig.ENERGY_CAPACITY);
         GearSettings.energyUnitFactor = config.get(MekanizedConfig.ENERGY_UNIT_FACTOR);
-        GearSettings.chemicalCapacity = groups(config, MekanizedConfig.CHEMICAL_CAPACITY);
         GearSettings.scubaOxygen = config.get(MekanizedConfig.SCUBA_OXYGEN);
 
         GearSettings.toolEnergyPerBlock = config.get(MekanizedConfig.TOOL_ENERGY_PER_BLOCK);
@@ -137,13 +135,6 @@ public final class MekanizedSettings {
         GearSettings.solarEnergy = config.get(MekanizedConfig.SOLAR_ENERGY);
         GearSettings.geothermalEnergy = config.get(MekanizedConfig.GEOTHERMAL_ENERGY);
         GearSettings.distributionEnergy = config.get(MekanizedConfig.DISTRIBUTION_ENERGY);
-    }
-
-    /** Each group's number written to every item of the group. */
-    private static Map<String, Long> groups(ConfigValues config, Map<ConfigKey<Long>, List<String>> groups) {
-        Map<String, Long> capacities = new HashMap<>();
-        groups.forEach((key, items) -> items.forEach(item -> capacities.put(item, config.get(key))));
-        return Map.copyOf(capacities);
     }
 
     private static long[] longs(List<Long> values) {

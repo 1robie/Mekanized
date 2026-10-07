@@ -113,25 +113,10 @@ qio:
   # items an importer or exporter moves per second
   importer-exporter-rate: 64
 
-# Gear: tools, suits, packs and modules. Energy is in Joules, chemicals in mB.
+# Gear: tools, suits, packs and modules. Energy is in Joules, chemicals in mB. What each item holds is in its CraftEngine item config (machineengine:energy_item, resource_item).
 gear:
-  # Joules each item holds when full. free-runners also covers the armored ones; mekasuit covers all four pieces.
-  energy-capacity:
-    energy-tablet: 1000000
-    atomic-disassembler: 1000000
-    portable-teleporter: 1000000
-    meka-tool: 16000000
-    electric-bow: 120000
-    free-runners: 64000
-    mekasuit: 16000000
   # an energy unit multiplies a piece's capacity by this
   energy-unit-factor: 4
-  # mB of chemical each item holds. jetpack also covers the armored jetpack and the MekaSuit body armor.
-  chemical-capacity:
-    jetpack: 24000
-    flamethrower: 24000
-    scuba-tank: 24000
-    canteen: 64000
   # mB of oxygen each time the tank refills the player's air
   scuba-oxygen-per-second: 20
   tools:

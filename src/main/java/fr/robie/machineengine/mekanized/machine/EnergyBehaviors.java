@@ -1,5 +1,7 @@
 package fr.robie.machineengine.mekanized.machine;
 
+import fr.robie.machineengine.api.item.ItemResources;
+
 import fr.robie.machineengine.api.error.MachineError;
 import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.machine.MachineBehavior;
@@ -99,7 +101,7 @@ public final class EnergyBehaviors {
         return type -> context -> {
             if (creative) insertEnergy(context, Long.MAX_VALUE / 4);
             PushResult result = context.push(RelativeSide.FRONT, ENERGY, IS_ENERGY, outputPerTick);
-            long charged = EnergyItems.transfer(context, "charge", ENERGY, outputPerTick, false);
+            long charged = ItemResources.transfer(context, "charge", ENERGY, MekanizedContent.ENERGY, outputPerTick, false);
             if (result.moved() == 0 && charged == 0) context.sleep();
         };
     }

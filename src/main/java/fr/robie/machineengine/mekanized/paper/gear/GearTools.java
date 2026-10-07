@@ -9,7 +9,7 @@ import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.mekanized.machine.Frequencies;
 import fr.robie.machineengine.mekanized.machine.GearSettings;
 import fr.robie.machineengine.mekanized.machine.Liquifier;
-import fr.robie.machineengine.mekanized.paper.ItemLongs;
+import fr.robie.machineengine.api.paper.PaperItemResources;
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import io.papermc.paper.entity.Shearable;
 import java.util.ArrayDeque;
@@ -46,14 +46,13 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.Nullable;
-import static fr.robie.machineengine.mekanized.paper.gear.GearItems.CHEMICAL;
-import static fr.robie.machineengine.mekanized.paper.gear.GearItems.CHEMICALS;
+import static fr.robie.machineengine.mekanized.paper.gear.GearItems.chemicalCapacity;
+import static fr.robie.machineengine.mekanized.paper.gear.GearItems.chemicalType;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.capacity;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.chemical;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.energy;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.id;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.modules;
-import static fr.robie.machineengine.mekanized.paper.gear.GearItems.refresh;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.useChemical;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.useEnergy;
 
@@ -216,7 +215,7 @@ public final class GearTools implements Listener {
             GearModules.uninstall(player, hand, id);
             return;
         }
-        if (block != null && CHEMICALS.containsKey(id) && fill(player, hand, id, block)) {
+        if (block != null && chemicalType(hand) != null && fill(player, hand, id, block)) {
             event.setCancelled(true);
             return;
         }
@@ -251,9 +250,9 @@ public final class GearTools implements Listener {
     private boolean fill(Player player, ItemStack gear, String id, Block block) {
         MachineInstance machine = PaperWorld.machine(block);
         if (machine == null) return false;
-        String chemical = CHEMICALS.get(id);
-        long room = GearSettings.chemicalCapacity(id) - chemical(gear);
-        ResourceType type = MekanizedContent.resourceType(chemical);
+        net.kyori.adventure.key.Key chemical = chemicalType(gear);
+        long room = chemicalCapacity(gear) - chemical(gear);
+        ResourceType type = chemical == null ? null : MekanizedContent.resourceType(chemical);
         if (type == null || room <= 0) return false;
         var context = machine.context();
         for (String storage : machine.inspect().storages().keySet()) {
@@ -266,14 +265,10 @@ public final class GearTools implements Listener {
                 transaction.commit();
             }
             if (taken <= 0) continue;
-            long total = chemical(gear) + taken;
-            gear.editMeta(meta -> {
-                ItemLongs.set(meta, CHEMICAL, total);
-                refresh(meta, MekanizedContent.key(id));
-            });
+            PaperItemResources.add(gear, chemical, taken);
             machine.wake(WakeReason.RESOURCE_EXTRACTED);
             player.sendActionBar(Component.text(String.format(Locale.ROOT, "Filled %,d mB of %s", taken,
-                    MekanizedContent.displayName(chemical)), NamedTextColor.GREEN));
+                    MekanizedContent.displayName(chemical.value())), NamedTextColor.GREEN));
             return true;
         }
         return false;

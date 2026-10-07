@@ -1,6 +1,5 @@
 package fr.robie.machineengine.mekanized;
 
-import fr.robie.machineengine.mekanized.machine.EnergyItems;
 import fr.robie.machineengine.mekanized.machine.GearRules;
 import fr.robie.machineengine.mekanized.machine.GearSettings;
 import org.junit.jupiter.api.Test;
@@ -62,17 +61,11 @@ class GearRulesTest {
     }
 
     @Test
-    void capacityIsTheBaseTimesTheEnergyUnitFactor() {
-        var disassembler = MekanizedContent.key("atomic_disassembler");
-        assertEquals(1_000_000, EnergyItems.baseCapacity(disassembler));
-        assertEquals(1_000_000, EnergyItems.capacity(disassembler, null));
-        assertEquals(1_000_000, EnergyItems.capacity(disassembler, "silk_touch_unit,fortune_unit"));
-        assertEquals(4_000_000, EnergyItems.capacity(disassembler, "silk_touch_unit,energy_unit"));
-        GearSettings.energyUnitFactor = 10;
-        assertEquals(10_000_000, EnergyItems.capacity(disassembler, "energy_unit"), "the configured factor");
-        assertEquals(0, EnergyItems.baseCapacity(net.kyori.adventure.key.Key.key("minecraft", "atomic_disassembler")), "not a Mekanized item");
-        assertEquals(0, EnergyItems.baseCapacity(MekanizedContent.key("crusher")), "a machine holds no energy item charge");
-        assertEquals(24_000, GearSettings.chemicalCapacity("jetpack"));
-        assertEquals(0, GearSettings.chemicalCapacity("atomic_disassembler"));
+    void anEnergyUnitMultipliesTheCapacity() {
+        assertEquals(1_000_000, GearRules.energyCapacity(1_000_000, Set.of(), 4));
+        assertEquals(1_000_000, GearRules.energyCapacity(1_000_000, Set.of("silk_touch_unit", "fortune_unit"), 4));
+        assertEquals(4_000_000, GearRules.energyCapacity(1_000_000, Set.of("silk_touch_unit", "energy_unit"), 4));
+        assertEquals(Long.MAX_VALUE, GearRules.energyCapacity(Long.MAX_VALUE / 2, Set.of("energy_unit"), 4), "saturates");
+        assertEquals(0, GearRules.energyCapacity(0, Set.of("energy_unit"), 4), "an item without energy stays without");
     }
 }

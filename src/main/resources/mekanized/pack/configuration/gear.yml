@@ -2,6 +2,9 @@
 items:
   mekanized:atomic_disassembler:
     material: netherite_pickaxe
+    behaviors:
+    - type: machineengine:energy_item
+      max-energy: 1000000
     data:
       item_name: <!i><lang:item.mekanized.atomic_disassembler>
       unbreakable: true
@@ -15,6 +18,10 @@ items:
       - minecraft:cluster_max_harvestables
   mekanized:meka_tool:
     material: netherite_pickaxe
+    behaviors:
+    - type: machineengine:energy_item
+      max-energy: 16000000
+    - type: mekanized:module_holder
     data:
       item_name: <!i><lang:item.mekanized.meka_tool>
       unbreakable: true
@@ -28,6 +35,10 @@ items:
       - minecraft:cluster_max_harvestables
   mekanized:flamethrower:
     material: stick
+    behaviors:
+    - type: machineengine:resource_item
+      resource: mekanized:hydrogen
+      capacity: 24000
     data:
       item_name: <!i><lang:item.mekanized.flamethrower>
       unbreakable: true
@@ -36,6 +47,9 @@ items:
     model: mekanized:item/flamethrower
   mekanized:electric_bow:
     material: bow
+    behaviors:
+    - type: machineengine:energy_item
+      max-energy: 120000
     data:
       item_name: <!i><lang:item.mekanized.electric_bow>
       unbreakable: true
@@ -57,6 +71,10 @@ items:
     model: mekanized:item/network_reader
   mekanized:canteen:
     material: paper
+    behaviors:
+    - type: machineengine:resource_item
+      resource: mekanized:fluid/nutritional_paste
+      capacity: 64000
     data:
       item_name: <!i><lang:item.mekanized.canteen>
       unbreakable: true
@@ -65,6 +83,9 @@ items:
     model: mekanized:item/canteen
   mekanized:portable_teleporter:
     material: paper
+    behaviors:
+    - type: machineengine:energy_item
+      max-energy: 1000000
     data:
       item_name: <!i><lang:item.mekanized.portable_teleporter>
       unbreakable: true
@@ -113,6 +134,10 @@ items:
     model: mekanized:item/crafting_formula
   mekanized:jetpack:
     material: paper
+    behaviors:
+    - type: machineengine:resource_item
+      resource: mekanized:hydrogen
+      capacity: 24000
     data:
       item_name: <!i><lang:item.mekanized.jetpack>
       unbreakable: true
@@ -123,6 +148,10 @@ items:
     model: mekanized:item/jetpack
   mekanized:jetpack_armored:
     material: diamond_chestplate
+    behaviors:
+    - type: machineengine:resource_item
+      resource: mekanized:hydrogen
+      capacity: 24000
     data:
       item_name: <!i><lang:item.mekanized.jetpack_armored>
       unbreakable: true
@@ -133,6 +162,10 @@ items:
     model: mekanized:item/jetpack_armored
   mekanized:scuba_tank:
     material: paper
+    behaviors:
+    - type: machineengine:resource_item
+      resource: mekanized:oxygen
+      capacity: 24000
     data:
       item_name: <!i><lang:item.mekanized.scuba_tank>
       unbreakable: true
@@ -153,6 +186,9 @@ items:
     model: mekanized:item/scuba_mask
   mekanized:free_runners:
     material: leather_boots
+    behaviors:
+    - type: machineengine:energy_item
+      max-energy: 64000
     data:
       item_name: <!i><lang:item.mekanized.free_runners>
       unbreakable: true
@@ -163,6 +199,9 @@ items:
     model: mekanized:item/free_runners
   mekanized:free_runners_armored:
     material: diamond_boots
+    behaviors:
+    - type: machineengine:energy_item
+      max-energy: 64000
     data:
       item_name: <!i><lang:item.mekanized.free_runners_armored>
       unbreakable: true
@@ -173,6 +212,10 @@ items:
     model: mekanized:item/free_runners_armored
   mekanized:mekasuit_helmet:
     material: netherite_helmet
+    behaviors:
+    - type: machineengine:energy_item
+      max-energy: 16000000
+    - type: mekanized:module_holder
     data:
       item_name: <!i><lang:item.mekanized.mekasuit_helmet>
       unbreakable: true
@@ -186,6 +229,13 @@ items:
       - minecraft:head_armor
   mekanized:mekasuit_bodyarmor:
     material: netherite_chestplate
+    behaviors:
+    - type: machineengine:energy_item
+      max-energy: 16000000
+    - type: machineengine:resource_item
+      resource: mekanized:hydrogen
+      capacity: 24000
+    - type: mekanized:module_holder
     data:
       item_name: <!i><lang:item.mekanized.mekasuit_bodyarmor>
       unbreakable: true
@@ -198,6 +248,10 @@ items:
       - minecraft:freeze_immune_wearables
   mekanized:mekasuit_pants:
     material: netherite_leggings
+    behaviors:
+    - type: machineengine:energy_item
+      max-energy: 16000000
+    - type: mekanized:module_holder
     data:
       item_name: <!i><lang:item.mekanized.mekasuit_pants>
       unbreakable: true
@@ -210,6 +264,10 @@ items:
       - minecraft:leg_armor
   mekanized:mekasuit_boots:
     material: netherite_boots
+    behaviors:
+    - type: machineengine:energy_item
+      max-energy: 16000000
+    - type: mekanized:module_holder
     data:
       item_name: <!i><lang:item.mekanized.mekasuit_boots>
       unbreakable: true

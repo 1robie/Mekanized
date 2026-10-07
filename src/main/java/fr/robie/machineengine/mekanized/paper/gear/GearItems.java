@@ -1,17 +1,16 @@
 package fr.robie.machineengine.mekanized.paper.gear;
 
+import fr.robie.machineengine.api.item.ResourceItem;
+import fr.robie.machineengine.api.paper.PaperItemResources;
+import fr.robie.machineengine.api.paper.PaperItems;
+import fr.robie.machineengine.api.resource.Energy;
 import fr.robie.machineengine.mekanized.MekanizedContent;
-import fr.robie.machineengine.mekanized.machine.EnergyItems;
 import fr.robie.machineengine.mekanized.machine.GearRules;
 import fr.robie.machineengine.mekanized.machine.GearSettings;
-import fr.robie.machineengine.mekanized.paper.ItemLongs;
 import fr.robie.machineengine.mekanized.paper.Lore;
-import fr.robie.machineengine.mekanized.paper.PaperEnergyItems;
-import fr.robie.machineengine.api.paper.PaperItems;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
@@ -20,27 +19,20 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Tag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.components.ToolComponent;
-import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * What a piece of Mekanized gear carries, read and written through its item data: energy, chemical and
- * modules, and the lore and tool speeds that show them.
+ * What a piece of Mekanized gear carries: energy and a chemical (MachineEngine's
+ * {@code energy_item} and {@code resource_item} behaviors and item data, D32), modules, and the lore and
+ * tool speeds that show them.
  */
 public final class GearItems {
     private GearItems() {
     }
 
-    public static final NamespacedKey CHEMICAL = new NamespacedKey(MekanizedContent.NAMESPACE, "gear_chemical");
     public static final NamespacedKey MODULES = new NamespacedKey(MekanizedContent.NAMESPACE, "modules");
-
-    /** Gear holding a chemical: item -> the chemical (the capacity in mB is {@link GearSettings#chemicalCapacity}). */
-    static final Map<String, String> CHEMICALS = Map.of(
-            "jetpack", "hydrogen", "jetpack_armored", "hydrogen", "flamethrower", "hydrogen", "scuba_tank", "oxygen",
-            "mekasuit_bodyarmor", "hydrogen", "canteen", "fluid/nutritional_paste");
 
     // -- item data ------------------------------------------------------------------------------
 
@@ -51,33 +43,38 @@ public final class GearItems {
     }
 
     static long energy(ItemStack stack) {
-        return ItemLongs.get(stack, PaperEnergyItems.ENERGY);
+        return PaperItemResources.amount(stack, Energy.KEY);
     }
 
     /** Takes {@code joules} from the gear if it has them all. */
     public static boolean useEnergy(ItemStack stack, long joules) {
-        long energy = energy(stack);
-        if (energy < joules) return false;
-        String id = id(stack);
-        stack.editMeta(meta -> {
-            ItemLongs.set(meta, PaperEnergyItems.ENERGY, energy - joules);
-            refresh(meta, MekanizedContent.key(id));
-        });
+        if (energy(stack) < joules) return false;
+        PaperItemResources.add(stack, Energy.KEY, -joules);
         return true;
     }
 
+    /** The chemical (or fluid) the gear holds besides energy, or {@code null}. */
+    static @Nullable Key chemicalType(ItemStack stack) {
+        for (ResourceItem holder : PaperItemResources.behaviors(stack)) {
+            if (!holder.resource().equals(Energy.KEY)) return holder.resource();
+        }
+        return null;
+    }
+
     static long chemical(ItemStack stack) {
-        return ItemLongs.get(stack, CHEMICAL);
+        Key type = chemicalType(stack);
+        return type == null ? 0 : PaperItemResources.amount(stack, type);
+    }
+
+    static long chemicalCapacity(ItemStack stack) {
+        Key type = chemicalType(stack);
+        return type == null ? 0 : PaperItemResources.capacity(stack, type);
     }
 
     static boolean useChemical(ItemStack stack, long amount) {
-        long held = chemical(stack);
-        if (held < amount) return false;
-        String id = id(stack);
-        stack.editMeta(meta -> {
-            ItemLongs.set(meta, CHEMICAL, held - amount);
-            refresh(meta, MekanizedContent.key(id));
-        });
+        Key type = chemicalType(stack);
+        if (type == null || PaperItemResources.amount(stack, type) < amount) return false;
+        PaperItemResources.add(stack, type, -amount);
         return true;
     }
 
@@ -87,60 +84,50 @@ public final class GearItems {
         return GearRules.parseModules(list);
     }
 
-    /** The item's energy capacity: its base one, times {@link GearSettings#energyUnitFactor} with an energy unit. */
-    public static long capacity(Key item, @Nullable String modules) {
-        return EnergyItems.capacity(item, modules);
-    }
-
+    /** The item's energy capacity, with its modules (an energy unit raises it). */
     public static long capacity(ItemStack stack) {
-        String id = id(stack);
-        return id == null ? 0 : capacity(MekanizedContent.key(id), stack.getItemMeta().getPersistentDataContainer().get(MODULES, PersistentDataType.STRING));
+        return PaperItemResources.capacity(stack, Energy.KEY);
     }
 
     /** Adds up to {@code joules} (what fits); returns what was added. */
     static long addEnergy(ItemStack stack, long joules) {
-        long energy = energy(stack);
-        long added = Math.max(0, Math.min(joules, capacity(stack) - energy));
-        if (added <= 0) return 0;
-        String id = id(stack);
-        stack.editMeta(meta -> {
-            ItemLongs.set(meta, PaperEnergyItems.ENERGY, energy + added);
-            refresh(meta, MekanizedContent.key(id));
-        });
-        return added;
+        return joules <= 0 ? 0 : PaperItemResources.add(stack, Energy.KEY, joules);
     }
 
-    /** Rewrites the lore (energy, chemical, modules) and the tool speeds of a gear item. */
-    public static void refresh(ItemMeta meta, Key item) {
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+    /** Rewrites the lore (energy, chemical, modules) and the tool speeds of a Mekanized item. */
+    public static void refresh(ItemStack stack) {
+        String id = id(stack);
+        if (id == null) return;
+        long capacity = capacity(stack);
+        long energy = energy(stack);
+        Key chemical = chemicalType(stack);
+        long chemicalAmount = chemical == null ? 0 : PaperItemResources.amount(stack, chemical);
+        long chemicalCapacity = chemical == null ? 0 : PaperItemResources.capacity(stack, chemical);
+        Set<String> modules = modules(stack);
         List<Component> lore = new ArrayList<>();
-        long capacity = capacity(item, pdc.get(MODULES, PersistentDataType.STRING));
-        long energy = ItemLongs.get(pdc, PaperEnergyItems.ENERGY);
         if (capacity > 0) lore.add(Lore.line(String.format(Locale.ROOT, "Energy: %,d / %,d J", energy, capacity)));
-        String chemical = CHEMICALS.get(item.value());
         if (chemical != null) {
-            String name = MekanizedContent.displayName(chemical);
-            lore.add(Lore.line(String.format(Locale.ROOT, "%s: %,d / %,d mB", capitalize(name), ItemLongs.get(pdc, CHEMICAL),
-                    GearSettings.chemicalCapacity(item.value()))));
+            String name = MekanizedContent.displayName(chemical.value());
+            lore.add(Lore.line(String.format(Locale.ROOT, "%s: %,d / %,d mB", capitalize(name), chemicalAmount, chemicalCapacity)));
         }
-        String modules = pdc.get(MODULES, PersistentDataType.STRING);
-        if (modules != null && !modules.isEmpty()) {
-            for (String module : modules.split(",")) lore.add(Lore.line("+ " + capitalize(module.replace('_', ' '))).color(NamedTextColor.AQUA));
-        }
-        meta.lore(lore);
-        // Disassembler and Meka-Tool: fast on what pickaxes, axes, shovels and hoes mine while charged.
-        if (item.value().equals("atomic_disassembler") || item.value().equals("meka_tool")) {
+        for (String module : modules) lore.add(Lore.line("+ " + capitalize(module.replace('_', ' '))).color(NamedTextColor.AQUA));
+        boolean tool = id.equals("atomic_disassembler") || id.equals("meka_tool");
+        if (lore.isEmpty() && !tool) return;
+        stack.editMeta(meta -> {
+            meta.lore(lore);
+            if (!tool) return;
+            // Disassembler and Meka-Tool: fast on what pickaxes, axes, shovels and hoes mine while charged.
             boolean charged = energy >= GearSettings.toolEnergyPerBlock;
-            float speed = !charged ? 1f : modules != null && modules.contains("excavation_escalation_unit") ? 32f : 16f;
-            ToolComponent tool = meta.getTool();
-            tool.setRules(new ArrayList<>());
-            tool.setDefaultMiningSpeed(charged ? 4f : 1f);
-            tool.setDamagePerBlock(0);
+            float speed = !charged ? 1f : modules.contains("excavation_escalation_unit") ? 32f : 16f;
+            ToolComponent component = meta.getTool();
+            component.setRules(new ArrayList<>());
+            component.setDefaultMiningSpeed(charged ? 4f : 1f);
+            component.setDamagePerBlock(0);
             for (Tag<Material> tag : List.of(Tag.MINEABLE_PICKAXE, Tag.MINEABLE_AXE, Tag.MINEABLE_SHOVEL, Tag.MINEABLE_HOE)) {
-                tool.addRule(tag, speed, charged);
+                component.addRule(tag, speed, charged);
             }
-            meta.setTool(tool);
-        }
+            meta.setTool(component);
+        });
     }
 
     private static String capitalize(String text) {

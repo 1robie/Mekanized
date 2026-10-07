@@ -534,6 +534,9 @@ items:
       item_name: <!i><lang:item.mekanized.electrolytic_core>
     model: mekanized:item/electrolytic_core
   mekanized:energy_tablet:
+    behaviors:
+    - type: machineengine:energy_item
+      max-energy: 1000000
     data:
       item_name: <!i><lang:item.mekanized.energy_tablet>
     model: mekanized:item/energy_tablet

@@ -50,12 +50,8 @@ public final class GearSettings {
 
     // -- capacities -------------------------------------------------------------------------------
 
-    /** Joules each energy item holds when full, by item id (a Mekanized item). */
-    public static volatile Map<String, Long> energyCapacity = defaultEnergyCapacity();
     /** The energy unit multiplies a piece's capacity by this. */
     public static volatile long energyUnitFactor = DEFAULT_ENERGY_UNIT_FACTOR;
-    /** mB of chemical each gear item holds, by item id. */
-    public static volatile Map<String, Long> chemicalCapacity = defaultChemicalCapacity();
 
     // -- tools ------------------------------------------------------------------------------------
 
@@ -121,39 +117,9 @@ public final class GearSettings {
     private GearSettings() {
     }
 
-    /** The gear that holds energy, and how much; the MekaSuit's four pieces and the free runners have one number each. */
-    public static Map<String, Long> defaultEnergyCapacity() {
-        return Map.ofEntries(
-                Map.entry("energy_tablet", 1_000_000L),
-                Map.entry("atomic_disassembler", 1_000_000L),
-                Map.entry("portable_teleporter", 1_000_000L),
-                Map.entry("meka_tool", 16_000_000L),
-                Map.entry("electric_bow", 120_000L),
-                Map.entry("free_runners", 64_000L),
-                Map.entry("free_runners_armored", 64_000L),
-                Map.entry("mekasuit_helmet", 16_000_000L),
-                Map.entry("mekasuit_bodyarmor", 16_000_000L),
-                Map.entry("mekasuit_pants", 16_000_000L),
-                Map.entry("mekasuit_boots", 16_000_000L));
-    }
-
-    /** The gear that holds a chemical, and how much (the chemical itself is fixed). */
-    public static Map<String, Long> defaultChemicalCapacity() {
-        return Map.of(
-                "jetpack", 24_000L, "jetpack_armored", 24_000L, "flamethrower", 24_000L, "scuba_tank", 24_000L,
-                "mekasuit_bodyarmor", 24_000L, "canteen", 64_000L);
-    }
-
-    /** The capacity of a gear item that holds a chemical, or 0. */
-    public static long chemicalCapacity(String item) {
-        return chemicalCapacity.getOrDefault(item, 0L);
-    }
-
     /** Back to the defaults (tests). */
     public static void reset() {
-        energyCapacity = defaultEnergyCapacity();
         energyUnitFactor = DEFAULT_ENERGY_UNIT_FACTOR;
-        chemicalCapacity = defaultChemicalCapacity();
         toolEnergyPerBlock = DEFAULT_TOOL_ENERGY_PER_BLOCK;
         veinLimit = DEFAULT_VEIN_LIMIT;
         veinLimitWithUnit = DEFAULT_VEIN_LIMIT_WITH_UNIT;

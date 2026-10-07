@@ -50,6 +50,12 @@ public final class GearRules {
         return MODULE_TARGETS.get(module);
     }
 
+    /** An item's energy {@code capacity}, times {@code factor} when {@code modules} has an energy unit (saturating). */
+    public static long energyCapacity(long capacity, @NotNull Set<String> modules, long factor) {
+        if (!modules.contains("energy_unit") || capacity <= 0) return capacity;
+        return factor > 0 && capacity > Long.MAX_VALUE / factor ? Long.MAX_VALUE : capacity * factor;
+    }
+
     /** Whether the gear {@code gearId} (null: none) is what {@code target} asks for. */
     public static boolean fits(@NotNull String target, @Nullable String gearId) {
         if (target.equals(ANY_MEKASUIT)) return gearId != null && gearId.startsWith(MEKASUIT_PREFIX);

@@ -1,5 +1,8 @@
 package fr.robie.machineengine.mekanized.machine;
 
+import fr.robie.machineengine.api.item.ItemResources;
+import fr.robie.machineengine.mekanized.MekanizedContent;
+
 import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.machine.MachineBehavior;
 import fr.robie.machineengine.api.machine.MachineType;
@@ -110,7 +113,7 @@ final class BasicMachines {
                 .data(EjectBehavior.EJECT)
                 .storage(StorageDefinition.tank("energy", energy).filter(IS_ENERGY).capacityModifier(ENERGY_CAPACITY))
                 .storage(StorageDefinition.slots("energy_slot", 1, 64)
-                        .filter(RecipeFilters.inputOf(ENERGY_CONVERSION).or(EnergyItems.IS_ENERGY_ITEM)))
+                        .filter(RecipeFilters.inputOf(ENERGY_CONVERSION).or(ItemResources.holds(MekanizedContent.ENERGY))))
                 .port(PortDefinition.builder("energy", "energy").direction(PortDirection.INPUT).filter(IS_ENERGY).group("energy").build());
     }
 
@@ -124,7 +127,7 @@ final class BasicMachines {
     private static MachineType cube(String name, long capacity, long output, boolean creative) {
         return MachineType.builder(key(name))
                 .storage(StorageDefinition.tank("energy", capacity).filter(IS_ENERGY))
-                .storage(StorageDefinition.slots("charge", 1, 1).filter(EnergyItems.IS_ENERGY_ITEM))
+                .storage(StorageDefinition.slots("charge", 1, 1).filter(ItemResources.holds(MekanizedContent.ENERGY)))
                 .port(PortDefinition.builder("in", "energy").direction(PortDirection.INPUT).filter(IS_ENERGY)
                         .sides(RelativeSide.BACK, RelativeSide.LEFT, RelativeSide.RIGHT, RelativeSide.TOP, RelativeSide.BOTTOM).group("energy").build())
                 .port(PortDefinition.builder("out", "energy").direction(PortDirection.OUTPUT).filter(IS_ENERGY)

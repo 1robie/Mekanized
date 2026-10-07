@@ -76,8 +76,8 @@ public final class GearModules {
                 default -> {
                 }
             }
-            refresh(meta, MekanizedContent.key(gearId));
         });
+        refresh(gear);
         if (player.getGameMode() != GameMode.CREATIVE) moduleStack.setAmount(moduleStack.getAmount() - 1);
         player.sendActionBar(Component.text("Installed: " + module.replace('_', ' '), NamedTextColor.GREEN));
     }
@@ -104,11 +104,11 @@ public final class GearModules {
                 default -> {
                 }
             }
-            refresh(meta, MekanizedContent.key(id));
         });
         // Energy above the capacity left (an energy unit removed) is lost.
         long capacity = capacity(gear);
         if (energy(gear) > capacity) useEnergy(gear, energy(gear) - capacity);
+        refresh(gear);
         ItemStack item = PaperItems.itemOf(MekanizedContent.key("module_" + module));
         if (item != null) PaperWorld.give(player, item);
         player.sendActionBar(Component.text("Removed: " + module.replace('_', ' '), NamedTextColor.YELLOW));

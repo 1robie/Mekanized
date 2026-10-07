@@ -102,22 +102,9 @@ public final class MekanizedConfig {
 
     // -- gear -------------------------------------------------------------------------------------
 
-    /** One capacity per group of items: {@code free-runners} also sets the armored ones, {@code mekasuit} all four pieces. */
-    public static final Map<ConfigKey<Long>, List<String>> ENERGY_CAPACITY = groups("gear.energy-capacity", GearSettings.defaultEnergyCapacity(),
-            "energy-tablet", List.of("energy_tablet"),
-            "atomic-disassembler", List.of("atomic_disassembler"),
-            "portable-teleporter", List.of("portable_teleporter"),
-            "meka-tool", List.of("meka_tool"),
-            "electric-bow", List.of("electric_bow"),
-            "free-runners", List.of("free_runners", "free_runners_armored"),
-            "mekasuit", List.of("mekasuit_helmet", "mekasuit_bodyarmor", "mekasuit_pants", "mekasuit_boots"));
+    // Capacities are the items' own (machineengine:energy_item and resource_item in the CraftEngine item config, D32).
     public static final ConfigKey<Long> ENERGY_UNIT_FACTOR = whole("gear.energy-unit-factor", GearSettings.DEFAULT_ENERGY_UNIT_FACTOR, 1, 1_000,
             "an energy unit multiplies a piece's capacity by this");
-    public static final Map<ConfigKey<Long>, List<String>> CHEMICAL_CAPACITY = groups("gear.chemical-capacity", GearSettings.defaultChemicalCapacity(),
-            "jetpack", List.of("jetpack", "jetpack_armored", "mekasuit_bodyarmor"),
-            "flamethrower", List.of("flamethrower"),
-            "scuba-tank", List.of("scuba_tank"),
-            "canteen", List.of("canteen"));
     public static final ConfigKey<Long> SCUBA_OXYGEN = whole("gear.scuba-oxygen-per-second", GearSettings.DEFAULT_SCUBA_OXYGEN_PER_SECOND, 0, MAX,
             "mB of oxygen each time the tank refills the player's air");
 
@@ -195,10 +182,8 @@ public final class MekanizedConfig {
             .section("radiation", "Radiation (Mekanism's, simplified). Dose and radiation are in Sieverts (Sv, Sv/h).")
             .section("digital-miner", "The digital miner.")
             .section("qio", "The QIO network. Lists are for the drives: [base, hyper-dense, time-dilating, supermassive].")
-            .section("gear", "Gear: tools, suits, packs and modules. Energy is in Joules, chemicals in mB.")
-            .section("gear.energy-capacity", "Joules each item holds when full. free-runners also covers the armored ones;"
-                    + " mekasuit covers all four pieces.")
-            .section("gear.chemical-capacity", "mB of chemical each item holds. jetpack also covers the armored jetpack and the MekaSuit body armor.")
+            .section("gear", "Gear: tools, suits, packs and modules. Energy is in Joules, chemicals in mB."
+                    + " What each item holds is in its CraftEngine item config (machineengine:energy_item, resource_item).")
             .section("gear.modules", "J per second unless said otherwise.")
             .keys(KEYS)
             .build();
@@ -229,17 +214,6 @@ public final class MekanizedConfig {
 
     private static ConfigKey<Double> decimal(String path, double defaultValue, double min, double max, String... comment) {
         return add(ConfigKey.decimal(path, defaultValue, min, max).clamped().comment(comment));
-    }
-
-    /** One clamped key per group ({@code name, items, name, items, …}), its default the first item's capacity. */
-    private static Map<ConfigKey<Long>, List<String>> groups(String path, Map<String, Long> defaults, Object... groups) {
-        Map<ConfigKey<Long>, List<String>> keys = new LinkedHashMap<>();
-        for (int i = 0; i < groups.length; i += 2) {
-            @SuppressWarnings("unchecked")
-            List<String> items = (List<String>) groups[i + 1];
-            keys.put(whole(path + "." + groups[i], defaults.get(items.getFirst()), 1, MAX), items);
-        }
-        return Collections.unmodifiableMap(keys);
     }
 
     private static List<Long> longs(long[] values) {

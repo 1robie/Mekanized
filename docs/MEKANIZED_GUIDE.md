@@ -151,10 +151,14 @@ Click a machine's upgrade button with the upgrade in hand to install it.
   their comments, at the next start; your values and comments are kept.
   - `transport`, `dynamic-tank`, `thermal-evaporation`: network rates per tier, Dynamic Tank capacity,
     Thermal Evaporation rate.
-  - `gear`: energy and chemical capacities (`energy-capacity`, `chemical-capacity`, `energy-unit-factor`),
-    the tools (`tools`: energy per block, vein mining limits, hit energy and damage, bow, teleport range,
+  - `gear`: the energy unit's factor (`energy-unit-factor`), the tools (`tools`: energy per block, vein mining limits, hit energy and damage, bow, teleport range,
     flamethrower), the jetpack (`jetpack`: hydrogen, thrust, speeds), `scuba-oxygen-per-second`, and the energy
     each module uses or makes (`modules`).
+    How much an item holds is not here but in its CraftEngine item config
+    (`plugins/CraftEngine/resources/mekanized/configuration/gear.yml` and `chemistry.yml`), under `behaviors`:
+    `machineengine:energy_item` (`max-energy`) and `machineengine:resource_item` (`resource`, `capacity`).
+    Edit them there and run `/ce reload`. The old `gear.energy-capacity` and `gear.chemical-capacity` keys are
+    ignored.
   - `radiation`: background, how fast sources and doses fade, how much each hazmat or shielded piece stops,
     the doses that make players sick, hurt them and kill them, and the waste barrel.
   - `teleporter`: Joules per teleport (base, per block, to another world) and the cooldown between teleports.

@@ -6,6 +6,7 @@ import fr.robie.machineengine.api.data.DataValue;
 import fr.robie.machineengine.api.definition.DefinitionFile;
 import fr.robie.machineengine.api.error.Result;
 import fr.robie.machineengine.api.item.ItemData;
+import fr.robie.machineengine.api.item.ItemResources;
 import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.machine.MachineType;
 import fr.robie.machineengine.api.registry.Registries;
@@ -22,7 +23,6 @@ import fr.robie.machineengine.mekanized.machine.ChunkLoaders;
 import fr.robie.machineengine.mekanized.machine.ChunkLoadingSettings;
 import fr.robie.machineengine.mekanized.machine.DigitalMinerSettings;
 import fr.robie.machineengine.mekanized.machine.Entangloporters;
-import fr.robie.machineengine.mekanized.machine.EnergyItems;
 import fr.robie.machineengine.mekanized.machine.Frequencies;
 import fr.robie.machineengine.mekanized.machine.GearSettings;
 import fr.robie.machineengine.mekanized.machine.QioSettings;
@@ -235,16 +235,24 @@ public final class MekanizedTestKit {
         return text.contains("|") ? Long.parseLong(text.substring(text.indexOf('|') + 1)) : 0;
     }
 
-    /** Installs the headless {@link EnergyItems.Access}; {@link ResetStatics} removes it again. */
+    /**
+     * Installs a headless {@link ItemResources.Access} for energy: capacities from the shipped item
+     * configs ({@link ShippedItems}); {@link ResetStatics} removes it again.
+     */
     public static void installChargeAccess() {
-        EnergyItems.setAccess(new EnergyItems.Access() {
+        ItemResources.setAccess(new ItemResources.Access() {
             @Override
-            public long energy(ResourceVariant item) {
+            public long capacity(ResourceVariant item, Key resource) {
+                return ShippedItems.capacity(item.components().get(Items.DATA).item().value(), resource.asString());
+            }
+
+            @Override
+            public long amount(ResourceVariant item, Key resource) {
                 return chargeOf(item);
             }
 
             @Override
-            public ResourceVariant withEnergy(ResourceVariant item, long energy) {
+            public ResourceVariant withAmount(ResourceVariant item, Key resource, long energy) {
                 Key id = item.components().get(Items.DATA).item();
                 return Items.variant(new ItemData(id, (id.asString() + "|" + energy).getBytes(StandardCharsets.UTF_8)));
             }
@@ -255,7 +263,7 @@ public final class MekanizedTestKit {
 
     /**
      * Resets the static state a test can touch, before and after each test: the settings holders, the hooks
-     * ({@link UtilityBehaviors#setCrafting}, {@link UtilityBehaviors#setItemFactory}, {@link EnergyItems#setAccess}),
+     * ({@link UtilityBehaviors#setCrafting}, {@link UtilityBehaviors#setItemFactory}, {@link ItemResources#setAccess}),
      * the platform listeners of {@link Frequencies} and {@link ChunkLoaders}, and the registries of
      * frequencies, structures, chunk loaders, buffers and radiation sources.
      */
@@ -279,7 +287,7 @@ public final class MekanizedTestKit {
             GearSettings.reset();
             UtilityBehaviors.setCrafting(null);
             UtilityBehaviors.setItemFactory(null);
-            EnergyItems.setAccess(null);
+            ItemResources.setAccess(null);
             Frequencies.onTeleportersChanged(null);
             ChunkLoaders.onChange(null);
             Frequencies.clear();

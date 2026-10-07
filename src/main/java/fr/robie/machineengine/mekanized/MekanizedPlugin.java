@@ -6,7 +6,7 @@ import fr.robie.machineengine.mekanized.paper.PaperUtility;
 import fr.robie.machineengine.mekanized.paper.PaperRadiation;
 import fr.robie.machineengine.mekanized.paper.PaperChunkLoaders;
 import fr.robie.machineengine.mekanized.paper.PaperEntangloporters;
-import fr.robie.machineengine.mekanized.paper.PaperEnergyItems;
+import fr.robie.machineengine.mekanized.paper.MekanizedItemBehaviors;
 import fr.robie.machineengine.mekanized.paper.gear.GearTools;
 import fr.robie.machineengine.mekanized.paper.gear.SuitTicker;
 import fr.robie.machineengine.mekanized.paper.automation.PaperAutomation;
@@ -54,6 +54,7 @@ public final class MekanizedPlugin extends JavaPlugin {
         // Before anything builds the machines and transports from them.
         MekanizedSettings.load(this);
         MekanizedRegistry.furnaceRecipes(PaperFurnaceRecipes::provide);
+        MekanizedItemBehaviors.register();
         MachineEngine.register(AddonRegistration.builder(getName(), getPluginMeta().getVersion())
                 .requiresApi("[0.1,1.0)")
                 .register(MekanizedContent::register)
@@ -99,7 +100,7 @@ public final class MekanizedPlugin extends JavaPlugin {
     @Override
     @SuppressWarnings("UnstableApiUsage")
     public void onEnable() {
-        fr.robie.machineengine.mekanized.machine.EnergyItems.setAccess(new PaperEnergyItems());
+        MekanizedItemBehaviors.install();
         PaperUtility.install(this);
         PaperAutomation.install(this);
         SuitTicker.install(this);

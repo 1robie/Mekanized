@@ -1,5 +1,8 @@
 package fr.robie.machineengine.mekanized.machine;
 
+import fr.robie.machineengine.api.item.ItemResources;
+import fr.robie.machineengine.mekanized.MekanizedContent;
+
 import fr.robie.machineengine.api.machine.MachineBehavior;
 import fr.robie.machineengine.api.machine.MachineContext;
 import fr.robie.machineengine.api.machine.WakeReason;
@@ -60,7 +63,7 @@ public final class ConvertingBehavior implements MachineBehavior {
                 // as many items as fit, in one tick
             }
             // An energy item (Energy Tablet) in the energy slot powers the machine.
-            if (conversion.to().equals("energy")) EnergyItems.transfer(context, conversion.from(), "energy", DISCHARGE_PER_TICK, true);
+            if (conversion.to().equals("energy")) ItemResources.transfer(context, conversion.from(), "energy", MekanizedContent.ENERGY, DISCHARGE_PER_TICK, true);
         }
         this.inner.tick(context);
     }
