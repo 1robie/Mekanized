@@ -1,5 +1,14 @@
 package fr.robie.machineengine.mekanized.multiblock;
 
+import fr.robie.machineengine.api.multiblock.MultiblockMember;
+import fr.robie.machineengine.mekanized.machine.DataKeys;
+
+import fr.robie.machineengine.api.machine.MachineDataKey;
+
+import fr.robie.machineengine.api.multiblock.MultiblockType;
+import fr.robie.machineengine.api.multiblock.MultiblockShape;
+import fr.robie.machineengine.api.multiblock.MultiblockStructure;
+
 import fr.robie.machineengine.api.addon.RegistrationContext;
 import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.machine.MachineType;
@@ -36,14 +45,14 @@ public final class MultiblockMachines {
     private static final long[] CELLS = {8_000_000_000L, 64_000_000_000L, 512_000_000_000L, 4_000_000_000_000L};
     private static final long[] PROVIDERS = {256_000L, 2_048_000L, 16_384_000L, 131_072_000L};
 
-    public static final Multiblocks.Type DYNAMIC_TANK = new Multiblocks.Type(key("dynamic_tank"), key("dynamic_tank"),
-            Set.of(key("dynamic_tank"), key("dynamic_valve"), key("structural_glass")), AIR::contains,
+    public static final MultiblockType DYNAMIC_TANK = new MultiblockType(key("dynamic_tank"),
+            new MultiblockShape.Box(key("dynamic_tank"), Set.of(key("dynamic_tank"), key("dynamic_valve"), key("structural_glass")), AIR::contains),
             structure -> Map.of("fluid", structure.volume() * MekanizedSettings.tankFluidPerBlock,
                     "chemical", structure.volume() * MekanizedSettings.tankChemicalPerBlock));
 
-    public static final Multiblocks.Type INDUCTION_MATRIX = new Multiblocks.Type(key("induction_matrix"), key("induction_casing"),
-            Set.of(key("induction_casing"), key("induction_port"), key("structural_glass")),
-            block -> AIR.contains(block) || block.value().endsWith("_induction_cell") || block.value().endsWith("_induction_provider"),
+    public static final MultiblockType INDUCTION_MATRIX = new MultiblockType(key("induction_matrix"),
+            new MultiblockShape.Box(key("induction_casing"), Set.of(key("induction_casing"), key("induction_port"), key("structural_glass")),
+                    block -> AIR.contains(block) || block.value().endsWith("_induction_cell") || block.value().endsWith("_induction_provider")),
             structure -> Map.of("energy", sum(structure, "_induction_cell", CELLS)));
 
     /** Mekanism's evaporating recipes: water to brine, brine to liquid lithium. */
@@ -54,30 +63,36 @@ public final class MultiblockMachines {
      * A 4x4 tower, 3 to 18 blocks high, open at the top, with exactly one controller. The input tank
      * holds 16,000 mB per level, the output 10,000 mB.
      */
-    public static final Multiblocks.Type THERMAL_EVAPORATION = new Multiblocks.Type(key("thermal_evaporation"),
-            key("thermal_evaporation_block"),
-            Set.of(key("thermal_evaporation_block"), key("thermal_evaporation_valve"), key("thermal_evaporation_controller")),
-            AIR::contains,
-            structure -> Map.of("input", structure.height() * MekanizedSettings.evaporationTankPerLevel, "output", 10_000L),
-            4, true, key("thermal_evaporation_controller"));
+    public static final MultiblockType THERMAL_EVAPORATION = new MultiblockType(key("thermal_evaporation"), new MultiblockShape.Box(key("thermal_evaporation_block"), Set.of(key("thermal_evaporation_block"), key("thermal_evaporation_valve"), key("thermal_evaporation_controller")), AIR::contains,
+                    MultiblockShape.Box.MIN_SIZE, MultiblockShape.Box.MAX_SIZE, 4, true, key("thermal_evaporation_controller")), structure -> Map.of("input", structure.height() * MekanizedSettings.evaporationTankPerLevel, "output", 10_000L));
 
     /** Every structure, in the order they are registered; the frame blocks of their walls are the structures' members. */
-    public static final List<Multiblocks.Type> TYPES = List.of(DYNAMIC_TANK, INDUCTION_MATRIX, THERMAL_EVAPORATION, Boilers.BOILER,
+    public static final List<MultiblockType> TYPES = List.of(DYNAMIC_TANK, INDUCTION_MATRIX, THERMAL_EVAPORATION, Boilers.BOILER,
             Turbines.TURBINE, Fission.FISSION, Fusion.FUSION, Sps.SPS);
+
+    /** A port's or valve's mode (Mekanism's configurator cycles it); Mekanized's own key, as saved before D33. */
+    public static final MachineDataKey<String> PORT_MODE = DataKeys.string("port_mode", "input");
 
     private MultiblockMachines() {
     }
 
+    /** MachineEngine's multiblock members (D33), keeping their mode in {@link #PORT_MODE}. */
+    public static MultiblockMember.Builder members(List<MultiblockType> types) {
+        return MultiblockMember.of(types).portMode(PORT_MODE);
+    }
+
     /** The energy cells hold, or providers give per tick, in a structure. */
-    static long sum(Multiblocks.Structure structure, String suffix, long[] perTier) {
+    static long sum(MultiblockStructure structure, String suffix, long[] perTier) {
         long total = 0;
         for (int i = 0; i < TIERS.length; i++) total += structure.count(key(TIERS[i] + suffix)) * perTier[i];
         return total;
     }
 
     public static void register(RegistrationContext context) {
+        // Named in the registry, so data-driven members can join Mekanized's structures too.
+        TYPES.forEach(context.multiblockTypes()::register);
         context.recipeTypes().register(EVAPORATING);
-        List<Multiblocks.Type> tower = List.of(THERMAL_EVAPORATION);
+        List<MultiblockType> tower = List.of(THERMAL_EVAPORATION);
         // The tower's casing: the anchor evaporates; bucket slots for both tanks.
         context.machineTypes().register(MachineType.builder(key("thermal_evaporation_block"))
                 .storage(StorageDefinition.tank("input", 1).filter(IS_FLUID))
@@ -86,7 +101,7 @@ public final class MultiblockMachines {
                 .storage(StorageDefinition.slots("output_bucket", 1, 16).filter(Items.anyItem()))
                 .storage(StorageDefinition.slots("bucket_out", 1, 16).filter(Items.anyItem()))
                 .behavior(ConvertingBehavior.of(
-                        MemberBehavior.frame(tower, new Evaporation(EVAPORATING), Evaporation.EVERY_TICKS),
+                        MultiblockMachines.members(tower).frame(new Evaporation(EVAPORATING), Evaporation.EVERY_TICKS),
                         new ConvertingBehavior.Conversion("bucket_in", "input",
                                 ChemistryMachines.BUCKET_FILLING, "bucket_out"),
                         new ConvertingBehavior.Conversion("output_bucket", "output",
@@ -95,45 +110,45 @@ public final class MultiblockMachines {
         context.machineTypes().register(MachineType.builder(key("thermal_evaporation_valve"))
                 .storage(StorageDefinition.tank("fluid", 1).filter(IS_FLUID))
                 .port(PortDefinition.builder("fluid", "fluid").filter(IS_FLUID).group("fluid").build())
-                .behavior(MemberBehavior.valve(tower, List.of("input"), List.of("output")))
+                .behavior(MultiblockMachines.members(tower).valve(List.of("input"), List.of("output")))
                 .build());
         context.machineTypes().register(MachineType.builder(key("thermal_evaporation_controller"))
-                .behavior(MemberBehavior.frame(tower))
+                .behavior(MultiblockMachines.members(tower).frame())
                 .build());
-        List<Multiblocks.Type> tank = List.of(DYNAMIC_TANK);
-        List<Multiblocks.Type> matrix = List.of(INDUCTION_MATRIX);
+        List<MultiblockType> tank = List.of(DYNAMIC_TANK);
+        List<MultiblockType> matrix = List.of(INDUCTION_MATRIX);
         // The tank's casing: the anchor holds the fluid or chemical, and has bucket slots.
         context.machineTypes().register(MachineType.builder(key("dynamic_tank"))
                 .storage(StorageDefinition.tank("fluid", 1).filter(IS_FLUID))
                 .storage(StorageDefinition.tank("chemical", 1).filter(IS_CHEMICAL))
                 .storage(StorageDefinition.slots("bucket_in", 1, 16).filter(Items.anyItem()))
                 .storage(StorageDefinition.slots("bucket_out", 1, 16).filter(Items.anyItem()))
-                .behavior(MachineParts.withBuckets(MemberBehavior.frame(tank), "fluid"))
+                .behavior(MachineParts.withBuckets(MultiblockMachines.members(tank).frame(), "fluid"))
                 .build());
         context.machineTypes().register(valve("dynamic_valve", tank, List.of("fluid", "chemical"), true)
                 .port(PortDefinition.builder("fluid", "fluid").filter(IS_FLUID).group("fluid").build())
                 .port(PortDefinition.builder("chemical", "chemical").filter(IS_CHEMICAL).group("chemical").build())
                 .build());
         context.machineTypes().register(MachineType.builder(key("structural_glass"))
-                .behavior(MemberBehavior.frame(List.of(DYNAMIC_TANK, INDUCTION_MATRIX)))
+                .behavior(MultiblockMachines.members(List.of(DYNAMIC_TANK, INDUCTION_MATRIX)).frame())
                 .build());
         context.machineTypes().register(MachineType.builder(key("induction_casing"))
                 .storage(StorageDefinition.tank("energy", 1).filter(IS_ENERGY))
-                .behavior(MemberBehavior.frame(matrix))
+                .behavior(MultiblockMachines.members(matrix).frame())
                 .build());
         context.machineTypes().register(MachineType.builder(key("induction_port"))
                 .storage(StorageDefinition.tank("energy", 1).filter(IS_ENERGY))
                 .port(PortDefinition.builder("energy", "energy").filter(IS_ENERGY).group("energy").build())
-                .data(MemberBehavior.PORT_MODE)
-                .behavior(MemberBehavior.port(matrix, "energy", structure -> sum(structure, "_induction_provider", PROVIDERS)))
+                .data(MultiblockMachines.PORT_MODE)
+                .behavior(MultiblockMachines.members(matrix).port("energy", structure -> sum(structure, "_induction_provider", PROVIDERS)))
                 .build());
     }
 
-    private static MachineType.Builder valve(String name, List<Multiblocks.Type> types, List<String> storages, boolean exclusive) {
+    private static MachineType.Builder valve(String name, List<MultiblockType> types, List<String> storages, boolean exclusive) {
         MachineType.Builder builder = MachineType.builder(key(name));
         // Empty storages for the ports, so pipes and tubes connect; the valve shows the anchor's.
         if (storages.contains("fluid")) builder.storage(StorageDefinition.tank("fluid", 1).filter(IS_FLUID));
         if (storages.contains("chemical")) builder.storage(StorageDefinition.tank("chemical", 1).filter(IS_CHEMICAL));
-        return builder.behavior(MemberBehavior.valve(types, storages, exclusive));
+        return builder.behavior(MultiblockMachines.members(types).valve(storages, exclusive));
     }
 }

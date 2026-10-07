@@ -1,5 +1,6 @@
 package fr.robie.machineengine.mekanized.paper.command;
 
+import fr.robie.machineengine.api.multiblock.Multiblocks;
 import fr.robie.machineengine.api.registry.Registries;
 import fr.robie.machineengine.api.world.Direction;
 import fr.robie.machineengine.api.world.WorldPosition;
@@ -8,8 +9,7 @@ import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.mekanized.MekanizedTestKit;
 import fr.robie.machineengine.mekanized.machine.AutomationMachines;
 import fr.robie.machineengine.mekanized.machine.Frequencies;
-import fr.robie.machineengine.mekanized.multiblock.MemberBehavior;
-import fr.robie.machineengine.mekanized.multiblock.Multiblocks;
+import fr.robie.machineengine.mekanized.multiblock.MultiblockMachines;
 import fr.robie.machineengine.test.FakeWorld;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
@@ -74,7 +74,7 @@ class StructuresFormTest {
             String mode = structure.modes().get(block.getKey());
             if (!isMachine(block.getValue())) continue;
             var machine = world.machine(position);
-            if (mode != null) machine.context().set(MemberBehavior.PORT_MODE, mode);
+            if (mode != null) machine.context().set(MultiblockMachines.PORT_MODE, mode);
             if (block.getValue().equals("turbine_rotor")) {
                 MekanizedTestKit.insert(machine, "blades", item("mekanized:turbine_blade"), 2);
             }

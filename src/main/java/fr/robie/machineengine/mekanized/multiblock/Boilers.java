@@ -5,6 +5,10 @@ import fr.robie.machineengine.api.machine.MachineContext;
 import fr.robie.machineengine.api.machine.MachineType;
 import fr.robie.machineengine.api.machine.PortDefinition;
 import fr.robie.machineengine.api.machine.StorageDefinition;
+import fr.robie.machineengine.api.multiblock.MultiblockShape;
+import fr.robie.machineengine.api.multiblock.MultiblockStructure;
+import fr.robie.machineengine.api.multiblock.MultiblockType;
+import fr.robie.machineengine.api.multiblock.Multiblocks;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import java.util.List;
@@ -27,17 +31,14 @@ public final class Boilers {
     /** mB of water each superheating element boils per tick at most. */
     public static final long BOIL_PER_ELEMENT = 320;
 
-    public static final Multiblocks.Type BOILER = new Multiblocks.Type(key("boiler"), key("boiler_casing"),
-            Set.of(key("boiler_casing"), key("boiler_valve"), key("structural_glass")),
-            block -> AIR.contains(block) || block.equals(key("pressure_disperser")) || block.equals(key("superheating_element")),
-            structure -> Map.of("water", structure.volume() * 16_000L, "steam", structure.volume() * 160_000L,
+    public static final MultiblockType BOILER = new MultiblockType(key("boiler"), new MultiblockShape.Box(key("boiler_casing"), Set.of(key("boiler_casing"), key("boiler_valve"), key("structural_glass")), block -> AIR.contains(block) || block.equals(key("pressure_disperser")) || block.equals(key("superheating_element"))), structure -> Map.of("water", structure.volume() * 16_000L, "steam", structure.volume() * 160_000L,
                     "heat", structure.volume() * 1_000_000L, "coolant", structure.volume() * 16_000L, "cooled", structure.volume() * 16_000L));
 
     private Boilers() {
     }
 
     static void register(RegistrationContext context) {
-        List<Multiblocks.Type> boiler = List.of(BOILER);
+        List<MultiblockType> boiler = List.of(BOILER);
         context.machineTypes().register(MachineType.builder(key("boiler_casing"))
                 .storage(StorageDefinition.tank("water", 1).filter(IS_FLUID.and(named("water"))))
                 .storage(StorageDefinition.tank("steam", 1).filter(IS_CHEMICAL.and(named("steam"))))
@@ -45,7 +46,7 @@ public final class Boilers {
                 .storage(StorageDefinition.tank("coolant", 1).filter(IS_CHEMICAL.and(named("superheated_sodium"))))
                 .storage(StorageDefinition.tank("cooled", 1).filter(IS_CHEMICAL.and(named("sodium"))))
                 .data(STATUS)
-                .behavior(MemberBehavior.frame(boiler, Boilers::boil, EVERY_TICKS))
+                .behavior(MultiblockMachines.members(boiler).frame(Boilers::boil, EVERY_TICKS))
                 .build());
         context.machineTypes().register(valve("boiler_valve", boiler, List.of("water", "coolant", "heat"),
                 Map.of("input", List.of(), "output_steam", List.of("steam"), "output_coolant", List.of("cooled")))
@@ -60,7 +61,7 @@ public final class Boilers {
     }
 
     /** Boiler: heat (from heaters, and from superheated sodium) boils water into steam, up to the elements' rate. */
-    static void boil(MachineContext anchor, Multiblocks.Structure structure) {
+    static void boil(MachineContext anchor, MultiblockStructure structure) {
         long elements = structure.count(key("superheating_element"));
         if (structure.count(key("pressure_disperser")) == 0) {
             idle(anchor, "Needs a pressure disperser inside");

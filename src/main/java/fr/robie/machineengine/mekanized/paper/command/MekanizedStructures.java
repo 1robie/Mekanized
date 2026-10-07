@@ -1,11 +1,11 @@
 package fr.robie.machineengine.mekanized.paper.command;
 
 import fr.robie.machineengine.mekanized.MekanizedContent;
+import fr.robie.machineengine.mekanized.multiblock.MultiblockMachines;
 
 import fr.robie.machineengine.api.machine.WakeReason;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.WorldPosition;
-import fr.robie.machineengine.mekanized.multiblock.MemberBehavior;
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.api.paper.PaperItems;
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
@@ -155,7 +155,7 @@ public final class MekanizedStructures {
             String mode = structure.modes().get(at);
             var loaded = PaperWorld.machine(position);
             if (loaded == null) continue;
-            if (mode != null) loaded.context().set(MemberBehavior.PORT_MODE, mode);
+            if (mode != null) loaded.context().set(MultiblockMachines.PORT_MODE, mode);
             if (block.getValue().equals("turbine_rotor") && blade != null) {
                 var context = loaded.context();
                 try (Transaction transaction = context.transactions().openOuter()) {

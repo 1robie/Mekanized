@@ -6,6 +6,9 @@ import fr.robie.machineengine.api.machine.MachineContext;
 import fr.robie.machineengine.api.machine.MachineType;
 import fr.robie.machineengine.api.machine.PortDefinition;
 import fr.robie.machineengine.api.machine.StorageDefinition;
+import fr.robie.machineengine.api.multiblock.MultiblockShape;
+import fr.robie.machineengine.api.multiblock.MultiblockStructure;
+import fr.robie.machineengine.api.multiblock.MultiblockType;
 import fr.robie.machineengine.api.transfer.StorageView;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.BlockPosition;
@@ -32,24 +35,21 @@ public final class Turbines {
     public static final long VENT_FLOW = 32_000;
     public static final long CONDENSER_RATE = 64_000;
 
-    public static final Multiblocks.Type TURBINE = new Multiblocks.Type(key("turbine"), key("turbine_casing"),
-            Set.of(key("turbine_casing"), key("turbine_valve"), key("turbine_vent"), key("structural_glass")),
-            block -> AIR.contains(block) || Set.of("turbine_rotor", "rotational_complex", "electromagnetic_coil", "pressure_disperser",
-                    "saturating_condenser").contains(block.value()) && block.namespace().equals(MekanizedContent.NAMESPACE),
-            structure -> Map.of("steam", structure.volume() * 64_000L, "energy", structure.volume() * 16_000_000L,
+    public static final MultiblockType TURBINE = new MultiblockType(key("turbine"), new MultiblockShape.Box(key("turbine_casing"), Set.of(key("turbine_casing"), key("turbine_valve"), key("turbine_vent"), key("structural_glass")), block -> AIR.contains(block) || Set.of("turbine_rotor", "rotational_complex", "electromagnetic_coil", "pressure_disperser",
+                    "saturating_condenser").contains(block.value()) && block.namespace().equals(MekanizedContent.NAMESPACE)), structure -> Map.of("steam", structure.volume() * 64_000L, "energy", structure.volume() * 16_000_000L,
                     "water", Math.max(1, structure.count(key("saturating_condenser")) * CONDENSER_RATE * EVERY_TICKS)));
 
     private Turbines() {
     }
 
     static void register(RegistrationContext context) {
-        List<Multiblocks.Type> turbine = List.of(TURBINE);
+        List<MultiblockType> turbine = List.of(TURBINE);
         context.machineTypes().register(MachineType.builder(key("turbine_casing"))
                 .storage(StorageDefinition.tank("steam", 1).filter(IS_CHEMICAL.and(named("steam"))))
                 .storage(StorageDefinition.tank("energy", 1).filter(IS_ENERGY))
                 .storage(StorageDefinition.tank("water", 1).filter(IS_FLUID.and(named("water"))))
                 .data(STATUS)
-                .behavior(MemberBehavior.frame(turbine, Turbines::turn, EVERY_TICKS))
+                .behavior(MultiblockMachines.members(turbine).frame(Turbines::turn, EVERY_TICKS))
                 .build());
         // Valves take steam and give energy and condensed water, like Mekanism's (no modes).
         context.machineTypes().register(valve("turbine_valve", turbine, List.of("steam"), Map.of("input", List.of("energy", "water")))
@@ -60,7 +60,7 @@ public final class Turbines {
                 .port(PortDefinition.builder("energy", "energy").filter(IS_ENERGY).group("energy").build())
                 .port(PortDefinition.builder("fluid", "fluid").filter(IS_FLUID).group("fluid").build())
                 .build());
-        context.machineTypes().register(MachineType.builder(key("turbine_vent")).behavior(MemberBehavior.frame(turbine)).build());
+        context.machineTypes().register(MachineType.builder(key("turbine_vent")).behavior(MultiblockMachines.members(turbine).frame()).build());
         // A rotor holds up to two blades (right-click it with turbine blades).
         context.machineTypes().register(MachineType.builder(key("turbine_rotor"))
                 .storage(StorageDefinition.slots("blades", 1, 2).filter(Items.ofItem(key("turbine_blade"))))
@@ -70,7 +70,7 @@ public final class Turbines {
     }
 
     /** Turbine: steam through the vents turns the blades; coils make energy; condensers give water back. */
-    static void turn(MachineContext anchor, Multiblocks.Structure structure) {
+    static void turn(MachineContext anchor, MultiblockStructure structure) {
         long vents = 0;
         long blades = 0;
         BlockPosition min = structure.min();

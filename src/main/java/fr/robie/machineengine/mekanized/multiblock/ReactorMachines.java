@@ -5,6 +5,7 @@ import fr.robie.machineengine.api.machine.MachineBehavior;
 import fr.robie.machineengine.api.machine.MachineContext;
 import fr.robie.machineengine.api.machine.MachineDataKey;
 import fr.robie.machineengine.api.machine.MachineType;
+import fr.robie.machineengine.api.multiblock.MultiblockType;
 import fr.robie.machineengine.api.resource.ResourceType;
 import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.api.resource.match.ResourcePredicate;
@@ -53,8 +54,8 @@ public final class ReactorMachines {
             "fusion_reactor_port", List.of("input", "output"),
             "sps_port", List.of("input", "output"));
 
-    static MachineType.Builder valve(String name, List<Multiblocks.Type> types, List<String> insertInto, Map<String, List<String>> pushes) {
-        return MachineType.builder(key(name)).data(MemberBehavior.PORT_MODE).behavior(MemberBehavior.modal(types, insertInto, pushes));
+    static MachineType.Builder valve(String name, List<MultiblockType> types, List<String> insertInto, Map<String, List<String>> pushes) {
+        return MachineType.builder(key(name)).data(MultiblockMachines.PORT_MODE).behavior(MultiblockMachines.members(types).modal(insertInto, pushes));
     }
 
     /** Blocks a structure counts inside it, doing nothing themselves. */

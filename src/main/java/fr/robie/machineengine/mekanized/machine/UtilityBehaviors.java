@@ -16,7 +16,7 @@ import fr.robie.machineengine.api.world.Direction;
 import fr.robie.machineengine.api.world.WorldFluid;
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.MekanizedContent;
-import fr.robie.machineengine.mekanized.multiblock.Multiblocks;
+import fr.robie.machineengine.api.multiblock.Multiblocks;
 import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

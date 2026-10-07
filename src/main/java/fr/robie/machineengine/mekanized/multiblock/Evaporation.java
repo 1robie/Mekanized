@@ -2,6 +2,8 @@ package fr.robie.machineengine.mekanized.multiblock;
 
 import fr.robie.machineengine.api.machine.MachineContext;
 import fr.robie.machineengine.api.machine.MachineEnvironment;
+import fr.robie.machineengine.api.multiblock.MultiblockMember;
+import fr.robie.machineengine.api.multiblock.MultiblockStructure;
 import fr.robie.machineengine.api.recipe.ProcessingRecipe;
 import fr.robie.machineengine.api.recipe.RecipeType;
 import fr.robie.machineengine.api.resource.ResourceStack;
@@ -20,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
  * per level inside the tower in daylight, half at
  * night, half again in rain.
  */
-final class Evaporation implements MemberBehavior.AnchorTask {
+final class Evaporation implements MultiblockMember.AnchorTask {
     static final long EVERY_TICKS = 20;
 
     private final RecipeType<ProcessingRecipe> recipes;
@@ -30,7 +32,7 @@ final class Evaporation implements MemberBehavior.AnchorTask {
     }
 
     @Override
-    public void run(@NotNull MachineContext anchor, @NotNull Multiblocks.Structure structure) {
+    public void run(@NotNull MachineContext anchor, @NotNull MultiblockStructure structure) {
         ResourceHandler input = anchor.storage("input");
         ResourceHandler output = anchor.storage("output");
         StorageView held = input.views().getFirst();
@@ -60,7 +62,7 @@ final class Evaporation implements MemberBehavior.AnchorTask {
     }
 
     /** Input mB evaporated per {@link #EVERY_TICKS}: per level inside the tower, by the sun and the rain. */
-    static long budget(MachineEnvironment environment, Multiblocks.Structure structure) {
+    static long budget(MachineEnvironment environment, MultiblockStructure structure) {
         long levels = Math.max(1, structure.height() - 1); // the open top counts, the floor does not
         double heat = environment.daytime() ? 1.0 : 0.5;
         if (environment.raining()) heat /= 2;

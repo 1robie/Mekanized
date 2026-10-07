@@ -6,6 +6,9 @@ import fr.robie.machineengine.api.machine.MachineDataKey;
 import fr.robie.machineengine.api.machine.MachineType;
 import fr.robie.machineengine.api.machine.PortDefinition;
 import fr.robie.machineengine.api.machine.StorageDefinition;
+import fr.robie.machineengine.api.multiblock.MultiblockShape;
+import fr.robie.machineengine.api.multiblock.MultiblockStructure;
+import fr.robie.machineengine.api.multiblock.MultiblockType;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.mekanized.machine.DataKeys;
@@ -26,22 +29,19 @@ public final class Sps {
     /** Polonium processed towards the next mB of antimatter. */
     public static final MachineDataKey<Long> SPS_PROGRESS = DataKeys.number("sps_progress");
 
-    public static final Multiblocks.Type SPS = new Multiblocks.Type(key("sps"), key("sps_casing"),
-            Set.of(key("sps_casing"), key("sps_port"), key("reactor_glass"), key("structural_glass")),
-            AIR::contains,
-            structure -> Map.of("polonium", 10_000L, "antimatter", 1_000L, "energy", 2_000_000_000L));
+    public static final MultiblockType SPS = new MultiblockType(key("sps"), new MultiblockShape.Box(key("sps_casing"), Set.of(key("sps_casing"), key("sps_port"), key("reactor_glass"), key("structural_glass")), AIR::contains), structure -> Map.of("polonium", 10_000L, "antimatter", 1_000L, "energy", 2_000_000_000L));
 
     private Sps() {
     }
 
     static void register(RegistrationContext context) {
-        List<Multiblocks.Type> sps = List.of(SPS);
+        List<MultiblockType> sps = List.of(SPS);
         context.machineTypes().register(MachineType.builder(key("sps_casing"))
                 .storage(StorageDefinition.tank("polonium", 1).filter(IS_CHEMICAL.and(named("polonium"))))
                 .storage(StorageDefinition.tank("antimatter", 1).filter(IS_CHEMICAL.and(named("antimatter"))))
                 .storage(StorageDefinition.tank("energy", 1).filter(IS_ENERGY))
                 .data(STATUS).data(SPS_PROGRESS)
-                .behavior(MemberBehavior.frame(sps, Sps::shift, EVERY_TICKS))
+                .behavior(MultiblockMachines.members(sps).frame(Sps::shift, EVERY_TICKS))
                 .build());
         context.machineTypes().register(valve("sps_port", sps, List.of("polonium", "energy"), Map.of("input", List.of(), "output", List.of("antimatter")))
                 .storage(StorageDefinition.tank("chemical", 1).filter(IS_CHEMICAL))
@@ -53,7 +53,7 @@ public final class Sps {
     }
 
     /** SPS: energy turns polonium into antimatter, 1,000 mB and 1 GJ per mB. */
-    static void shift(MachineContext anchor, Multiblocks.Structure structure) {
+    static void shift(MachineContext anchor, MultiblockStructure structure) {
         long polonium = Math.min(amount(anchor, "polonium"), amount(anchor, "energy") / SPS_ENERGY_PER_POLONIUM);
         long progress = anchor.get(SPS_PROGRESS);
         if (room(anchor, "antimatter") <= 0) polonium = 0;

@@ -1,7 +1,8 @@
 package fr.robie.machineengine.mekanized.paper;
 
-import fr.robie.machineengine.mekanized.paper.menu.SideMenus;
+import fr.robie.machineengine.api.multiblock.Multiblocks;
 import fr.robie.machineengine.mekanized.MekanizedContent;
+import fr.robie.machineengine.mekanized.paper.menu.SideMenus;
 
 import fr.robie.machineengine.api.machine.WakeReason;
 import fr.robie.machineengine.api.network.TransportSideMode;
@@ -10,8 +11,6 @@ import fr.robie.machineengine.api.world.Direction;
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.api.machine.MachineInstance;
 import fr.robie.machineengine.mekanized.machine.LogisticsMachines;
-import fr.robie.machineengine.mekanized.multiblock.MemberBehavior;
-import fr.robie.machineengine.mekanized.multiblock.Multiblocks;
 import fr.robie.machineengine.mekanized.multiblock.MultiblockMachines;
 import fr.robie.machineengine.mekanized.multiblock.ReactorMachines;
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
@@ -57,7 +56,7 @@ public final class PaperConfigurator {
     private static final Direction[] TURN = {Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
 
     /** Multiblock frame blocks (the walls of every structure): they open their structure's menu (the anchor's). */
-    private static final Set<Key> MEMBERS = MultiblockMachines.TYPES.stream().flatMap(type -> type.faces().stream())
+    private static final Set<Key> MEMBERS = MultiblockMachines.TYPES.stream().flatMap(type -> type.shape().blocks().stream())
             .collect(Collectors.toUnmodifiableSet());
 
     private PaperConfigurator() {
@@ -163,9 +162,9 @@ public final class PaperConfigurator {
                 : ReactorMachines.MODES.get(type.value());
         if (modes == null) return false; // side configuration, turning
         var context = member.context();
-        String current = context.get(MemberBehavior.PORT_MODE);
+        String current = context.get(MultiblockMachines.PORT_MODE);
         String mode = modes.get((modes.indexOf(current) + 1) % modes.size());
-        context.set(MemberBehavior.PORT_MODE, mode);
+        context.set(MultiblockMachines.PORT_MODE, mode);
         member.wake(WakeReason.CONFIG_CHANGED);
         player.sendActionBar(Component.text(type.value().replace('_', ' ') + ": ", NamedTextColor.GRAY)
                 .append(Component.text(mode.replace('_', ' '), NamedTextColor.YELLOW)));

@@ -2,6 +2,7 @@ package fr.robie.machineengine.mekanized;
 
 import fr.robie.machineengine.api.capability.Capabilities;
 import fr.robie.machineengine.api.machine.WakeReason;
+import fr.robie.machineengine.api.multiblock.Multiblocks;
 import fr.robie.machineengine.api.registry.Registries;
 import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.api.transfer.ResourceHandler;
@@ -10,8 +11,7 @@ import fr.robie.machineengine.api.world.Direction;
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.core.lifecycle.CoreMachineEngine;
 import fr.robie.machineengine.core.machine.MachineInstanceImpl;
-import fr.robie.machineengine.mekanized.multiblock.MemberBehavior;
-import fr.robie.machineengine.mekanized.multiblock.Multiblocks;
+import fr.robie.machineengine.mekanized.multiblock.MultiblockMachines;
 import fr.robie.machineengine.test.FakeWorld;
 import net.kyori.adventure.key.Key;
 import org.junit.jupiter.api.Test;
@@ -84,7 +84,7 @@ class MultiblockTest {
         assertEquals(1_000_000, insert(handler, MekanizedContent.ENERGY.variant(), 1_000_000, this.engine), "an input port fills the matrix");
 
         MachineInstanceImpl chamber = world.place(type(this.engine, "enrichment_chamber"), FakeWorld.at(1, 65, -1), Direction.NORTH);
-        port.context().set(MemberBehavior.PORT_MODE, "output");
+        port.context().set(MultiblockMachines.PORT_MODE, "output");
         port.wake(WakeReason.CONFIG_CHANGED);
         world.tick(3);
         assertEquals(20_000, amount(chamber, "energy"), "an output port pushes into its neighbor (up to 256 kJ/t)");

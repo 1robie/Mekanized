@@ -30,7 +30,7 @@ import fr.robie.machineengine.mekanized.machine.Radiation;
 import fr.robie.machineengine.mekanized.machine.RadiationSettings;
 import fr.robie.machineengine.mekanized.machine.TeleporterSettings;
 import fr.robie.machineengine.mekanized.machine.UtilityBehaviors;
-import fr.robie.machineengine.mekanized.multiblock.Multiblocks;
+import fr.robie.machineengine.api.multiblock.Multiblocks;
 import fr.robie.machineengine.test.FakeWorld;
 import fr.robie.machineengine.test.TestEngine;
 import net.kyori.adventure.key.Key;

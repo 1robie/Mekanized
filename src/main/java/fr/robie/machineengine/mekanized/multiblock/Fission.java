@@ -6,6 +6,9 @@ import fr.robie.machineengine.api.machine.MachineDataKey;
 import fr.robie.machineengine.api.machine.MachineType;
 import fr.robie.machineengine.api.machine.PortDefinition;
 import fr.robie.machineengine.api.machine.StorageDefinition;
+import fr.robie.machineengine.api.multiblock.MultiblockShape;
+import fr.robie.machineengine.api.multiblock.MultiblockStructure;
+import fr.robie.machineengine.api.multiblock.MultiblockType;
 import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.mekanized.machine.DataKeys;
@@ -33,10 +36,7 @@ public final class Fission {
     public static final MachineDataKey<Long> REACTOR_HEAT = DataKeys.number("reactor_heat");
     public static final MachineDataKey<Long> DAMAGE = DataKeys.number("damage");
 
-    public static final Multiblocks.Type FISSION = new Multiblocks.Type(key("fission_reactor"), key("fission_reactor_casing"),
-            Set.of(key("fission_reactor_casing"), key("fission_reactor_port"), key("fission_reactor_logic_adapter"), key("reactor_glass")),
-            block -> AIR.contains(block) || block.equals(key("fission_fuel_assembly")) || block.equals(key("control_rod_assembly")),
-            structure -> {
+    public static final MultiblockType FISSION = new MultiblockType(key("fission_reactor"), new MultiblockShape.Box(key("fission_reactor_casing"), Set.of(key("fission_reactor_casing"), key("fission_reactor_port"), key("fission_reactor_logic_adapter"), key("reactor_glass")), block -> AIR.contains(block) || block.equals(key("fission_fuel_assembly")) || block.equals(key("control_rod_assembly"))), structure -> {
                 long assemblies = Math.max(1, structure.count(key("fission_fuel_assembly")));
                 return Map.of("fuel", assemblies * 8_000, "waste", assemblies * 8_000, "water", assemblies * 100_000,
                         "sodium", assemblies * 100_000, "steam", assemblies * 1_000_000, "hot", assemblies * 1_000_000);
@@ -46,7 +46,7 @@ public final class Fission {
     }
 
     static void register(RegistrationContext context) {
-        List<Multiblocks.Type> fission = List.of(FISSION);
+        List<MultiblockType> fission = List.of(FISSION);
         context.machineTypes().register(MachineType.builder(key("fission_reactor_casing"))
                 .storage(StorageDefinition.tank("fuel", 1).filter(IS_CHEMICAL.and(named("fissile_fuel"))))
                 .storage(StorageDefinition.tank("waste", 1).filter(IS_CHEMICAL.and(named("nuclear_waste"))))
@@ -55,7 +55,7 @@ public final class Fission {
                 .storage(StorageDefinition.tank("steam", 1).filter(IS_CHEMICAL.and(named("steam"))))
                 .storage(StorageDefinition.tank("hot", 1).filter(IS_CHEMICAL.and(named("superheated_sodium"))))
                 .data(STATUS).data(RUNNING).data(BURN_RATE).data(REACTOR_HEAT).data(DAMAGE)
-                .behavior(MemberBehavior.frame(fission, Fission::fission, EVERY_TICKS))
+                .behavior(MultiblockMachines.members(fission).frame(Fission::fission, EVERY_TICKS))
                 .build());
         context.machineTypes().register(valve("fission_reactor_port", fission, List.of("fuel", "water", "sodium"),
                 Map.of("input", List.of(), "output_coolant", List.of("steam", "hot"), "output_waste", List.of("waste")))
@@ -64,13 +64,13 @@ public final class Fission {
                 .port(PortDefinition.builder("fluid", "fluid").filter(IS_FLUID).group("fluid").build())
                 .port(PortDefinition.builder("chemical", "chemical").filter(IS_CHEMICAL).group("chemical").build())
                 .build());
-        context.machineTypes().register(MachineType.builder(key("fission_reactor_logic_adapter")).behavior(MemberBehavior.frame(fission)).build());
-        context.machineTypes().register(MachineType.builder(key("reactor_glass")).behavior(MemberBehavior.frame(List.of(FISSION, FUSION, SPS))).build());
+        context.machineTypes().register(MachineType.builder(key("fission_reactor_logic_adapter")).behavior(MultiblockMachines.members(fission).frame()).build());
+        context.machineTypes().register(MachineType.builder(key("reactor_glass")).behavior(MultiblockMachines.members(List.of(FISSION, FUSION, SPS)).frame()).build());
         inert(context, "fission_fuel_assembly", "control_rod_assembly");
     }
 
     /** Fission: burns fuel into waste and heat; coolant carries the heat away; too hot, it SCRAMs. */
-    static void fission(MachineContext anchor, Multiblocks.Structure structure) {
+    static void fission(MachineContext anchor, MultiblockStructure structure) {
         long assemblies = structure.count(key("fission_fuel_assembly"));
         long heat = anchor.get(REACTOR_HEAT);
         long damage = anchor.get(DAMAGE);
