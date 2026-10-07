@@ -828,7 +828,38 @@ lang:
     item.mekanized.mekasuit_boots: Botes del Vestit de Meka
     item.mekanized.mekasuit_helmet: Casc del Vestit de Meka
     item.mekanized.mekasuit_pants: Pantalons del Vestit de Meka
+    item.mekanized.module_attack_amplification_unit: Unitat d'Amplificació d'Atacs
     item.mekanized.module_base: Mòdul Base
+    item.mekanized.module_blasting_unit: Unitat d'Explosió
+    item.mekanized.module_charge_distribution_unit: Unitat de Distribució de Càrrega
+    item.mekanized.module_dosimeter_unit: Unitat de Dosimetria
+    item.mekanized.module_electrolytic_breathing_unit: Unitat de Respiració Electrolítica
+    item.mekanized.module_elytra_unit: Unitat d'Èlitres
+    item.mekanized.module_energy_unit: Unitat d'Energia
+    item.mekanized.module_excavation_escalation_unit: Unitat d'Escalada d'Excavació
+    item.mekanized.module_farming_unit: Unitat de Cultiu
+    item.mekanized.module_fortune_unit: Unitat de Refinament de Minerals
+    item.mekanized.module_frost_walker_unit: Unitat de Pas Congelant
+    item.mekanized.module_geiger_unit: Unitat Geiger
+    item.mekanized.module_geothermal_generator_unit: Unitat de Generació Geotèrmica
+    item.mekanized.module_gravitational_modulating_unit: Unit de Regulació Gravitacional
+    item.mekanized.module_gyroscopic_stabilization_unit: Unitat d'Estabilització Giroscòpica
+    item.mekanized.module_hydraulic_propulsion_unit: Unitat de Propulsió Hidràulica
+    item.mekanized.module_hydrostatic_repulsor_unit: Unitat de Repulsió Hidroestàtica
+    item.mekanized.module_inhalation_purification_unit: Unitat de Purificació d'Inhalació
+    item.mekanized.module_jetpack_unit: Unitat de Motxilla Propulsora
+    item.mekanized.module_locomotive_boosting_unit: Unitat d'Impuls Locomotriu
+    item.mekanized.module_magnetic_attraction_unit: Unitat d'Atracció Magnètica
+    item.mekanized.module_motorized_servo_unit: Unitat Servo Motoritzada
+    item.mekanized.module_nutritional_injection_unit: Unitat d'Injecció Nutricional
+    item.mekanized.module_radiation_shielding_unit: Unitat de Blindatge a la Radiació
+    item.mekanized.module_shearing_unit: Unitat de Cisallament
+    item.mekanized.module_silk_touch_unit: Unitat de Toc de Seda
+    item.mekanized.module_solar_recharging_unit: Unitat de Recàrrega Solar
+    item.mekanized.module_soul_surfer_unit: Unitat de Surfista d'Animes
+    item.mekanized.module_teleportation_unit: Unitat de Teletransport
+    item.mekanized.module_vein_mining_unit: Unitat de Mineria de Vetes
+    item.mekanized.module_vision_enhancement_unit: Unitat de Millora de Visió
     item.mekanized.network_reader: Lector de Xarxa
     item.mekanized.nugget_bronze: Grànul de Bronze
     item.mekanized.nugget_lead: Grànul de Plom
@@ -1184,6 +1215,26 @@ lang:
     item.mekanized.ingot_uranium: Uranový ingot
     item.mekanized.jetpack: Jetpack
     item.mekanized.jetpack_armored: Obrněný Jetpack
+    item.mekanized.module_attack_amplification_unit: Jednotka Násobení Útoku
+    item.mekanized.module_charge_distribution_unit: Jednotka Rozložení Nabití
+    item.mekanized.module_dosimeter_unit: Dozimetr
+    item.mekanized.module_electrolytic_breathing_unit: Elektrolytická dýchací jednotka
+    item.mekanized.module_energy_unit: Jednotka energie
+    item.mekanized.module_farming_unit: Zemědělská jednotka
+    item.mekanized.module_geothermal_generator_unit: Geotermální Generátor
+    item.mekanized.module_gravitational_modulating_unit: Gravitační modulovací jednotka
+    item.mekanized.module_gyroscopic_stabilization_unit: Gyroskopická Stabilizační Jednotka
+    item.mekanized.module_hydraulic_propulsion_unit: Hydraulická pohonná jednotka
+    item.mekanized.module_inhalation_purification_unit: Čisticí jednotka vdechování
+    item.mekanized.module_jetpack_unit: Jednotka Jetpack
+    item.mekanized.module_locomotive_boosting_unit: Jednotka zrychlení chůze
+    item.mekanized.module_magnetic_attraction_unit: Magnetická přitahovací jednotka
+    item.mekanized.module_nutritional_injection_unit: Nutriční vstřikovací jednotka
+    item.mekanized.module_radiation_shielding_unit: Jednotka radiačního stínění
+    item.mekanized.module_silk_touch_unit: Jednotka něžného dotyku
+    item.mekanized.module_solar_recharging_unit: Solární dobíjecí jednotka
+    item.mekanized.module_teleportation_unit: Teleportační jednotka
+    item.mekanized.module_vision_enhancement_unit: Jednotka Zdokonalení Vidění
     item.mekanized.nugget_steel: Ocelový nuget
     item.mekanized.pellet_antimatter: Antimatrový Pellet
     item.mekanized.portable_qio_dashboard: Přenosný řídicí panel QIO
@@ -1776,7 +1827,38 @@ lang:
     item.mekanized.mekasuit_boots: MekaSuit Stiefel
     item.mekanized.mekasuit_helmet: MekaSuit Helm
     item.mekanized.mekasuit_pants: MekaSuit Hose
+    item.mekanized.module_attack_amplification_unit: Angriff-Verstärkungs-Einheit
     item.mekanized.module_base: Basismodul
+    item.mekanized.module_blasting_unit: Explosionseinheit
+    item.mekanized.module_charge_distribution_unit: Ladungs-Verteilungs-Einheit
+    item.mekanized.module_dosimeter_unit: Dosimeter-Einheit
+    item.mekanized.module_electrolytic_breathing_unit: Elektolytische-Atmungs-Einheit
+    item.mekanized.module_elytra_unit: Elytra-Einheit
+    item.mekanized.module_energy_unit: Energie-Einheit
+    item.mekanized.module_excavation_escalation_unit: Ausgrabungs-Erweiterungs-Einheit
+    item.mekanized.module_farming_unit: Landwirtschafts-Einheit
+    item.mekanized.module_fortune_unit: Raffinierungseinheit
+    item.mekanized.module_frost_walker_unit: Eisläufer-Einheit
+    item.mekanized.module_geiger_unit: Geiger-Einheit
+    item.mekanized.module_geothermal_generator_unit: Geothermische Generatoreinheit
+    item.mekanized.module_gravitational_modulating_unit: Gravitations-Modulations-Einheit
+    item.mekanized.module_gyroscopic_stabilization_unit: Gyroskopische Stabilisierungseinheit
+    item.mekanized.module_hydraulic_propulsion_unit: Hydraulische-Beschleunigungs-Einheit
+    item.mekanized.module_hydrostatic_repulsor_unit: Hydrostatische Repulsionseinheit
+    item.mekanized.module_inhalation_purification_unit: Atemluft-Reinigungs-Einheit
+    item.mekanized.module_jetpack_unit: Jetpack-Einheit
+    item.mekanized.module_locomotive_boosting_unit: Bewegungs-Beschleunigungs-Einheit
+    item.mekanized.module_magnetic_attraction_unit: Magnetische-Anziehungs-Einheit
+    item.mekanized.module_motorized_servo_unit: Motorisierte Servo-Einheit
+    item.mekanized.module_nutritional_injection_unit: Nährstoff-Injektions-Einheit
+    item.mekanized.module_radiation_shielding_unit: Strahlungs-Schutz-Einheit
+    item.mekanized.module_shearing_unit: Schereinheit
+    item.mekanized.module_silk_touch_unit: Behutsamkeits-Einheit
+    item.mekanized.module_solar_recharging_unit: Solar Aufladeeinheit
+    item.mekanized.module_soul_surfer_unit: Seelensurfer Einheit
+    item.mekanized.module_teleportation_unit: Teleportations-Einheit
+    item.mekanized.module_vein_mining_unit: Ader-Abbau-Einheit
+    item.mekanized.module_vision_enhancement_unit: Sicht-Verbesserungs-Einheit
     item.mekanized.network_reader: Netwerklesegerät
     item.mekanized.nugget_bronze: Bronzeklumpen
     item.mekanized.nugget_lead: Bleinugget
@@ -2217,7 +2299,38 @@ lang:
     item.mekanized.mekasuit_boots: MekaSuit Stiefel
     item.mekanized.mekasuit_helmet: MekaSuit Helm
     item.mekanized.mekasuit_pants: MekaSuit Hose
+    item.mekanized.module_attack_amplification_unit: Angriff-Verstärkungs-Einheit
     item.mekanized.module_base: Basismodul
+    item.mekanized.module_blasting_unit: Explosionseinheit
+    item.mekanized.module_charge_distribution_unit: Ladungs-Verteilungs-Einheit
+    item.mekanized.module_dosimeter_unit: Dosimeter-Einheit
+    item.mekanized.module_electrolytic_breathing_unit: Elektolytische-Atmungs-Einheit
+    item.mekanized.module_elytra_unit: Elytra-Einheit
+    item.mekanized.module_energy_unit: Energie-Einheit
+    item.mekanized.module_excavation_escalation_unit: Ausgrabungs-Erweiterungs-Einheit
+    item.mekanized.module_farming_unit: Landwirtschafts-Einheit
+    item.mekanized.module_fortune_unit: Raffinierungseinheit
+    item.mekanized.module_frost_walker_unit: Eisläufer-Einheit
+    item.mekanized.module_geiger_unit: Geiger-Einheit
+    item.mekanized.module_geothermal_generator_unit: Geothermische Generatoreinheit
+    item.mekanized.module_gravitational_modulating_unit: Gravitations-Modulations-Einheit
+    item.mekanized.module_gyroscopic_stabilization_unit: Gyroskopische Stabilisierungseinheit
+    item.mekanized.module_hydraulic_propulsion_unit: Hydraulische-Beschleunigungs-Einheit
+    item.mekanized.module_hydrostatic_repulsor_unit: Hydrostatische Repulsionseinheit
+    item.mekanized.module_inhalation_purification_unit: Atemluft-Reinigungs-Einheit
+    item.mekanized.module_jetpack_unit: Jetpack-Einheit
+    item.mekanized.module_locomotive_boosting_unit: Bewegungs-Beschleunigungs-Einheit
+    item.mekanized.module_magnetic_attraction_unit: Magnetische-Anziehungs-Einheit
+    item.mekanized.module_motorized_servo_unit: Motorisierte Servo-Einheit
+    item.mekanized.module_nutritional_injection_unit: Nährstoff-Injektions-Einheit
+    item.mekanized.module_radiation_shielding_unit: Strahlungs-Schutz-Einheit
+    item.mekanized.module_shearing_unit: Schereinheit
+    item.mekanized.module_silk_touch_unit: Behutsamkeits-Einheit
+    item.mekanized.module_solar_recharging_unit: Solar Aufladeeinheit
+    item.mekanized.module_soul_surfer_unit: Seelensurfer Einheit
+    item.mekanized.module_teleportation_unit: Teleportations-Einheit
+    item.mekanized.module_vein_mining_unit: Ader-Abbau-Einheit
+    item.mekanized.module_vision_enhancement_unit: Sicht-Verbesserungs-Einheit
     item.mekanized.network_reader: Netwerklesegerät
     item.mekanized.nugget_bronze: Bronzeklumpen
     item.mekanized.nugget_lead: Bleinugget
@@ -2658,7 +2771,38 @@ lang:
     item.mekanized.mekasuit_boots: MekaSuit Stiefel
     item.mekanized.mekasuit_helmet: MekaSuit Helm
     item.mekanized.mekasuit_pants: MekaSuit Hose
+    item.mekanized.module_attack_amplification_unit: Angriffsverstärkungsmodul
     item.mekanized.module_base: Modulbasis
+    item.mekanized.module_blasting_unit: Explosionsmodul
+    item.mekanized.module_charge_distribution_unit: Ladungsverteilungsmodul
+    item.mekanized.module_dosimeter_unit: Dosimetermodul
+    item.mekanized.module_electrolytic_breathing_unit: Elektolytisches Atmungsmodul
+    item.mekanized.module_elytra_unit: Elytra-Modul
+    item.mekanized.module_energy_unit: Energiemodul
+    item.mekanized.module_excavation_escalation_unit: Ausgrabungsmodul
+    item.mekanized.module_farming_unit: Landwirtschaftsmodul
+    item.mekanized.module_fortune_unit: Erzaufbereitungsmodul
+    item.mekanized.module_frost_walker_unit: Eisläufermodul
+    item.mekanized.module_geiger_unit: Geigerzählermodul
+    item.mekanized.module_geothermal_generator_unit: Geothermische Generatoreinheit
+    item.mekanized.module_gravitational_modulating_unit: Gravitationsregelmodul
+    item.mekanized.module_gyroscopic_stabilization_unit: Gyroskopisches Stabilisierungsmodul
+    item.mekanized.module_hydraulic_propulsion_unit: Hydraulisches Beschleunigungsmodul
+    item.mekanized.module_hydrostatic_repulsor_unit: Hydrostatisches Repulsormodul
+    item.mekanized.module_inhalation_purification_unit: Atemluftreinigungsmodul
+    item.mekanized.module_jetpack_unit: Jetpackmodul
+    item.mekanized.module_locomotive_boosting_unit: Bewegungsbeschleunigungsmodul
+    item.mekanized.module_magnetic_attraction_unit: Magnetmodul
+    item.mekanized.module_motorized_servo_unit: Motorisiertes Servomodul
+    item.mekanized.module_nutritional_injection_unit: Nährstoff-Injektionsmodul
+    item.mekanized.module_radiation_shielding_unit: Strahlungsschutzmodul
+    item.mekanized.module_shearing_unit: Schermodul
+    item.mekanized.module_silk_touch_unit: Behutsamkeitsmodul
+    item.mekanized.module_solar_recharging_unit: Solar Aufladeeinheit
+    item.mekanized.module_soul_surfer_unit: Seelensurfermodul
+    item.mekanized.module_teleportation_unit: Teleportationsmodul
+    item.mekanized.module_vein_mining_unit: Aderabbaumodul
+    item.mekanized.module_vision_enhancement_unit: Sichtverbesserungsmodul
     item.mekanized.network_reader: Netzwerklesegerät
     item.mekanized.nugget_bronze: Bronzeklumpen
     item.mekanized.nugget_lead: Bleiklumpen
@@ -2785,6 +2929,8 @@ lang:
     item.mekanized.free_runners_armored: Armoured Free Runners
     item.mekanized.jetpack_armored: Armoured Jetpack
     item.mekanized.mekasuit_bodyarmor: MekaSuit Bodyarmour
+    item.mekanized.module_gyroscopic_stabilization_unit: Gyroscopic Stabilisation Unit
+    item.mekanized.module_motorized_servo_unit: Motorised Servo Unit
   en_ca:
     block.mekanized.advanced_pressurized_tube: Advanced Pressurised Tube
     block.mekanized.antiprotonic_nucleosynthesizer: Antiprotonic Nucleosynthesiser
@@ -2801,6 +2947,8 @@ lang:
     item.mekanized.free_runners_armored: Armoured Free Runners
     item.mekanized.jetpack_armored: Armoured Jetpack
     item.mekanized.mekasuit_bodyarmor: MekaSuit Bodyarmour
+    item.mekanized.module_gyroscopic_stabilization_unit: Gyroscopic Stabilisation Unit
+    item.mekanized.module_motorized_servo_unit: Motorised Servo Unit
   en_gb:
     block.mekanized.advanced_pressurized_tube: Advanced Pressurised Tube
     block.mekanized.antiprotonic_nucleosynthesizer: Antiprotonic Nucleosynthesiser
@@ -2817,6 +2965,8 @@ lang:
     item.mekanized.free_runners_armored: Armoured Free Runners
     item.mekanized.jetpack_armored: Armoured Jetpack
     item.mekanized.mekasuit_bodyarmor: MekaSuit Bodyarmour
+    item.mekanized.module_gyroscopic_stabilization_unit: Gyroscopic Stabilisation Unit
+    item.mekanized.module_motorized_servo_unit: Motorised Servo Unit
   en_pt:
     block.mekanized.advanced_bin: Lended Barrel
     block.mekanized.advanced_chemical_tank: Lended Tank o' Chemicals
@@ -2958,6 +3108,9 @@ lang:
     item.mekanized.flamethrower: Cannon o' Ember
     item.mekanized.jetpack: Flying Backpack
     item.mekanized.jetpack_armored: Protected Flying Backpack
+    item.mekanized.module_electrolytic_breathing_unit: Water Sunderin' Piece
+    item.mekanized.module_elytra_unit: Wing Piece
+    item.mekanized.module_silk_touch_unit: Soft Hands Piece
     item.mekanized.pellet_antimatter: Angry Stuff Pellet
     item.mekanized.robit: Magic Lad
     item.mekanized.solar_panel: Sun Collector
@@ -3361,7 +3514,38 @@ lang:
     item.mekanized.mekasuit_boots: sʇooᗺ ʇᴉnSɐʞǝW
     item.mekanized.mekasuit_helmet: ʇǝɯꞁǝH ʇᴉnSɐʞǝW
     item.mekanized.mekasuit_pants: sʇuɐԀ ʇᴉnSɐʞǝW
+    item.mekanized.module_attack_amplification_unit: ʇᴉu∩ uoᴉʇɐɔᴉɟᴉꞁdɯⱯ ʞɔɐʇʇⱯ
     item.mekanized.module_base: ǝsɐᗺ ǝꞁnpoW
+    item.mekanized.module_blasting_unit: ʇᴉu∩ ᵷuᴉʇsɐꞁᗺ
+    item.mekanized.module_charge_distribution_unit: ʇᴉu∩ uoᴉʇnqᴉɹʇsᴉᗡ ǝᵷɹɐɥƆ
+    item.mekanized.module_dosimeter_unit: ʇᴉu∩ ɹǝʇǝɯᴉsoᗡ
+    item.mekanized.module_electrolytic_breathing_unit: ʇᴉu∩ ᵷuᴉɥʇɐǝɹᗺ ɔᴉʇʎꞁoɹʇɔǝꞁƎ
+    item.mekanized.module_elytra_unit: ʇᴉu∩ ɐɹʇʎꞁƎ
+    item.mekanized.module_energy_unit: ʇᴉu∩ ʎᵷɹǝuƎ
+    item.mekanized.module_excavation_escalation_unit: ʇᴉu∩ uoᴉʇɐꞁɐɔsƎ uoᴉʇɐʌɐɔxƎ
+    item.mekanized.module_farming_unit: ʇᴉu∩ ᵷuᴉɯɹɐℲ
+    item.mekanized.module_fortune_unit: ʇᴉu∩ ʇuǝɯǝuᴉɟǝᴚ ǝɹO
+    item.mekanized.module_frost_walker_unit: ʇᴉu∩ ɹǝʞꞁɐM ʇsoɹℲ
+    item.mekanized.module_geiger_unit: ʇᴉu∩ ɹǝᵷᴉǝ⅁
+    item.mekanized.module_geothermal_generator_unit: ʇᴉu∩ ɹoʇɐɹǝuǝ⅁ ꞁɐɯɹǝɥʇoǝ⅁
+    item.mekanized.module_gravitational_modulating_unit: ʇᴉu∩ ᵷuᴉʇɐꞁnpoW ꞁɐuoᴉʇɐʇᴉʌɐɹ⅁
+    item.mekanized.module_gyroscopic_stabilization_unit: ʇᴉu∩ uoᴉʇɐzᴉꞁᴉqɐʇS ɔᴉdoɔsoɹʎ⅁
+    item.mekanized.module_hydraulic_propulsion_unit: ʇᴉu∩ uoᴉsꞁndoɹԀ ɔᴉꞁnɐɹpʎH
+    item.mekanized.module_hydrostatic_repulsor_unit: ʇᴉu∩ ɹosꞁndǝᴚ ɔᴉʇɐʇsoɹpʎH
+    item.mekanized.module_inhalation_purification_unit: ʇᴉu∩ uoᴉʇɐɔᴉɟᴉɹnԀ uoᴉʇɐꞁɐɥuI
+    item.mekanized.module_jetpack_unit: ʇᴉu∩ ʞɔɐdʇǝՐ
+    item.mekanized.module_locomotive_boosting_unit: ʇᴉu∩ ᵷuᴉʇsooᗺ ǝʌᴉʇoɯoɔoꞀ
+    item.mekanized.module_magnetic_attraction_unit: ʇᴉu∩ uoᴉʇɔɐɹʇʇⱯ ɔᴉʇǝuᵷɐW
+    item.mekanized.module_motorized_servo_unit: ʇᴉu∩ oʌɹǝS pǝzᴉɹoʇoW
+    item.mekanized.module_nutritional_injection_unit: ʇᴉu∩ uoᴉʇɔǝɾuI ꞁɐuoᴉʇᴉɹʇnN
+    item.mekanized.module_radiation_shielding_unit: ʇᴉu∩ ᵷuᴉpꞁǝᴉɥS uoᴉʇɐᴉpɐᴚ
+    item.mekanized.module_shearing_unit: ʇᴉu∩ ᵷuᴉɹɐǝɥS
+    item.mekanized.module_silk_touch_unit: ʇᴉu∩ ɥɔno⟘ ʞꞁᴉS
+    item.mekanized.module_solar_recharging_unit: ʇᴉu∩ ᵷuᴉᵷɹɐɥɔǝᴚ ɹɐꞁoS
+    item.mekanized.module_soul_surfer_unit: ʇᴉu∩ ɹǝɟɹnS ꞁnoS
+    item.mekanized.module_teleportation_unit: ʇᴉu∩ uoᴉʇɐʇɹodǝꞁǝ⟘
+    item.mekanized.module_vein_mining_unit: ʇᴉu∩ ᵷuᴉuᴉW uᴉǝΛ
+    item.mekanized.module_vision_enhancement_unit: ʇᴉu∩ ʇuǝɯǝɔuɐɥuƎ uoᴉsᴉΛ
     item.mekanized.network_reader: ɹǝpɐǝᴚ ʞɹoʍʇǝN
     item.mekanized.nugget_bronze: ʇǝᵷᵷnN ǝzuoɹᗺ
     item.mekanized.nugget_lead: ʇǝᵷᵷnN pɐǝꞀ
@@ -3809,7 +3993,38 @@ lang:
     item.mekanized.mekasuit_boots: MekaSuit Boots
     item.mekanized.mekasuit_helmet: MekaSuit Helmet
     item.mekanized.mekasuit_pants: MekaSuit Pants
+    item.mekanized.module_attack_amplification_unit: Attack Amplification Unit
     item.mekanized.module_base: Module Base
+    item.mekanized.module_blasting_unit: Blasting Unit
+    item.mekanized.module_charge_distribution_unit: Charge Distribution Unit
+    item.mekanized.module_dosimeter_unit: Dosimeter Unit
+    item.mekanized.module_electrolytic_breathing_unit: Electrolytic Breathing Unit
+    item.mekanized.module_elytra_unit: Elytra Unit
+    item.mekanized.module_energy_unit: Energy Unit
+    item.mekanized.module_excavation_escalation_unit: Excavation Escalation Unit
+    item.mekanized.module_farming_unit: Farming Unit
+    item.mekanized.module_fortune_unit: Ore Refinement Unit
+    item.mekanized.module_frost_walker_unit: Frost Walker Unit
+    item.mekanized.module_geiger_unit: Geiger Unit
+    item.mekanized.module_geothermal_generator_unit: Geothermal Generator Unit
+    item.mekanized.module_gravitational_modulating_unit: Gravitational Modulating Unit
+    item.mekanized.module_gyroscopic_stabilization_unit: Gyroscopic Stabilization Unit
+    item.mekanized.module_hydraulic_propulsion_unit: Hydraulic Propulsion Unit
+    item.mekanized.module_hydrostatic_repulsor_unit: Hydrostatic Repulsor Unit
+    item.mekanized.module_inhalation_purification_unit: Inhalation Purification Unit
+    item.mekanized.module_jetpack_unit: Jetpack Unit
+    item.mekanized.module_locomotive_boosting_unit: Locomotive Boosting Unit
+    item.mekanized.module_magnetic_attraction_unit: Magnetic Attraction Unit
+    item.mekanized.module_motorized_servo_unit: Motorized Servo Unit
+    item.mekanized.module_nutritional_injection_unit: Nutritional Injection Unit
+    item.mekanized.module_radiation_shielding_unit: Radiation Shielding Unit
+    item.mekanized.module_shearing_unit: Shearing Unit
+    item.mekanized.module_silk_touch_unit: Silk Touch Unit
+    item.mekanized.module_solar_recharging_unit: Solar Recharging Unit
+    item.mekanized.module_soul_surfer_unit: Soul Surfer Unit
+    item.mekanized.module_teleportation_unit: Teleportation Unit
+    item.mekanized.module_vein_mining_unit: Vein Mining Unit
+    item.mekanized.module_vision_enhancement_unit: Vision Enhancement Unit
     item.mekanized.network_reader: Network Reader
     item.mekanized.nugget_bronze: Bronze Nugget
     item.mekanized.nugget_lead: Lead Nugget
@@ -4274,7 +4489,38 @@ lang:
     item.mekanized.mekasuit_boots: Botas de Traje de Meka
     item.mekanized.mekasuit_helmet: Casco de Traje de Meka
     item.mekanized.mekasuit_pants: Pantalones de MekaSuit
+    item.mekanized.module_attack_amplification_unit: Unidad de amplificación de ataque
     item.mekanized.module_base: Base del módulo
+    item.mekanized.module_blasting_unit: Unidad de Explosión
+    item.mekanized.module_charge_distribution_unit: Unidad de distribución de la carga
+    item.mekanized.module_dosimeter_unit: Unidad de Dosimetría
+    item.mekanized.module_electrolytic_breathing_unit: Unidad de respiración electrolítica
+    item.mekanized.module_elytra_unit: Unidad de Élitros
+    item.mekanized.module_energy_unit: Unidad de Energía
+    item.mekanized.module_excavation_escalation_unit: Unidad de Escalación de Excavación
+    item.mekanized.module_farming_unit: Unidad de dgricultura
+    item.mekanized.module_fortune_unit: Unidad de Refinamiento de Minerales
+    item.mekanized.module_frost_walker_unit: Unidad de Paso Helado
+    item.mekanized.module_geiger_unit: Unidad de Geiger
+    item.mekanized.module_geothermal_generator_unit: Unidad de Generación Geotérmica
+    item.mekanized.module_gravitational_modulating_unit: Unidad de cambio de gravitación
+    item.mekanized.module_gyroscopic_stabilization_unit: Unidad de Estabilización Giroscópica
+    item.mekanized.module_hydraulic_propulsion_unit: Unidad de propulsión hidraulica
+    item.mekanized.module_hydrostatic_repulsor_unit: Unidad de Repulsión Hidrostática
+    item.mekanized.module_inhalation_purification_unit: Unidad de purificación inhalación
+    item.mekanized.module_jetpack_unit: Unidad de Mochila Propulsora
+    item.mekanized.module_locomotive_boosting_unit: Unidad de Impulso de Locomotoras
+    item.mekanized.module_magnetic_attraction_unit: Unidad de atracción magnética
+    item.mekanized.module_motorized_servo_unit: Unidad Motorizada
+    item.mekanized.module_nutritional_injection_unit: Unidad de Inyección Nutricional
+    item.mekanized.module_radiation_shielding_unit: Unidad de Escudo de Radiación
+    item.mekanized.module_shearing_unit: Unidad de Cizalladura
+    item.mekanized.module_silk_touch_unit: Unidad de toque de seda
+    item.mekanized.module_solar_recharging_unit: Unidad de Recarga Solar
+    item.mekanized.module_soul_surfer_unit: Unidad de Surfista de Almas
+    item.mekanized.module_teleportation_unit: Unidad de teletransporte
+    item.mekanized.module_vein_mining_unit: Unidad de minería de venas
+    item.mekanized.module_vision_enhancement_unit: Unidad de Mejora de Visión
     item.mekanized.network_reader: Lector de red
     item.mekanized.nugget_bronze: Pepita de bronce
     item.mekanized.nugget_lead: Pepita de plomo
@@ -4715,7 +4961,38 @@ lang:
     item.mekanized.mekasuit_boots: Botas de Traje de Meka
     item.mekanized.mekasuit_helmet: Casco de Traje de Meka
     item.mekanized.mekasuit_pants: Pantalones de MekaSuit
+    item.mekanized.module_attack_amplification_unit: Unidad de amplificación de ataque
     item.mekanized.module_base: Base del módulo
+    item.mekanized.module_blasting_unit: Unidad de Explosión
+    item.mekanized.module_charge_distribution_unit: Unidad de distribución de la carga
+    item.mekanized.module_dosimeter_unit: Unidad de Dosimetría
+    item.mekanized.module_electrolytic_breathing_unit: Unidad de respiración electrolítica
+    item.mekanized.module_elytra_unit: Unidad de Élitros
+    item.mekanized.module_energy_unit: Unidad de Energía
+    item.mekanized.module_excavation_escalation_unit: Unidad de Escalación de Excavación
+    item.mekanized.module_farming_unit: Unidad de dgricultura
+    item.mekanized.module_fortune_unit: Unidad de Refinamiento de Minerales
+    item.mekanized.module_frost_walker_unit: Unidad de Paso Helado
+    item.mekanized.module_geiger_unit: Unidad de Geiger
+    item.mekanized.module_geothermal_generator_unit: Unidad de Generación Geotérmica
+    item.mekanized.module_gravitational_modulating_unit: Unidad de cambio de gravitación
+    item.mekanized.module_gyroscopic_stabilization_unit: Unidad de Estabilización Giroscópica
+    item.mekanized.module_hydraulic_propulsion_unit: Unidad de propulsión hidraulica
+    item.mekanized.module_hydrostatic_repulsor_unit: Unidad de Repulsión Hidrostática
+    item.mekanized.module_inhalation_purification_unit: Unidad de purificación inhalación
+    item.mekanized.module_jetpack_unit: Unidad de Mochila Propulsora
+    item.mekanized.module_locomotive_boosting_unit: Unidad de Impulso de Locomotoras
+    item.mekanized.module_magnetic_attraction_unit: Unidad de atracción magnética
+    item.mekanized.module_motorized_servo_unit: Unidad Motorizada
+    item.mekanized.module_nutritional_injection_unit: Unidad de Inyección Nutricional
+    item.mekanized.module_radiation_shielding_unit: Unidad de Escudo de Radiación
+    item.mekanized.module_shearing_unit: Unidad de Cizalladura
+    item.mekanized.module_silk_touch_unit: Unidad de toque de seda
+    item.mekanized.module_solar_recharging_unit: Unidad de Recarga Solar
+    item.mekanized.module_soul_surfer_unit: Unidad de Surfista de Almas
+    item.mekanized.module_teleportation_unit: Unidad de teletransporte
+    item.mekanized.module_vein_mining_unit: Unidad de minería de venas
+    item.mekanized.module_vision_enhancement_unit: Unidad de Mejora de Visión
     item.mekanized.network_reader: Lector de red
     item.mekanized.nugget_bronze: Pepita de bronce
     item.mekanized.nugget_lead: Pepita de plomo
@@ -5156,7 +5433,38 @@ lang:
     item.mekanized.mekasuit_boots: Botas del MekaTraje
     item.mekanized.mekasuit_helmet: Casco del MekaTraje
     item.mekanized.mekasuit_pants: Pantalones del MekaTraje
+    item.mekanized.module_attack_amplification_unit: Unidad de Amplificación de Ataque
     item.mekanized.module_base: Módulo Base
+    item.mekanized.module_blasting_unit: Unidad de Explosión
+    item.mekanized.module_charge_distribution_unit: Unidad de Distribución de Carga
+    item.mekanized.module_dosimeter_unit: Unidad de Dosímetro
+    item.mekanized.module_electrolytic_breathing_unit: Unidad de Respiración Electrolítica
+    item.mekanized.module_elytra_unit: Unidad de Élitros
+    item.mekanized.module_energy_unit: Unidad de Energía
+    item.mekanized.module_excavation_escalation_unit: Unidad de Escalación de Excavación
+    item.mekanized.module_farming_unit: Unidad de Agricultura
+    item.mekanized.module_fortune_unit: Unidad de Refinamiento de Minerales
+    item.mekanized.module_frost_walker_unit: Unidad de Paso Helado
+    item.mekanized.module_geiger_unit: Unidad de Geiger
+    item.mekanized.module_geothermal_generator_unit: Unidad de Generación Geotérmica
+    item.mekanized.module_gravitational_modulating_unit: Unidad de Regulación Gravitacional
+    item.mekanized.module_gyroscopic_stabilization_unit: Unidad de Estabilización Giroscópica
+    item.mekanized.module_hydraulic_propulsion_unit: Unidad de Propulsión Hidráulica
+    item.mekanized.module_hydrostatic_repulsor_unit: Unidad de Repulsión Hidrostática
+    item.mekanized.module_inhalation_purification_unit: Unidad de Purificación de Inhalación
+    item.mekanized.module_jetpack_unit: Unidad Jetpack
+    item.mekanized.module_locomotive_boosting_unit: Unidad de Impulso de Locomotoras
+    item.mekanized.module_magnetic_attraction_unit: Unidad de Atracción Magnética
+    item.mekanized.module_motorized_servo_unit: Unidad Motorizada
+    item.mekanized.module_nutritional_injection_unit: Unidad de Inyección Nutricional
+    item.mekanized.module_radiation_shielding_unit: Unidad de Escudo de Radiación
+    item.mekanized.module_shearing_unit: Unidad de Cizalladura
+    item.mekanized.module_silk_touch_unit: Unidad de Toque de Seda
+    item.mekanized.module_solar_recharging_unit: Unidad de Recarga Solar
+    item.mekanized.module_soul_surfer_unit: Unidad de Surfista de Almas
+    item.mekanized.module_teleportation_unit: Unidad de Teletransporte
+    item.mekanized.module_vein_mining_unit: Unidad de Minería de Vetas
+    item.mekanized.module_vision_enhancement_unit: Unidad de Mejora de Visión
     item.mekanized.network_reader: Lector de Red
     item.mekanized.nugget_bronze: Pepita de Bronce
     item.mekanized.nugget_lead: Pepita de Plomo
@@ -5597,7 +5905,38 @@ lang:
     item.mekanized.mekasuit_boots: Botas del MekaTraje
     item.mekanized.mekasuit_helmet: Casco del MekaTraje
     item.mekanized.mekasuit_pants: Pantalones del MekaTraje
+    item.mekanized.module_attack_amplification_unit: Unidad de Amplificación de Ataque
     item.mekanized.module_base: Módulo Base
+    item.mekanized.module_blasting_unit: Unidad de Voladura
+    item.mekanized.module_charge_distribution_unit: Unidad de Distribución de Carga
+    item.mekanized.module_dosimeter_unit: Unidad de Dosímetro
+    item.mekanized.module_electrolytic_breathing_unit: Unidad de Respiración Electrolítica
+    item.mekanized.module_elytra_unit: Unidad de Élitros
+    item.mekanized.module_energy_unit: Unidad de Energía
+    item.mekanized.module_excavation_escalation_unit: Unidad de Escalación de Excavación
+    item.mekanized.module_farming_unit: Unidad de Agricultura
+    item.mekanized.module_fortune_unit: Unidad de Refinamiento de Mineral
+    item.mekanized.module_frost_walker_unit: Unidad de Paso Helado
+    item.mekanized.module_geiger_unit: Unidad de Geiger
+    item.mekanized.module_geothermal_generator_unit: Unidad de Generación Geotérmica
+    item.mekanized.module_gravitational_modulating_unit: Unidad de Regulación Gravitacional
+    item.mekanized.module_gyroscopic_stabilization_unit: Unidad de Estabilización Giroscópica
+    item.mekanized.module_hydraulic_propulsion_unit: Unidad de Propulsión Hidráulica
+    item.mekanized.module_hydrostatic_repulsor_unit: Unidad Repulsora Hidrostática
+    item.mekanized.module_inhalation_purification_unit: Unidad de Purificación de Inhalación
+    item.mekanized.module_jetpack_unit: Unidad Jetpack
+    item.mekanized.module_locomotive_boosting_unit: Unidad de Impulso de Locomotoras
+    item.mekanized.module_magnetic_attraction_unit: Unidad de Atracción Magnética
+    item.mekanized.module_motorized_servo_unit: Servounidad motorizada
+    item.mekanized.module_nutritional_injection_unit: Unidad de Inyección Nutricional
+    item.mekanized.module_radiation_shielding_unit: Unidad de Escudo de Radiación
+    item.mekanized.module_shearing_unit: Unidad de Cizalladura
+    item.mekanized.module_silk_touch_unit: Unidad de Toque de Seda
+    item.mekanized.module_solar_recharging_unit: Unidad de Recarga Solar
+    item.mekanized.module_soul_surfer_unit: Unidad de Surfista de Almas
+    item.mekanized.module_teleportation_unit: Unidad de Teletransporte
+    item.mekanized.module_vein_mining_unit: Unidad de Minería de Vetas
+    item.mekanized.module_vision_enhancement_unit: Unidad de Mejora de Visión
     item.mekanized.network_reader: Lector de Red
     item.mekanized.nugget_bronze: Pepita de Bronce
     item.mekanized.nugget_lead: Pepita de Plomo
@@ -5971,6 +6310,10 @@ lang:
     item.mekanized.mekasuit_helmet: کلاه مکا
     item.mekanized.mekasuit_pants: شلوار مکا
     item.mekanized.module_base: بیس ماژول
+    item.mekanized.module_electrolytic_breathing_unit: ارتقا نفس برقی
+    item.mekanized.module_elytra_unit: ارتقا بال
+    item.mekanized.module_energy_unit: واحد انرژی
+    item.mekanized.module_nutritional_injection_unit: دستگاه تزریق غذا
     item.mekanized.network_reader: خواننده شبکه
     item.mekanized.nugget_bronze: تکه برنز
     item.mekanized.nugget_lead: تکه سرب
@@ -6633,7 +6976,38 @@ lang:
     item.mekanized.mekasuit_boots: Bottes Meka
     item.mekanized.mekasuit_helmet: Casque Meka
     item.mekanized.mekasuit_pants: Pantalon Meka
+    item.mekanized.module_attack_amplification_unit: Unité d'amplification d'attaque
     item.mekanized.module_base: Base de module
+    item.mekanized.module_blasting_unit: Unité explosive
+    item.mekanized.module_charge_distribution_unit: Unité de distribution de charge
+    item.mekanized.module_dosimeter_unit: Unité de Dosimètre
+    item.mekanized.module_electrolytic_breathing_unit: Unité de respiration électrolytique
+    item.mekanized.module_elytra_unit: Unité d'Élytres
+    item.mekanized.module_energy_unit: Unité d'énergie
+    item.mekanized.module_excavation_escalation_unit: Unité d'escalade de l'excavation
+    item.mekanized.module_farming_unit: Unité de ferme
+    item.mekanized.module_fortune_unit: Unité de raffinage de minerai
+    item.mekanized.module_frost_walker_unit: Unité de Marche Givrante
+    item.mekanized.module_geiger_unit: Unité Geiger
+    item.mekanized.module_geothermal_generator_unit: Unité de Générateur Géothermique
+    item.mekanized.module_gravitational_modulating_unit: Unité de modulation gravitationnelle
+    item.mekanized.module_gyroscopic_stabilization_unit: Unité de stabilisation gyroscopique
+    item.mekanized.module_hydraulic_propulsion_unit: Unité de propulsion hydraulique
+    item.mekanized.module_hydrostatic_repulsor_unit: Unité de répulsion hydrostatique
+    item.mekanized.module_inhalation_purification_unit: Unité de purification d'inhalation
+    item.mekanized.module_jetpack_unit: Unité Jetpack
+    item.mekanized.module_locomotive_boosting_unit: Unité de Boost de Locomotive
+    item.mekanized.module_magnetic_attraction_unit: Unité d'Attraction Magnétique
+    item.mekanized.module_motorized_servo_unit: Unité de servo motorisé
+    item.mekanized.module_nutritional_injection_unit: Unité d'injection nutritionnelle
+    item.mekanized.module_radiation_shielding_unit: Unité de bouclier antiradiation
+    item.mekanized.module_shearing_unit: Unité de Cisaillement
+    item.mekanized.module_silk_touch_unit: Unité de touché de soie
+    item.mekanized.module_solar_recharging_unit: Unité de recharge solaire
+    item.mekanized.module_soul_surfer_unit: Unité Surfeur d’âme
+    item.mekanized.module_teleportation_unit: Unité de téléportation
+    item.mekanized.module_vein_mining_unit: Unité minière de filon
+    item.mekanized.module_vision_enhancement_unit: Unité d'amélioration de vision
     item.mekanized.network_reader: Lecteur réseau
     item.mekanized.nugget_bronze: Pépite de Bronze
     item.mekanized.nugget_lead: Pépite de Plomb
@@ -7488,7 +7862,37 @@ lang:
     item.mekanized.mekasuit_boots: Sepatu MekaSuit
     item.mekanized.mekasuit_helmet: Helm MekaSuit
     item.mekanized.mekasuit_pants: Celana MekaSuit
+    item.mekanized.module_attack_amplification_unit: Unit Penguat Serangan
     item.mekanized.module_base: Dasar Modul
+    item.mekanized.module_blasting_unit: Unit Peledak
+    item.mekanized.module_charge_distribution_unit: Unit Pembagi Isi Daya
+    item.mekanized.module_dosimeter_unit: Unit Dosimeter
+    item.mekanized.module_electrolytic_breathing_unit: Unit Pernapasan Elektrolit
+    item.mekanized.module_elytra_unit: Unit Elytra
+    item.mekanized.module_energy_unit: Unit Energi
+    item.mekanized.module_excavation_escalation_unit: Unit Peningkatan Penggalian
+    item.mekanized.module_farming_unit: Unit Pertanian
+    item.mekanized.module_fortune_unit: Unit Pemurnian Bijih
+    item.mekanized.module_frost_walker_unit: Unit Pejalan Es
+    item.mekanized.module_geiger_unit: Unit Geiger
+    item.mekanized.module_geothermal_generator_unit: Unit Penghasil Listrik Tenaga Geotermal
+    item.mekanized.module_gravitational_modulating_unit: Unit Modulasi Gravitasi
+    item.mekanized.module_gyroscopic_stabilization_unit: Unit Penstabilan Giroskop
+    item.mekanized.module_hydraulic_propulsion_unit: Unit Pendorong Hidraulik
+    item.mekanized.module_hydrostatic_repulsor_unit: Unit Penolak Hidrostatik
+    item.mekanized.module_inhalation_purification_unit: Unit Penyuci Pernapasan
+    item.mekanized.module_jetpack_unit: Unit Jetpack
+    item.mekanized.module_locomotive_boosting_unit: Unit Pendorong Lokomotif
+    item.mekanized.module_magnetic_attraction_unit: Unit Penarik Magnetik
+    item.mekanized.module_motorized_servo_unit: Unit Servo Bermotor
+    item.mekanized.module_nutritional_injection_unit: Unit Penyuntik Nutrisi
+    item.mekanized.module_radiation_shielding_unit: Unit Pelindung Radiasi
+    item.mekanized.module_shearing_unit: Unit Pencukuran
+    item.mekanized.module_silk_touch_unit: Unit Sentuhan Sutra
+    item.mekanized.module_solar_recharging_unit: Unit Pengisi Ulang Surya
+    item.mekanized.module_teleportation_unit: Unit Teleportasi
+    item.mekanized.module_vein_mining_unit: Unit Perlombongan
+    item.mekanized.module_vision_enhancement_unit: Unit Peningkatan Penglihatan
     item.mekanized.network_reader: Pembaca Jaringan
     item.mekanized.nugget_bronze: Naget Perunggu
     item.mekanized.nugget_lead: Naget Timbal
@@ -7909,7 +8313,38 @@ lang:
     item.mekanized.mekasuit_boots: Stivali MekaSuit
     item.mekanized.mekasuit_helmet: Elmetto MekaSuit
     item.mekanized.mekasuit_pants: Gambali MekaSuit
+    item.mekanized.module_attack_amplification_unit: Unità di amplificazione attacco
     item.mekanized.module_base: Modulo Base
+    item.mekanized.module_blasting_unit: Unità esplosiva
+    item.mekanized.module_charge_distribution_unit: Unità di distribuzione della carica
+    item.mekanized.module_dosimeter_unit: Unità dosimetrica
+    item.mekanized.module_electrolytic_breathing_unit: Unità di respirazione elettrolitica
+    item.mekanized.module_elytra_unit: Unità di Elytra
+    item.mekanized.module_energy_unit: Unità di energia
+    item.mekanized.module_excavation_escalation_unit: Unità di scavo rapido
+    item.mekanized.module_farming_unit: Unità agricola
+    item.mekanized.module_fortune_unit: Unità di raffinazione dei minerali
+    item.mekanized.module_frost_walker_unit: Unità camminatore del gelo
+    item.mekanized.module_geiger_unit: Unità Geiger
+    item.mekanized.module_geothermal_generator_unit: Unità Generatore Geotermico
+    item.mekanized.module_gravitational_modulating_unit: Unità di modulazione gravitazionale
+    item.mekanized.module_gyroscopic_stabilization_unit: Unità di stabilizzazione giroscopica
+    item.mekanized.module_hydraulic_propulsion_unit: Unità di propulsione idraulica
+    item.mekanized.module_hydrostatic_repulsor_unit: Unità di repulsione idrostatica
+    item.mekanized.module_inhalation_purification_unit: Unità di inalazione purificata
+    item.mekanized.module_jetpack_unit: Unità jetpack
+    item.mekanized.module_locomotive_boosting_unit: Unità di potenziamento locomotiva
+    item.mekanized.module_magnetic_attraction_unit: Unità di attrazione magnetica
+    item.mekanized.module_motorized_servo_unit: Unità motorizzata
+    item.mekanized.module_nutritional_injection_unit: Unità di iniezione nutrizionale
+    item.mekanized.module_radiation_shielding_unit: Unità di radioprotezione
+    item.mekanized.module_shearing_unit: Unità di potatura
+    item.mekanized.module_silk_touch_unit: Unità tocco di velluto
+    item.mekanized.module_solar_recharging_unit: Unità di ricarica solare
+    item.mekanized.module_soul_surfer_unit: Unità surfista di anime
+    item.mekanized.module_teleportation_unit: Unità di teletrasporto
+    item.mekanized.module_vein_mining_unit: Unità mineraria
+    item.mekanized.module_vision_enhancement_unit: Unità di miglioramento della visione
     item.mekanized.network_reader: Lettore di Rete
     item.mekanized.nugget_bronze: Pepita di Bronzo
     item.mekanized.nugget_lead: Pepita di Piombo
@@ -8350,7 +8785,38 @@ lang:
     item.mekanized.mekasuit_boots: MekaSuitブーツ
     item.mekanized.mekasuit_helmet: MekaSuitヘルメット
     item.mekanized.mekasuit_pants: MekaSuitパンツ
+    item.mekanized.module_attack_amplification_unit: 攻撃力増強ユニット
     item.mekanized.module_base: モジュールベース
+    item.mekanized.module_blasting_unit: ブラストユニット
+    item.mekanized.module_charge_distribution_unit: 電力分配ユニット
+    item.mekanized.module_dosimeter_unit: 線量計ユニット
+    item.mekanized.module_electrolytic_breathing_unit: 電解呼吸ユニット
+    item.mekanized.module_elytra_unit: エリトラユニット
+    item.mekanized.module_energy_unit: エネルギーユニット
+    item.mekanized.module_excavation_escalation_unit: 採掘漸増ユニット
+    item.mekanized.module_farming_unit: 耕作ユニット
+    item.mekanized.module_fortune_unit: 鉱石精製ユニット
+    item.mekanized.module_frost_walker_unit: 氷渡りユニット
+    item.mekanized.module_geiger_unit: ガイガーユニット
+    item.mekanized.module_geothermal_generator_unit: 地熱発電ユニット
+    item.mekanized.module_gravitational_modulating_unit: 重力変調ユニット
+    item.mekanized.module_gyroscopic_stabilization_unit: ジャイロスコープ安定化ユニット
+    item.mekanized.module_hydraulic_propulsion_unit: 油圧式推進ユニット
+    item.mekanized.module_hydrostatic_repulsor_unit: 静水学的反発ユニット
+    item.mekanized.module_inhalation_purification_unit: 吸気浄化ユニット
+    item.mekanized.module_jetpack_unit: ジェットパックユニット
+    item.mekanized.module_locomotive_boosting_unit: 機関式推進ユニット
+    item.mekanized.module_magnetic_attraction_unit: 磁気誘引ユニット
+    item.mekanized.module_motorized_servo_unit: 電動サーボユニット
+    item.mekanized.module_nutritional_injection_unit: 栄養注射ユニット
+    item.mekanized.module_radiation_shielding_unit: 放射線防護ユニット
+    item.mekanized.module_shearing_unit: 剪断ユニット
+    item.mekanized.module_silk_touch_unit: シルクタッチユニット
+    item.mekanized.module_solar_recharging_unit: 太陽光再充電ユニット
+    item.mekanized.module_soul_surfer_unit: ソウルサーファーユニット
+    item.mekanized.module_teleportation_unit: テレポートユニット
+    item.mekanized.module_vein_mining_unit: 鉱脈採掘ユニット
+    item.mekanized.module_vision_enhancement_unit: 視界強化ユニット
     item.mekanized.network_reader: ネットワークリーダー
     item.mekanized.nugget_bronze: 青銅塊
     item.mekanized.nugget_lead: 鉛塊
@@ -8792,7 +9258,38 @@ lang:
     item.mekanized.mekasuit_boots: 메카슈트 부츠
     item.mekanized.mekasuit_helmet: 메카슈트 투구
     item.mekanized.mekasuit_pants: 메카슈트 각반
+    item.mekanized.module_attack_amplification_unit: 공격 증폭 기구
     item.mekanized.module_base: 모듈 베이스
+    item.mekanized.module_blasting_unit: 폭발 기구
+    item.mekanized.module_charge_distribution_unit: 충전 분배 기구
+    item.mekanized.module_dosimeter_unit: 선량 기구
+    item.mekanized.module_electrolytic_breathing_unit: 전기적 호흡 기구
+    item.mekanized.module_elytra_unit: 겉날개 기구
+    item.mekanized.module_energy_unit: 에너지 기구
+    item.mekanized.module_excavation_escalation_unit: 채굴 확대 기구
+    item.mekanized.module_farming_unit: 농사 기구
+    item.mekanized.module_fortune_unit: 광석 정제 기구
+    item.mekanized.module_frost_walker_unit: 차가운 발걸음 기구
+    item.mekanized.module_geiger_unit: 가이거 측정 기구
+    item.mekanized.module_geothermal_generator_unit: 지열 발전 기구
+    item.mekanized.module_gravitational_modulating_unit: 중력 조작 기구
+    item.mekanized.module_gyroscopic_stabilization_unit: 회전 안정화 기구
+    item.mekanized.module_hydraulic_propulsion_unit: 수력 추진 기구
+    item.mekanized.module_hydrostatic_repulsor_unit: 유체 반발 기구
+    item.mekanized.module_inhalation_purification_unit: 호흡 정화 기구
+    item.mekanized.module_jetpack_unit: 제트팩 기구
+    item.mekanized.module_locomotive_boosting_unit: 운동 부스트 기구
+    item.mekanized.module_magnetic_attraction_unit: 자력 기구
+    item.mekanized.module_motorized_servo_unit: 서보 모터 기구
+    item.mekanized.module_nutritional_injection_unit: 영양분 투입 기구
+    item.mekanized.module_radiation_shielding_unit: 방사능 저항 기구
+    item.mekanized.module_shearing_unit: 에너지 가위 기구
+    item.mekanized.module_silk_touch_unit: 섬세한 손길 기구
+    item.mekanized.module_solar_recharging_unit: 태양광 충전 기구
+    item.mekanized.module_soul_surfer_unit: 영혼 가속 기구
+    item.mekanized.module_teleportation_unit: 텔레포테이션 기구
+    item.mekanized.module_vein_mining_unit: 광맥 채광 기구
+    item.mekanized.module_vision_enhancement_unit: 시력 향상 기구
     item.mekanized.network_reader: 네트워크 리더
     item.mekanized.nugget_bronze: 청동 조각
     item.mekanized.nugget_lead: 납 조각
@@ -9337,7 +9834,38 @@ lang:
     item.mekanized.mekasuit_boots: MekaBruņu Zābaki
     item.mekanized.mekasuit_helmet: MekaBruņu Ķivere
     item.mekanized.mekasuit_pants: MekaBruņu Bikses
+    item.mekanized.module_attack_amplification_unit: Uzbrukuma Pastiprinājuma Modulis
     item.mekanized.module_base: Moduļu Bāze
+    item.mekanized.module_blasting_unit: Spridzināšanas Modulis
+    item.mekanized.module_charge_distribution_unit: Uzlādes Izplatīšanas Modulis
+    item.mekanized.module_dosimeter_unit: Dozimetra Modulis
+    item.mekanized.module_electrolytic_breathing_unit: Elektrolītiskās Elpošanas Modulis
+    item.mekanized.module_elytra_unit: Elitras Modulis
+    item.mekanized.module_energy_unit: Enerģijas Vienība
+    item.mekanized.module_excavation_escalation_unit: Izrakšanas Eskalācijas Modulis
+    item.mekanized.module_farming_unit: Lauksaimniecības Modulis
+    item.mekanized.module_fortune_unit: Rūdas Pārstrādes Modulis
+    item.mekanized.module_frost_walker_unit: Sala Staigātāja Modulis
+    item.mekanized.module_geiger_unit: Geigera Modulis
+    item.mekanized.module_geothermal_generator_unit: Ģeotermālā Ģeneratora Modulis
+    item.mekanized.module_gravitational_modulating_unit: Gravitācijas Modulācijas Modulis
+    item.mekanized.module_gyroscopic_stabilization_unit: Žiroskopiskās Stabilizācijas Modulis
+    item.mekanized.module_hydraulic_propulsion_unit: Hidrauliskās Piedziņas Modulis
+    item.mekanized.module_hydrostatic_repulsor_unit: Hidrostatiskās Atgrūšanas Modulis
+    item.mekanized.module_inhalation_purification_unit: Inhalācijas Attīrīšanas Modulis
+    item.mekanized.module_jetpack_unit: Raķešmugursomas Modulis
+    item.mekanized.module_locomotive_boosting_unit: Lokomotīves Paātrinājuma Modulis
+    item.mekanized.module_magnetic_attraction_unit: Magnētiskās Pievilces Modulis
+    item.mekanized.module_motorized_servo_unit: Motorizētu Servodzinēju Modulis
+    item.mekanized.module_nutritional_injection_unit: Uzturvielas Injekcijas Modulis
+    item.mekanized.module_radiation_shielding_unit: Radiācijas Aizsardzības Modulis
+    item.mekanized.module_shearing_unit: Apgriešanas Modulis
+    item.mekanized.module_silk_touch_unit: Zīda Pieskāriena Modulis
+    item.mekanized.module_solar_recharging_unit: Solārās Uzlādes Modulis
+    item.mekanized.module_soul_surfer_unit: Dvēseļu Sērfotāja Modulis
+    item.mekanized.module_teleportation_unit: Teleportācijas Modulis
+    item.mekanized.module_vein_mining_unit: Masveida Rakšanas Modulis
+    item.mekanized.module_vision_enhancement_unit: Redzes Uzlabošana Modulis
     item.mekanized.network_reader: Tīkla Lasītājs
     item.mekanized.nugget_bronze: Bronzas Gabals
     item.mekanized.nugget_lead: Svina Gabals
@@ -9960,7 +10488,27 @@ lang:
     item.mekanized.mekasuit_boots: MekaSuit laarzen
     item.mekanized.mekasuit_helmet: MekaSuit helm
     item.mekanized.mekasuit_pants: MekaSuit broek
+    item.mekanized.module_attack_amplification_unit: Aanvalverbeteraar
     item.mekanized.module_base: Module Basis
+    item.mekanized.module_blasting_unit: Explosie Toevoeging
+    item.mekanized.module_charge_distribution_unit: Energieverdeler
+    item.mekanized.module_dosimeter_unit: Dosimeter Toevoeging
+    item.mekanized.module_electrolytic_breathing_unit: Elektrolytische Ademhaling Toevoeging
+    item.mekanized.module_elytra_unit: Elytra Toevoeging
+    item.mekanized.module_energy_unit: Energie Toevoeging
+    item.mekanized.module_excavation_escalation_unit: Uitgraving Toevoeging
+    item.mekanized.module_farming_unit: Landbouw Toevoeging
+    item.mekanized.module_fortune_unit: Ertsverbeteraar
+    item.mekanized.module_frost_walker_unit: Vorstloper Toevoeging
+    item.mekanized.module_geiger_unit: Geigerteller Toevoeging
+    item.mekanized.module_gravitational_modulating_unit: Zwaartekracht Aanpassings Toevoeging
+    item.mekanized.module_gyroscopic_stabilization_unit: Gyroscopisce Stabilisatie Toevoeging
+    item.mekanized.module_hydraulic_propulsion_unit: Hydraulische aandrijving
+    item.mekanized.module_inhalation_purification_unit: Inhalatiezuiveringsunit
+    item.mekanized.module_jetpack_unit: Jetpack eenheid
+    item.mekanized.module_shearing_unit: Scheren toevoeging
+    item.mekanized.module_silk_touch_unit: Zijden streling toevoeging
+    item.mekanized.module_teleportation_unit: Teleporteren toevoeging
     item.mekanized.network_reader: Netwerk lezer
     item.mekanized.nugget_bronze: Bronzen Knassenget
     item.mekanized.nugget_lead: Lood Klompje
@@ -10375,7 +10923,37 @@ lang:
     item.mekanized.mekasuit_boots: Buty MekaPancerza
     item.mekanized.mekasuit_helmet: Hełm MekaPancerza
     item.mekanized.mekasuit_pants: Nogawice MekaPancerza
+    item.mekanized.module_attack_amplification_unit: Jednostka Amplifikacji Ataku
     item.mekanized.module_base: Forma modułu
+    item.mekanized.module_blasting_unit: Jednostka wybuchowa
+    item.mekanized.module_charge_distribution_unit: Jednostka Rozłożenia Ładunku
+    item.mekanized.module_dosimeter_unit: Jednostka Dozymetru
+    item.mekanized.module_electrolytic_breathing_unit: Jednostka Elektrolitycznego Oddychania
+    item.mekanized.module_elytra_unit: Jednostka elytr
+    item.mekanized.module_energy_unit: Jednostka energii
+    item.mekanized.module_excavation_escalation_unit: Jednostka Eskalacji Wydobywania
+    item.mekanized.module_farming_unit: Jednostka Rolnicza
+    item.mekanized.module_fortune_unit: Jednostka rafinacji rud
+    item.mekanized.module_frost_walker_unit: Jednostka mroźnego piechura
+    item.mekanized.module_geiger_unit: Jednostka Geigera
+    item.mekanized.module_geothermal_generator_unit: Jednostka generatora geotermalnego
+    item.mekanized.module_gravitational_modulating_unit: Jednostka Modulacji Grawitacyjnej
+    item.mekanized.module_gyroscopic_stabilization_unit: Jednostka stabilizacji żyroskopowej
+    item.mekanized.module_hydraulic_propulsion_unit: Jednostka Napędu Hydraulicznego
+    item.mekanized.module_hydrostatic_repulsor_unit: Jednostka repulsorów hydrostatycznych
+    item.mekanized.module_inhalation_purification_unit: Jednostka Oczyszczania Powietrza
+    item.mekanized.module_jetpack_unit: Jednostka Plecaka Odrzutowego
+    item.mekanized.module_locomotive_boosting_unit: Jednostka Wzmocnienia Przemieszczania
+    item.mekanized.module_magnetic_attraction_unit: Jednostka Magnetycznego Przyciągania
+    item.mekanized.module_motorized_servo_unit: Jednostka zmotoryzowanych siłowników
+    item.mekanized.module_nutritional_injection_unit: Jednostka Wtrysku Odżywczego
+    item.mekanized.module_radiation_shielding_unit: Jednostka Tarczy Promieniochronnej
+    item.mekanized.module_shearing_unit: Jednostka strzyżenia
+    item.mekanized.module_silk_touch_unit: Jednostka jedwabnego dotyku
+    item.mekanized.module_solar_recharging_unit: Jednostka ładowania słonecznego
+    item.mekanized.module_teleportation_unit: Jednostka Teleportacji
+    item.mekanized.module_vein_mining_unit: Jednostka Wydobywania Złóż
+    item.mekanized.module_vision_enhancement_unit: Jednostka Wzmocnienia Wizji
     item.mekanized.network_reader: Czytnik sieci
     item.mekanized.nugget_bronze: Samorodek brązu
     item.mekanized.nugget_lead: Samorodek ołowiu
@@ -10816,7 +11394,38 @@ lang:
     item.mekanized.mekasuit_boots: Botas do MekaSuit
     item.mekanized.mekasuit_helmet: Capacete do MekaSuit
     item.mekanized.mekasuit_pants: Calças do MekaSuit
+    item.mekanized.module_attack_amplification_unit: Unidade de Amplificação de Ataque
     item.mekanized.module_base: Base de Módulo
+    item.mekanized.module_blasting_unit: Unidade de Explosão
+    item.mekanized.module_charge_distribution_unit: Unidade de Distribuição de Carga
+    item.mekanized.module_dosimeter_unit: Unidade de Dosímetro
+    item.mekanized.module_electrolytic_breathing_unit: Unidade de Respiração Eletrolítica
+    item.mekanized.module_elytra_unit: Unidade de Élitros
+    item.mekanized.module_energy_unit: Unidade de Energia
+    item.mekanized.module_excavation_escalation_unit: Unidade de Escalação de Escavação
+    item.mekanized.module_farming_unit: Unidade de Cultivo
+    item.mekanized.module_fortune_unit: Unidade de Refinamento de Minério
+    item.mekanized.module_frost_walker_unit: Unidade de Passos Congelantes
+    item.mekanized.module_geiger_unit: Unidade Geiger
+    item.mekanized.module_geothermal_generator_unit: Unidade de Gerador Geotérmico
+    item.mekanized.module_gravitational_modulating_unit: Unidade de Modulação Gravitacional
+    item.mekanized.module_gyroscopic_stabilization_unit: Unidade de Estabilização Giroscópica
+    item.mekanized.module_hydraulic_propulsion_unit: Unidade de Propulsão Hidráulica
+    item.mekanized.module_hydrostatic_repulsor_unit: Unidade de Repulsor Hidrostático
+    item.mekanized.module_inhalation_purification_unit: Unidade de Purificação de Inalação
+    item.mekanized.module_jetpack_unit: Unidade de Jetpack
+    item.mekanized.module_locomotive_boosting_unit: Unidade de Impulso de Locomotiva
+    item.mekanized.module_magnetic_attraction_unit: Unidade de Atração Magnética
+    item.mekanized.module_motorized_servo_unit: Unidade de Servo Motorizada
+    item.mekanized.module_nutritional_injection_unit: Unidade de Injeção Nutricional
+    item.mekanized.module_radiation_shielding_unit: Unidade de Proteção contra Radiação
+    item.mekanized.module_shearing_unit: Unidade de Tosquia
+    item.mekanized.module_silk_touch_unit: Unidade de Toque Suave
+    item.mekanized.module_solar_recharging_unit: Unidade de Recarga Solar
+    item.mekanized.module_soul_surfer_unit: Unidade de Surfista de Almas
+    item.mekanized.module_teleportation_unit: Unidade de Teletransporte
+    item.mekanized.module_vein_mining_unit: Unidade de Mineração de Veio
+    item.mekanized.module_vision_enhancement_unit: Unidade de Aprimoramento de Visão
     item.mekanized.network_reader: Leitor de Rede
     item.mekanized.nugget_bronze: Pepita de Bronze
     item.mekanized.nugget_lead: Pepita de Chumbo
@@ -11255,7 +11864,38 @@ lang:
     item.mekanized.mekasuit_boots: Botas MekaSuit
     item.mekanized.mekasuit_helmet: Capacete MekaSuit
     item.mekanized.mekasuit_pants: Calças de MekaSuit
+    item.mekanized.module_attack_amplification_unit: Unidade de Amplificação de Ataque
     item.mekanized.module_base: Base de Módulos
+    item.mekanized.module_blasting_unit: Unidade de Explosão
+    item.mekanized.module_charge_distribution_unit: Unidade de distribuição de carga
+    item.mekanized.module_dosimeter_unit: Unidade de Dosimetro
+    item.mekanized.module_electrolytic_breathing_unit: Unidade de Respiração Eletrolítica
+    item.mekanized.module_elytra_unit: Unidade de Élitro
+    item.mekanized.module_energy_unit: Unidade de Energia
+    item.mekanized.module_excavation_escalation_unit: Unidade de Escavação Escalada
+    item.mekanized.module_farming_unit: Unidade Agrícula
+    item.mekanized.module_fortune_unit: Unidade de refinação de minério
+    item.mekanized.module_frost_walker_unit: Unidade de Passas Gelados
+    item.mekanized.module_geiger_unit: Unidade Geiger
+    item.mekanized.module_geothermal_generator_unit: Unidade de Gerador Geotérmico
+    item.mekanized.module_gravitational_modulating_unit: Unidade Gravitacional Modulante
+    item.mekanized.module_gyroscopic_stabilization_unit: Unidade de Estabilização Giroscópio
+    item.mekanized.module_hydraulic_propulsion_unit: Unidade de Propulsão Hidráulica
+    item.mekanized.module_hydrostatic_repulsor_unit: Unidade de Repulsão Hidrostático
+    item.mekanized.module_inhalation_purification_unit: Unidade de Purificação Inalatória
+    item.mekanized.module_jetpack_unit: Unidade de Jetpack
+    item.mekanized.module_locomotive_boosting_unit: Unidade de Propulsão Locomotiva
+    item.mekanized.module_magnetic_attraction_unit: Unidade de Atração Magnética
+    item.mekanized.module_motorized_servo_unit: Unidade Servo Motorizada
+    item.mekanized.module_nutritional_injection_unit: Unidade de Injeção nutricional
+    item.mekanized.module_radiation_shielding_unit: Unidade de Proteção Radiante
+    item.mekanized.module_shearing_unit: Unidade de Corte
+    item.mekanized.module_silk_touch_unit: Unidade de Toque Suave
+    item.mekanized.module_solar_recharging_unit: Unidade de Recargamento Solar
+    item.mekanized.module_soul_surfer_unit: Unidade Surfista da Alma
+    item.mekanized.module_teleportation_unit: Unidade de Teletransporte
+    item.mekanized.module_vein_mining_unit: Unidade de Mineração Veícula
+    item.mekanized.module_vision_enhancement_unit: Unidade de Aprimoramento de Visão
     item.mekanized.network_reader: Leitor de Rede
     item.mekanized.nugget_bronze: Pepita de Bronze
     item.mekanized.nugget_lead: Pepita de Chumbo
@@ -11609,7 +12249,26 @@ lang:
     item.mekanized.mekasuit_boots: Cizme MekaArmură
     item.mekanized.mekasuit_helmet: Cască MekaArmură
     item.mekanized.mekasuit_pants: Pantaloni MekaArmură
+    item.mekanized.module_attack_amplification_unit: Unitate Amplificare Atac
     item.mekanized.module_base: Modul de Bază
+    item.mekanized.module_charge_distribution_unit: Unitate Distribuire Încărcare
+    item.mekanized.module_dosimeter_unit: Unitate Dozametru
+    item.mekanized.module_electrolytic_breathing_unit: Unitate Respiratorie Electrolitică
+    item.mekanized.module_energy_unit: Unitate de energie
+    item.mekanized.module_farming_unit: Unitate de Cultivare
+    item.mekanized.module_gravitational_modulating_unit: Unitate de Modulare Gravitațională
+    item.mekanized.module_gyroscopic_stabilization_unit: Unitate de stabilizare giroscopică
+    item.mekanized.module_hydraulic_propulsion_unit: Unitate Propulsie Hidraulică
+    item.mekanized.module_inhalation_purification_unit: Unitate Purificator Inhalator
+    item.mekanized.module_jetpack_unit: Unitate Propulsor
+    item.mekanized.module_locomotive_boosting_unit: Unitate Impuls a Locomotivei
+    item.mekanized.module_magnetic_attraction_unit: Unitate de Atracție Magnetică
+    item.mekanized.module_nutritional_injection_unit: Unitate Injectare Nutrițională
+    item.mekanized.module_radiation_shielding_unit: Unitate Scut Radiații
+    item.mekanized.module_silk_touch_unit: Unitate Silk Touch
+    item.mekanized.module_teleportation_unit: Unitate de Teleportare
+    item.mekanized.module_vein_mining_unit: Unitate Minare Zăcământ
+    item.mekanized.module_vision_enhancement_unit: Unitate Îmbunătățire a Vederii
     item.mekanized.network_reader: Cititor De Reţea
     item.mekanized.nugget_bronze: Pepită De Bronz
     item.mekanized.nugget_lead: Pepită de plumb
@@ -12044,7 +12703,38 @@ lang:
     item.mekanized.mekasuit_boots: Ботинки MekaSuit
     item.mekanized.mekasuit_helmet: Шлем MekaSuit
     item.mekanized.mekasuit_pants: Штаны MekaSuit
+    item.mekanized.module_attack_amplification_unit: 'Модуль: Урон'
     item.mekanized.module_base: Модульная база
+    item.mekanized.module_blasting_unit: 'Модуль: Взрывное устройство'
+    item.mekanized.module_charge_distribution_unit: 'Модуль: Распределение энергии'
+    item.mekanized.module_dosimeter_unit: 'Модуль: Дозиметр'
+    item.mekanized.module_electrolytic_breathing_unit: 'Модуль: Электролитическое дыхание'
+    item.mekanized.module_elytra_unit: 'Модуль: Элитра'
+    item.mekanized.module_energy_unit: 'Модуль: Ёмкость'
+    item.mekanized.module_excavation_escalation_unit: 'Модуль: Ускоренная добыча'
+    item.mekanized.module_farming_unit: 'Модуль: Фермерство'
+    item.mekanized.module_fortune_unit: 'Модуль: Удача'
+    item.mekanized.module_frost_walker_unit: 'Модуль: Ледоход'
+    item.mekanized.module_geiger_unit: 'Модуль: Счётчик Гейгера'
+    item.mekanized.module_geothermal_generator_unit: 'Модуль: Геотермальный генератор'
+    item.mekanized.module_gravitational_modulating_unit: 'Модуль: Гравитационная модуляция'
+    item.mekanized.module_gyroscopic_stabilization_unit: 'Модуль: Гироскопическая стабилизация'
+    item.mekanized.module_hydraulic_propulsion_unit: 'Модуль: Усиленный прыжок'
+    item.mekanized.module_hydrostatic_repulsor_unit: 'Модуль: Гидростатический отталкиватель'
+    item.mekanized.module_inhalation_purification_unit: 'Модуль: Дыхательная защита'
+    item.mekanized.module_jetpack_unit: 'Модуль: Ранец'
+    item.mekanized.module_locomotive_boosting_unit: 'Модуль: Передвижение'
+    item.mekanized.module_magnetic_attraction_unit: 'Модуль: Магнит'
+    item.mekanized.module_motorized_servo_unit: Моторизированный Сервомотор
+    item.mekanized.module_nutritional_injection_unit: 'Модуль: Питание'
+    item.mekanized.module_radiation_shielding_unit: 'Модуль: Радиационная защита'
+    item.mekanized.module_shearing_unit: 'Модуль: Ножницы'
+    item.mekanized.module_silk_touch_unit: 'Модуль: Шёлковое касание'
+    item.mekanized.module_solar_recharging_unit: 'Модуль: Солнечная панель'
+    item.mekanized.module_soul_surfer_unit: Серфер душ
+    item.mekanized.module_teleportation_unit: 'Модуль: Телепортация'
+    item.mekanized.module_vein_mining_unit: 'Модуль: Добыча "Жила"'
+    item.mekanized.module_vision_enhancement_unit: 'Модуль: Ночное зрение'
     item.mekanized.network_reader: Считыватель сети
     item.mekanized.nugget_bronze: Бронзовый кусочек
     item.mekanized.nugget_lead: Свинцовый кусочек
@@ -12390,6 +13080,17 @@ lang:
     item.mekanized.mekasuit_helmet: MekaOblek Helma
     item.mekanized.mekasuit_pants: MekaOblek Nohavice
     item.mekanized.module_base: Modulový Základ
+    item.mekanized.module_dosimeter_unit: Jednotka Dozimetra
+    item.mekanized.module_electrolytic_breathing_unit: Elektrolytická Dýchacia Jednotka
+    item.mekanized.module_energy_unit: Energetická Jednotka
+    item.mekanized.module_farming_unit: Poľnohospodárska Jednotka
+    item.mekanized.module_geiger_unit: Geigerova Jednotka
+    item.mekanized.module_geothermal_generator_unit: Geotermálna Generačná Jednotka
+    item.mekanized.module_gravitational_modulating_unit: Gravitačná Modulačná Jednotka
+    item.mekanized.module_hydraulic_propulsion_unit: Hydraulická Pohonná Jednotka
+    item.mekanized.module_inhalation_purification_unit: Inhalačná Čistiaca Jednotka
+    item.mekanized.module_nutritional_injection_unit: Výživová Injekčná Jednotka
+    item.mekanized.module_teleportation_unit: Teleportačná Jednotka
     item.mekanized.nugget_bronze: Bronzový Nuget
     item.mekanized.nugget_lead: Olovený Nuget
     item.mekanized.nugget_osmium: Osmiový Nuget
@@ -12839,7 +13540,38 @@ lang:
     item.mekanized.mekasuit_boots: Meka-dräktstövlar
     item.mekanized.mekasuit_helmet: Meka-dräkthjälm
     item.mekanized.mekasuit_pants: Meka-dräktbyxor
+    item.mekanized.module_attack_amplification_unit: Attackförstärkningsenhet
     item.mekanized.module_base: Modulgrund
+    item.mekanized.module_blasting_unit: Sprängenhet
+    item.mekanized.module_charge_distribution_unit: Uppladdningsdistribueringsenhet
+    item.mekanized.module_dosimeter_unit: Dosimeterenhet
+    item.mekanized.module_electrolytic_breathing_unit: Elektrolytisk andningsenhet
+    item.mekanized.module_elytra_unit: Elytraenhet
+    item.mekanized.module_energy_unit: Energienhet
+    item.mekanized.module_excavation_escalation_unit: Utgrävarökningsenhet
+    item.mekanized.module_farming_unit: Jordbruksenhet
+    item.mekanized.module_fortune_unit: Malmraffineringsenhet
+    item.mekanized.module_frost_walker_unit: Frostgåendeenhet
+    item.mekanized.module_geiger_unit: Geigerenhet
+    item.mekanized.module_geothermal_generator_unit: Geotermisk generatorenhet
+    item.mekanized.module_gravitational_modulating_unit: Gravitationsmoduleringsenhet
+    item.mekanized.module_gyroscopic_stabilization_unit: Gyroskopisk stabiliseringsenhet
+    item.mekanized.module_hydraulic_propulsion_unit: Hydraulisk framdrivningsenhet
+    item.mekanized.module_hydrostatic_repulsor_unit: Hydrostatisk repulsorenhet
+    item.mekanized.module_inhalation_purification_unit: Inandningrenarenhet
+    item.mekanized.module_jetpack_unit: Ryggraketsenhet
+    item.mekanized.module_locomotive_boosting_unit: Snabbhetsbonusenhet
+    item.mekanized.module_magnetic_attraction_unit: Magnetisk tilldragningsenhet
+    item.mekanized.module_motorized_servo_unit: Motoriserad servoenhet
+    item.mekanized.module_nutritional_injection_unit: Näringsinjiceringsenhet
+    item.mekanized.module_radiation_shielding_unit: Strålningsköldsenhet
+    item.mekanized.module_shearing_unit: Klippningsenhet
+    item.mekanized.module_silk_touch_unit: Silkesvantesenhet
+    item.mekanized.module_solar_recharging_unit: Soluppladdningsenhet
+    item.mekanized.module_soul_surfer_unit: Själsurfsenhet
+    item.mekanized.module_teleportation_unit: Teleporteringsenhet
+    item.mekanized.module_vein_mining_unit: Ådergrävningsenhet
+    item.mekanized.module_vision_enhancement_unit: Synförbättringsenhet
     item.mekanized.network_reader: Nätverksläsare
     item.mekanized.nugget_bronze: Bronsklimp
     item.mekanized.nugget_lead: Blyklimp
@@ -13290,7 +14022,38 @@ lang:
     item.mekanized.mekasuit_boots: MekaSuit Çizme
     item.mekanized.mekasuit_helmet: MekaSuit Miğfer
     item.mekanized.mekasuit_pants: MekaSuit Pantolon
+    item.mekanized.module_attack_amplification_unit: Saldırı Güçlendirme Birimi
     item.mekanized.module_base: Modül Üssü
+    item.mekanized.module_blasting_unit: Patlatma Birimi
+    item.mekanized.module_charge_distribution_unit: Şarj Dağıtıcı Birimi
+    item.mekanized.module_dosimeter_unit: Dozimetre Birimi
+    item.mekanized.module_electrolytic_breathing_unit: Elektrolitik Nefes Alma Birimi
+    item.mekanized.module_elytra_unit: Elitra Birimi
+    item.mekanized.module_energy_unit: Enerji Birimi
+    item.mekanized.module_excavation_escalation_unit: Kazı Yükseltme Birimi
+    item.mekanized.module_farming_unit: Çiftçilik Birimi
+    item.mekanized.module_fortune_unit: Cevher Arıtma Birimi
+    item.mekanized.module_frost_walker_unit: Kırağılaştırıcı Yürüyüş Birimi
+    item.mekanized.module_geiger_unit: Radyasyon Sayacı Birimi
+    item.mekanized.module_geothermal_generator_unit: Jeotermal Jeneratör Ünitesi
+    item.mekanized.module_gravitational_modulating_unit: Yerçekimsel Modüle Etme Birimi
+    item.mekanized.module_gyroscopic_stabilization_unit: Jiroskopik Dengeleme Birimi
+    item.mekanized.module_hydraulic_propulsion_unit: Hidrolik Tahrik Birimi
+    item.mekanized.module_hydrostatic_repulsor_unit: Hidrostatik İtici Birimi
+    item.mekanized.module_inhalation_purification_unit: İnhalasyon Temizleme Birimi
+    item.mekanized.module_jetpack_unit: Jetpack Birimi
+    item.mekanized.module_locomotive_boosting_unit: Hareket Hızlandırma Birimi
+    item.mekanized.module_magnetic_attraction_unit: Manyetik Çekim Birimi
+    item.mekanized.module_motorized_servo_unit: Motorlu Servo Birimi
+    item.mekanized.module_nutritional_injection_unit: Besin Enjeksiyon Birimi
+    item.mekanized.module_radiation_shielding_unit: Radyasyon Kalkan Birimi
+    item.mekanized.module_shearing_unit: Kırpma Birimi
+    item.mekanized.module_silk_touch_unit: İpeksi Dokunuş Birimi
+    item.mekanized.module_solar_recharging_unit: Güneş Şarj Etme Birimi
+    item.mekanized.module_soul_surfer_unit: Ruh Sörfü Birimi
+    item.mekanized.module_teleportation_unit: Işınlanma Birimi
+    item.mekanized.module_vein_mining_unit: Damar Kazma Birimi
+    item.mekanized.module_vision_enhancement_unit: Görüş Yükseltme Birimi
     item.mekanized.network_reader: Ağ Okuyucu
     item.mekanized.nugget_bronze: Bronz Parçacığı
     item.mekanized.nugget_lead: Kurşun Parçası
@@ -13717,7 +14480,38 @@ lang:
     item.mekanized.mekasuit_boots: Мека-костюм черевики
     item.mekanized.mekasuit_helmet: Мека-костюм шолом
     item.mekanized.mekasuit_pants: Мека-костюм штани
+    item.mekanized.module_attack_amplification_unit: Модуль "Посилення атаки"
     item.mekanized.module_base: Основа модуля
+    item.mekanized.module_blasting_unit: Підривна установка
+    item.mekanized.module_charge_distribution_unit: Модуль "Розподіл заряду"
+    item.mekanized.module_dosimeter_unit: Модуль "Дозиметр"
+    item.mekanized.module_electrolytic_breathing_unit: Модуль "Електролітичне дихання"
+    item.mekanized.module_elytra_unit: Модуль "Елітри"
+    item.mekanized.module_energy_unit: Модуль "Енергія"
+    item.mekanized.module_excavation_escalation_unit: Модуль "Швидкість видобутку"
+    item.mekanized.module_farming_unit: Модуль "Фермер"
+    item.mekanized.module_fortune_unit: Установка очищення руди
+    item.mekanized.module_frost_walker_unit: Модуль "Льодохід"
+    item.mekanized.module_geiger_unit: Модуль гейгера
+    item.mekanized.module_geothermal_generator_unit: Одиниця геотермального генератора
+    item.mekanized.module_gravitational_modulating_unit: Модуль "Гравітаційне регулювання"
+    item.mekanized.module_gyroscopic_stabilization_unit: Блок гіроскопічної стабілізації
+    item.mekanized.module_hydraulic_propulsion_unit: Модуль "Гідравлічний привід"
+    item.mekanized.module_hydrostatic_repulsor_unit: Модуль гідростатичного відштовхування
+    item.mekanized.module_inhalation_purification_unit: Модуль "Очищення"
+    item.mekanized.module_jetpack_unit: Модуль "Ракетний ранець"
+    item.mekanized.module_locomotive_boosting_unit: Модуль "Пришвидшення"
+    item.mekanized.module_magnetic_attraction_unit: Модуль "Магніт"
+    item.mekanized.module_motorized_servo_unit: Моторизований сервопривод
+    item.mekanized.module_nutritional_injection_unit: Модуль "Годування"
+    item.mekanized.module_radiation_shielding_unit: Модуль "Захист від радіації"
+    item.mekanized.module_shearing_unit: Модуль "стрижки"
+    item.mekanized.module_silk_touch_unit: Модуль "Шовковий дотик"
+    item.mekanized.module_solar_recharging_unit: Модуль "Сонячна зарядка"
+    item.mekanized.module_soul_surfer_unit: Модуль "Ковзання душ"
+    item.mekanized.module_teleportation_unit: Модуль "Телепортація"
+    item.mekanized.module_vein_mining_unit: Модуль "Видобування жил"
+    item.mekanized.module_vision_enhancement_unit: Модуль "Посилення зору"
     item.mekanized.network_reader: Мережевий читач
     item.mekanized.nugget_bronze: Бронзовий самородок
     item.mekanized.nugget_lead: Свинцевий самородок
@@ -14076,6 +14870,10 @@ lang:
     item.mekanized.ingot_uranium: Phôi Urani
     item.mekanized.jetpack: Thắt lưng Phản lực
     item.mekanized.jetpack_armored: Thắt lưng Phản lực Bọc giáp
+    item.mekanized.module_geothermal_generator_unit: Đơn vị Máy Phát Địa nhiệt
+    item.mekanized.module_inhalation_purification_unit: Nâng Cấp Thở Dưới Nước
+    item.mekanized.module_jetpack_unit: Đơn vị Thắt lưng Phản lực
+    item.mekanized.module_solar_recharging_unit: Đơn vị Sạc Quang năng
     item.mekanized.nugget_bronze: Hạt Đồng Thiếc
     item.mekanized.nugget_lead: Hạt Chì
     item.mekanized.nugget_osmium: Hạt Osmi
@@ -14479,7 +15277,38 @@ lang:
     item.mekanized.mekasuit_boots: MekaSuit靴子
     item.mekanized.mekasuit_helmet: MekaSuit头盔
     item.mekanized.mekasuit_pants: MekaSuit护腿
+    item.mekanized.module_attack_amplification_unit: 攻击增强单元
     item.mekanized.module_base: 模块基板
+    item.mekanized.module_blasting_unit: 破掘单元
+    item.mekanized.module_charge_distribution_unit: 能量分配单元
+    item.mekanized.module_dosimeter_unit: 放射量测定器单元
+    item.mekanized.module_electrolytic_breathing_unit: 电解呼吸装置
+    item.mekanized.module_elytra_unit: 鞘翅单元
+    item.mekanized.module_energy_unit: 能量单元
+    item.mekanized.module_excavation_escalation_unit: 挖掘提升单元
+    item.mekanized.module_farming_unit: 耕种单元
+    item.mekanized.module_fortune_unit: 矿物精炼单元
+    item.mekanized.module_frost_walker_unit: 冰霜行者单元
+    item.mekanized.module_geiger_unit: 盖革计数器单元
+    item.mekanized.module_geothermal_generator_unit: 地热能发电单元
+    item.mekanized.module_gravitational_modulating_unit: 重力调节单元
+    item.mekanized.module_gyroscopic_stabilization_unit: 陀螺稳定单元
+    item.mekanized.module_hydraulic_propulsion_unit: 液压推进单元
+    item.mekanized.module_hydrostatic_repulsor_unit: 静水推进单元
+    item.mekanized.module_inhalation_purification_unit: 吸入净化单元
+    item.mekanized.module_jetpack_unit: 喷气背包单元
+    item.mekanized.module_locomotive_boosting_unit: 动力助推单元
+    item.mekanized.module_magnetic_attraction_unit: 磁力吸引单元
+    item.mekanized.module_motorized_servo_unit: 马达伺服单元
+    item.mekanized.module_nutritional_injection_unit: 营养注射单元
+    item.mekanized.module_radiation_shielding_unit: 辐射屏蔽单元
+    item.mekanized.module_shearing_unit: 剪切单元
+    item.mekanized.module_silk_touch_unit: 精准采集单元
+    item.mekanized.module_solar_recharging_unit: 太阳能充能单元
+    item.mekanized.module_soul_surfer_unit: 灵魂疾行单元
+    item.mekanized.module_teleportation_unit: 传送单元
+    item.mekanized.module_vein_mining_unit: 连锁采集单元
+    item.mekanized.module_vision_enhancement_unit: 视觉增强单元
     item.mekanized.network_reader: 网络读取器
     item.mekanized.nugget_bronze: 青铜粒
     item.mekanized.nugget_lead: 铅粒
@@ -14924,7 +15753,38 @@ lang:
     item.mekanized.mekasuit_boots: MekaSuit 靴子
     item.mekanized.mekasuit_helmet: MekaSuit 頭盔
     item.mekanized.mekasuit_pants: MekaSuit 護腿
+    item.mekanized.module_attack_amplification_unit: 攻擊增強單元
     item.mekanized.module_base: 模組基座
+    item.mekanized.module_blasting_unit: 爆破單元
+    item.mekanized.module_charge_distribution_unit: 充能分配單元
+    item.mekanized.module_dosimeter_unit: 劑量計單元
+    item.mekanized.module_electrolytic_breathing_unit: 電解呼吸單元
+    item.mekanized.module_elytra_unit: 鞘翅單元
+    item.mekanized.module_energy_unit: 能量單元
+    item.mekanized.module_excavation_escalation_unit: 挖掘升級單元
+    item.mekanized.module_farming_unit: 耕種單元
+    item.mekanized.module_fortune_unit: 礦物精煉單元
+    item.mekanized.module_frost_walker_unit: 冰霜行者單元
+    item.mekanized.module_geiger_unit: 蓋革單元
+    item.mekanized.module_geothermal_generator_unit: 地熱發電機單元
+    item.mekanized.module_gravitational_modulating_unit: 重力調節單元
+    item.mekanized.module_gyroscopic_stabilization_unit: 陀螺穩定單元
+    item.mekanized.module_hydraulic_propulsion_unit: 液壓推進單元
+    item.mekanized.module_hydrostatic_repulsor_unit: 靜水推斥單元
+    item.mekanized.module_inhalation_purification_unit: 吸入淨化單元
+    item.mekanized.module_jetpack_unit: 噴射背包單元
+    item.mekanized.module_locomotive_boosting_unit: 機車助推單元
+    item.mekanized.module_magnetic_attraction_unit: 磁吸力單元
+    item.mekanized.module_motorized_servo_unit: 電動伺服單元
+    item.mekanized.module_nutritional_injection_unit: 營養注射單元
+    item.mekanized.module_radiation_shielding_unit: 輻射防護單元
+    item.mekanized.module_shearing_unit: 剪切單元
+    item.mekanized.module_silk_touch_unit: 絲綢之觸單元
+    item.mekanized.module_solar_recharging_unit: 太陽能充電單元
+    item.mekanized.module_soul_surfer_unit: 靈魂疾走單元
+    item.mekanized.module_teleportation_unit: 傳送單元
+    item.mekanized.module_vein_mining_unit: 礦脈挖掘單元
+    item.mekanized.module_vision_enhancement_unit: 視覺增強單元
     item.mekanized.network_reader: 網路讀取器
     item.mekanized.nugget_bronze: 青銅粒
     item.mekanized.nugget_lead: 鉛粒
