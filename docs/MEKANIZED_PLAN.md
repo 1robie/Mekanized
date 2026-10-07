@@ -16,15 +16,16 @@ the time, with the old `mekanized:energy` and `mekanized:fluid` names; those key
 | K1 | **Name:** the plugin is `Mekanized`, with the `mekanized:` namespace for every item, block, resource, machine and recipe. It is never called "Mekanism" and never presented as official. Its description reads "inspired by Mekanism; textures, models and recipes from Mekanism (MIT)". |
 | K2 | **Scope of the first release:** Phases 0–4 below, everything except multiblocks and endgame (Phase 5). |
 | K3 | **No ore world generation:** Mekanized defines the ore blocks and their drops only. Worlds get ores from a separate worldgen plugin or datapack. |
-| K4 | **Recipes are imported from Mekanism:** a Gradle task converts Mekanism's recipe JSON from a pinned commit into Mekanized's editable YAML definitions. Server owners can then change them. |
+| K4 | ~~**Recipes are imported from Mekanism:** a Gradle task converts Mekanism's recipe JSON from a pinned commit into Mekanized's editable YAML definitions. Server owners can then change them.~~ **Superseded by D31 (2026-10-07):** the content was imported once and is now kept by hand in `mekanized/src/main/resources/mekanized/`. Server owners can still change the installed files. |
 
 ## License
 
 Mekanism is MIT, copyright 2017-2025 Aidan C. Brady. The license covers the whole repository,
 textures and models included. Every Mekanized jar and CraftEngine pack ships
-`LICENSE-MEKANISM.txt` (the full MIT text) and a credits line. Imported files are not changed in
-ways that hide where they came from. Source: `https://github.com/mekanism/Mekanism`. The branch
-`26.1` (Minecraft 26.1) is pinned to one commit hash in `gradle.properties`.
+`LICENSE-MEKANISM.txt` (the full MIT text) and a credits line. Files based on Mekanism are not changed in
+ways that hide where they came from. Source: `https://github.com/mekanism/Mekanism`, branch `26.1`
+(Minecraft 26.1), commit `4718860a0c98598cf1b34e9f631b24eaa7c7ff47`: the content was imported once
+from it and is kept by hand since (D31).
 
 ## Phases
 
@@ -46,6 +47,7 @@ ways that hide where they came from. Source: `https://github.com/mekanism/Mekani
   - Skipped, and listed in `import-report.txt`: 637 recipes for other mods, 370 painting and pigment recipes, endgame and multiblock recipes, and 90 models that need NeoForge loaders (83 composite, which can be flattened later, 6 OBJ and 1 energy cube).
 - **Plugin:** installs the CraftEngine pack with the imported assets, refreshed on every start. The import writes `manifest.yml`, the list of generated files the plugin installs (one declarative phase table, `ContentPhases.kt`, decides which exist). `LICENSE-MEKANISM.txt` ships in the jar and in the pack.
 - **Verified:** the pack loads on Paper 1.20.6.
+- **Superseded (2026-10-07, D31):** the import ran a last time and its output moved to `mekanized/src/main/resources/mekanized/`, kept by hand since. The import tooling is removed; the build only lists the content files in `manifest.yml` (`contentManifest`).
 
 ### Phase 1: materials and energy
 - **Resources:** energy in Joules (`mekanized:energy`), items, and infuse types (carbon, redstone, diamond, refined obsidian, tin, gold, bio, fungi).
