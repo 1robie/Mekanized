@@ -634,7 +634,7 @@ blocks:
       display_item: mekanized:display/logistical_sorter
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270,up=270/0,down=90/0
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -679,7 +679,7 @@ blocks:
       display_item: mekanized:display/basic_smelting_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -720,7 +720,7 @@ blocks:
       display_item: mekanized:display/basic_enriching_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -761,7 +761,7 @@ blocks:
       display_item: mekanized:display/basic_crushing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -802,7 +802,7 @@ blocks:
       display_item: mekanized:display/basic_compressing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -843,7 +843,7 @@ blocks:
       display_item: mekanized:display/basic_combining_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -884,7 +884,7 @@ blocks:
       display_item: mekanized:display/basic_purifying_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -925,7 +925,7 @@ blocks:
       display_item: mekanized:display/basic_injecting_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -966,7 +966,7 @@ blocks:
       display_item: mekanized:display/basic_infusing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1007,7 +1007,7 @@ blocks:
       display_item: mekanized:display/basic_sawing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1048,7 +1048,7 @@ blocks:
       display_item: mekanized:display/advanced_smelting_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1089,7 +1089,7 @@ blocks:
       display_item: mekanized:display/advanced_enriching_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1130,7 +1130,7 @@ blocks:
       display_item: mekanized:display/advanced_crushing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1171,7 +1171,7 @@ blocks:
       display_item: mekanized:display/advanced_compressing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1212,7 +1212,7 @@ blocks:
       display_item: mekanized:display/advanced_combining_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1253,7 +1253,7 @@ blocks:
       display_item: mekanized:display/advanced_purifying_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1294,7 +1294,7 @@ blocks:
       display_item: mekanized:display/advanced_injecting_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1335,7 +1335,7 @@ blocks:
       display_item: mekanized:display/advanced_infusing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1376,7 +1376,7 @@ blocks:
       display_item: mekanized:display/advanced_sawing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1417,7 +1417,7 @@ blocks:
       display_item: mekanized:display/elite_smelting_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1458,7 +1458,7 @@ blocks:
       display_item: mekanized:display/elite_enriching_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1499,7 +1499,7 @@ blocks:
       display_item: mekanized:display/elite_crushing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1540,7 +1540,7 @@ blocks:
       display_item: mekanized:display/elite_compressing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1581,7 +1581,7 @@ blocks:
       display_item: mekanized:display/elite_combining_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1622,7 +1622,7 @@ blocks:
       display_item: mekanized:display/elite_purifying_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1663,7 +1663,7 @@ blocks:
       display_item: mekanized:display/elite_injecting_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1704,7 +1704,7 @@ blocks:
       display_item: mekanized:display/elite_infusing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1745,7 +1745,7 @@ blocks:
       display_item: mekanized:display/elite_sawing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1786,7 +1786,7 @@ blocks:
       display_item: mekanized:display/ultimate_smelting_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1827,7 +1827,7 @@ blocks:
       display_item: mekanized:display/ultimate_enriching_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1868,7 +1868,7 @@ blocks:
       display_item: mekanized:display/ultimate_crushing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1909,7 +1909,7 @@ blocks:
       display_item: mekanized:display/ultimate_compressing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1950,7 +1950,7 @@ blocks:
       display_item: mekanized:display/ultimate_combining_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1991,7 +1991,7 @@ blocks:
       display_item: mekanized:display/ultimate_purifying_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -2032,7 +2032,7 @@ blocks:
       display_item: mekanized:display/ultimate_injecting_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -2073,7 +2073,7 @@ blocks:
       display_item: mekanized:display/ultimate_infusing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -2114,7 +2114,7 @@ blocks:
       display_item: mekanized:display/ultimate_sawing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:

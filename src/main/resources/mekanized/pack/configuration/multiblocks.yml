@@ -119,7 +119,7 @@ blocks:
       machine: mekanized:dynamic_tank
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -141,7 +141,7 @@ blocks:
       machine: mekanized:dynamic_valve
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -163,7 +163,7 @@ blocks:
       machine: mekanized:structural_glass
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -185,7 +185,7 @@ blocks:
       machine: mekanized:induction_casing
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -207,7 +207,7 @@ blocks:
       machine: mekanized:induction_port
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -244,7 +244,7 @@ blocks:
       machine: mekanized:thermal_evaporation_block
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -266,7 +266,7 @@ blocks:
       machine: mekanized:thermal_evaporation_valve
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -288,7 +288,7 @@ blocks:
       machine: mekanized:thermal_evaporation_controller
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:

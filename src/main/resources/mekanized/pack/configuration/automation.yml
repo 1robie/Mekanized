@@ -124,7 +124,7 @@ blocks:
       keep_contents: true
       display_item: mekanized:display/digital_miner
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -165,7 +165,7 @@ blocks:
       display_item: mekanized:display/seismic_vibrator
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -204,7 +204,7 @@ blocks:
       machine: mekanized:teleporter
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -226,7 +226,7 @@ blocks:
       machine: mekanized:teleporter_frame
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -249,7 +249,7 @@ blocks:
       keep_contents: true
       display_item: mekanized:display/qio_drive_array
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -290,7 +290,7 @@ blocks:
       display_item: mekanized:display/qio_dashboard
       display_rotations: north=90/0,south=90/180,east=90/90,west=90/270,up=0/0,down=180/0
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -336,7 +336,7 @@ blocks:
       display_rotation: 180
       display_rotations: north=270/180,south=270/0,east=270/270,west=270/90,up=0/0,down=180/0
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -382,7 +382,7 @@ blocks:
       display_rotation: 180
       display_rotations: north=270/180,south=270/0,east=270/270,west=270/90,up=0/0,down=180/0
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:

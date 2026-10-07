@@ -25,12 +25,6 @@ import org.bukkit.GameMode;
 import org.bukkit.block.Block;
 import org.bukkit.block.Container;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import fr.robie.machineengine.api.transfer.ResourceHandler;
 import org.jetbrains.annotations.Nullable;
@@ -38,6 +32,7 @@ import org.bukkit.block.BlockFace;
 import net.momirealms.craftengine.core.item.behavior.ItemBehaviorFactory;
 import fr.robie.machineengine.api.paper.PaperItemBehavior;
 import fr.robie.machineengine.api.item.MachineTool;
+import fr.robie.machineengine.api.paper.MachineInteractions;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -58,32 +53,34 @@ import java.util.stream.Collectors;
  * The tools are CraftEngine item behaviors (D32): machines pass clicks with them on ({@link MachineTool}).
  * On a vanilla container that opens, sneak to reach the transports beside it.
  */
-public final class PaperConfigurator implements Listener {
+public final class PaperConfigurator {
     private static final Direction[] TURN = {Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
 
     /** Multiblock frame blocks (the walls of every structure): they open their structure's menu (the anchor's). */
     private static final Set<Key> MEMBERS = MultiblockMachines.TYPES.stream().flatMap(type -> type.faces().stream())
             .collect(Collectors.toUnmodifiableSet());
 
+    private PaperConfigurator() {
+    }
+
     /**
-     * The block side, until those blocks get behaviors of their own: a multiblock member opens its
-     * structure's menu whatever the player holds (but the configurator), and sneaking with an empty hand
-     * takes a blade off a turbine rotor.
+     * The block side: a multiblock member opens its structure's menu, and sneaking with an empty hand
+     * takes a blade off a turbine rotor. Tools on them are their item behaviors, asked first.
      */
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void onUse(PlayerInteractEvent event) {
-        if (event.getAction() != Action.RIGHT_CLICK_BLOCK || event.getHand() != EquipmentSlot.HAND) return;
-        Block block = event.getClickedBlock();
-        ItemStack item = event.getItem();
-        if (block == null) return;
-        Key tool = item == null || item.getType().isAir() ? null : PaperItems.idOf(item);
-        if (MekanizedContent.key("configurator").equals(tool)) return; // ConfiguratorBehavior
-        Player player = event.getPlayer();
-        if (!player.isSneaking() && openStructure(player, block)) {
-            event.setCancelled(true);
-        } else if (tool == null && player.isSneaking() && takeBlade(player, block)) {
-            event.setCancelled(true);
-        }
+    public static void install() {
+        MachineInteractions.Interaction member = new MachineInteractions.Interaction() {
+            @Override
+            public boolean use(MachineInteractions.Click click) {
+                return !click.sneaking() && openStructure(click.player(), click.block());
+            }
+        };
+        MEMBERS.forEach(type -> MachineInteractions.register(type, member));
+        MachineInteractions.register(MekanizedContent.key("turbine_rotor"), new MachineInteractions.Interaction() {
+            @Override
+            public boolean use(MachineInteractions.Click click) {
+                return click.sneaking() && click.item().isEmpty() && takeBlade(click.player(), click.block());
+            }
+        });
     }
 
     /** {@code mekanized:configurator}: side configuration, turning, port modes, transport sides. */

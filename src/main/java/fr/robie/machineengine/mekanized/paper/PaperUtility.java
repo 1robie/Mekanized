@@ -29,17 +29,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.block.BlockExplodeEvent;
-import org.bukkit.event.entity.EntityExplodeEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Nullable;
+import fr.robie.machineengine.api.registry.Registries;
+import fr.robie.machineengine.api.MachineEngine;
+import fr.robie.machineengine.api.paper.MachineInteractions;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -73,6 +71,10 @@ public final class PaperUtility implements Listener {
         UtilityBehaviors.setCrafting(PaperUtility::craft);
         PaperUtility listener = new PaperUtility(plugin);
         Bukkit.getPluginManager().registerEvents(listener, plugin);
+        for (Key type : MachineEngine.get().registries().registry(Registries.MACHINE_TYPE).keys()) {
+            if (UtilityMachines.isBin(type)) MachineInteractions.register(type, BIN);
+            if (UtilityMachines.isPersonal(type)) MachineInteractions.register(type, PERSONAL);
+        }
         for (Player player : Bukkit.getOnlinePlayers()) listener.startCharging(player);
     }
 
@@ -97,32 +99,33 @@ public final class PaperUtility implements Listener {
 
     // -- bins and personal storage -----------------------------------------------------------
 
-    @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
-    public void onUse(PlayerInteractEvent event) {
-        if (event.getHand() != EquipmentSlot.HAND) return;
-        Block block = event.getClickedBlock();
-        if (block == null) return;
-        MachineInstance machine = PaperWorld.machine(block);
-        if (machine == null) return;
-        var type = machine.inspect().type();
-        Player player = event.getPlayer();
-        MachineContext context = machine.context();
-        if (UtilityMachines.isPersonal(type) && event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+    /** A personal chest or barrel: the first player to open it owns it; only they (or the bypass permission) open it after. */
+    private static final MachineInteractions.Interaction PERSONAL = new MachineInteractions.Interaction() {
+        @Override
+        public boolean use(MachineInteractions.Click click) {
+            Player player = click.player();
+            MachineContext context = click.machine().context();
             String owner = context.get(UtilityMachines.OWNER);
             String self = player.getUniqueId().toString();
             if (owner.isEmpty()) {
                 context.set(UtilityMachines.OWNER, self);
                 player.sendActionBar(Component.text("This is now your personal storage", NamedTextColor.GREEN));
             } else if (!owner.equals(self) && !player.hasPermission("mekanized.personal.bypass")) {
-                event.setCancelled(true);
                 player.sendActionBar(Component.text("This belongs to someone else", NamedTextColor.RED));
+                return true;
             }
-            return;
+            return false; // its menu opens
         }
-        if (!UtilityMachines.isBin(type)) return;
-        ItemStack hand = event.getItem();
-        if (event.getAction() == Action.RIGHT_CLICK_BLOCK && hand != null && !hand.isEmpty() && !player.isSneaking()) {
-            event.setCancelled(true);
+    };
+
+    /** A bin: right-click with an item puts the stack in, left-click takes a stack out (one while sneaking). */
+    private static final MachineInteractions.Interaction BIN = new MachineInteractions.Interaction() {
+        @Override
+        public boolean use(MachineInteractions.Click click) {
+            ItemStack hand = click.item();
+            if (hand.isEmpty() || click.sneaking()) return false;
+            MachineInstance machine = click.machine();
+            MachineContext context = machine.context();
             ResourceVariant variant = PaperItems.toResource(hand).variant();
             long inserted;
             try (Transaction transaction = context.transactions().openOuter()) {
@@ -133,18 +136,23 @@ public final class PaperUtility implements Listener {
                 hand.setAmount(hand.getAmount() - (int) inserted);
                 machine.wake(WakeReason.RESOURCE_INSERTED);
             } else {
-                player.sendActionBar(Component.text("The bin holds another item, or is full", NamedTextColor.RED));
+                click.player().sendActionBar(Component.text("The bin holds another item, or is full", NamedTextColor.RED));
             }
-        } else if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
-            ResourceHandler items = context.storage("items");
+            return true;
+        }
+
+        @Override
+        public boolean attack(MachineInteractions.Click click) {
+            MachineInstance machine = click.machine();
+            ResourceHandler items = machine.context().storage("items");
             StorageView held = items.views().getFirst();
-            if (held.isEmpty()) return; // an empty bin: left-click breaks it as usual
-            event.setCancelled(true);
+            if (held.isEmpty()) return false; // an empty bin: left-click breaks it as usual
+            Player player = click.player();
             ItemStack one = PaperItems.toItemStack(held.variant(), 1);
-            long wanted = player.isSneaking() ? 1 : Math.min(held.amount(), one == null ? 64 : one.getMaxStackSize());
+            long wanted = click.sneaking() ? 1 : Math.min(held.amount(), one == null ? 64 : one.getMaxStackSize());
             ResourceVariant variant = held.variant();
             long taken;
-            try (Transaction transaction = context.transactions().openOuter()) {
+            try (Transaction transaction = machine.context().transactions().openOuter()) {
                 taken = items.extract(variant, wanted, transaction);
                 transaction.commit();
             }
@@ -153,8 +161,9 @@ public final class PaperUtility implements Listener {
             }
             machine.wake(WakeReason.RESOURCE_EXTRACTED);
             player.sendActionBar(Component.text(String.format(Locale.ROOT, "%,d left", Math.max(0, held.amount())), NamedTextColor.GRAY));
+            return true;
         }
-    }
+    };
 
     /** Only its owner breaks a personal chest or barrel (or players with the bypass permission). */
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
@@ -165,17 +174,6 @@ public final class PaperUtility implements Listener {
         if (owner.equals(player.getUniqueId().toString()) || player.hasPermission("mekanized.personal.bypass")) return;
         event.setCancelled(true);
         player.sendActionBar(Component.text("This belongs to someone else", NamedTextColor.RED));
-    }
-
-    /** Explosions leave personal storage alone. */
-    @EventHandler(ignoreCancelled = true)
-    public void onExplode(EntityExplodeEvent event) {
-        event.blockList().removeIf(block -> personalOwner(block) != null);
-    }
-
-    @EventHandler(ignoreCancelled = true)
-    public void onExplode(BlockExplodeEvent event) {
-        event.blockList().removeIf(block -> personalOwner(block) != null);
     }
 
     /** The owner of the personal chest or barrel at {@code block} ("" if none yet), or null if it is not one. */

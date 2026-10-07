@@ -43,7 +43,6 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -56,6 +55,8 @@ import org.jetbrains.annotations.Nullable;
 import net.momirealms.craftengine.core.item.behavior.ItemBehaviorFactory;
 import fr.robie.machineengine.api.paper.PaperItemBehavior;
 import fr.robie.machineengine.api.item.MachineTool;
+import org.bukkit.entity.Entity;
+import fr.robie.machineengine.api.paper.MachineInteractions;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -109,6 +110,18 @@ public final class PaperAutomation implements Listener {
     public static void install(Plugin plugin) {
         PaperAutomation automation = new PaperAutomation(plugin);
         instance = automation;
+        MachineInteractions.register(MekanizedContent.key("qio_dashboard"), new MachineInteractions.Interaction() {
+            @Override
+            public boolean use(MachineInteractions.Click click) {
+                return automation.openDashboard(click);
+            }
+        });
+        MachineInteractions.register(MekanizedContent.key("teleporter"), new MachineInteractions.Interaction() {
+            @Override
+            public void steppedOn(MachineInstance machine, Entity entity) {
+                automation.steppedOn(machine, entity);
+            }
+        });
         automation.loadTeleporters();
         Frequencies.onTeleportersChanged(automation::saveTeleporters);
         Bukkit.getPluginManager().registerEvents(automation, plugin);
@@ -144,43 +157,36 @@ public final class PaperAutomation implements Listener {
 
     // -- teleporters --------------------------------------------------------------------------
 
-    @EventHandler(ignoreCancelled = true)
-    public void onMove(PlayerMoveEvent event) {
-        if (event.getFrom().getBlockX() == event.getTo().getBlockX() && event.getFrom().getBlockY() == event.getTo().getBlockY()
-                && event.getFrom().getBlockZ() == event.getTo().getBlockZ()) return;
-        Player player = event.getPlayer();
+    /** A player standing on a formed teleporter goes to the other one on its frequency. */
+    private void steppedOn(MachineInstance source, Entity entity) {
+        if (!(entity instanceof Player player)) return;
         Long last = this.lastTeleport.get(player.getUniqueId());
         if (last != null && System.currentTimeMillis() - last < TeleporterSettings.cooldownMs) return;
-        Block feet = event.getTo().getBlock();
-        for (Block below : new Block[]{feet.getRelative(BlockFace.DOWN), feet.getRelative(BlockFace.DOWN, 2)}) {
-            WorldPosition from = PaperWorld.position(below);
-            Frequencies.Teleporter teleporter = Frequencies.teleporters().get(from);
-            if (teleporter == null || !teleporter.formed()) continue;
-            WorldPosition to = Frequencies.destination(from, teleporter.frequency());
-            if (to == null) {
-                player.sendActionBar(Component.text("No other teleporter on " + teleporter.frequency(), NamedTextColor.RED));
+        WorldPosition from = source.position();
+        Frequencies.Teleporter teleporter = Frequencies.teleporters().get(from);
+        if (teleporter == null || !teleporter.formed()) return;
+        WorldPosition to = Frequencies.destination(from, teleporter.frequency());
+        if (to == null) {
+            player.sendActionBar(Component.text("No other teleporter on " + teleporter.frequency(), NamedTextColor.RED));
+            this.lastTeleport.put(player.getUniqueId(), System.currentTimeMillis());
+            return;
+        }
+        World world = PaperWorld.world(to);
+        if (world == null) return;
+        long cost = Frequencies.cost(from, to);
+        MachineContext context = source.context();
+        try (Transaction transaction = context.transactions().openOuter()) {
+            if (!MachineParts.pay(context.storage("energy"), cost, transaction)) {
+                player.sendActionBar(Component.text(String.format(Locale.ROOT, "The teleporter needs %,d J", cost), NamedTextColor.RED));
                 this.lastTeleport.put(player.getUniqueId(), System.currentTimeMillis());
                 return;
             }
-            World world = PaperWorld.world(to);
-            MachineInstance source = PaperWorld.machine(below);
-            if (world == null || source == null) return;
-            long cost = Frequencies.cost(from, to);
-            MachineContext context = source.context();
-            try (Transaction transaction = context.transactions().openOuter()) {
-                if (!MachineParts.pay(context.storage("energy"), cost, transaction)) {
-                    player.sendActionBar(Component.text(String.format(Locale.ROOT, "The teleporter needs %,d J", cost), NamedTextColor.RED));
-                    this.lastTeleport.put(player.getUniqueId(), System.currentTimeMillis());
-                    return;
-                }
-                transaction.commit();
-            }
-            this.lastTeleport.put(player.getUniqueId(), System.currentTimeMillis());
-            Location target = new Location(world, to.position().x() + 0.5, to.position().y() + 1, to.position().z() + 0.5,
-                    player.getLocation().getYaw(), player.getLocation().getPitch());
-            player.teleportAsync(target);
-            return;
+            transaction.commit();
         }
+        this.lastTeleport.put(player.getUniqueId(), System.currentTimeMillis());
+        Location target = new Location(world, to.position().x() + 0.5, to.position().y() + 1, to.position().z() + 0.5,
+                player.getLocation().getYaw(), player.getLocation().getPitch());
+        player.teleportAsync(target);
     }
 
     private void loadTeleporters() {
@@ -253,26 +259,17 @@ public final class PaperAutomation implements Listener {
 
     // -- cardboard box, seismic reader, QIO dashboard ----------------------------------------
 
-    /** The QIO dashboard block opens its network, whatever the player holds (until it has a block behavior). */
-    @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
-    public void onUse(PlayerInteractEvent event) {
-        if (event.getAction() != Action.RIGHT_CLICK_BLOCK || event.getHand() != EquipmentSlot.HAND) return;
-        Block block = event.getClickedBlock();
-        Player player = event.getPlayer();
-        if (block == null || player.isSneaking()) return;
-        ItemStack hand = event.getItem();
-        Key tool = hand == null || hand.isEmpty() ? null : PaperItems.idOf(hand);
-        // The box tools act on any block, a dashboard included.
-        if (MekanizedContent.key("cardboard_box_storage").equals(tool)) return;
-        MachineInstance machine = PaperWorld.machine(block);
-        if (machine == null || !machine.inspect().type().equals(MekanizedContent.key("qio_dashboard"))) return;
-        event.setCancelled(true);
-        String frequency = machine.context().get(AutomationMachines.FREQUENCY);
+    /** The QIO dashboard block opens its network (tools on it are asked first: their item behaviors). */
+    private boolean openDashboard(MachineInteractions.Click click) {
+        if (click.sneaking()) return false;
+        Player player = click.player();
+        String frequency = click.machine().context().get(AutomationMachines.FREQUENCY);
         if (frequency.isEmpty()) {
             player.sendActionBar(Component.text("No frequency: look at it and use /mekanized frequency <name>", NamedTextColor.RED));
-            return;
+            return true;
         }
         new Dashboard(frequency, 0).open(player);
+        return true;
     }
 
     /** {@code mekanized:cardboard_box}: sneak-right-click a block to pack it, with its contents. */

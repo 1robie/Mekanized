@@ -82,7 +82,7 @@ blocks:
       machine: mekanized:dimensional_stabilizer
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -121,7 +121,7 @@ blocks:
       display_item: mekanized:display/quantum_entangloporter
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270,up=270/0,down=90/0
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -166,7 +166,7 @@ blocks:
       display_item: mekanized:display/radioactive_waste_barrel
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -207,7 +207,7 @@ blocks:
       display_item: mekanized:display/nutritional_liquifier
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -248,7 +248,7 @@ blocks:
       display_item: mekanized:display/modification_station
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:

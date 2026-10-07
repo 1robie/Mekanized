@@ -108,7 +108,7 @@ public final class MekanizedPlugin extends JavaPlugin {
         PaperEntangloporters.install(this);
         PaperRadiation.install(this);
         fr.robie.machineengine.api.paper.ResourceNames.register(PaperResourceNames::name);
-        getServer().getPluginManager().registerEvents(new PaperConfigurator(), this);
+        PaperConfigurator.install();
         MekanizedCommands commands = new MekanizedCommands(this);
         getLifecycleManager().registerEventHandler(io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents.COMMANDS,
                 event -> event.registrar().register(commands.build(), "Mekanized commands"));

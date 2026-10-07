@@ -396,7 +396,7 @@ blocks:
       display_item: mekanized:display/resistive_heater
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -435,7 +435,7 @@ blocks:
       machine: mekanized:fuelwood_heater
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -517,7 +517,7 @@ blocks:
       machine: mekanized:boiler_casing
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -539,7 +539,7 @@ blocks:
       machine: mekanized:boiler_valve
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -586,7 +586,7 @@ blocks:
       machine: mekanized:pressure_disperser
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -608,7 +608,7 @@ blocks:
       machine: mekanized:superheating_element
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -645,7 +645,7 @@ blocks:
       machine: mekanized:turbine_casing
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -667,7 +667,7 @@ blocks:
       machine: mekanized:turbine_valve
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -689,7 +689,7 @@ blocks:
       machine: mekanized:turbine_vent
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -712,7 +712,7 @@ blocks:
       keep_contents: true
       display_item: mekanized:display/turbine_rotor
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -736,7 +736,7 @@ blocks:
       machine: mekanized:rotational_complex
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -758,7 +758,7 @@ blocks:
       machine: mekanized:electromagnetic_coil
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -780,7 +780,7 @@ blocks:
       machine: mekanized:saturating_condenser
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -802,7 +802,7 @@ blocks:
       machine: mekanized:fission_reactor_casing
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -824,7 +824,7 @@ blocks:
       machine: mekanized:fission_reactor_port
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -871,7 +871,7 @@ blocks:
       machine: mekanized:fission_reactor_logic_adapter
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -893,7 +893,7 @@ blocks:
       machine: mekanized:reactor_glass
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -916,7 +916,7 @@ blocks:
       keep_contents: true
       display_item: mekanized:display/fission_fuel_assembly
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -941,7 +941,7 @@ blocks:
       keep_contents: true
       display_item: mekanized:display/control_rod_assembly
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -965,7 +965,7 @@ blocks:
       machine: mekanized:fusion_reactor_controller
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -1002,7 +1002,7 @@ blocks:
       machine: mekanized:fusion_reactor_frame
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -1024,7 +1024,7 @@ blocks:
       machine: mekanized:fusion_reactor_port
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -1061,7 +1061,7 @@ blocks:
       machine: mekanized:fusion_reactor_logic_adapter
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -1083,7 +1083,7 @@ blocks:
       machine: mekanized:laser_focus_matrix
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -1105,7 +1105,7 @@ blocks:
       machine: mekanized:sps_casing
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -1127,7 +1127,7 @@ blocks:
       machine: mekanized:sps_port
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -1167,7 +1167,7 @@ blocks:
       display_rotation: 180
       display_rotations: north=270/180,south=270/0,east=270/270,west=270/90,up=0/0,down=180/0
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:

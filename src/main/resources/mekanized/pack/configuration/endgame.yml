@@ -107,7 +107,7 @@ blocks:
       display_item: mekanized:display/pressurized_reaction_chamber
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -148,7 +148,7 @@ blocks:
       display_item: mekanized:display/isotopic_centrifuge
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -189,7 +189,7 @@ blocks:
       display_item: mekanized:display/solar_neutron_activator
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -230,7 +230,7 @@ blocks:
       display_item: mekanized:display/antiprotonic_nucleosynthesizer
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -271,7 +271,7 @@ blocks:
       display_item: mekanized:display/painting_machine
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -312,7 +312,7 @@ blocks:
       display_item: mekanized:display/pigment_extractor
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -353,7 +353,7 @@ blocks:
       display_item: mekanized:display/pigment_mixer
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -394,7 +394,7 @@ blocks:
       display_item: mekanized:display/gas_burning_generator
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -435,7 +435,7 @@ blocks:
       display_item: mekanized:display/wind_generator
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -476,7 +476,7 @@ blocks:
       display_item: mekanized:display/advanced_solar_generator
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:

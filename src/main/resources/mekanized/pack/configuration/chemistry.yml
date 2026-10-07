@@ -549,7 +549,7 @@ blocks:
       display_item: mekanized:display/chemical_oxidizer
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -590,7 +590,7 @@ blocks:
       display_item: mekanized:display/chemical_infuser
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -629,7 +629,7 @@ blocks:
       machine: mekanized:chemical_injection_chamber
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -713,7 +713,7 @@ blocks:
       display_item: mekanized:display/chemical_dissolution_chamber
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -754,7 +754,7 @@ blocks:
       display_item: mekanized:display/chemical_washer
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -795,7 +795,7 @@ blocks:
       display_item: mekanized:display/chemical_crystallizer
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -837,7 +837,7 @@ blocks:
       display_rotation: 90
       display_rotations: north=0/90,south=0/270,east=0/180,west=0/0
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -878,7 +878,7 @@ blocks:
       display_item: mekanized:display/rotary_condensentrator
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -920,7 +920,7 @@ blocks:
       display_rotation: 180
       display_rotations: north=0/180,south=0/0,east=0/270,west=0/90
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -961,7 +961,7 @@ blocks:
       display_item: mekanized:display/basic_chemical_tank
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1001,7 +1001,7 @@ blocks:
       keep_contents: true
       display_item: mekanized:display/basic_fluid_tank
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1027,7 +1027,7 @@ blocks:
       display_item: mekanized:display/advanced_chemical_tank
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1067,7 +1067,7 @@ blocks:
       keep_contents: true
       display_item: mekanized:display/advanced_fluid_tank
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1093,7 +1093,7 @@ blocks:
       display_item: mekanized:display/elite_chemical_tank
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1133,7 +1133,7 @@ blocks:
       keep_contents: true
       display_item: mekanized:display/elite_fluid_tank
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1159,7 +1159,7 @@ blocks:
       display_item: mekanized:display/ultimate_chemical_tank
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1199,7 +1199,7 @@ blocks:
       keep_contents: true
       display_item: mekanized:display/ultimate_fluid_tank
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1225,7 +1225,7 @@ blocks:
       display_item: mekanized:display/creative_chemical_tank
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1265,7 +1265,7 @@ blocks:
       keep_contents: true
       display_item: mekanized:display/creative_fluid_tank
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:

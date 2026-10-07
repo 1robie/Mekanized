@@ -431,7 +431,7 @@ blocks:
       machine: mekanized:enrichment_chamber
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -513,7 +513,7 @@ blocks:
       machine: mekanized:crusher
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -595,7 +595,7 @@ blocks:
       machine: mekanized:energized_smelter
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -677,7 +677,7 @@ blocks:
       machine: mekanized:osmium_compressor
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -759,7 +759,7 @@ blocks:
       machine: mekanized:combiner
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -843,7 +843,7 @@ blocks:
       display_item: mekanized:display/metallurgic_infuser
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -882,7 +882,7 @@ blocks:
       machine: mekanized:purification_chamber
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -964,7 +964,7 @@ blocks:
       machine: mekanized:precision_sawmill
       keep_contents: true
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/solid_1x1x1
       overrides:
@@ -1048,7 +1048,7 @@ blocks:
       display_item: mekanized:display/heat_generator
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1088,7 +1088,7 @@ blocks:
       keep_contents: true
       display_item: mekanized:display/solar_generator
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1115,7 +1115,7 @@ blocks:
       display_rotation: 180
       display_rotations: north=0/180,south=0/0,east=0/270,west=0/90
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1160,7 +1160,7 @@ blocks:
       level_steps: 4
       side_display: mekanized:display/basic_energy_cube/port
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1209,7 +1209,7 @@ blocks:
       level_steps: 4
       side_display: mekanized:display/advanced_energy_cube/port
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1258,7 +1258,7 @@ blocks:
       level_steps: 4
       side_display: mekanized:display/elite_energy_cube/port
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1307,7 +1307,7 @@ blocks:
       level_steps: 4
       side_display: mekanized:display/ultimate_energy_cube/port
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
@@ -1356,7 +1356,7 @@ blocks:
       level_steps: 4
       side_display: mekanized:display/creative_energy_cube/port
     loot:
-      template: default:loot_table/self
+      template: machineengine:loot_table/keep_contents
     settings:
       template: default:settings/transparent_1x1x1
       overrides:
