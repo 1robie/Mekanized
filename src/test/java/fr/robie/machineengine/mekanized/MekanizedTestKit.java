@@ -24,7 +24,6 @@ import fr.robie.machineengine.mekanized.machine.ChunkLoadingSettings;
 import fr.robie.machineengine.mekanized.machine.DigitalMinerSettings;
 import fr.robie.machineengine.mekanized.machine.Entangloporters;
 import fr.robie.machineengine.mekanized.machine.Frequencies;
-import fr.robie.machineengine.mekanized.machine.GearSettings;
 import fr.robie.machineengine.mekanized.machine.QioSettings;
 import fr.robie.machineengine.mekanized.machine.Radiation;
 import fr.robie.machineengine.mekanized.machine.RadiationSettings;
@@ -284,7 +283,6 @@ public final class MekanizedTestKit {
             RadiationSettings.reset();
             DigitalMinerSettings.reset();
             QioSettings.reset();
-            GearSettings.reset();
             UtilityBehaviors.setCrafting(null);
             UtilityBehaviors.setItemFactory(null);
             ItemResources.setAccess(null);

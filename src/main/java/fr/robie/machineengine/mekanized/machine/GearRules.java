@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Which module goes into which gear, and how the module list of a piece is written. Plain Java: the
  * platform ({@code GearModules}) finds the worn piece and edits the item; this decides what fits.
- * Capacities are {@link EnergyItems#capacity(net.kyori.adventure.key.Key, String)} and {@link GearSettings}.
+ * What modules cost and do is in their item config ({@code mekanized:module}, D32).
  */
 public final class GearRules {
     /** The target that means "any worn MekaSuit piece". */
@@ -50,10 +50,10 @@ public final class GearRules {
         return MODULE_TARGETS.get(module);
     }
 
-    /** An item's energy {@code capacity}, times {@code factor} when {@code modules} has an energy unit (saturating). */
-    public static long energyCapacity(long capacity, @NotNull Set<String> modules, long factor) {
-        if (!modules.contains("energy_unit") || capacity <= 0) return capacity;
-        return factor > 0 && capacity > Long.MAX_VALUE / factor ? Long.MAX_VALUE : capacity * factor;
+    /** {@code capacity} times {@code factor}, saturating (a module's capacity factor). */
+    public static long scaled(long capacity, long factor) {
+        if (capacity <= 0 || factor <= 1) return capacity;
+        return capacity > Long.MAX_VALUE / factor ? Long.MAX_VALUE : capacity * factor;
     }
 
     /** Whether the gear {@code gearId} (null: none) is what {@code target} asks for. */

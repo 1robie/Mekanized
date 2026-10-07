@@ -14,13 +14,10 @@ import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
-import java.util.function.Supplier;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static fr.robie.machineengine.mekanized.MekanizedContent.key;
@@ -76,9 +73,6 @@ public final class Radiation {
         SOURCES.values().removeIf(strength -> strength < RadiationSettings.minSource);
     }
 
-    private static final List<String> HAZMAT = List.of("hazmat_mask", "hazmat_gown", "hazmat_pants", "hazmat_boots");
-    private static final List<String> MEKASUIT = List.of("mekasuit_helmet", "mekasuit_bodyarmor", "mekasuit_pants", "mekasuit_boots");
-
     /** How worrying a level (an hour's worth of it) or a dose is, in Sv. */
     public enum Severity {
         LOW, MEDIUM, HIGH
@@ -90,18 +84,13 @@ public final class Radiation {
     }
 
     /**
-     * Whether the armour piece in {@code slot} (0 helmet, 1 chestplate, 2 leggings, 3 boots) wearing the gear
-     * {@code id} (null: none) stops radiation: a hazmat piece, or a MekaSuit piece with a radiation shielding unit.
+     * The share of radiation the worn pieces stop: each piece's {@code protection} (its
+     * {@code mekanized:radiation_shielding} item config, a quarter by default), added up, at most all of it.
      */
-    public static boolean shields(int slot, @Nullable String id, @NotNull Supplier<Set<String>> modules) {
-        return HAZMAT.get(slot).equals(id) || MEKASUIT.get(slot).equals(id) && modules.get().contains("radiation_shielding_unit");
-    }
-
-    /** The share of radiation {@code pieces} shielding pieces stop ({@link RadiationSettings#shieldingPerPiece} each). */
-    public static double shielding(int pieces) {
+    public static double shielding(@NotNull List<Double> protections) {
         double shielded = 0;
-        for (int i = 0; i < pieces; i++) shielded += RadiationSettings.shieldingPerPiece;
-        return shielded;
+        for (double protection : protections) shielded += protection;
+        return Math.clamp(shielded, 0, 1);
     }
 
     /** A player's dose one second later: the old one fades, and the radiation they took in (less what is shielded) adds up per hour of seconds. */

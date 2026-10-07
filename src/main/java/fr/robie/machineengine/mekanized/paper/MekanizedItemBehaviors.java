@@ -5,6 +5,7 @@ import fr.robie.machineengine.api.paper.PaperItemResources;
 import fr.robie.machineengine.api.resource.Energy;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.mekanized.paper.automation.PaperAutomation;
+import fr.robie.machineengine.mekanized.paper.gear.GearBehaviors;
 import fr.robie.machineengine.mekanized.paper.gear.GearItems;
 import fr.robie.machineengine.mekanized.paper.gear.GearTools;
 import fr.robie.machineengine.mekanized.paper.gear.ModuleHolderBehavior;
@@ -35,6 +36,13 @@ public final class MekanizedItemBehaviors {
         register("canteen", GearTools.CanteenBehavior.FACTORY);
         register("meka_tool", GearTools.MekaToolBehavior.FACTORY);
         register("radiation_reader", PaperRadiation.ReaderBehavior.FACTORY);
+        // Gear numbers (Stages 5 and 6): read by the listeners and the suit ticker.
+        register("mining_tool", GearBehaviors.MiningTool.FACTORY);
+        register("electric_bow", GearBehaviors.ElectricBow.FACTORY);
+        register("jetpack", GearBehaviors.Jetpack.FACTORY);
+        register("scuba_tank", GearBehaviors.ScubaTank.FACTORY);
+        register("fall_absorber", GearBehaviors.FallAbsorber.FACTORY);
+        register("radiation_shielding", GearBehaviors.RadiationShielding.FACTORY);
         register("portable_teleporter", PaperAutomation.PortableBehavior.TELEPORTER);
         register("portable_qio", PaperAutomation.PortableBehavior.QIO);
         register("cardboard_box", PaperAutomation.BoxBehavior.FACTORY);

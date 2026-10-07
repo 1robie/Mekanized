@@ -67,15 +67,11 @@ public final class GearModules {
         }
         gear.editMeta(meta -> {
             meta.getPersistentDataContainer().set(MODULES, PersistentDataType.STRING, GearRules.formatModules(modules));
-            switch (module) {
-                case "elytra_unit" -> setGlider(meta);
-                case "silk_touch_unit" -> meta.addEnchant(Enchantment.SILK_TOUCH, 1, true);
-                case "fortune_unit" -> meta.addEnchant(Enchantment.FORTUNE, 3, true);
-                case "frost_walker_unit" -> meta.addEnchant(Enchantment.FROST_WALKER, 2, true);
-                case "soul_surfer_unit" -> meta.addEnchant(Enchantment.SOUL_SPEED, 3, true);
-                default -> {
-                }
-            }
+            // What the module gives the gear: its item config (glider, enchantment).
+            ModuleHolderBehavior.Module options = GearBehaviors.module(module);
+            if (options != null && options.glider()) setGlider(meta);
+            Enchantment enchantment = options == null ? null : options.enchantment();
+            if (enchantment != null) meta.addEnchant(enchantment, options.enchantmentLevel(), true);
         });
         refresh(gear);
         if (player.getGameMode() != GameMode.CREATIVE) moduleStack.setAmount(moduleStack.getAmount() - 1);
@@ -95,15 +91,10 @@ public final class GearModules {
             String left = GearRules.formatModules(modules);
             if (left == null) meta.getPersistentDataContainer().remove(MODULES);
             else meta.getPersistentDataContainer().set(MODULES, PersistentDataType.STRING, left);
-            switch (module) {
-                case "elytra_unit" -> setGlider(meta, false);
-                case "silk_touch_unit" -> meta.removeEnchant(Enchantment.SILK_TOUCH);
-                case "fortune_unit" -> meta.removeEnchant(Enchantment.FORTUNE);
-                case "frost_walker_unit" -> meta.removeEnchant(Enchantment.FROST_WALKER);
-                case "soul_surfer_unit" -> meta.removeEnchant(Enchantment.SOUL_SPEED);
-                default -> {
-                }
-            }
+            ModuleHolderBehavior.Module options = GearBehaviors.module(module);
+            if (options != null && options.glider()) setGlider(meta, false);
+            Enchantment enchantment = options == null ? null : options.enchantment();
+            if (enchantment != null) meta.removeEnchant(enchantment);
         });
         // Energy above the capacity left (an energy unit removed) is lost.
         long capacity = capacity(gear);

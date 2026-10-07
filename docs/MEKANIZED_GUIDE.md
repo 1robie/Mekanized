@@ -151,16 +151,7 @@ Click a machine's upgrade button with the upgrade in hand to install it.
   their comments, at the next start; your values and comments are kept.
   - `transport`, `dynamic-tank`, `thermal-evaporation`: network rates per tier, Dynamic Tank capacity,
     Thermal Evaporation rate.
-  - `gear`: the energy unit's factor (`energy-unit-factor`), the tools (`tools`: energy per block, vein mining limits, hit energy and damage, bow, teleport range,
-    flamethrower), the jetpack (`jetpack`: hydrogen, thrust, speeds), `scuba-oxygen-per-second`, and the energy
-    each module uses or makes (`modules`).
-    How much an item holds is not here but in its CraftEngine item config
-    (`plugins/CraftEngine/resources/mekanized/configuration/gear.yml` and `chemistry.yml`), under `behaviors`:
-    `machineengine:energy_item` (`max-energy`) and `machineengine:resource_item` (`resource`, `capacity`).
-    Edit them there and run `/ce reload`. The old `gear.energy-capacity` and `gear.chemical-capacity` keys are
-    ignored.
-  - `radiation`: background, how fast sources and doses fade, how much each hazmat or shielded piece stops,
-    the doses that make players sick, hurt them and kill them, and the waste barrel.
+  - `radiation`: background, how fast sources and doses fade, the doses that make players sick, hurt them and kill them, and the waste barrel.
   - `teleporter`: Joules per teleport (base, per block, to another world) and the cooldown between teleports.
     The Meka-Tool's teleportation unit uses the same costs.
   - `chunk-loading`: the dimensional stabilizer's widest radius and its energy per chunk.
@@ -172,6 +163,24 @@ Click a machine's upgrade button with the upgrade in hand to install it.
 - **Crafting recipes:** in CraftEngine's `recipes_*.yml` under `plugins/CraftEngine/resources/mekanized/`.
 - **Menus:** the zMenu files `plugins/MachineEngine/menus/mekanized_*.yml`. Placeholders are
   `%zmenu_machineengine_<key>%`; see MachineEngine's README.
+
+  Gear has no `config.yml` settings any more: every number is in the item's CraftEngine config
+  (`plugins/CraftEngine/resources/mekanized/configuration/gear.yml`, `chemistry.yml`), under `behaviors`.
+  Edit it there and run `/ce reload`. Old `gear.*` keys left in `config.yml` are ignored.
+
+  | Behavior | Items | Options |
+  |---|---|---|
+  | `machineengine:energy_item` | energy tablet, tools, MekaSuit, free runners | `max-energy` |
+  | `machineengine:resource_item` | jetpacks, flamethrower, scuba tank, canteen, MekaSuit body armor | `resource`, `capacity`, `fill-from-machines` |
+  | `mekanized:mining_tool` | atomic disassembler, Meka-Tool | `energy-per-block`, `vein-limit`, `vein-limit-with-unit`, `hit-energy`, `damage`, `amplified-damage`, `charged-speed`, `amplified-speed` |
+  | `mekanized:meka_tool` | Meka-Tool | `teleport-range`, `shear-energy` |
+  | `mekanized:electric_bow` | electric bow | `energy-per-shot` |
+  | `mekanized:flamethrower` | flamethrower | `hydrogen-per-use`, `damage` |
+  | `mekanized:jetpack` | jetpacks, MekaSuit body armor | `hydrogen-per-tick`, `thrust`, `max-speed`, `walk-speed`, `sprint-speed`, `requires-module` |
+  | `mekanized:scuba_tank` | scuba tank | `oxygen-per-refill`, `mask` |
+  | `mekanized:fall_absorber` | free runners, MekaSuit boots | `energy-per-damage` |
+  | `mekanized:radiation_shielding` | hazmat suit, MekaSuit | `protection` (0.25 a piece), `requires-module` |
+  | `mekanized:module` | `module_*` items | `module`, `energy` (per second, per use or made), `range`, `capacity-factor`, `enchantment`, `enchantment-level`, `glider` |
 
 ## Commands (permission `machineengine.admin`)
 | Command | What it does |

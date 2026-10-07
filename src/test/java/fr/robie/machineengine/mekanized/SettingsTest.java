@@ -4,7 +4,6 @@ import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.machine.ChunkLoadingSettings;
 import fr.robie.machineengine.mekanized.machine.DigitalMinerSettings;
 import fr.robie.machineengine.mekanized.machine.Frequencies;
-import fr.robie.machineengine.mekanized.machine.GearSettings;
 import fr.robie.machineengine.mekanized.machine.QioSettings;
 import fr.robie.machineengine.mekanized.machine.RadiationSettings;
 import fr.robie.machineengine.mekanized.machine.TeleporterSettings;
@@ -18,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -111,7 +111,7 @@ class SettingsTest {
         load(old);
         assertEquals(old, Files.readString(this.file, StandardCharsets.UTF_8).replace("\r\n", "\n"), "nothing missing: not rewritten");
         assertTrue(this.warnings.isEmpty(), this.warnings.toString());
-        gearDefaultsAreTheOldNumbers();
+        gearDefaultsAreTheOldNumbersInTheItemConfig();
         qioDefaultsAreTheOldNumbers();
         assertArrayEquals(new long[]{8_000, 128_000, 1_024_000, 8_192_000}, MekanizedSettings.cableRates);
     }
@@ -122,7 +122,7 @@ class SettingsTest {
         String text = Files.readString(this.file, StandardCharsets.UTF_8);
         assertTrue(text.contains("base-cost: 200"), text);
         assertTrue(text.contains("cost-per-block: 10"), text);
-        assertTrue(text.contains("# J per animal sheared"), text);
+        assertTrue(text.contains("# J of a teleport to another world"), text);
         assertEquals(200, TeleporterSettings.baseCost);
     }
 
@@ -201,7 +201,6 @@ class SettingsTest {
         assertEquals(0.995, RadiationSettings.sourceDecayPerSecond);
         assertEquals(1e-6, RadiationSettings.minSource);
         assertEquals(0.999, RadiationSettings.doseDecayPerSecond);
-        assertEquals(0.25, RadiationSettings.shieldingPerPiece);
         assertEquals(1, RadiationSettings.sicknessDose);
         assertEquals(10, RadiationSettings.damageDose);
         assertEquals(100, RadiationSettings.lethalDose);
@@ -222,12 +221,11 @@ class SettingsTest {
         assertEquals(50, RadiationSettings.lethalDose);
         assertEquals(4, RadiationSettings.barrelDecay);
         assertEquals(0.9, RadiationSettings.sourceDecayPerSecond);
-        load("radiation:\n  source-decay-per-second: 1.5\n  shielding-per-piece: 0.5\n  barrel-capacity: 0\n  damage-dose: high\n");
+        load("radiation:\n  source-decay-per-second: 1.5\n  barrel-capacity: 0\n  damage-dose: high\n");
         assertEquals(1, RadiationSettings.sourceDecayPerSecond, "a source cannot grow");
-        assertEquals(0.25, RadiationSettings.shieldingPerPiece, "four pieces stop everything at most");
         assertEquals(1, RadiationSettings.barrelCapacity);
         assertEquals(10, RadiationSettings.damageDose, "not a number: the default");
-        assertEquals(4, this.warnings.size(), this.warnings.toString());
+        assertEquals(3, this.warnings.size(), this.warnings.toString());
     }
 
     // -- digital miner ----------------------------------------------------------------------------
@@ -292,8 +290,8 @@ class SettingsTest {
     // -- gear -------------------------------------------------------------------------------------
 
     @Test
-    void gearDefaultsAreTheOldNumbers() {
-        // Capacities: now in the item configs (D32), still what EnergyItems.CAPACITY and GearItems.CHEMICALS held.
+    void gearDefaultsAreTheOldNumbersInTheItemConfig() {
+        // Capacities and every gear number: in the item configs now (D32), still what config.yml held.
         String energy = "machineengine:energy";
         assertEquals(1_000_000L, ShippedItems.capacity("energy_tablet", energy));
         assertEquals(1_000_000L, ShippedItems.capacity("atomic_disassembler", energy));
@@ -304,81 +302,68 @@ class SettingsTest {
         assertEquals(64_000L, ShippedItems.capacity("free_runners_armored", energy));
         for (String piece : new String[]{"helmet", "bodyarmor", "pants", "boots"}) {
             assertEquals(16_000_000L, ShippedItems.capacity("mekasuit_" + piece, energy));
+            assertEquals("radiation_shielding_unit", ShippedItems.option("mekasuit_" + piece, "mekanized:radiation_shielding", "requires-module"));
         }
         assertEquals(0L, ShippedItems.capacity("crusher", energy), "not an energy item");
-        assertEquals(4, GearSettings.energyUnitFactor, "energy unit: x4");
         for (String item : new String[]{"jetpack", "jetpack_armored", "flamethrower", "mekasuit_bodyarmor"}) {
             assertEquals(24_000L, ShippedItems.capacity(item, "mekanized:hydrogen"), item);
         }
         assertEquals(24_000L, ShippedItems.capacity("scuba_tank", "mekanized:oxygen"));
         assertEquals(64_000L, ShippedItems.capacity("canteen", "mekanized:fluid/nutritional_paste"));
         // Tools.
-        assertEquals(100, GearSettings.toolEnergyPerBlock);
-        assertEquals(64, GearSettings.veinLimit);
-        assertEquals(256, GearSettings.veinLimitWithUnit);
-        assertEquals(500, GearSettings.shearEnergy);
-        assertEquals(2_000, GearSettings.disassemblerHitEnergy);
-        assertEquals(20.0, GearSettings.disassemblerDamage);
-        assertEquals(3_000, GearSettings.mekaToolHitEnergy);
-        assertEquals(10.0, GearSettings.mekaToolDamage);
-        assertEquals(30.0, GearSettings.mekaToolAmplifiedDamage);
-        assertEquals(120, GearSettings.bowEnergyPerShot);
-        assertEquals(100, GearSettings.teleportRange);
-        assertEquals(5, GearSettings.flamethrowerHydrogen);
-        assertEquals(2.0, GearSettings.flamethrowerDamage);
-        // Jetpack and scuba.
-        assertEquals(1, GearSettings.jetpackHydrogenPerTick);
-        assertEquals(0.15, GearSettings.jetpackThrust);
-        assertEquals(0.5, GearSettings.jetpackMaxSpeed);
-        assertEquals(0.3, GearSettings.jetpackWalkSpeed);
-        assertEquals(0.45, GearSettings.jetpackSprintSpeed);
-        assertEquals(20, GearSettings.scubaOxygen);
+        String mining = "mekanized:mining_tool";
+        for (String tool : new String[]{"atomic_disassembler", "meka_tool"}) {
+            assertEquals(100, ShippedItems.option(tool, mining, "energy-per-block"), tool);
+            assertEquals(64, ShippedItems.option(tool, mining, "vein-limit"), tool);
+        }
+        assertEquals(256, ShippedItems.option("meka_tool", mining, "vein-limit-with-unit"));
+        assertEquals(2_000, ShippedItems.option("atomic_disassembler", mining, "hit-energy"));
+        assertEquals(20.0, ShippedItems.option("atomic_disassembler", mining, "damage"));
+        assertEquals(3_000, ShippedItems.option("meka_tool", mining, "hit-energy"));
+        assertEquals(10.0, ShippedItems.option("meka_tool", mining, "damage"));
+        assertEquals(30.0, ShippedItems.option("meka_tool", mining, "amplified-damage"));
+        assertEquals(500, ShippedItems.option("meka_tool", "mekanized:meka_tool", "shear-energy"));
+        assertEquals(100, ShippedItems.option("meka_tool", "mekanized:meka_tool", "teleport-range"));
+        assertEquals(120, ShippedItems.option("electric_bow", "mekanized:electric_bow", "energy-per-shot"));
+        assertEquals(5, ShippedItems.option("flamethrower", "mekanized:flamethrower", "hydrogen-per-use"));
+        assertEquals(2.0, ShippedItems.option("flamethrower", "mekanized:flamethrower", "damage"));
+        // Jetpack and breathing.
+        for (String pack : new String[]{"jetpack", "jetpack_armored", "mekasuit_bodyarmor"}) {
+            assertEquals(1, ShippedItems.option(pack, "mekanized:jetpack", "hydrogen-per-tick"), pack);
+            assertEquals(0.15, ShippedItems.option(pack, "mekanized:jetpack", "thrust"), pack);
+            assertEquals(0.5, ShippedItems.option(pack, "mekanized:jetpack", "max-speed"), pack);
+            assertEquals(0.3, ShippedItems.option(pack, "mekanized:jetpack", "walk-speed"), pack);
+            assertEquals(0.45, ShippedItems.option(pack, "mekanized:jetpack", "sprint-speed"), pack);
+        }
+        assertEquals("jetpack_unit", ShippedItems.option("mekasuit_bodyarmor", "mekanized:jetpack", "requires-module"));
+        assertEquals(20, ShippedItems.option("scuba_tank", "mekanized:scuba_tank", "oxygen-per-refill"));
+        for (String boots : new String[]{"free_runners", "free_runners_armored", "mekasuit_boots"}) {
+            assertEquals(50, ShippedItems.option(boots, "mekanized:fall_absorber", "energy-per-damage"), boots);
+        }
+        for (String hazmat : new String[]{"hazmat_mask", "hazmat_gown", "hazmat_pants", "hazmat_boots"}) {
+            assertEquals(0.25, ShippedItems.option(hazmat, "mekanized:radiation_shielding", "protection"), hazmat);
+        }
         // Modules.
-        assertEquals(50, GearSettings.fallEnergyPerDamage);
-        assertEquals(20, GearSettings.magnetEnergyPerItem);
-        assertEquals(8, GearSettings.magnetRange);
-        assertEquals(2_000, GearSettings.breathingEnergy);
-        assertEquals(200, GearSettings.visionEnergy);
-        assertEquals(2_500, GearSettings.nutritionEnergy);
-        assertEquals(2_000, GearSettings.purificationEnergy);
-        assertEquals(20_000, GearSettings.flightEnergy);
-        assertEquals(2_000, GearSettings.locomotiveEnergy);
-        assertEquals(200, GearSettings.hydraulicEnergy);
-        assertEquals(500, GearSettings.repulsorEnergy);
-        assertEquals(200, GearSettings.gyroscopicEnergy);
-        assertEquals(100, GearSettings.servoMinEnergy);
-        assertEquals(2_000, GearSettings.solarEnergy);
-        assertEquals(10_000, GearSettings.geothermalEnergy);
-        assertEquals(20_000, GearSettings.distributionEnergy);
+        Map<String, Integer> moduleEnergy = Map.ofEntries(Map.entry("magnetic_attraction_unit", 20),
+                Map.entry("electrolytic_breathing_unit", 2_000), Map.entry("vision_enhancement_unit", 200),
+                Map.entry("nutritional_injection_unit", 2_500), Map.entry("inhalation_purification_unit", 2_000),
+                Map.entry("gravitational_modulating_unit", 20_000), Map.entry("locomotive_boosting_unit", 2_000),
+                Map.entry("hydraulic_propulsion_unit", 200), Map.entry("hydrostatic_repulsor_unit", 500),
+                Map.entry("gyroscopic_stabilization_unit", 200), Map.entry("motorized_servo_unit", 100),
+                Map.entry("solar_recharging_unit", 2_000), Map.entry("geothermal_generator_unit", 10_000),
+                Map.entry("charge_distribution_unit", 20_000));
+        moduleEnergy.forEach((module, joules) ->
+                assertEquals(joules, ShippedItems.option("module_" + module, "mekanized:module", "energy"), module));
+        assertEquals(8, ShippedItems.option("module_magnetic_attraction_unit", "mekanized:module", "range"));
+        assertEquals(4, ShippedItems.option("module_energy_unit", "mekanized:module", "capacity-factor"), "energy unit: x4");
+        assertEquals(true, ShippedItems.option("module_elytra_unit", "mekanized:module", "glider"));
+        assertEquals("minecraft:fortune", ShippedItems.option("module_fortune_unit", "mekanized:module", "enchantment"));
+        assertEquals(3, ShippedItems.option("module_fortune_unit", "mekanized:module", "enchantment-level"));
     }
 
     @Test
-    void theShippedConfigKeepsTheGearDefaults() throws IOException {
-        loadShipped();
-        gearDefaultsAreTheOldNumbers();
+    void oldGearSettingsAreIgnored() {
+        load("gear:\n  energy-unit-factor: 2\n  tools:\n    vein-limit: 10\n");
         assertTrue(this.warnings.isEmpty(), this.warnings.toString());
-    }
-
-    @Test
-    void gearCapacitiesAndCostsAreRead() {
-        load("gear:\n  energy-unit-factor: 2\n  tools:\n    vein-limit: 10\n"
-                + "    meka-tool-amplified-damage: 44.5\n  modules:\n    solar-recharging-energy: 1\n");
-        assertEquals(2, GearSettings.energyUnitFactor);
-        assertEquals(10, GearSettings.veinLimit);
-        assertEquals(44.5, GearSettings.mekaToolAmplifiedDamage);
-        assertEquals(1, GearSettings.solarEnergy);
-        assertTrue(this.warnings.isEmpty(), this.warnings.toString());
-    }
-
-    @Test
-    void badGearValuesAreClampedOrReplaced() {
-        load("gear:\n  tools:\n    teleport-range: 5000\n"
-                + "    vein-limit: 0\n    bow-energy-per-shot: -3\n  jetpack:\n    thrust: fast\n    max-speed: 99\n");
-        assertEquals(256, GearSettings.teleportRange);
-        assertEquals(1, GearSettings.veinLimit);
-        assertEquals(0, GearSettings.bowEnergyPerShot);
-        assertEquals(0.15, GearSettings.jetpackThrust);
-        assertEquals(2.0, GearSettings.jetpackMaxSpeed);
-        assertEquals(5, this.warnings.size(), this.warnings.toString());
     }
 }

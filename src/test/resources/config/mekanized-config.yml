@@ -70,8 +70,6 @@ radiation:
   min-source: 1.0E-6
   # a player's dose keeps this much each second (0.5-1; half-life about 11 minutes)
   dose-decay-per-second: 0.999
-  # share of radiation each hazmat piece (or MekaSuit piece with a shielding unit) stops (0-0.25)
-  shielding-per-piece: 0.25
   # Sv from which players get hungry
   sickness-dose: 1.0
   # Sv from which players get nauseous, weak and hurt
@@ -112,75 +110,3 @@ qio:
   array-kinds: 1024
   # items an importer or exporter moves per second
   importer-exporter-rate: 64
-
-# Gear: tools, suits, packs and modules. Energy is in Joules, chemicals in mB. What each item holds is in its CraftEngine item config (machineengine:energy_item, resource_item).
-gear:
-  # an energy unit multiplies a piece's capacity by this
-  energy-unit-factor: 4
-  # mB of oxygen each time the tank refills the player's air
-  scuba-oxygen-per-second: 20
-  tools:
-    # J per block mined (and the charge a disassembler or Meka-Tool needs to mine fast)
-    energy-per-block: 100
-    # blocks one vein mining breaks (sneaking)
-    vein-limit: 64
-    # the same with the vein mining unit
-    vein-limit-with-unit: 256
-    # J per animal sheared
-    shear-energy: 500
-    # J per hit of a charged atomic disassembler
-    disassembler-hit-energy: 2000
-    # damage it deals at least (20 is ten hearts)
-    disassembler-damage: 20.0
-    # J per hit of a charged Meka-Tool
-    meka-tool-hit-energy: 3000
-    # damage it deals at least
-    meka-tool-damage: 10.0
-    # the same with the attack amplification unit
-    meka-tool-amplified-damage: 30.0
-    # J per shot of the electric bow
-    bow-energy-per-shot: 120
-    # blocks the teleportation unit looks ahead (1-256); its cost is under teleporter
-    teleport-range: 100
-    # mB of hydrogen per burst
-    flamethrower-hydrogen: 5
-    # damage of a burst
-    flamethrower-damage: 2.0
-  jetpack:
-    # mB of hydrogen per tick of thrust
-    hydrogen-per-tick: 1
-    # upward speed added each tick
-    thrust: 0.15
-    # top upward speed
-    max-speed: 0.5
-    # horizontal speed steered with the movement keys
-    walk-speed: 0.3
-    # the same while sprinting
-    sprint-speed: 0.45
-  # J per second unless said otherwise.
-  modules:
-    # J per point of fall damage absorbed (free runners, MekaSuit boots)
-    fall-energy-per-damage: 50
-    # J per item pulled
-    magnetic-attraction-energy: 20
-    # blocks
-    magnetic-attraction-range: 8
-    electrolytic-breathing-energy: 2000
-    vision-enhancement-energy: 200
-    nutritional-injection-energy: 2500
-    # per harmful effect removed
-    inhalation-purification-energy: 2000
-    # while flying; the charge needed to start flying
-    gravitational-modulating-energy: 20000
-    locomotive-boosting-energy: 2000
-    hydraulic-propulsion-energy: 200
-    hydrostatic-repulsor-energy: 500
-    gyroscopic-stabilization-energy: 200
-    # the charge the legs need to step up blocks
-    motorized-servo-min-energy: 100
-    # J made per second in daylight
-    solar-recharging-energy: 2000
-    # J made per second in lava or on fire
-    geothermal-generator-energy: 10000
-    # J given to each other piece per second
-    charge-distribution-energy: 20000

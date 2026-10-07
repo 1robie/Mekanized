@@ -5,6 +5,12 @@ items:
     behaviors:
     - type: machineengine:energy_item
       max-energy: 1000000
+    - type: mekanized:mining_tool
+      energy-per-block: 100
+      vein-limit: 64
+      hit-energy: 2000
+      damage: 20.0
+      charged-speed: 16.0
     data:
       item_name: <!i><lang:item.mekanized.atomic_disassembler>
       unbreakable: true
@@ -23,6 +29,17 @@ items:
       max-energy: 16000000
     - type: mekanized:module_holder
     - type: mekanized:meka_tool
+      teleport-range: 100
+      shear-energy: 500
+    - type: mekanized:mining_tool
+      energy-per-block: 100
+      vein-limit: 64
+      vein-limit-with-unit: 256
+      hit-energy: 3000
+      damage: 10.0
+      amplified-damage: 30.0
+      charged-speed: 16.0
+      amplified-speed: 32.0
     data:
       item_name: <!i><lang:item.mekanized.meka_tool>
       unbreakable: true
@@ -42,6 +59,8 @@ items:
       capacity: 24000
       fill-from-machines: true
     - type: mekanized:flamethrower
+      hydrogen-per-use: 5
+      damage: 2.0
     data:
       item_name: <!i><lang:item.mekanized.flamethrower>
       unbreakable: true
@@ -53,6 +72,8 @@ items:
     behaviors:
     - type: machineengine:energy_item
       max-energy: 120000
+    - type: mekanized:electric_bow
+      energy-per-shot: 120
     data:
       item_name: <!i><lang:item.mekanized.electric_bow>
       unbreakable: true
@@ -157,6 +178,12 @@ items:
       resource: mekanized:hydrogen
       capacity: 24000
       fill-from-machines: true
+    - type: mekanized:jetpack
+      hydrogen-per-tick: 1
+      thrust: 0.15
+      max-speed: 0.5
+      walk-speed: 0.3
+      sprint-speed: 0.45
     data:
       item_name: <!i><lang:item.mekanized.jetpack>
       unbreakable: true
@@ -172,6 +199,12 @@ items:
       resource: mekanized:hydrogen
       capacity: 24000
       fill-from-machines: true
+    - type: mekanized:jetpack
+      hydrogen-per-tick: 1
+      thrust: 0.15
+      max-speed: 0.5
+      walk-speed: 0.3
+      sprint-speed: 0.45
     data:
       item_name: <!i><lang:item.mekanized.jetpack_armored>
       unbreakable: true
@@ -187,6 +220,9 @@ items:
       resource: mekanized:oxygen
       capacity: 24000
       fill-from-machines: true
+    - type: mekanized:scuba_tank
+      oxygen-per-refill: 20
+      mask: mekanized:scuba_mask
     data:
       item_name: <!i><lang:item.mekanized.scuba_tank>
       unbreakable: true
@@ -210,6 +246,8 @@ items:
     behaviors:
     - type: machineengine:energy_item
       max-energy: 64000
+    - type: mekanized:fall_absorber
+      energy-per-damage: 50
     data:
       item_name: <!i><lang:item.mekanized.free_runners>
       unbreakable: true
@@ -223,6 +261,8 @@ items:
     behaviors:
     - type: machineengine:energy_item
       max-energy: 64000
+    - type: mekanized:fall_absorber
+      energy-per-damage: 50
     data:
       item_name: <!i><lang:item.mekanized.free_runners_armored>
       unbreakable: true
@@ -237,6 +277,9 @@ items:
     - type: machineengine:energy_item
       max-energy: 16000000
     - type: mekanized:module_holder
+    - type: mekanized:radiation_shielding
+      protection: 0.25
+      requires-module: radiation_shielding_unit
     data:
       item_name: <!i><lang:item.mekanized.mekasuit_helmet>
       unbreakable: true
@@ -258,6 +301,16 @@ items:
       capacity: 24000
       fill-from-machines: true
     - type: mekanized:module_holder
+    - type: mekanized:jetpack
+      hydrogen-per-tick: 1
+      thrust: 0.15
+      max-speed: 0.5
+      walk-speed: 0.3
+      sprint-speed: 0.45
+      requires-module: jetpack_unit
+    - type: mekanized:radiation_shielding
+      protection: 0.25
+      requires-module: radiation_shielding_unit
     data:
       item_name: <!i><lang:item.mekanized.mekasuit_bodyarmor>
       unbreakable: true
@@ -274,6 +327,9 @@ items:
     - type: machineengine:energy_item
       max-energy: 16000000
     - type: mekanized:module_holder
+    - type: mekanized:radiation_shielding
+      protection: 0.25
+      requires-module: radiation_shielding_unit
     data:
       item_name: <!i><lang:item.mekanized.mekasuit_pants>
       unbreakable: true
@@ -290,6 +346,11 @@ items:
     - type: machineengine:energy_item
       max-energy: 16000000
     - type: mekanized:module_holder
+    - type: mekanized:fall_absorber
+      energy-per-damage: 50
+    - type: mekanized:radiation_shielding
+      protection: 0.25
+      requires-module: radiation_shielding_unit
     data:
       item_name: <!i><lang:item.mekanized.mekasuit_boots>
       unbreakable: true
@@ -301,6 +362,9 @@ items:
       - minecraft:foot_armor
       - minecraft:freeze_immune_wearables
   mekanized:hazmat_mask:
+    behaviors:
+    - type: mekanized:radiation_shielding
+      protection: 0.25
     material: leather_helmet
     data:
       item_name: <!i><lang:item.mekanized.hazmat_mask>
@@ -312,6 +376,9 @@ items:
       tags:
       - minecraft:head_armor
   mekanized:hazmat_gown:
+    behaviors:
+    - type: mekanized:radiation_shielding
+      protection: 0.25
     material: leather_chestplate
     data:
       item_name: <!i><lang:item.mekanized.hazmat_gown>
@@ -323,6 +390,9 @@ items:
       tags:
       - minecraft:chest_armor
   mekanized:hazmat_pants:
+    behaviors:
+    - type: mekanized:radiation_shielding
+      protection: 0.25
     material: leather_leggings
     data:
       item_name: <!i><lang:item.mekanized.hazmat_pants>
@@ -334,6 +404,9 @@ items:
       tags:
       - minecraft:leg_armor
   mekanized:hazmat_boots:
+    behaviors:
+    - type: mekanized:radiation_shielding
+      protection: 0.25
     material: leather_boots
     data:
       item_name: <!i><lang:item.mekanized.hazmat_boots>
@@ -355,6 +428,7 @@ items:
     behaviors:
     - type: mekanized:module
       module: electrolytic_breathing_unit
+      energy: 2000
     data:
       item_name: <!i><lang:item.mekanized.module_electrolytic_breathing_unit>
     model: mekanized:item/module_electrolytic_breathing_unit
@@ -365,6 +439,7 @@ items:
     behaviors:
     - type: mekanized:module
       module: vision_enhancement_unit
+      energy: 200
     data:
       item_name: <!i><lang:item.mekanized.module_vision_enhancement_unit>
     model: mekanized:item/module_vision_enhancement_unit
@@ -375,6 +450,7 @@ items:
     behaviors:
     - type: mekanized:module
       module: nutritional_injection_unit
+      energy: 2500
     data:
       item_name: <!i><lang:item.mekanized.module_nutritional_injection_unit>
     model: mekanized:item/module_nutritional_injection_unit
@@ -385,6 +461,7 @@ items:
     behaviors:
     - type: mekanized:module
       module: inhalation_purification_unit
+      energy: 2000
     data:
       item_name: <!i><lang:item.mekanized.module_inhalation_purification_unit>
     model: mekanized:item/module_inhalation_purification_unit
@@ -405,6 +482,7 @@ items:
     behaviors:
     - type: mekanized:module
       module: gravitational_modulating_unit
+      energy: 20000
     data:
       item_name: <!i><lang:item.mekanized.module_gravitational_modulating_unit>
     model: mekanized:item/module_gravitational_modulating_unit
@@ -415,6 +493,7 @@ items:
     behaviors:
     - type: mekanized:module
       module: elytra_unit
+      glider: true
     data:
       item_name: <!i><lang:item.mekanized.module_elytra_unit>
     model: mekanized:item/module_elytra_unit
@@ -425,6 +504,7 @@ items:
     behaviors:
     - type: mekanized:module
       module: locomotive_boosting_unit
+      energy: 2000
     data:
       item_name: <!i><lang:item.mekanized.module_locomotive_boosting_unit>
     model: mekanized:item/module_locomotive_boosting_unit
@@ -435,6 +515,7 @@ items:
     behaviors:
     - type: mekanized:module
       module: hydraulic_propulsion_unit
+      energy: 200
     data:
       item_name: <!i><lang:item.mekanized.module_hydraulic_propulsion_unit>
     model: mekanized:item/module_hydraulic_propulsion_unit
@@ -465,6 +546,8 @@ items:
     behaviors:
     - type: mekanized:module
       module: silk_touch_unit
+      enchantment: minecraft:silk_touch
+      enchantment-level: 1
     data:
       item_name: <!i><lang:item.mekanized.module_silk_touch_unit>
     model: mekanized:item/module_silk_touch_unit
@@ -475,6 +558,8 @@ items:
     behaviors:
     - type: mekanized:module
       module: fortune_unit
+      enchantment: minecraft:fortune
+      enchantment-level: 3
     data:
       item_name: <!i><lang:item.mekanized.module_fortune_unit>
     model: mekanized:item/module_fortune_unit
@@ -535,6 +620,7 @@ items:
     behaviors:
     - type: mekanized:module
       module: energy_unit
+      capacity-factor: 4
     data:
       item_name: <!i><lang:item.mekanized.module_energy_unit>
     model: mekanized:item/module_energy_unit
@@ -545,6 +631,7 @@ items:
     behaviors:
     - type: mekanized:module
       module: charge_distribution_unit
+      energy: 20000
     data:
       item_name: <!i><lang:item.mekanized.module_charge_distribution_unit>
     model: mekanized:item/module_charge_distribution_unit
@@ -555,6 +642,7 @@ items:
     behaviors:
     - type: mekanized:module
       module: gyroscopic_stabilization_unit
+      energy: 200
     data:
       item_name: <!i><lang:item.mekanized.module_gyroscopic_stabilization_unit>
     model: mekanized:item/module_gyroscopic_stabilization_unit
@@ -565,6 +653,7 @@ items:
     behaviors:
     - type: mekanized:module
       module: solar_recharging_unit
+      energy: 2000
     data:
       item_name: <!i><lang:item.mekanized.module_solar_recharging_unit>
     model: mekanized:item/module_solar_recharging_unit
@@ -575,6 +664,7 @@ items:
     behaviors:
     - type: mekanized:module
       module: geothermal_generator_unit
+      energy: 10000
     data:
       item_name: <!i><lang:item.mekanized.module_geothermal_generator_unit>
     model: mekanized:item/module_geothermal_generator_unit
@@ -585,6 +675,7 @@ items:
     behaviors:
     - type: mekanized:module
       module: motorized_servo_unit
+      energy: 100
     data:
       item_name: <!i><lang:item.mekanized.module_motorized_servo_unit>
     model: mekanized:item/module_motorized_servo_unit
@@ -595,6 +686,7 @@ items:
     behaviors:
     - type: mekanized:module
       module: hydrostatic_repulsor_unit
+      energy: 500
     data:
       item_name: <!i><lang:item.mekanized.module_hydrostatic_repulsor_unit>
     model: mekanized:item/module_hydrostatic_repulsor_unit
@@ -605,6 +697,8 @@ items:
     behaviors:
     - type: mekanized:module
       module: magnetic_attraction_unit
+      energy: 20
+      range: 8
     data:
       item_name: <!i><lang:item.mekanized.module_magnetic_attraction_unit>
     model: mekanized:item/module_magnetic_attraction_unit
@@ -615,6 +709,8 @@ items:
     behaviors:
     - type: mekanized:module
       module: frost_walker_unit
+      enchantment: minecraft:frost_walker
+      enchantment-level: 2
     data:
       item_name: <!i><lang:item.mekanized.module_frost_walker_unit>
     model: mekanized:item/module_frost_walker_unit
@@ -625,6 +721,8 @@ items:
     behaviors:
     - type: mekanized:module
       module: soul_surfer_unit
+      enchantment: minecraft:soul_speed
+      enchantment-level: 3
     data:
       item_name: <!i><lang:item.mekanized.module_soul_surfer_unit>
     model: mekanized:item/module_soul_surfer_unit

@@ -1,6 +1,9 @@
 package fr.robie.machineengine.mekanized.paper;
 
 import fr.robie.machineengine.mekanized.paper.gear.GearItems;
+import java.util.List;
+import java.util.ArrayList;
+import fr.robie.machineengine.mekanized.paper.gear.GearBehaviors;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 
 import fr.robie.machineengine.mekanized.machine.Radiation;
@@ -109,16 +112,19 @@ public final class PaperRadiation implements Listener {
         return dose == null ? 0 : dose;
     }
 
-    /** Hazmat pieces and MekaSuit pieces with a radiation shielding unit stop a quarter each by default ({@link RadiationSettings#shieldingPerPiece}). */
+    /**
+     * What the worn armour stops: pieces with {@code mekanized:radiation_shielding} (hazmat, and MekaSuit
+     * pieces while their radiation shielding unit is installed), a quarter each by default.
+     */
     private static double shielding(Player player) {
-        ItemStack[] armour = {player.getInventory().getHelmet(), player.getInventory().getChestplate(),
-                player.getInventory().getLeggings(), player.getInventory().getBoots()};
-        int pieces = 0;
-        for (int i = 0; i < 4; i++) {
-            ItemStack piece = armour[i];
-            if (Radiation.shields(i, GearItems.id(piece), () -> GearItems.modules(piece))) pieces++;
+        List<Double> protections = new ArrayList<>();
+        for (ItemStack piece : player.getInventory().getArmorContents()) {
+            GearBehaviors.RadiationShielding shielding = GearBehaviors.options(piece, GearBehaviors.RadiationShielding.class);
+            if (shielding == null) continue;
+            if (shielding.requiresModule() != null && !GearItems.modules(piece).contains(shielding.requiresModule())) continue;
+            protections.add(shielding.protection());
         }
-        return Radiation.shielding(pieces);
+        return Radiation.shielding(protections);
     }
 
     @EventHandler

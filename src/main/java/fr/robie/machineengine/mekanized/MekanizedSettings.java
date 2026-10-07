@@ -1,20 +1,16 @@
 package fr.robie.machineengine.mekanized;
 
 import fr.robie.machineengine.api.config.ConfigFile;
-import fr.robie.machineengine.api.config.ConfigKey;
 import fr.robie.machineengine.api.config.ConfigValues;
 import fr.robie.machineengine.mekanized.machine.ChunkLoadingSettings;
 import fr.robie.machineengine.mekanized.machine.DigitalMinerSettings;
-import fr.robie.machineengine.mekanized.machine.GearSettings;
 import fr.robie.machineengine.mekanized.machine.QioSettings;
 import fr.robie.machineengine.mekanized.machine.RadiationSettings;
 import fr.robie.machineengine.mekanized.machine.TeleporterSettings;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Server owners' settings ({@code plugins/Mekanized/config.yml}, keys in {@link MekanizedConfig}), read
@@ -76,7 +72,6 @@ public final class MekanizedSettings {
         RadiationSettings.sourceDecayPerSecond = config.get(MekanizedConfig.SOURCE_DECAY);
         RadiationSettings.minSource = config.get(MekanizedConfig.MIN_SOURCE);
         RadiationSettings.doseDecayPerSecond = config.get(MekanizedConfig.DOSE_DECAY);
-        RadiationSettings.shieldingPerPiece = config.get(MekanizedConfig.SHIELDING);
         RadiationSettings.sicknessDose = config.get(MekanizedConfig.SICKNESS_DOSE);
         RadiationSettings.damageDose = config.get(MekanizedConfig.DAMAGE_DOSE);
         RadiationSettings.lethalDose = config.get(MekanizedConfig.LETHAL_DOSE);
@@ -92,49 +87,6 @@ public final class MekanizedSettings {
         QioSettings.arrayKinds = config.get(MekanizedConfig.QIO_ARRAY_KINDS);
         QioSettings.ioRate = config.get(MekanizedConfig.QIO_IO_RATE);
 
-        applyGear(config);
-    }
-
-    private static void applyGear(ConfigValues config) {
-        GearSettings.energyUnitFactor = config.get(MekanizedConfig.ENERGY_UNIT_FACTOR);
-        GearSettings.scubaOxygen = config.get(MekanizedConfig.SCUBA_OXYGEN);
-
-        GearSettings.toolEnergyPerBlock = config.get(MekanizedConfig.TOOL_ENERGY_PER_BLOCK);
-        GearSettings.veinLimit = config.get(MekanizedConfig.VEIN_LIMIT);
-        GearSettings.veinLimitWithUnit = config.get(MekanizedConfig.VEIN_LIMIT_WITH_UNIT);
-        GearSettings.shearEnergy = config.get(MekanizedConfig.SHEAR_ENERGY);
-        GearSettings.disassemblerHitEnergy = config.get(MekanizedConfig.DISASSEMBLER_HIT_ENERGY);
-        GearSettings.disassemblerDamage = config.get(MekanizedConfig.DISASSEMBLER_DAMAGE);
-        GearSettings.mekaToolHitEnergy = config.get(MekanizedConfig.MEKA_TOOL_HIT_ENERGY);
-        GearSettings.mekaToolDamage = config.get(MekanizedConfig.MEKA_TOOL_DAMAGE);
-        GearSettings.mekaToolAmplifiedDamage = config.get(MekanizedConfig.MEKA_TOOL_AMPLIFIED_DAMAGE);
-        GearSettings.bowEnergyPerShot = config.get(MekanizedConfig.BOW_ENERGY);
-        GearSettings.teleportRange = config.get(MekanizedConfig.TELEPORT_RANGE);
-        GearSettings.flamethrowerHydrogen = config.get(MekanizedConfig.FLAMETHROWER_HYDROGEN);
-        GearSettings.flamethrowerDamage = config.get(MekanizedConfig.FLAMETHROWER_DAMAGE);
-
-        GearSettings.jetpackHydrogenPerTick = config.get(MekanizedConfig.JETPACK_HYDROGEN);
-        GearSettings.jetpackThrust = config.get(MekanizedConfig.JETPACK_THRUST);
-        GearSettings.jetpackMaxSpeed = config.get(MekanizedConfig.JETPACK_MAX_SPEED);
-        GearSettings.jetpackWalkSpeed = config.get(MekanizedConfig.JETPACK_WALK_SPEED);
-        GearSettings.jetpackSprintSpeed = config.get(MekanizedConfig.JETPACK_SPRINT_SPEED);
-
-        GearSettings.fallEnergyPerDamage = config.get(MekanizedConfig.FALL_ENERGY);
-        GearSettings.magnetEnergyPerItem = config.get(MekanizedConfig.MAGNET_ENERGY);
-        GearSettings.magnetRange = config.get(MekanizedConfig.MAGNET_RANGE);
-        GearSettings.breathingEnergy = config.get(MekanizedConfig.BREATHING_ENERGY);
-        GearSettings.visionEnergy = config.get(MekanizedConfig.VISION_ENERGY);
-        GearSettings.nutritionEnergy = config.get(MekanizedConfig.NUTRITION_ENERGY);
-        GearSettings.purificationEnergy = config.get(MekanizedConfig.PURIFICATION_ENERGY);
-        GearSettings.flightEnergy = config.get(MekanizedConfig.FLIGHT_ENERGY);
-        GearSettings.locomotiveEnergy = config.get(MekanizedConfig.LOCOMOTIVE_ENERGY);
-        GearSettings.hydraulicEnergy = config.get(MekanizedConfig.HYDRAULIC_ENERGY);
-        GearSettings.repulsorEnergy = config.get(MekanizedConfig.REPULSOR_ENERGY);
-        GearSettings.gyroscopicEnergy = config.get(MekanizedConfig.GYROSCOPIC_ENERGY);
-        GearSettings.servoMinEnergy = config.get(MekanizedConfig.SERVO_MIN_ENERGY);
-        GearSettings.solarEnergy = config.get(MekanizedConfig.SOLAR_ENERGY);
-        GearSettings.geothermalEnergy = config.get(MekanizedConfig.GEOTHERMAL_ENERGY);
-        GearSettings.distributionEnergy = config.get(MekanizedConfig.DISTRIBUTION_ENERGY);
     }
 
     private static long[] longs(List<Long> values) {

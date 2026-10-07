@@ -1,7 +1,6 @@
 package fr.robie.machineengine.mekanized;
 
 import fr.robie.machineengine.mekanized.machine.GearRules;
-import fr.robie.machineengine.mekanized.machine.GearSettings;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -61,11 +60,10 @@ class GearRulesTest {
     }
 
     @Test
-    void anEnergyUnitMultipliesTheCapacity() {
-        assertEquals(1_000_000, GearRules.energyCapacity(1_000_000, Set.of(), 4));
-        assertEquals(1_000_000, GearRules.energyCapacity(1_000_000, Set.of("silk_touch_unit", "fortune_unit"), 4));
-        assertEquals(4_000_000, GearRules.energyCapacity(1_000_000, Set.of("silk_touch_unit", "energy_unit"), 4));
-        assertEquals(Long.MAX_VALUE, GearRules.energyCapacity(Long.MAX_VALUE / 2, Set.of("energy_unit"), 4), "saturates");
-        assertEquals(0, GearRules.energyCapacity(0, Set.of("energy_unit"), 4), "an item without energy stays without");
+    void aCapacityFactorMultipliesTheCapacity() {
+        assertEquals(1_000_000, GearRules.scaled(1_000_000, 1));
+        assertEquals(4_000_000, GearRules.scaled(1_000_000, 4));
+        assertEquals(Long.MAX_VALUE, GearRules.scaled(Long.MAX_VALUE / 2, 4), "saturates");
+        assertEquals(0, GearRules.scaled(0, 4), "an item without energy stays without");
     }
 }

@@ -1,6 +1,5 @@
 package fr.robie.machineengine.mekanized.paper.gear;
 
-import fr.robie.machineengine.mekanized.machine.GearSettings;
 import fr.robie.machineengine.api.platform.Nms;
 import fr.robie.machineengine.api.platform.PlayerInput;
 import java.util.List;
@@ -28,10 +27,12 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
+import org.bukkit.Material;
+import fr.robie.machineengine.api.paper.PaperItems;
+import static fr.robie.machineengine.mekanized.paper.gear.GearBehaviors.moduleEnergy;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.addEnergy;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.capacity;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.energy;
-import static fr.robie.machineengine.mekanized.paper.gear.GearItems.id;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.modules;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.useChemical;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.useEnergy;
@@ -77,37 +78,37 @@ public final class SuitTicker implements Listener {
         }, null, 1, 1);
     }
 
-    /** Magnetic attraction unit: items within 8 blocks fly to the player (20 J each, every 5 ticks). */
+    /** Magnetic attraction unit: items within its {@code range} fly to the player ({@code energy} each, every 5 ticks). */
     private static void magnet(Player player) {
         ItemStack boots = player.getInventory().getBoots();
-        if (!"mekasuit_boots".equals(id(boots)) || !modules(boots).contains("magnetic_attraction_unit")) return;
+        if (!modules(boots).contains("magnetic_attraction_unit")) return;
+        ModuleHolderBehavior.Module unit = GearBehaviors.module("magnetic_attraction_unit");
+        if (unit == null || unit.range() <= 0) return;
         Location at = player.getLocation().add(0, 0.5, 0);
-        for (Item item : player.getWorld().getNearbyEntitiesByType(Item.class, at, GearSettings.magnetRange)) {
-            if (item.getPickupDelay() > 0 || !useEnergy(boots, GearSettings.magnetEnergyPerItem)) continue;
+        for (Item item : player.getWorld().getNearbyEntitiesByType(Item.class, at, unit.range())) {
+            if (item.getPickupDelay() > 0 || !useEnergy(boots, unit.energy())) continue;
             item.setVelocity(at.toVector().subtract(item.getLocation().toVector()).normalize().multiply(0.6));
         }
     }
 
-    /** Hydrogen: up while jumping (Mekanism's 0.15 a tick, up to 0.5, from 0 when falling), 1 mB a tick. */
+    /** A worn jetpack ({@code mekanized:jetpack}): up while jumping, from 0 when falling, for hydrogen each tick. */
     private void jetpack(Player player) {
         ItemStack chest = player.getInventory().getChestplate();
-        String id = id(chest);
-        boolean pack = "jetpack".equals(id) || "jetpack_armored".equals(id)
-                || "mekasuit_bodyarmor".equals(id) && modules(chest).contains("jetpack_unit");
-        if (!pack || player.isOnGround() || player.isFlying() || !jumping(player)) return;
-        if (!useChemical(chest, GearSettings.jetpackHydrogenPerTick)) return;
+        GearBehaviors.Jetpack pack = GearBehaviors.options(chest, GearBehaviors.Jetpack.class);
+        if (pack == null || pack.requiresModule() != null && !modules(chest).contains(pack.requiresModule())) return;
+        if (player.isOnGround() || player.isFlying() || !jumping(player)) return;
+        if (!useChemical(chest, pack.hydrogenPerTick())) return;
         // The server does not know the player's own horizontal speed: steer with the movement keys.
-        Vector velocity = steering(player);
+        Vector velocity = steering(player, pack);
         // A fall is cancelled at once: thrusting from a negative speed would only slow it down.
-        velocity.setY(Math.min(Math.max(player.getVelocity().getY(), 0) + GearSettings.jetpackThrust,
-                GearSettings.jetpackMaxSpeed));
+        velocity.setY(Math.min(Math.max(player.getVelocity().getY(), 0) + pack.thrust(), pack.maxSpeed()));
         player.setVelocity(velocity);
         player.setFallDistance(0);
         player.getWorld().spawnParticle(Particle.FLAME, player.getLocation().add(0, 0.6, 0), 2, 0.15, 0.05, 0.15, 0.01);
     }
 
     /** Horizontal speed from the movement keys held, along where the player looks (1.21.2+; before, the current drift). */
-    private static Vector steering(Player player) {
+    private static Vector steering(Player player, GearBehaviors.Jetpack pack) {
         PlayerInput input = Nms.get().input(player);
         if (input == null) {
             Vector velocity = player.getVelocity();
@@ -115,7 +116,7 @@ public final class SuitTicker implements Listener {
         }
         double forward = (input.forward() ? 1 : 0) - (input.backward() ? 1 : 0);
         double left = (input.left() ? 1 : 0) - (input.right() ? 1 : 0);
-        double speed = input.sprint() ? GearSettings.jetpackSprintSpeed : GearSettings.jetpackWalkSpeed;
+        double speed = input.sprint() ? pack.sprintSpeed() : pack.walkSpeed();
         double yaw = Math.toRadians(player.getLocation().getYaw());
         Vector move = new Vector(-Math.sin(yaw) * forward + Math.cos(yaw) * left, 0, Math.cos(yaw) * forward + Math.sin(yaw) * left);
         return move.lengthSquared() == 0 ? move : move.normalize().multiply(speed);
@@ -135,73 +136,75 @@ public final class SuitTicker implements Listener {
         ItemStack boots = player.getInventory().getBoots();
         // Breathing: the scuba set's oxygen, or the helmet's breathing unit (energy).
         if (player.getRemainingAir() < player.getMaximumAir()) {
-            boolean breathed = "scuba_mask".equals(id(helmet)) && "scuba_tank".equals(id(chest)) && useChemical(chest, GearSettings.scubaOxygen)
-                    || "mekasuit_helmet".equals(id(helmet)) && modules(helmet).contains("electrolytic_breathing_unit") && useEnergy(helmet, GearSettings.breathingEnergy);
+            GearBehaviors.ScubaTank tank = GearBehaviors.options(chest, GearBehaviors.ScubaTank.class);
+            boolean masked = tank != null && tank.mask().equals(PaperItems.idOf(helmet == null ? new ItemStack(Material.AIR) : helmet));
+            boolean breathed = masked && useChemical(chest, tank.oxygenPerRefill())
+                    || modules(helmet).contains("electrolytic_breathing_unit") && useEnergy(helmet, moduleEnergy("electrolytic_breathing_unit"));
             if (breathed) player.setRemainingAir(player.getMaximumAir());
         }
-        if ("mekasuit_helmet".equals(id(helmet))) {
+        {
             Set<String> modules = modules(helmet);
-            if (modules.contains("vision_enhancement_unit") && useEnergy(helmet, GearSettings.visionEnergy)) {
+            if (modules.contains("vision_enhancement_unit") && useEnergy(helmet, moduleEnergy("vision_enhancement_unit"))) {
                 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 400, 0, true, false, false));
             }
-            if (modules.contains("nutritional_injection_unit") && player.getFoodLevel() < 20 && useEnergy(helmet, GearSettings.nutritionEnergy)) {
+            if (modules.contains("nutritional_injection_unit") && player.getFoodLevel() < 20 && useEnergy(helmet, moduleEnergy("nutritional_injection_unit"))) {
                 player.setFoodLevel(player.getFoodLevel() + 1);
                 player.setSaturation(Math.min(player.getFoodLevel(), player.getSaturation() + 1));
             }
             if (modules.contains("inhalation_purification_unit")) {
                 for (PotionEffect effect : List.copyOf(player.getActivePotionEffects())) {
-                    if (HARMFUL.contains(effect.getType()) && useEnergy(helmet, GearSettings.purificationEnergy)) player.removePotionEffect(effect.getType());
+                    if (HARMFUL.contains(effect.getType()) && useEnergy(helmet, moduleEnergy("inhalation_purification_unit"))) player.removePotionEffect(effect.getType());
                 }
             }
         }
         // Flight: the gravitational modulating unit, 1 kJ a tick while flying.
-        boolean canFly = "mekasuit_bodyarmor".equals(id(chest)) && modules(chest).contains("gravitational_modulating_unit")
-                && energy(chest) >= GearSettings.flightEnergy;
+        boolean canFly = modules(chest).contains("gravitational_modulating_unit")
+                && energy(chest) >= moduleEnergy("gravitational_modulating_unit");
         if (canFly) {
             if (!player.getAllowFlight()) {
                 player.setAllowFlight(true);
                 this.flying.add(player.getUniqueId());
             }
-            if (player.isFlying()) useEnergy(chest, GearSettings.flightEnergy);
+            if (player.isFlying()) useEnergy(chest, moduleEnergy("gravitational_modulating_unit"));
         } else if (this.flying.remove(player.getUniqueId()) && player.getGameMode() != GameMode.CREATIVE
                 && player.getGameMode() != GameMode.SPECTATOR) {
             player.setFlying(false);
             player.setAllowFlight(false);
         }
-        if ("mekasuit_pants".equals(id(legs)) && modules(legs).contains("locomotive_boosting_unit") && player.isSprinting()
-                && useEnergy(legs, GearSettings.locomotiveEnergy)) {
+        if (modules(legs).contains("locomotive_boosting_unit") && player.isSprinting()
+                && useEnergy(legs, moduleEnergy("locomotive_boosting_unit"))) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 40, 1, true, false, false));
         }
-        if ("mekasuit_boots".equals(id(boots)) && modules(boots).contains("hydraulic_propulsion_unit") && useEnergy(boots, GearSettings.hydraulicEnergy)) {
+        if (modules(boots).contains("hydraulic_propulsion_unit") && useEnergy(boots, moduleEnergy("hydraulic_propulsion_unit"))) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST, 40, 1, true, false, false));
         }
         // Energy makers: sunlight on the helmet, lava or fire around the pants.
-        if ("mekasuit_helmet".equals(id(helmet)) && modules(helmet).contains("solar_recharging_unit")
+        if (modules(helmet).contains("solar_recharging_unit")
                 && player.getWorld().isDayTime() && player.getLocation().getBlock().getLightFromSky() >= 15) {
-            addEnergy(helmet, GearSettings.solarEnergy);
+            addEnergy(helmet, moduleEnergy("solar_recharging_unit"));
         }
-        if ("mekasuit_pants".equals(id(legs)) && modules(legs).contains("geothermal_generator_unit")
+        if (modules(legs).contains("geothermal_generator_unit")
                 && (player.isInLava() || player.getFireTicks() > 0)) {
-            addEnergy(legs, GearSettings.geothermalEnergy);
+            addEnergy(legs, moduleEnergy("geothermal_generator_unit"));
         }
         // Charge distribution: the body armour shares its energy with the other pieces and the held item.
-        if ("mekasuit_bodyarmor".equals(id(chest)) && modules(chest).contains("charge_distribution_unit")) {
+        if (modules(chest).contains("charge_distribution_unit")) {
             for (ItemStack other : new ItemStack[]{helmet, legs, boots, player.getInventory().getItemInMainHand()}) {
-                if (other == null || id(other) == null || capacity(other) <= 0) continue;
-                long given = addEnergy(other, Math.min(GearSettings.distributionEnergy, energy(chest)));
+                if (other == null || other.isEmpty() || capacity(other) <= 0) continue;
+                long given = addEnergy(other, Math.min(moduleEnergy("charge_distribution_unit"), energy(chest)));
                 if (given > 0) useEnergy(chest, given);
             }
         }
         // Motorized servos: step up a full block (Minecraft 1.20.5+).
-        boolean servo = "mekasuit_pants".equals(id(legs)) && modules(legs).contains("motorized_servo_unit") && energy(legs) >= GearSettings.servoMinEnergy;
+        boolean servo = modules(legs).contains("motorized_servo_unit") && energy(legs) >= moduleEnergy("motorized_servo_unit");
         stepHeight(player, servo ? 1.1 : -1);
-        if ("mekasuit_pants".equals(id(legs)) && modules(legs).contains("hydrostatic_repulsor_unit") && player.isInWater()
-                && useEnergy(legs, GearSettings.repulsorEnergy)) {
+        if (modules(legs).contains("hydrostatic_repulsor_unit") && player.isInWater()
+                && useEnergy(legs, moduleEnergy("hydrostatic_repulsor_unit"))) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, 40, 0, true, false, false));
         }
         // Gyroscopic stabilization: mining in the air or underwater is less slow.
-        if ("mekasuit_bodyarmor".equals(id(chest)) && modules(chest).contains("gyroscopic_stabilization_unit")
-                && (!player.isOnGround() || player.isInWater()) && useEnergy(chest, GearSettings.gyroscopicEnergy)) {
+        if (modules(chest).contains("gyroscopic_stabilization_unit")
+                && (!player.isOnGround() || player.isInWater()) && useEnergy(chest, moduleEnergy("gyroscopic_stabilization_unit"))) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, 40, 2, true, false, false));
         }
     }
@@ -220,14 +223,17 @@ public final class SuitTicker implements Listener {
         if (height >= 0) this.stepping.add(player.getUniqueId());
     }
 
-    /** Free runners and MekaSuit boots take the fall for energy (50 J a point of damage). */
+    /**
+     * Boots with {@code mekanized:fall_absorber} (free runners, MekaSuit boots) take the fall for energy. An
+     * event: worn items have no hook in CraftEngine.
+     */
     @EventHandler(ignoreCancelled = true)
     public void onDamage(EntityDamageEvent event) {
         if (!(event.getEntity() instanceof Player player) || event.getCause() != EntityDamageEvent.DamageCause.FALL) return;
         ItemStack boots = player.getInventory().getBoots();
-        String id = id(boots);
-        if (!"free_runners".equals(id) && !"free_runners_armored".equals(id) && !"mekasuit_boots".equals(id)) return;
-        long cost = (long) Math.ceil(event.getDamage() * GearSettings.fallEnergyPerDamage);
+        GearBehaviors.FallAbsorber absorber = GearBehaviors.options(boots, GearBehaviors.FallAbsorber.class);
+        if (absorber == null) return;
+        long cost = (long) Math.ceil(event.getDamage() * absorber.energyPerDamage());
         if (useEnergy(boots, cost)) {
             event.setCancelled(true);
             player.getInventory().setBoots(boots);

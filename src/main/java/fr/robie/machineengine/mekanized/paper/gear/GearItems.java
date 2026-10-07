@@ -6,7 +6,6 @@ import fr.robie.machineengine.api.paper.PaperItems;
 import fr.robie.machineengine.api.resource.Energy;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.mekanized.machine.GearRules;
-import fr.robie.machineengine.mekanized.machine.GearSettings;
 import fr.robie.machineengine.mekanized.paper.Lore;
 import java.util.ArrayList;
 import java.util.List;
@@ -111,14 +110,15 @@ public final class GearItems {
             lore.add(Lore.line(String.format(Locale.ROOT, "%s: %,d / %,d mB", capitalize(name), chemicalAmount, chemicalCapacity)));
         }
         for (String module : modules) lore.add(Lore.line("+ " + capitalize(module.replace('_', ' '))).color(NamedTextColor.AQUA));
-        boolean tool = id.equals("atomic_disassembler") || id.equals("meka_tool");
+        GearBehaviors.MiningTool mining = GearBehaviors.options(stack, GearBehaviors.MiningTool.class);
+        boolean tool = mining != null;
         if (lore.isEmpty() && !tool) return;
         stack.editMeta(meta -> {
             meta.lore(lore);
             if (!tool) return;
-            // Disassembler and Meka-Tool: fast on what pickaxes, axes, shovels and hoes mine while charged.
-            boolean charged = energy >= GearSettings.toolEnergyPerBlock;
-            float speed = !charged ? 1f : modules.contains("excavation_escalation_unit") ? 32f : 16f;
+            // Mining tools: fast on what pickaxes, axes, shovels and hoes mine while charged.
+            boolean charged = energy >= mining.energyPerBlock();
+            float speed = !charged ? 1f : modules.contains("excavation_escalation_unit") ? mining.amplifiedSpeed() : mining.chargedSpeed();
             ToolComponent component = meta.getTool();
             component.setRules(new ArrayList<>());
             component.setDefaultMiningSpeed(charged ? 4f : 1f);

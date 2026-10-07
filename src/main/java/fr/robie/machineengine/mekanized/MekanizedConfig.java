@@ -4,17 +4,13 @@ import fr.robie.machineengine.api.config.ConfigKey;
 import fr.robie.machineengine.api.config.ConfigSpec;
 import fr.robie.machineengine.mekanized.machine.ChunkLoadingSettings;
 import fr.robie.machineengine.mekanized.machine.DigitalMinerSettings;
-import fr.robie.machineengine.mekanized.machine.GearSettings;
 import fr.robie.machineengine.mekanized.machine.QioSettings;
 import fr.robie.machineengine.mekanized.machine.RadiationSettings;
 import fr.robie.machineengine.mekanized.machine.TeleporterSettings;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Every setting of {@code plugins/Mekanized/config.yml} (D30): the file is generated from {@link #SPEC},
@@ -68,8 +64,6 @@ public final class MekanizedConfig {
             "Sv/h below which a source is forgotten");
     public static final ConfigKey<Double> DOSE_DECAY = decimal("radiation.dose-decay-per-second", RadiationSettings.DEFAULT_DOSE_DECAY_PER_SECOND,
             0.5, 1, "a player's dose keeps this much each second (0.5-1; half-life about 11 minutes)");
-    public static final ConfigKey<Double> SHIELDING = decimal("radiation.shielding-per-piece", RadiationSettings.DEFAULT_SHIELDING_PER_PIECE, 0, 0.25,
-            "share of radiation each hazmat piece (or MekaSuit piece with a shielding unit) stops (0-0.25)");
     public static final ConfigKey<Double> SICKNESS_DOSE = decimal("radiation.sickness-dose", RadiationSettings.DEFAULT_SICKNESS_DOSE, 0, 1_000_000,
             "Sv from which players get hungry");
     public static final ConfigKey<Double> DAMAGE_DOSE = decimal("radiation.damage-dose", RadiationSettings.DEFAULT_DAMAGE_DOSE, 0, 1_000_000,
@@ -100,76 +94,8 @@ public final class MekanizedConfig {
     public static final ConfigKey<Long> QIO_IO_RATE = whole("qio.importer-exporter-rate", QioSettings.DEFAULT_IO_RATE, 1, 1_000_000,
             "items an importer or exporter moves per second");
 
-    // -- gear -------------------------------------------------------------------------------------
-
-    // Capacities are the items' own (machineengine:energy_item and resource_item in the CraftEngine item config, D32).
-    public static final ConfigKey<Long> ENERGY_UNIT_FACTOR = whole("gear.energy-unit-factor", GearSettings.DEFAULT_ENERGY_UNIT_FACTOR, 1, 1_000,
-            "an energy unit multiplies a piece's capacity by this");
-    public static final ConfigKey<Long> SCUBA_OXYGEN = whole("gear.scuba-oxygen-per-second", GearSettings.DEFAULT_SCUBA_OXYGEN_PER_SECOND, 0, MAX,
-            "mB of oxygen each time the tank refills the player's air");
-
-    public static final ConfigKey<Long> TOOL_ENERGY_PER_BLOCK = joules("gear.tools.energy-per-block", GearSettings.DEFAULT_TOOL_ENERGY_PER_BLOCK,
-            "J per block mined (and the charge a disassembler or Meka-Tool needs to mine fast)");
-    public static final ConfigKey<Integer> VEIN_LIMIT = integer("gear.tools.vein-limit", GearSettings.DEFAULT_VEIN_LIMIT, 1, 4_096,
-            "blocks one vein mining breaks (sneaking)");
-    public static final ConfigKey<Integer> VEIN_LIMIT_WITH_UNIT = integer("gear.tools.vein-limit-with-unit", GearSettings.DEFAULT_VEIN_LIMIT_WITH_UNIT,
-            1, 4_096, "the same with the vein mining unit");
-    public static final ConfigKey<Long> SHEAR_ENERGY = joules("gear.tools.shear-energy", GearSettings.DEFAULT_SHEAR_ENERGY, "J per animal sheared");
-    public static final ConfigKey<Long> DISASSEMBLER_HIT_ENERGY = joules("gear.tools.disassembler-hit-energy", GearSettings.DEFAULT_DISASSEMBLER_HIT_ENERGY,
-            "J per hit of a charged atomic disassembler");
-    public static final ConfigKey<Double> DISASSEMBLER_DAMAGE = decimal("gear.tools.disassembler-damage", GearSettings.DEFAULT_DISASSEMBLER_DAMAGE,
-            0, 1_000, "damage it deals at least (20 is ten hearts)");
-    public static final ConfigKey<Long> MEKA_TOOL_HIT_ENERGY = joules("gear.tools.meka-tool-hit-energy", GearSettings.DEFAULT_MEKA_TOOL_HIT_ENERGY,
-            "J per hit of a charged Meka-Tool");
-    public static final ConfigKey<Double> MEKA_TOOL_DAMAGE = decimal("gear.tools.meka-tool-damage", GearSettings.DEFAULT_MEKA_TOOL_DAMAGE, 0, 1_000,
-            "damage it deals at least");
-    public static final ConfigKey<Double> MEKA_TOOL_AMPLIFIED_DAMAGE = decimal("gear.tools.meka-tool-amplified-damage",
-            GearSettings.DEFAULT_MEKA_TOOL_AMPLIFIED_DAMAGE, 0, 1_000, "the same with the attack amplification unit");
-    public static final ConfigKey<Long> BOW_ENERGY = joules("gear.tools.bow-energy-per-shot", GearSettings.DEFAULT_BOW_ENERGY_PER_SHOT,
-            "J per shot of the electric bow");
-    public static final ConfigKey<Integer> TELEPORT_RANGE = integer("gear.tools.teleport-range", GearSettings.DEFAULT_TELEPORT_RANGE, 1, 256,
-            "blocks the teleportation unit looks ahead (1-256); its cost is under teleporter");
-    public static final ConfigKey<Long> FLAMETHROWER_HYDROGEN = whole("gear.tools.flamethrower-hydrogen", GearSettings.DEFAULT_FLAMETHROWER_HYDROGEN,
-            0, MAX, "mB of hydrogen per burst");
-    public static final ConfigKey<Double> FLAMETHROWER_DAMAGE = decimal("gear.tools.flamethrower-damage", GearSettings.DEFAULT_FLAMETHROWER_DAMAGE,
-            0, 1_000, "damage of a burst");
-
-    public static final ConfigKey<Long> JETPACK_HYDROGEN = whole("gear.jetpack.hydrogen-per-tick", GearSettings.DEFAULT_JETPACK_HYDROGEN_PER_TICK,
-            0, MAX, "mB of hydrogen per tick of thrust");
-    public static final ConfigKey<Double> JETPACK_THRUST = decimal("gear.jetpack.thrust", GearSettings.DEFAULT_JETPACK_THRUST, 0, 2,
-            "upward speed added each tick");
-    public static final ConfigKey<Double> JETPACK_MAX_SPEED = decimal("gear.jetpack.max-speed", GearSettings.DEFAULT_JETPACK_MAX_SPEED, 0, 2,
-            "top upward speed");
-    public static final ConfigKey<Double> JETPACK_WALK_SPEED = decimal("gear.jetpack.walk-speed", GearSettings.DEFAULT_JETPACK_WALK_SPEED, 0, 2,
-            "horizontal speed steered with the movement keys");
-    public static final ConfigKey<Double> JETPACK_SPRINT_SPEED = decimal("gear.jetpack.sprint-speed", GearSettings.DEFAULT_JETPACK_SPRINT_SPEED, 0, 2,
-            "the same while sprinting");
-
-    public static final ConfigKey<Long> FALL_ENERGY = joules("gear.modules.fall-energy-per-damage", GearSettings.DEFAULT_FALL_ENERGY_PER_DAMAGE,
-            "J per point of fall damage absorbed (free runners, MekaSuit boots)");
-    public static final ConfigKey<Long> MAGNET_ENERGY = joules("gear.modules.magnetic-attraction-energy", GearSettings.DEFAULT_MAGNET_ENERGY_PER_ITEM,
-            "J per item pulled");
-    public static final ConfigKey<Integer> MAGNET_RANGE = integer("gear.modules.magnetic-attraction-range", GearSettings.DEFAULT_MAGNET_RANGE, 1, 64,
-            "blocks");
-    public static final ConfigKey<Long> BREATHING_ENERGY = joules("gear.modules.electrolytic-breathing-energy", GearSettings.DEFAULT_BREATHING_ENERGY);
-    public static final ConfigKey<Long> VISION_ENERGY = joules("gear.modules.vision-enhancement-energy", GearSettings.DEFAULT_VISION_ENERGY);
-    public static final ConfigKey<Long> NUTRITION_ENERGY = joules("gear.modules.nutritional-injection-energy", GearSettings.DEFAULT_NUTRITION_ENERGY);
-    public static final ConfigKey<Long> PURIFICATION_ENERGY = joules("gear.modules.inhalation-purification-energy", GearSettings.DEFAULT_PURIFICATION_ENERGY,
-            "per harmful effect removed");
-    public static final ConfigKey<Long> FLIGHT_ENERGY = joules("gear.modules.gravitational-modulating-energy", GearSettings.DEFAULT_FLIGHT_ENERGY,
-            "while flying; the charge needed to start flying");
-    public static final ConfigKey<Long> LOCOMOTIVE_ENERGY = joules("gear.modules.locomotive-boosting-energy", GearSettings.DEFAULT_LOCOMOTIVE_ENERGY);
-    public static final ConfigKey<Long> HYDRAULIC_ENERGY = joules("gear.modules.hydraulic-propulsion-energy", GearSettings.DEFAULT_HYDRAULIC_ENERGY);
-    public static final ConfigKey<Long> REPULSOR_ENERGY = joules("gear.modules.hydrostatic-repulsor-energy", GearSettings.DEFAULT_REPULSOR_ENERGY);
-    public static final ConfigKey<Long> GYROSCOPIC_ENERGY = joules("gear.modules.gyroscopic-stabilization-energy", GearSettings.DEFAULT_GYROSCOPIC_ENERGY);
-    public static final ConfigKey<Long> SERVO_MIN_ENERGY = joules("gear.modules.motorized-servo-min-energy", GearSettings.DEFAULT_SERVO_MIN_ENERGY,
-            "the charge the legs need to step up blocks");
-    public static final ConfigKey<Long> SOLAR_ENERGY = joules("gear.modules.solar-recharging-energy", GearSettings.DEFAULT_SOLAR_ENERGY,
-            "J made per second in daylight");
-    public static final ConfigKey<Long> GEOTHERMAL_ENERGY = joules("gear.modules.geothermal-generator-energy", GearSettings.DEFAULT_GEOTHERMAL_ENERGY,
-            "J made per second in lava or on fire");
-    public static final ConfigKey<Long> DISTRIBUTION_ENERGY = joules("gear.modules.charge-distribution-energy", GearSettings.DEFAULT_DISTRIBUTION_ENERGY,
-            "J given to each other piece per second");
+    // Gear has no settings here: every tool, suit piece and module keeps its numbers in its CraftEngine item
+    // config (D32). Old gear.* keys left in a file are kept and ignored.
 
     public static final ConfigSpec SPEC = ConfigSpec.builder()
             .header("Mekanized settings. Read when the server starts: restart to apply changes.",
@@ -182,9 +108,6 @@ public final class MekanizedConfig {
             .section("radiation", "Radiation (Mekanism's, simplified). Dose and radiation are in Sieverts (Sv, Sv/h).")
             .section("digital-miner", "The digital miner.")
             .section("qio", "The QIO network. Lists are for the drives: [base, hyper-dense, time-dilating, supermassive].")
-            .section("gear", "Gear: tools, suits, packs and modules. Energy is in Joules, chemicals in mB."
-                    + " What each item holds is in its CraftEngine item config (machineengine:energy_item, resource_item).")
-            .section("gear.modules", "J per second unless said otherwise.")
             .keys(KEYS)
             .build();
 
