@@ -16,17 +16,17 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.Nullable;
+import net.momirealms.craftengine.core.item.behavior.ItemBehaviorFactory;
+import fr.robie.machineengine.api.paper.PaperItemBehavior;
+import fr.robie.machineengine.api.item.MachineTool;
 
 import java.nio.file.Path;
 import java.util.concurrent.ThreadLocalRandom;
@@ -126,22 +126,33 @@ public final class PaperRadiation implements Listener {
         event.getEntity().getPersistentDataContainer().remove(DOSE);
     }
 
-    /** Right-click with a Geiger counter (the radiation here) or a dosimeter (your dose). */
-    @EventHandler
-    public void onUse(PlayerInteractEvent event) {
-        if (event.getHand() != EquipmentSlot.HAND || (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK)) return;
-        Player player = event.getPlayer();
-        String id = GearItems.id(event.getItem());
-        if ("geiger_counter".equals(id)) {
-            event.setCancelled(true);
-            double level = level(player.getLocation());
-            player.sendMessage(Component.text("Radiation here: ", NamedTextColor.GRAY)
-                    .append(Component.text(Radiation.format(level, "/h"), color(level * 3600))));
-        } else if ("dosimeter".equals(id)) {
-            event.setCancelled(true);
-            double dose = dose(player);
-            player.sendMessage(Component.text("Your radiation dose: ", NamedTextColor.GRAY)
-                    .append(Component.text(Radiation.format(dose, ""), color(dose))));
+    /**
+     * {@code mekanized:radiation_reader}: right-click to read the radiation here ({@code mode: environment},
+     * the Geiger counter) or your own dose ({@code mode: dose}, the dosimeter).
+     */
+    public static final class ReaderBehavior extends PaperItemBehavior implements MachineTool {
+        public static final ItemBehaviorFactory<ReaderBehavior> FACTORY = (pack, path, id, section) ->
+                new ReaderBehavior(section.getString("mode", "environment").equalsIgnoreCase("dose"));
+
+        private final boolean dose;
+
+        private ReaderBehavior(boolean dose) {
+            this.dose = dose;
+        }
+
+        @Override
+        protected boolean use(Use use) {
+            Player player = use.player();
+            if (this.dose) {
+                double dose = dose(player);
+                player.sendMessage(Component.text("Your radiation dose: ", NamedTextColor.GRAY)
+                        .append(Component.text(Radiation.format(dose, ""), color(dose))));
+            } else {
+                double level = level(player.getLocation());
+                player.sendMessage(Component.text("Radiation here: ", NamedTextColor.GRAY)
+                        .append(Component.text(Radiation.format(level, "/h"), color(level * 3600))));
+            }
+            return true;
         }
     }
 

@@ -382,6 +382,8 @@ items:
       type: block_item
       block: mekanized:ultimate_thermodynamic_conductor
   mekanized:turbine_blade:
+    behaviors:
+    - type: mekanized:turbine_blade
     data:
       item_name: <!i><lang:item.mekanized.turbine_blade>
     model: mekanized:item/turbine_blade

@@ -4,8 +4,11 @@ import fr.robie.machineengine.api.item.ResourceItem;
 import fr.robie.machineengine.api.paper.PaperItemResources;
 import fr.robie.machineengine.api.resource.Energy;
 import fr.robie.machineengine.mekanized.MekanizedContent;
+import fr.robie.machineengine.mekanized.paper.automation.PaperAutomation;
 import fr.robie.machineengine.mekanized.paper.gear.GearItems;
+import fr.robie.machineengine.mekanized.paper.gear.GearTools;
 import fr.robie.machineengine.mekanized.paper.gear.ModuleHolderBehavior;
+import net.momirealms.craftengine.core.item.behavior.ItemBehaviorFactory;
 import net.momirealms.craftengine.core.item.behavior.ItemBehaviors;
 import net.momirealms.craftengine.core.util.Key;
 
@@ -19,7 +22,28 @@ public final class MekanizedItemBehaviors {
 
     /** In {@code onLoad}: CraftEngine reads the item configs in its {@code onEnable}. */
     public static void register() {
-        ItemBehaviors.register(Key.of(MekanizedContent.NAMESPACE, "module_holder"), ModuleHolderBehavior.FACTORY);
+        register("module_holder", ModuleHolderBehavior.FACTORY);
+        register("configuration_card", PaperTools.CardBehavior.FACTORY);
+        register("dictionary", PaperTools.DictionaryBehavior.FACTORY);
+        register("gauge_dropper", PaperTools.DropperBehavior.FACTORY);
+        register("crafting_formula", PaperTools.FormulaBehavior.FACTORY);
+        register("configurator", PaperConfigurator.ConfiguratorBehavior.FACTORY);
+        register("tier_installer", PaperConfigurator.InstallerBehavior.FACTORY);
+        register("turbine_blade", PaperConfigurator.BladeBehavior.FACTORY);
+        register("module", ModuleHolderBehavior.Module.FACTORY);
+        register("flamethrower", GearTools.FlamethrowerBehavior.FACTORY);
+        register("canteen", GearTools.CanteenBehavior.FACTORY);
+        register("meka_tool", GearTools.MekaToolBehavior.FACTORY);
+        register("radiation_reader", PaperRadiation.ReaderBehavior.FACTORY);
+        register("portable_teleporter", PaperAutomation.PortableBehavior.TELEPORTER);
+        register("portable_qio", PaperAutomation.PortableBehavior.QIO);
+        register("cardboard_box", PaperAutomation.BoxBehavior.FACTORY);
+        register("cardboard_box_storage", PaperAutomation.FullBoxBehavior.FACTORY);
+        register("seismic_reader", PaperAutomation.SeismicReaderBehavior.FACTORY);
+    }
+
+    private static void register(String name, ItemBehaviorFactory<?> factory) {
+        ItemBehaviors.register(Key.of(MekanizedContent.NAMESPACE, name), factory);
     }
 
     /** In {@code onEnable}: old item data, and the lore that shows what an item holds. */

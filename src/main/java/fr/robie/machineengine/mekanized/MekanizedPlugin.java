@@ -1,6 +1,5 @@
 package fr.robie.machineengine.mekanized;
 
-import fr.robie.machineengine.mekanized.paper.PaperTools;
 import fr.robie.machineengine.mekanized.paper.PaperConfigurator;
 import fr.robie.machineengine.mekanized.paper.PaperUtility;
 import fr.robie.machineengine.mekanized.paper.PaperRadiation;
@@ -110,7 +109,6 @@ public final class MekanizedPlugin extends JavaPlugin {
         PaperRadiation.install(this);
         fr.robie.machineengine.api.paper.ResourceNames.register(PaperResourceNames::name);
         getServer().getPluginManager().registerEvents(new PaperConfigurator(), this);
-        getServer().getPluginManager().registerEvents(new PaperTools(), this);
         MekanizedCommands commands = new MekanizedCommands(this);
         getLifecycleManager().registerEventHandler(io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents.COMMANDS,
                 event -> event.registrar().register(commands.build(), "Mekanized commands"));

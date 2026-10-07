@@ -75,6 +75,8 @@ items:
       type: block_item
       block: mekanized:qio_exporter
   mekanized:cardboard_box:
+    behaviors:
+    - type: mekanized:cardboard_box
     data:
       item_name: <!i><lang:block.mekanized.cardboard_box>
     model: mekanized:block/cardboard_box
@@ -87,6 +89,8 @@ items:
       item_name: <!i><lang:item.mekanized.robit>
     model: mekanized:item/robit_transforms
   mekanized:seismic_reader:
+    behaviors:
+    - type: mekanized:seismic_reader
     data:
       item_name: <!i><lang:item.mekanized.seismic_reader>
     model: mekanized:item/seismic_reader
@@ -107,6 +111,8 @@ items:
       item_name: <!i><lang:item.mekanized.qio_drive_supermassive>
     model: mekanized:item/qio_drive_supermassive
   mekanized:cardboard_box_storage:
+    behaviors:
+    - type: mekanized:cardboard_box_storage
     data:
       item_name: <!i><lang:block.mekanized.cardboard_box>
     model: mekanized:block/cardboard_box_storage

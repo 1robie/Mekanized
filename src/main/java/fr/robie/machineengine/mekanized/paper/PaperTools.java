@@ -1,6 +1,5 @@
 package fr.robie.machineengine.mekanized.paper;
 
-import fr.robie.machineengine.mekanized.paper.gear.GearItems;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 
 import fr.robie.machineengine.api.machine.MachineContext;
@@ -31,16 +30,13 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.Nullable;
+import net.momirealms.craftengine.core.item.behavior.ItemBehaviorFactory;
+import fr.robie.machineengine.api.paper.PaperItemBehavior;
+import fr.robie.machineengine.api.item.MachineTool;
 
 import java.util.ArrayList;
 import java.util.Base64;
@@ -51,7 +47,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * Mekanism's small tools, on Paper:
+ * Mekanism's small tools, on Paper, as CraftEngine item behaviors (D32):
  * <ul>
  *   <li>configuration card: sneak-right-click a machine to copy its side configuration, auto-eject and
  *       redstone control; right-click another machine of the same kind to paste them;</li>
@@ -62,54 +58,70 @@ import java.util.TreeSet;
  *       right-click one with an empty pattern to set it.</li>
  * </ul>
  */
-public final class PaperTools implements Listener {
+public final class PaperTools {
+    private PaperTools() {
+    }
+
     private static final NamespacedKey CARD = new NamespacedKey(MekanizedContent.NAMESPACE, "configuration");
     private static final NamespacedKey DROPPER_TYPE = new NamespacedKey(MekanizedContent.NAMESPACE, "dropper_type");
     private static final NamespacedKey DROPPER_AMOUNT = new NamespacedKey(MekanizedContent.NAMESPACE, "dropper_amount");
     private static final NamespacedKey FORMULA = new NamespacedKey(MekanizedContent.NAMESPACE, "formula");
 
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void onUse(PlayerInteractEvent event) {
-        if (event.getHand() != EquipmentSlot.HAND) return;
-        boolean onBlock = event.getAction() == Action.RIGHT_CLICK_BLOCK;
-        if (!onBlock && event.getAction() != Action.RIGHT_CLICK_AIR) return;
-        Player player = event.getPlayer();
-        ItemStack hand = player.getInventory().getItemInMainHand();
-        String id = GearItems.id(hand);
-        if (id == null) return;
-        Block block = event.getClickedBlock();
-        switch (id) {
-            case "configuration_card" -> {
-                MachineInstance machine = onBlock ? machine(block) : null;
-                if (machine == null) return;
-                event.setCancelled(true);
-                if (player.isSneaking()) copy(player, hand, machine);
-                else paste(player, hand, machine);
+    /** {@code mekanized:configuration_card}: sneak-right-click a machine to copy, right-click to paste. */
+    public static final class CardBehavior extends PaperItemBehavior implements MachineTool {
+        public static final ItemBehaviorFactory<CardBehavior> FACTORY = (pack, path, id, section) -> new CardBehavior();
+
+        @Override
+        protected boolean use(Use use) {
+            MachineInstance machine = machine(use.block());
+            if (machine == null) return false;
+            if (use.sneaking()) copy(use.player(), use.item(), machine);
+            else paste(use.player(), use.item(), machine);
+            return true;
+        }
+    }
+
+    /** {@code mekanized:dictionary}: the tags of the block clicked, or of the item in the off hand. */
+    public static final class DictionaryBehavior extends PaperItemBehavior implements MachineTool {
+        public static final ItemBehaviorFactory<DictionaryBehavior> FACTORY = (pack, path, id, section) -> new DictionaryBehavior();
+
+        @Override
+        protected boolean use(Use use) {
+            dictionary(use.player(), use.block());
+            return true;
+        }
+    }
+
+    /** {@code mekanized:gauge_dropper}: takes from a machine, sneak to put back, sneak in the air to empty. */
+    public static final class DropperBehavior extends PaperItemBehavior implements MachineTool {
+        public static final ItemBehaviorFactory<DropperBehavior> FACTORY = (pack, path, id, section) -> new DropperBehavior();
+
+        @Override
+        protected boolean use(Use use) {
+            Player player = use.player();
+            MachineInstance machine = machine(use.block());
+            if (machine == null) {
+                if (use.sneaking()) setDropper(use.item(), null, 0);
+                player.sendActionBar(Component.text(use.sneaking() ? "Emptied" : "Right-click a machine", NamedTextColor.GRAY));
+            } else if (use.sneaking()) {
+                putBack(player, use.item(), machine);
+            } else {
+                take(player, use.item(), machine);
             }
-            case "dictionary" -> {
-                event.setCancelled(true);
-                dictionary(player, block);
-            }
-            case "gauge_dropper" -> {
-                event.setCancelled(true);
-                MachineInstance machine = onBlock ? machine(block) : null;
-                if (machine == null) {
-                    if (player.isSneaking()) setDropper(hand, null, 0);
-                    player.sendActionBar(Component.text(player.isSneaking() ? "Emptied" : "Right-click a machine", NamedTextColor.GRAY));
-                } else if (player.isSneaking()) {
-                    putBack(player, hand, machine);
-                } else {
-                    take(player, hand, machine);
-                }
-            }
-            case "crafting_formula" -> {
-                MachineInstance machine = onBlock ? machine(block) : null;
-                if (machine == null || !machine.inspect().type().equals(MekanizedContent.key("formulaic_assemblicator"))) return;
-                event.setCancelled(true);
-                formula(player, hand, machine);
-            }
-            default -> {
-            }
+            return true;
+        }
+    }
+
+    /** {@code mekanized:crafting_formula}: records or sets a Formulaic Assemblicator's pattern. */
+    public static final class FormulaBehavior extends PaperItemBehavior implements MachineTool {
+        public static final ItemBehaviorFactory<FormulaBehavior> FACTORY = (pack, path, id, section) -> new FormulaBehavior();
+
+        @Override
+        protected boolean use(Use use) {
+            MachineInstance machine = machine(use.block());
+            if (machine == null || !machine.inspect().type().equals(MekanizedContent.key("formulaic_assemblicator"))) return false;
+            formula(use.player(), use.item(), machine);
+            return true;
         }
     }
 

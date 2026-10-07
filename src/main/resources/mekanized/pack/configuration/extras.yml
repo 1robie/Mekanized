@@ -62,10 +62,16 @@ items:
       item_name: <!i><lang:item.mekanized.upgrade_stone_generator>
     model: mekanized:item/upgrade_stone_generator
   mekanized:dosimeter:
+    behaviors:
+    - type: mekanized:radiation_reader
+      mode: dose
     data:
       item_name: <!i><lang:item.mekanized.dosimeter>
     model: mekanized:item/dosimeter
   mekanized:geiger_counter:
+    behaviors:
+    - type: mekanized:radiation_reader
+      mode: environment
     data:
       item_name: <!i><lang:item.mekanized.geiger_counter>
     model: mekanized:item/geiger_counter

@@ -52,6 +52,10 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import net.momirealms.craftengine.core.item.behavior.ItemBehaviorFactory;
+import fr.robie.machineengine.api.paper.PaperItemBehavior;
+import fr.robie.machineengine.api.item.MachineTool;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -99,8 +103,12 @@ public final class PaperAutomation implements Listener {
         this.teleporterFile = plugin.getDataFolder().toPath().resolve("teleporters.txt");
     }
 
+    /** The running instance, for the item behaviors (CraftEngine builds those). */
+    private static volatile @Nullable PaperAutomation instance;
+
     public static void install(Plugin plugin) {
         PaperAutomation automation = new PaperAutomation(plugin);
+        instance = automation;
         automation.loadTeleporters();
         Frequencies.onTeleportersChanged(automation::saveTeleporters);
         Bukkit.getPluginManager().registerEvents(automation, plugin);
@@ -190,20 +198,35 @@ public final class PaperAutomation implements Listener {
     /** The frequency of a portable teleporter or dashboard. */
     static final NamespacedKey ITEM_FREQUENCY = new NamespacedKey(MekanizedContent.NAMESPACE, "frequency");
 
-    @EventHandler(priority = EventPriority.LOW)
-    public void onPortable(PlayerInteractEvent event) {
-        if (event.getHand() != EquipmentSlot.HAND || event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
-        Player player = event.getPlayer();
-        ItemStack hand = player.getInventory().getItemInMainHand();
-        String id = GearItems.id(hand);
-        if (!"portable_teleporter".equals(id) && !"portable_qio_dashboard".equals(id)) return;
-        event.setCancelled(true);
+    /**
+     * {@code mekanized:portable_teleporter} and {@code mekanized:portable_qio}: right-click to go to the
+     * teleporter on the item's frequency, or to open the QIO network on it.
+     */
+    public static final class PortableBehavior extends PaperItemBehavior implements MachineTool {
+        public static final ItemBehaviorFactory<PortableBehavior> TELEPORTER = (pack, path, id, section) -> new PortableBehavior(false);
+        public static final ItemBehaviorFactory<PortableBehavior> QIO = (pack, path, id, section) -> new PortableBehavior(true);
+
+        private final boolean dashboard;
+
+        private PortableBehavior(boolean dashboard) {
+            this.dashboard = dashboard;
+        }
+
+        @Override
+        protected boolean use(Use use) {
+            PaperAutomation automation = instance;
+            if (automation != null) automation.usePortable(use.player(), use.item(), this.dashboard);
+            return true;
+        }
+    }
+
+    private void usePortable(Player player, ItemStack hand, boolean dashboard) {
         String frequency = hand.getItemMeta().getPersistentDataContainer().get(ITEM_FREQUENCY, PersistentDataType.STRING);
         if (frequency == null || frequency.isEmpty()) {
             player.sendActionBar(Component.text("No frequency: hold it and use /mekanized frequency <name>", NamedTextColor.RED));
             return;
         }
-        if ("portable_qio_dashboard".equals(id)) {
+        if (dashboard) {
             new Dashboard(frequency, 0).open(player);
             return;
         }
@@ -230,39 +253,68 @@ public final class PaperAutomation implements Listener {
 
     // -- cardboard box, seismic reader, QIO dashboard ----------------------------------------
 
+    /** The QIO dashboard block opens its network, whatever the player holds (until it has a block behavior). */
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
     public void onUse(PlayerInteractEvent event) {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK || event.getHand() != EquipmentSlot.HAND) return;
         Block block = event.getClickedBlock();
-        if (block == null) return;
         Player player = event.getPlayer();
+        if (block == null || player.isSneaking()) return;
         ItemStack hand = event.getItem();
         Key tool = hand == null || hand.isEmpty() ? null : PaperItems.idOf(hand);
-        if (MekanizedContent.key("cardboard_box").equals(tool) && player.isSneaking()) {
-            event.setCancelled(true);
-            pack(player, block, hand);
-        } else if (MekanizedContent.key("cardboard_box_storage").equals(tool)) {
-            event.setCancelled(true);
-            unpack(player, block.getRelative(event.getBlockFace()), hand);
-        } else if (MekanizedContent.key("seismic_reader").equals(tool)) {
-            MachineInstance machine = PaperWorld.machine(block);
-            if (machine == null || !machine.inspect().type().equals(MekanizedContent.key("seismic_vibrator"))) return;
-            event.setCancelled(true);
+        // The box tools act on any block, a dashboard included.
+        if (MekanizedContent.key("cardboard_box_storage").equals(tool)) return;
+        MachineInstance machine = PaperWorld.machine(block);
+        if (machine == null || !machine.inspect().type().equals(MekanizedContent.key("qio_dashboard"))) return;
+        event.setCancelled(true);
+        String frequency = machine.context().get(AutomationMachines.FREQUENCY);
+        if (frequency.isEmpty()) {
+            player.sendActionBar(Component.text("No frequency: look at it and use /mekanized frequency <name>", NamedTextColor.RED));
+            return;
+        }
+        new Dashboard(frequency, 0).open(player);
+    }
+
+    /** {@code mekanized:cardboard_box}: sneak-right-click a block to pack it, with its contents. */
+    public static final class BoxBehavior extends PaperItemBehavior implements MachineTool {
+        public static final ItemBehaviorFactory<BoxBehavior> FACTORY = (pack, path, id, section) -> new BoxBehavior();
+
+        @Override
+        protected boolean use(Use use) {
+            PaperAutomation automation = instance;
+            if (use.block() == null || !use.sneaking() || automation == null) return false;
+            automation.pack(use.player(), use.block(), use.item());
+            return true;
+        }
+    }
+
+    /** {@code mekanized:cardboard_box_storage}: right-click to place the packed block back. */
+    public static final class FullBoxBehavior extends PaperItemBehavior implements MachineTool {
+        public static final ItemBehaviorFactory<FullBoxBehavior> FACTORY = (pack, path, id, section) -> new FullBoxBehavior();
+
+        @Override
+        protected boolean use(Use use) {
+            PaperAutomation automation = instance;
+            if (use.block() == null || use.face() == null || automation == null) return false;
+            automation.unpack(use.player(), use.block().getRelative(use.face()), use.item());
+            return true;
+        }
+    }
+
+    /** {@code mekanized:seismic_reader}: right-click a running seismic vibrator to read the ground below. */
+    public static final class SeismicReaderBehavior extends PaperItemBehavior implements MachineTool {
+        public static final ItemBehaviorFactory<SeismicReaderBehavior> FACTORY = (pack, path, id, section) -> new SeismicReaderBehavior();
+
+        @Override
+        protected boolean use(Use use) {
+            MachineInstance machine = use.block() == null ? null : PaperWorld.machine(use.block());
+            if (machine == null || !machine.inspect().type().equals(MekanizedContent.key("seismic_vibrator"))) return false;
             if (!machine.isActive()) {
-                player.sendActionBar(Component.text("The seismic vibrator needs energy", NamedTextColor.RED));
-                return;
+                use.player().sendActionBar(Component.text("The seismic vibrator needs energy", NamedTextColor.RED));
+                return true;
             }
-            read(player, block);
-        } else if (!player.isSneaking()) {
-            MachineInstance machine = PaperWorld.machine(block);
-            if (machine == null || !machine.inspect().type().equals(MekanizedContent.key("qio_dashboard"))) return;
-            event.setCancelled(true);
-            String frequency = machine.context().get(AutomationMachines.FREQUENCY);
-            if (frequency.isEmpty()) {
-                player.sendActionBar(Component.text("No frequency: look at it and use /mekanized frequency <name>", NamedTextColor.RED));
-                return;
-            }
-            new Dashboard(frequency, 0).open(player);
+            read(use.player(), use.block());
+            return true;
         }
     }
 

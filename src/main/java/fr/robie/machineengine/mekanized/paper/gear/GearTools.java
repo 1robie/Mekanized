@@ -1,16 +1,8 @@
 package fr.robie.machineengine.mekanized.paper.gear;
 
-import fr.robie.machineengine.api.machine.WakeReason;
-import fr.robie.machineengine.api.resource.ResourceType;
-import fr.robie.machineengine.api.transfer.StorageView;
-import fr.robie.machineengine.api.transfer.Transaction;
-import fr.robie.machineengine.api.machine.MachineInstance;
-import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.mekanized.machine.Frequencies;
 import fr.robie.machineengine.mekanized.machine.GearSettings;
 import fr.robie.machineengine.mekanized.machine.Liquifier;
-import fr.robie.machineengine.api.paper.PaperItemResources;
-import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import io.papermc.paper.entity.Shearable;
 import java.util.ArrayDeque;
 import java.util.HashSet;
@@ -35,20 +27,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.Nullable;
-import static fr.robie.machineengine.mekanized.paper.gear.GearItems.chemicalCapacity;
-import static fr.robie.machineengine.mekanized.paper.gear.GearItems.chemicalType;
-import static fr.robie.machineengine.mekanized.paper.gear.GearItems.capacity;
+import net.momirealms.craftengine.core.item.behavior.ItemBehaviorFactory;
+import fr.robie.machineengine.api.paper.PaperItemBehavior;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.chemical;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.energy;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.id;
@@ -58,8 +45,9 @@ import static fr.robie.machineengine.mekanized.paper.gear.GearItems.useEnergy;
 
 /**
  * The gear used by hand: the atomic disassembler and Meka-Tool (vein mining, blasting, farming, shearing,
- * teleporting), the electric bow, the flamethrower and the canteen, filling gear from machines, and the
- * network reader. Their energy, chemical and modules are in {@link GearItems}.
+ * teleporting), the electric bow, the flamethrower and the canteen. Right-clicks are CraftEngine item
+ * behaviors (D32); breaking, hitting and shooting are still events. Their energy, chemical and modules
+ * are in {@link GearItems}.
  */
 public final class GearTools implements Listener {
     private final Plugin plugin;
@@ -157,18 +145,6 @@ public final class GearTools implements Listener {
         player.getWorld().playSound(center.getLocation(), org.bukkit.Sound.ITEM_HOE_TILL, 1f, 1f);
     }
 
-    /** Shearing unit: right-click a sheep, mooshroom or snow golem to shear it (500 J by default). */
-    @EventHandler(ignoreCancelled = true)
-    public void onShear(PlayerInteractEntityEvent event) {
-        if (event.getHand() != EquipmentSlot.HAND) return;
-        ItemStack tool = event.getPlayer().getInventory().getItemInMainHand();
-        if (!"meka_tool".equals(id(tool)) || !modules(tool).contains("shearing_unit")) return;
-        if (!(event.getRightClicked() instanceof Shearable shearable) || !shearable.readyToBeSheared()) return;
-        if (!useEnergy(tool, GearSettings.shearEnergy)) return;
-        event.setCancelled(true);
-        shearable.shear(net.kyori.adventure.sound.Sound.Source.PLAYER);
-    }
-
     /** Charged: by default the disassembler hits for 20 (2 kJ), the Meka-Tool for 10, 30 with attack amplification (3 kJ). */
     @EventHandler(ignoreCancelled = true)
     public void onHit(EntityDamageByEntityEvent event) {
@@ -195,83 +171,58 @@ public final class GearTools implements Listener {
         if (event.getEntity() instanceof Player player) player.getScheduler().run(this.plugin, task -> player.updateInventory(), null);
     }
 
-    @EventHandler(priority = EventPriority.LOW)
-    public void onUse(PlayerInteractEvent event) {
-        if (event.getHand() != EquipmentSlot.HAND) return;
-        Player player = event.getPlayer();
-        ItemStack hand = player.getInventory().getItemInMainHand();
-        String id = id(hand);
-        if (id == null) return;
-        boolean right = event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK;
-        if (!right) return;
-        if (id.startsWith("module_") && player.isSneaking()) {
-            event.setCancelled(true);
-            GearModules.install(player, hand, id.substring("module_".length()));
-            return;
-        }
-        Block block = event.getClickedBlock();
-        if (block != null && !modules(hand).isEmpty() && GearModules.isStation(block)) {
-            event.setCancelled(true);
-            GearModules.uninstall(player, hand, id);
-            return;
-        }
-        if (block != null && chemicalType(hand) != null && fill(player, hand, id, block)) {
-            event.setCancelled(true);
-            return;
-        }
-        switch (id) {
-            case "flamethrower" -> {
-                event.setCancelled(true);
-                flame(player, hand);
-            }
-            case "canteen" -> {
-                event.setCancelled(true);
-                drink(player, hand);
-            }
-            case "network_reader" -> {
-                if (block == null) return;
-                event.setCancelled(true);
-                read(player, block);
-            }
-            case "meka_tool" -> {
-                if (event.getAction() == Action.RIGHT_CLICK_AIR && modules(hand).contains("teleportation_unit")) teleport(player, hand);
-                if (block != null && event.getBlockFace() == BlockFace.UP && modules(hand).contains("farming_unit")) {
-                    event.setCancelled(true);
-                    till(player, hand, block);
-                }
-            }
-            default -> {
-            }
+    /** {@code mekanized:flamethrower}: a burst of fire in front, for hydrogen. */
+    public static final class FlamethrowerBehavior extends PaperItemBehavior {
+        public static final ItemBehaviorFactory<FlamethrowerBehavior> FACTORY = (pack, path, id, section) -> new FlamethrowerBehavior();
+
+        @Override
+        protected boolean use(Use use) {
+            flame(use.player(), use.item());
+            return true;
         }
     }
 
+    /** {@code mekanized:canteen}: drinks nutritional paste. */
+    public static final class CanteenBehavior extends PaperItemBehavior {
+        public static final ItemBehaviorFactory<CanteenBehavior> FACTORY = (pack, path, id, section) -> new CanteenBehavior();
 
-    /** Fills the gear's chemical from a machine holding it. */
-    private boolean fill(Player player, ItemStack gear, String id, Block block) {
-        MachineInstance machine = PaperWorld.machine(block);
-        if (machine == null) return false;
-        net.kyori.adventure.key.Key chemical = chemicalType(gear);
-        long room = chemicalCapacity(gear) - chemical(gear);
-        ResourceType type = chemical == null ? null : MekanizedContent.resourceType(chemical);
-        if (type == null || room <= 0) return false;
-        var context = machine.context();
-        for (String storage : machine.inspect().storages().keySet()) {
-            boolean holds = machine.inspect().storages().get(storage).stream()
-                    .anyMatch(view -> !view.isEmpty() && view.variant().type() == type);
-            if (!holds) continue;
-            long taken;
-            try (Transaction transaction = context.transactions().openOuter()) {
-                taken = context.storage(storage).extract(type.variant(), room, transaction);
-                transaction.commit();
-            }
-            if (taken <= 0) continue;
-            PaperItemResources.add(gear, chemical, taken);
-            machine.wake(WakeReason.RESOURCE_EXTRACTED);
-            player.sendActionBar(Component.text(String.format(Locale.ROOT, "Filled %,d mB of %s", taken,
-                    MekanizedContent.displayName(chemical.value())), NamedTextColor.GREEN));
+        @Override
+        protected boolean use(Use use) {
+            drink(use.player(), use.item());
             return true;
         }
-        return false;
+    }
+
+    /**
+     * {@code mekanized:meka_tool}: the units used by right-click: teleportation (in the air), farming
+     * (on the top of a block), shearing (on an animal).
+     */
+    public static final class MekaToolBehavior extends PaperItemBehavior {
+        public static final ItemBehaviorFactory<MekaToolBehavior> FACTORY = (pack, path, id, section) -> new MekaToolBehavior();
+
+        @Override
+        protected boolean use(Use use) {
+            Set<String> modules = modules(use.item());
+            if (!use.onBlock() && modules.contains("teleportation_unit")) {
+                teleport(use.player(), use.item());
+                return true;
+            }
+            if (use.onBlock() && use.face() == BlockFace.UP && modules.contains("farming_unit")) {
+                till(use.player(), use.item(), use.block());
+                return true;
+            }
+            return false;
+        }
+
+        /** Shearing unit: a sheep, mooshroom or snow golem (500 J by default). */
+        @Override
+        protected boolean useOnEntity(Player player, ItemStack tool, Entity target) {
+            if (!modules(tool).contains("shearing_unit")) return false;
+            if (!(target instanceof Shearable shearable) || !shearable.readyToBeSheared()) return false;
+            if (!useEnergy(tool, GearSettings.shearEnergy)) return false;
+            shearable.shear(net.kyori.adventure.sound.Sound.Source.PLAYER);
+            return true;
+        }
     }
 
     /** Drinks nutritional paste: 50 mB per hunger point, up to a full bar. */
@@ -308,24 +259,6 @@ public final class GearTools implements Listener {
             living.setFireTicks(Math.max(living.getFireTicks(), 100));
             living.damage(GearSettings.flamethrowerDamage, player);
         }
-    }
-
-    /** What a machine holds, in chat. */
-    private static void read(Player player, Block block) {
-        MachineInstance machine = PaperWorld.machine(block);
-        if (machine == null) {
-            player.sendMessage(Component.text("Not a machine", NamedTextColor.GRAY));
-            return;
-        }
-        player.sendMessage(Component.text(machine.inspect().type().value().replace('_', ' ') + ":", NamedTextColor.GOLD));
-        machine.inspect().storages().forEach((storage, views) -> {
-            long amount = views.stream().mapToLong(StorageView::amount).sum();
-            long capacity = views.stream().mapToLong(StorageView::capacity).sum();
-            String held = views.stream().filter(view -> !view.isEmpty()).map(view -> view.variant().type().key().value()).distinct()
-                    .reduce((a, b) -> a + ", " + b).orElse("empty");
-            player.sendMessage(Component.text(String.format(Locale.ROOT, "  %s: %,d / %,d (%s)", storage, amount, capacity, held),
-                    NamedTextColor.GRAY));
-        });
     }
 
     /** The teleportation unit: to the block looked at, up to {@link GearSettings#teleportRange} blocks (the teleporter's cost: 1 kJ plus 10 J a block by default). */

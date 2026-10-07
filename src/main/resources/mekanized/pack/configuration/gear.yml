@@ -22,6 +22,7 @@ items:
     - type: machineengine:energy_item
       max-energy: 16000000
     - type: mekanized:module_holder
+    - type: mekanized:meka_tool
     data:
       item_name: <!i><lang:item.mekanized.meka_tool>
       unbreakable: true
@@ -39,6 +40,8 @@ items:
     - type: machineengine:resource_item
       resource: mekanized:hydrogen
       capacity: 24000
+      fill-from-machines: true
+    - type: mekanized:flamethrower
     data:
       item_name: <!i><lang:item.mekanized.flamethrower>
       unbreakable: true
@@ -62,6 +65,8 @@ items:
       - c:tools/ranged_weapon
       - minecraft:enchantable/bow
   mekanized:network_reader:
+    behaviors:
+    - type: machineengine:storage_reader
     material: stick
     data:
       item_name: <!i><lang:item.mekanized.network_reader>
@@ -75,6 +80,8 @@ items:
     - type: machineengine:resource_item
       resource: mekanized:fluid/nutritional_paste
       capacity: 64000
+      fill-from-machines: true
+    - type: mekanized:canteen
     data:
       item_name: <!i><lang:item.mekanized.canteen>
       unbreakable: true
@@ -86,6 +93,7 @@ items:
     behaviors:
     - type: machineengine:energy_item
       max-energy: 1000000
+    - type: mekanized:portable_teleporter
     data:
       item_name: <!i><lang:item.mekanized.portable_teleporter>
       unbreakable: true
@@ -93,6 +101,8 @@ items:
         minecraft:max_stack_size: 1
     model: mekanized:item/portable_teleporter
   mekanized:portable_qio_dashboard:
+    behaviors:
+    - type: mekanized:portable_qio
     material: paper
     data:
       item_name: <!i><lang:item.mekanized.portable_qio_dashboard>
@@ -101,6 +111,8 @@ items:
         minecraft:max_stack_size: 1
     model: mekanized:item/portable_qio_dashboard
   mekanized:configuration_card:
+    behaviors:
+    - type: mekanized:configuration_card
     material: paper
     data:
       item_name: <!i><lang:item.mekanized.configuration_card>
@@ -109,6 +121,8 @@ items:
         minecraft:max_stack_size: 1
     model: mekanized:item/configuration_card
   mekanized:gauge_dropper:
+    behaviors:
+    - type: mekanized:gauge_dropper
     material: paper
     data:
       item_name: <!i><lang:item.mekanized.gauge_dropper>
@@ -117,6 +131,8 @@ items:
         minecraft:max_stack_size: 1
     model: mekanized:item/gauge_dropper
   mekanized:dictionary:
+    behaviors:
+    - type: mekanized:dictionary
     material: paper
     data:
       item_name: <!i><lang:item.mekanized.dictionary>
@@ -125,6 +141,8 @@ items:
         minecraft:max_stack_size: 1
     model: mekanized:item/dictionary
   mekanized:crafting_formula:
+    behaviors:
+    - type: mekanized:crafting_formula
     material: paper
     data:
       item_name: <!i><lang:item.mekanized.crafting_formula>
@@ -138,6 +156,7 @@ items:
     - type: machineengine:resource_item
       resource: mekanized:hydrogen
       capacity: 24000
+      fill-from-machines: true
     data:
       item_name: <!i><lang:item.mekanized.jetpack>
       unbreakable: true
@@ -152,6 +171,7 @@ items:
     - type: machineengine:resource_item
       resource: mekanized:hydrogen
       capacity: 24000
+      fill-from-machines: true
     data:
       item_name: <!i><lang:item.mekanized.jetpack_armored>
       unbreakable: true
@@ -166,6 +186,7 @@ items:
     - type: machineengine:resource_item
       resource: mekanized:oxygen
       capacity: 24000
+      fill-from-machines: true
     data:
       item_name: <!i><lang:item.mekanized.scuba_tank>
       unbreakable: true
@@ -235,6 +256,7 @@ items:
     - type: machineengine:resource_item
       resource: mekanized:hydrogen
       capacity: 24000
+      fill-from-machines: true
     - type: mekanized:module_holder
     data:
       item_name: <!i><lang:item.mekanized.mekasuit_bodyarmor>
@@ -323,10 +345,16 @@ items:
       tags:
       - minecraft:foot_armor
   mekanized:module_base:
+    behaviors:
+    - type: mekanized:module
+      module: base
     data:
       item_name: <!i><lang:item.mekanized.module_base>
     model: mekanized:item/module_base
   mekanized:module_electrolytic_breathing_unit:
+    behaviors:
+    - type: mekanized:module
+      module: electrolytic_breathing_unit
     data:
       item_name: <!i><lang:item.mekanized.module_electrolytic_breathing_unit>
     model: mekanized:item/module_electrolytic_breathing_unit
@@ -334,6 +362,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_vision_enhancement_unit:
+    behaviors:
+    - type: mekanized:module
+      module: vision_enhancement_unit
     data:
       item_name: <!i><lang:item.mekanized.module_vision_enhancement_unit>
     model: mekanized:item/module_vision_enhancement_unit
@@ -341,6 +372,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_nutritional_injection_unit:
+    behaviors:
+    - type: mekanized:module
+      module: nutritional_injection_unit
     data:
       item_name: <!i><lang:item.mekanized.module_nutritional_injection_unit>
     model: mekanized:item/module_nutritional_injection_unit
@@ -348,6 +382,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_inhalation_purification_unit:
+    behaviors:
+    - type: mekanized:module
+      module: inhalation_purification_unit
     data:
       item_name: <!i><lang:item.mekanized.module_inhalation_purification_unit>
     model: mekanized:item/module_inhalation_purification_unit
@@ -355,6 +392,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_jetpack_unit:
+    behaviors:
+    - type: mekanized:module
+      module: jetpack_unit
     data:
       item_name: <!i><lang:item.mekanized.module_jetpack_unit>
     model: mekanized:item/module_jetpack_unit
@@ -362,6 +402,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_gravitational_modulating_unit:
+    behaviors:
+    - type: mekanized:module
+      module: gravitational_modulating_unit
     data:
       item_name: <!i><lang:item.mekanized.module_gravitational_modulating_unit>
     model: mekanized:item/module_gravitational_modulating_unit
@@ -369,6 +412,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_elytra_unit:
+    behaviors:
+    - type: mekanized:module
+      module: elytra_unit
     data:
       item_name: <!i><lang:item.mekanized.module_elytra_unit>
     model: mekanized:item/module_elytra_unit
@@ -376,6 +422,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_locomotive_boosting_unit:
+    behaviors:
+    - type: mekanized:module
+      module: locomotive_boosting_unit
     data:
       item_name: <!i><lang:item.mekanized.module_locomotive_boosting_unit>
     model: mekanized:item/module_locomotive_boosting_unit
@@ -383,6 +432,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_hydraulic_propulsion_unit:
+    behaviors:
+    - type: mekanized:module
+      module: hydraulic_propulsion_unit
     data:
       item_name: <!i><lang:item.mekanized.module_hydraulic_propulsion_unit>
     model: mekanized:item/module_hydraulic_propulsion_unit
@@ -390,6 +442,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_excavation_escalation_unit:
+    behaviors:
+    - type: mekanized:module
+      module: excavation_escalation_unit
     data:
       item_name: <!i><lang:item.mekanized.module_excavation_escalation_unit>
     model: mekanized:item/module_excavation_escalation_unit
@@ -397,6 +452,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_attack_amplification_unit:
+    behaviors:
+    - type: mekanized:module
+      module: attack_amplification_unit
     data:
       item_name: <!i><lang:item.mekanized.module_attack_amplification_unit>
     model: mekanized:item/module_attack_amplification_unit
@@ -404,6 +462,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_silk_touch_unit:
+    behaviors:
+    - type: mekanized:module
+      module: silk_touch_unit
     data:
       item_name: <!i><lang:item.mekanized.module_silk_touch_unit>
     model: mekanized:item/module_silk_touch_unit
@@ -411,6 +472,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_fortune_unit:
+    behaviors:
+    - type: mekanized:module
+      module: fortune_unit
     data:
       item_name: <!i><lang:item.mekanized.module_fortune_unit>
     model: mekanized:item/module_fortune_unit
@@ -418,6 +482,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_vein_mining_unit:
+    behaviors:
+    - type: mekanized:module
+      module: vein_mining_unit
     data:
       item_name: <!i><lang:item.mekanized.module_vein_mining_unit>
     model: mekanized:item/module_vein_mining_unit
@@ -425,6 +492,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_teleportation_unit:
+    behaviors:
+    - type: mekanized:module
+      module: teleportation_unit
     data:
       item_name: <!i><lang:item.mekanized.module_teleportation_unit>
     model: mekanized:item/module_teleportation_unit
@@ -432,6 +502,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_radiation_shielding_unit:
+    behaviors:
+    - type: mekanized:module
+      module: radiation_shielding_unit
     data:
       item_name: <!i><lang:item.mekanized.module_radiation_shielding_unit>
     model: mekanized:item/module_radiation_shielding_unit
@@ -439,6 +512,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_geiger_unit:
+    behaviors:
+    - type: mekanized:module
+      module: geiger_unit
     data:
       item_name: <!i><lang:item.mekanized.module_geiger_unit>
     model: mekanized:item/module_geiger_unit
@@ -446,6 +522,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_dosimeter_unit:
+    behaviors:
+    - type: mekanized:module
+      module: dosimeter_unit
     data:
       item_name: <!i><lang:item.mekanized.module_dosimeter_unit>
     model: mekanized:item/module_dosimeter_unit
@@ -453,6 +532,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_energy_unit:
+    behaviors:
+    - type: mekanized:module
+      module: energy_unit
     data:
       item_name: <!i><lang:item.mekanized.module_energy_unit>
     model: mekanized:item/module_energy_unit
@@ -460,6 +542,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_charge_distribution_unit:
+    behaviors:
+    - type: mekanized:module
+      module: charge_distribution_unit
     data:
       item_name: <!i><lang:item.mekanized.module_charge_distribution_unit>
     model: mekanized:item/module_charge_distribution_unit
@@ -467,6 +552,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_gyroscopic_stabilization_unit:
+    behaviors:
+    - type: mekanized:module
+      module: gyroscopic_stabilization_unit
     data:
       item_name: <!i><lang:item.mekanized.module_gyroscopic_stabilization_unit>
     model: mekanized:item/module_gyroscopic_stabilization_unit
@@ -474,6 +562,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_solar_recharging_unit:
+    behaviors:
+    - type: mekanized:module
+      module: solar_recharging_unit
     data:
       item_name: <!i><lang:item.mekanized.module_solar_recharging_unit>
     model: mekanized:item/module_solar_recharging_unit
@@ -481,6 +572,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_geothermal_generator_unit:
+    behaviors:
+    - type: mekanized:module
+      module: geothermal_generator_unit
     data:
       item_name: <!i><lang:item.mekanized.module_geothermal_generator_unit>
     model: mekanized:item/module_geothermal_generator_unit
@@ -488,6 +582,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_motorized_servo_unit:
+    behaviors:
+    - type: mekanized:module
+      module: motorized_servo_unit
     data:
       item_name: <!i><lang:item.mekanized.module_motorized_servo_unit>
     model: mekanized:item/module_motorized_servo_unit
@@ -495,6 +592,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_hydrostatic_repulsor_unit:
+    behaviors:
+    - type: mekanized:module
+      module: hydrostatic_repulsor_unit
     data:
       item_name: <!i><lang:item.mekanized.module_hydrostatic_repulsor_unit>
     model: mekanized:item/module_hydrostatic_repulsor_unit
@@ -502,6 +602,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_magnetic_attraction_unit:
+    behaviors:
+    - type: mekanized:module
+      module: magnetic_attraction_unit
     data:
       item_name: <!i><lang:item.mekanized.module_magnetic_attraction_unit>
     model: mekanized:item/module_magnetic_attraction_unit
@@ -509,6 +612,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_frost_walker_unit:
+    behaviors:
+    - type: mekanized:module
+      module: frost_walker_unit
     data:
       item_name: <!i><lang:item.mekanized.module_frost_walker_unit>
     model: mekanized:item/module_frost_walker_unit
@@ -516,6 +622,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_soul_surfer_unit:
+    behaviors:
+    - type: mekanized:module
+      module: soul_surfer_unit
     data:
       item_name: <!i><lang:item.mekanized.module_soul_surfer_unit>
     model: mekanized:item/module_soul_surfer_unit
@@ -523,6 +632,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_blasting_unit:
+    behaviors:
+    - type: mekanized:module
+      module: blasting_unit
     data:
       item_name: <!i><lang:item.mekanized.module_blasting_unit>
     model: mekanized:item/module_blasting_unit
@@ -530,6 +642,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_farming_unit:
+    behaviors:
+    - type: mekanized:module
+      module: farming_unit
     data:
       item_name: <!i><lang:item.mekanized.module_farming_unit>
     model: mekanized:item/module_farming_unit
@@ -537,6 +652,9 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_shearing_unit:
+    behaviors:
+    - type: mekanized:module
+      module: shearing_unit
     data:
       item_name: <!i><lang:item.mekanized.module_shearing_unit>
     model: mekanized:item/module_shearing_unit
