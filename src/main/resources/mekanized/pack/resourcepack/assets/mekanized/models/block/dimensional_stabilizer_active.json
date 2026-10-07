@@ -1,0 +1,7 @@
+{
+  "parent": "mekanized:block/dimensional_stabilizer",
+  "textures": {
+    "side": "mekanized:block/dimensional_stabilizer/side_active",
+    "top": "mekanized:block/dimensional_stabilizer/top_active"
+  }
+}

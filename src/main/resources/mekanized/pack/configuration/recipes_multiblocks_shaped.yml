@@ -1,0 +1,204 @@
+# Mekanized multiblocks_shaped recipes for CraftEngine, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+recipes:
+  mekanized:dynamic_tank:
+    type: shaped
+    pattern:
+    - ' S '
+    - SBS
+    - ' S '
+    ingredients:
+      B: minecraft:bucket
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:dynamic_tank
+      count: 4
+  mekanized:dynamic_valve:
+    type: shaped
+    pattern:
+    - ' # '
+    - '#C#'
+    - ' # '
+    ingredients:
+      '#': mekanized:dynamic_tank
+      C: '#c:circuits/basic'
+    result:
+      id: mekanized:dynamic_valve
+      count: 2
+  mekanized:induction/casing:
+    type: shaped
+    pattern:
+    - ' S '
+    - SES
+    - ' S '
+    ingredients:
+      E: mekanized:energy_tablet
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:induction_casing
+      count: 4
+  mekanized:induction/cell/advanced:
+    type: shaped
+    pattern:
+    - EPE
+    - P#P
+    - EPE
+    ingredients:
+      '#': mekanized:advanced_energy_cube
+      E: mekanized:energy_tablet
+      P: mekanized:basic_induction_cell
+    result:
+      id: mekanized:advanced_induction_cell
+      count: 1
+  mekanized:induction/cell/basic:
+    type: shaped
+    pattern:
+    - LEL
+    - E#E
+    - LEL
+    ingredients:
+      '#': mekanized:basic_energy_cube
+      E: mekanized:energy_tablet
+      L: '#c:dusts/lithium'
+    result:
+      id: mekanized:basic_induction_cell
+      count: 1
+  mekanized:induction/cell/elite:
+    type: shaped
+    pattern:
+    - EPE
+    - P#P
+    - EPE
+    ingredients:
+      '#': mekanized:elite_energy_cube
+      E: mekanized:energy_tablet
+      P: mekanized:advanced_induction_cell
+    result:
+      id: mekanized:elite_induction_cell
+      count: 1
+  mekanized:induction/cell/ultimate:
+    type: shaped
+    pattern:
+    - EPE
+    - P#P
+    - EPE
+    ingredients:
+      '#': mekanized:ultimate_energy_cube
+      E: mekanized:energy_tablet
+      P: mekanized:elite_induction_cell
+    result:
+      id: mekanized:ultimate_induction_cell
+      count: 1
+  mekanized:induction/port:
+    type: shaped
+    pattern:
+    - ' # '
+    - '#C#'
+    - ' # '
+    ingredients:
+      '#': mekanized:induction_casing
+      C: '#c:circuits/elite'
+    result:
+      id: mekanized:induction_port
+      count: 2
+  mekanized:induction/provider/advanced:
+    type: shaped
+    pattern:
+    - CPC
+    - P#P
+    - CPC
+    ingredients:
+      '#': mekanized:advanced_energy_cube
+      C: '#c:circuits/advanced'
+      P: mekanized:basic_induction_provider
+    result:
+      id: mekanized:advanced_induction_provider
+      count: 1
+  mekanized:induction/provider/basic:
+    type: shaped
+    pattern:
+    - LCL
+    - C#C
+    - LCL
+    ingredients:
+      '#': mekanized:basic_energy_cube
+      C: '#c:circuits/basic'
+      L: '#c:dusts/lithium'
+    result:
+      id: mekanized:basic_induction_provider
+      count: 1
+  mekanized:induction/provider/elite:
+    type: shaped
+    pattern:
+    - CPC
+    - P#P
+    - CPC
+    ingredients:
+      '#': mekanized:elite_energy_cube
+      C: '#c:circuits/elite'
+      P: mekanized:advanced_induction_provider
+    result:
+      id: mekanized:elite_induction_provider
+      count: 1
+  mekanized:induction/provider/ultimate:
+    type: shaped
+    pattern:
+    - CPC
+    - P#P
+    - CPC
+    ingredients:
+      '#': mekanized:ultimate_energy_cube
+      C: '#c:circuits/ultimate'
+      P: mekanized:elite_induction_provider
+    result:
+      id: mekanized:ultimate_induction_provider
+      count: 1
+  mekanized:structural_glass:
+    type: shaped
+    pattern:
+    - ' S '
+    - SGS
+    - ' S '
+    ingredients:
+      G: minecraft:glass
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:structural_glass
+      count: 4
+  mekanized:thermal_evaporation/block:
+    type: shaped
+    pattern:
+    - ' S '
+    - SIS
+    - ' S '
+    ingredients:
+      I: minecraft:copper_ingot
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:thermal_evaporation_block
+      count: 4
+  mekanized:thermal_evaporation/controller:
+    type: shaped
+    pattern:
+    - CGC
+    - '#B#'
+    - '###'
+    ingredients:
+      '#': mekanized:thermal_evaporation_block
+      B: minecraft:bucket
+      C: '#c:circuits/advanced'
+      G: minecraft:glass_pane
+    result:
+      id: mekanized:thermal_evaporation_controller
+      count: 1
+  mekanized:thermal_evaporation/valve:
+    type: shaped
+    pattern:
+    - ' # '
+    - '#C#'
+    - ' # '
+    ingredients:
+      '#': mekanized:thermal_evaporation_block
+      C: '#c:circuits/advanced'
+    result:
+      id: mekanized:thermal_evaporation_valve
+      count: 1

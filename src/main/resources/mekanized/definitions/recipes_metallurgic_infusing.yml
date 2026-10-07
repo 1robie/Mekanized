@@ -1,0 +1,438 @@
+# Mekanized metallurgic_infusing recipes, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+# Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.
+# Durations are ticks; energy is Joules per tick. Phase 2 of MEKANIZED_PLAN.md.
+recipes:
+  mekanized:control_circuit/basic:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:redstone
+      amount: 20
+    - item-tag: c:ingots/osmium
+      amount: 1
+    outputs:
+    - item: mekanized:basic_control_circuit
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:control_circuit/infused_advanced:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:redstone
+      amount: 60
+    - item-tag: c:circuits/basic
+      amount: 1
+    outputs:
+    - item: mekanized:advanced_control_circuit
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:control_circuit/infused_elite:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:diamond
+      amount: 120
+    - item-tag: c:circuits/advanced
+      amount: 1
+    outputs:
+    - item: mekanized:elite_control_circuit
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:control_circuit/infused_ultimate:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:refined_obsidian
+      amount: 240
+    - item-tag: c:circuits/elite
+      amount: 1
+    outputs:
+    - item: mekanized:ultimate_control_circuit
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:hohlraum:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:carbon
+      amount: 10
+    - item-tag: c:dusts/gold
+      amount: 4
+    outputs:
+    - item: mekanized:hohlraum
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:metallurgic_infusing/alloy/atomic:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:refined_obsidian
+      amount: 40
+    - item-tag: mekanized:alloys/reinforced
+      amount: 1
+    outputs:
+    - item: mekanized:alloy_atomic
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:metallurgic_infusing/alloy/infused:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:redstone
+      amount: 10
+    - item-tag: c:ingots/copper
+      amount: 1
+    outputs:
+    - item: mekanized:alloy_infused
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:metallurgic_infusing/alloy/reinforced:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:diamond
+      amount: 20
+    - item-tag: mekanized:alloys/infused
+      amount: 1
+    outputs:
+    - item: mekanized:alloy_reinforced
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:metallurgic_infusing/blackstone_to_gilded_blackstone:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:gold
+      amount: 100
+    - item: minecraft:blackstone
+      amount: 1
+    outputs:
+    - item: minecraft:gilded_blackstone
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:metallurgic_infusing/clay_to_slime_ball:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:bio
+      amount: 10
+    - item: minecraft:clay_ball
+      amount: 1
+    outputs:
+    - item: minecraft:slime_ball
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:metallurgic_infusing/clay_to_slime_block:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:bio
+      amount: 40
+    - item: minecraft:clay
+      amount: 1
+    outputs:
+    - item: minecraft:slime_ball
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:metallurgic_infusing/crimson_nylium_to_warped_nylium:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:fungi
+      amount: 10
+    - item: minecraft:crimson_nylium
+      amount: 1
+    outputs:
+    - item: minecraft:warped_nylium
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:metallurgic_infusing/dirt_to_mycelium:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:fungi
+      amount: 10
+    - item: minecraft:dirt
+      amount: 1
+    outputs:
+    - item: minecraft:mycelium
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:metallurgic_infusing/dirt_to_podzol:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:bio
+      amount: 10
+    - item: minecraft:dirt
+      amount: 1
+    outputs:
+    - item: minecraft:podzol
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:metallurgic_infusing/mossy/cobblestone:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:bio
+      amount: 10
+    - item: minecraft:cobblestone
+      amount: 1
+    outputs:
+    - item: minecraft:mossy_cobblestone
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:metallurgic_infusing/mossy/cobblestone_slab:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:bio
+      amount: 10
+    - item: minecraft:cobblestone_slab
+      amount: 1
+    outputs:
+    - item: minecraft:mossy_cobblestone_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:metallurgic_infusing/mossy/cobblestone_stairs:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:bio
+      amount: 10
+    - item: minecraft:cobblestone_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:mossy_cobblestone_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:metallurgic_infusing/mossy/cobblestone_wall:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:bio
+      amount: 10
+    - item: minecraft:cobblestone_wall
+      amount: 1
+    outputs:
+    - item: minecraft:mossy_cobblestone_wall
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:metallurgic_infusing/mossy/stone_brick:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:bio
+      amount: 10
+    - item: minecraft:stone_bricks
+      amount: 1
+    outputs:
+    - item: minecraft:mossy_stone_bricks
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:metallurgic_infusing/mossy/stone_brick_slab:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:bio
+      amount: 10
+    - item: minecraft:stone_brick_slab
+      amount: 1
+    outputs:
+    - item: minecraft:mossy_stone_brick_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:metallurgic_infusing/mossy/stone_brick_stairs:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:bio
+      amount: 10
+    - item: minecraft:stone_brick_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:mossy_stone_brick_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:metallurgic_infusing/mossy/stone_brick_wall:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:bio
+      amount: 10
+    - item: minecraft:stone_brick_wall
+      amount: 1
+    outputs:
+    - item: minecraft:mossy_stone_brick_wall
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:metallurgic_infusing/netherrack_to_crimson_nylium:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:fungi
+      amount: 10
+    - item: minecraft:netherrack
+      amount: 1
+    outputs:
+    - item: minecraft:crimson_nylium
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:metallurgic_infusing/sand_to_dirt:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:bio
+      amount: 10
+    - item-tag: c:sands
+      amount: 1
+    outputs:
+    - item: minecraft:dirt
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/bronze/dust/from_infusing:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:tin
+      amount: 10
+    - item-tag: c:dusts/copper
+      amount: 3
+    outputs:
+    - item: mekanized:dust_bronze
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/bronze/ingot/from_infusing:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:tin
+      amount: 10
+    - item-tag: c:ingots/copper
+      amount: 3
+    outputs:
+    - item: mekanized:ingot_bronze
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/iron/enriched:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:carbon
+      amount: 10
+    - item-tag: c:ingots/iron
+      amount: 1
+    outputs:
+    - item: mekanized:enriched_iron
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/iron/enriched_dust:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:carbon
+      amount: 10
+    - item-tag: c:dusts/iron
+      amount: 1
+    outputs:
+    - item: mekanized:enriched_iron
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/netherite/scrap_to_dust:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:gold
+      amount: 40
+    - item: minecraft:netherite_scrap
+      amount: 4
+    outputs:
+    - item: mekanized:dust_netherite
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/refined_obsidian/dust/from_obsidian_dust:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:diamond
+      amount: 10
+    - item-tag: c:dusts/obsidian
+      amount: 1
+    outputs:
+    - item: mekanized:dust_refined_obsidian
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/steel/enriched_iron_to_dust:
+    type: mekanized:metallurgic_infusing
+    duration: 200
+    inputs:
+    - tag: mekanized:carbon
+      amount: 10
+    - item: mekanized:enriched_iron
+      amount: 1
+    outputs:
+    - item: mekanized:dust_steel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50

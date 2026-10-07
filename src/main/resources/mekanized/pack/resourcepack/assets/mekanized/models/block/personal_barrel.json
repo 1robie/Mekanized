@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "mekanized:block/personal_barrel/bottom",
+    "side": "mekanized:block/personal_barrel/side",
+    "top": "mekanized:block/personal_barrel/top"
+  }
+}

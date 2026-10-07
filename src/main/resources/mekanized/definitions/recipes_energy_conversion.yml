@@ -1,0 +1,20 @@
+# Mekanized energy_conversion recipes, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+# Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.
+# Durations are ticks; energy is Joules per tick. Phase 2 of MEKANIZED_PLAN.md.
+recipes:
+  mekanized:energy_conversion/redstone:
+    type: mekanized:energy_conversion
+    inputs:
+    - item-tag: c:dusts/redstone
+      amount: 1
+    outputs:
+    - type: machineengine:energy
+      amount: 10000
+  mekanized:energy_conversion/redstone_block:
+    type: mekanized:energy_conversion
+    inputs:
+    - item-tag: c:storage_blocks/redstone
+      amount: 1
+    outputs:
+    - type: machineengine:energy
+      amount: 90000

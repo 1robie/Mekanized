@@ -1,0 +1,1488 @@
+# Mekanized combining recipes, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+# Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.
+# Durations are ticks; energy is Joules per tick. Phase 2 of MEKANIZED_PLAN.md.
+recipes:
+  mekanized:combining/dye/black_to_light_gray:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:dyes/white
+      amount: 2
+    - item-tag: c:dyes/black
+      amount: 1
+    outputs:
+    - item: minecraft:light_gray_dye
+      amount: 6
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/dye/cyan:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:dyes/green
+      amount: 1
+    - item-tag: c:dyes/blue
+      amount: 1
+    outputs:
+    - item: minecraft:cyan_dye
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/dye/gray_to_light_gray:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:dyes/white
+      amount: 1
+    - item-tag: c:dyes/gray
+      amount: 1
+    outputs:
+    - item: minecraft:light_gray_dye
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/dye/light_blue:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:dyes/white
+      amount: 1
+    - item-tag: c:dyes/blue
+      amount: 1
+    outputs:
+    - item: minecraft:light_blue_dye
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/dye/lime:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:dyes/white
+      amount: 1
+    - item-tag: c:dyes/green
+      amount: 1
+    outputs:
+    - item: minecraft:lime_dye
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/dye/magenta:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:dyes/pink
+      amount: 1
+    - item-tag: c:dyes/purple
+      amount: 1
+    outputs:
+    - item: minecraft:magenta_dye
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/dye/orange:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:dyes/yellow
+      amount: 1
+    - item-tag: c:dyes/red
+      amount: 1
+    outputs:
+    - item: minecraft:orange_dye
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/dye/pink:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:dyes/white
+      amount: 1
+    - item-tag: c:dyes/red
+      amount: 1
+    outputs:
+    - item: minecraft:pink_dye
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/dye/purple:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:dyes/red
+      amount: 1
+    - item-tag: c:dyes/blue
+      amount: 1
+    outputs:
+    - item: minecraft:purple_dye
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/glow/berries:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:dusts/glowstone
+      amount: 1
+    - item: minecraft:sweet_berries
+      amount: 1
+    outputs:
+    - item: minecraft:glow_berries
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/glow/ink_sac:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:dusts/glowstone
+      amount: 1
+    - item: minecraft:ink_sac
+      amount: 1
+    outputs:
+    - item: minecraft:glow_ink_sac
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/glow/item_frame:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:dusts/glowstone
+      amount: 1
+    - item: minecraft:item_frame
+      amount: 1
+    outputs:
+    - item: minecraft:glow_item_frame
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/gravel:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/normal
+      amount: 1
+    - item: minecraft:flint
+      amount: 1
+    outputs:
+    - item: minecraft:gravel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/muddy_mangrove_roots:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:mud
+      amount: 1
+    - item: minecraft:mangrove_roots
+      amount: 1
+    outputs:
+    - item: minecraft:muddy_mangrove_roots
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/obsidian:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/deepslate
+      amount: 1
+    - item-tag: c:dusts/obsidian
+      amount: 4
+    outputs:
+    - item: minecraft:obsidian
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/packed_mud:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:mud
+      amount: 1
+    - item-tag: c:crops/wheat
+      amount: 1
+    outputs:
+    - item: minecraft:packed_mud
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/rooted_dirt:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:dirt
+      amount: 1
+    - item: minecraft:hanging_roots
+      amount: 3
+    outputs:
+    - item: minecraft:rooted_dirt
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_chiseled_copper:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:chiseled_copper
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_chiseled_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_copper_bars:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:copper_bars
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_copper_bars
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_copper_block:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:copper_block
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_copper_block
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_copper_bulb:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:copper_bulb
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_copper_bulb
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_copper_chain:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:copper_chain
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_copper_chain
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_copper_chest:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:copper_chest
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_copper_chest
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_copper_door:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:copper_door
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_copper_door
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_copper_golem_statue:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:copper_golem_statue
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_copper_golem_statue
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_copper_grate:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:copper_grate
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_copper_grate
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_copper_lantern:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:copper_lantern
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_copper_lantern
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_copper_trapdoor:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:copper_trapdoor
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_copper_trapdoor
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_cut_copper:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:cut_copper
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_cut_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_cut_copper_slab:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:cut_copper_slab
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_cut_copper_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_cut_copper_stairs:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:cut_copper_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_cut_copper_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_exposed_chiseled_copper:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:exposed_chiseled_copper
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_exposed_chiseled_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_exposed_copper:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:exposed_copper
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_exposed_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_exposed_copper_bars:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:exposed_copper_bars
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_exposed_copper_bars
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_exposed_copper_bulb:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:exposed_copper_bulb
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_exposed_copper_bulb
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_exposed_copper_chain:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:exposed_copper_chain
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_exposed_copper_chain
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_exposed_copper_chest:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:exposed_copper_chest
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_exposed_copper_chest
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_exposed_copper_door:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:exposed_copper_door
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_exposed_copper_door
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_exposed_copper_golem_statue:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:exposed_copper_golem_statue
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_exposed_copper_golem_statue
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_exposed_copper_grate:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:exposed_copper_grate
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_exposed_copper_grate
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_exposed_copper_lantern:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:exposed_copper_lantern
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_exposed_copper_lantern
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_exposed_copper_trapdoor:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:exposed_copper_trapdoor
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_exposed_copper_trapdoor
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_exposed_cut_copper:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:exposed_cut_copper
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_exposed_cut_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_exposed_cut_copper_slab:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:exposed_cut_copper_slab
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_exposed_cut_copper_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_exposed_cut_copper_stairs:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:exposed_cut_copper_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_exposed_cut_copper_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_exposed_lightning_rod:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:exposed_lightning_rod
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_exposed_lightning_rod
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_lightning_rod:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:lightning_rod
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_lightning_rod
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_oxidized_chiseled_copper:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:oxidized_chiseled_copper
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_oxidized_chiseled_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_oxidized_copper:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:oxidized_copper
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_oxidized_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_oxidized_copper_bars:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:oxidized_copper_bars
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_oxidized_copper_bars
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_oxidized_copper_bulb:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:oxidized_copper_bulb
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_oxidized_copper_bulb
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_oxidized_copper_chain:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:oxidized_copper_chain
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_oxidized_copper_chain
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_oxidized_copper_chest:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:oxidized_copper_chest
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_oxidized_copper_chest
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_oxidized_copper_door:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:oxidized_copper_door
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_oxidized_copper_door
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_oxidized_copper_golem_statue:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:oxidized_copper_golem_statue
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_oxidized_copper_golem_statue
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_oxidized_copper_grate:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:oxidized_copper_grate
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_oxidized_copper_grate
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_oxidized_copper_lantern:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:oxidized_copper_lantern
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_oxidized_copper_lantern
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_oxidized_copper_trapdoor:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:oxidized_copper_trapdoor
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_oxidized_copper_trapdoor
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_oxidized_cut_copper:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:oxidized_cut_copper
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_oxidized_cut_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_oxidized_cut_copper_slab:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:oxidized_cut_copper_slab
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_oxidized_cut_copper_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_oxidized_cut_copper_stairs:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:oxidized_cut_copper_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_oxidized_cut_copper_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_oxidized_lightning_rod:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:oxidized_lightning_rod
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_oxidized_lightning_rod
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_weathered_chiseled_copper:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:weathered_chiseled_copper
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_weathered_chiseled_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_weathered_copper:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:weathered_copper
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_weathered_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_weathered_copper_bars:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:weathered_copper_bars
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_weathered_copper_bars
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_weathered_copper_bulb:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:weathered_copper_bulb
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_weathered_copper_bulb
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_weathered_copper_chain:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:weathered_copper_chain
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_weathered_copper_chain
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_weathered_copper_chest:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:weathered_copper_chest
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_weathered_copper_chest
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_weathered_copper_door:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:weathered_copper_door
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_weathered_copper_door
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_weathered_copper_golem_statue:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:weathered_copper_golem_statue
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_weathered_copper_golem_statue
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_weathered_copper_grate:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:weathered_copper_grate
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_weathered_copper_grate
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_weathered_copper_lantern:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:weathered_copper_lantern
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_weathered_copper_lantern
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_weathered_copper_trapdoor:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:weathered_copper_trapdoor
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_weathered_copper_trapdoor
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_weathered_cut_copper:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:weathered_cut_copper
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_weathered_cut_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_weathered_cut_copper_slab:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:weathered_cut_copper_slab
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_weathered_cut_copper_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_weathered_cut_copper_stairs:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:weathered_cut_copper_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_weathered_cut_copper_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:combining/wax/waxed_weathered_lightning_rod:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb
+      amount: 1
+    - item: minecraft:weathered_lightning_rod
+      amount: 1
+    outputs:
+    - item: minecraft:waxed_weathered_lightning_rod
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/coal/to_deepslate_ore:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/deepslate
+      amount: 1
+    - item-tag: c:dusts/coal
+      amount: 8
+    outputs:
+    - item: minecraft:deepslate_coal_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/coal/to_ore:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/normal
+      amount: 1
+    - item-tag: c:dusts/coal
+      amount: 8
+    outputs:
+    - item: minecraft:coal_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/copper/ore/deepslate_from_raw:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/deepslate
+      amount: 1
+    - item-tag: c:raw_materials/copper
+      amount: 20
+    outputs:
+    - item: minecraft:deepslate_copper_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/copper/ore/from_raw:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/normal
+      amount: 1
+    - item-tag: c:raw_materials/copper
+      amount: 20
+    outputs:
+    - item: minecraft:copper_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/diamond/to_deepslate_ore:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/deepslate
+      amount: 1
+    - item-tag: c:dusts/diamond
+      amount: 5
+    outputs:
+    - item: minecraft:deepslate_diamond_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/diamond/to_ore:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/normal
+      amount: 1
+    - item-tag: c:dusts/diamond
+      amount: 5
+    outputs:
+    - item: minecraft:diamond_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/emerald/to_deepslate_ore:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/deepslate
+      amount: 1
+    - item-tag: c:dusts/emerald
+      amount: 5
+    outputs:
+    - item: minecraft:deepslate_emerald_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/emerald/to_ore:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/normal
+      amount: 1
+    - item-tag: c:dusts/emerald
+      amount: 5
+    outputs:
+    - item: minecraft:emerald_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/fluorite/to_deepslate_ore:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/deepslate
+      amount: 1
+    - item-tag: c:dusts/fluorite
+      amount: 14
+    outputs:
+    - item: mekanized:deepslate_fluorite_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/fluorite/to_ore:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/normal
+      amount: 1
+    - item-tag: c:dusts/fluorite
+      amount: 14
+    outputs:
+    - item: mekanized:fluorite_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/gold/ore/deepslate_from_raw:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/deepslate
+      amount: 1
+    - item-tag: c:raw_materials/gold
+      amount: 8
+    outputs:
+    - item: minecraft:deepslate_gold_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/gold/ore/from_raw:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/normal
+      amount: 1
+    - item-tag: c:raw_materials/gold
+      amount: 8
+    outputs:
+    - item: minecraft:gold_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/gold/ore/nether_from_raw:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:netherrack
+      amount: 1
+    - item-tag: c:raw_materials/gold
+      amount: 8
+    outputs:
+    - item: minecraft:nether_gold_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/iron/ore/deepslate_from_raw:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/deepslate
+      amount: 1
+    - item-tag: c:raw_materials/iron
+      amount: 8
+    outputs:
+    - item: minecraft:deepslate_iron_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/iron/ore/from_raw:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/normal
+      amount: 1
+    - item-tag: c:raw_materials/iron
+      amount: 8
+    outputs:
+    - item: minecraft:iron_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/lapis_lazuli/to_deepslate_ore:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/deepslate
+      amount: 1
+    - item-tag: c:dusts/lapis
+      amount: 27
+    outputs:
+    - item: minecraft:deepslate_lapis_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/lapis_lazuli/to_ore:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/normal
+      amount: 1
+    - item-tag: c:dusts/lapis
+      amount: 27
+    outputs:
+    - item: minecraft:lapis_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/lead/ore/deepslate_from_raw:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/deepslate
+      amount: 1
+    - item-tag: c:raw_materials/lead
+      amount: 8
+    outputs:
+    - item: mekanized:deepslate_lead_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/lead/ore/from_raw:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/normal
+      amount: 1
+    - item-tag: c:raw_materials/lead
+      amount: 8
+    outputs:
+    - item: mekanized:lead_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/netherite/dust_to_ancient_debris:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:basalt
+      amount: 1
+    - item-tag: c:dusts/netherite
+      amount: 2
+    outputs:
+    - item: minecraft:ancient_debris
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/osmium/ore/deepslate_from_raw:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/deepslate
+      amount: 1
+    - item-tag: c:raw_materials/osmium
+      amount: 8
+    outputs:
+    - item: mekanized:deepslate_osmium_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/osmium/ore/from_raw:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/normal
+      amount: 1
+    - item-tag: c:raw_materials/osmium
+      amount: 8
+    outputs:
+    - item: mekanized:osmium_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/quartz/to_ore:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item: minecraft:netherrack
+      amount: 1
+    - item-tag: c:dusts/quartz
+      amount: 14
+    outputs:
+    - item: minecraft:nether_quartz_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/redstone/to_deepslate_ore:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/deepslate
+      amount: 1
+    - item-tag: c:dusts/redstone
+      amount: 16
+    outputs:
+    - item: minecraft:deepslate_redstone_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/redstone/to_ore:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/normal
+      amount: 1
+    - item-tag: c:dusts/redstone
+      amount: 16
+    outputs:
+    - item: minecraft:redstone_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/tin/ore/deepslate_from_raw:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/deepslate
+      amount: 1
+    - item-tag: c:raw_materials/tin
+      amount: 8
+    outputs:
+    - item: mekanized:deepslate_tin_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/tin/ore/from_raw:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/normal
+      amount: 1
+    - item-tag: c:raw_materials/tin
+      amount: 8
+    outputs:
+    - item: mekanized:tin_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/uranium/ore/deepslate_from_raw:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/deepslate
+      amount: 1
+    - item-tag: c:raw_materials/uranium
+      amount: 8
+    outputs:
+    - item: mekanized:deepslate_uranium_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/uranium/ore/from_raw:
+    type: mekanized:combining
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/normal
+      amount: 1
+    - item-tag: c:raw_materials/uranium
+      amount: 8
+    outputs:
+    - item: mekanized:uranium_ore
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50

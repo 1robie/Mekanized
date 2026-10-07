@@ -1,0 +1,12 @@
+{
+  "parent": "mekanized:block/machine_back_port",
+  "textures": {
+    "sides": "mekanized:block/pigment_extractor/right",
+    "front": "mekanized:block/pigment_extractor/front",
+    "west": "mekanized:block/pigment_extractor/right",
+    "east": "mekanized:block/pigment_extractor/left",
+    "back": "mekanized:block/pigment_extractor/back",
+    "up": "mekanized:block/pigment_extractor/top",
+    "down": "mekanized:block/pigment_extractor/bottom"
+  }
+}

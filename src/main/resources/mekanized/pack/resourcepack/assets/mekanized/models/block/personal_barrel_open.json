@@ -1,0 +1,6 @@
+{
+  "parent": "mekanized:block/personal_barrel",
+  "textures": {
+    "top": "mekanized:block/personal_barrel/top_open"
+  }
+}

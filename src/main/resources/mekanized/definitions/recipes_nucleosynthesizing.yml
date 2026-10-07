@@ -1,0 +1,298 @@
+# Mekanized nucleosynthesizing recipes, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+# Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.
+# Durations are ticks; energy is Joules per tick. Phase 6 of MEKANIZED_PLAN.md.
+recipes:
+  mekanized:nucleosynthesizing/chorus_flower:
+    type: mekanized:nucleosynthesizing
+    duration: 500
+    inputs:
+    - type: mekanized:antimatter
+      amount: 2
+    - item-tag: minecraft:small_flowers
+      amount: 1
+    outputs:
+    - item: minecraft:chorus_flower
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100000
+  mekanized:nucleosynthesizing/crossbow:
+    type: mekanized:nucleosynthesizing
+    duration: 200
+    inputs:
+    - type: mekanized:antimatter
+      amount: 1
+    - item: minecraft:bow
+      amount: 1
+    outputs:
+    - item: minecraft:crossbow
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100000
+  mekanized:nucleosynthesizing/crying_obsidian:
+    type: mekanized:nucleosynthesizing
+    duration: 200
+    inputs:
+    - type: mekanized:antimatter
+      amount: 1
+    - item-tag: c:obsidians/normal
+      amount: 1
+    outputs:
+    - item: minecraft:crying_obsidian
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100000
+  mekanized:nucleosynthesizing/diamond:
+    type: mekanized:nucleosynthesizing
+    duration: 1000
+    inputs:
+    - type: mekanized:antimatter
+      amount: 4
+    - item: minecraft:coal
+      amount: 1
+    outputs:
+    - item: minecraft:diamond
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100000
+  mekanized:nucleosynthesizing/dragon_egg:
+    type: mekanized:nucleosynthesizing
+    duration: 1000
+    inputs:
+    - type: mekanized:antimatter
+      amount: 4
+    - item: minecraft:egg
+      amount: 1
+    outputs:
+    - item: minecraft:dragon_egg
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100000
+  mekanized:nucleosynthesizing/echo_shard:
+    type: mekanized:nucleosynthesizing
+    duration: 500
+    inputs:
+    - type: mekanized:antimatter
+      amount: 2
+    - item-tag: c:gems/amethyst
+      amount: 1
+    outputs:
+    - item: minecraft:echo_shard
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100000
+  mekanized:nucleosynthesizing/emerald:
+    type: mekanized:nucleosynthesizing
+    duration: 1000
+    inputs:
+    - type: mekanized:antimatter
+      amount: 4
+    - item: minecraft:diamond
+      amount: 1
+    outputs:
+    - item: minecraft:emerald
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100000
+  mekanized:nucleosynthesizing/enchanted_golden_apple:
+    type: mekanized:nucleosynthesizing
+    duration: 750
+    inputs:
+    - type: mekanized:antimatter
+      amount: 3
+    - item: minecraft:golden_apple
+      amount: 1
+    outputs:
+    - item: minecraft:enchanted_golden_apple
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100000
+  mekanized:nucleosynthesizing/end_crystal:
+    type: mekanized:nucleosynthesizing
+    duration: 750
+    inputs:
+    - type: mekanized:antimatter
+      amount: 3
+    - item: minecraft:beacon
+      amount: 1
+    outputs:
+    - item: minecraft:end_crystal
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100000
+  mekanized:nucleosynthesizing/ender_chest:
+    type: mekanized:nucleosynthesizing
+    duration: 500
+    inputs:
+    - type: mekanized:antimatter
+      amount: 2
+    - item-tag: c:chests/wooden
+      amount: 1
+    outputs:
+    - item: minecraft:ender_chest
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100000
+  mekanized:nucleosynthesizing/glowstone_block:
+    type: mekanized:nucleosynthesizing
+    duration: 500
+    inputs:
+    - type: mekanized:antimatter
+      amount: 2
+    - item: minecraft:yellow_wool
+      amount: 1
+    outputs:
+    - item: minecraft:glowstone
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100000
+  mekanized:nucleosynthesizing/heart_of_the_sea:
+    type: mekanized:nucleosynthesizing
+    duration: 1250
+    inputs:
+    - type: mekanized:antimatter
+      amount: 5
+    - item-tag: c:nether_stars
+      amount: 1
+    outputs:
+    - item: minecraft:heart_of_the_sea
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100000
+  mekanized:nucleosynthesizing/iron:
+    type: mekanized:nucleosynthesizing
+    duration: 200
+    inputs:
+    - type: mekanized:antimatter
+      amount: 1
+    - item-tag: c:ingots/tin
+      amount: 1
+    outputs:
+    - item: minecraft:iron_ingot
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100000
+  mekanized:nucleosynthesizing/lapis_block:
+    type: mekanized:nucleosynthesizing
+    duration: 500
+    inputs:
+    - type: mekanized:antimatter
+      amount: 2
+    - item: minecraft:blue_wool
+      amount: 1
+    outputs:
+    - item: minecraft:lapis_block
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100000
+  mekanized:nucleosynthesizing/nautilus_shell:
+    type: mekanized:nucleosynthesizing
+    duration: 750
+    inputs:
+    - type: mekanized:antimatter
+      amount: 3
+    - item: minecraft:flower_pot
+      amount: 1
+    outputs:
+    - item: minecraft:nautilus_shell
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100000
+  mekanized:nucleosynthesizing/phantom_membrane:
+    type: mekanized:nucleosynthesizing
+    duration: 750
+    inputs:
+    - type: mekanized:antimatter
+      amount: 3
+    - item-tag: c:leathers
+      amount: 1
+    outputs:
+    - item: minecraft:phantom_membrane
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100000
+  mekanized:nucleosynthesizing/quartz_block:
+    type: mekanized:nucleosynthesizing
+    duration: 500
+    inputs:
+    - type: mekanized:antimatter
+      amount: 2
+    - item: minecraft:light_gray_wool
+      amount: 1
+    outputs:
+    - item: minecraft:quartz_block
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100000
+  mekanized:nucleosynthesizing/redstone_block:
+    type: mekanized:nucleosynthesizing
+    duration: 500
+    inputs:
+    - type: mekanized:antimatter
+      amount: 2
+    - item: minecraft:red_wool
+      amount: 1
+    outputs:
+    - item: minecraft:redstone_block
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100000
+  mekanized:nucleosynthesizing/respawn_anchor:
+    type: mekanized:nucleosynthesizing
+    duration: 750
+    inputs:
+    - type: mekanized:antimatter
+      amount: 3
+    - item-tag: minecraft:beds
+      amount: 1
+    outputs:
+    - item: minecraft:respawn_anchor
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100000
+  mekanized:nucleosynthesizing/trident:
+    type: mekanized:nucleosynthesizing
+    duration: 1000
+    inputs:
+    - type: mekanized:antimatter
+      amount: 4
+    - item: minecraft:diamond_sword
+      amount: 1
+    outputs:
+    - item: minecraft:trident
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100000
+  mekanized:nucleosynthesizing/wither_skeleton_skull:
+    type: mekanized:nucleosynthesizing
+    duration: 1250
+    inputs:
+    - type: mekanized:antimatter
+      amount: 5
+    - item: minecraft:skeleton_skull
+      amount: 1
+    outputs:
+    - item: minecraft:wither_skeleton_skull
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100000

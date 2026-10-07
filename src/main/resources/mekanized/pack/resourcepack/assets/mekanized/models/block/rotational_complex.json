@@ -1,0 +1,9 @@
+{
+  "parent": "mekanized:block/machine",
+  "textures": {
+    "sides": "mekanized:block/rotational_complex_side",
+    "front": "mekanized:block/rotational_complex_side",
+    "up": "mekanized:block/rotational_complex_top",
+    "down": "mekanized:block/rotational_complex_top"
+  }
+}

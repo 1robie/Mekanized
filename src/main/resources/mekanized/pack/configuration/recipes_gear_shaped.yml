@@ -1,0 +1,803 @@
+# Mekanized gear_shaped recipes for CraftEngine, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+recipes:
+  mekanized:atomic_disassembler:
+    type: shaped
+    pattern:
+    - AEA
+    - A#A
+    - ' I '
+    ingredients:
+      '#': '#mekanized:alloys/atomic'
+      A: '#mekanized:alloys/infused'
+      E: mekanized:energy_tablet
+      I: '#c:ingots/refined_obsidian'
+    result:
+      id: mekanized:atomic_disassembler
+      count: 1
+  mekanized:canteen:
+    type: shaped
+    pattern:
+    - ' I '
+    - I#I
+    - ' I '
+    ingredients:
+      '#': minecraft:bowl
+      I: '#c:ingots/tin'
+    result:
+      id: mekanized:canteen
+      count: 1
+  mekanized:configuration_card:
+    type: shaped
+    pattern:
+    - ' A '
+    - ACA
+    - ' A '
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      C: '#c:circuits/basic'
+    result:
+      id: mekanized:configuration_card
+      count: 1
+  mekanized:dictionary:
+    type: shaped
+    pattern:
+    - C
+    - '#'
+    ingredients:
+      '#': minecraft:book
+      C: '#c:circuits/basic'
+    result:
+      id: mekanized:dictionary
+      count: 1
+  mekanized:electric_bow:
+    type: shaped
+    pattern:
+    - '#A '
+    - '# E'
+    - '#A '
+    ingredients:
+      '#': minecraft:string
+      A: '#mekanized:alloys/infused'
+      E: mekanized:energy_tablet
+    result:
+      id: mekanized:electric_bow
+      count: 1
+  mekanized:flamethrower:
+    type: shaped
+    pattern:
+    - III
+    - ITS
+    - '#C#'
+    ingredients:
+      '#': '#c:ingots/bronze'
+      C: '#c:circuits/advanced'
+      I: '#c:ingots/tin'
+      S: minecraft:flint_and_steel
+      T: mekanized:basic_chemical_tank
+    result:
+      id: mekanized:flamethrower
+      count: 1
+  mekanized:free_runners:
+    type: shaped
+    pattern:
+    - C C
+    - A A
+    - E E
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      C: '#c:circuits/basic'
+      E: mekanized:energy_tablet
+    result:
+      id: mekanized:free_runners
+      count: 1
+  mekanized:free_runners_armored:
+    type: shaped
+    pattern:
+    - ' S '
+    - '#P#'
+    - I I
+    ingredients:
+      '#': '#c:dusts/diamond'
+      I: '#c:ingots/bronze'
+      P: mekanized:free_runners
+      S: '#c:storage_blocks/steel'
+    result:
+      id: mekanized:free_runners_armored
+      count: 1
+  mekanized:gauge_dropper:
+    type: shaped
+    pattern:
+    - ' O '
+    - G G
+    - GGG
+    ingredients:
+      G: minecraft:glass_pane
+      O: '#c:ingots/osmium'
+    result:
+      id: mekanized:gauge_dropper
+      count: 1
+  mekanized:hazmat_boots:
+    type: shaped
+    pattern:
+    - I I
+    - IDI
+    ingredients:
+      D: minecraft:black_dye
+      I: '#c:ingots/lead'
+    result:
+      id: mekanized:hazmat_boots
+      count: 1
+  mekanized:hazmat_gown:
+    type: shaped
+    pattern:
+    - IDI
+    - III
+    - III
+    ingredients:
+      D: minecraft:orange_dye
+      I: '#c:ingots/lead'
+    result:
+      id: mekanized:hazmat_gown
+      count: 1
+  mekanized:hazmat_mask:
+    type: shaped
+    pattern:
+    - III
+    - IDI
+    ingredients:
+      D: minecraft:orange_dye
+      I: '#c:ingots/lead'
+    result:
+      id: mekanized:hazmat_mask
+      count: 1
+  mekanized:hazmat_pants:
+    type: shaped
+    pattern:
+    - III
+    - IDI
+    - I I
+    ingredients:
+      D: minecraft:orange_dye
+      I: '#c:ingots/lead'
+    result:
+      id: mekanized:hazmat_pants
+      count: 1
+  mekanized:hdpe_elytra:
+    type: shaped
+    pattern:
+    - AHA
+    - HPH
+    - H H
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      H: mekanized:hdpe_sheet
+      P: minecraft:elytra
+    result:
+      id: mekanized:hdpe_elytra
+      count: 1
+  mekanized:jetpack:
+    type: shaped
+    pattern:
+    - SCS
+    - ITI
+    - ' I '
+    ingredients:
+      C: '#c:circuits/basic'
+      I: '#c:ingots/tin'
+      S: '#c:ingots/steel'
+      T: mekanized:basic_chemical_tank
+    result:
+      id: mekanized:jetpack
+      count: 1
+  mekanized:jetpack_armored:
+    type: shaped
+    pattern:
+    - '# #'
+    - ISI
+    - ' P '
+    ingredients:
+      '#': '#c:dusts/diamond'
+      I: '#c:ingots/bronze'
+      P: mekanized:jetpack
+      S: '#c:storage_blocks/steel'
+    result:
+      id: mekanized:jetpack_armored
+      count: 1
+  mekanized:meka_tool:
+    type: shaped
+    pattern:
+    - CoC
+    - P#P
+    - AEA
+    ingredients:
+      '#': mekanized:atomic_disassembler
+      A: '#c:pellets/polonium'
+      C: '#c:circuits/ultimate'
+      E: mekanized:basic_induction_cell
+      P: mekanized:hdpe_sheet
+      o: mekanized:configurator
+    result:
+      id: mekanized:meka_tool
+      count: 1
+  mekanized:mekasuit_bodyarmor:
+    type: shaped
+    pattern:
+    - PCP
+    - P#P
+    - AEA
+    ingredients:
+      '#': minecraft:netherite_chestplate
+      A: '#c:pellets/polonium'
+      C: '#c:circuits/ultimate'
+      E: mekanized:basic_induction_cell
+      P: mekanized:hdpe_sheet
+    result:
+      id: mekanized:mekasuit_bodyarmor
+      count: 1
+  mekanized:mekasuit_boots:
+    type: shaped
+    pattern:
+    - PCP
+    - P#P
+    - AEA
+    ingredients:
+      '#': minecraft:netherite_boots
+      A: '#c:pellets/polonium'
+      C: '#c:circuits/ultimate'
+      E: mekanized:basic_induction_cell
+      P: mekanized:hdpe_sheet
+    result:
+      id: mekanized:mekasuit_boots
+      count: 1
+  mekanized:mekasuit_helmet:
+    type: shaped
+    pattern:
+    - PCP
+    - P#P
+    - AEA
+    ingredients:
+      '#': minecraft:netherite_helmet
+      A: '#c:pellets/polonium'
+      C: '#c:circuits/ultimate'
+      E: mekanized:basic_induction_cell
+      P: mekanized:hdpe_sheet
+    result:
+      id: mekanized:mekasuit_helmet
+      count: 1
+  mekanized:mekasuit_pants:
+    type: shaped
+    pattern:
+    - PCP
+    - P#P
+    - AEA
+    ingredients:
+      '#': minecraft:netherite_leggings
+      A: '#c:pellets/polonium'
+      C: '#c:circuits/ultimate'
+      E: mekanized:basic_induction_cell
+      P: mekanized:hdpe_sheet
+    result:
+      id: mekanized:mekasuit_pants
+      count: 1
+  mekanized:module_attack_amplification_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - APA
+    - HHH
+    ingredients:
+      '#': minecraft:iron_sword
+      A: '#c:alloys/advanced'
+      H: mekanized:hdpe_sheet
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_attack_amplification_unit
+      count: 1
+  mekanized:module_base:
+    type: shaped
+    pattern:
+    - NIN
+    - I#I
+    - NIN
+    ingredients:
+      '#': mekanized:hdpe_sheet
+      I: '#c:ingots/tin'
+      N: '#c:nuggets/bronze'
+    result:
+      id: mekanized:module_base
+      count: 2
+  mekanized:module_blasting_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - CPC
+    - HHH
+    ingredients:
+      '#': minecraft:tnt
+      A: '#c:alloys/ultimate'
+      C: '#c:circuits/ultimate'
+      H: '#c:pellets/polonium'
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_blasting_unit
+      count: 1
+  mekanized:module_charge_distribution_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - APA
+    - HHH
+    ingredients:
+      '#': mekanized:basic_induction_provider
+      A: '#c:alloys/elite'
+      H: '#c:pellets/polonium'
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_charge_distribution_unit
+      count: 1
+  mekanized:module_electrolytic_breathing_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - APA
+    - HHH
+    ingredients:
+      '#': mekanized:electrolytic_core
+      A: '#c:alloys/advanced'
+      H: mekanized:hdpe_sheet
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_electrolytic_breathing_unit
+      count: 1
+  mekanized:module_elytra_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - APA
+    - HNH
+    ingredients:
+      '#': mekanized:hdpe_elytra
+      A: '#c:alloys/elite'
+      H: '#c:pellets/polonium'
+      N: '#c:pellets/antimatter'
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_elytra_unit
+      count: 1
+  mekanized:module_energy_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - APA
+    - HHH
+    ingredients:
+      '#': mekanized:basic_induction_cell
+      A: '#c:alloys/advanced'
+      H: mekanized:hdpe_sheet
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_energy_unit
+      count: 1
+  mekanized:module_excavation_escalation_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - APA
+    - HHH
+    ingredients:
+      '#': minecraft:iron_pickaxe
+      A: '#c:alloys/advanced'
+      H: mekanized:hdpe_sheet
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_excavation_escalation_unit
+      count: 1
+  mekanized:module_farming_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - APA
+    - HHH
+    ingredients:
+      '#': minecraft:iron_hoe
+      A: '#c:alloys/advanced'
+      H: mekanized:hdpe_sheet
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_farming_unit
+      count: 1
+  mekanized:module_fortune_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - DPD
+    - HHH
+    ingredients:
+      '#': '#c:storage_blocks/refined_glowstone'
+      A: '#c:alloys/elite'
+      D: minecraft:diamond_block
+      H: '#c:pellets/polonium'
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_fortune_unit
+      count: 1
+  mekanized:module_frost_walker_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - APA
+    - H#H
+    ingredients:
+      '#': minecraft:blue_ice
+      A: '#c:alloys/elite'
+      H: '#c:pellets/polonium'
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_frost_walker_unit
+      count: 1
+  mekanized:module_geothermal_generator_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - APA
+    - HHH
+    ingredients:
+      '#': mekanized:heat_generator
+      A: '#c:alloys/elite'
+      H: '#c:pellets/polonium'
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_geothermal_generator_unit
+      count: 1
+  mekanized:module_gravitational_modulating_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - EPE
+    - HHH
+    ingredients:
+      '#': minecraft:nether_star
+      A: '#c:alloys/ultimate'
+      E: mekanized:ultimate_induction_provider
+      H: '#c:pellets/antimatter'
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_gravitational_modulating_unit
+      count: 1
+  mekanized:module_gyroscopic_stabilization_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - '#P#'
+    - H#H
+    ingredients:
+      '#': minecraft:obsidian
+      A: '#c:alloys/elite'
+      H: '#c:pellets/polonium'
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_gyroscopic_stabilization_unit
+      count: 1
+  mekanized:module_hydraulic_propulsion_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - EPE
+    - HHH
+    ingredients:
+      '#':
+      - mekanized:free_runners
+      - mekanized:free_runners_armored
+      A: '#c:alloys/elite'
+      E: mekanized:energy_tablet
+      H: '#c:pellets/polonium'
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_hydraulic_propulsion_unit
+      count: 1
+  mekanized:module_hydrostatic_repulsor_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - APA
+    - HHH
+    ingredients:
+      '#': minecraft:lightning_rod
+      A: '#c:alloys/elite'
+      H: '#c:pellets/polonium'
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_hydrostatic_repulsor_unit
+      count: 1
+  mekanized:module_inhalation_purification_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - APA
+    - HoH
+    ingredients:
+      '#': mekanized:hazmat_mask
+      A: '#c:alloys/elite'
+      H: '#c:pellets/polonium'
+      P: mekanized:module_base
+      o: mekanized:scuba_mask
+    result:
+      id: mekanized:module_inhalation_purification_unit
+      count: 1
+  mekanized:module_jetpack_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - APA
+    - HHH
+    ingredients:
+      '#':
+      - mekanized:jetpack
+      - mekanized:jetpack_armored
+      A: '#c:alloys/elite'
+      H: '#c:pellets/polonium'
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_jetpack_unit
+      count: 1
+  mekanized:module_locomotive_boosting_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - EPE
+    - HHH
+    ingredients:
+      '#': minecraft:diamond_leggings
+      A: '#c:alloys/elite'
+      E: mekanized:energy_tablet
+      H: '#c:pellets/polonium'
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_locomotive_boosting_unit
+      count: 1
+  mekanized:module_magnetic_attraction_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - CPC
+    - HHH
+    ingredients:
+      '#': minecraft:iron_bars
+      A: '#c:alloys/elite'
+      C: '#c:circuits/elite'
+      H: '#c:pellets/polonium'
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_magnetic_attraction_unit
+      count: 1
+  mekanized:module_motorized_servo_unit:
+    type: shaped
+    pattern:
+    - ACA
+    - '#P#'
+    - HHH
+    ingredients:
+      '#': minecraft:blue_ice
+      A: '#c:alloys/elite'
+      C: '#c:circuits/elite'
+      H: '#c:pellets/polonium'
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_motorized_servo_unit
+      count: 1
+  mekanized:module_nutritional_injection_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - APA
+    - HHH
+    ingredients:
+      '#': mekanized:canteen
+      A: '#c:alloys/elite'
+      H: '#c:pellets/polonium'
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_nutritional_injection_unit
+      count: 1
+  mekanized:module_radiation_shielding_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - APA
+    - HHH
+    ingredients:
+      '#': '#c:storage_blocks/lead'
+      A: '#c:alloys/advanced'
+      H: mekanized:hdpe_sheet
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_radiation_shielding_unit
+      count: 1
+  mekanized:module_shearing_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - APA
+    - HHH
+    ingredients:
+      '#': minecraft:shears
+      A: '#c:alloys/advanced'
+      H: mekanized:hdpe_sheet
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_shearing_unit
+      count: 1
+  mekanized:module_silk_touch_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - DPD
+    - HHH
+    ingredients:
+      '#': '#c:storage_blocks/refined_glowstone'
+      A: '#c:alloys/elite'
+      D: minecraft:diamond_pickaxe
+      H: '#c:pellets/polonium'
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_silk_touch_unit
+      count: 1
+  mekanized:module_solar_recharging_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - APA
+    - HHH
+    ingredients:
+      '#': mekanized:advanced_solar_generator
+      A: '#c:alloys/elite'
+      H: '#c:pellets/polonium'
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_solar_recharging_unit
+      count: 1
+  mekanized:module_soul_surfer_unit:
+    type: shaped
+    pattern:
+    - ABA
+    - APA
+    - H#H
+    ingredients:
+      '#':
+      - mekanized:free_runners
+      - mekanized:free_runners_armored
+      A: '#c:alloys/elite'
+      B: '#minecraft:soul_fire_base_blocks'
+      H: '#c:pellets/polonium'
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_soul_surfer_unit
+      count: 1
+  mekanized:module_teleportation_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - APA
+    - HHH
+    ingredients:
+      '#': mekanized:teleportation_core
+      A: '#c:alloys/ultimate'
+      H: '#c:pellets/antimatter'
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_teleportation_unit
+      count: 1
+  mekanized:module_vein_mining_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - xPs
+    - HHH
+    ingredients:
+      '#': minecraft:diamond_pickaxe
+      A: '#c:alloys/elite'
+      H: '#c:pellets/polonium'
+      P: mekanized:module_base
+      s: minecraft:diamond_shovel
+      x: minecraft:diamond_axe
+    result:
+      id: mekanized:module_vein_mining_unit
+      count: 1
+  mekanized:module_vision_enhancement_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - APA
+    - HHH
+    ingredients:
+      '#': minecraft:emerald
+      A: '#c:alloys/elite'
+      H: '#c:pellets/polonium'
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_vision_enhancement_unit
+      count: 1
+  mekanized:network_reader:
+    type: shaped
+    pattern:
+    - ' G '
+    - AEA
+    - ' S '
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      E: mekanized:energy_tablet
+      G: minecraft:glass
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:network_reader
+      count: 1
+  mekanized:oredictionificator:
+    type: shaped
+    pattern:
+    - SGS
+    - CPC
+    - S#S
+    ingredients:
+      '#':
+      - minecraft:chest
+      - minecraft:trapped_chest
+      C: '#c:circuits/basic'
+      G: minecraft:glass_pane
+      P: mekanized:dictionary
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:oredictionificator
+      count: 1
+  mekanized:portable_qio_dashboard:
+    type: shaped
+    pattern:
+    - AAA
+    - A#A
+    - ATA
+    ingredients:
+      '#': mekanized:qio_dashboard
+      A: '#c:pellets/polonium'
+      T: mekanized:teleportation_core
+    result:
+      id: mekanized:portable_qio_dashboard
+      count: 1
+  mekanized:portable_teleporter:
+    type: shaped
+    pattern:
+    - ' E '
+    - CTC
+    - ' E '
+    ingredients:
+      C: '#c:circuits/basic'
+      E: mekanized:energy_tablet
+      T: mekanized:teleportation_core
+    result:
+      id: mekanized:portable_teleporter
+      count: 1
+  mekanized:scuba_mask:
+    type: shaped
+    pattern:
+    - ' S '
+    - GCG
+    - S S
+    ingredients:
+      C: '#c:circuits/basic'
+      G: minecraft:glass
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:scuba_mask
+      count: 1
+  mekanized:scuba_tank:
+    type: shaped
+    pattern:
+    - ' C '
+    - ATA
+    - SSS
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      C: '#c:circuits/basic'
+      S: '#c:ingots/steel'
+      T: mekanized:basic_chemical_tank
+    result:
+      id: mekanized:scuba_tank
+      count: 1

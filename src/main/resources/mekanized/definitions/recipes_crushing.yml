@@ -1,0 +1,2789 @@
+# Mekanized crushing recipes, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+# Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.
+# Durations are ticks; energy is Joules per tick. Phase 2 of MEKANIZED_PLAN.md.
+recipes:
+  mekanized:crushing/andesite/from_polished:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:polished_andesite
+      amount: 1
+    outputs:
+    - item: minecraft:andesite
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/andesite/slab_from_polished_slab:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:polished_andesite_slab
+      amount: 1
+    outputs:
+    - item: minecraft:andesite_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/andesite/stairs_from_polished_stairs:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:polished_andesite_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:andesite_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/apple:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:apple
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/baked_potato:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:baked_potato
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/bamboo:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:bamboo
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/berries:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:foods/berry
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/big_dripleaf:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:big_dripleaf
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/bread:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:bread
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/bush:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:bush
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/cactus_flower:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:cactus_flower
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/cake:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:cake
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 6
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/carved_pumpkin:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:carved_pumpkin
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/cookie:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:cookie
+      amount: 4
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 3
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/crimson_roots:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:crimson_roots
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/crops:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:poisonous_potato
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/crops_tags:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - any-of:
+      - item-tag: c:crops/carrot
+      - item-tag: c:crops/cactus
+      - item-tag: c:crops/potato
+      - item-tag: c:crops/wheat
+      - item-tag: c:crops/beetroot
+      - item-tag: c:crops/nether_wart
+      - item-tag: c:crops/cocoa_bean
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/dried_kelp:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:dried_kelp
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/dried_kelp_block:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:storage_blocks/dried_kelp
+      amount: 1
+    outputs:
+    - item: mekanized:block_bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/fern:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:fern
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/firefly_bush:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:firefly_bush
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/fungus:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - any-of:
+      - item: minecraft:crimson_fungus
+      - item: minecraft:warped_fungus
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/glow_lichen:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:glow_lichen
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/hanging_roots:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:hanging_roots
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/hay_block:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:storage_blocks/wheat
+      amount: 1
+    outputs:
+    - item: mekanized:block_bio_fuel
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/kelp:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:kelp
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/large_fern:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:large_fern
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 3
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/leaf_litter:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:leaf_litter
+      amount: 10
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/leaves:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: minecraft:leaves
+      amount: 10
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/lily_pad:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:lily_pad
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/mangrove_roots:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:mangrove_roots
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/melon:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:crops/melon
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 6
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/melon_slice:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:melon_slice
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/moss_block:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - any-of:
+      - item: minecraft:moss_block
+      - item: minecraft:pale_moss_block
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/moss_carpet:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - any-of:
+      - item: minecraft:moss_carpet
+      - item: minecraft:pale_moss_carpet
+      amount: 3
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/mushroom_blocks:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - any-of:
+      - item: minecraft:brown_mushroom_block
+      - item: minecraft:red_mushroom_block
+      - item: minecraft:mushroom_stem
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/mushrooms:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:mushrooms
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/nether_sprouts:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:nether_sprouts
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/nether_wart_block:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:nether_wart_block
+      amount: 1
+    outputs:
+    - item: mekanized:block_bio_fuel
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/pale_hanging_moss:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:pale_hanging_moss
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/pink_petals:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:pink_petals
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/pitcher_pod:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:pitcher_pod
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/pumpkin:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:crops/pumpkin
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 6
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/pumpkin_pie:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:pumpkin_pie
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 7
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/rotten_flesh:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:rotten_flesh
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/saplings:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: minecraft:saplings
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/sea_pickle:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:sea_pickle
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/seagrass:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:seagrass
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/seeds:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:seeds
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/short_grass:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - any-of:
+      - item: minecraft:short_dry_grass
+      - item: minecraft:short_grass
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/shroomlight:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:shroomlight
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/small_dripleaf:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:small_dripleaf
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/small_flowers:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: minecraft:small_flowers
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/spore_blossom:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:spore_blossom
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/sugar_cane:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:crops/sugar_cane
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/tall_flowers:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:flowers/tall
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/tall_grass:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - any-of:
+      - item: minecraft:tall_dry_grass
+      - item: minecraft:tall_grass
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/vines:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - any-of:
+      - item: minecraft:vine
+      - item: minecraft:twisting_vines
+      - item: minecraft:weeping_vines
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/warped_roots:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:warped_roots
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/warped_wart_block:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:warped_wart_block
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/biofuel/wildflowers:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:wildflowers
+      amount: 1
+    outputs:
+    - item: mekanized:bio_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/blackstone/bricks_to_cracked_bricks:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:polished_blackstone_bricks
+      amount: 1
+    outputs:
+    - item: minecraft:cracked_polished_blackstone_bricks
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/blackstone/chiseled_bricks_to_bricks:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:chiseled_polished_blackstone
+      amount: 1
+    outputs:
+    - item: minecraft:polished_blackstone_bricks
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/blackstone/from_cracked_bricks:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:cracked_polished_blackstone_bricks
+      amount: 1
+    outputs:
+    - item: minecraft:polished_blackstone
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/blackstone/from_polished:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:polished_blackstone
+      amount: 1
+    outputs:
+    - item: minecraft:blackstone
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/blackstone/polished_slabs_to_slabs:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:polished_blackstone_slab
+      amount: 1
+    outputs:
+    - item: minecraft:blackstone_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/blackstone/polished_stairs_to_stairs:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:polished_blackstone_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:blackstone_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/blackstone/polished_wall_to_wall:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:polished_blackstone_wall
+      amount: 1
+    outputs:
+    - item: minecraft:blackstone_wall
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/blaze_rod:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:rods/blaze
+      amount: 1
+    outputs:
+    - item: minecraft:blaze_powder
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/bone:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:bone
+      amount: 1
+    outputs:
+    - item: minecraft:bone_meal
+      amount: 6
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/bone_block:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:bone_block
+      amount: 1
+    outputs:
+    - item: minecraft:bone_meal
+      amount: 9
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/break_disc_5:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:music_disc_5
+      amount: 1
+    outputs:
+    - item: minecraft:disc_fragment_5
+      amount: 9
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/breeze_rod:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:rods/breeze
+      amount: 1
+    outputs:
+    - item: minecraft:wind_charge
+      amount: 6
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/charcoal_dust:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:charcoal
+      amount: 1
+    outputs:
+    - item: mekanized:dust_charcoal
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/chiseled_nether_bricks_to_nether_bricks:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:chiseled_nether_bricks
+      amount: 1
+    outputs:
+    - item: minecraft:nether_bricks
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/cobblestone_to_gravel:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/normal
+      amount: 1
+    outputs:
+    - item: minecraft:gravel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/deepslate/brick_slabs_to_tile:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:deepslate_brick_slab
+      amount: 1
+    outputs:
+    - item: minecraft:deepslate_tile_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/deepslate/brick_stairs_to_tile:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:deepslate_brick_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:deepslate_tile_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/deepslate/brick_wall_to_tile:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:deepslate_brick_wall
+      amount: 1
+    outputs:
+    - item: minecraft:deepslate_tile_wall
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/deepslate/bricks_to_cracked_bricks:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:deepslate_bricks
+      amount: 1
+    outputs:
+    - item: minecraft:cracked_deepslate_bricks
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/deepslate/cracked_bricks_to_tile:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:cracked_deepslate_bricks
+      amount: 1
+    outputs:
+    - item: minecraft:deepslate_tiles
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/deepslate/cracked_tile_to_chiseled:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:cracked_deepslate_tiles
+      amount: 1
+    outputs:
+    - item: minecraft:chiseled_deepslate
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/deepslate/from_chiseled:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:chiseled_deepslate
+      amount: 1
+    outputs:
+    - item: minecraft:deepslate
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/deepslate/polished_slabs_to_brick:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:polished_deepslate_slab
+      amount: 1
+    outputs:
+    - item: minecraft:deepslate_brick_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/deepslate/polished_stairs_to_brick:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:polished_deepslate_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:deepslate_brick_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/deepslate/polished_to_bricks:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:polished_deepslate
+      amount: 1
+    outputs:
+    - item: minecraft:deepslate_bricks
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/deepslate/polished_wall_to_brick:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:polished_deepslate_wall
+      amount: 1
+    outputs:
+    - item: minecraft:deepslate_brick_wall
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/deepslate/tile_slabs_to_cobbled:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:deepslate_tile_slab
+      amount: 1
+    outputs:
+    - item: minecraft:cobbled_deepslate_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/deepslate/tile_stairs_to_cobbled:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:deepslate_tile_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:cobbled_deepslate_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/deepslate/tile_to_cracked_tile:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:deepslate_tiles
+      amount: 1
+    outputs:
+    - item: minecraft:cracked_deepslate_tiles
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/deepslate/tile_wall_to_cobbled:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:deepslate_tile_wall
+      amount: 1
+    outputs:
+    - item: minecraft:cobbled_deepslate_wall
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/deepslate/to_cobbled:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:deepslate
+      amount: 1
+    outputs:
+    - item: minecraft:cobbled_deepslate
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/chiseled_copper:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_chiseled_copper
+      amount: 1
+    outputs:
+    - item: minecraft:chiseled_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/copper_bars:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_copper_bars
+      amount: 1
+    outputs:
+    - item: minecraft:copper_bars
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/copper_block:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_copper_block
+      amount: 1
+    outputs:
+    - item: minecraft:copper_block
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/copper_bulb:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_copper_bulb
+      amount: 1
+    outputs:
+    - item: minecraft:copper_bulb
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/copper_chain:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_copper_chain
+      amount: 1
+    outputs:
+    - item: minecraft:copper_chain
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/copper_chest:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_copper_chest
+      amount: 1
+    outputs:
+    - item: minecraft:copper_chest
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/copper_door:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_copper_door
+      amount: 1
+    outputs:
+    - item: minecraft:copper_door
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/copper_golem_statue:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_copper_golem_statue
+      amount: 1
+    outputs:
+    - item: minecraft:copper_golem_statue
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/copper_grate:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_copper_grate
+      amount: 1
+    outputs:
+    - item: minecraft:copper_grate
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/copper_lantern:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_copper_lantern
+      amount: 1
+    outputs:
+    - item: minecraft:copper_lantern
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/copper_trapdoor:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_copper_trapdoor
+      amount: 1
+    outputs:
+    - item: minecraft:copper_trapdoor
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/cut_copper:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_cut_copper
+      amount: 1
+    outputs:
+    - item: minecraft:cut_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/cut_copper_slab:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_cut_copper_slab
+      amount: 1
+    outputs:
+    - item: minecraft:cut_copper_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/cut_copper_stairs:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_cut_copper_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:cut_copper_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/exposed_chiseled_copper:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_exposed_chiseled_copper
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_chiseled_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/exposed_copper:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_exposed_copper
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/exposed_copper_bars:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_exposed_copper_bars
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_copper_bars
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/exposed_copper_bulb:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_exposed_copper_bulb
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_copper_bulb
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/exposed_copper_chain:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_exposed_copper_chain
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_copper_chain
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/exposed_copper_chest:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_exposed_copper_chest
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_copper_chest
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/exposed_copper_door:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_exposed_copper_door
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_copper_door
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/exposed_copper_golem_statue:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_exposed_copper_golem_statue
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_copper_golem_statue
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/exposed_copper_grate:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_exposed_copper_grate
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_copper_grate
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/exposed_copper_lantern:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_exposed_copper_lantern
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_copper_lantern
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/exposed_copper_trapdoor:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_exposed_copper_trapdoor
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_copper_trapdoor
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/exposed_cut_copper:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_exposed_cut_copper
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_cut_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/exposed_cut_copper_slab:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_exposed_cut_copper_slab
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_cut_copper_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/exposed_cut_copper_stairs:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_exposed_cut_copper_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_cut_copper_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/exposed_lightning_rod:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_exposed_lightning_rod
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_lightning_rod
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/lightning_rod:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_lightning_rod
+      amount: 1
+    outputs:
+    - item: minecraft:lightning_rod
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/oxidized_chiseled_copper:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_oxidized_chiseled_copper
+      amount: 1
+    outputs:
+    - item: minecraft:oxidized_chiseled_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/oxidized_copper:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_oxidized_copper
+      amount: 1
+    outputs:
+    - item: minecraft:oxidized_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/oxidized_copper_bars:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_oxidized_copper_bars
+      amount: 1
+    outputs:
+    - item: minecraft:oxidized_copper_bars
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/oxidized_copper_bulb:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_oxidized_copper_bulb
+      amount: 1
+    outputs:
+    - item: minecraft:oxidized_copper_bulb
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/oxidized_copper_chain:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_oxidized_copper_chain
+      amount: 1
+    outputs:
+    - item: minecraft:oxidized_copper_chain
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/oxidized_copper_chest:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_oxidized_copper_chest
+      amount: 1
+    outputs:
+    - item: minecraft:oxidized_copper_chest
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/oxidized_copper_door:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_oxidized_copper_door
+      amount: 1
+    outputs:
+    - item: minecraft:oxidized_copper_door
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/oxidized_copper_golem_statue:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_oxidized_copper_golem_statue
+      amount: 1
+    outputs:
+    - item: minecraft:oxidized_copper_golem_statue
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/oxidized_copper_grate:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_oxidized_copper_grate
+      amount: 1
+    outputs:
+    - item: minecraft:oxidized_copper_grate
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/oxidized_copper_lantern:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_oxidized_copper_lantern
+      amount: 1
+    outputs:
+    - item: minecraft:oxidized_copper_lantern
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/oxidized_copper_trapdoor:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_oxidized_copper_trapdoor
+      amount: 1
+    outputs:
+    - item: minecraft:oxidized_copper_trapdoor
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/oxidized_cut_copper:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_oxidized_cut_copper
+      amount: 1
+    outputs:
+    - item: minecraft:oxidized_cut_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/oxidized_cut_copper_slab:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_oxidized_cut_copper_slab
+      amount: 1
+    outputs:
+    - item: minecraft:oxidized_cut_copper_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/oxidized_cut_copper_stairs:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_oxidized_cut_copper_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:oxidized_cut_copper_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/oxidized_lightning_rod:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_oxidized_lightning_rod
+      amount: 1
+    outputs:
+    - item: minecraft:oxidized_lightning_rod
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/weathered_chiseled_copper:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_weathered_chiseled_copper
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_chiseled_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/weathered_copper:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_weathered_copper
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/weathered_copper_bars:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_weathered_copper_bars
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_copper_bars
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/weathered_copper_bulb:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_weathered_copper_bulb
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_copper_bulb
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/weathered_copper_chain:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_weathered_copper_chain
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_copper_chain
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/weathered_copper_chest:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_weathered_copper_chest
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_copper_chest
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/weathered_copper_door:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_weathered_copper_door
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_copper_door
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/weathered_copper_golem_statue:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_weathered_copper_golem_statue
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_copper_golem_statue
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/weathered_copper_grate:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_weathered_copper_grate
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_copper_grate
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/weathered_copper_lantern:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_weathered_copper_lantern
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_copper_lantern
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/weathered_copper_trapdoor:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_weathered_copper_trapdoor
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_copper_trapdoor
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/weathered_cut_copper:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_weathered_cut_copper
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_cut_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/weathered_cut_copper_slab:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_weathered_cut_copper_slab
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_cut_copper_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/weathered_cut_copper_stairs:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_weathered_cut_copper_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_cut_copper_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/dewax/weathered_lightning_rod:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:waxed_weathered_lightning_rod
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_lightning_rod
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/diorite/from_polished:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:polished_diorite
+      amount: 1
+    outputs:
+    - item: minecraft:diorite
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/diorite/slab_from_polished_slab:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:polished_diorite_slab
+      amount: 1
+    outputs:
+    - item: minecraft:diorite_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/diorite/stairs_from_polished_stairs:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:polished_diorite_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:diorite_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/flint_to_gunpowder:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:flint
+      amount: 1
+    outputs:
+    - item: minecraft:gunpowder
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/granite/from_polished:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:polished_granite
+      amount: 1
+    outputs:
+    - item: minecraft:granite
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/granite/slab_from_polished_slab:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:polished_granite_slab
+      amount: 1
+    outputs:
+    - item: minecraft:granite_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/granite/stairs_from_polished_stairs:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:polished_granite_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:granite_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/gravel_to_sand:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:gravels
+      amount: 1
+    outputs:
+    - item: minecraft:sand
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/honeycomb_from_block:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:honeycomb_block
+      amount: 1
+    outputs:
+    - item: minecraft:honeycomb
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/mud_bricks_to_packed:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:mud_bricks
+      amount: 1
+    outputs:
+    - item: minecraft:packed_mud
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/nether_bricks_to_cracked_nether_bricks:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:nether_bricks
+      amount: 1
+    outputs:
+    - item: minecraft:cracked_nether_bricks
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/obsidian_to_dust:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:obsidians/normal
+      amount: 1
+    outputs:
+    - item: mekanized:dust_obsidian
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/pointed_dripstone_from_block:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:dripstone_block
+      amount: 1
+    outputs:
+    - item: minecraft:pointed_dripstone
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/polished_or_smooth_basalt_to_basalt:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - any-of:
+      - item: minecraft:polished_basalt
+      - item: minecraft:smooth_basalt
+      amount: 1
+    outputs:
+    - item: minecraft:basalt
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/prismarine/shard_from_block:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:prismarine
+      amount: 1
+    outputs:
+    - item: minecraft:prismarine_shard
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/prismarine/shard_from_brick:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:prismarine_bricks
+      amount: 1
+    outputs:
+    - item: minecraft:prismarine_shard
+      amount: 9
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/prismarine/shard_from_brick_slabs:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:prismarine_brick_slab
+      amount: 2
+    outputs:
+    - item: minecraft:prismarine_shard
+      amount: 9
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/prismarine/shard_from_brick_stairs:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:prismarine_brick_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:prismarine_shard
+      amount: 9
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/prismarine/shard_from_slabs:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:prismarine_slab
+      amount: 1
+    outputs:
+    - item: minecraft:prismarine_shard
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/prismarine/shard_from_stairs:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:prismarine_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:prismarine_shard
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/prismarine/shard_from_wall:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:prismarine_wall
+      amount: 1
+    outputs:
+    - item: minecraft:prismarine_shard
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/purpur_block_from_pillar:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:purpur_pillar
+      amount: 1
+    outputs:
+    - item: minecraft:purpur_block
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/quartz/bricks_to_chiseled:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:quartz_bricks
+      amount: 1
+    outputs:
+    - item: minecraft:chiseled_quartz_block
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/quartz/chiseled_to_pillar:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:chiseled_quartz_block
+      amount: 1
+    outputs:
+    - item: minecraft:quartz_pillar
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/quartz/from_pillar:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:quartz_pillar
+      amount: 1
+    outputs:
+    - item: minecraft:quartz_block
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/quartz/slab_to_smooth_slab:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:quartz_slab
+      amount: 1
+    outputs:
+    - item: minecraft:smooth_quartz_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/quartz/smooth_to_bricks:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:smooth_quartz
+      amount: 1
+    outputs:
+    - item: minecraft:quartz_bricks
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/quartz/stairs_to_smooth_stairs:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:quartz_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:smooth_quartz_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/quartz/to_smooth_quartz:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:quartz_block
+      amount: 1
+    outputs:
+    - item: minecraft:smooth_quartz
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/red_sandstone_to_sand:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:sandstone/red_blocks
+      amount: 1
+    outputs:
+    - item: minecraft:red_sand
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/sandstone_to_sand:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:sandstone/uncolored_blocks
+      amount: 1
+    outputs:
+    - item: minecraft:sand
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/soul_soil_to_soul_sand:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:soul_soil
+      amount: 1
+    outputs:
+    - item: minecraft:soul_sand
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/stone/bricks_to_cracked_bricks:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:stone_bricks
+      amount: 1
+    outputs:
+    - item: minecraft:cracked_stone_bricks
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/stone/chiseled_bricks_to_bricks:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:chiseled_stone_bricks
+      amount: 1
+    outputs:
+    - item: minecraft:stone_bricks
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/stone/from_cracked_bricks:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:cracked_stone_bricks
+      amount: 1
+    outputs:
+    - item: minecraft:stone
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/stone/slabs_to_cobblestone_slabs:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:stone_slab
+      amount: 1
+    outputs:
+    - item: minecraft:cobblestone_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/stone/stairs_to_cobblestone_stairs:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:stone_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:cobblestone_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/stone/to_cobblestone:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:stone
+      amount: 1
+    outputs:
+    - item: minecraft:cobblestone
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/tuff/brick_slabs_to_polished:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:tuff_brick_slab
+      amount: 1
+    outputs:
+    - item: minecraft:polished_tuff_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/tuff/brick_stairs_to_polished:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:tuff_brick_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:polished_tuff_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/tuff/brick_wall_to_polished:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:tuff_brick_wall
+      amount: 1
+    outputs:
+    - item: minecraft:polished_tuff_wall
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/tuff/bricks_to_polished:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:tuff_bricks
+      amount: 1
+    outputs:
+    - item: minecraft:polished_tuff
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/tuff/chiseled_to_brick:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:chiseled_tuff
+      amount: 1
+    outputs:
+    - item: minecraft:tuff_bricks
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/tuff/from_polished:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:polished_tuff
+      amount: 1
+    outputs:
+    - item: minecraft:tuff
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/tuff/slab_to_brick:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:tuff_slab
+      amount: 1
+    outputs:
+    - item: minecraft:tuff_brick_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/tuff/slabs_from_polished:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:polished_tuff_slab
+      amount: 1
+    outputs:
+    - item: minecraft:tuff_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/tuff/stairs_from_polished:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:polished_tuff_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:tuff_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/tuff/stairs_to_brick:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:tuff_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:tuff_brick_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/tuff/to_chiseled:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:tuff
+      amount: 1
+    outputs:
+    - item: minecraft:chiseled_tuff
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/tuff/wall_from_polished:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:polished_tuff_wall
+      amount: 1
+    outputs:
+    - item: minecraft:tuff_wall
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/tuff/wall_to_brick:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:tuff_wall
+      amount: 1
+    outputs:
+    - item: minecraft:tuff_brick_wall
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:crushing/wool_to_string:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: minecraft:wool
+      amount: 1
+    outputs:
+    - item: minecraft:string
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/bronze/dust/from_ingot:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:ingots/bronze
+      amount: 1
+    outputs:
+    - item: mekanized:dust_bronze
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/coal/to_dust:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item: minecraft:coal
+      amount: 1
+    outputs:
+    - item: mekanized:dust_coal
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/copper/dirty_dust/from_clump:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: mekanized:clumps/copper
+      amount: 1
+    outputs:
+    - item: mekanized:dirty_dust_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/copper/dust/from_ingot:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:ingots/copper
+      amount: 1
+    outputs:
+    - item: mekanized:dust_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/diamond/to_dust:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:gems/diamond
+      amount: 1
+    outputs:
+    - item: mekanized:dust_diamond
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/emerald/to_dust:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:gems/emerald
+      amount: 1
+    outputs:
+    - item: mekanized:dust_emerald
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/fluorite/to_dust:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:gems/fluorite
+      amount: 1
+    outputs:
+    - item: mekanized:dust_fluorite
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/gold/dirty_dust/from_clump:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: mekanized:clumps/gold
+      amount: 1
+    outputs:
+    - item: mekanized:dirty_dust_gold
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/gold/dust/from_ingot:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:ingots/gold
+      amount: 1
+    outputs:
+    - item: mekanized:dust_gold
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/iron/dirty_dust/from_clump:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: mekanized:clumps/iron
+      amount: 1
+    outputs:
+    - item: mekanized:dirty_dust_iron
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/iron/dust/from_ingot:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:ingots/iron
+      amount: 1
+    outputs:
+    - item: mekanized:dust_iron
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/lapis_lazuli/to_dust:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:gems/lapis
+      amount: 1
+    outputs:
+    - item: mekanized:dust_lapis_lazuli
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/lead/dirty_dust/from_clump:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: mekanized:clumps/lead
+      amount: 1
+    outputs:
+    - item: mekanized:dirty_dust_lead
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/lead/dust/from_ingot:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:ingots/lead
+      amount: 1
+    outputs:
+    - item: mekanized:dust_lead
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/netherite/ancient_debris_to_dirty_scrap:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:ores/netherite_scrap
+      amount: 1
+    outputs:
+    - item: mekanized:dirty_netherite_scrap
+      amount: 3
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/netherite/ingot_to_dust:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:ingots/netherite
+      amount: 1
+    outputs:
+    - item: mekanized:dust_netherite
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/osmium/dirty_dust/from_clump:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: mekanized:clumps/osmium
+      amount: 1
+    outputs:
+    - item: mekanized:dirty_dust_osmium
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/osmium/dust/from_ingot:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:ingots/osmium
+      amount: 1
+    outputs:
+    - item: mekanized:dust_osmium
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/quartz/to_dust:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:gems/quartz
+      amount: 1
+    outputs:
+    - item: mekanized:dust_quartz
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/refined_glowstone/ingot_to_dust:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:ingots/refined_glowstone
+      amount: 1
+    outputs:
+    - item: minecraft:glowstone_dust
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/refined_obsidian/dust/from_ingot:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:ingots/refined_obsidian
+      amount: 1
+    outputs:
+    - item: mekanized:dust_refined_obsidian
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/steel/ingot_to_dust:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:ingots/steel
+      amount: 1
+    outputs:
+    - item: mekanized:dust_steel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/tin/dirty_dust/from_clump:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: mekanized:clumps/tin
+      amount: 1
+    outputs:
+    - item: mekanized:dirty_dust_tin
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/tin/dust/from_ingot:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:ingots/tin
+      amount: 1
+    outputs:
+    - item: mekanized:dust_tin
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/uranium/dirty_dust/from_clump:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: mekanized:clumps/uranium
+      amount: 1
+    outputs:
+    - item: mekanized:dirty_dust_uranium
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/uranium/dust/from_ingot:
+    type: mekanized:crushing
+    duration: 200
+    inputs:
+    - item-tag: c:ingots/uranium
+      amount: 1
+    outputs:
+    - item: mekanized:dust_uranium
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50

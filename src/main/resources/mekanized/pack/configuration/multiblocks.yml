@@ -1,0 +1,502 @@
+# Mekanized multiblocks: Dynamic Tank, Induction Matrix, Thermal Evaporation Plant (Phase 5a), based on Mekanism (MIT).
+items:
+  mekanized:dynamic_tank:
+    data:
+      item_name: <!i><lang:block.mekanized.dynamic_tank>
+    model: mekanized:block/dynamic_tank
+    behavior:
+      type: block_item
+      block: mekanized:dynamic_tank
+  mekanized:dynamic_valve:
+    data:
+      item_name: <!i><lang:block.mekanized.dynamic_valve>
+    model: mekanized:block/dynamic_valve
+    behavior:
+      type: block_item
+      block: mekanized:dynamic_valve
+  mekanized:structural_glass:
+    data:
+      item_name: <!i><lang:block.mekanized.structural_glass>
+    model: mekanized:block/structural_glass
+    behavior:
+      type: block_item
+      block: mekanized:structural_glass
+  mekanized:induction_casing:
+    data:
+      item_name: <!i><lang:block.mekanized.induction_casing>
+    model: mekanized:block/induction/casing
+    behavior:
+      type: block_item
+      block: mekanized:induction_casing
+  mekanized:induction_port:
+    data:
+      item_name: <!i><lang:block.mekanized.induction_port>
+    model: mekanized:block/induction/port
+    behavior:
+      type: block_item
+      block: mekanized:induction_port
+  mekanized:thermal_evaporation_block:
+    data:
+      item_name: <!i><lang:block.mekanized.thermal_evaporation_block>
+    model: mekanized:block/thermal_evaporation/block
+    behavior:
+      type: block_item
+      block: mekanized:thermal_evaporation_block
+  mekanized:thermal_evaporation_valve:
+    data:
+      item_name: <!i><lang:block.mekanized.thermal_evaporation_valve>
+    model: mekanized:block/thermal_evaporation/valve
+    behavior:
+      type: block_item
+      block: mekanized:thermal_evaporation_valve
+  mekanized:thermal_evaporation_controller:
+    data:
+      item_name: <!i><lang:block.mekanized.thermal_evaporation_controller>
+    model: mekanized:block/thermal_evaporation/controller
+    behavior:
+      type: block_item
+      block: mekanized:thermal_evaporation_controller
+  mekanized:basic_induction_cell:
+    data:
+      item_name: <!i><lang:block.mekanized.basic_induction_cell>
+    model: mekanized:block/induction/cell/basic
+    behavior:
+      type: block_item
+      block: mekanized:basic_induction_cell
+  mekanized:basic_induction_provider:
+    data:
+      item_name: <!i><lang:block.mekanized.basic_induction_provider>
+    model: mekanized:block/induction/provider/basic
+    behavior:
+      type: block_item
+      block: mekanized:basic_induction_provider
+  mekanized:advanced_induction_cell:
+    data:
+      item_name: <!i><lang:block.mekanized.advanced_induction_cell>
+    model: mekanized:block/induction/cell/advanced
+    behavior:
+      type: block_item
+      block: mekanized:advanced_induction_cell
+  mekanized:advanced_induction_provider:
+    data:
+      item_name: <!i><lang:block.mekanized.advanced_induction_provider>
+    model: mekanized:block/induction/provider/advanced
+    behavior:
+      type: block_item
+      block: mekanized:advanced_induction_provider
+  mekanized:elite_induction_cell:
+    data:
+      item_name: <!i><lang:block.mekanized.elite_induction_cell>
+    model: mekanized:block/induction/cell/elite
+    behavior:
+      type: block_item
+      block: mekanized:elite_induction_cell
+  mekanized:elite_induction_provider:
+    data:
+      item_name: <!i><lang:block.mekanized.elite_induction_provider>
+    model: mekanized:block/induction/provider/elite
+    behavior:
+      type: block_item
+      block: mekanized:elite_induction_provider
+  mekanized:ultimate_induction_cell:
+    data:
+      item_name: <!i><lang:block.mekanized.ultimate_induction_cell>
+    model: mekanized:block/induction/cell/ultimate
+    behavior:
+      type: block_item
+      block: mekanized:ultimate_induction_cell
+  mekanized:ultimate_induction_provider:
+    data:
+      item_name: <!i><lang:block.mekanized.ultimate_induction_provider>
+    model: mekanized:block/induction/provider/ultimate
+    behavior:
+      type: block_item
+      block: mekanized:ultimate_induction_provider
+blocks:
+  mekanized:dynamic_tank:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:dynamic_tank
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/dynamic_tank
+  mekanized:dynamic_valve:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:dynamic_valve
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/dynamic_valve
+  mekanized:structural_glass:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:structural_glass
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: tintable_leaves
+      model:
+        path: mekanized:block/structural_glass
+  mekanized:induction_casing:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:induction_casing
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/induction/casing
+  mekanized:induction_port:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:induction_port
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        active:
+          type: boolean
+          default: false
+      appearances:
+        active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/induction/port
+        active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/induction/port_output
+      variants:
+        active=false:
+          appearance: active_false
+        active=true:
+          appearance: active_true
+  mekanized:thermal_evaporation_block:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:thermal_evaporation_block
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/thermal_evaporation/block
+  mekanized:thermal_evaporation_valve:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:thermal_evaporation_valve
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/thermal_evaporation/valve
+  mekanized:thermal_evaporation_controller:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:thermal_evaporation_controller
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+        active:
+          type: boolean
+          default: false
+      appearances:
+        facing_north_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/thermal_evaporation/controller
+        facing_south_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/thermal_evaporation/controller
+            y: 180
+        facing_east_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/thermal_evaporation/controller
+            y: 90
+        facing_west_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/thermal_evaporation/controller
+            y: 270
+        facing_north_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/thermal_evaporation/controller_active
+        facing_south_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/thermal_evaporation/controller_active
+            y: 180
+        facing_east_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/thermal_evaporation/controller_active
+            y: 90
+        facing_west_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/thermal_evaporation/controller_active
+            y: 270
+      variants:
+        facing=north,active=false:
+          appearance: facing_north_active_false
+        facing=south,active=false:
+          appearance: facing_south_active_false
+        facing=east,active=false:
+          appearance: facing_east_active_false
+        facing=west,active=false:
+          appearance: facing_west_active_false
+        facing=north,active=true:
+          appearance: facing_north_active_true
+        facing=south,active=true:
+          appearance: facing_south_active_true
+        facing=east,active=true:
+          appearance: facing_east_active_true
+        facing=west,active=true:
+          appearance: facing_west_active_true
+  mekanized:basic_induction_cell:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/induction/cell/basic
+  mekanized:basic_induction_provider:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/induction/provider/basic
+  mekanized:advanced_induction_cell:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/induction/cell/advanced
+  mekanized:advanced_induction_provider:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/induction/provider/advanced
+  mekanized:elite_induction_cell:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/induction/cell/elite
+  mekanized:elite_induction_provider:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/induction/provider/elite
+  mekanized:ultimate_induction_cell:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/induction/cell/ultimate
+  mekanized:ultimate_induction_provider:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/induction/provider/ultimate

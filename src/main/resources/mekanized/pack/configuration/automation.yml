@@ -1,0 +1,415 @@
+# Mekanized Digital Miner, seismic vibrator, teleporter, QIO and the cardboard box (Phase 6 wave 4), based on Mekanism (MIT).
+items:
+  mekanized:display/digital_miner:
+    model: mekanized:block/digital_miner
+  mekanized:digital_miner:
+    data:
+      item_name: <!i><lang:block.mekanized.digital_miner>
+    model: mekanized:block/digital_miner
+    behavior:
+      type: block_item
+      block: mekanized:digital_miner
+  mekanized:display/seismic_vibrator:
+    model: mekanized:block/seismic_vibrator
+  mekanized:seismic_vibrator:
+    data:
+      item_name: <!i><lang:block.mekanized.seismic_vibrator>
+    model: mekanized:item/seismic_vibrator
+    behavior:
+      type: block_item
+      block: mekanized:seismic_vibrator
+  mekanized:teleporter:
+    data:
+      item_name: <!i><lang:block.mekanized.teleporter>
+    model: mekanized:block/teleporter
+    behavior:
+      type: block_item
+      block: mekanized:teleporter
+  mekanized:teleporter_frame:
+    data:
+      item_name: <!i><lang:block.mekanized.teleporter_frame>
+    model: mekanized:block/teleporter_frame
+    behavior:
+      type: block_item
+      block: mekanized:teleporter_frame
+  mekanized:display/qio_drive_array:
+    model: mekanized:block/qio_drive_array_offline
+  mekanized:qio_drive_array:
+    data:
+      item_name: <!i><lang:block.mekanized.qio_drive_array>
+    model: mekanized:block/qio_drive_array_offline
+    behavior:
+      type: block_item
+      block: mekanized:qio_drive_array
+  mekanized:display/qio_dashboard:
+    model: mekanized:block/qio_dashboard_offline
+  mekanized:display/qio_dashboard/active:
+    model: mekanized:block/qio_dashboard
+  mekanized:qio_dashboard:
+    data:
+      item_name: <!i><lang:block.mekanized.qio_dashboard>
+    model: mekanized:block/qio_dashboard
+    behavior:
+      type: block_item
+      block: mekanized:qio_dashboard
+  mekanized:display/qio_importer:
+    model: mekanized:block/qio_importer_offline
+  mekanized:display/qio_importer/active:
+    model: mekanized:block/qio_importer
+  mekanized:qio_importer:
+    data:
+      item_name: <!i><lang:block.mekanized.qio_importer>
+    model: mekanized:block/qio_importer
+    behavior:
+      type: block_item
+      block: mekanized:qio_importer
+  mekanized:display/qio_exporter:
+    model: mekanized:block/qio_exporter_offline
+  mekanized:display/qio_exporter/active:
+    model: mekanized:block/qio_exporter
+  mekanized:qio_exporter:
+    data:
+      item_name: <!i><lang:block.mekanized.qio_exporter>
+    model: mekanized:block/qio_exporter
+    behavior:
+      type: block_item
+      block: mekanized:qio_exporter
+  mekanized:cardboard_box:
+    data:
+      item_name: <!i><lang:block.mekanized.cardboard_box>
+    model: mekanized:block/cardboard_box
+  mekanized:teleportation_core:
+    data:
+      item_name: <!i><lang:item.mekanized.teleportation_core>
+    model: mekanized:item/teleportation_core
+  mekanized:robit:
+    data:
+      item_name: <!i><lang:item.mekanized.robit>
+    model: mekanized:item/robit_transforms
+  mekanized:seismic_reader:
+    data:
+      item_name: <!i><lang:item.mekanized.seismic_reader>
+    model: mekanized:item/seismic_reader
+  mekanized:qio_drive_base:
+    data:
+      item_name: <!i><lang:item.mekanized.qio_drive_base>
+    model: mekanized:item/qio_drive_base
+  mekanized:qio_drive_hyper_dense:
+    data:
+      item_name: <!i><lang:item.mekanized.qio_drive_hyper_dense>
+    model: mekanized:item/qio_drive_hyper_dense
+  mekanized:qio_drive_time_dilating:
+    data:
+      item_name: <!i><lang:item.mekanized.qio_drive_time_dilating>
+    model: mekanized:item/qio_drive_time_dilating
+  mekanized:qio_drive_supermassive:
+    data:
+      item_name: <!i><lang:item.mekanized.qio_drive_supermassive>
+    model: mekanized:item/qio_drive_supermassive
+  mekanized:cardboard_box_storage:
+    data:
+      item_name: <!i><lang:block.mekanized.cardboard_box>
+    model: mekanized:block/cardboard_box_storage
+blocks:
+  mekanized:digital_miner:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:digital_miner
+      keep_contents: true
+      display_item: mekanized:display/digital_miner
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_models_digital_miner
+          model:
+            path: mekanized:block/display_empty/shared/p_block_models_digital_miner
+      variants:
+        facing=east:
+          appearance: default
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:seismic_vibrator:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:seismic_vibrator
+      keep_contents: true
+      display_item: mekanized:display/seismic_vibrator
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_models_seismic_vibrator_1
+          model:
+            path: mekanized:block/display_empty/shared/p_block_models_seismic_vibrator_1
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:teleporter:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:teleporter
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/teleporter
+  mekanized:teleporter_frame:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:teleporter_frame
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/teleporter_frame
+  mekanized:qio_drive_array:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:qio_drive_array
+      keep_contents: true
+      display_item: mekanized:display/qio_drive_array
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_qio_drive_array_top
+          model:
+            path: mekanized:block/display_empty/shared/p_block_qio_drive_array_top
+      variants:
+        facing=east:
+          appearance: default
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:qio_dashboard:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:qio_dashboard
+      keep_contents: true
+      display_item: mekanized:display/qio_dashboard
+      display_rotations: north=90/0,south=90/180,east=90/90,west=90/270,up=0/0,down=180/0
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 6-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_models_qio_dashboard
+          model:
+            path: mekanized:block/display_empty/shared/p_block_models_qio_dashboard
+      variants:
+        facing=up:
+          appearance: default
+        facing=down:
+          appearance: default
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:qio_importer:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:qio_importer
+      keep_contents: true
+      display_item: mekanized:display/qio_importer
+      display_rotation: 180
+      display_rotations: north=270/180,south=270/0,east=270/270,west=270/90,up=0/0,down=180/0
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 6-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_models_qio_bus
+          model:
+            path: mekanized:block/display_empty/shared/p_block_models_qio_bus
+      variants:
+        facing=up:
+          appearance: default
+        facing=down:
+          appearance: default
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:qio_exporter:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:qio_exporter
+      keep_contents: true
+      display_item: mekanized:display/qio_exporter
+      display_rotation: 180
+      display_rotations: north=270/180,south=270/0,east=270/270,west=270/90,up=0/0,down=180/0
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 6-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_models_qio_bus
+          model:
+            path: mekanized:block/display_empty/shared/p_block_models_qio_bus
+      variants:
+        facing=up:
+          appearance: default
+        facing=down:
+          appearance: default
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default

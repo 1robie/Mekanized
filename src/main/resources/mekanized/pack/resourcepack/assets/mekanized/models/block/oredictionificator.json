@@ -1,0 +1,12 @@
+{
+  "parent": "mekanized:block/machine",
+  "textures": {
+    "sides": "mekanized:block/oredictionificator/right",
+    "front": "mekanized:block/oredictionificator/front",
+    "west": "mekanized:block/oredictionificator/right",
+    "east": "mekanized:block/oredictionificator/left",
+    "south": "mekanized:block/oredictionificator/back",
+    "up": "mekanized:block/oredictionificator/top",
+    "down": "mekanized:block/oredictionificator/bottom"
+  }
+}

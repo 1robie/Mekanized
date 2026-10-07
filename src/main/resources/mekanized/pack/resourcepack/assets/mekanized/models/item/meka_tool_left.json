@@ -1,0 +1,22 @@
+{
+    "loader": "neoforge:obj",
+    "model": "mekanized:models/entity/mekatool_left.obj",
+    "flip_v": true,
+    "textures": {
+        "mekasuit_armor_body": "mekanized:entity/armor/mekasuit_armor_body",
+        "leds": "mekanized:item/leds",
+        "mekasuit_armor_exoskeleton": "mekanized:entity/armor/mekasuit_armor_exoskeleton",
+        "mekatool": "mekanized:entity/armor/mekatool",
+        "particle": "mekanized:block/block_steel"
+    },
+    "display": {
+        "firstperson_lefthand": {
+            "rotation": [ 90, 0, 0 ],
+            "translation": [ -15, -3, 0 ]
+        },
+        "thirdperson_lefthand": {
+            "rotation": [ 90, 0, 0 ],
+            "translation": [ -15.5, -10, -4 ]
+        }
+    }
+}

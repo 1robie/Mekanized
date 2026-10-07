@@ -1,0 +1,1064 @@
+# Mekanized bins, personal storage, chargepad, plenisher, assemblicator, lasers (Phase 6), based on Mekanism (MIT).
+items:
+  mekanized:basic_bin:
+    data:
+      item_name: <!i><lang:block.mekanized.basic_bin>
+    model: mekanized:block/bin/basic
+    behavior:
+      type: block_item
+      block: mekanized:basic_bin
+  mekanized:advanced_bin:
+    data:
+      item_name: <!i><lang:block.mekanized.advanced_bin>
+    model: mekanized:block/bin/advanced
+    behavior:
+      type: block_item
+      block: mekanized:advanced_bin
+  mekanized:elite_bin:
+    data:
+      item_name: <!i><lang:block.mekanized.elite_bin>
+    model: mekanized:block/bin/elite
+    behavior:
+      type: block_item
+      block: mekanized:elite_bin
+  mekanized:ultimate_bin:
+    data:
+      item_name: <!i><lang:block.mekanized.ultimate_bin>
+    model: mekanized:block/bin/ultimate
+    behavior:
+      type: block_item
+      block: mekanized:ultimate_bin
+  mekanized:creative_bin:
+    data:
+      item_name: <!i><lang:block.mekanized.creative_bin>
+    model: mekanized:block/bin/creative
+    behavior:
+      type: block_item
+      block: mekanized:creative_bin
+  mekanized:display/personal_chest:
+    model: mekanized:block/personal_chest
+  mekanized:personal_chest:
+    data:
+      item_name: <!i><lang:block.mekanized.personal_chest>
+    model: mekanized:item/personal_chest
+    behavior:
+      type: block_item
+      block: mekanized:personal_chest
+    settings:
+      tags:
+      - mekanized:personal_storage
+  mekanized:personal_barrel:
+    data:
+      item_name: <!i><lang:block.mekanized.personal_barrel>
+    model: mekanized:block/personal_barrel
+    behavior:
+      type: block_item
+      block: mekanized:personal_barrel
+    settings:
+      tags:
+      - mekanized:personal_storage
+  mekanized:display/chargepad:
+    model: mekanized:block/chargepad
+  mekanized:chargepad:
+    data:
+      item_name: <!i><lang:block.mekanized.chargepad>
+    model: mekanized:block/chargepad
+    behavior:
+      type: block_item
+      block: mekanized:chargepad
+  mekanized:display/fluidic_plenisher:
+    model: mekanized:block/fluidic_plenisher
+  mekanized:fluidic_plenisher:
+    data:
+      item_name: <!i><lang:block.mekanized.fluidic_plenisher>
+    model: mekanized:block/fluidic_plenisher
+    behavior:
+      type: block_item
+      block: mekanized:fluidic_plenisher
+  mekanized:formulaic_assemblicator:
+    data:
+      item_name: <!i><lang:block.mekanized.formulaic_assemblicator>
+    model: mekanized:block/formulaic_assemblicator
+    behavior:
+      type: block_item
+      block: mekanized:formulaic_assemblicator
+  mekanized:display/laser:
+    model: mekanized:block/laser
+  mekanized:laser:
+    data:
+      item_name: <!i><lang:block.mekanized.laser>
+    model: mekanized:block/laser
+    behavior:
+      type: block_item
+      block: mekanized:laser
+  mekanized:display/laser_amplifier:
+    model: mekanized:block/laser_amplifier
+  mekanized:laser_amplifier:
+    data:
+      item_name: <!i><lang:block.mekanized.laser_amplifier>
+    model: mekanized:block/laser_amplifier
+    behavior:
+      type: block_item
+      block: mekanized:laser_amplifier
+  mekanized:display/laser_tractor_beam:
+    model: mekanized:block/laser_tractor_beam
+  mekanized:laser_tractor_beam:
+    data:
+      item_name: <!i><lang:block.mekanized.laser_tractor_beam>
+    model: mekanized:block/laser_tractor_beam
+    behavior:
+      type: block_item
+      block: mekanized:laser_tractor_beam
+  mekanized:oredictionificator:
+    data:
+      item_name: <!i><lang:block.mekanized.oredictionificator>
+    model: mekanized:block/oredictionificator
+    behavior:
+      type: block_item
+      block: mekanized:oredictionificator
+  mekanized:display/industrial_alarm:
+    model: mekanized:block/industrial_alarm
+  mekanized:display/industrial_alarm/active:
+    model: mekanized:block/industrial_alarm_active
+  mekanized:industrial_alarm:
+    data:
+      item_name: <!i><lang:block.mekanized.industrial_alarm>
+    model: mekanized:block/industrial_alarm
+    behavior:
+      type: block_item
+      block: mekanized:industrial_alarm
+blocks:
+  mekanized:basic_bin:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:basic_bin
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+        active:
+          type: boolean
+          default: false
+      appearances:
+        facing_north_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/basic
+        facing_south_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/basic
+            y: 180
+        facing_east_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/basic
+            y: 90
+        facing_west_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/basic
+            y: 270
+        facing_north_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/active/basic
+        facing_south_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/active/basic
+            y: 180
+        facing_east_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/active/basic
+            y: 90
+        facing_west_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/active/basic
+            y: 270
+      variants:
+        facing=north,active=false:
+          appearance: facing_north_active_false
+        facing=south,active=false:
+          appearance: facing_south_active_false
+        facing=east,active=false:
+          appearance: facing_east_active_false
+        facing=west,active=false:
+          appearance: facing_west_active_false
+        facing=north,active=true:
+          appearance: facing_north_active_true
+        facing=south,active=true:
+          appearance: facing_south_active_true
+        facing=east,active=true:
+          appearance: facing_east_active_true
+        facing=west,active=true:
+          appearance: facing_west_active_true
+  mekanized:advanced_bin:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:advanced_bin
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+        active:
+          type: boolean
+          default: false
+      appearances:
+        facing_north_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/advanced
+        facing_south_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/advanced
+            y: 180
+        facing_east_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/advanced
+            y: 90
+        facing_west_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/advanced
+            y: 270
+        facing_north_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/active/advanced
+        facing_south_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/active/advanced
+            y: 180
+        facing_east_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/active/advanced
+            y: 90
+        facing_west_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/active/advanced
+            y: 270
+      variants:
+        facing=north,active=false:
+          appearance: facing_north_active_false
+        facing=south,active=false:
+          appearance: facing_south_active_false
+        facing=east,active=false:
+          appearance: facing_east_active_false
+        facing=west,active=false:
+          appearance: facing_west_active_false
+        facing=north,active=true:
+          appearance: facing_north_active_true
+        facing=south,active=true:
+          appearance: facing_south_active_true
+        facing=east,active=true:
+          appearance: facing_east_active_true
+        facing=west,active=true:
+          appearance: facing_west_active_true
+  mekanized:elite_bin:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:elite_bin
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+        active:
+          type: boolean
+          default: false
+      appearances:
+        facing_north_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/elite
+        facing_south_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/elite
+            y: 180
+        facing_east_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/elite
+            y: 90
+        facing_west_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/elite
+            y: 270
+        facing_north_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/active/elite
+        facing_south_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/active/elite
+            y: 180
+        facing_east_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/active/elite
+            y: 90
+        facing_west_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/active/elite
+            y: 270
+      variants:
+        facing=north,active=false:
+          appearance: facing_north_active_false
+        facing=south,active=false:
+          appearance: facing_south_active_false
+        facing=east,active=false:
+          appearance: facing_east_active_false
+        facing=west,active=false:
+          appearance: facing_west_active_false
+        facing=north,active=true:
+          appearance: facing_north_active_true
+        facing=south,active=true:
+          appearance: facing_south_active_true
+        facing=east,active=true:
+          appearance: facing_east_active_true
+        facing=west,active=true:
+          appearance: facing_west_active_true
+  mekanized:ultimate_bin:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:ultimate_bin
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+        active:
+          type: boolean
+          default: false
+      appearances:
+        facing_north_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/ultimate
+        facing_south_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/ultimate
+            y: 180
+        facing_east_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/ultimate
+            y: 90
+        facing_west_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/ultimate
+            y: 270
+        facing_north_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/active/ultimate
+        facing_south_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/active/ultimate
+            y: 180
+        facing_east_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/active/ultimate
+            y: 90
+        facing_west_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/active/ultimate
+            y: 270
+      variants:
+        facing=north,active=false:
+          appearance: facing_north_active_false
+        facing=south,active=false:
+          appearance: facing_south_active_false
+        facing=east,active=false:
+          appearance: facing_east_active_false
+        facing=west,active=false:
+          appearance: facing_west_active_false
+        facing=north,active=true:
+          appearance: facing_north_active_true
+        facing=south,active=true:
+          appearance: facing_south_active_true
+        facing=east,active=true:
+          appearance: facing_east_active_true
+        facing=west,active=true:
+          appearance: facing_west_active_true
+  mekanized:creative_bin:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:creative_bin
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+        active:
+          type: boolean
+          default: false
+      appearances:
+        facing_north_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/creative
+        facing_south_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/creative
+            y: 180
+        facing_east_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/creative
+            y: 90
+        facing_west_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/creative
+            y: 270
+        facing_north_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/active/creative
+        facing_south_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/active/creative
+            y: 180
+        facing_east_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/active/creative
+            y: 90
+        facing_west_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/bin/active/creative
+            y: 270
+      variants:
+        facing=north,active=false:
+          appearance: facing_north_active_false
+        facing=south,active=false:
+          appearance: facing_south_active_false
+        facing=east,active=false:
+          appearance: facing_east_active_false
+        facing=west,active=false:
+          appearance: facing_west_active_false
+        facing=north,active=true:
+          appearance: facing_north_active_true
+        facing=south,active=true:
+          appearance: facing_south_active_true
+        facing=east,active=true:
+          appearance: facing_east_active_true
+        facing=west,active=true:
+          appearance: facing_west_active_true
+  mekanized:personal_chest:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:personal_chest
+      keep_contents: true
+      display_item: mekanized:display/personal_chest
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_steel_casing
+          model:
+            path: mekanized:block/display_empty/shared/p_block_steel_casing
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:personal_barrel:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:personal_barrel
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 6-direction
+          default: north
+        open:
+          type: boolean
+          default: false
+      appearances:
+        facing_down_open_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/personal_barrel
+            x: 180
+        facing_down_open_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/personal_barrel_open
+            x: 180
+        facing_east_open_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/personal_barrel
+            x: 90
+            y: 90
+        facing_east_open_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/personal_barrel_open
+            x: 90
+            y: 90
+        facing_north_open_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/personal_barrel
+            x: 90
+        facing_north_open_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/personal_barrel_open
+            x: 90
+        facing_south_open_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/personal_barrel
+            x: 90
+            y: 180
+        facing_south_open_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/personal_barrel_open
+            x: 90
+            y: 180
+        facing_up_open_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/personal_barrel
+        facing_up_open_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/personal_barrel_open
+        facing_west_open_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/personal_barrel
+            x: 90
+            y: 270
+        facing_west_open_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/personal_barrel_open
+            x: 90
+            y: 270
+      variants:
+        facing=down,open=false:
+          appearance: facing_down_open_false
+        facing=down,open=true:
+          appearance: facing_down_open_true
+        facing=east,open=false:
+          appearance: facing_east_open_false
+        facing=east,open=true:
+          appearance: facing_east_open_true
+        facing=north,open=false:
+          appearance: facing_north_open_false
+        facing=north,open=true:
+          appearance: facing_north_open_true
+        facing=south,open=false:
+          appearance: facing_south_open_false
+        facing=south,open=true:
+          appearance: facing_south_open_true
+        facing=up,open=false:
+          appearance: facing_up_open_false
+        facing=up,open=true:
+          appearance: facing_up_open_true
+        facing=west,open=false:
+          appearance: facing_west_open_false
+        facing=west,open=true:
+          appearance: facing_west_open_true
+  mekanized:chargepad:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:chargepad
+      keep_contents: true
+      display_item: mekanized:display/chargepad
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state: pressure_plate
+          model:
+            path: mekanized:block/display_empty/chargepad
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:fluidic_plenisher:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:fluidic_plenisher
+      keep_contents: true
+      display_item: mekanized:display/fluidic_plenisher
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_models_fluidic_plenisher
+          model:
+            path: mekanized:block/display_empty/shared/p_block_models_fluidic_plenisher
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:formulaic_assemblicator:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:formulaic_assemblicator
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        facing_north:
+          auto_state: solid
+          model:
+            path: mekanized:block/formulaic_assemblicator
+        facing_south:
+          auto_state: solid
+          model:
+            path: mekanized:block/formulaic_assemblicator
+            y: 180
+        facing_east:
+          auto_state: solid
+          model:
+            path: mekanized:block/formulaic_assemblicator
+            y: 90
+        facing_west:
+          auto_state: solid
+          model:
+            path: mekanized:block/formulaic_assemblicator
+            y: 270
+      variants:
+        facing=north:
+          appearance: facing_north
+        facing=south:
+          appearance: facing_south
+        facing=east:
+          appearance: facing_east
+        facing=west:
+          appearance: facing_west
+  mekanized:laser:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:laser
+      keep_contents: true
+      display_item: mekanized:display/laser
+      display_rotation: 180
+      display_rotations: north=270/180,south=270/0,east=270/270,west=270/90,up=0/0,down=180/0
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 6-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_steel_casing
+          model:
+            path: mekanized:block/display_empty/shared/p_block_steel_casing
+      variants:
+        facing=up:
+          appearance: default
+        facing=down:
+          appearance: default
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:laser_amplifier:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:laser_amplifier
+      keep_contents: true
+      display_item: mekanized:display/laser_amplifier
+      display_rotation: 180
+      display_rotations: north=270/180,south=270/0,east=270/270,west=270/90,up=0/0,down=180/0
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 6-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_models_laser_device_frame
+          model:
+            path: mekanized:block/display_empty/shared/p_block_models_laser_device_frame
+      variants:
+        facing=up:
+          appearance: default
+        facing=down:
+          appearance: default
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:laser_tractor_beam:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:laser_tractor_beam
+      keep_contents: true
+      display_item: mekanized:display/laser_tractor_beam
+      display_rotation: 180
+      display_rotations: north=270/180,south=270/0,east=270/270,west=270/90,up=0/0,down=180/0
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 6-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_models_laser_device_frame
+          model:
+            path: mekanized:block/display_empty/shared/p_block_models_laser_device_frame
+      variants:
+        facing=up:
+          appearance: default
+        facing=down:
+          appearance: default
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:oredictionificator:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:oredictionificator
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        facing_north:
+          auto_state: solid
+          model:
+            path: mekanized:block/oredictionificator
+        facing_south:
+          auto_state: solid
+          model:
+            path: mekanized:block/oredictionificator
+            y: 180
+        facing_east:
+          auto_state: solid
+          model:
+            path: mekanized:block/oredictionificator
+            y: 90
+        facing_west:
+          auto_state: solid
+          model:
+            path: mekanized:block/oredictionificator
+            y: 270
+      variants:
+        facing=north:
+          appearance: facing_north
+        facing=south:
+          appearance: facing_south
+        facing=east:
+          appearance: facing_east
+        facing=west:
+          appearance: facing_west
+  mekanized:industrial_alarm:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:industrial_alarm
+      keep_contents: true
+      display_item: mekanized:display/industrial_alarm
+      display_rotations: north=90/0,south=90/180,east=90/90,west=90/270,up=0/0,down=180/0
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 6-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_steel_casing
+          model:
+            path: mekanized:block/display_empty/shared/p_block_steel_casing
+      variants:
+        facing=up:
+          appearance: default
+        facing=down:
+          appearance: default
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default

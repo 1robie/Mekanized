@@ -1,0 +1,7 @@
+{
+    "parent": "mekanized:block/template/cube_all_led",
+    "textures": {
+        "all": "mekanized:block/induction_port",
+        "led": "mekanized:block/induction_port_led"
+    }
+}

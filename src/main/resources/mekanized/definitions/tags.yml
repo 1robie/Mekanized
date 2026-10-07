@@ -1,0 +1,776 @@
+# Mekanized item and chemical tags, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+# "#name" entries include another tag.
+item-tags:
+  c:alloys:
+  - '#c:alloys/advanced'
+  - '#c:alloys/elite'
+  - '#c:alloys/ultimate'
+  c:alloys/advanced:
+  - mekanized:alloy_infused
+  c:alloys/elite:
+  - mekanized:alloy_reinforced
+  c:alloys/ultimate:
+  - mekanized:alloy_atomic
+  c:buckets/bioethanol:
+  - mekanized:bioethanol_bucket
+  c:buckets/brine:
+  - mekanized:brine_bucket
+  c:buckets/chlorine:
+  - mekanized:chlorine_bucket
+  c:buckets/deuterium:
+  - mekanized:deuterium_bucket
+  c:buckets/ethene:
+  - mekanized:ethene_bucket
+  c:buckets/fusion_fuel:
+  - mekanized:fusion_fuel_bucket
+  c:buckets/heavy_water:
+  - mekanized:heavy_water_bucket
+  c:buckets/hydrofluoric_acid:
+  - mekanized:hydrofluoric_acid_bucket
+  c:buckets/hydrogen:
+  - mekanized:hydrogen_bucket
+  c:buckets/hydrogen_chloride:
+  - mekanized:hydrogen_chloride_bucket
+  c:buckets/lithium:
+  - mekanized:lithium_bucket
+  c:buckets/nutritional_paste:
+  - mekanized:nutritional_paste_bucket
+  c:buckets/oxygen:
+  - mekanized:oxygen_bucket
+  c:buckets/sodium:
+  - mekanized:sodium_bucket
+  c:buckets/steam:
+  - mekanized:steam_bucket
+  c:buckets/sulfur_dioxide:
+  - mekanized:sulfur_dioxide_bucket
+  c:buckets/sulfur_trioxide:
+  - mekanized:sulfur_trioxide_bucket
+  c:buckets/sulfuric_acid:
+  - mekanized:sulfuric_acid_bucket
+  c:buckets/superheated_sodium:
+  - mekanized:superheated_sodium_bucket
+  c:buckets/tritium:
+  - mekanized:tritium_bucket
+  c:buckets/uranium_hexafluoride:
+  - mekanized:uranium_hexafluoride_bucket
+  c:buckets/uranium_oxide:
+  - mekanized:uranium_oxide_bucket
+  c:circuits:
+  - '#c:circuits/basic'
+  - '#c:circuits/advanced'
+  - '#c:circuits/elite'
+  - '#c:circuits/ultimate'
+  c:circuits/advanced:
+  - mekanized:advanced_control_circuit
+  c:circuits/basic:
+  - mekanized:basic_control_circuit
+  c:circuits/elite:
+  - mekanized:elite_control_circuit
+  c:circuits/ultimate:
+  - mekanized:ultimate_control_circuit
+  c:dusts:
+  - '#c:dusts/iron'
+  - '#c:dusts/gold'
+  - '#c:dusts/osmium'
+  - '#c:dusts/copper'
+  - '#c:dusts/tin'
+  - '#c:dusts/lead'
+  - '#c:dusts/uranium'
+  - '#c:dusts/bronze'
+  - '#c:dusts/charcoal'
+  - '#c:dusts/coal'
+  - '#c:dusts/diamond'
+  - '#c:dusts/emerald'
+  - '#c:dusts/netherite'
+  - '#c:dusts/lapis'
+  - '#c:dusts/lithium'
+  - '#c:dusts/obsidian'
+  - '#c:dusts/quartz'
+  - '#c:dusts/refined_obsidian'
+  - '#c:dusts/salt'
+  - '#c:dusts/steel'
+  - '#c:dusts/sulfur'
+  - '#c:dusts/wood'
+  - '#c:dusts/fluorite'
+  c:dusts/bronze:
+  - mekanized:dust_bronze
+  c:dusts/charcoal:
+  - mekanized:dust_charcoal
+  c:dusts/coal:
+  - mekanized:dust_coal
+  c:dusts/copper:
+  - mekanized:dust_copper
+  c:dusts/diamond:
+  - mekanized:dust_diamond
+  c:dusts/emerald:
+  - mekanized:dust_emerald
+  c:dusts/fluorite:
+  - mekanized:dust_fluorite
+  c:dusts/gold:
+  - mekanized:dust_gold
+  c:dusts/iron:
+  - mekanized:dust_iron
+  c:dusts/lapis:
+  - mekanized:dust_lapis_lazuli
+  c:dusts/lead:
+  - mekanized:dust_lead
+  c:dusts/lithium:
+  - mekanized:dust_lithium
+  c:dusts/netherite:
+  - mekanized:dust_netherite
+  c:dusts/obsidian:
+  - mekanized:dust_obsidian
+  c:dusts/osmium:
+  - mekanized:dust_osmium
+  c:dusts/quartz:
+  - mekanized:dust_quartz
+  c:dusts/refined_obsidian:
+  - mekanized:dust_refined_obsidian
+  c:dusts/salt:
+  - mekanized:salt
+  c:dusts/steel:
+  - mekanized:dust_steel
+  c:dusts/sulfur:
+  - mekanized:dust_sulfur
+  c:dusts/tin:
+  - mekanized:dust_tin
+  c:dusts/uranium:
+  - mekanized:dust_uranium
+  c:dusts/wood:
+  - mekanized:sawdust
+  c:fuels:
+  - '#c:fuels/bio'
+  - '#c:fuels/block/bio'
+  c:fuels/bio:
+  - mekanized:bio_fuel
+  c:fuels/block/bio:
+  - mekanized:block_bio_fuel
+  c:gems:
+  - '#c:gems/fluorite'
+  c:gems/fluorite:
+  - mekanized:fluorite_gem
+  c:hidden_from_recipe_viewers:
+  - mekanized:bounding_block
+  c:ingots:
+  - '#c:ingots/osmium'
+  - '#c:ingots/tin'
+  - '#c:ingots/lead'
+  - '#c:ingots/uranium'
+  - '#c:ingots/bronze'
+  - '#c:ingots/refined_glowstone'
+  - '#c:ingots/refined_obsidian'
+  - '#c:ingots/steel'
+  c:ingots/bronze:
+  - mekanized:ingot_bronze
+  c:ingots/lead:
+  - mekanized:ingot_lead
+  c:ingots/osmium:
+  - mekanized:ingot_osmium
+  c:ingots/refined_glowstone:
+  - mekanized:ingot_refined_glowstone
+  c:ingots/refined_obsidian:
+  - mekanized:ingot_refined_obsidian
+  c:ingots/steel:
+  - mekanized:ingot_steel
+  c:ingots/tin:
+  - mekanized:ingot_tin
+  c:ingots/uranium:
+  - mekanized:ingot_uranium
+  c:nuggets:
+  - '#c:nuggets/osmium'
+  - '#c:nuggets/tin'
+  - '#c:nuggets/lead'
+  - '#c:nuggets/uranium'
+  - '#c:nuggets/bronze'
+  - '#c:nuggets/refined_glowstone'
+  - '#c:nuggets/refined_obsidian'
+  - '#c:nuggets/steel'
+  c:nuggets/bronze:
+  - mekanized:nugget_bronze
+  c:nuggets/lead:
+  - mekanized:nugget_lead
+  c:nuggets/osmium:
+  - mekanized:nugget_osmium
+  c:nuggets/refined_glowstone:
+  - mekanized:nugget_refined_glowstone
+  c:nuggets/refined_obsidian:
+  - mekanized:nugget_refined_obsidian
+  c:nuggets/steel:
+  - mekanized:nugget_steel
+  c:nuggets/tin:
+  - mekanized:nugget_tin
+  c:nuggets/uranium:
+  - mekanized:nugget_uranium
+  c:ore_rates/dense:
+  - mekanized:fluorite_ore
+  - mekanized:deepslate_fluorite_ore
+  c:ore_rates/singular:
+  - mekanized:tin_ore
+  - mekanized:deepslate_tin_ore
+  - mekanized:osmium_ore
+  - mekanized:deepslate_osmium_ore
+  - mekanized:uranium_ore
+  - mekanized:deepslate_uranium_ore
+  - mekanized:lead_ore
+  - mekanized:deepslate_lead_ore
+  c:ores:
+  - '#c:ores/tin'
+  - '#c:ores/osmium'
+  - '#c:ores/uranium'
+  - '#c:ores/fluorite'
+  - '#c:ores/lead'
+  c:ores/fluorite:
+  - mekanized:fluorite_ore
+  - mekanized:deepslate_fluorite_ore
+  c:ores/lead:
+  - mekanized:lead_ore
+  - mekanized:deepslate_lead_ore
+  c:ores/osmium:
+  - mekanized:osmium_ore
+  - mekanized:deepslate_osmium_ore
+  c:ores/tin:
+  - mekanized:tin_ore
+  - mekanized:deepslate_tin_ore
+  c:ores/uranium:
+  - mekanized:uranium_ore
+  - mekanized:deepslate_uranium_ore
+  c:ores_in_ground/deepslate:
+  - mekanized:deepslate_tin_ore
+  - mekanized:deepslate_osmium_ore
+  - mekanized:deepslate_uranium_ore
+  - mekanized:deepslate_fluorite_ore
+  - mekanized:deepslate_lead_ore
+  c:ores_in_ground/stone:
+  - mekanized:tin_ore
+  - mekanized:osmium_ore
+  - mekanized:uranium_ore
+  - mekanized:fluorite_ore
+  - mekanized:lead_ore
+  c:pellets/antimatter:
+  - mekanized:pellet_antimatter
+  c:pellets/plutonium:
+  - mekanized:pellet_plutonium
+  c:pellets/polonium:
+  - mekanized:pellet_polonium
+  c:raw_materials:
+  - '#c:raw_materials/osmium'
+  - '#c:raw_materials/tin'
+  - '#c:raw_materials/lead'
+  - '#c:raw_materials/uranium'
+  c:raw_materials/lead:
+  - mekanized:raw_lead
+  c:raw_materials/osmium:
+  - mekanized:raw_osmium
+  c:raw_materials/tin:
+  - mekanized:raw_tin
+  c:raw_materials/uranium:
+  - mekanized:raw_uranium
+  c:rods:
+  - '#c:rods/plastic'
+  c:rods/plastic:
+  - mekanized:hdpe_stick
+  c:storage_blocks:
+  - '#c:storage_blocks/bronze'
+  - '#c:storage_blocks/charcoal'
+  - '#c:storage_blocks/refined_glowstone'
+  - '#c:storage_blocks/refined_obsidian'
+  - '#c:storage_blocks/steel'
+  - '#c:storage_blocks/fluorite'
+  - '#c:storage_blocks/osmium'
+  - '#c:storage_blocks/raw_osmium'
+  - '#c:storage_blocks/tin'
+  - '#c:storage_blocks/raw_tin'
+  - '#c:storage_blocks/lead'
+  - '#c:storage_blocks/raw_lead'
+  - '#c:storage_blocks/uranium'
+  - '#c:storage_blocks/raw_uranium'
+  c:storage_blocks/bronze:
+  - mekanized:block_bronze
+  c:storage_blocks/charcoal:
+  - mekanized:block_charcoal
+  c:storage_blocks/fluorite:
+  - mekanized:block_fluorite
+  c:storage_blocks/lead:
+  - mekanized:block_lead
+  c:storage_blocks/osmium:
+  - mekanized:block_osmium
+  c:storage_blocks/raw_lead:
+  - mekanized:block_raw_lead
+  c:storage_blocks/raw_osmium:
+  - mekanized:block_raw_osmium
+  c:storage_blocks/raw_tin:
+  - mekanized:block_raw_tin
+  c:storage_blocks/raw_uranium:
+  - mekanized:block_raw_uranium
+  c:storage_blocks/refined_glowstone:
+  - mekanized:block_refined_glowstone
+  c:storage_blocks/refined_obsidian:
+  - mekanized:block_refined_obsidian
+  c:storage_blocks/steel:
+  - mekanized:block_steel
+  c:storage_blocks/tin:
+  - mekanized:block_tin
+  c:storage_blocks/uranium:
+  - mekanized:block_uranium
+  c:tools/bow:
+  - mekanized:electric_bow
+  c:tools/mining_tool:
+  - mekanized:atomic_disassembler
+  - mekanized:meka_tool
+  c:tools/ranged_weapon:
+  - mekanized:electric_bow
+  c:tools/wrench:
+  - mekanized:configurator
+  mekanized:alloys:
+  - '#mekanized:alloys/basic'
+  - '#mekanized:alloys/infused'
+  - '#mekanized:alloys/reinforced'
+  - '#mekanized:alloys/atomic'
+  mekanized:alloys/atomic:
+  - '#c:alloys/ultimate'
+  mekanized:alloys/basic:
+  - minecraft:redstone
+  mekanized:alloys/infused:
+  - '#c:alloys/advanced'
+  mekanized:alloys/reinforced:
+  - '#c:alloys/elite'
+  mekanized:clumps:
+  - '#mekanized:clumps/iron'
+  - '#mekanized:clumps/gold'
+  - '#mekanized:clumps/osmium'
+  - '#mekanized:clumps/copper'
+  - '#mekanized:clumps/tin'
+  - '#mekanized:clumps/lead'
+  - '#mekanized:clumps/uranium'
+  mekanized:clumps/copper:
+  - mekanized:clump_copper
+  mekanized:clumps/gold:
+  - mekanized:clump_gold
+  mekanized:clumps/iron:
+  - mekanized:clump_iron
+  mekanized:clumps/lead:
+  - mekanized:clump_lead
+  mekanized:clumps/osmium:
+  - mekanized:clump_osmium
+  mekanized:clumps/tin:
+  - mekanized:clump_tin
+  mekanized:clumps/uranium:
+  - mekanized:clump_uranium
+  mekanized:colorable/banners:
+  - minecraft:white_banner
+  - minecraft:orange_banner
+  - minecraft:magenta_banner
+  - minecraft:light_blue_banner
+  - minecraft:yellow_banner
+  - minecraft:lime_banner
+  - minecraft:pink_banner
+  - minecraft:gray_banner
+  - minecraft:light_gray_banner
+  - minecraft:cyan_banner
+  - minecraft:purple_banner
+  - minecraft:blue_banner
+  - minecraft:brown_banner
+  - minecraft:green_banner
+  - minecraft:red_banner
+  - minecraft:black_banner
+  mekanized:colorable/beds:
+  - minecraft:white_bed
+  - minecraft:orange_bed
+  - minecraft:magenta_bed
+  - minecraft:light_blue_bed
+  - minecraft:yellow_bed
+  - minecraft:lime_bed
+  - minecraft:pink_bed
+  - minecraft:gray_bed
+  - minecraft:light_gray_bed
+  - minecraft:cyan_bed
+  - minecraft:purple_bed
+  - minecraft:blue_bed
+  - minecraft:brown_bed
+  - minecraft:green_bed
+  - minecraft:red_bed
+  - minecraft:black_bed
+  mekanized:colorable/candle:
+  - minecraft:candle
+  - minecraft:white_candle
+  - minecraft:orange_candle
+  - minecraft:magenta_candle
+  - minecraft:light_blue_candle
+  - minecraft:yellow_candle
+  - minecraft:lime_candle
+  - minecraft:pink_candle
+  - minecraft:gray_candle
+  - minecraft:light_gray_candle
+  - minecraft:cyan_candle
+  - minecraft:purple_candle
+  - minecraft:blue_candle
+  - minecraft:brown_candle
+  - minecraft:green_candle
+  - minecraft:red_candle
+  - minecraft:black_candle
+  mekanized:colorable/carpets:
+  - minecraft:white_carpet
+  - minecraft:orange_carpet
+  - minecraft:magenta_carpet
+  - minecraft:light_blue_carpet
+  - minecraft:yellow_carpet
+  - minecraft:lime_carpet
+  - minecraft:pink_carpet
+  - minecraft:gray_carpet
+  - minecraft:light_gray_carpet
+  - minecraft:cyan_carpet
+  - minecraft:purple_carpet
+  - minecraft:blue_carpet
+  - minecraft:brown_carpet
+  - minecraft:green_carpet
+  - minecraft:red_carpet
+  - minecraft:black_carpet
+  mekanized:colorable/concrete:
+  - minecraft:white_concrete
+  - minecraft:orange_concrete
+  - minecraft:magenta_concrete
+  - minecraft:light_blue_concrete
+  - minecraft:yellow_concrete
+  - minecraft:lime_concrete
+  - minecraft:pink_concrete
+  - minecraft:gray_concrete
+  - minecraft:light_gray_concrete
+  - minecraft:cyan_concrete
+  - minecraft:purple_concrete
+  - minecraft:blue_concrete
+  - minecraft:brown_concrete
+  - minecraft:green_concrete
+  - minecraft:red_concrete
+  - minecraft:black_concrete
+  mekanized:colorable/concrete_powder:
+  - minecraft:white_concrete_powder
+  - minecraft:orange_concrete_powder
+  - minecraft:magenta_concrete_powder
+  - minecraft:light_blue_concrete_powder
+  - minecraft:yellow_concrete_powder
+  - minecraft:lime_concrete_powder
+  - minecraft:pink_concrete_powder
+  - minecraft:gray_concrete_powder
+  - minecraft:light_gray_concrete_powder
+  - minecraft:cyan_concrete_powder
+  - minecraft:purple_concrete_powder
+  - minecraft:blue_concrete_powder
+  - minecraft:brown_concrete_powder
+  - minecraft:green_concrete_powder
+  - minecraft:red_concrete_powder
+  - minecraft:black_concrete_powder
+  mekanized:colorable/glass:
+  - minecraft:glass
+  - minecraft:white_stained_glass
+  - minecraft:orange_stained_glass
+  - minecraft:magenta_stained_glass
+  - minecraft:light_blue_stained_glass
+  - minecraft:yellow_stained_glass
+  - minecraft:lime_stained_glass
+  - minecraft:pink_stained_glass
+  - minecraft:gray_stained_glass
+  - minecraft:light_gray_stained_glass
+  - minecraft:cyan_stained_glass
+  - minecraft:purple_stained_glass
+  - minecraft:blue_stained_glass
+  - minecraft:brown_stained_glass
+  - minecraft:green_stained_glass
+  - minecraft:red_stained_glass
+  - minecraft:black_stained_glass
+  mekanized:colorable/glass_panes:
+  - minecraft:glass_pane
+  - minecraft:white_stained_glass_pane
+  - minecraft:orange_stained_glass_pane
+  - minecraft:magenta_stained_glass_pane
+  - minecraft:light_blue_stained_glass_pane
+  - minecraft:yellow_stained_glass_pane
+  - minecraft:lime_stained_glass_pane
+  - minecraft:pink_stained_glass_pane
+  - minecraft:gray_stained_glass_pane
+  - minecraft:light_gray_stained_glass_pane
+  - minecraft:cyan_stained_glass_pane
+  - minecraft:purple_stained_glass_pane
+  - minecraft:blue_stained_glass_pane
+  - minecraft:brown_stained_glass_pane
+  - minecraft:green_stained_glass_pane
+  - minecraft:red_stained_glass_pane
+  - minecraft:black_stained_glass_pane
+  mekanized:colorable/terracotta:
+  - minecraft:terracotta
+  - minecraft:white_terracotta
+  - minecraft:orange_terracotta
+  - minecraft:magenta_terracotta
+  - minecraft:light_blue_terracotta
+  - minecraft:yellow_terracotta
+  - minecraft:lime_terracotta
+  - minecraft:pink_terracotta
+  - minecraft:gray_terracotta
+  - minecraft:light_gray_terracotta
+  - minecraft:cyan_terracotta
+  - minecraft:purple_terracotta
+  - minecraft:blue_terracotta
+  - minecraft:brown_terracotta
+  - minecraft:green_terracotta
+  - minecraft:red_terracotta
+  - minecraft:black_terracotta
+  mekanized:colorable/wool:
+  - minecraft:white_wool
+  - minecraft:orange_wool
+  - minecraft:magenta_wool
+  - minecraft:light_blue_wool
+  - minecraft:yellow_wool
+  - minecraft:lime_wool
+  - minecraft:pink_wool
+  - minecraft:gray_wool
+  - minecraft:light_gray_wool
+  - minecraft:cyan_wool
+  - minecraft:purple_wool
+  - minecraft:blue_wool
+  - minecraft:brown_wool
+  - minecraft:green_wool
+  - minecraft:red_wool
+  - minecraft:black_wool
+  mekanized:configurators:
+  - '#c:tools/wrench'
+  mekanized:crystals:
+  - '#mekanized:crystals/iron'
+  - '#mekanized:crystals/gold'
+  - '#mekanized:crystals/osmium'
+  - '#mekanized:crystals/copper'
+  - '#mekanized:crystals/tin'
+  - '#mekanized:crystals/lead'
+  - '#mekanized:crystals/uranium'
+  mekanized:crystals/copper:
+  - mekanized:crystal_copper
+  mekanized:crystals/gold:
+  - mekanized:crystal_gold
+  mekanized:crystals/iron:
+  - mekanized:crystal_iron
+  mekanized:crystals/lead:
+  - mekanized:crystal_lead
+  mekanized:crystals/osmium:
+  - mekanized:crystal_osmium
+  mekanized:crystals/tin:
+  - mekanized:crystal_tin
+  mekanized:crystals/uranium:
+  - mekanized:crystal_uranium
+  mekanized:dirty_dusts:
+  - '#mekanized:dirty_dusts/iron'
+  - '#mekanized:dirty_dusts/gold'
+  - '#mekanized:dirty_dusts/osmium'
+  - '#mekanized:dirty_dusts/copper'
+  - '#mekanized:dirty_dusts/tin'
+  - '#mekanized:dirty_dusts/lead'
+  - '#mekanized:dirty_dusts/uranium'
+  mekanized:dirty_dusts/copper:
+  - mekanized:dirty_dust_copper
+  mekanized:dirty_dusts/gold:
+  - mekanized:dirty_dust_gold
+  mekanized:dirty_dusts/iron:
+  - mekanized:dirty_dust_iron
+  mekanized:dirty_dusts/lead:
+  - mekanized:dirty_dust_lead
+  mekanized:dirty_dusts/osmium:
+  - mekanized:dirty_dust_osmium
+  mekanized:dirty_dusts/tin:
+  - mekanized:dirty_dust_tin
+  mekanized:dirty_dusts/uranium:
+  - mekanized:dirty_dust_uranium
+  mekanized:enriched:
+  - '#mekanized:enriched/carbon'
+  - '#mekanized:enriched/diamond'
+  - '#mekanized:enriched/obsidian'
+  - '#mekanized:enriched/redstone'
+  - '#mekanized:enriched/gold'
+  - '#mekanized:enriched/tin'
+  mekanized:enriched/carbon:
+  - mekanized:enriched_carbon
+  mekanized:enriched/diamond:
+  - mekanized:enriched_diamond
+  mekanized:enriched/gold:
+  - mekanized:enriched_gold
+  mekanized:enriched/obsidian:
+  - mekanized:enriched_refined_obsidian
+  mekanized:enriched/redstone:
+  - mekanized:enriched_redstone
+  mekanized:enriched/tin:
+  - mekanized:enriched_tin
+  mekanized:mekasuit_hud_renderer:
+  - mekanized:mekasuit_helmet
+  mekanized:muffling_center:
+  - '#c:bricks'
+  - '#c:ingots/iron'
+  - '#c:ingots/gold'
+  - '#c:ingots/copper'
+  - '#c:ingots/osmium'
+  - '#c:ingots/tin'
+  - '#c:ingots/lead'
+  - '#c:gems/fluorite'
+  mekanized:personal_storage:
+  - mekanized:personal_barrel
+  - mekanized:personal_chest
+  mekanized:shards:
+  - '#mekanized:shards/iron'
+  - '#mekanized:shards/gold'
+  - '#mekanized:shards/osmium'
+  - '#mekanized:shards/copper'
+  - '#mekanized:shards/tin'
+  - '#mekanized:shards/lead'
+  - '#mekanized:shards/uranium'
+  mekanized:shards/copper:
+  - mekanized:shard_copper
+  mekanized:shards/gold:
+  - mekanized:shard_gold
+  mekanized:shards/iron:
+  - mekanized:shard_iron
+  mekanized:shards/lead:
+  - mekanized:shard_lead
+  mekanized:shards/osmium:
+  - mekanized:shard_osmium
+  mekanized:shards/tin:
+  - mekanized:shard_tin
+  mekanized:shards/uranium:
+  - mekanized:shard_uranium
+  mekanized:stone_crafting_materials:
+  - '#minecraft:stone_crafting_materials'
+  - '#c:cobblestones/normal'
+  mekanized:unit:
+  - mekanized:module_energy_unit
+  - mekanized:module_color_modulation_unit
+  - mekanized:module_laser_dissipation_unit
+  - mekanized:module_radiation_shielding_unit
+  - mekanized:module_excavation_escalation_unit
+  - mekanized:module_attack_amplification_unit
+  - mekanized:module_farming_unit
+  - mekanized:module_shearing_unit
+  - mekanized:module_silk_touch_unit
+  - mekanized:module_fortune_unit
+  - mekanized:module_blasting_unit
+  - mekanized:module_vein_mining_unit
+  - mekanized:module_teleportation_unit
+  - mekanized:module_electrolytic_breathing_unit
+  - mekanized:module_inhalation_purification_unit
+  - mekanized:module_vision_enhancement_unit
+  - mekanized:module_nutritional_injection_unit
+  - mekanized:module_dosimeter_unit
+  - mekanized:module_geiger_unit
+  - mekanized:module_jetpack_unit
+  - mekanized:module_charge_distribution_unit
+  - mekanized:module_gravitational_modulating_unit
+  - mekanized:module_elytra_unit
+  - mekanized:module_locomotive_boosting_unit
+  - mekanized:module_gyroscopic_stabilization_unit
+  - mekanized:module_hydrostatic_repulsor_unit
+  - mekanized:module_motorized_servo_unit
+  - mekanized:module_hydraulic_propulsion_unit
+  - mekanized:module_magnetic_attraction_unit
+  - mekanized:module_frost_walker_unit
+  - mekanized:module_soul_surfer_unit
+  - mekanized:module_solar_recharging_unit
+  - mekanized:module_geothermal_generator_unit
+  minecraft:beacon_payment_items:
+  - mekanized:ingot_osmium
+  - mekanized:ingot_tin
+  - mekanized:ingot_lead
+  - mekanized:ingot_uranium
+  - mekanized:ingot_bronze
+  - mekanized:ingot_refined_obsidian
+  - mekanized:ingot_refined_glowstone
+  - mekanized:ingot_steel
+  minecraft:breaks_decorated_pots:
+  - mekanized:atomic_disassembler
+  - mekanized:meka_tool
+  minecraft:chest_armor:
+  - mekanized:hazmat_gown
+  - mekanized:mekasuit_bodyarmor
+  minecraft:cluster_max_harvestables:
+  - mekanized:atomic_disassembler
+  - mekanized:meka_tool
+  minecraft:enchantable/bow:
+  - mekanized:electric_bow
+  minecraft:enchantable/durability:
+  - mekanized:hdpe_elytra
+  minecraft:enchantable/equippable:
+  - mekanized:hdpe_elytra
+  minecraft:foot_armor:
+  - mekanized:hazmat_boots
+  - mekanized:mekasuit_boots
+  minecraft:freeze_immune_wearables:
+  - mekanized:mekasuit_helmet
+  - mekanized:mekasuit_bodyarmor
+  - mekanized:mekasuit_pants
+  - mekanized:mekasuit_boots
+  minecraft:head_armor:
+  - mekanized:hazmat_mask
+  - mekanized:mekasuit_helmet
+  minecraft:leg_armor:
+  - mekanized:hazmat_pants
+  - mekanized:mekasuit_pants
+  minecraft:piglin_loved:
+  - mekanized:block_refined_glowstone
+  - mekanized:ingot_refined_glowstone
+  - mekanized:dust_gold
+  - '#mekanized:enriched/gold'
+  - '#mekanized:shards/gold'
+  - '#mekanized:crystals/gold'
+  - '#mekanized:dirty_dusts/gold'
+  - '#mekanized:clumps/gold'
+resource-tags:
+  mekanized:bio:
+  - mekanized:bio
+  mekanized:carbon:
+  - mekanized:carbon
+  mekanized:clean:
+  - mekanized:clean_iron
+  - mekanized:clean_gold
+  - mekanized:clean_osmium
+  - mekanized:clean_copper
+  - mekanized:clean_tin
+  - mekanized:clean_lead
+  - mekanized:clean_uranium
+  mekanized:deuterium:
+  - mekanized:deuterium
+  mekanized:diamond:
+  - mekanized:diamond
+  mekanized:dirty:
+  - mekanized:dirty_iron
+  - mekanized:dirty_gold
+  - mekanized:dirty_osmium
+  - mekanized:dirty_copper
+  - mekanized:dirty_tin
+  - mekanized:dirty_lead
+  - mekanized:dirty_uranium
+  mekanized:fungi:
+  - mekanized:fungi
+  mekanized:fusion_fuel:
+  - mekanized:fusion_fuel
+  mekanized:gaseous:
+  - mekanized:water_vapor
+  - mekanized:steam
+  - mekanized:brine
+  - mekanized:hydrogen
+  - mekanized:oxygen
+  - mekanized:sulfur_dioxide
+  - mekanized:sulfur_trioxide
+  - mekanized:hydrogen_chloride
+  - mekanized:ethene
+  - mekanized:superheated_sodium
+  - mekanized:deuterium
+  - mekanized:tritium
+  - mekanized:fusion_fuel
+  mekanized:gold:
+  - mekanized:gold
+  mekanized:redstone:
+  - mekanized:redstone
+  mekanized:refined_obsidian:
+  - mekanized:refined_obsidian
+  mekanized:tin:
+  - mekanized:tin
+  mekanized:tritium:
+  - mekanized:tritium
+  mekanized:waste_barrel_decay_blacklist:
+  - mekanized:plutonium
+  - mekanized:polonium
+  mekanized:water_vapor:
+  - mekanized:water_vapor
+  - mekanized:steam

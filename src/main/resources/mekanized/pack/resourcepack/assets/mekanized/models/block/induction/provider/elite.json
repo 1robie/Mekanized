@@ -1,0 +1,10 @@
+{
+    "render_type": "minecraft:cutout",
+    "parent": "mekanized:block/induction/provider/base",
+    "textures": {
+        "particle": "mekanized:block/elite_induction_provider",
+        "all": "mekanized:block/elite_induction_provider",
+        "glow": "mekanized:block/induction_provider_glow",
+        "led": "mekanized:block/elite_induction_provider_led"
+    }
+}

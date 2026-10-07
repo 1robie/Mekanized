@@ -1,0 +1,28 @@
+# Mekanized centrifuging recipes, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+# Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.
+# Durations are ticks; energy is Joules per tick. Phase 6 of MEKANIZED_PLAN.md.
+recipes:
+  mekanized:processing/lategame/plutonium:
+    type: mekanized:centrifuging
+    duration: 1
+    inputs:
+    - type: mekanized:nuclear_waste
+      amount: 10
+    outputs:
+    - type: mekanized:plutonium
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:processing/uranium/fissile_fuel:
+    type: mekanized:centrifuging
+    duration: 1
+    inputs:
+    - type: mekanized:uranium_hexafluoride
+      amount: 1
+    outputs:
+    - type: mekanized:fissile_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200

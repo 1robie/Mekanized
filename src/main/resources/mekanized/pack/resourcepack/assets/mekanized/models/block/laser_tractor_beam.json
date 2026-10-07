@@ -1,0 +1,8 @@
+{
+	"parent": "mekanized:block/laser_cube_base",
+	"textures": {
+		"frame": "mekanized:block/models/laser_device_frame",
+		"side_empty": "mekanized:block/models/laser_tractor_beam_side_empty",
+		"side_full": "mekanized:block/models/laser_tractor_beam_side_full"
+	}
+}

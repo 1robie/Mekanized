@@ -1,0 +1,8 @@
+{
+  "parent": "mekanized:block/painting_machine",
+  "textures": {
+    "front": "mekanized:block/painting_machine/front_active",
+    "west": "mekanized:block/painting_machine/right_active",
+    "east": "mekanized:block/painting_machine/left_active"
+  }
+}

@@ -1,0 +1,2444 @@
+# Mekanized pigment_extracting recipes, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+# Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.
+# Durations are ticks; energy is Joules per tick. Phase 6 of MEKANIZED_PLAN.md.
+recipes:
+  mekanized:pigment_extracting/banner/black:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - item-tag: c:dyed/black
+      amount: 1
+    outputs:
+    - type: mekanized:black
+      amount: 64
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/banner/blue:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - item-tag: c:dyed/blue
+      amount: 1
+    outputs:
+    - type: mekanized:blue
+      amount: 64
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/banner/brown:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - item-tag: c:dyed/brown
+      amount: 1
+    outputs:
+    - type: mekanized:brown
+      amount: 64
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/banner/cyan:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - item-tag: c:dyed/cyan
+      amount: 1
+    outputs:
+    - type: mekanized:cyan
+      amount: 64
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/banner/gray:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - item-tag: c:dyed/gray
+      amount: 1
+    outputs:
+    - type: mekanized:gray
+      amount: 64
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/banner/green:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - item-tag: c:dyed/green
+      amount: 1
+    outputs:
+    - type: mekanized:green
+      amount: 64
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/banner/light_blue:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - item-tag: c:dyed/light_blue
+      amount: 1
+    outputs:
+    - type: mekanized:light_blue
+      amount: 64
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/banner/light_gray:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - item-tag: c:dyed/light_gray
+      amount: 1
+    outputs:
+    - type: mekanized:light_gray
+      amount: 64
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/banner/lime:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - item-tag: c:dyed/lime
+      amount: 1
+    outputs:
+    - type: mekanized:lime
+      amount: 64
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/banner/magenta:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - item-tag: c:dyed/magenta
+      amount: 1
+    outputs:
+    - type: mekanized:magenta
+      amount: 64
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/banner/orange:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - item-tag: c:dyed/orange
+      amount: 1
+    outputs:
+    - type: mekanized:orange
+      amount: 64
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/banner/pink:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - item-tag: c:dyed/pink
+      amount: 1
+    outputs:
+    - type: mekanized:pink
+      amount: 64
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/banner/purple:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - item-tag: c:dyed/purple
+      amount: 1
+    outputs:
+    - type: mekanized:purple
+      amount: 64
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/banner/red:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - item-tag: c:dyed/red
+      amount: 1
+    outputs:
+    - type: mekanized:red
+      amount: 64
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/banner/white:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - item-tag: c:dyed/white
+      amount: 1
+    outputs:
+    - type: mekanized:white
+      amount: 64
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/banner/yellow:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - item-tag: c:dyed/yellow
+      amount: 1
+    outputs:
+    - type: mekanized:yellow
+      amount: 64
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/candle/black:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - item-tag: c:dyed/black
+      amount: 1
+    outputs:
+    - type: mekanized:black
+      amount: 224
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/candle/blue:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - item-tag: c:dyed/blue
+      amount: 1
+    outputs:
+    - type: mekanized:blue
+      amount: 224
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/candle/brown:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - item-tag: c:dyed/brown
+      amount: 1
+    outputs:
+    - type: mekanized:brown
+      amount: 224
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/candle/cyan:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - item-tag: c:dyed/cyan
+      amount: 1
+    outputs:
+    - type: mekanized:cyan
+      amount: 224
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/candle/gray:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - item-tag: c:dyed/gray
+      amount: 1
+    outputs:
+    - type: mekanized:gray
+      amount: 224
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/candle/green:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - item-tag: c:dyed/green
+      amount: 1
+    outputs:
+    - type: mekanized:green
+      amount: 224
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/candle/light_blue:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - item-tag: c:dyed/light_blue
+      amount: 1
+    outputs:
+    - type: mekanized:light_blue
+      amount: 224
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/candle/light_gray:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - item-tag: c:dyed/light_gray
+      amount: 1
+    outputs:
+    - type: mekanized:light_gray
+      amount: 224
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/candle/lime:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - item-tag: c:dyed/lime
+      amount: 1
+    outputs:
+    - type: mekanized:lime
+      amount: 224
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/candle/magenta:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - item-tag: c:dyed/magenta
+      amount: 1
+    outputs:
+    - type: mekanized:magenta
+      amount: 224
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/candle/orange:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - item-tag: c:dyed/orange
+      amount: 1
+    outputs:
+    - type: mekanized:orange
+      amount: 224
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/candle/pink:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - item-tag: c:dyed/pink
+      amount: 1
+    outputs:
+    - type: mekanized:pink
+      amount: 224
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/candle/purple:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - item-tag: c:dyed/purple
+      amount: 1
+    outputs:
+    - type: mekanized:purple
+      amount: 224
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/candle/red:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - item-tag: c:dyed/red
+      amount: 1
+    outputs:
+    - type: mekanized:red
+      amount: 224
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/candle/white:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - item-tag: c:dyed/white
+      amount: 1
+    outputs:
+    - type: mekanized:white
+      amount: 224
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/candle/yellow:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - item-tag: c:dyed/yellow
+      amount: 1
+    outputs:
+    - type: mekanized:yellow
+      amount: 224
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/carpet/black:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - item-tag: c:dyed/black
+      amount: 1
+    outputs:
+    - type: mekanized:black
+      amount: 128
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/carpet/blue:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - item-tag: c:dyed/blue
+      amount: 1
+    outputs:
+    - type: mekanized:blue
+      amount: 128
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/carpet/brown:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - item-tag: c:dyed/brown
+      amount: 1
+    outputs:
+    - type: mekanized:brown
+      amount: 128
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/carpet/cyan:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - item-tag: c:dyed/cyan
+      amount: 1
+    outputs:
+    - type: mekanized:cyan
+      amount: 128
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/carpet/gray:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - item-tag: c:dyed/gray
+      amount: 1
+    outputs:
+    - type: mekanized:gray
+      amount: 128
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/carpet/green:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - item-tag: c:dyed/green
+      amount: 1
+    outputs:
+    - type: mekanized:green
+      amount: 128
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/carpet/light_blue:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - item-tag: c:dyed/light_blue
+      amount: 1
+    outputs:
+    - type: mekanized:light_blue
+      amount: 128
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/carpet/light_gray:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - item-tag: c:dyed/light_gray
+      amount: 1
+    outputs:
+    - type: mekanized:light_gray
+      amount: 128
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/carpet/lime:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - item-tag: c:dyed/lime
+      amount: 1
+    outputs:
+    - type: mekanized:lime
+      amount: 128
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/carpet/magenta:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - item-tag: c:dyed/magenta
+      amount: 1
+    outputs:
+    - type: mekanized:magenta
+      amount: 128
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/carpet/orange:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - item-tag: c:dyed/orange
+      amount: 1
+    outputs:
+    - type: mekanized:orange
+      amount: 128
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/carpet/pink:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - item-tag: c:dyed/pink
+      amount: 1
+    outputs:
+    - type: mekanized:pink
+      amount: 128
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/carpet/purple:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - item-tag: c:dyed/purple
+      amount: 1
+    outputs:
+    - type: mekanized:purple
+      amount: 128
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/carpet/red:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - item-tag: c:dyed/red
+      amount: 1
+    outputs:
+    - type: mekanized:red
+      amount: 128
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/carpet/white:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - item-tag: c:dyed/white
+      amount: 1
+    outputs:
+    - type: mekanized:white
+      amount: 128
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/carpet/yellow:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - item-tag: c:dyed/yellow
+      amount: 1
+    outputs:
+    - type: mekanized:yellow
+      amount: 128
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete/black:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - item-tag: c:dyed/black
+      amount: 1
+    outputs:
+    - type: mekanized:black
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete/blue:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - item-tag: c:dyed/blue
+      amount: 1
+    outputs:
+    - type: mekanized:blue
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete/brown:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - item-tag: c:dyed/brown
+      amount: 1
+    outputs:
+    - type: mekanized:brown
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete/cyan:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - item-tag: c:dyed/cyan
+      amount: 1
+    outputs:
+    - type: mekanized:cyan
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete/gray:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - item-tag: c:dyed/gray
+      amount: 1
+    outputs:
+    - type: mekanized:gray
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete/green:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - item-tag: c:dyed/green
+      amount: 1
+    outputs:
+    - type: mekanized:green
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete/light_blue:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - item-tag: c:dyed/light_blue
+      amount: 1
+    outputs:
+    - type: mekanized:light_blue
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete/light_gray:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - item-tag: c:dyed/light_gray
+      amount: 1
+    outputs:
+    - type: mekanized:light_gray
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete/lime:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - item-tag: c:dyed/lime
+      amount: 1
+    outputs:
+    - type: mekanized:lime
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete/magenta:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - item-tag: c:dyed/magenta
+      amount: 1
+    outputs:
+    - type: mekanized:magenta
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete/orange:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - item-tag: c:dyed/orange
+      amount: 1
+    outputs:
+    - type: mekanized:orange
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete/pink:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - item-tag: c:dyed/pink
+      amount: 1
+    outputs:
+    - type: mekanized:pink
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete/purple:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - item-tag: c:dyed/purple
+      amount: 1
+    outputs:
+    - type: mekanized:purple
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete/red:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - item-tag: c:dyed/red
+      amount: 1
+    outputs:
+    - type: mekanized:red
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete/white:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - item-tag: c:dyed/white
+      amount: 1
+    outputs:
+    - type: mekanized:white
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete/yellow:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - item-tag: c:dyed/yellow
+      amount: 1
+    outputs:
+    - type: mekanized:yellow
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete_powder/black:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - item-tag: c:dyed/black
+      amount: 1
+    outputs:
+    - type: mekanized:black
+      amount: 32
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete_powder/blue:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - item-tag: c:dyed/blue
+      amount: 1
+    outputs:
+    - type: mekanized:blue
+      amount: 32
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete_powder/brown:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - item-tag: c:dyed/brown
+      amount: 1
+    outputs:
+    - type: mekanized:brown
+      amount: 32
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete_powder/cyan:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - item-tag: c:dyed/cyan
+      amount: 1
+    outputs:
+    - type: mekanized:cyan
+      amount: 32
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete_powder/gray:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - item-tag: c:dyed/gray
+      amount: 1
+    outputs:
+    - type: mekanized:gray
+      amount: 32
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete_powder/green:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - item-tag: c:dyed/green
+      amount: 1
+    outputs:
+    - type: mekanized:green
+      amount: 32
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete_powder/light_blue:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - item-tag: c:dyed/light_blue
+      amount: 1
+    outputs:
+    - type: mekanized:light_blue
+      amount: 32
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete_powder/light_gray:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - item-tag: c:dyed/light_gray
+      amount: 1
+    outputs:
+    - type: mekanized:light_gray
+      amount: 32
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete_powder/lime:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - item-tag: c:dyed/lime
+      amount: 1
+    outputs:
+    - type: mekanized:lime
+      amount: 32
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete_powder/magenta:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - item-tag: c:dyed/magenta
+      amount: 1
+    outputs:
+    - type: mekanized:magenta
+      amount: 32
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete_powder/orange:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - item-tag: c:dyed/orange
+      amount: 1
+    outputs:
+    - type: mekanized:orange
+      amount: 32
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete_powder/pink:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - item-tag: c:dyed/pink
+      amount: 1
+    outputs:
+    - type: mekanized:pink
+      amount: 32
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete_powder/purple:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - item-tag: c:dyed/purple
+      amount: 1
+    outputs:
+    - type: mekanized:purple
+      amount: 32
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete_powder/red:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - item-tag: c:dyed/red
+      amount: 1
+    outputs:
+    - type: mekanized:red
+      amount: 32
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete_powder/white:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - item-tag: c:dyed/white
+      amount: 1
+    outputs:
+    - type: mekanized:white
+      amount: 32
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/concrete_powder/yellow:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - item-tag: c:dyed/yellow
+      amount: 1
+    outputs:
+    - type: mekanized:yellow
+      amount: 32
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/dye/black:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item-tag: c:dyes/black
+      amount: 1
+    outputs:
+    - type: mekanized:black
+      amount: 256
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/dye/blue:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item-tag: c:dyes/blue
+      amount: 1
+    outputs:
+    - type: mekanized:blue
+      amount: 256
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/dye/brown:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item-tag: c:dyes/brown
+      amount: 1
+    outputs:
+    - type: mekanized:brown
+      amount: 256
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/dye/cyan:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item-tag: c:dyes/cyan
+      amount: 1
+    outputs:
+    - type: mekanized:cyan
+      amount: 256
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/dye/gray:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item-tag: c:dyes/gray
+      amount: 1
+    outputs:
+    - type: mekanized:gray
+      amount: 256
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/dye/green:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item-tag: c:dyes/green
+      amount: 1
+    outputs:
+    - type: mekanized:green
+      amount: 256
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/dye/light_blue:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item-tag: c:dyes/light_blue
+      amount: 1
+    outputs:
+    - type: mekanized:light_blue
+      amount: 256
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/dye/light_gray:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item-tag: c:dyes/light_gray
+      amount: 1
+    outputs:
+    - type: mekanized:light_gray
+      amount: 256
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/dye/lime:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item-tag: c:dyes/lime
+      amount: 1
+    outputs:
+    - type: mekanized:lime
+      amount: 256
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/dye/magenta:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item-tag: c:dyes/magenta
+      amount: 1
+    outputs:
+    - type: mekanized:magenta
+      amount: 256
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/dye/orange:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item-tag: c:dyes/orange
+      amount: 1
+    outputs:
+    - type: mekanized:orange
+      amount: 256
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/dye/pink:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item-tag: c:dyes/pink
+      amount: 1
+    outputs:
+    - type: mekanized:pink
+      amount: 256
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/dye/purple:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item-tag: c:dyes/purple
+      amount: 1
+    outputs:
+    - type: mekanized:purple
+      amount: 256
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/dye/red:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item-tag: c:dyes/red
+      amount: 1
+    outputs:
+    - type: mekanized:red
+      amount: 256
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/dye/white:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item-tag: c:dyes/white
+      amount: 1
+    outputs:
+    - type: mekanized:white
+      amount: 256
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/dye/yellow:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item-tag: c:dyes/yellow
+      amount: 1
+    outputs:
+    - type: mekanized:yellow
+      amount: 256
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/flower/black:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - any-of:
+      - item: minecraft:ink_sac
+      - item: minecraft:wither_rose
+      amount: 1
+    outputs:
+    - type: mekanized:black
+      amount: 768
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/flower/blue:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - any-of:
+      - item: minecraft:cornflower
+      - item: minecraft:lapis_lazuli
+      amount: 1
+    outputs:
+    - type: mekanized:blue
+      amount: 768
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/flower/brown:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item: minecraft:cocoa_beans
+      amount: 1
+    outputs:
+    - type: mekanized:brown
+      amount: 768
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/flower/green:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item: minecraft:cactus
+      amount: 1
+    outputs:
+    - type: mekanized:green
+      amount: 768
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/flower/large_cyan:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item: minecraft:pitcher_plant
+      amount: 1
+    outputs:
+    - type: mekanized:cyan
+      amount: 1536
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/flower/large_magenta:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item: minecraft:lilac
+      amount: 1
+    outputs:
+    - type: mekanized:magenta
+      amount: 1536
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/flower/large_pink:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item: minecraft:peony
+      amount: 1
+    outputs:
+    - type: mekanized:pink
+      amount: 1536
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/flower/large_red:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item: minecraft:rose_bush
+      amount: 1
+    outputs:
+    - type: mekanized:red
+      amount: 1536
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/flower/large_yellow:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item: minecraft:sunflower
+      amount: 1
+    outputs:
+    - type: mekanized:yellow
+      amount: 1536
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/flower/light_blue:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item: minecraft:blue_orchid
+      amount: 1
+    outputs:
+    - type: mekanized:light_blue
+      amount: 768
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/flower/light_gray:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - any-of:
+      - item: minecraft:oxeye_daisy
+      - item: minecraft:azure_bluet
+      - item: minecraft:white_tulip
+      amount: 1
+    outputs:
+    - type: mekanized:light_gray
+      amount: 768
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/flower/lime:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item: minecraft:sea_pickle
+      amount: 1
+    outputs:
+    - type: mekanized:lime
+      amount: 768
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/flower/orange:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - any-of:
+      - item: minecraft:orange_tulip
+      - item: minecraft:torchflower
+      amount: 1
+    outputs:
+    - type: mekanized:orange
+      amount: 768
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/flower/small_magenta:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item: minecraft:allium
+      amount: 1
+    outputs:
+    - type: mekanized:magenta
+      amount: 768
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/flower/small_pink:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - any-of:
+      - item: minecraft:pink_tulip
+      - item: minecraft:pink_petals
+      amount: 1
+    outputs:
+    - type: mekanized:pink
+      amount: 768
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/flower/small_red:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - any-of:
+      - item: minecraft:beetroot
+      - item: minecraft:poppy
+      - item: minecraft:red_tulip
+      amount: 1
+    outputs:
+    - type: mekanized:red
+      amount: 768
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/flower/small_yellow:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - item: minecraft:dandelion
+      amount: 1
+    outputs:
+    - type: mekanized:yellow
+      amount: 768
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/flower/white:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - any-of:
+      - item: minecraft:bone_meal
+      - item: minecraft:lily_of_the_valley
+      amount: 1
+    outputs:
+    - type: mekanized:white
+      amount: 768
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass/black:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - item-tag: c:dyed/black
+      amount: 1
+    outputs:
+    - type: mekanized:black
+      amount: 16
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass/blue:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - item-tag: c:dyed/blue
+      amount: 1
+    outputs:
+    - type: mekanized:blue
+      amount: 16
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass/brown:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - item-tag: c:dyed/brown
+      amount: 1
+    outputs:
+    - type: mekanized:brown
+      amount: 16
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass/cyan:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - item-tag: c:dyed/cyan
+      amount: 1
+    outputs:
+    - type: mekanized:cyan
+      amount: 16
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass/gray:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - item-tag: c:dyed/gray
+      amount: 1
+    outputs:
+    - type: mekanized:gray
+      amount: 16
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass/green:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - item-tag: c:dyed/green
+      amount: 1
+    outputs:
+    - type: mekanized:green
+      amount: 16
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass/light_blue:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - item-tag: c:dyed/light_blue
+      amount: 1
+    outputs:
+    - type: mekanized:light_blue
+      amount: 16
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass/light_gray:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - item-tag: c:dyed/light_gray
+      amount: 1
+    outputs:
+    - type: mekanized:light_gray
+      amount: 16
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass/lime:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - item-tag: c:dyed/lime
+      amount: 1
+    outputs:
+    - type: mekanized:lime
+      amount: 16
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass/magenta:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - item-tag: c:dyed/magenta
+      amount: 1
+    outputs:
+    - type: mekanized:magenta
+      amount: 16
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass/orange:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - item-tag: c:dyed/orange
+      amount: 1
+    outputs:
+    - type: mekanized:orange
+      amount: 16
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass/pink:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - item-tag: c:dyed/pink
+      amount: 1
+    outputs:
+    - type: mekanized:pink
+      amount: 16
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass/purple:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - item-tag: c:dyed/purple
+      amount: 1
+    outputs:
+    - type: mekanized:purple
+      amount: 16
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass/red:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - item-tag: c:dyed/red
+      amount: 1
+    outputs:
+    - type: mekanized:red
+      amount: 16
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass/white:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - item-tag: c:dyed/white
+      amount: 1
+    outputs:
+    - type: mekanized:white
+      amount: 16
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass/yellow:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - item-tag: c:dyed/yellow
+      amount: 1
+    outputs:
+    - type: mekanized:yellow
+      amount: 16
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass_pane/black:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - item-tag: c:dyed/black
+      amount: 1
+    outputs:
+    - type: mekanized:black
+      amount: 6
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass_pane/blue:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - item-tag: c:dyed/blue
+      amount: 1
+    outputs:
+    - type: mekanized:blue
+      amount: 6
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass_pane/brown:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - item-tag: c:dyed/brown
+      amount: 1
+    outputs:
+    - type: mekanized:brown
+      amount: 6
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass_pane/cyan:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - item-tag: c:dyed/cyan
+      amount: 1
+    outputs:
+    - type: mekanized:cyan
+      amount: 6
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass_pane/gray:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - item-tag: c:dyed/gray
+      amount: 1
+    outputs:
+    - type: mekanized:gray
+      amount: 6
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass_pane/green:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - item-tag: c:dyed/green
+      amount: 1
+    outputs:
+    - type: mekanized:green
+      amount: 6
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass_pane/light_blue:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - item-tag: c:dyed/light_blue
+      amount: 1
+    outputs:
+    - type: mekanized:light_blue
+      amount: 6
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass_pane/light_gray:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - item-tag: c:dyed/light_gray
+      amount: 1
+    outputs:
+    - type: mekanized:light_gray
+      amount: 6
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass_pane/lime:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - item-tag: c:dyed/lime
+      amount: 1
+    outputs:
+    - type: mekanized:lime
+      amount: 6
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass_pane/magenta:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - item-tag: c:dyed/magenta
+      amount: 1
+    outputs:
+    - type: mekanized:magenta
+      amount: 6
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass_pane/orange:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - item-tag: c:dyed/orange
+      amount: 1
+    outputs:
+    - type: mekanized:orange
+      amount: 6
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass_pane/pink:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - item-tag: c:dyed/pink
+      amount: 1
+    outputs:
+    - type: mekanized:pink
+      amount: 6
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass_pane/purple:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - item-tag: c:dyed/purple
+      amount: 1
+    outputs:
+    - type: mekanized:purple
+      amount: 6
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass_pane/red:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - item-tag: c:dyed/red
+      amount: 1
+    outputs:
+    - type: mekanized:red
+      amount: 6
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass_pane/white:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - item-tag: c:dyed/white
+      amount: 1
+    outputs:
+    - type: mekanized:white
+      amount: 6
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/stained_glass_pane/yellow:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - item-tag: c:dyed/yellow
+      amount: 1
+    outputs:
+    - type: mekanized:yellow
+      amount: 6
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/terracotta/black:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - item-tag: c:dyed/black
+      amount: 1
+    outputs:
+    - type: mekanized:black
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/terracotta/blue:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - item-tag: c:dyed/blue
+      amount: 1
+    outputs:
+    - type: mekanized:blue
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/terracotta/brown:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - item-tag: c:dyed/brown
+      amount: 1
+    outputs:
+    - type: mekanized:brown
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/terracotta/cyan:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - item-tag: c:dyed/cyan
+      amount: 1
+    outputs:
+    - type: mekanized:cyan
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/terracotta/gray:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - item-tag: c:dyed/gray
+      amount: 1
+    outputs:
+    - type: mekanized:gray
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/terracotta/green:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - item-tag: c:dyed/green
+      amount: 1
+    outputs:
+    - type: mekanized:green
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/terracotta/light_blue:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - item-tag: c:dyed/light_blue
+      amount: 1
+    outputs:
+    - type: mekanized:light_blue
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/terracotta/light_gray:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - item-tag: c:dyed/light_gray
+      amount: 1
+    outputs:
+    - type: mekanized:light_gray
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/terracotta/lime:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - item-tag: c:dyed/lime
+      amount: 1
+    outputs:
+    - type: mekanized:lime
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/terracotta/magenta:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - item-tag: c:dyed/magenta
+      amount: 1
+    outputs:
+    - type: mekanized:magenta
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/terracotta/orange:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - item-tag: c:dyed/orange
+      amount: 1
+    outputs:
+    - type: mekanized:orange
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/terracotta/pink:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - item-tag: c:dyed/pink
+      amount: 1
+    outputs:
+    - type: mekanized:pink
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/terracotta/purple:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - item-tag: c:dyed/purple
+      amount: 1
+    outputs:
+    - type: mekanized:purple
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/terracotta/red:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - item-tag: c:dyed/red
+      amount: 1
+    outputs:
+    - type: mekanized:red
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/terracotta/white:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - item-tag: c:dyed/white
+      amount: 1
+    outputs:
+    - type: mekanized:white
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/terracotta/yellow:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - item-tag: c:dyed/yellow
+      amount: 1
+    outputs:
+    - type: mekanized:yellow
+      amount: 24
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/wool/black:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - item-tag: c:dyed/black
+      amount: 1
+    outputs:
+    - type: mekanized:black
+      amount: 192
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/wool/blue:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - item-tag: c:dyed/blue
+      amount: 1
+    outputs:
+    - type: mekanized:blue
+      amount: 192
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/wool/brown:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - item-tag: c:dyed/brown
+      amount: 1
+    outputs:
+    - type: mekanized:brown
+      amount: 192
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/wool/cyan:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - item-tag: c:dyed/cyan
+      amount: 1
+    outputs:
+    - type: mekanized:cyan
+      amount: 192
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/wool/gray:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - item-tag: c:dyed/gray
+      amount: 1
+    outputs:
+    - type: mekanized:gray
+      amount: 192
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/wool/green:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - item-tag: c:dyed/green
+      amount: 1
+    outputs:
+    - type: mekanized:green
+      amount: 192
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/wool/light_blue:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - item-tag: c:dyed/light_blue
+      amount: 1
+    outputs:
+    - type: mekanized:light_blue
+      amount: 192
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/wool/light_gray:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - item-tag: c:dyed/light_gray
+      amount: 1
+    outputs:
+    - type: mekanized:light_gray
+      amount: 192
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/wool/lime:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - item-tag: c:dyed/lime
+      amount: 1
+    outputs:
+    - type: mekanized:lime
+      amount: 192
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/wool/magenta:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - item-tag: c:dyed/magenta
+      amount: 1
+    outputs:
+    - type: mekanized:magenta
+      amount: 192
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/wool/orange:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - item-tag: c:dyed/orange
+      amount: 1
+    outputs:
+    - type: mekanized:orange
+      amount: 192
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/wool/pink:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - item-tag: c:dyed/pink
+      amount: 1
+    outputs:
+    - type: mekanized:pink
+      amount: 192
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/wool/purple:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - item-tag: c:dyed/purple
+      amount: 1
+    outputs:
+    - type: mekanized:purple
+      amount: 192
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/wool/red:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - item-tag: c:dyed/red
+      amount: 1
+    outputs:
+    - type: mekanized:red
+      amount: 192
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/wool/white:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - item-tag: c:dyed/white
+      amount: 1
+    outputs:
+    - type: mekanized:white
+      amount: 192
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_extracting/wool/yellow:
+    type: mekanized:pigment_extracting
+    duration: 100
+    inputs:
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - item-tag: c:dyed/yellow
+      amount: 1
+    outputs:
+    - type: mekanized:yellow
+      amount: 192
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200

@@ -1,0 +1,1828 @@
+# Mekanized sawing recipes, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+# Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.
+# Durations are ticks; energy is Joules per tick. Phase 2 of MEKANIZED_PLAN.md.
+recipes:
+  mekanized:sawing/bamboo_block:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:bamboo_block
+      amount: 1
+    outputs:
+    - item: minecraft:bamboo
+      amount: 9
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/barrel:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:barrel
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 7
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/bed/black:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:black_bed
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 3
+    chance-outputs:
+    - item: minecraft:black_wool
+      amount: 3
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/bed/blue:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:blue_bed
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 3
+    chance-outputs:
+    - item: minecraft:blue_wool
+      amount: 3
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/bed/brown:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:brown_bed
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 3
+    chance-outputs:
+    - item: minecraft:brown_wool
+      amount: 3
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/bed/cyan:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:cyan_bed
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 3
+    chance-outputs:
+    - item: minecraft:cyan_wool
+      amount: 3
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/bed/gray:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:gray_bed
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 3
+    chance-outputs:
+    - item: minecraft:gray_wool
+      amount: 3
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/bed/green:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:green_bed
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 3
+    chance-outputs:
+    - item: minecraft:green_wool
+      amount: 3
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/bed/light_blue:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:light_blue_bed
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 3
+    chance-outputs:
+    - item: minecraft:light_blue_wool
+      amount: 3
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/bed/light_gray:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:light_gray_bed
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 3
+    chance-outputs:
+    - item: minecraft:light_gray_wool
+      amount: 3
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/bed/lime:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:lime_bed
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 3
+    chance-outputs:
+    - item: minecraft:lime_wool
+      amount: 3
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/bed/magenta:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:magenta_bed
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 3
+    chance-outputs:
+    - item: minecraft:magenta_wool
+      amount: 3
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/bed/orange:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:orange_bed
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 3
+    chance-outputs:
+    - item: minecraft:orange_wool
+      amount: 3
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/bed/pink:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:pink_bed
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 3
+    chance-outputs:
+    - item: minecraft:pink_wool
+      amount: 3
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/bed/purple:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:purple_bed
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 3
+    chance-outputs:
+    - item: minecraft:purple_wool
+      amount: 3
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/bed/red:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:red_bed
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 3
+    chance-outputs:
+    - item: minecraft:red_wool
+      amount: 3
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/bed/white:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:white_bed
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 3
+    chance-outputs:
+    - item: minecraft:white_wool
+      amount: 3
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/bed/yellow:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:yellow_bed
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 3
+    chance-outputs:
+    - item: minecraft:yellow_wool
+      amount: 3
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/boat/acacia:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:acacia_boat
+      amount: 1
+    outputs:
+    - item: minecraft:acacia_planks
+      amount: 5
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/boat/bamboo:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:bamboo_raft
+      amount: 1
+    outputs:
+    - item: minecraft:bamboo_planks
+      amount: 5
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/boat/birch:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:birch_boat
+      amount: 1
+    outputs:
+    - item: minecraft:birch_planks
+      amount: 5
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/boat/cherry:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:cherry_boat
+      amount: 1
+    outputs:
+    - item: minecraft:cherry_planks
+      amount: 5
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/boat/dark_oak:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:dark_oak_boat
+      amount: 1
+    outputs:
+    - item: minecraft:dark_oak_planks
+      amount: 5
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/boat/jungle:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:jungle_boat
+      amount: 1
+    outputs:
+    - item: minecraft:jungle_planks
+      amount: 5
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/boat/mangrove:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:mangrove_boat
+      amount: 1
+    outputs:
+    - item: minecraft:mangrove_planks
+      amount: 5
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/boat/oak:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:oak_boat
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 5
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/boat/spruce:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:spruce_boat
+      amount: 1
+    outputs:
+    - item: minecraft:spruce_planks
+      amount: 5
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/bookshelf:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item-tag: c:bookshelves
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 6
+    chance-outputs:
+    - item: minecraft:book
+      amount: 3
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/button:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item-tag: minecraft:wooden_buttons
+      amount: 1
+    outputs:
+    - item: mekanized:sawdust
+      amount: 1
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/chest:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:chest
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 8
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/chest_boat/acacia:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:acacia_chest_boat
+      amount: 1
+    outputs:
+    - item: minecraft:acacia_boat
+      amount: 1
+    chance-outputs:
+    - item: minecraft:chest
+      amount: 1
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/chest_boat/bamboo:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:bamboo_chest_raft
+      amount: 1
+    outputs:
+    - item: minecraft:bamboo_raft
+      amount: 1
+    chance-outputs:
+    - item: minecraft:chest
+      amount: 1
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/chest_boat/birch:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:birch_chest_boat
+      amount: 1
+    outputs:
+    - item: minecraft:birch_boat
+      amount: 1
+    chance-outputs:
+    - item: minecraft:chest
+      amount: 1
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/chest_boat/cherry:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:cherry_chest_boat
+      amount: 1
+    outputs:
+    - item: minecraft:cherry_boat
+      amount: 1
+    chance-outputs:
+    - item: minecraft:chest
+      amount: 1
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/chest_boat/dark_oak:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:dark_oak_chest_boat
+      amount: 1
+    outputs:
+    - item: minecraft:dark_oak_boat
+      amount: 1
+    chance-outputs:
+    - item: minecraft:chest
+      amount: 1
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/chest_boat/jungle:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:jungle_chest_boat
+      amount: 1
+    outputs:
+    - item: minecraft:jungle_boat
+      amount: 1
+    chance-outputs:
+    - item: minecraft:chest
+      amount: 1
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/chest_boat/mangrove:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:mangrove_chest_boat
+      amount: 1
+    outputs:
+    - item: minecraft:mangrove_boat
+      amount: 1
+    chance-outputs:
+    - item: minecraft:chest
+      amount: 1
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/chest_boat/oak:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:oak_chest_boat
+      amount: 1
+    outputs:
+    - item: minecraft:oak_boat
+      amount: 1
+    chance-outputs:
+    - item: minecraft:chest
+      amount: 1
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/chest_boat/spruce:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:spruce_chest_boat
+      amount: 1
+    outputs:
+    - item: minecraft:spruce_boat
+      amount: 1
+    chance-outputs:
+    - item: minecraft:chest
+      amount: 1
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/chiseled_bookshelf:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:chiseled_bookshelf
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 6
+    chance-outputs:
+    - item: minecraft:oak_slab
+      amount: 3
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/composter:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:composter
+      amount: 1
+    outputs:
+    - item: minecraft:oak_slab
+      amount: 7
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/crafting_table:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:crafting_table
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/door/acacia:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:acacia_door
+      amount: 1
+    outputs:
+    - item: minecraft:acacia_planks
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/door/bamboo:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:bamboo_door
+      amount: 1
+    outputs:
+    - item: minecraft:bamboo_planks
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/door/birch:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:birch_door
+      amount: 1
+    outputs:
+    - item: minecraft:birch_planks
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/door/cherry:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:cherry_door
+      amount: 1
+    outputs:
+    - item: minecraft:cherry_planks
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/door/crimson:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:crimson_door
+      amount: 1
+    outputs:
+    - item: minecraft:crimson_planks
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/door/dark_oak:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:dark_oak_door
+      amount: 1
+    outputs:
+    - item: minecraft:dark_oak_planks
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/door/jungle:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:jungle_door
+      amount: 1
+    outputs:
+    - item: minecraft:jungle_planks
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/door/mangrove:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:mangrove_door
+      amount: 1
+    outputs:
+    - item: minecraft:mangrove_planks
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/door/oak:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:oak_door
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/door/spruce:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:spruce_door
+      amount: 1
+    outputs:
+    - item: minecraft:spruce_planks
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/door/warped:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:warped_door
+      amount: 1
+    outputs:
+    - item: minecraft:warped_planks
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/fence_gate/acacia:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:acacia_fence_gate
+      amount: 1
+    outputs:
+    - item: minecraft:acacia_planks
+      amount: 2
+    chance-outputs:
+    - item: minecraft:stick
+      amount: 4
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/fence_gate/bamboo:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:bamboo_fence_gate
+      amount: 1
+    outputs:
+    - item: minecraft:bamboo_planks
+      amount: 2
+    chance-outputs:
+    - item: minecraft:stick
+      amount: 4
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/fence_gate/birch:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:birch_fence_gate
+      amount: 1
+    outputs:
+    - item: minecraft:birch_planks
+      amount: 2
+    chance-outputs:
+    - item: minecraft:stick
+      amount: 4
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/fence_gate/cherry:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:cherry_fence_gate
+      amount: 1
+    outputs:
+    - item: minecraft:cherry_planks
+      amount: 2
+    chance-outputs:
+    - item: minecraft:stick
+      amount: 4
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/fence_gate/crimson:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:crimson_fence_gate
+      amount: 1
+    outputs:
+    - item: minecraft:crimson_planks
+      amount: 2
+    chance-outputs:
+    - item: minecraft:stick
+      amount: 4
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/fence_gate/dark_oak:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:dark_oak_fence_gate
+      amount: 1
+    outputs:
+    - item: minecraft:dark_oak_planks
+      amount: 2
+    chance-outputs:
+    - item: minecraft:stick
+      amount: 4
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/fence_gate/jungle:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:jungle_fence_gate
+      amount: 1
+    outputs:
+    - item: minecraft:jungle_planks
+      amount: 2
+    chance-outputs:
+    - item: minecraft:stick
+      amount: 4
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/fence_gate/mangrove:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:mangrove_fence_gate
+      amount: 1
+    outputs:
+    - item: minecraft:mangrove_planks
+      amount: 2
+    chance-outputs:
+    - item: minecraft:stick
+      amount: 4
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/fence_gate/oak:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:oak_fence_gate
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 2
+    chance-outputs:
+    - item: minecraft:stick
+      amount: 4
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/fence_gate/spruce:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:spruce_fence_gate
+      amount: 1
+    outputs:
+    - item: minecraft:spruce_planks
+      amount: 2
+    chance-outputs:
+    - item: minecraft:stick
+      amount: 4
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/fence_gate/warped:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:warped_fence_gate
+      amount: 1
+    outputs:
+    - item: minecraft:warped_planks
+      amount: 2
+    chance-outputs:
+    - item: minecraft:stick
+      amount: 4
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/fences:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item-tag: c:fences/wooden
+      amount: 1
+    outputs:
+    - item: minecraft:stick
+      amount: 3
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/hanging_sign/acacia:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:acacia_hanging_sign
+      amount: 1
+    outputs:
+    - item: minecraft:acacia_planks
+      amount: 2
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.5
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/hanging_sign/bamboo:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:bamboo_hanging_sign
+      amount: 1
+    outputs:
+    - item: minecraft:bamboo_planks
+      amount: 2
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.5
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/hanging_sign/birch:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:birch_hanging_sign
+      amount: 1
+    outputs:
+    - item: minecraft:birch_planks
+      amount: 2
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.5
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/hanging_sign/cherry:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:cherry_hanging_sign
+      amount: 1
+    outputs:
+    - item: minecraft:cherry_planks
+      amount: 2
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.5
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/hanging_sign/crimson:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:crimson_hanging_sign
+      amount: 1
+    outputs:
+    - item: minecraft:crimson_planks
+      amount: 2
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.5
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/hanging_sign/dark_oak:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:dark_oak_hanging_sign
+      amount: 1
+    outputs:
+    - item: minecraft:dark_oak_planks
+      amount: 2
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.5
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/hanging_sign/jungle:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:jungle_hanging_sign
+      amount: 1
+    outputs:
+    - item: minecraft:jungle_planks
+      amount: 2
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.5
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/hanging_sign/mangrove:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:mangrove_hanging_sign
+      amount: 1
+    outputs:
+    - item: minecraft:mangrove_planks
+      amount: 2
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.5
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/hanging_sign/oak:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:oak_hanging_sign
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 2
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.5
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/hanging_sign/spruce:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:spruce_hanging_sign
+      amount: 1
+    outputs:
+    - item: minecraft:spruce_planks
+      amount: 2
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.5
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/hanging_sign/warped:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:warped_hanging_sign
+      amount: 1
+    outputs:
+    - item: minecraft:warped_planks
+      amount: 2
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.5
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/item_frame:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:item_frame
+      amount: 1
+    outputs:
+    - item: minecraft:stick
+      amount: 8
+    chance-outputs:
+    - item: minecraft:leather
+      amount: 1
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/jukebox:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:jukebox
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 8
+    chance-outputs:
+    - item: minecraft:diamond
+      amount: 1
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/ladder:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:ladder
+      amount: 3
+    outputs:
+    - item: minecraft:stick
+      amount: 7
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/lectern:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:lectern
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 8
+    chance-outputs:
+    - item: minecraft:book
+      amount: 3
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/log/acacia:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item-tag: minecraft:acacia_logs
+      amount: 1
+    outputs:
+    - item: minecraft:acacia_planks
+      amount: 6
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/log/birch:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item-tag: minecraft:birch_logs
+      amount: 1
+    outputs:
+    - item: minecraft:birch_planks
+      amount: 6
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/log/cherry:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item-tag: minecraft:cherry_logs
+      amount: 1
+    outputs:
+    - item: minecraft:cherry_planks
+      amount: 6
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/log/crimson:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item-tag: minecraft:crimson_stems
+      amount: 1
+    outputs:
+    - item: minecraft:crimson_planks
+      amount: 6
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/log/dark_oak:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item-tag: minecraft:dark_oak_logs
+      amount: 1
+    outputs:
+    - item: minecraft:dark_oak_planks
+      amount: 6
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/log/jungle:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item-tag: minecraft:jungle_logs
+      amount: 1
+    outputs:
+    - item: minecraft:jungle_planks
+      amount: 6
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/log/mangrove:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item-tag: minecraft:mangrove_logs
+      amount: 1
+    outputs:
+    - item: minecraft:mangrove_planks
+      amount: 6
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/log/oak:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item-tag: minecraft:oak_logs
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 6
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/log/spruce:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item-tag: minecraft:spruce_logs
+      amount: 1
+    outputs:
+    - item: minecraft:spruce_planks
+      amount: 6
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/log/warped:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item-tag: minecraft:warped_stems
+      amount: 1
+    outputs:
+    - item: minecraft:warped_planks
+      amount: 6
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/melon:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:melon
+      amount: 1
+    outputs:
+    - item: minecraft:melon_slice
+      amount: 9
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/note_block:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:note_block
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 8
+    chance-outputs:
+    - item: minecraft:redstone
+      amount: 1
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/planks:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item-tag: minecraft:planks
+      amount: 1
+    outputs:
+    - item: minecraft:stick
+      amount: 6
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/pressure_plate/acacia:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:acacia_pressure_plate
+      amount: 1
+    outputs:
+    - item: minecraft:acacia_planks
+      amount: 1
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 2
+      chance: 0.25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/pressure_plate/bamboo:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:bamboo_pressure_plate
+      amount: 1
+    outputs:
+    - item: minecraft:bamboo_planks
+      amount: 1
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 2
+      chance: 0.25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/pressure_plate/birch:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:birch_pressure_plate
+      amount: 1
+    outputs:
+    - item: minecraft:birch_planks
+      amount: 1
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 2
+      chance: 0.25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/pressure_plate/cherry:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:cherry_pressure_plate
+      amount: 1
+    outputs:
+    - item: minecraft:cherry_planks
+      amount: 1
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 2
+      chance: 0.25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/pressure_plate/crimson:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:crimson_pressure_plate
+      amount: 1
+    outputs:
+    - item: minecraft:crimson_planks
+      amount: 1
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 2
+      chance: 0.25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/pressure_plate/dark_oak:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:dark_oak_pressure_plate
+      amount: 1
+    outputs:
+    - item: minecraft:dark_oak_planks
+      amount: 1
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 2
+      chance: 0.25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/pressure_plate/jungle:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:jungle_pressure_plate
+      amount: 1
+    outputs:
+    - item: minecraft:jungle_planks
+      amount: 1
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 2
+      chance: 0.25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/pressure_plate/mangrove:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:mangrove_pressure_plate
+      amount: 1
+    outputs:
+    - item: minecraft:mangrove_planks
+      amount: 1
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 2
+      chance: 0.25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/pressure_plate/oak:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:oak_pressure_plate
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 1
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 2
+      chance: 0.25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/pressure_plate/spruce:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:spruce_pressure_plate
+      amount: 1
+    outputs:
+    - item: minecraft:spruce_planks
+      amount: 1
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 2
+      chance: 0.25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/pressure_plate/warped:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:warped_pressure_plate
+      amount: 1
+    outputs:
+    - item: minecraft:warped_planks
+      amount: 1
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 2
+      chance: 0.25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/pumpkin:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:pumpkin
+      amount: 1
+    outputs:
+    - item: minecraft:carved_pumpkin
+      amount: 1
+    chance-outputs:
+    - item: minecraft:pumpkin_seeds
+      amount: 4
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/redstone_torch:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:redstone_torch
+      amount: 1
+    outputs:
+    - item: minecraft:stick
+      amount: 1
+    chance-outputs:
+    - item: minecraft:redstone
+      amount: 1
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/sign:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item-tag: minecraft:signs
+      amount: 1
+    outputs:
+    - item: minecraft:stick
+      amount: 3
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/slabs:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item-tag: minecraft:wooden_slabs
+      amount: 1
+    outputs:
+    - item: minecraft:stick
+      amount: 3
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.125
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/soul_torch:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:soul_torch
+      amount: 4
+    outputs:
+    - item: minecraft:torch
+      amount: 4
+    chance-outputs:
+    - item: minecraft:soul_soil
+      amount: 1
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/stairs:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item-tag: minecraft:wooden_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:stick
+      amount: 9
+    chance-outputs:
+    - item: mekanized:sawdust
+      amount: 1
+      chance: 0.375
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/stick:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item-tag: c:rods/wooden
+      amount: 1
+    outputs:
+    - item: mekanized:sawdust
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/torch:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:torch
+      amount: 4
+    outputs:
+    - item: minecraft:stick
+      amount: 1
+    chance-outputs:
+    - item: minecraft:coal
+      amount: 1
+      chance: 1.0
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/trapdoor/acacia:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:acacia_trapdoor
+      amount: 1
+    outputs:
+    - item: minecraft:acacia_planks
+      amount: 3
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/trapdoor/bamboo:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:bamboo_trapdoor
+      amount: 1
+    outputs:
+    - item: minecraft:bamboo_planks
+      amount: 3
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/trapdoor/birch:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:birch_trapdoor
+      amount: 1
+    outputs:
+    - item: minecraft:birch_planks
+      amount: 3
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/trapdoor/cherry:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:cherry_trapdoor
+      amount: 1
+    outputs:
+    - item: minecraft:cherry_planks
+      amount: 3
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/trapdoor/crimson:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:crimson_trapdoor
+      amount: 1
+    outputs:
+    - item: minecraft:crimson_planks
+      amount: 3
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/trapdoor/dark_oak:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:dark_oak_trapdoor
+      amount: 1
+    outputs:
+    - item: minecraft:dark_oak_planks
+      amount: 3
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/trapdoor/jungle:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:jungle_trapdoor
+      amount: 1
+    outputs:
+    - item: minecraft:jungle_planks
+      amount: 3
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/trapdoor/mangrove:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:mangrove_trapdoor
+      amount: 1
+    outputs:
+    - item: minecraft:mangrove_planks
+      amount: 3
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/trapdoor/oak:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:oak_trapdoor
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 3
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/trapdoor/spruce:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:spruce_trapdoor
+      amount: 1
+    outputs:
+    - item: minecraft:spruce_planks
+      amount: 3
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/trapdoor/warped:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:warped_trapdoor
+      amount: 1
+    outputs:
+    - item: minecraft:warped_planks
+      amount: 3
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:sawing/trapped_chest:
+    type: mekanized:sawing
+    duration: 200
+    inputs:
+    - item: minecraft:trapped_chest
+      amount: 1
+    outputs:
+    - item: minecraft:oak_planks
+      amount: 8
+    chance-outputs:
+    - item: minecraft:tripwire_hook
+      amount: 1
+      chance: 0.75
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50

@@ -1,0 +1,6 @@
+{
+  "parent": "mekanized:block/energy_cube/base",
+  "textures": {
+    "corner": "mekanized:block/models/energy_cube_advanced_corner"
+  }
+}

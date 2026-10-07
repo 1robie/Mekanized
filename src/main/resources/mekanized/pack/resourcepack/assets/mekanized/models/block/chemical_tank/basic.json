@@ -1,0 +1,6 @@
+{
+  "parent": "mekanized:block/chemical_tank/base",
+  "textures": {
+    "valve": "mekanized:block/models/chemical_tank_basic_valve"
+  }
+}

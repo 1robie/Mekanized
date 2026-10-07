@@ -1,0 +1,7 @@
+{
+    "parent": "mekanized:block/template/cube_all_led",
+    "textures": {
+        "all": "mekanized:block/boiler_valve_output_steam",
+        "led": "mekanized:block/boiler_valve_output_steam_led"
+    }
+}

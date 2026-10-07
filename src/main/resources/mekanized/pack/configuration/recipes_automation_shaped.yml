@@ -1,0 +1,220 @@
+# Mekanized automation_shaped recipes for CraftEngine, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+recipes:
+  mekanized:cardboard_box:
+    type: shaped
+    pattern:
+    - '##'
+    - '##'
+    ingredients:
+      '#': '#c:dusts/wood'
+    result:
+      id: mekanized:cardboard_box
+      count: 1
+  mekanized:digital_miner:
+    type: shaped
+    pattern:
+    - ACA
+    - SRS
+    - TXT
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      C: '#c:circuits/basic'
+      R: mekanized:robit
+      S: mekanized:logistical_sorter
+      T: mekanized:teleportation_core
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:digital_miner
+      count: 1
+  mekanized:qio_dashboard:
+    type: shaped
+    pattern:
+    - IAI
+    - AGA
+    - ITI
+    ingredients:
+      A: minecraft:ender_pearl
+      G: minecraft:glass_pane
+      I: '#c:ingots/lead'
+      T: mekanized:teleportation_core
+    result:
+      id: mekanized:qio_dashboard
+      count: 1
+  mekanized:qio_drive_array:
+    type: shaped
+    pattern:
+    - TGT
+    - C#C
+    - TIT
+    ingredients:
+      '#': '#mekanized:personal_storage'
+      C: '#c:circuits/ultimate'
+      G: minecraft:glass_pane
+      I: minecraft:ender_pearl
+      T: mekanized:teleportation_core
+    result:
+      id: mekanized:qio_drive_array
+      count: 1
+  mekanized:qio_drive_base:
+    type: shaped
+    pattern:
+    - ICI
+    - C#C
+    - ICI
+    ingredients:
+      '#': minecraft:ender_pearl
+      C: mekanized:ultimate_control_circuit
+      I: '#c:ingots/lead'
+    result:
+      id: mekanized:qio_drive_base
+      count: 1
+  mekanized:qio_drive_hyper_dense:
+    type: shaped
+    pattern:
+    - IPI
+    - P#P
+    - IPI
+    ingredients:
+      '#': mekanized:teleportation_core
+      I: '#c:pellets/plutonium'
+      P: mekanized:qio_drive_base
+    result:
+      id: mekanized:qio_drive_hyper_dense
+      count: 1
+  mekanized:qio_drive_supermassive:
+    type: shaped
+    pattern:
+    - IPI
+    - P#P
+    - IPI
+    ingredients:
+      '#': '#c:pellets/antimatter'
+      I: '#c:pellets/polonium'
+      P: mekanized:qio_drive_time_dilating
+    result:
+      id: mekanized:qio_drive_supermassive
+      count: 1
+  mekanized:qio_drive_time_dilating:
+    type: shaped
+    pattern:
+    - IPI
+    - P#P
+    - IPI
+    ingredients:
+      '#': '#c:pellets/polonium'
+      I: '#c:pellets/plutonium'
+      P: mekanized:qio_drive_hyper_dense
+    result:
+      id: mekanized:qio_drive_time_dilating
+      count: 1
+  mekanized:qio_exporter:
+    type: shaped
+    pattern:
+    - ITI
+    - ACA
+    - ' # '
+    ingredients:
+      '#': minecraft:piston
+      A: minecraft:ender_pearl
+      C: '#c:circuits/ultimate'
+      I: '#c:ingots/lead'
+      T: mekanized:teleportation_core
+    result:
+      id: mekanized:qio_exporter
+      count: 1
+  mekanized:qio_importer:
+    type: shaped
+    pattern:
+    - ITI
+    - ACA
+    - ' # '
+    ingredients:
+      '#': minecraft:sticky_piston
+      A: minecraft:ender_pearl
+      C: '#c:circuits/ultimate'
+      I: '#c:ingots/lead'
+      T: mekanized:teleportation_core
+    result:
+      id: mekanized:qio_importer
+      count: 1
+  mekanized:robit:
+    type: shaped
+    pattern:
+    - ' S '
+    - EAE
+    - IPI
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      E: mekanized:energy_tablet
+      I: '#c:ingots/refined_obsidian'
+      P: '#mekanized:personal_storage'
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:robit
+      count: 1
+  mekanized:seismic_reader:
+    type: shaped
+    pattern:
+    - S#S
+    - SES
+    - SSS
+    ingredients:
+      '#': minecraft:lapis_lazuli
+      E: mekanized:energy_tablet
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:seismic_reader
+      count: 1
+  mekanized:seismic_vibrator:
+    type: shaped
+    pattern:
+    - I#I
+    - CXC
+    - III
+    ingredients:
+      '#': minecraft:lapis_lazuli
+      C: '#c:circuits/basic'
+      I: '#c:ingots/tin'
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:seismic_vibrator
+      count: 1
+  mekanized:teleportation_core:
+    type: shaped
+    pattern:
+    - '#A#'
+    - IDI
+    - '#A#'
+    ingredients:
+      '#': minecraft:ender_pearl
+      A: '#mekanized:alloys/atomic'
+      D: minecraft:diamond
+      I: minecraft:gold_ingot
+    result:
+      id: mekanized:teleportation_core
+      count: 1
+  mekanized:teleporter:
+    type: shaped
+    pattern:
+    - CXC
+    - XTX
+    - CXC
+    ingredients:
+      C: '#c:circuits/basic'
+      T: mekanized:teleportation_core
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:teleporter
+      count: 1
+  mekanized:teleporter_frame:
+    type: shaped
+    pattern:
+    - III
+    - IGI
+    - III
+    ingredients:
+      G: '#c:ingots/refined_glowstone'
+      I: '#c:ingots/refined_obsidian'
+    result:
+      id: mekanized:teleporter_frame
+      count: 9

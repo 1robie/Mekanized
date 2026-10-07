@@ -1,0 +1,511 @@
+# Mekanized late-game machines and generators (Phase 6), based on Mekanism (MIT).
+items:
+  mekanized:display/pressurized_reaction_chamber:
+    model: mekanized:block/pressurized_reaction_chamber
+  mekanized:pressurized_reaction_chamber:
+    data:
+      item_name: <!i><lang:block.mekanized.pressurized_reaction_chamber>
+    model: mekanized:block/pressurized_reaction_chamber
+    behavior:
+      type: block_item
+      block: mekanized:pressurized_reaction_chamber
+  mekanized:display/isotopic_centrifuge:
+    model: mekanized:block/isotopic_centrifuge
+  mekanized:isotopic_centrifuge:
+    data:
+      item_name: <!i><lang:block.mekanized.isotopic_centrifuge>
+    model: mekanized:block/isotopic_centrifuge
+    behavior:
+      type: block_item
+      block: mekanized:isotopic_centrifuge
+  mekanized:display/solar_neutron_activator:
+    model: mekanized:block/solar_neutron_activator
+  mekanized:display/solar_neutron_activator/active:
+    model: mekanized:block/solar_neutron_activator_active
+  mekanized:solar_neutron_activator:
+    data:
+      item_name: <!i><lang:block.mekanized.solar_neutron_activator>
+    model: mekanized:block/solar_neutron_activator
+    behavior:
+      type: block_item
+      block: mekanized:solar_neutron_activator
+  mekanized:display/antiprotonic_nucleosynthesizer:
+    model: mekanized:block/antiprotonic_nucleosynthesizer
+  mekanized:antiprotonic_nucleosynthesizer:
+    data:
+      item_name: <!i><lang:block.mekanized.antiprotonic_nucleosynthesizer>
+    model: mekanized:block/antiprotonic_nucleosynthesizer
+    behavior:
+      type: block_item
+      block: mekanized:antiprotonic_nucleosynthesizer
+  mekanized:display/painting_machine:
+    model: mekanized:block/painting_machine
+  mekanized:display/painting_machine/active:
+    model: mekanized:block/painting_machine_active
+  mekanized:painting_machine:
+    data:
+      item_name: <!i><lang:block.mekanized.painting_machine>
+    model: mekanized:block/painting_machine
+    behavior:
+      type: block_item
+      block: mekanized:painting_machine
+  mekanized:display/pigment_extractor:
+    model: mekanized:block/pigment_extractor
+  mekanized:display/pigment_extractor/active:
+    model: mekanized:block/pigment_extractor_active
+  mekanized:pigment_extractor:
+    data:
+      item_name: <!i><lang:block.mekanized.pigment_extractor>
+    model: mekanized:block/pigment_extractor
+    behavior:
+      type: block_item
+      block: mekanized:pigment_extractor
+  mekanized:display/pigment_mixer:
+    model: mekanized:block/pigment_mixer
+  mekanized:display/pigment_mixer/active:
+    model: mekanized:block/pigment_mixer_active
+  mekanized:pigment_mixer:
+    data:
+      item_name: <!i><lang:block.mekanized.pigment_mixer>
+    model: mekanized:block/pigment_mixer
+    behavior:
+      type: block_item
+      block: mekanized:pigment_mixer
+  mekanized:display/gas_burning_generator:
+    model: mekanized:block/gas_burning_generator
+  mekanized:gas_burning_generator:
+    data:
+      item_name: <!i><lang:block.mekanized.gas_burning_generator>
+    model: mekanized:block/gas_burning_generator
+    behavior:
+      type: block_item
+      block: mekanized:gas_burning_generator
+  mekanized:display/wind_generator:
+    model: mekanized:block/wind_generator
+  mekanized:wind_generator:
+    data:
+      item_name: <!i><lang:block.mekanized.wind_generator>
+    model: mekanized:block/wind_generator
+    behavior:
+      type: block_item
+      block: mekanized:wind_generator
+  mekanized:display/advanced_solar_generator:
+    model: mekanized:block/advanced_solar_generator
+  mekanized:advanced_solar_generator:
+    data:
+      item_name: <!i><lang:block.mekanized.advanced_solar_generator>
+    model: mekanized:block/advanced_solar_generator
+    behavior:
+      type: block_item
+      block: mekanized:advanced_solar_generator
+blocks:
+  mekanized:pressurized_reaction_chamber:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:pressurized_reaction_chamber
+      keep_contents: true
+      display_item: mekanized:display/pressurized_reaction_chamber
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_models_pressurized_reaction_chamber_elements
+          model:
+            path: mekanized:block/display_empty/shared/p_block_models_pressurized_reaction_chamber_elements
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:isotopic_centrifuge:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:isotopic_centrifuge
+      keep_contents: true
+      display_item: mekanized:display/isotopic_centrifuge
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_models_isotopic_centrifuge
+          model:
+            path: mekanized:block/display_empty/shared/p_block_models_isotopic_centrifuge
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:solar_neutron_activator:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:solar_neutron_activator
+      keep_contents: true
+      display_item: mekanized:display/solar_neutron_activator
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_models_solar_neutron_activator1
+          model:
+            path: mekanized:block/display_empty/shared/p_block_models_solar_neutron_activator1
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:antiprotonic_nucleosynthesizer:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:antiprotonic_nucleosynthesizer
+      keep_contents: true
+      display_item: mekanized:display/antiprotonic_nucleosynthesizer
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_models_antiprotonic_nucleosynthesizer_front
+          model:
+            path: mekanized:block/display_empty/shared/p_block_models_antiprotonic_nucleosynthesizer_front
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:painting_machine:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:painting_machine
+      keep_contents: true
+      display_item: mekanized:display/painting_machine
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_painting_machine_right
+          model:
+            path: mekanized:block/display_empty/shared/p_block_painting_machine_right
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:pigment_extractor:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:pigment_extractor
+      keep_contents: true
+      display_item: mekanized:display/pigment_extractor
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_pigment_extractor_right
+          model:
+            path: mekanized:block/display_empty/shared/p_block_pigment_extractor_right
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:pigment_mixer:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:pigment_mixer
+      keep_contents: true
+      display_item: mekanized:display/pigment_mixer
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_pigment_mixer_base
+          model:
+            path: mekanized:block/display_empty/shared/p_block_pigment_mixer_base
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:gas_burning_generator:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:gas_burning_generator
+      keep_contents: true
+      display_item: mekanized:display/gas_burning_generator
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_model_gas_burning_generator
+          model:
+            path: mekanized:block/display_empty/shared/p_block_model_gas_burning_generator
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=west:
+          appearance: default
+        facing=east:
+          appearance: default
+  mekanized:wind_generator:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:wind_generator
+      keep_contents: true
+      display_item: mekanized:display/wind_generator
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_steel_casing
+          model:
+            path: mekanized:block/display_empty/shared/p_block_steel_casing
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=west:
+          appearance: default
+        facing=east:
+          appearance: default
+  mekanized:advanced_solar_generator:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:advanced_solar_generator
+      keep_contents: true
+      display_item: mekanized:display/advanced_solar_generator
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_model_advanced_solar_generator
+          model:
+            path: mekanized:block/display_empty/shared/p_block_model_advanced_solar_generator
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=west:
+          appearance: default
+        facing=east:
+          appearance: default

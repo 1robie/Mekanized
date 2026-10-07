@@ -1,0 +1,10 @@
+{
+  "parent": "mekanized:block/purification_chamber",
+  "textures": {
+    "front": "mekanized:block/purification_chamber/front_active",
+    "west": "mekanized:block/purification_chamber/right_active",
+    "east": "mekanized:block/purification_chamber/left_active",
+    "south": "mekanized:block/purification_chamber/back_active",
+    "up": "mekanized:block/purification_chamber/top_active"
+  }
+}

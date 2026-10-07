@@ -1,0 +1,277 @@
+# Mekanized chunk loading, quantum entangloporter, the last upgrades and tools (Phase 6 wave 6), based on Mekanism (MIT).
+items:
+  mekanized:dimensional_stabilizer:
+    data:
+      item_name: <!i><lang:block.mekanized.dimensional_stabilizer>
+    model: mekanized:block/dimensional_stabilizer
+    behavior:
+      type: block_item
+      block: mekanized:dimensional_stabilizer
+  mekanized:display/quantum_entangloporter:
+    model: mekanized:block/quantum_entangloporter
+  mekanized:quantum_entangloporter:
+    data:
+      item_name: <!i><lang:block.mekanized.quantum_entangloporter>
+    model: mekanized:block/quantum_entangloporter
+    behavior:
+      type: block_item
+      block: mekanized:quantum_entangloporter
+  mekanized:display/radioactive_waste_barrel:
+    model: mekanized:block/radioactive_waste_barrel
+  mekanized:radioactive_waste_barrel:
+    data:
+      item_name: <!i><lang:block.mekanized.radioactive_waste_barrel>
+    model: mekanized:block/radioactive_waste_barrel
+    behavior:
+      type: block_item
+      block: mekanized:radioactive_waste_barrel
+  mekanized:display/nutritional_liquifier:
+    model: mekanized:block/nutritional_liquifier
+  mekanized:display/nutritional_liquifier/active:
+    model: mekanized:block/nutritional_liquifier_base
+  mekanized:nutritional_liquifier:
+    data:
+      item_name: <!i><lang:block.mekanized.nutritional_liquifier>
+    model: mekanized:block/nutritional_liquifier
+    behavior:
+      type: block_item
+      block: mekanized:nutritional_liquifier
+  mekanized:display/modification_station:
+    model: mekanized:block/modification_station
+  mekanized:modification_station:
+    data:
+      item_name: <!i><lang:block.mekanized.modification_station>
+    model: mekanized:block/modification_station
+    behavior:
+      type: block_item
+      block: mekanized:modification_station
+  mekanized:upgrade_chemical:
+    data:
+      item_name: <!i><lang:item.mekanized.upgrade_chemical>
+    model: mekanized:item/upgrade_chemical
+  mekanized:upgrade_filter:
+    data:
+      item_name: <!i><lang:item.mekanized.upgrade_filter>
+    model: mekanized:item/upgrade_filter
+  mekanized:upgrade_anchor:
+    data:
+      item_name: <!i><lang:item.mekanized.upgrade_anchor>
+    model: mekanized:item/upgrade_anchor
+  mekanized:upgrade_stone_generator:
+    data:
+      item_name: <!i><lang:item.mekanized.upgrade_stone_generator>
+    model: mekanized:item/upgrade_stone_generator
+  mekanized:dosimeter:
+    data:
+      item_name: <!i><lang:item.mekanized.dosimeter>
+    model: mekanized:item/dosimeter
+  mekanized:geiger_counter:
+    data:
+      item_name: <!i><lang:item.mekanized.geiger_counter>
+    model: mekanized:item/geiger_counter
+blocks:
+  mekanized:dimensional_stabilizer:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:dimensional_stabilizer
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        active:
+          type: boolean
+          default: false
+      appearances:
+        active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/dimensional_stabilizer
+        active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/dimensional_stabilizer_active
+      variants:
+        active=false:
+          appearance: active_false
+        active=true:
+          appearance: active_true
+  mekanized:quantum_entangloporter:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:quantum_entangloporter
+      keep_contents: true
+      display_item: mekanized:display/quantum_entangloporter
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270,up=270/0,down=90/0
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 6-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_models_quantum_entangloporter
+          model:
+            path: mekanized:block/display_empty/shared/p_block_models_quantum_entangloporter
+      variants:
+        facing=up:
+          appearance: default
+        facing=down:
+          appearance: default
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:radioactive_waste_barrel:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:radioactive_waste_barrel
+      keep_contents: true
+      display_item: mekanized:display/radioactive_waste_barrel
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_models_radioactive_waste_barrel
+          model:
+            path: mekanized:block/display_empty/shared/p_block_models_radioactive_waste_barrel
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:nutritional_liquifier:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:nutritional_liquifier
+      keep_contents: true
+      display_item: mekanized:display/nutritional_liquifier
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_nutritional_liquifier
+          model:
+            path: mekanized:block/display_empty/shared/p_block_nutritional_liquifier
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:modification_station:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:modification_station
+      keep_contents: true
+      display_item: mekanized:display/modification_station
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_models_modification_station
+          model:
+            path: mekanized:block/display_empty/shared/p_block_models_modification_station
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default

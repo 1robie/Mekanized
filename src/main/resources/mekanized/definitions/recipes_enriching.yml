@@ -1,0 +1,2270 @@
+# Mekanized enriching recipes, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+# Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.
+# Durations are ticks; energy is Joules per tick. Phase 2 of MEKANIZED_PLAN.md.
+recipes:
+  mekanized:enriching/charcoal:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:dusts/charcoal
+      amount: 1
+    outputs:
+    - item: minecraft:charcoal
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/charcoal_dust:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:dusts/wood
+      amount: 8
+    outputs:
+    - item: mekanized:dust_charcoal
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/clay_ball:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:clay
+      amount: 1
+    outputs:
+    - item: minecraft:clay_ball
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/andesite/slab_to_polished_slab:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:andesite_slab
+      amount: 1
+    outputs:
+    - item: minecraft:polished_andesite_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/andesite/stairs_to_polished_stairs:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:andesite_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:polished_andesite_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/andesite/to_polished:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:andesite
+      amount: 1
+    outputs:
+    - item: minecraft:polished_andesite
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/basalt_or_smooth_to_polished_basalt:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - any-of:
+      - item: minecraft:basalt
+      - item: minecraft:smooth_basalt
+      amount: 1
+    outputs:
+    - item: minecraft:polished_basalt
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/blackstone/bricks_to_chiseled_bricks:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:polished_blackstone_bricks
+      amount: 1
+    outputs:
+    - item: minecraft:chiseled_polished_blackstone
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/blackstone/cracked_bricks_to_bricks:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:cracked_polished_blackstone_bricks
+      amount: 1
+    outputs:
+    - item: minecraft:polished_blackstone_bricks
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/blackstone/to_cracked_bricks:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:polished_blackstone
+      amount: 1
+    outputs:
+    - item: minecraft:cracked_polished_blackstone_bricks
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/cracked_nether_bricks_to_nether_bricks:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:cracked_nether_bricks
+      amount: 1
+    outputs:
+    - item: minecraft:nether_bricks
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/deepslate/chiseled_to_cracked_tile:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:chiseled_deepslate
+      amount: 1
+    outputs:
+    - item: minecraft:cracked_deepslate_tiles
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/deepslate/cobbled_slabs_to_polished:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:cobbled_deepslate_slab
+      amount: 1
+    outputs:
+    - item: minecraft:polished_deepslate_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/deepslate/cobbled_stairs_to_polished:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:cobbled_deepslate_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:polished_deepslate_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/deepslate/cobbled_wall_to_polished:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:cobbled_deepslate_wall
+      amount: 1
+    outputs:
+    - item: minecraft:polished_deepslate_wall
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/deepslate/cracked_bricks_to_bricks:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:cracked_deepslate_bricks
+      amount: 1
+    outputs:
+    - item: minecraft:deepslate_bricks
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/deepslate/cracked_tile_to_tile:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:cracked_deepslate_tiles
+      amount: 1
+    outputs:
+    - item: minecraft:deepslate_tiles
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/deepslate/from_cobbled:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:cobblestones/deepslate
+      amount: 1
+    outputs:
+    - item: minecraft:deepslate
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/deepslate/polished_chiseled:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:polished_deepslate
+      amount: 1
+    outputs:
+    - item: minecraft:chiseled_deepslate
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/deepslate/polished_slabs_to_tile:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:polished_deepslate_slab
+      amount: 1
+    outputs:
+    - item: minecraft:deepslate_tile_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/deepslate/polished_stairs_to_tile:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:polished_deepslate_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:deepslate_tile_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/deepslate/polished_wall_to_tile:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:polished_deepslate_wall
+      amount: 1
+    outputs:
+    - item: minecraft:deepslate_tile_wall
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/deepslate/tile_slabs_to_brick:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:deepslate_tile_slab
+      amount: 1
+    outputs:
+    - item: minecraft:deepslate_brick_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/deepslate/tile_stairs_to_brick:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:deepslate_tile_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:deepslate_brick_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/deepslate/tile_wall_to_brick:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:deepslate_tile_wall
+      amount: 1
+    outputs:
+    - item: minecraft:deepslate_brick_wall
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/deepslate/tiles_to_cracked_bricks:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:deepslate_tiles
+      amount: 1
+    outputs:
+    - item: minecraft:cracked_deepslate_bricks
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/deepslate/to_polished:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:deepslate
+      amount: 1
+    outputs:
+    - item: minecraft:polished_deepslate
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/diorite/slab_to_polished_slab:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:diorite_slab
+      amount: 1
+    outputs:
+    - item: minecraft:polished_diorite_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/diorite/stairs_to_polished_stairs:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:diorite_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:polished_diorite_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/diorite/to_polished:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:diorite
+      amount: 1
+    outputs:
+    - item: minecraft:polished_diorite
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/granite/slab_to_polished_slab:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:granite_slab
+      amount: 1
+    outputs:
+    - item: minecraft:polished_granite_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/granite/stairs_to_polished_stairs:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:granite_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:polished_granite_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/granite/to_polished:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:granite
+      amount: 1
+    outputs:
+    - item: minecraft:polished_granite
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/gravel_to_flint:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:gravels
+      amount: 1
+    outputs:
+    - item: minecraft:flint
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/gunpowder_to_flint:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:gunpowders
+      amount: 1
+    outputs:
+    - item: minecraft:flint
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/mossy/cobblestone:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:mossy_cobblestone
+      amount: 1
+    outputs:
+    - item: minecraft:cobblestone
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/mossy/cobblestone_slabs:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:mossy_cobblestone_slab
+      amount: 1
+    outputs:
+    - item: minecraft:cobblestone_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/mossy/cobblestone_stairs:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:mossy_cobblestone_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:cobblestone_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/mossy/cobblestone_walls:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:mossy_cobblestone_wall
+      amount: 1
+    outputs:
+    - item: minecraft:cobblestone_wall
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/mossy/stone_brick_slabs:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:mossy_stone_brick_slab
+      amount: 1
+    outputs:
+    - item: minecraft:stone_brick_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/mossy/stone_brick_stairs:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:mossy_stone_brick_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:stone_brick_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/mossy/stone_brick_walls:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:mossy_stone_brick_wall
+      amount: 1
+    outputs:
+    - item: minecraft:stone_brick_wall
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/mossy/stone_bricks:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:mossy_stone_bricks
+      amount: 1
+    outputs:
+    - item: minecraft:stone_bricks
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/mud/packed_to_bricks:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:packed_mud
+      amount: 1
+    outputs:
+    - item: minecraft:mud_bricks
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/mud/to_clay:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:mud
+      amount: 1
+    outputs:
+    - item: minecraft:clay
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/nether_bricks_to_chiseled_nether_bricks:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:nether_bricks
+      amount: 1
+    outputs:
+    - item: minecraft:chiseled_nether_bricks
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/purpur_pillar_from_block:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:purpur_block
+      amount: 1
+    outputs:
+    - item: minecraft:purpur_pillar
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/quartz/from_smooth_quartz:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:smooth_quartz
+      amount: 1
+    outputs:
+    - item: minecraft:quartz_block
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/quartz/smooth_slab_to_slab:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:smooth_quartz_slab
+      amount: 1
+    outputs:
+    - item: minecraft:quartz_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/quartz/smooth_stairs_to_stairs:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:smooth_quartz_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:quartz_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/quartz/to_item:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - any-of:
+      - item: minecraft:quartz_block
+      - item: minecraft:quartz_bricks
+      - item: minecraft:chiseled_quartz_block
+      - item: minecraft:quartz_pillar
+      amount: 1
+    outputs:
+    - item: minecraft:quartz
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/sand_to_gravel:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:sands
+      amount: 1
+    outputs:
+    - item: minecraft:gravel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/soul_sand_to_soul_soil:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:soul_sand
+      amount: 1
+    outputs:
+    - item: minecraft:soul_soil
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/stone/bricks_to_chiseled_bricks:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:stone_bricks
+      amount: 1
+    outputs:
+    - item: minecraft:chiseled_stone_bricks
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/stone/cracked_bricks_to_bricks:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:cracked_stone_bricks
+      amount: 1
+    outputs:
+    - item: minecraft:stone_bricks
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/stone/to_cracked_bricks:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:stone
+      amount: 1
+    outputs:
+    - item: minecraft:cracked_stone_bricks
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/sulfur_to_gunpowder:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:dusts/sulfur
+      amount: 1
+    outputs:
+    - item: minecraft:gunpowder
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/tuff/brick_to_chiseled:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:tuff_bricks
+      amount: 1
+    outputs:
+    - item: minecraft:chiseled_tuff
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/tuff/from_chiseled:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:chiseled_tuff
+      amount: 1
+    outputs:
+    - item: minecraft:tuff
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/tuff/polished_slabs_to_brick:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:polished_tuff_slab
+      amount: 1
+    outputs:
+    - item: minecraft:tuff_brick_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/tuff/polished_stairs_to_brick:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:polished_tuff_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:tuff_brick_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/tuff/polished_to_brick:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:polished_tuff
+      amount: 1
+    outputs:
+    - item: minecraft:tuff_bricks
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/tuff/polished_wall_to_brick:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:polished_tuff_wall
+      amount: 1
+    outputs:
+    - item: minecraft:tuff_brick_wall
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/tuff/slab_from_brick:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:tuff_brick_slab
+      amount: 1
+    outputs:
+    - item: minecraft:tuff_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/tuff/slabs_to_polished:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:tuff_slab
+      amount: 1
+    outputs:
+    - item: minecraft:polished_tuff_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/tuff/stairs_from_brick:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:tuff_brick_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:tuff_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/tuff/stairs_to_polished:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:tuff_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:polished_tuff_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/tuff/to_polished:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:tuff
+      amount: 1
+    outputs:
+    - item: minecraft:polished_tuff
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/tuff/wall_from_brick:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:tuff_brick_wall
+      amount: 1
+    outputs:
+    - item: minecraft:tuff_wall
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/conversion/tuff/wall_to_polished:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:tuff_wall
+      amount: 1
+    outputs:
+    - item: minecraft:polished_tuff_wall
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/chiseled_copper:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:exposed_chiseled_copper
+      amount: 1
+    outputs:
+    - item: minecraft:chiseled_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/copper_bars:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:exposed_copper_bars
+      amount: 1
+    outputs:
+    - item: minecraft:copper_bars
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/copper_block:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:exposed_copper
+      amount: 1
+    outputs:
+    - item: minecraft:copper_block
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/copper_bulb:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:exposed_copper_bulb
+      amount: 1
+    outputs:
+    - item: minecraft:copper_bulb
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/copper_chain:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:exposed_copper_chain
+      amount: 1
+    outputs:
+    - item: minecraft:copper_chain
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/copper_chest:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:exposed_copper_chest
+      amount: 1
+    outputs:
+    - item: minecraft:copper_chest
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/copper_door:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:exposed_copper_door
+      amount: 1
+    outputs:
+    - item: minecraft:copper_door
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/copper_golem_statue:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:exposed_copper_golem_statue
+      amount: 1
+    outputs:
+    - item: minecraft:copper_golem_statue
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/copper_grate:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:exposed_copper_grate
+      amount: 1
+    outputs:
+    - item: minecraft:copper_grate
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/copper_lantern:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:exposed_copper_lantern
+      amount: 1
+    outputs:
+    - item: minecraft:copper_lantern
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/copper_trapdoor:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:exposed_copper_trapdoor
+      amount: 1
+    outputs:
+    - item: minecraft:copper_trapdoor
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/cut_copper:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:exposed_cut_copper
+      amount: 1
+    outputs:
+    - item: minecraft:cut_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/cut_copper_slab:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:exposed_cut_copper_slab
+      amount: 1
+    outputs:
+    - item: minecraft:cut_copper_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/cut_copper_stairs:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:exposed_cut_copper_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:cut_copper_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/exposed_chiseled_copper:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:weathered_chiseled_copper
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_chiseled_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/exposed_copper:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:weathered_copper
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/exposed_copper_bars:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:weathered_copper_bars
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_copper_bars
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/exposed_copper_bulb:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:weathered_copper_bulb
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_copper_bulb
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/exposed_copper_chain:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:weathered_copper_chain
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_copper_chain
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/exposed_copper_chest:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:weathered_copper_chest
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_copper_chest
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/exposed_copper_door:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:weathered_copper_door
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_copper_door
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/exposed_copper_golem_statue:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:weathered_copper_golem_statue
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_copper_golem_statue
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/exposed_copper_grate:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:weathered_copper_grate
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_copper_grate
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/exposed_copper_lantern:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:weathered_copper_lantern
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_copper_lantern
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/exposed_copper_trapdoor:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:weathered_copper_trapdoor
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_copper_trapdoor
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/exposed_cut_copper:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:weathered_cut_copper
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_cut_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/exposed_cut_copper_slab:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:weathered_cut_copper_slab
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_cut_copper_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/exposed_cut_copper_stairs:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:weathered_cut_copper_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_cut_copper_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/exposed_lightning_rod:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:weathered_lightning_rod
+      amount: 1
+    outputs:
+    - item: minecraft:exposed_lightning_rod
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/lightning_rod:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:exposed_lightning_rod
+      amount: 1
+    outputs:
+    - item: minecraft:lightning_rod
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/weathered_chiseled_copper:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:oxidized_chiseled_copper
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_chiseled_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/weathered_copper:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:oxidized_copper
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/weathered_copper_bars:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:oxidized_copper_bars
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_copper_bars
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/weathered_copper_bulb:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:oxidized_copper_bulb
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_copper_bulb
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/weathered_copper_chain:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:oxidized_copper_chain
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_copper_chain
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/weathered_copper_chest:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:oxidized_copper_chest
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_copper_chest
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/weathered_copper_door:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:oxidized_copper_door
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_copper_door
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/weathered_copper_golem_statue:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:oxidized_copper_golem_statue
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_copper_golem_statue
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/weathered_copper_grate:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:oxidized_copper_grate
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_copper_grate
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/weathered_copper_lantern:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:oxidized_copper_lantern
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_copper_lantern
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/weathered_copper_trapdoor:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:oxidized_copper_trapdoor
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_copper_trapdoor
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/weathered_cut_copper:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:oxidized_cut_copper
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_cut_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/weathered_cut_copper_slab:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:oxidized_cut_copper_slab
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_cut_copper_slab
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/weathered_cut_copper_stairs:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:oxidized_cut_copper_stairs
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_cut_copper_stairs
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/deoxidizing/weathered_lightning_rod:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:oxidized_lightning_rod
+      amount: 1
+    outputs:
+    - item: minecraft:weathered_lightning_rod
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/dye/black:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - any-of:
+      - item: minecraft:ink_sac
+      - item: minecraft:wither_rose
+      amount: 1
+    outputs:
+    - item: minecraft:black_dye
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/dye/blue:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - any-of:
+      - item: minecraft:cornflower
+      - item: minecraft:lapis_lazuli
+      amount: 1
+    outputs:
+    - item: minecraft:blue_dye
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/dye/brown:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:cocoa_beans
+      amount: 1
+    outputs:
+    - item: minecraft:brown_dye
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/dye/green:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:cactus
+      amount: 1
+    outputs:
+    - item: minecraft:green_dye
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/dye/large_cyan:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:pitcher_plant
+      amount: 1
+    outputs:
+    - item: minecraft:cyan_dye
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/dye/large_magenta:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:lilac
+      amount: 1
+    outputs:
+    - item: minecraft:magenta_dye
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/dye/large_pink:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:peony
+      amount: 1
+    outputs:
+    - item: minecraft:pink_dye
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/dye/large_red:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:rose_bush
+      amount: 1
+    outputs:
+    - item: minecraft:red_dye
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/dye/large_yellow:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:sunflower
+      amount: 1
+    outputs:
+    - item: minecraft:yellow_dye
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/dye/light_blue:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:blue_orchid
+      amount: 1
+    outputs:
+    - item: minecraft:light_blue_dye
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/dye/light_gray:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - any-of:
+      - item: minecraft:oxeye_daisy
+      - item: minecraft:azure_bluet
+      - item: minecraft:white_tulip
+      amount: 1
+    outputs:
+    - item: minecraft:light_gray_dye
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/dye/lime:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:sea_pickle
+      amount: 1
+    outputs:
+    - item: minecraft:lime_dye
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/dye/orange:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - any-of:
+      - item: minecraft:orange_tulip
+      - item: minecraft:torchflower
+      amount: 1
+    outputs:
+    - item: minecraft:orange_dye
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/dye/small_magenta:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:allium
+      amount: 1
+    outputs:
+    - item: minecraft:magenta_dye
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/dye/small_pink:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - any-of:
+      - item: minecraft:pink_tulip
+      - item: minecraft:pink_petals
+      amount: 1
+    outputs:
+    - item: minecraft:pink_dye
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/dye/small_red:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - any-of:
+      - item: minecraft:beetroot
+      - item: minecraft:poppy
+      - item: minecraft:red_tulip
+      amount: 1
+    outputs:
+    - item: minecraft:red_dye
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/dye/small_yellow:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:dandelion
+      amount: 1
+    outputs:
+    - item: minecraft:yellow_dye
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/dye/white:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - any-of:
+      - item: minecraft:bone_meal
+      - item: minecraft:lily_of_the_valley
+      amount: 1
+    outputs:
+    - item: minecraft:white_dye
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/enriched/carbon:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: minecraft:coals
+      amount: 1
+    outputs:
+    - item: mekanized:enriched_carbon
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/enriched/diamond:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:gems/diamond
+      amount: 1
+    outputs:
+    - item: mekanized:enriched_diamond
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/enriched/gold:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:dusts/gold
+      amount: 1
+    outputs:
+    - item: mekanized:enriched_gold
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/enriched/redstone:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:dusts/redstone
+      amount: 1
+    outputs:
+    - item: mekanized:enriched_redstone
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/enriched/refined_obsidian:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:dusts/refined_obsidian
+      amount: 1
+    outputs:
+    - item: mekanized:enriched_refined_obsidian
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/enriched/tin:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:dusts/tin
+      amount: 1
+    outputs:
+    - item: mekanized:enriched_tin
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/glowstone_dust:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:glowstone
+      amount: 1
+    outputs:
+    - item: minecraft:glowstone_dust
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/hdpe_sheet:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: mekanized:hdpe_pellet
+      amount: 3
+    outputs:
+    - item: mekanized:hdpe_sheet
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/salt:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: mekanized:block_salt
+      amount: 1
+    outputs:
+    - item: mekanized:salt
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:enriching/string:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: minecraft:cobweb
+      amount: 1
+    outputs:
+    - item: minecraft:string
+      amount: 9
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/coal/from_dust:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:dusts/coal
+      amount: 1
+    outputs:
+    - item: minecraft:coal
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/coal/from_ore:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:ores/coal
+      amount: 1
+    outputs:
+    - item: minecraft:coal
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/copper/dust/from_dirty_dust:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: mekanized:dirty_dusts/copper
+      amount: 1
+    outputs:
+    - item: mekanized:dust_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/copper/dust/from_ore:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:ores/copper
+      amount: 1
+    outputs:
+    - item: mekanized:dust_copper
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/copper/dust/from_raw_block:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:storage_blocks/raw_copper
+      amount: 1
+    outputs:
+    - item: mekanized:dust_copper
+      amount: 12
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/copper/dust/from_raw_ore:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:raw_materials/copper
+      amount: 3
+    outputs:
+    - item: mekanized:dust_copper
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/diamond/from_dust:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:dusts/diamond
+      amount: 1
+    outputs:
+    - item: minecraft:diamond
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/diamond/from_ore:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:ores/diamond
+      amount: 1
+    outputs:
+    - item: minecraft:diamond
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/emerald/from_dust:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:dusts/emerald
+      amount: 1
+    outputs:
+    - item: minecraft:emerald
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/emerald/from_ore:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:ores/emerald
+      amount: 1
+    outputs:
+    - item: minecraft:emerald
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/fluorite/from_dust:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:dusts/fluorite
+      amount: 1
+    outputs:
+    - item: mekanized:fluorite_gem
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/fluorite/from_ore:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:ores/fluorite
+      amount: 1
+    outputs:
+    - item: mekanized:fluorite_gem
+      amount: 6
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/gold/dust/from_dirty_dust:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: mekanized:dirty_dusts/gold
+      amount: 1
+    outputs:
+    - item: mekanized:dust_gold
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/gold/dust/from_ore:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:ores/gold
+      amount: 1
+    outputs:
+    - item: mekanized:dust_gold
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/gold/dust/from_raw_block:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:storage_blocks/raw_gold
+      amount: 1
+    outputs:
+    - item: mekanized:dust_gold
+      amount: 12
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/gold/dust/from_raw_ore:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:raw_materials/gold
+      amount: 3
+    outputs:
+    - item: mekanized:dust_gold
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/iron/dust/from_dirty_dust:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: mekanized:dirty_dusts/iron
+      amount: 1
+    outputs:
+    - item: mekanized:dust_iron
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/iron/dust/from_ore:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:ores/iron
+      amount: 1
+    outputs:
+    - item: mekanized:dust_iron
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/iron/dust/from_raw_block:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:storage_blocks/raw_iron
+      amount: 1
+    outputs:
+    - item: mekanized:dust_iron
+      amount: 12
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/iron/dust/from_raw_ore:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:raw_materials/iron
+      amount: 3
+    outputs:
+    - item: mekanized:dust_iron
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/lapis_lazuli/from_dust:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:dusts/lapis
+      amount: 1
+    outputs:
+    - item: minecraft:lapis_lazuli
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/lapis_lazuli/from_ore:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:ores/lapis
+      amount: 1
+    outputs:
+    - item: minecraft:lapis_lazuli
+      amount: 12
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/lead/dust/from_dirty_dust:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: mekanized:dirty_dusts/lead
+      amount: 1
+    outputs:
+    - item: mekanized:dust_lead
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/lead/dust/from_ore:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:ores/lead
+      amount: 1
+    outputs:
+    - item: mekanized:dust_lead
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/lead/dust/from_raw_block:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:storage_blocks/raw_lead
+      amount: 1
+    outputs:
+    - item: mekanized:dust_lead
+      amount: 12
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/lead/dust/from_raw_ore:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:raw_materials/lead
+      amount: 3
+    outputs:
+    - item: mekanized:dust_lead
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/netherite/ancient_debris_to_scrap:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:ores/netherite_scrap
+      amount: 1
+    outputs:
+    - item: minecraft:netherite_scrap
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/netherite/dirty_scrap_to_scrap:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item: mekanized:dirty_netherite_scrap
+      amount: 1
+    outputs:
+    - item: minecraft:netherite_scrap
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/osmium/dust/from_dirty_dust:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: mekanized:dirty_dusts/osmium
+      amount: 1
+    outputs:
+    - item: mekanized:dust_osmium
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/osmium/dust/from_ore:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:ores/osmium
+      amount: 1
+    outputs:
+    - item: mekanized:dust_osmium
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/osmium/dust/from_raw_block:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:storage_blocks/raw_osmium
+      amount: 1
+    outputs:
+    - item: mekanized:dust_osmium
+      amount: 12
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/osmium/dust/from_raw_ore:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:raw_materials/osmium
+      amount: 3
+    outputs:
+    - item: mekanized:dust_osmium
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/quartz/from_dust:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:dusts/quartz
+      amount: 1
+    outputs:
+    - item: minecraft:quartz
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/quartz/from_ore:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:ores/quartz
+      amount: 1
+    outputs:
+    - item: minecraft:quartz
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/redstone/from_ore:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:ores/redstone
+      amount: 1
+    outputs:
+    - item: minecraft:redstone
+      amount: 12
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/tin/dust/from_dirty_dust:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: mekanized:dirty_dusts/tin
+      amount: 1
+    outputs:
+    - item: mekanized:dust_tin
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/tin/dust/from_ore:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:ores/tin
+      amount: 1
+    outputs:
+    - item: mekanized:dust_tin
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/tin/dust/from_raw_block:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:storage_blocks/raw_tin
+      amount: 1
+    outputs:
+    - item: mekanized:dust_tin
+      amount: 12
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/tin/dust/from_raw_ore:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:raw_materials/tin
+      amount: 3
+    outputs:
+    - item: mekanized:dust_tin
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/uranium/dust/from_dirty_dust:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: mekanized:dirty_dusts/uranium
+      amount: 1
+    outputs:
+    - item: mekanized:dust_uranium
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/uranium/dust/from_ore:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:ores/uranium
+      amount: 1
+    outputs:
+    - item: mekanized:dust_uranium
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/uranium/dust/from_raw_block:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:storage_blocks/raw_uranium
+      amount: 1
+    outputs:
+    - item: mekanized:dust_uranium
+      amount: 12
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/uranium/dust/from_raw_ore:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:raw_materials/uranium
+      amount: 3
+    outputs:
+    - item: mekanized:dust_uranium
+      amount: 4
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50
+  mekanized:processing/uranium/yellow_cake_uranium:
+    type: mekanized:enriching
+    duration: 200
+    inputs:
+    - item-tag: c:ingots/uranium
+      amount: 1
+    outputs:
+    - item: mekanized:yellow_cake_uranium
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 50

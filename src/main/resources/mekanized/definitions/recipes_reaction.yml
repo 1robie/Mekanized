@@ -1,0 +1,256 @@
+# Mekanized reaction recipes, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+# Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.
+# Durations are ticks; energy is Joules per tick. Phase 6 of MEKANIZED_PLAN.md.
+recipes:
+  mekanized:processing/lategame/plutonium_pellet/from_reaction:
+    type: mekanized:reaction
+    duration: 100
+    inputs:
+    - type: mekanized:plutonium
+      amount: 1000
+    - type: machineengine:fluid/water
+      amount: 1000
+    - item-tag: c:dusts/fluorite
+      amount: 1
+    outputs:
+    - type: mekanized:spent_nuclear_waste
+      amount: 1000
+    - item: mekanized:pellet_plutonium
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:processing/lategame/polonium_pellet/from_reaction:
+    type: mekanized:reaction
+    duration: 100
+    inputs:
+    - type: mekanized:polonium
+      amount: 1000
+    - type: machineengine:fluid/water
+      amount: 1000
+    - item-tag: c:dusts/fluorite
+      amount: 1
+    outputs:
+    - type: mekanized:spent_nuclear_waste
+      amount: 1000
+    - item: mekanized:pellet_polonium
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:reaction/coal_gasification/blocks_coals:
+    type: mekanized:reaction
+    duration: 900
+    inputs:
+    - type: mekanized:oxygen
+      amount: 1000
+    - type: machineengine:fluid/water
+      amount: 1000
+    - any-of:
+      - item-tag: c:storage_blocks/coal
+      - item-tag: c:storage_blocks/charcoal
+      amount: 1
+    outputs:
+    - type: mekanized:hydrogen
+      amount: 1000
+    - item: mekanized:dust_sulfur
+      amount: 9
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:reaction/coal_gasification/coals:
+    type: mekanized:reaction
+    duration: 100
+    inputs:
+    - type: mekanized:oxygen
+      amount: 100
+    - type: machineengine:fluid/water
+      amount: 100
+    - item-tag: minecraft:coals
+      amount: 1
+    outputs:
+    - type: mekanized:hydrogen
+      amount: 100
+    - item: mekanized:dust_sulfur
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:reaction/coal_gasification/dusts_coals:
+    type: mekanized:reaction
+    duration: 100
+    inputs:
+    - type: mekanized:oxygen
+      amount: 100
+    - type: machineengine:fluid/water
+      amount: 100
+    - any-of:
+      - item-tag: c:dusts/coal
+      - item-tag: c:dusts/charcoal
+      amount: 1
+    outputs:
+    - type: mekanized:hydrogen
+      amount: 100
+    - item: mekanized:dust_sulfur
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:reaction/substrate/ethene_oxygen:
+    type: mekanized:reaction
+    duration: 60
+    inputs:
+    - type: mekanized:oxygen
+      amount: 10
+    - type: mekanized:fluid/ethene
+      amount: 50
+    - item: mekanized:substrate
+      amount: 1
+    outputs:
+    - item: mekanized:hdpe_pellet
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 110
+  mekanized:reaction/substrate/water_ethene:
+    type: mekanized:reaction
+    duration: 400
+    inputs:
+    - type: mekanized:ethene
+      amount: 100
+    - type: machineengine:fluid/water
+      amount: 200
+    - item: mekanized:substrate
+      amount: 1
+    outputs:
+    - type: mekanized:oxygen
+      amount: 10
+    - item: mekanized:substrate
+      amount: 8
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 102
+  mekanized:reaction/substrate/water_hydrogen:
+    type: mekanized:reaction
+    duration: 100
+    inputs:
+    - type: mekanized:hydrogen
+      amount: 100
+    - type: machineengine:fluid/water
+      amount: 10
+    - item-tag: c:fuels/bio
+      amount: 2
+    outputs:
+    - type: mekanized:ethene
+      amount: 300
+    - item: mekanized:substrate
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:reaction/wood_gasification/dusts_wood:
+    type: mekanized:reaction
+    duration: 37
+    inputs:
+    - type: mekanized:oxygen
+      amount: 25
+    - type: machineengine:fluid/water
+      amount: 25
+    - item-tag: c:dusts/wood
+      amount: 8
+    outputs:
+    - type: mekanized:hydrogen
+      amount: 25
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:reaction/wood_gasification/logs:
+    type: mekanized:reaction
+    duration: 600
+    inputs:
+    - type: mekanized:oxygen
+      amount: 400
+    - type: machineengine:fluid/water
+      amount: 400
+    - item-tag: minecraft:logs
+      amount: 4
+    outputs:
+    - type: mekanized:hydrogen
+      amount: 400
+    - item: mekanized:dust_charcoal
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:reaction/wood_gasification/planks:
+    type: mekanized:reaction
+    duration: 600
+    inputs:
+    - type: mekanized:oxygen
+      amount: 400
+    - type: machineengine:fluid/water
+      amount: 400
+    - any-of:
+      - item-tag: minecraft:planks
+      - item: minecraft:bamboo_mosaic
+      amount: 20
+    outputs:
+    - type: mekanized:hydrogen
+      amount: 400
+    - item: mekanized:dust_charcoal
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:reaction/wood_gasification/rods_wooden:
+    type: mekanized:reaction
+    duration: 15
+    inputs:
+    - type: mekanized:oxygen
+      amount: 10
+    - type: machineengine:fluid/water
+      amount: 10
+    - item-tag: c:rods/wooden
+      amount: 3
+    outputs:
+    - type: mekanized:hydrogen
+      amount: 10
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:reaction/wood_gasification/wooden_slabs:
+    type: mekanized:reaction
+    duration: 15
+    inputs:
+    - type: mekanized:oxygen
+      amount: 10
+    - type: machineengine:fluid/water
+      amount: 10
+    - any-of:
+      - item-tag: minecraft:wooden_slabs
+      - item: minecraft:bamboo_mosaic_slab
+      amount: 1
+    outputs:
+    - type: mekanized:hydrogen
+      amount: 10
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:reaction/wood_gasification/wooden_stairs:
+    type: mekanized:reaction
+    duration: 22
+    inputs:
+    - type: mekanized:oxygen
+      amount: 15
+    - type: machineengine:fluid/water
+      amount: 15
+    - any-of:
+      - item-tag: minecraft:wooden_stairs
+      - item: minecraft:bamboo_mosaic_stairs
+      amount: 1
+    outputs:
+    - type: mekanized:hydrogen
+      amount: 15
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100

@@ -1,0 +1,1300 @@
+# Mekanized heaters, thermodynamic conductors, boiler, turbine, fission and fusion reactors, SPS (Phase 6 wave 3), based on Mekanism (MIT).
+items:
+  mekanized:display/resistive_heater:
+    model: mekanized:block/resistive_heater
+  mekanized:display/resistive_heater/active:
+    model: mekanized:block/resistive_heater_active
+  mekanized:resistive_heater:
+    data:
+      item_name: <!i><lang:block.mekanized.resistive_heater>
+    model: mekanized:block/resistive_heater
+    behavior:
+      type: block_item
+      block: mekanized:resistive_heater
+  mekanized:fuelwood_heater:
+    data:
+      item_name: <!i><lang:block.mekanized.fuelwood_heater>
+    model: mekanized:block/fuelwood_heater
+    behavior:
+      type: block_item
+      block: mekanized:fuelwood_heater
+  mekanized:boiler_casing:
+    data:
+      item_name: <!i><lang:block.mekanized.boiler_casing>
+    model: mekanized:block/boiler_casing
+    behavior:
+      type: block_item
+      block: mekanized:boiler_casing
+  mekanized:boiler_valve:
+    data:
+      item_name: <!i><lang:block.mekanized.boiler_valve>
+    model: mekanized:block/boiler_valve_input
+    behavior:
+      type: block_item
+      block: mekanized:boiler_valve
+  mekanized:pressure_disperser:
+    data:
+      item_name: <!i><lang:block.mekanized.pressure_disperser>
+    model: mekanized:block/pressure_disperser
+    behavior:
+      type: block_item
+      block: mekanized:pressure_disperser
+  mekanized:superheating_element:
+    data:
+      item_name: <!i><lang:block.mekanized.superheating_element>
+    model: mekanized:block/superheating_element
+    behavior:
+      type: block_item
+      block: mekanized:superheating_element
+  mekanized:turbine_casing:
+    data:
+      item_name: <!i><lang:block.mekanized.turbine_casing>
+    model: mekanized:block/turbine/casing
+    behavior:
+      type: block_item
+      block: mekanized:turbine_casing
+  mekanized:turbine_valve:
+    data:
+      item_name: <!i><lang:block.mekanized.turbine_valve>
+    model: mekanized:block/turbine/valve
+    behavior:
+      type: block_item
+      block: mekanized:turbine_valve
+  mekanized:turbine_vent:
+    data:
+      item_name: <!i><lang:block.mekanized.turbine_vent>
+    model: mekanized:block/turbine/vent
+    behavior:
+      type: block_item
+      block: mekanized:turbine_vent
+  mekanized:display/turbine_rotor:
+    model: mekanized:block/turbine/rotor
+  mekanized:turbine_rotor:
+    data:
+      item_name: <!i><lang:block.mekanized.turbine_rotor>
+    model: mekanized:block/turbine/rotor
+    behavior:
+      type: block_item
+      block: mekanized:turbine_rotor
+  mekanized:rotational_complex:
+    data:
+      item_name: <!i><lang:block.mekanized.rotational_complex>
+    model: mekanized:block/rotational_complex
+    behavior:
+      type: block_item
+      block: mekanized:rotational_complex
+  mekanized:electromagnetic_coil:
+    data:
+      item_name: <!i><lang:block.mekanized.electromagnetic_coil>
+    model: mekanized:block/electromagnetic_coil
+    behavior:
+      type: block_item
+      block: mekanized:electromagnetic_coil
+  mekanized:saturating_condenser:
+    data:
+      item_name: <!i><lang:block.mekanized.saturating_condenser>
+    model: mekanized:block/saturating_condenser
+    behavior:
+      type: block_item
+      block: mekanized:saturating_condenser
+  mekanized:fission_reactor_casing:
+    data:
+      item_name: <!i><lang:block.mekanized.fission_reactor_casing>
+    model: mekanized:block/fission/casing
+    behavior:
+      type: block_item
+      block: mekanized:fission_reactor_casing
+  mekanized:fission_reactor_port:
+    data:
+      item_name: <!i><lang:block.mekanized.fission_reactor_port>
+    model: mekanized:block/fission/port_input
+    behavior:
+      type: block_item
+      block: mekanized:fission_reactor_port
+  mekanized:fission_reactor_logic_adapter:
+    data:
+      item_name: <!i><lang:block.mekanized.fission_reactor_logic_adapter>
+    model: mekanized:block/fission/logic_adapter
+    behavior:
+      type: block_item
+      block: mekanized:fission_reactor_logic_adapter
+  mekanized:reactor_glass:
+    data:
+      item_name: <!i><lang:block.mekanized.reactor_glass>
+    model: mekanized:block/reactor_glass
+    behavior:
+      type: block_item
+      block: mekanized:reactor_glass
+  mekanized:display/fission_fuel_assembly:
+    model: mekanized:block/fission/fuel_assembly
+  mekanized:fission_fuel_assembly:
+    data:
+      item_name: <!i><lang:block.mekanized.fission_fuel_assembly>
+    model: mekanized:block/fission/fuel_assembly
+    behavior:
+      type: block_item
+      block: mekanized:fission_fuel_assembly
+  mekanized:display/control_rod_assembly:
+    model: mekanized:block/fission/control_rod_assembly
+  mekanized:control_rod_assembly:
+    data:
+      item_name: <!i><lang:block.mekanized.control_rod_assembly>
+    model: mekanized:block/fission/control_rod_assembly
+    behavior:
+      type: block_item
+      block: mekanized:control_rod_assembly
+  mekanized:fusion_reactor_controller:
+    data:
+      item_name: <!i><lang:block.mekanized.fusion_reactor_controller>
+    model: mekanized:block/fusion/controller
+    behavior:
+      type: block_item
+      block: mekanized:fusion_reactor_controller
+  mekanized:fusion_reactor_frame:
+    data:
+      item_name: <!i><lang:block.mekanized.fusion_reactor_frame>
+    model: mekanized:block/fusion/frame
+    behavior:
+      type: block_item
+      block: mekanized:fusion_reactor_frame
+  mekanized:fusion_reactor_port:
+    data:
+      item_name: <!i><lang:block.mekanized.fusion_reactor_port>
+    model: mekanized:block/fusion/port
+    behavior:
+      type: block_item
+      block: mekanized:fusion_reactor_port
+  mekanized:fusion_reactor_logic_adapter:
+    data:
+      item_name: <!i><lang:block.mekanized.fusion_reactor_logic_adapter>
+    model: mekanized:block/fusion/logic_adapter
+    behavior:
+      type: block_item
+      block: mekanized:fusion_reactor_logic_adapter
+  mekanized:laser_focus_matrix:
+    data:
+      item_name: <!i><lang:block.mekanized.laser_focus_matrix>
+    model: mekanized:block/fusion/laser_focus_matrix
+    behavior:
+      type: block_item
+      block: mekanized:laser_focus_matrix
+  mekanized:sps_casing:
+    data:
+      item_name: <!i><lang:block.mekanized.sps_casing>
+    model: mekanized:block/sps_casing
+    behavior:
+      type: block_item
+      block: mekanized:sps_casing
+  mekanized:sps_port:
+    data:
+      item_name: <!i><lang:block.mekanized.sps_port>
+    model: mekanized:block/sps_port
+    behavior:
+      type: block_item
+      block: mekanized:sps_port
+  mekanized:display/supercharged_coil:
+    model: mekanized:block/supercharged_coil
+  mekanized:supercharged_coil:
+    data:
+      item_name: <!i><lang:block.mekanized.supercharged_coil>
+    model: mekanized:block/supercharged_coil
+    behavior:
+      type: block_item
+      block: mekanized:supercharged_coil
+  mekanized:cable_part/basic_thermodynamic_conductor/center:
+    model: mekanized:block/cable/basic_thermodynamic_conductor/center
+  mekanized:cable_part/basic_thermodynamic_conductor/north:
+    model: mekanized:block/cable/basic_thermodynamic_conductor/north
+  mekanized:cable_part/basic_thermodynamic_conductor/north_pull:
+    model: mekanized:block/cable/basic_thermodynamic_conductor/north_pull
+  mekanized:cable_part/basic_thermodynamic_conductor/north_push:
+    model: mekanized:block/cable/basic_thermodynamic_conductor/north_push
+  mekanized:cable_part/basic_thermodynamic_conductor/south:
+    model: mekanized:block/cable/basic_thermodynamic_conductor/south
+  mekanized:cable_part/basic_thermodynamic_conductor/south_pull:
+    model: mekanized:block/cable/basic_thermodynamic_conductor/south_pull
+  mekanized:cable_part/basic_thermodynamic_conductor/south_push:
+    model: mekanized:block/cable/basic_thermodynamic_conductor/south_push
+  mekanized:cable_part/basic_thermodynamic_conductor/east:
+    model: mekanized:block/cable/basic_thermodynamic_conductor/east
+  mekanized:cable_part/basic_thermodynamic_conductor/east_pull:
+    model: mekanized:block/cable/basic_thermodynamic_conductor/east_pull
+  mekanized:cable_part/basic_thermodynamic_conductor/east_push:
+    model: mekanized:block/cable/basic_thermodynamic_conductor/east_push
+  mekanized:cable_part/basic_thermodynamic_conductor/west:
+    model: mekanized:block/cable/basic_thermodynamic_conductor/west
+  mekanized:cable_part/basic_thermodynamic_conductor/west_pull:
+    model: mekanized:block/cable/basic_thermodynamic_conductor/west_pull
+  mekanized:cable_part/basic_thermodynamic_conductor/west_push:
+    model: mekanized:block/cable/basic_thermodynamic_conductor/west_push
+  mekanized:cable_part/basic_thermodynamic_conductor/up:
+    model: mekanized:block/cable/basic_thermodynamic_conductor/up
+  mekanized:cable_part/basic_thermodynamic_conductor/up_pull:
+    model: mekanized:block/cable/basic_thermodynamic_conductor/up_pull
+  mekanized:cable_part/basic_thermodynamic_conductor/up_push:
+    model: mekanized:block/cable/basic_thermodynamic_conductor/up_push
+  mekanized:cable_part/basic_thermodynamic_conductor/down:
+    model: mekanized:block/cable/basic_thermodynamic_conductor/down
+  mekanized:cable_part/basic_thermodynamic_conductor/down_pull:
+    model: mekanized:block/cable/basic_thermodynamic_conductor/down_pull
+  mekanized:cable_part/basic_thermodynamic_conductor/down_push:
+    model: mekanized:block/cable/basic_thermodynamic_conductor/down_push
+  mekanized:basic_thermodynamic_conductor:
+    data:
+      item_name: <!i><lang:block.mekanized.basic_thermodynamic_conductor>
+    model: mekanized:block/cable/basic_thermodynamic_conductor/center
+    behavior:
+      type: block_item
+      block: mekanized:basic_thermodynamic_conductor
+  mekanized:cable_part/advanced_thermodynamic_conductor/center:
+    model: mekanized:block/cable/advanced_thermodynamic_conductor/center
+  mekanized:cable_part/advanced_thermodynamic_conductor/north:
+    model: mekanized:block/cable/advanced_thermodynamic_conductor/north
+  mekanized:cable_part/advanced_thermodynamic_conductor/north_pull:
+    model: mekanized:block/cable/advanced_thermodynamic_conductor/north_pull
+  mekanized:cable_part/advanced_thermodynamic_conductor/north_push:
+    model: mekanized:block/cable/advanced_thermodynamic_conductor/north_push
+  mekanized:cable_part/advanced_thermodynamic_conductor/south:
+    model: mekanized:block/cable/advanced_thermodynamic_conductor/south
+  mekanized:cable_part/advanced_thermodynamic_conductor/south_pull:
+    model: mekanized:block/cable/advanced_thermodynamic_conductor/south_pull
+  mekanized:cable_part/advanced_thermodynamic_conductor/south_push:
+    model: mekanized:block/cable/advanced_thermodynamic_conductor/south_push
+  mekanized:cable_part/advanced_thermodynamic_conductor/east:
+    model: mekanized:block/cable/advanced_thermodynamic_conductor/east
+  mekanized:cable_part/advanced_thermodynamic_conductor/east_pull:
+    model: mekanized:block/cable/advanced_thermodynamic_conductor/east_pull
+  mekanized:cable_part/advanced_thermodynamic_conductor/east_push:
+    model: mekanized:block/cable/advanced_thermodynamic_conductor/east_push
+  mekanized:cable_part/advanced_thermodynamic_conductor/west:
+    model: mekanized:block/cable/advanced_thermodynamic_conductor/west
+  mekanized:cable_part/advanced_thermodynamic_conductor/west_pull:
+    model: mekanized:block/cable/advanced_thermodynamic_conductor/west_pull
+  mekanized:cable_part/advanced_thermodynamic_conductor/west_push:
+    model: mekanized:block/cable/advanced_thermodynamic_conductor/west_push
+  mekanized:cable_part/advanced_thermodynamic_conductor/up:
+    model: mekanized:block/cable/advanced_thermodynamic_conductor/up
+  mekanized:cable_part/advanced_thermodynamic_conductor/up_pull:
+    model: mekanized:block/cable/advanced_thermodynamic_conductor/up_pull
+  mekanized:cable_part/advanced_thermodynamic_conductor/up_push:
+    model: mekanized:block/cable/advanced_thermodynamic_conductor/up_push
+  mekanized:cable_part/advanced_thermodynamic_conductor/down:
+    model: mekanized:block/cable/advanced_thermodynamic_conductor/down
+  mekanized:cable_part/advanced_thermodynamic_conductor/down_pull:
+    model: mekanized:block/cable/advanced_thermodynamic_conductor/down_pull
+  mekanized:cable_part/advanced_thermodynamic_conductor/down_push:
+    model: mekanized:block/cable/advanced_thermodynamic_conductor/down_push
+  mekanized:advanced_thermodynamic_conductor:
+    data:
+      item_name: <!i><lang:block.mekanized.advanced_thermodynamic_conductor>
+    model: mekanized:block/cable/advanced_thermodynamic_conductor/center
+    behavior:
+      type: block_item
+      block: mekanized:advanced_thermodynamic_conductor
+  mekanized:cable_part/elite_thermodynamic_conductor/center:
+    model: mekanized:block/cable/elite_thermodynamic_conductor/center
+  mekanized:cable_part/elite_thermodynamic_conductor/north:
+    model: mekanized:block/cable/elite_thermodynamic_conductor/north
+  mekanized:cable_part/elite_thermodynamic_conductor/north_pull:
+    model: mekanized:block/cable/elite_thermodynamic_conductor/north_pull
+  mekanized:cable_part/elite_thermodynamic_conductor/north_push:
+    model: mekanized:block/cable/elite_thermodynamic_conductor/north_push
+  mekanized:cable_part/elite_thermodynamic_conductor/south:
+    model: mekanized:block/cable/elite_thermodynamic_conductor/south
+  mekanized:cable_part/elite_thermodynamic_conductor/south_pull:
+    model: mekanized:block/cable/elite_thermodynamic_conductor/south_pull
+  mekanized:cable_part/elite_thermodynamic_conductor/south_push:
+    model: mekanized:block/cable/elite_thermodynamic_conductor/south_push
+  mekanized:cable_part/elite_thermodynamic_conductor/east:
+    model: mekanized:block/cable/elite_thermodynamic_conductor/east
+  mekanized:cable_part/elite_thermodynamic_conductor/east_pull:
+    model: mekanized:block/cable/elite_thermodynamic_conductor/east_pull
+  mekanized:cable_part/elite_thermodynamic_conductor/east_push:
+    model: mekanized:block/cable/elite_thermodynamic_conductor/east_push
+  mekanized:cable_part/elite_thermodynamic_conductor/west:
+    model: mekanized:block/cable/elite_thermodynamic_conductor/west
+  mekanized:cable_part/elite_thermodynamic_conductor/west_pull:
+    model: mekanized:block/cable/elite_thermodynamic_conductor/west_pull
+  mekanized:cable_part/elite_thermodynamic_conductor/west_push:
+    model: mekanized:block/cable/elite_thermodynamic_conductor/west_push
+  mekanized:cable_part/elite_thermodynamic_conductor/up:
+    model: mekanized:block/cable/elite_thermodynamic_conductor/up
+  mekanized:cable_part/elite_thermodynamic_conductor/up_pull:
+    model: mekanized:block/cable/elite_thermodynamic_conductor/up_pull
+  mekanized:cable_part/elite_thermodynamic_conductor/up_push:
+    model: mekanized:block/cable/elite_thermodynamic_conductor/up_push
+  mekanized:cable_part/elite_thermodynamic_conductor/down:
+    model: mekanized:block/cable/elite_thermodynamic_conductor/down
+  mekanized:cable_part/elite_thermodynamic_conductor/down_pull:
+    model: mekanized:block/cable/elite_thermodynamic_conductor/down_pull
+  mekanized:cable_part/elite_thermodynamic_conductor/down_push:
+    model: mekanized:block/cable/elite_thermodynamic_conductor/down_push
+  mekanized:elite_thermodynamic_conductor:
+    data:
+      item_name: <!i><lang:block.mekanized.elite_thermodynamic_conductor>
+    model: mekanized:block/cable/elite_thermodynamic_conductor/center
+    behavior:
+      type: block_item
+      block: mekanized:elite_thermodynamic_conductor
+  mekanized:cable_part/ultimate_thermodynamic_conductor/center:
+    model: mekanized:block/cable/ultimate_thermodynamic_conductor/center
+  mekanized:cable_part/ultimate_thermodynamic_conductor/north:
+    model: mekanized:block/cable/ultimate_thermodynamic_conductor/north
+  mekanized:cable_part/ultimate_thermodynamic_conductor/north_pull:
+    model: mekanized:block/cable/ultimate_thermodynamic_conductor/north_pull
+  mekanized:cable_part/ultimate_thermodynamic_conductor/north_push:
+    model: mekanized:block/cable/ultimate_thermodynamic_conductor/north_push
+  mekanized:cable_part/ultimate_thermodynamic_conductor/south:
+    model: mekanized:block/cable/ultimate_thermodynamic_conductor/south
+  mekanized:cable_part/ultimate_thermodynamic_conductor/south_pull:
+    model: mekanized:block/cable/ultimate_thermodynamic_conductor/south_pull
+  mekanized:cable_part/ultimate_thermodynamic_conductor/south_push:
+    model: mekanized:block/cable/ultimate_thermodynamic_conductor/south_push
+  mekanized:cable_part/ultimate_thermodynamic_conductor/east:
+    model: mekanized:block/cable/ultimate_thermodynamic_conductor/east
+  mekanized:cable_part/ultimate_thermodynamic_conductor/east_pull:
+    model: mekanized:block/cable/ultimate_thermodynamic_conductor/east_pull
+  mekanized:cable_part/ultimate_thermodynamic_conductor/east_push:
+    model: mekanized:block/cable/ultimate_thermodynamic_conductor/east_push
+  mekanized:cable_part/ultimate_thermodynamic_conductor/west:
+    model: mekanized:block/cable/ultimate_thermodynamic_conductor/west
+  mekanized:cable_part/ultimate_thermodynamic_conductor/west_pull:
+    model: mekanized:block/cable/ultimate_thermodynamic_conductor/west_pull
+  mekanized:cable_part/ultimate_thermodynamic_conductor/west_push:
+    model: mekanized:block/cable/ultimate_thermodynamic_conductor/west_push
+  mekanized:cable_part/ultimate_thermodynamic_conductor/up:
+    model: mekanized:block/cable/ultimate_thermodynamic_conductor/up
+  mekanized:cable_part/ultimate_thermodynamic_conductor/up_pull:
+    model: mekanized:block/cable/ultimate_thermodynamic_conductor/up_pull
+  mekanized:cable_part/ultimate_thermodynamic_conductor/up_push:
+    model: mekanized:block/cable/ultimate_thermodynamic_conductor/up_push
+  mekanized:cable_part/ultimate_thermodynamic_conductor/down:
+    model: mekanized:block/cable/ultimate_thermodynamic_conductor/down
+  mekanized:cable_part/ultimate_thermodynamic_conductor/down_pull:
+    model: mekanized:block/cable/ultimate_thermodynamic_conductor/down_pull
+  mekanized:cable_part/ultimate_thermodynamic_conductor/down_push:
+    model: mekanized:block/cable/ultimate_thermodynamic_conductor/down_push
+  mekanized:ultimate_thermodynamic_conductor:
+    data:
+      item_name: <!i><lang:block.mekanized.ultimate_thermodynamic_conductor>
+    model: mekanized:block/cable/ultimate_thermodynamic_conductor/center
+    behavior:
+      type: block_item
+      block: mekanized:ultimate_thermodynamic_conductor
+  mekanized:turbine_blade:
+    data:
+      item_name: <!i><lang:item.mekanized.turbine_blade>
+    model: mekanized:item/turbine_blade
+blocks:
+  mekanized:resistive_heater:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:resistive_heater
+      keep_contents: true
+      display_item: mekanized:display/resistive_heater
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_models_resistive_heater_sides_2
+          model:
+            path: mekanized:block/display_empty/shared/p_block_models_resistive_heater_sides_2
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:fuelwood_heater:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:fuelwood_heater
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+        active:
+          type: boolean
+          default: false
+      appearances:
+        facing_north_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/fuelwood_heater
+        facing_south_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/fuelwood_heater
+            y: 180
+        facing_east_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/fuelwood_heater
+            y: 90
+        facing_west_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/fuelwood_heater
+            y: 270
+        facing_north_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/fuelwood_heater_active
+        facing_south_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/fuelwood_heater_active
+            y: 180
+        facing_east_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/fuelwood_heater_active
+            y: 90
+        facing_west_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/fuelwood_heater_active
+            y: 270
+      variants:
+        facing=north,active=false:
+          appearance: facing_north_active_false
+        facing=south,active=false:
+          appearance: facing_south_active_false
+        facing=east,active=false:
+          appearance: facing_east_active_false
+        facing=west,active=false:
+          appearance: facing_west_active_false
+        facing=north,active=true:
+          appearance: facing_north_active_true
+        facing=south,active=true:
+          appearance: facing_south_active_true
+        facing=east,active=true:
+          appearance: facing_east_active_true
+        facing=west,active=true:
+          appearance: facing_west_active_true
+  mekanized:boiler_casing:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:boiler_casing
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/boiler_casing
+  mekanized:boiler_valve:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:boiler_valve
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        mode:
+          type: string
+          values:
+          - input
+          - output_steam
+          - output_coolant
+          default: input
+      appearances:
+        mode_input:
+          auto_state: solid
+          model:
+            path: mekanized:block/boiler_valve_input
+        mode_output_steam:
+          auto_state: solid
+          model:
+            path: mekanized:block/boiler_valve_output_steam
+        mode_output_coolant:
+          auto_state: solid
+          model:
+            path: mekanized:block/boiler_valve_output_coolant
+      variants:
+        mode=input:
+          appearance: mode_input
+        mode=output_steam:
+          appearance: mode_output_steam
+        mode=output_coolant:
+          appearance: mode_output_coolant
+  mekanized:pressure_disperser:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:pressure_disperser
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/pressure_disperser
+  mekanized:superheating_element:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:superheating_element
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        active:
+          type: boolean
+          default: false
+      appearances:
+        active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/superheating_element
+        active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/superheating_element_active
+      variants:
+        active=false:
+          appearance: active_false
+        active=true:
+          appearance: active_true
+  mekanized:turbine_casing:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:turbine_casing
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/turbine/casing
+  mekanized:turbine_valve:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:turbine_valve
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/turbine/valve
+  mekanized:turbine_vent:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:turbine_vent
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/turbine/vent
+  mekanized:turbine_rotor:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:turbine_rotor
+      keep_contents: true
+      display_item: mekanized:display/turbine_rotor
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: leaves
+        id: mekanized_display_p_block_turbine_rotor
+      model:
+        path: mekanized:block/display_empty/shared/p_block_turbine_rotor
+  mekanized:rotational_complex:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:rotational_complex
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/rotational_complex
+  mekanized:electromagnetic_coil:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:electromagnetic_coil
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/electromagnetic_coil
+  mekanized:saturating_condenser:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:saturating_condenser
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/saturating_condenser
+  mekanized:fission_reactor_casing:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:fission_reactor_casing
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/fission/casing
+  mekanized:fission_reactor_port:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:fission_reactor_port
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        mode:
+          type: string
+          values:
+          - input
+          - output_coolant
+          - output_waste
+          default: input
+      appearances:
+        mode_input:
+          auto_state: solid
+          model:
+            path: mekanized:block/fission/port_input
+        mode_output_coolant:
+          auto_state: solid
+          model:
+            path: mekanized:block/fission/port_output_coolant
+        mode_output_waste:
+          auto_state: solid
+          model:
+            path: mekanized:block/fission/port_output_waste
+      variants:
+        mode=input:
+          appearance: mode_input
+        mode=output_coolant:
+          appearance: mode_output_coolant
+        mode=output_waste:
+          appearance: mode_output_waste
+  mekanized:fission_reactor_logic_adapter:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:fission_reactor_logic_adapter
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/fission/logic_adapter
+  mekanized:reactor_glass:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:reactor_glass
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: tintable_leaves
+      model:
+        path: mekanized:block/reactor_glass
+  mekanized:fission_fuel_assembly:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:fission_fuel_assembly
+      keep_contents: true
+      display_item: mekanized:display/fission_fuel_assembly
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: leaves
+        id: mekanized_display_p_block_model_fuel_assembly_fuel_rod_assembly_side
+      model:
+        path: mekanized:block/display_empty/shared/p_block_model_fuel_assembly_fuel_rod_assembly_side
+  mekanized:control_rod_assembly:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:control_rod_assembly
+      keep_contents: true
+      display_item: mekanized:display/control_rod_assembly
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: leaves
+        id: mekanized_display_p_block_model_fuel_assembly_fuel_rod_assembly_side
+      model:
+        path: mekanized:block/display_empty/shared/p_block_model_fuel_assembly_fuel_rod_assembly_side
+  mekanized:fusion_reactor_controller:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:fusion_reactor_controller
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        active:
+          type: boolean
+          default: false
+      appearances:
+        active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/fusion/controller
+        active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/fusion/controller_on
+      variants:
+        active=false:
+          appearance: active_false
+        active=true:
+          appearance: active_true
+  mekanized:fusion_reactor_frame:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:fusion_reactor_frame
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/fusion/frame
+  mekanized:fusion_reactor_port:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:fusion_reactor_port
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        active:
+          type: boolean
+          default: false
+      appearances:
+        active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/fusion/port
+        active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/fusion/port_output
+      variants:
+        active=false:
+          appearance: active_false
+        active=true:
+          appearance: active_true
+  mekanized:fusion_reactor_logic_adapter:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:fusion_reactor_logic_adapter
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/fusion/logic_adapter
+  mekanized:laser_focus_matrix:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:laser_focus_matrix
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/fusion/laser_focus_matrix
+  mekanized:sps_casing:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:sps_casing
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/sps_casing
+  mekanized:sps_port:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:sps_port
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        active:
+          type: boolean
+          default: false
+      appearances:
+        active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/sps_port
+        active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/sps_port_output
+      variants:
+        active=false:
+          appearance: active_false
+        active=true:
+          appearance: active_true
+  mekanized:supercharged_coil:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:supercharged_coil
+      keep_contents: true
+      display_item: mekanized:display/supercharged_coil
+      display_rotation: 180
+      display_rotations: north=270/180,south=270/0,east=270/270,west=270/90,up=0/0,down=180/0
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 6-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_steel_casing
+          model:
+            path: mekanized:block/display_empty/shared/p_block_steel_casing
+      variants:
+        facing=up:
+          appearance: default
+        facing=down:
+          appearance: default
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:basic_thermodynamic_conductor:
+    behavior:
+      type: machineengine:transport
+      transport: mekanized:basic_thermodynamic_conductor
+      connection_items: mekanized:cable_part/basic_thermodynamic_conductor
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: sapling
+        id: mekanized_universal_cable
+      model:
+        path: mekanized:block/display_empty/universal_cable
+  mekanized:advanced_thermodynamic_conductor:
+    behavior:
+      type: machineengine:transport
+      transport: mekanized:advanced_thermodynamic_conductor
+      connection_items: mekanized:cable_part/advanced_thermodynamic_conductor
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: sapling
+        id: mekanized_universal_cable
+      model:
+        path: mekanized:block/display_empty/universal_cable
+  mekanized:elite_thermodynamic_conductor:
+    behavior:
+      type: machineengine:transport
+      transport: mekanized:elite_thermodynamic_conductor
+      connection_items: mekanized:cable_part/elite_thermodynamic_conductor
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: sapling
+        id: mekanized_universal_cable
+      model:
+        path: mekanized:block/display_empty/universal_cable
+  mekanized:ultimate_thermodynamic_conductor:
+    behavior:
+      type: machineengine:transport
+      transport: mekanized:ultimate_thermodynamic_conductor
+      connection_items: mekanized:cable_part/ultimate_thermodynamic_conductor
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: sapling
+        id: mekanized_universal_cable
+      model:
+        path: mekanized:block/display_empty/universal_cable

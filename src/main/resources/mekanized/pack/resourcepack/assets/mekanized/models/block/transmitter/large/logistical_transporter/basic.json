@@ -1,0 +1,9 @@
+{
+  "parent": "mekanized:block/transmitter/large/logistical_transporter/transporter",
+  "textures": {
+    "side": "mekanized:block/models/multipart/basic_logistical_transporter_vertical",
+    "center_down": "mekanized:block/models/multipart/basic_logistical_transporter",
+    "side_opaque": "mekanized:block/models/multipart/opaque/basic_logistical_transporter_vertical",
+    "center_opaque": "mekanized:block/models/multipart/opaque/basic_logistical_transporter"
+  }
+}

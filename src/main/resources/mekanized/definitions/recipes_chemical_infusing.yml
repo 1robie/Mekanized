@@ -1,0 +1,74 @@
+# Mekanized chemical_infusing recipes, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+# Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.
+# Durations are ticks; energy is Joules per tick. Phase 3 of MEKANIZED_PLAN.md.
+recipes:
+  mekanized:chemical_infusing/fusion_fuel:
+    type: mekanized:chemical_infusing
+    duration: 1
+    inputs:
+    - type: mekanized:deuterium
+      amount: 1
+    - type: mekanized:tritium
+      amount: 1
+    outputs:
+    - type: mekanized:fusion_fuel
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:chemical_infusing/hydrogen_chloride:
+    type: mekanized:chemical_infusing
+    duration: 1
+    inputs:
+    - type: mekanized:hydrogen
+      amount: 1
+    - type: mekanized:chlorine
+      amount: 1
+    outputs:
+    - type: mekanized:hydrogen_chloride
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:chemical_infusing/sulfur_trioxide:
+    type: mekanized:chemical_infusing
+    duration: 1
+    inputs:
+    - type: mekanized:oxygen
+      amount: 1
+    - type: mekanized:sulfur_dioxide
+      amount: 2
+    outputs:
+    - type: mekanized:sulfur_trioxide
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:chemical_infusing/sulfuric_acid:
+    type: mekanized:chemical_infusing
+    duration: 1
+    inputs:
+    - type: mekanized:sulfur_trioxide
+      amount: 1
+    - type: mekanized:water_vapor
+      amount: 1
+    outputs:
+    - type: mekanized:sulfuric_acid
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:processing/uranium/sulfuric_acid:
+    type: mekanized:chemical_infusing
+    duration: 1
+    inputs:
+    - type: mekanized:hydrofluoric_acid
+      amount: 1
+    - type: mekanized:uranium_oxide
+      amount: 1
+    outputs:
+    - type: mekanized:uranium_hexafluoride
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200

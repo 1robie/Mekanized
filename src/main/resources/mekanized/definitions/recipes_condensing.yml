@@ -1,0 +1,244 @@
+# Mekanized condensing recipes, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+# Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.
+# Durations are ticks; energy is Joules per tick. Phase 3 of MEKANIZED_PLAN.md.
+recipes:
+  mekanized:condensing/brine:
+    type: mekanized:condensing
+    duration: 1
+    inputs:
+    - type: mekanized:brine
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/brine
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:condensing/chlorine:
+    type: mekanized:condensing
+    duration: 1
+    inputs:
+    - type: mekanized:chlorine
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/chlorine
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:condensing/deuterium:
+    type: mekanized:condensing
+    duration: 1
+    inputs:
+    - tag: mekanized:deuterium
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/deuterium
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:condensing/ethene:
+    type: mekanized:condensing
+    duration: 1
+    inputs:
+    - type: mekanized:ethene
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/ethene
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:condensing/fusion_fuel:
+    type: mekanized:condensing
+    duration: 1
+    inputs:
+    - tag: mekanized:fusion_fuel
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/fusion_fuel
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:condensing/hydrofluoric_acid:
+    type: mekanized:condensing
+    duration: 1
+    inputs:
+    - type: mekanized:hydrofluoric_acid
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/hydrofluoric_acid
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:condensing/hydrogen:
+    type: mekanized:condensing
+    duration: 1
+    inputs:
+    - type: mekanized:hydrogen
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/hydrogen
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:condensing/hydrogen_chloride:
+    type: mekanized:condensing
+    duration: 1
+    inputs:
+    - type: mekanized:hydrogen_chloride
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/hydrogen_chloride
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:condensing/lithium:
+    type: mekanized:condensing
+    duration: 1
+    inputs:
+    - type: mekanized:lithium
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/lithium
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:condensing/oxygen:
+    type: mekanized:condensing
+    duration: 1
+    inputs:
+    - type: mekanized:oxygen
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/oxygen
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:condensing/sodium:
+    type: mekanized:condensing
+    duration: 1
+    inputs:
+    - type: mekanized:sodium
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/sodium
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:condensing/steam:
+    type: mekanized:condensing
+    duration: 1
+    inputs:
+    - type: mekanized:steam
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/steam
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:condensing/sulfur_dioxide:
+    type: mekanized:condensing
+    duration: 1
+    inputs:
+    - type: mekanized:sulfur_dioxide
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/sulfur_dioxide
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:condensing/sulfur_trioxide:
+    type: mekanized:condensing
+    duration: 1
+    inputs:
+    - type: mekanized:sulfur_trioxide
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/sulfur_trioxide
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:condensing/sulfuric_acid:
+    type: mekanized:condensing
+    duration: 1
+    inputs:
+    - type: mekanized:sulfuric_acid
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/sulfuric_acid
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:condensing/superheated_sodium:
+    type: mekanized:condensing
+    duration: 1
+    inputs:
+    - type: mekanized:superheated_sodium
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/superheated_sodium
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:condensing/tritium:
+    type: mekanized:condensing
+    duration: 1
+    inputs:
+    - tag: mekanized:tritium
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/tritium
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:condensing/uranium_hexafluoride:
+    type: mekanized:condensing
+    duration: 1
+    inputs:
+    - type: mekanized:uranium_hexafluoride
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/uranium_hexafluoride
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:condensing/uranium_oxide:
+    type: mekanized:condensing
+    duration: 1
+    inputs:
+    - type: mekanized:uranium_oxide
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/uranium_oxide
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:condensing/water_vapor:
+    type: mekanized:condensing
+    duration: 1
+    inputs:
+    - type: mekanized:water_vapor
+      amount: 1
+    outputs:
+    - type: machineengine:fluid/water
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100

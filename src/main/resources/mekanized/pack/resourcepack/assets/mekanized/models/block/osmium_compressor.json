@@ -1,0 +1,12 @@
+{
+  "parent": "mekanized:block/machine",
+  "textures": {
+    "sides": "mekanized:block/osmium_compressor/right",
+    "front": "mekanized:block/osmium_compressor/front",
+    "west": "mekanized:block/osmium_compressor/right",
+    "east": "mekanized:block/osmium_compressor/left",
+    "south": "mekanized:block/osmium_compressor/back",
+    "up": "mekanized:block/osmium_compressor/top",
+    "down": "mekanized:block/osmium_compressor/bottom"
+  }
+}

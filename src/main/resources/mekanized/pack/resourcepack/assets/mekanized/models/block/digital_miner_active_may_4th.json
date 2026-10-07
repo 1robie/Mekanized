@@ -1,0 +1,8 @@
+{
+  "parent": "mekanized:block/digital_miner_active",
+  "textures": {
+    "screen_cmd": "mekanized:block/models/digital_miner_screen_afd_sad",
+    "screen_hello": "mekanized:block/models/digital_miner_screen_afd_sad",
+    "screen_blank": "mekanized:block/models/digital_miner_screen_afd_text"
+  }
+}

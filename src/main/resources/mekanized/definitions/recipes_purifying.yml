@@ -1,0 +1,396 @@
+# Mekanized purifying recipes, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+# Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.
+# Durations are ticks; energy is Joules per tick. Phase 2 of MEKANIZED_PLAN.md.
+recipes:
+  mekanized:processing/copper/clump/from_ore:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: c:ores/copper
+      amount: 1
+    outputs:
+    - item: mekanized:clump_copper
+      amount: 3
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 1
+  mekanized:processing/copper/clump/from_raw_block:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: c:storage_blocks/raw_copper
+      amount: 1
+    outputs:
+    - item: mekanized:clump_copper
+      amount: 18
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 2
+  mekanized:processing/copper/clump/from_raw_ore:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: c:raw_materials/copper
+      amount: 1
+    outputs:
+    - item: mekanized:clump_copper
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 1
+  mekanized:processing/copper/clump/from_shard:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: mekanized:shards/copper
+      amount: 1
+    outputs:
+    - item: mekanized:clump_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 1
+  mekanized:processing/gold/clump/from_ore:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: c:ores/gold
+      amount: 1
+    outputs:
+    - item: mekanized:clump_gold
+      amount: 3
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 1
+  mekanized:processing/gold/clump/from_raw_block:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: c:storage_blocks/raw_gold
+      amount: 1
+    outputs:
+    - item: mekanized:clump_gold
+      amount: 18
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 2
+  mekanized:processing/gold/clump/from_raw_ore:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: c:raw_materials/gold
+      amount: 1
+    outputs:
+    - item: mekanized:clump_gold
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 1
+  mekanized:processing/gold/clump/from_shard:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: mekanized:shards/gold
+      amount: 1
+    outputs:
+    - item: mekanized:clump_gold
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 1
+  mekanized:processing/iron/clump/from_ore:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: c:ores/iron
+      amount: 1
+    outputs:
+    - item: mekanized:clump_iron
+      amount: 3
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 1
+  mekanized:processing/iron/clump/from_raw_block:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: c:storage_blocks/raw_iron
+      amount: 1
+    outputs:
+    - item: mekanized:clump_iron
+      amount: 18
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 2
+  mekanized:processing/iron/clump/from_raw_ore:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: c:raw_materials/iron
+      amount: 1
+    outputs:
+    - item: mekanized:clump_iron
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 1
+  mekanized:processing/iron/clump/from_shard:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: mekanized:shards/iron
+      amount: 1
+    outputs:
+    - item: mekanized:clump_iron
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 1
+  mekanized:processing/lead/clump/from_ore:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: c:ores/lead
+      amount: 1
+    outputs:
+    - item: mekanized:clump_lead
+      amount: 3
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 1
+  mekanized:processing/lead/clump/from_raw_block:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: c:storage_blocks/raw_lead
+      amount: 1
+    outputs:
+    - item: mekanized:clump_lead
+      amount: 18
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 2
+  mekanized:processing/lead/clump/from_raw_ore:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: c:raw_materials/lead
+      amount: 1
+    outputs:
+    - item: mekanized:clump_lead
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 1
+  mekanized:processing/lead/clump/from_shard:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: mekanized:shards/lead
+      amount: 1
+    outputs:
+    - item: mekanized:clump_lead
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 1
+  mekanized:processing/osmium/clump/from_ore:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: c:ores/osmium
+      amount: 1
+    outputs:
+    - item: mekanized:clump_osmium
+      amount: 3
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 1
+  mekanized:processing/osmium/clump/from_raw_block:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: c:storage_blocks/raw_osmium
+      amount: 1
+    outputs:
+    - item: mekanized:clump_osmium
+      amount: 18
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 2
+  mekanized:processing/osmium/clump/from_raw_ore:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: c:raw_materials/osmium
+      amount: 1
+    outputs:
+    - item: mekanized:clump_osmium
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 1
+  mekanized:processing/osmium/clump/from_shard:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: mekanized:shards/osmium
+      amount: 1
+    outputs:
+    - item: mekanized:clump_osmium
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 1
+  mekanized:processing/tin/clump/from_ore:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: c:ores/tin
+      amount: 1
+    outputs:
+    - item: mekanized:clump_tin
+      amount: 3
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 1
+  mekanized:processing/tin/clump/from_raw_block:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: c:storage_blocks/raw_tin
+      amount: 1
+    outputs:
+    - item: mekanized:clump_tin
+      amount: 18
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 2
+  mekanized:processing/tin/clump/from_raw_ore:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: c:raw_materials/tin
+      amount: 1
+    outputs:
+    - item: mekanized:clump_tin
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 1
+  mekanized:processing/tin/clump/from_shard:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: mekanized:shards/tin
+      amount: 1
+    outputs:
+    - item: mekanized:clump_tin
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 1
+  mekanized:processing/uranium/clump/from_ore:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: c:ores/uranium
+      amount: 1
+    outputs:
+    - item: mekanized:clump_uranium
+      amount: 3
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 1
+  mekanized:processing/uranium/clump/from_raw_block:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: c:storage_blocks/raw_uranium
+      amount: 1
+    outputs:
+    - item: mekanized:clump_uranium
+      amount: 18
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 2
+  mekanized:processing/uranium/clump/from_raw_ore:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: c:raw_materials/uranium
+      amount: 1
+    outputs:
+    - item: mekanized:clump_uranium
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 1
+  mekanized:processing/uranium/clump/from_shard:
+    type: mekanized:purifying
+    duration: 200
+    inputs:
+    - item-tag: mekanized:shards/uranium
+      amount: 1
+    outputs:
+    - item: mekanized:clump_uranium
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+    - type: mekanized:oxygen
+      amount: 1

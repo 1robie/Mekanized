@@ -1,0 +1,1491 @@
+# Mekanized machines, generators, energy cubes, cables and upgrades (Phase 2), based on Mekanism (MIT).
+items:
+  mekanized:enrichment_chamber:
+    data:
+      item_name: <!i><lang:block.mekanized.enrichment_chamber>
+    model: mekanized:block/enrichment_chamber
+    behavior:
+      type: block_item
+      block: mekanized:enrichment_chamber
+  mekanized:crusher:
+    data:
+      item_name: <!i><lang:block.mekanized.crusher>
+    model: mekanized:block/crusher
+    behavior:
+      type: block_item
+      block: mekanized:crusher
+  mekanized:energized_smelter:
+    data:
+      item_name: <!i><lang:block.mekanized.energized_smelter>
+    model: mekanized:block/energized_smelter
+    behavior:
+      type: block_item
+      block: mekanized:energized_smelter
+  mekanized:osmium_compressor:
+    data:
+      item_name: <!i><lang:block.mekanized.osmium_compressor>
+    model: mekanized:block/osmium_compressor
+    behavior:
+      type: block_item
+      block: mekanized:osmium_compressor
+  mekanized:combiner:
+    data:
+      item_name: <!i><lang:block.mekanized.combiner>
+    model: mekanized:block/combiner
+    behavior:
+      type: block_item
+      block: mekanized:combiner
+  mekanized:display/metallurgic_infuser:
+    model: mekanized:block/metallurgic_infuser
+  mekanized:metallurgic_infuser:
+    data:
+      item_name: <!i><lang:block.mekanized.metallurgic_infuser>
+    model: mekanized:block/metallurgic_infuser
+    behavior:
+      type: block_item
+      block: mekanized:metallurgic_infuser
+  mekanized:purification_chamber:
+    data:
+      item_name: <!i><lang:block.mekanized.purification_chamber>
+    model: mekanized:block/purification_chamber
+    behavior:
+      type: block_item
+      block: mekanized:purification_chamber
+  mekanized:precision_sawmill:
+    data:
+      item_name: <!i><lang:block.mekanized.precision_sawmill>
+    model: mekanized:block/precision_sawmill
+    behavior:
+      type: block_item
+      block: mekanized:precision_sawmill
+  mekanized:display/heat_generator:
+    model: mekanized:block/heat_generator
+  mekanized:display/heat_generator/active:
+    model: mekanized:block/heat_generator_active
+  mekanized:heat_generator:
+    data:
+      item_name: <!i><lang:block.mekanized.heat_generator>
+    model: mekanized:block/heat_generator
+    behavior:
+      type: block_item
+      block: mekanized:heat_generator
+  mekanized:display/solar_generator:
+    model: mekanized:block/solar_generator
+  mekanized:solar_generator:
+    data:
+      item_name: <!i><lang:block.mekanized.solar_generator>
+    model: mekanized:item/solar_generator
+    behavior:
+      type: block_item
+      block: mekanized:solar_generator
+  mekanized:display/bio_generator:
+    model: mekanized:block/bio_generator
+  mekanized:bio_generator:
+    data:
+      item_name: <!i><lang:block.mekanized.bio_generator>
+    model: mekanized:block/bio_generator
+    behavior:
+      type: block_item
+      block: mekanized:bio_generator
+  mekanized:display/basic_energy_cube:
+    model: mekanized:block/energy_cube/basic/frame
+  mekanized:display/energy_core/basic/1:
+    model: mekanized:block/energy_core/basic/1
+  mekanized:display/energy_core/basic/2:
+    model: mekanized:block/energy_core/basic/2
+  mekanized:display/energy_core/basic/3:
+    model: mekanized:block/energy_core/basic/3
+  mekanized:display/energy_core/basic/4:
+    model: mekanized:block/energy_core/basic/4
+  mekanized:display/basic_energy_cube/port/front:
+    model: mekanized:block/energy_cube/basic/port_front
+  mekanized:display/basic_energy_cube/port/back:
+    model: mekanized:block/energy_cube/basic/port_back
+  mekanized:display/basic_energy_cube/port/left:
+    model: mekanized:block/energy_cube/basic/port_left
+  mekanized:display/basic_energy_cube/port/right:
+    model: mekanized:block/energy_cube/basic/port_right
+  mekanized:display/basic_energy_cube/port/top:
+    model: mekanized:block/energy_cube/basic/port_top
+  mekanized:display/basic_energy_cube/port/bottom:
+    model: mekanized:block/energy_cube/basic/port_bottom
+  mekanized:basic_energy_cube:
+    data:
+      item_name: <!i><lang:block.mekanized.basic_energy_cube>
+    model: mekanized:block/energy_cube/basic
+    behavior:
+      type: block_item
+      block: mekanized:basic_energy_cube
+  mekanized:display/advanced_energy_cube:
+    model: mekanized:block/energy_cube/advanced/frame
+  mekanized:display/energy_core/advanced/1:
+    model: mekanized:block/energy_core/advanced/1
+  mekanized:display/energy_core/advanced/2:
+    model: mekanized:block/energy_core/advanced/2
+  mekanized:display/energy_core/advanced/3:
+    model: mekanized:block/energy_core/advanced/3
+  mekanized:display/energy_core/advanced/4:
+    model: mekanized:block/energy_core/advanced/4
+  mekanized:display/advanced_energy_cube/port/front:
+    model: mekanized:block/energy_cube/advanced/port_front
+  mekanized:display/advanced_energy_cube/port/back:
+    model: mekanized:block/energy_cube/advanced/port_back
+  mekanized:display/advanced_energy_cube/port/left:
+    model: mekanized:block/energy_cube/advanced/port_left
+  mekanized:display/advanced_energy_cube/port/right:
+    model: mekanized:block/energy_cube/advanced/port_right
+  mekanized:display/advanced_energy_cube/port/top:
+    model: mekanized:block/energy_cube/advanced/port_top
+  mekanized:display/advanced_energy_cube/port/bottom:
+    model: mekanized:block/energy_cube/advanced/port_bottom
+  mekanized:advanced_energy_cube:
+    data:
+      item_name: <!i><lang:block.mekanized.advanced_energy_cube>
+    model: mekanized:block/energy_cube/advanced
+    behavior:
+      type: block_item
+      block: mekanized:advanced_energy_cube
+  mekanized:display/elite_energy_cube:
+    model: mekanized:block/energy_cube/elite/frame
+  mekanized:display/energy_core/elite/1:
+    model: mekanized:block/energy_core/elite/1
+  mekanized:display/energy_core/elite/2:
+    model: mekanized:block/energy_core/elite/2
+  mekanized:display/energy_core/elite/3:
+    model: mekanized:block/energy_core/elite/3
+  mekanized:display/energy_core/elite/4:
+    model: mekanized:block/energy_core/elite/4
+  mekanized:display/elite_energy_cube/port/front:
+    model: mekanized:block/energy_cube/elite/port_front
+  mekanized:display/elite_energy_cube/port/back:
+    model: mekanized:block/energy_cube/elite/port_back
+  mekanized:display/elite_energy_cube/port/left:
+    model: mekanized:block/energy_cube/elite/port_left
+  mekanized:display/elite_energy_cube/port/right:
+    model: mekanized:block/energy_cube/elite/port_right
+  mekanized:display/elite_energy_cube/port/top:
+    model: mekanized:block/energy_cube/elite/port_top
+  mekanized:display/elite_energy_cube/port/bottom:
+    model: mekanized:block/energy_cube/elite/port_bottom
+  mekanized:elite_energy_cube:
+    data:
+      item_name: <!i><lang:block.mekanized.elite_energy_cube>
+    model: mekanized:block/energy_cube/elite
+    behavior:
+      type: block_item
+      block: mekanized:elite_energy_cube
+  mekanized:display/ultimate_energy_cube:
+    model: mekanized:block/energy_cube/ultimate/frame
+  mekanized:display/energy_core/ultimate/1:
+    model: mekanized:block/energy_core/ultimate/1
+  mekanized:display/energy_core/ultimate/2:
+    model: mekanized:block/energy_core/ultimate/2
+  mekanized:display/energy_core/ultimate/3:
+    model: mekanized:block/energy_core/ultimate/3
+  mekanized:display/energy_core/ultimate/4:
+    model: mekanized:block/energy_core/ultimate/4
+  mekanized:display/ultimate_energy_cube/port/front:
+    model: mekanized:block/energy_cube/ultimate/port_front
+  mekanized:display/ultimate_energy_cube/port/back:
+    model: mekanized:block/energy_cube/ultimate/port_back
+  mekanized:display/ultimate_energy_cube/port/left:
+    model: mekanized:block/energy_cube/ultimate/port_left
+  mekanized:display/ultimate_energy_cube/port/right:
+    model: mekanized:block/energy_cube/ultimate/port_right
+  mekanized:display/ultimate_energy_cube/port/top:
+    model: mekanized:block/energy_cube/ultimate/port_top
+  mekanized:display/ultimate_energy_cube/port/bottom:
+    model: mekanized:block/energy_cube/ultimate/port_bottom
+  mekanized:ultimate_energy_cube:
+    data:
+      item_name: <!i><lang:block.mekanized.ultimate_energy_cube>
+    model: mekanized:block/energy_cube/ultimate
+    behavior:
+      type: block_item
+      block: mekanized:ultimate_energy_cube
+  mekanized:display/creative_energy_cube:
+    model: mekanized:block/energy_cube/creative/frame
+  mekanized:display/energy_core/creative/1:
+    model: mekanized:block/energy_core/creative/1
+  mekanized:display/energy_core/creative/2:
+    model: mekanized:block/energy_core/creative/2
+  mekanized:display/energy_core/creative/3:
+    model: mekanized:block/energy_core/creative/3
+  mekanized:display/energy_core/creative/4:
+    model: mekanized:block/energy_core/creative/4
+  mekanized:display/creative_energy_cube/port/front:
+    model: mekanized:block/energy_cube/creative/port_front
+  mekanized:display/creative_energy_cube/port/back:
+    model: mekanized:block/energy_cube/creative/port_back
+  mekanized:display/creative_energy_cube/port/left:
+    model: mekanized:block/energy_cube/creative/port_left
+  mekanized:display/creative_energy_cube/port/right:
+    model: mekanized:block/energy_cube/creative/port_right
+  mekanized:display/creative_energy_cube/port/top:
+    model: mekanized:block/energy_cube/creative/port_top
+  mekanized:display/creative_energy_cube/port/bottom:
+    model: mekanized:block/energy_cube/creative/port_bottom
+  mekanized:creative_energy_cube:
+    data:
+      item_name: <!i><lang:block.mekanized.creative_energy_cube>
+    model: mekanized:block/energy_cube/creative
+    behavior:
+      type: block_item
+      block: mekanized:creative_energy_cube
+  mekanized:cable_part/basic_universal_cable/center:
+    model: mekanized:block/cable/basic_universal_cable/center
+  mekanized:cable_part/basic_universal_cable/north:
+    model: mekanized:block/cable/basic_universal_cable/north
+  mekanized:cable_part/basic_universal_cable/north_pull:
+    model: mekanized:block/cable/basic_universal_cable/north_pull
+  mekanized:cable_part/basic_universal_cable/north_push:
+    model: mekanized:block/cable/basic_universal_cable/north_push
+  mekanized:cable_part/basic_universal_cable/south:
+    model: mekanized:block/cable/basic_universal_cable/south
+  mekanized:cable_part/basic_universal_cable/south_pull:
+    model: mekanized:block/cable/basic_universal_cable/south_pull
+  mekanized:cable_part/basic_universal_cable/south_push:
+    model: mekanized:block/cable/basic_universal_cable/south_push
+  mekanized:cable_part/basic_universal_cable/east:
+    model: mekanized:block/cable/basic_universal_cable/east
+  mekanized:cable_part/basic_universal_cable/east_pull:
+    model: mekanized:block/cable/basic_universal_cable/east_pull
+  mekanized:cable_part/basic_universal_cable/east_push:
+    model: mekanized:block/cable/basic_universal_cable/east_push
+  mekanized:cable_part/basic_universal_cable/west:
+    model: mekanized:block/cable/basic_universal_cable/west
+  mekanized:cable_part/basic_universal_cable/west_pull:
+    model: mekanized:block/cable/basic_universal_cable/west_pull
+  mekanized:cable_part/basic_universal_cable/west_push:
+    model: mekanized:block/cable/basic_universal_cable/west_push
+  mekanized:cable_part/basic_universal_cable/up:
+    model: mekanized:block/cable/basic_universal_cable/up
+  mekanized:cable_part/basic_universal_cable/up_pull:
+    model: mekanized:block/cable/basic_universal_cable/up_pull
+  mekanized:cable_part/basic_universal_cable/up_push:
+    model: mekanized:block/cable/basic_universal_cable/up_push
+  mekanized:cable_part/basic_universal_cable/down:
+    model: mekanized:block/cable/basic_universal_cable/down
+  mekanized:cable_part/basic_universal_cable/down_pull:
+    model: mekanized:block/cable/basic_universal_cable/down_pull
+  mekanized:cable_part/basic_universal_cable/down_push:
+    model: mekanized:block/cable/basic_universal_cable/down_push
+  mekanized:basic_universal_cable:
+    data:
+      item_name: <!i><lang:block.mekanized.basic_universal_cable>
+    model: mekanized:block/cable/basic_universal_cable/center
+    behavior:
+      type: block_item
+      block: mekanized:basic_universal_cable
+  mekanized:cable_part/advanced_universal_cable/center:
+    model: mekanized:block/cable/advanced_universal_cable/center
+  mekanized:cable_part/advanced_universal_cable/north:
+    model: mekanized:block/cable/advanced_universal_cable/north
+  mekanized:cable_part/advanced_universal_cable/north_pull:
+    model: mekanized:block/cable/advanced_universal_cable/north_pull
+  mekanized:cable_part/advanced_universal_cable/north_push:
+    model: mekanized:block/cable/advanced_universal_cable/north_push
+  mekanized:cable_part/advanced_universal_cable/south:
+    model: mekanized:block/cable/advanced_universal_cable/south
+  mekanized:cable_part/advanced_universal_cable/south_pull:
+    model: mekanized:block/cable/advanced_universal_cable/south_pull
+  mekanized:cable_part/advanced_universal_cable/south_push:
+    model: mekanized:block/cable/advanced_universal_cable/south_push
+  mekanized:cable_part/advanced_universal_cable/east:
+    model: mekanized:block/cable/advanced_universal_cable/east
+  mekanized:cable_part/advanced_universal_cable/east_pull:
+    model: mekanized:block/cable/advanced_universal_cable/east_pull
+  mekanized:cable_part/advanced_universal_cable/east_push:
+    model: mekanized:block/cable/advanced_universal_cable/east_push
+  mekanized:cable_part/advanced_universal_cable/west:
+    model: mekanized:block/cable/advanced_universal_cable/west
+  mekanized:cable_part/advanced_universal_cable/west_pull:
+    model: mekanized:block/cable/advanced_universal_cable/west_pull
+  mekanized:cable_part/advanced_universal_cable/west_push:
+    model: mekanized:block/cable/advanced_universal_cable/west_push
+  mekanized:cable_part/advanced_universal_cable/up:
+    model: mekanized:block/cable/advanced_universal_cable/up
+  mekanized:cable_part/advanced_universal_cable/up_pull:
+    model: mekanized:block/cable/advanced_universal_cable/up_pull
+  mekanized:cable_part/advanced_universal_cable/up_push:
+    model: mekanized:block/cable/advanced_universal_cable/up_push
+  mekanized:cable_part/advanced_universal_cable/down:
+    model: mekanized:block/cable/advanced_universal_cable/down
+  mekanized:cable_part/advanced_universal_cable/down_pull:
+    model: mekanized:block/cable/advanced_universal_cable/down_pull
+  mekanized:cable_part/advanced_universal_cable/down_push:
+    model: mekanized:block/cable/advanced_universal_cable/down_push
+  mekanized:advanced_universal_cable:
+    data:
+      item_name: <!i><lang:block.mekanized.advanced_universal_cable>
+    model: mekanized:block/cable/advanced_universal_cable/center
+    behavior:
+      type: block_item
+      block: mekanized:advanced_universal_cable
+  mekanized:cable_part/elite_universal_cable/center:
+    model: mekanized:block/cable/elite_universal_cable/center
+  mekanized:cable_part/elite_universal_cable/north:
+    model: mekanized:block/cable/elite_universal_cable/north
+  mekanized:cable_part/elite_universal_cable/north_pull:
+    model: mekanized:block/cable/elite_universal_cable/north_pull
+  mekanized:cable_part/elite_universal_cable/north_push:
+    model: mekanized:block/cable/elite_universal_cable/north_push
+  mekanized:cable_part/elite_universal_cable/south:
+    model: mekanized:block/cable/elite_universal_cable/south
+  mekanized:cable_part/elite_universal_cable/south_pull:
+    model: mekanized:block/cable/elite_universal_cable/south_pull
+  mekanized:cable_part/elite_universal_cable/south_push:
+    model: mekanized:block/cable/elite_universal_cable/south_push
+  mekanized:cable_part/elite_universal_cable/east:
+    model: mekanized:block/cable/elite_universal_cable/east
+  mekanized:cable_part/elite_universal_cable/east_pull:
+    model: mekanized:block/cable/elite_universal_cable/east_pull
+  mekanized:cable_part/elite_universal_cable/east_push:
+    model: mekanized:block/cable/elite_universal_cable/east_push
+  mekanized:cable_part/elite_universal_cable/west:
+    model: mekanized:block/cable/elite_universal_cable/west
+  mekanized:cable_part/elite_universal_cable/west_pull:
+    model: mekanized:block/cable/elite_universal_cable/west_pull
+  mekanized:cable_part/elite_universal_cable/west_push:
+    model: mekanized:block/cable/elite_universal_cable/west_push
+  mekanized:cable_part/elite_universal_cable/up:
+    model: mekanized:block/cable/elite_universal_cable/up
+  mekanized:cable_part/elite_universal_cable/up_pull:
+    model: mekanized:block/cable/elite_universal_cable/up_pull
+  mekanized:cable_part/elite_universal_cable/up_push:
+    model: mekanized:block/cable/elite_universal_cable/up_push
+  mekanized:cable_part/elite_universal_cable/down:
+    model: mekanized:block/cable/elite_universal_cable/down
+  mekanized:cable_part/elite_universal_cable/down_pull:
+    model: mekanized:block/cable/elite_universal_cable/down_pull
+  mekanized:cable_part/elite_universal_cable/down_push:
+    model: mekanized:block/cable/elite_universal_cable/down_push
+  mekanized:elite_universal_cable:
+    data:
+      item_name: <!i><lang:block.mekanized.elite_universal_cable>
+    model: mekanized:block/cable/elite_universal_cable/center
+    behavior:
+      type: block_item
+      block: mekanized:elite_universal_cable
+  mekanized:cable_part/ultimate_universal_cable/center:
+    model: mekanized:block/cable/ultimate_universal_cable/center
+  mekanized:cable_part/ultimate_universal_cable/north:
+    model: mekanized:block/cable/ultimate_universal_cable/north
+  mekanized:cable_part/ultimate_universal_cable/north_pull:
+    model: mekanized:block/cable/ultimate_universal_cable/north_pull
+  mekanized:cable_part/ultimate_universal_cable/north_push:
+    model: mekanized:block/cable/ultimate_universal_cable/north_push
+  mekanized:cable_part/ultimate_universal_cable/south:
+    model: mekanized:block/cable/ultimate_universal_cable/south
+  mekanized:cable_part/ultimate_universal_cable/south_pull:
+    model: mekanized:block/cable/ultimate_universal_cable/south_pull
+  mekanized:cable_part/ultimate_universal_cable/south_push:
+    model: mekanized:block/cable/ultimate_universal_cable/south_push
+  mekanized:cable_part/ultimate_universal_cable/east:
+    model: mekanized:block/cable/ultimate_universal_cable/east
+  mekanized:cable_part/ultimate_universal_cable/east_pull:
+    model: mekanized:block/cable/ultimate_universal_cable/east_pull
+  mekanized:cable_part/ultimate_universal_cable/east_push:
+    model: mekanized:block/cable/ultimate_universal_cable/east_push
+  mekanized:cable_part/ultimate_universal_cable/west:
+    model: mekanized:block/cable/ultimate_universal_cable/west
+  mekanized:cable_part/ultimate_universal_cable/west_pull:
+    model: mekanized:block/cable/ultimate_universal_cable/west_pull
+  mekanized:cable_part/ultimate_universal_cable/west_push:
+    model: mekanized:block/cable/ultimate_universal_cable/west_push
+  mekanized:cable_part/ultimate_universal_cable/up:
+    model: mekanized:block/cable/ultimate_universal_cable/up
+  mekanized:cable_part/ultimate_universal_cable/up_pull:
+    model: mekanized:block/cable/ultimate_universal_cable/up_pull
+  mekanized:cable_part/ultimate_universal_cable/up_push:
+    model: mekanized:block/cable/ultimate_universal_cable/up_push
+  mekanized:cable_part/ultimate_universal_cable/down:
+    model: mekanized:block/cable/ultimate_universal_cable/down
+  mekanized:cable_part/ultimate_universal_cable/down_pull:
+    model: mekanized:block/cable/ultimate_universal_cable/down_pull
+  mekanized:cable_part/ultimate_universal_cable/down_push:
+    model: mekanized:block/cable/ultimate_universal_cable/down_push
+  mekanized:ultimate_universal_cable:
+    data:
+      item_name: <!i><lang:block.mekanized.ultimate_universal_cable>
+    model: mekanized:block/cable/ultimate_universal_cable/center
+    behavior:
+      type: block_item
+      block: mekanized:ultimate_universal_cable
+  mekanized:upgrade_speed:
+    data:
+      item_name: <!i><lang:item.mekanized.upgrade_speed>
+    model: mekanized:item/upgrade_speed
+  mekanized:upgrade_energy:
+    data:
+      item_name: <!i><lang:item.mekanized.upgrade_energy>
+    model: mekanized:item/upgrade_energy
+  mekanized:solar_panel:
+    data:
+      item_name: <!i><lang:item.mekanized.solar_panel>
+    model: mekanized:item/solar_panel
+blocks:
+  mekanized:enrichment_chamber:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:enrichment_chamber
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+        active:
+          type: boolean
+          default: false
+      appearances:
+        facing_north_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/enrichment_chamber
+        facing_south_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/enrichment_chamber
+            y: 180
+        facing_east_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/enrichment_chamber
+            y: 90
+        facing_west_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/enrichment_chamber
+            y: 270
+        facing_north_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/enrichment_chamber_active
+        facing_south_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/enrichment_chamber_active
+            y: 180
+        facing_east_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/enrichment_chamber_active
+            y: 90
+        facing_west_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/enrichment_chamber_active
+            y: 270
+      variants:
+        facing=north,active=false:
+          appearance: facing_north_active_false
+        facing=south,active=false:
+          appearance: facing_south_active_false
+        facing=east,active=false:
+          appearance: facing_east_active_false
+        facing=west,active=false:
+          appearance: facing_west_active_false
+        facing=north,active=true:
+          appearance: facing_north_active_true
+        facing=south,active=true:
+          appearance: facing_south_active_true
+        facing=east,active=true:
+          appearance: facing_east_active_true
+        facing=west,active=true:
+          appearance: facing_west_active_true
+  mekanized:crusher:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:crusher
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+        active:
+          type: boolean
+          default: false
+      appearances:
+        facing_north_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/crusher
+        facing_south_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/crusher
+            y: 180
+        facing_east_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/crusher
+            y: 90
+        facing_west_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/crusher
+            y: 270
+        facing_north_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/crusher_active
+        facing_south_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/crusher_active
+            y: 180
+        facing_east_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/crusher_active
+            y: 90
+        facing_west_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/crusher_active
+            y: 270
+      variants:
+        facing=north,active=false:
+          appearance: facing_north_active_false
+        facing=south,active=false:
+          appearance: facing_south_active_false
+        facing=east,active=false:
+          appearance: facing_east_active_false
+        facing=west,active=false:
+          appearance: facing_west_active_false
+        facing=north,active=true:
+          appearance: facing_north_active_true
+        facing=south,active=true:
+          appearance: facing_south_active_true
+        facing=east,active=true:
+          appearance: facing_east_active_true
+        facing=west,active=true:
+          appearance: facing_west_active_true
+  mekanized:energized_smelter:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:energized_smelter
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+        active:
+          type: boolean
+          default: false
+      appearances:
+        facing_north_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/energized_smelter
+        facing_south_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/energized_smelter
+            y: 180
+        facing_east_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/energized_smelter
+            y: 90
+        facing_west_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/energized_smelter
+            y: 270
+        facing_north_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/energized_smelter_active
+        facing_south_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/energized_smelter_active
+            y: 180
+        facing_east_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/energized_smelter_active
+            y: 90
+        facing_west_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/energized_smelter_active
+            y: 270
+      variants:
+        facing=north,active=false:
+          appearance: facing_north_active_false
+        facing=south,active=false:
+          appearance: facing_south_active_false
+        facing=east,active=false:
+          appearance: facing_east_active_false
+        facing=west,active=false:
+          appearance: facing_west_active_false
+        facing=north,active=true:
+          appearance: facing_north_active_true
+        facing=south,active=true:
+          appearance: facing_south_active_true
+        facing=east,active=true:
+          appearance: facing_east_active_true
+        facing=west,active=true:
+          appearance: facing_west_active_true
+  mekanized:osmium_compressor:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:osmium_compressor
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+        active:
+          type: boolean
+          default: false
+      appearances:
+        facing_north_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/osmium_compressor
+        facing_south_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/osmium_compressor
+            y: 180
+        facing_east_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/osmium_compressor
+            y: 90
+        facing_west_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/osmium_compressor
+            y: 270
+        facing_north_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/osmium_compressor_active
+        facing_south_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/osmium_compressor_active
+            y: 180
+        facing_east_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/osmium_compressor_active
+            y: 90
+        facing_west_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/osmium_compressor_active
+            y: 270
+      variants:
+        facing=north,active=false:
+          appearance: facing_north_active_false
+        facing=south,active=false:
+          appearance: facing_south_active_false
+        facing=east,active=false:
+          appearance: facing_east_active_false
+        facing=west,active=false:
+          appearance: facing_west_active_false
+        facing=north,active=true:
+          appearance: facing_north_active_true
+        facing=south,active=true:
+          appearance: facing_south_active_true
+        facing=east,active=true:
+          appearance: facing_east_active_true
+        facing=west,active=true:
+          appearance: facing_west_active_true
+  mekanized:combiner:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:combiner
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+        active:
+          type: boolean
+          default: false
+      appearances:
+        facing_north_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/combiner
+        facing_south_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/combiner
+            y: 180
+        facing_east_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/combiner
+            y: 90
+        facing_west_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/combiner
+            y: 270
+        facing_north_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/combiner_active
+        facing_south_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/combiner_active
+            y: 180
+        facing_east_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/combiner_active
+            y: 90
+        facing_west_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/combiner_active
+            y: 270
+      variants:
+        facing=north,active=false:
+          appearance: facing_north_active_false
+        facing=south,active=false:
+          appearance: facing_south_active_false
+        facing=east,active=false:
+          appearance: facing_east_active_false
+        facing=west,active=false:
+          appearance: facing_west_active_false
+        facing=north,active=true:
+          appearance: facing_north_active_true
+        facing=south,active=true:
+          appearance: facing_south_active_true
+        facing=east,active=true:
+          appearance: facing_east_active_true
+        facing=west,active=true:
+          appearance: facing_west_active_true
+  mekanized:metallurgic_infuser:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:metallurgic_infuser
+      keep_contents: true
+      display_item: mekanized:display/metallurgic_infuser
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_steel_casing
+          model:
+            path: mekanized:block/display_empty/shared/p_block_steel_casing
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:purification_chamber:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:purification_chamber
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+        active:
+          type: boolean
+          default: false
+      appearances:
+        facing_north_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/purification_chamber
+        facing_south_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/purification_chamber
+            y: 180
+        facing_east_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/purification_chamber
+            y: 90
+        facing_west_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/purification_chamber
+            y: 270
+        facing_north_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/purification_chamber_active
+        facing_south_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/purification_chamber_active
+            y: 180
+        facing_east_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/purification_chamber_active
+            y: 90
+        facing_west_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/purification_chamber_active
+            y: 270
+      variants:
+        facing=north,active=false:
+          appearance: facing_north_active_false
+        facing=south,active=false:
+          appearance: facing_south_active_false
+        facing=east,active=false:
+          appearance: facing_east_active_false
+        facing=west,active=false:
+          appearance: facing_west_active_false
+        facing=north,active=true:
+          appearance: facing_north_active_true
+        facing=south,active=true:
+          appearance: facing_south_active_true
+        facing=east,active=true:
+          appearance: facing_east_active_true
+        facing=west,active=true:
+          appearance: facing_west_active_true
+  mekanized:precision_sawmill:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:precision_sawmill
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+        active:
+          type: boolean
+          default: false
+      appearances:
+        facing_north_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/precision_sawmill
+        facing_south_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/precision_sawmill
+            y: 180
+        facing_east_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/precision_sawmill
+            y: 90
+        facing_west_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/precision_sawmill
+            y: 270
+        facing_north_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/precision_sawmill_active
+        facing_south_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/precision_sawmill_active
+            y: 180
+        facing_east_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/precision_sawmill_active
+            y: 90
+        facing_west_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/precision_sawmill_active
+            y: 270
+      variants:
+        facing=north,active=false:
+          appearance: facing_north_active_false
+        facing=south,active=false:
+          appearance: facing_south_active_false
+        facing=east,active=false:
+          appearance: facing_east_active_false
+        facing=west,active=false:
+          appearance: facing_west_active_false
+        facing=north,active=true:
+          appearance: facing_north_active_true
+        facing=south,active=true:
+          appearance: facing_south_active_true
+        facing=east,active=true:
+          appearance: facing_east_active_true
+        facing=west,active=true:
+          appearance: facing_west_active_true
+  mekanized:heat_generator:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:heat_generator
+      keep_contents: true
+      display_item: mekanized:display/heat_generator
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_model_heat_generator
+          model:
+            path: mekanized:block/display_empty/shared/p_block_model_heat_generator
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=west:
+          appearance: default
+        facing=east:
+          appearance: default
+  mekanized:solar_generator:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:solar_generator
+      keep_contents: true
+      display_item: mekanized:display/solar_generator
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: leaves
+        id: mekanized_display_p_block_model_solar_generator
+      model:
+        path: mekanized:block/display_empty/shared/p_block_model_solar_generator
+  mekanized:bio_generator:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:bio_generator
+      keep_contents: true
+      display_item: mekanized:display/bio_generator
+      display_rotation: 180
+      display_rotations: north=0/180,south=0/0,east=0/270,west=0/90
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_model_bio_generator2
+          model:
+            path: mekanized:block/display_empty/shared/p_block_model_bio_generator2
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=west:
+          appearance: default
+        facing=east:
+          appearance: default
+  mekanized:basic_energy_cube:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:basic_energy_cube
+      keep_contents: true
+      display_item: mekanized:display/basic_energy_cube
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270,up=270/0,down=90/0
+      level_display: mekanized:display/energy_core/basic
+      level_storage: energy
+      level_steps: 4
+      side_display: mekanized:display/basic_energy_cube/port
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 6-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_energy_cube
+          model:
+            path: mekanized:block/display_empty/shared/energy_cube
+      variants:
+        facing=down:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=up:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:advanced_energy_cube:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:advanced_energy_cube
+      keep_contents: true
+      display_item: mekanized:display/advanced_energy_cube
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270,up=270/0,down=90/0
+      level_display: mekanized:display/energy_core/advanced
+      level_storage: energy
+      level_steps: 4
+      side_display: mekanized:display/advanced_energy_cube/port
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 6-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_energy_cube
+          model:
+            path: mekanized:block/display_empty/shared/energy_cube
+      variants:
+        facing=down:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=up:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:elite_energy_cube:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:elite_energy_cube
+      keep_contents: true
+      display_item: mekanized:display/elite_energy_cube
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270,up=270/0,down=90/0
+      level_display: mekanized:display/energy_core/elite
+      level_storage: energy
+      level_steps: 4
+      side_display: mekanized:display/elite_energy_cube/port
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 6-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_energy_cube
+          model:
+            path: mekanized:block/display_empty/shared/energy_cube
+      variants:
+        facing=down:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=up:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:ultimate_energy_cube:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:ultimate_energy_cube
+      keep_contents: true
+      display_item: mekanized:display/ultimate_energy_cube
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270,up=270/0,down=90/0
+      level_display: mekanized:display/energy_core/ultimate
+      level_storage: energy
+      level_steps: 4
+      side_display: mekanized:display/ultimate_energy_cube/port
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 6-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_energy_cube
+          model:
+            path: mekanized:block/display_empty/shared/energy_cube
+      variants:
+        facing=down:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=up:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:creative_energy_cube:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:creative_energy_cube
+      keep_contents: true
+      display_item: mekanized:display/creative_energy_cube
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270,up=270/0,down=90/0
+      level_display: mekanized:display/energy_core/creative
+      level_storage: energy
+      level_steps: 4
+      side_display: mekanized:display/creative_energy_cube/port
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 6-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_energy_cube
+          model:
+            path: mekanized:block/display_empty/shared/energy_cube
+      variants:
+        facing=down:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=up:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:basic_universal_cable:
+    behavior:
+      type: machineengine:transport
+      transport: mekanized:basic_universal_cable
+      connection_items: mekanized:cable_part/basic_universal_cable
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: sapling
+        id: mekanized_universal_cable
+      model:
+        path: mekanized:block/display_empty/universal_cable
+  mekanized:advanced_universal_cable:
+    behavior:
+      type: machineengine:transport
+      transport: mekanized:advanced_universal_cable
+      connection_items: mekanized:cable_part/advanced_universal_cable
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: sapling
+        id: mekanized_universal_cable
+      model:
+        path: mekanized:block/display_empty/universal_cable
+  mekanized:elite_universal_cable:
+    behavior:
+      type: machineengine:transport
+      transport: mekanized:elite_universal_cable
+      connection_items: mekanized:cable_part/elite_universal_cable
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: sapling
+        id: mekanized_universal_cable
+      model:
+        path: mekanized:block/display_empty/universal_cable
+  mekanized:ultimate_universal_cable:
+    behavior:
+      type: machineengine:transport
+      transport: mekanized:ultimate_universal_cable
+      connection_items: mekanized:cable_part/ultimate_universal_cable
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: sapling
+        id: mekanized_universal_cable
+      model:
+        path: mekanized:block/display_empty/universal_cable

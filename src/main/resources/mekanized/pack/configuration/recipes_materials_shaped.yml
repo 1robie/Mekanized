@@ -1,0 +1,371 @@
+# Mekanized materials_shaped recipes for CraftEngine, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+recipes:
+  mekanized:control_circuit/advanced:
+    type: shaped
+    pattern:
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      C: '#c:circuits/basic'
+    result:
+      id: mekanized:advanced_control_circuit
+      count: 1
+  mekanized:control_circuit/elite:
+    type: shaped
+    pattern:
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/reinforced'
+      C: '#c:circuits/advanced'
+    result:
+      id: mekanized:elite_control_circuit
+      count: 1
+  mekanized:control_circuit/ultimate:
+    type: shaped
+    pattern:
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      C: '#c:circuits/elite'
+    result:
+      id: mekanized:ultimate_control_circuit
+      count: 1
+  mekanized:hdpe_rod:
+    type: shaped
+    pattern:
+    - '##'
+    - '##'
+    ingredients:
+      '#': mekanized:hdpe_pellet
+    result:
+      id: mekanized:hdpe_rod
+      count: 1
+  mekanized:hdpe_stick:
+    type: shaped
+    pattern:
+    - '#'
+    - '#'
+    ingredients:
+      '#': mekanized:hdpe_rod
+    result:
+      id: mekanized:hdpe_stick
+      count: 1
+  mekanized:paper:
+    type: shaped
+    pattern:
+    - '###'
+    ingredients:
+      '#': '#c:dusts/wood'
+    result:
+      id: minecraft:paper
+      count: 6
+  mekanized:processing/bronze/ingot/from_nuggets:
+    type: shaped
+    pattern:
+    - '###'
+    - '#P#'
+    - '###'
+    ingredients:
+      '#': '#c:nuggets/bronze'
+      P: mekanized:nugget_bronze
+    result:
+      id: mekanized:ingot_bronze
+      count: 1
+  mekanized:processing/lead/ingot/from_nuggets:
+    type: shaped
+    pattern:
+    - '###'
+    - '#P#'
+    - '###'
+    ingredients:
+      '#': '#c:nuggets/lead'
+      P: mekanized:nugget_lead
+    result:
+      id: mekanized:ingot_lead
+      count: 1
+  mekanized:processing/lead/raw_storage_blocks/from_raw:
+    type: shaped
+    pattern:
+    - '###'
+    - '#P#'
+    - '###'
+    ingredients:
+      '#': '#c:raw_materials/lead'
+      P: mekanized:raw_lead
+    result:
+      id: mekanized:block_raw_lead
+      count: 1
+  mekanized:processing/lead/storage_blocks/from_ingots:
+    type: shaped
+    pattern:
+    - '###'
+    - '#P#'
+    - '###'
+    ingredients:
+      '#': '#c:ingots/lead'
+      P: mekanized:ingot_lead
+    result:
+      id: mekanized:block_lead
+      count: 1
+  mekanized:processing/osmium/ingot/from_nuggets:
+    type: shaped
+    pattern:
+    - '###'
+    - '#P#'
+    - '###'
+    ingredients:
+      '#': '#c:nuggets/osmium'
+      P: mekanized:nugget_osmium
+    result:
+      id: mekanized:ingot_osmium
+      count: 1
+  mekanized:processing/osmium/raw_storage_blocks/from_raw:
+    type: shaped
+    pattern:
+    - '###'
+    - '#P#'
+    - '###'
+    ingredients:
+      '#': '#c:raw_materials/osmium'
+      P: mekanized:raw_osmium
+    result:
+      id: mekanized:block_raw_osmium
+      count: 1
+  mekanized:processing/osmium/storage_blocks/from_ingots:
+    type: shaped
+    pattern:
+    - '###'
+    - '#P#'
+    - '###'
+    ingredients:
+      '#': '#c:ingots/osmium'
+      P: mekanized:ingot_osmium
+    result:
+      id: mekanized:block_osmium
+      count: 1
+  mekanized:processing/refined_glowstone/ingot/from_nuggets:
+    type: shaped
+    pattern:
+    - '###'
+    - '#P#'
+    - '###'
+    ingredients:
+      '#': '#c:nuggets/refined_glowstone'
+      P: mekanized:nugget_refined_glowstone
+    result:
+      id: mekanized:ingot_refined_glowstone
+      count: 1
+  mekanized:processing/refined_obsidian/ingot/from_nuggets:
+    type: shaped
+    pattern:
+    - '###'
+    - '#P#'
+    - '###'
+    ingredients:
+      '#': '#c:nuggets/refined_obsidian'
+      P: mekanized:nugget_refined_obsidian
+    result:
+      id: mekanized:ingot_refined_obsidian
+      count: 1
+  mekanized:processing/steel/ingot/from_nuggets:
+    type: shaped
+    pattern:
+    - '###'
+    - '#P#'
+    - '###'
+    ingredients:
+      '#': '#c:nuggets/steel'
+      P: mekanized:nugget_steel
+    result:
+      id: mekanized:ingot_steel
+      count: 1
+  mekanized:processing/tin/ingot/from_nuggets:
+    type: shaped
+    pattern:
+    - '###'
+    - '#P#'
+    - '###'
+    ingredients:
+      '#': '#c:nuggets/tin'
+      P: mekanized:nugget_tin
+    result:
+      id: mekanized:ingot_tin
+      count: 1
+  mekanized:processing/tin/raw_storage_blocks/from_raw:
+    type: shaped
+    pattern:
+    - '###'
+    - '#P#'
+    - '###'
+    ingredients:
+      '#': '#c:raw_materials/tin'
+      P: mekanized:raw_tin
+    result:
+      id: mekanized:block_raw_tin
+      count: 1
+  mekanized:processing/tin/storage_blocks/from_ingots:
+    type: shaped
+    pattern:
+    - '###'
+    - '#P#'
+    - '###'
+    ingredients:
+      '#': '#c:ingots/tin'
+      P: mekanized:ingot_tin
+    result:
+      id: mekanized:block_tin
+      count: 1
+  mekanized:processing/uranium/ingot/from_nuggets:
+    type: shaped
+    pattern:
+    - '###'
+    - '#P#'
+    - '###'
+    ingredients:
+      '#': '#c:nuggets/uranium'
+      P: mekanized:nugget_uranium
+    result:
+      id: mekanized:ingot_uranium
+      count: 1
+  mekanized:processing/uranium/raw_storage_blocks/from_raw:
+    type: shaped
+    pattern:
+    - '###'
+    - '#P#'
+    - '###'
+    ingredients:
+      '#': '#c:raw_materials/uranium'
+      P: mekanized:raw_uranium
+    result:
+      id: mekanized:block_raw_uranium
+      count: 1
+  mekanized:processing/uranium/storage_blocks/from_ingots:
+    type: shaped
+    pattern:
+    - '###'
+    - '#P#'
+    - '###'
+    ingredients:
+      '#': '#c:ingots/uranium'
+      P: mekanized:ingot_uranium
+    result:
+      id: mekanized:block_uranium
+      count: 1
+  mekanized:rails:
+    type: shaped
+    pattern:
+    - O O
+    - O#O
+    - O O
+    ingredients:
+      '#': minecraft:stick
+      O: '#c:ingots/osmium'
+    result:
+      id: minecraft:rail
+      count: 24
+  mekanized:steel_casing:
+    type: shaped
+    pattern:
+    - SGS
+    - GOG
+    - SGS
+    ingredients:
+      G: minecraft:glass
+      O: '#c:ingots/osmium'
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:steel_casing
+      count: 1
+  mekanized:storage_blocks/bio_fuel:
+    type: shaped
+    pattern:
+    - '###'
+    - '#P#'
+    - '###'
+    ingredients:
+      '#': '#c:fuels/bio'
+      P: mekanized:bio_fuel
+    result:
+      id: mekanized:block_bio_fuel
+      count: 1
+  mekanized:storage_blocks/bronze:
+    type: shaped
+    pattern:
+    - '###'
+    - '#P#'
+    - '###'
+    ingredients:
+      '#': '#c:ingots/bronze'
+      P: mekanized:ingot_bronze
+    result:
+      id: mekanized:block_bronze
+      count: 1
+  mekanized:storage_blocks/charcoal:
+    type: shaped
+    pattern:
+    - '###'
+    - '###'
+    - '###'
+    ingredients:
+      '#': minecraft:charcoal
+    result:
+      id: mekanized:block_charcoal
+      count: 1
+  mekanized:storage_blocks/fluorite:
+    type: shaped
+    pattern:
+    - '###'
+    - '#P#'
+    - '###'
+    ingredients:
+      '#': '#c:gems/fluorite'
+      P: mekanized:fluorite_gem
+    result:
+      id: mekanized:block_fluorite
+      count: 1
+  mekanized:storage_blocks/refined_glowstone:
+    type: shaped
+    pattern:
+    - '###'
+    - '#P#'
+    - '###'
+    ingredients:
+      '#': '#c:ingots/refined_glowstone'
+      P: mekanized:ingot_refined_glowstone
+    result:
+      id: mekanized:block_refined_glowstone
+      count: 1
+  mekanized:storage_blocks/refined_obsidian:
+    type: shaped
+    pattern:
+    - '###'
+    - '#P#'
+    - '###'
+    ingredients:
+      '#': '#c:ingots/refined_obsidian'
+      P: mekanized:ingot_refined_obsidian
+    result:
+      id: mekanized:block_refined_obsidian
+      count: 1
+  mekanized:storage_blocks/salt:
+    type: shaped
+    pattern:
+    - '##'
+    - '##'
+    ingredients:
+      '#': '#c:dusts/salt'
+    result:
+      id: mekanized:block_salt
+      count: 1
+  mekanized:storage_blocks/steel:
+    type: shaped
+    pattern:
+    - '###'
+    - '#P#'
+    - '###'
+    ingredients:
+      '#': '#c:ingots/steel'
+      P: mekanized:ingot_steel
+    result:
+      id: mekanized:block_steel
+      count: 1

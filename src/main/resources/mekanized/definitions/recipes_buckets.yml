@@ -1,0 +1,43 @@
+# Mekanized bucket slots: a full bucket empties into the tank, an empty one is filled from it (1000 mB).
+# Edit freely: updates replace this file only while it is unedited.
+recipes:
+  mekanized:bucket_filling/water:
+    type: mekanized:bucket_filling
+    inputs:
+    - item: minecraft:water_bucket
+      amount: 1
+    outputs:
+    - type: machineengine:fluid/water
+      amount: 1000
+    - item: minecraft:bucket
+      amount: 1
+  mekanized:bucket_draining/water:
+    type: mekanized:bucket_draining
+    inputs:
+    - item: minecraft:bucket
+      amount: 1
+    - type: machineengine:fluid/water
+      amount: 1000
+    outputs:
+    - item: minecraft:water_bucket
+      amount: 1
+  mekanized:bucket_filling/lava:
+    type: mekanized:bucket_filling
+    inputs:
+    - item: minecraft:lava_bucket
+      amount: 1
+    outputs:
+    - type: machineengine:fluid/lava
+      amount: 1000
+    - item: minecraft:bucket
+      amount: 1
+  mekanized:bucket_draining/lava:
+    type: mekanized:bucket_draining
+    inputs:
+    - item: minecraft:bucket
+      amount: 1
+    - type: machineengine:fluid/lava
+      amount: 1000
+    outputs:
+    - item: minecraft:lava_bucket
+      amount: 1

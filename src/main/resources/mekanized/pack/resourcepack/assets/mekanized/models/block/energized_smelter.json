@@ -1,0 +1,12 @@
+{
+  "parent": "mekanized:block/machine",
+  "textures": {
+    "sides": "mekanized:block/energized_smelter/side",
+    "front": "mekanized:block/energized_smelter/front",
+    "west": "mekanized:block/energized_smelter/side",
+    "east": "mekanized:block/energized_smelter/side",
+    "south": "mekanized:block/energized_smelter/back",
+    "up": "mekanized:block/energized_smelter/top",
+    "down": "mekanized:block/energized_smelter/bottom"
+  }
+}

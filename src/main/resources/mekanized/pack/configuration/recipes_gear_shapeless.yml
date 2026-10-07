@@ -1,0 +1,10 @@
+# Mekanized gear_shapeless recipes for CraftEngine, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+recipes:
+  mekanized:crafting_formula:
+    type: shapeless
+    ingredients:
+    - minecraft:paper
+    - '#c:circuits/basic'
+    result:
+      id: mekanized:crafting_formula
+      count: 1

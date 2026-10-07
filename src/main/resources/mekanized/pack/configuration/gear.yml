@@ -1,0 +1,495 @@
+# Mekanized tools, armour and modules (Phase 6 wave 5), based on Mekanism (MIT).
+items:
+  mekanized:atomic_disassembler:
+    material: netherite_pickaxe
+    data:
+      item_name: <!i><lang:item.mekanized.atomic_disassembler>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+    model: mekanized:item/atomic_disassembler
+    settings:
+      tags:
+      - c:tools/mining_tool
+      - minecraft:breaks_decorated_pots
+      - minecraft:cluster_max_harvestables
+  mekanized:meka_tool:
+    material: netherite_pickaxe
+    data:
+      item_name: <!i><lang:item.mekanized.meka_tool>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+    model: mekanized:item/atomic_disassembler
+    settings:
+      tags:
+      - c:tools/mining_tool
+      - minecraft:breaks_decorated_pots
+      - minecraft:cluster_max_harvestables
+  mekanized:flamethrower:
+    material: stick
+    data:
+      item_name: <!i><lang:item.mekanized.flamethrower>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+    model: mekanized:item/flamethrower
+  mekanized:electric_bow:
+    material: bow
+    data:
+      item_name: <!i><lang:item.mekanized.electric_bow>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+    model: mekanized:item/electric_bow
+    settings:
+      tags:
+      - c:tools/bow
+      - c:tools/ranged_weapon
+      - minecraft:enchantable/bow
+  mekanized:network_reader:
+    material: stick
+    data:
+      item_name: <!i><lang:item.mekanized.network_reader>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+    model: mekanized:item/network_reader
+  mekanized:canteen:
+    material: paper
+    data:
+      item_name: <!i><lang:item.mekanized.canteen>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+    model: mekanized:item/canteen
+  mekanized:portable_teleporter:
+    material: paper
+    data:
+      item_name: <!i><lang:item.mekanized.portable_teleporter>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+    model: mekanized:item/portable_teleporter
+  mekanized:portable_qio_dashboard:
+    material: paper
+    data:
+      item_name: <!i><lang:item.mekanized.portable_qio_dashboard>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+    model: mekanized:item/portable_qio_dashboard
+  mekanized:configuration_card:
+    material: paper
+    data:
+      item_name: <!i><lang:item.mekanized.configuration_card>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+    model: mekanized:item/configuration_card
+  mekanized:gauge_dropper:
+    material: paper
+    data:
+      item_name: <!i><lang:item.mekanized.gauge_dropper>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+    model: mekanized:item/gauge_dropper
+  mekanized:dictionary:
+    material: paper
+    data:
+      item_name: <!i><lang:item.mekanized.dictionary>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+    model: mekanized:item/dictionary
+  mekanized:crafting_formula:
+    material: paper
+    data:
+      item_name: <!i><lang:item.mekanized.crafting_formula>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+    model: mekanized:item/crafting_formula
+  mekanized:jetpack:
+    material: paper
+    data:
+      item_name: <!i><lang:item.mekanized.jetpack>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+      equippable:
+        slot: chest
+    model: mekanized:item/jetpack
+  mekanized:jetpack_armored:
+    material: diamond_chestplate
+    data:
+      item_name: <!i><lang:item.mekanized.jetpack_armored>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+      equippable:
+        slot: chest
+    model: mekanized:item/jetpack_armored
+  mekanized:scuba_tank:
+    material: paper
+    data:
+      item_name: <!i><lang:item.mekanized.scuba_tank>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+      equippable:
+        slot: chest
+    model: mekanized:item/scuba_tank
+  mekanized:scuba_mask:
+    material: paper
+    data:
+      item_name: <!i><lang:item.mekanized.scuba_mask>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+      equippable:
+        slot: head
+    model: mekanized:item/scuba_mask
+  mekanized:free_runners:
+    material: leather_boots
+    data:
+      item_name: <!i><lang:item.mekanized.free_runners>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+      equippable:
+        slot: feet
+    model: mekanized:item/free_runners
+  mekanized:free_runners_armored:
+    material: diamond_boots
+    data:
+      item_name: <!i><lang:item.mekanized.free_runners_armored>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+      equippable:
+        slot: feet
+    model: mekanized:item/free_runners_armored
+  mekanized:mekasuit_helmet:
+    material: netherite_helmet
+    data:
+      item_name: <!i><lang:item.mekanized.mekasuit_helmet>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+    model: mekanized:item/mekasuit_helmet
+    settings:
+      tags:
+      - mekanized:mekasuit_hud_renderer
+      - minecraft:freeze_immune_wearables
+      - minecraft:head_armor
+  mekanized:mekasuit_bodyarmor:
+    material: netherite_chestplate
+    data:
+      item_name: <!i><lang:item.mekanized.mekasuit_bodyarmor>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+    model: mekanized:item/mekasuit_bodyarmor
+    settings:
+      tags:
+      - minecraft:chest_armor
+      - minecraft:freeze_immune_wearables
+  mekanized:mekasuit_pants:
+    material: netherite_leggings
+    data:
+      item_name: <!i><lang:item.mekanized.mekasuit_pants>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+    model: mekanized:item/mekasuit_pants
+    settings:
+      tags:
+      - minecraft:freeze_immune_wearables
+      - minecraft:leg_armor
+  mekanized:mekasuit_boots:
+    material: netherite_boots
+    data:
+      item_name: <!i><lang:item.mekanized.mekasuit_boots>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+    model: mekanized:item/mekasuit_boots
+    settings:
+      tags:
+      - minecraft:foot_armor
+      - minecraft:freeze_immune_wearables
+  mekanized:hazmat_mask:
+    material: leather_helmet
+    data:
+      item_name: <!i><lang:item.mekanized.hazmat_mask>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+    model: mekanized:item/hazmat_mask
+    settings:
+      tags:
+      - minecraft:head_armor
+  mekanized:hazmat_gown:
+    material: leather_chestplate
+    data:
+      item_name: <!i><lang:item.mekanized.hazmat_gown>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+    model: mekanized:item/hazmat_gown
+    settings:
+      tags:
+      - minecraft:chest_armor
+  mekanized:hazmat_pants:
+    material: leather_leggings
+    data:
+      item_name: <!i><lang:item.mekanized.hazmat_pants>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+    model: mekanized:item/hazmat_pants
+    settings:
+      tags:
+      - minecraft:leg_armor
+  mekanized:hazmat_boots:
+    material: leather_boots
+    data:
+      item_name: <!i><lang:item.mekanized.hazmat_boots>
+      unbreakable: true
+      components:
+        minecraft:max_stack_size: 1
+    model: mekanized:item/hazmat_boots
+    settings:
+      tags:
+      - minecraft:foot_armor
+  mekanized:module_base:
+    data:
+      item_name: <!i><lang:item.mekanized.module_base>
+    model: mekanized:item/module_base
+  mekanized:module_electrolytic_breathing_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_electrolytic_breathing_unit>
+    model: mekanized:item/module_electrolytic_breathing_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_vision_enhancement_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_vision_enhancement_unit>
+    model: mekanized:item/module_vision_enhancement_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_nutritional_injection_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_nutritional_injection_unit>
+    model: mekanized:item/module_nutritional_injection_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_inhalation_purification_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_inhalation_purification_unit>
+    model: mekanized:item/module_inhalation_purification_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_jetpack_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_jetpack_unit>
+    model: mekanized:item/module_jetpack_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_gravitational_modulating_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_gravitational_modulating_unit>
+    model: mekanized:item/module_gravitational_modulating_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_elytra_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_elytra_unit>
+    model: mekanized:item/module_elytra_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_locomotive_boosting_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_locomotive_boosting_unit>
+    model: mekanized:item/module_locomotive_boosting_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_hydraulic_propulsion_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_hydraulic_propulsion_unit>
+    model: mekanized:item/module_hydraulic_propulsion_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_excavation_escalation_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_excavation_escalation_unit>
+    model: mekanized:item/module_excavation_escalation_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_attack_amplification_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_attack_amplification_unit>
+    model: mekanized:item/module_attack_amplification_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_silk_touch_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_silk_touch_unit>
+    model: mekanized:item/module_silk_touch_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_fortune_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_fortune_unit>
+    model: mekanized:item/module_fortune_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_vein_mining_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_vein_mining_unit>
+    model: mekanized:item/module_vein_mining_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_teleportation_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_teleportation_unit>
+    model: mekanized:item/module_teleportation_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_radiation_shielding_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_radiation_shielding_unit>
+    model: mekanized:item/module_radiation_shielding_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_geiger_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_geiger_unit>
+    model: mekanized:item/module_geiger_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_dosimeter_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_dosimeter_unit>
+    model: mekanized:item/module_dosimeter_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_energy_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_energy_unit>
+    model: mekanized:item/module_energy_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_charge_distribution_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_charge_distribution_unit>
+    model: mekanized:item/module_charge_distribution_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_gyroscopic_stabilization_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_gyroscopic_stabilization_unit>
+    model: mekanized:item/module_gyroscopic_stabilization_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_solar_recharging_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_solar_recharging_unit>
+    model: mekanized:item/module_solar_recharging_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_geothermal_generator_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_geothermal_generator_unit>
+    model: mekanized:item/module_geothermal_generator_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_motorized_servo_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_motorized_servo_unit>
+    model: mekanized:item/module_motorized_servo_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_hydrostatic_repulsor_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_hydrostatic_repulsor_unit>
+    model: mekanized:item/module_hydrostatic_repulsor_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_magnetic_attraction_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_magnetic_attraction_unit>
+    model: mekanized:item/module_magnetic_attraction_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_frost_walker_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_frost_walker_unit>
+    model: mekanized:item/module_frost_walker_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_soul_surfer_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_soul_surfer_unit>
+    model: mekanized:item/module_soul_surfer_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_blasting_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_blasting_unit>
+    model: mekanized:item/module_blasting_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_farming_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_farming_unit>
+    model: mekanized:item/module_farming_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:module_shearing_unit:
+    data:
+      item_name: <!i><lang:item.mekanized.module_shearing_unit>
+    model: mekanized:item/module_shearing_unit
+    settings:
+      tags:
+      - mekanized:unit
+  mekanized:hdpe_elytra:
+    data:
+      item_name: <!i><lang:item.mekanized.hdpe_elytra>
+    model: mekanized:item/hdpe_elytra
+    settings:
+      tags:
+      - minecraft:enchantable/durability
+      - minecraft:enchantable/equippable

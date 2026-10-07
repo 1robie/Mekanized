@@ -1,0 +1,7 @@
+{
+	"parent": "mekanized:block/template/cube_all_led",
+	"textures": {
+		"all": "mekanized:block/teleporter",
+		"led": "mekanized:block/teleporter_led"
+	}
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "mekanized:block/machine",
+  "textures": {
+    "sides": "mekanized:block/precision_sawmill/right",
+    "front": "mekanized:block/precision_sawmill/front",
+    "west": "mekanized:block/precision_sawmill/right",
+    "east": "mekanized:block/precision_sawmill/left",
+    "south": "mekanized:block/precision_sawmill/back",
+    "up": "mekanized:block/precision_sawmill/top",
+    "down": "mekanized:block/precision_sawmill/bottom"
+  }
+}

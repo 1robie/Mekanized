@@ -1,0 +1,22 @@
+# Mekanized activating recipes, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+# Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.
+# Durations are ticks; energy is Joules per tick. Phase 6 of MEKANIZED_PLAN.md.
+recipes:
+  mekanized:activating/tritium:
+    type: mekanized:activating
+    duration: 1
+    inputs:
+    - type: mekanized:lithium
+      amount: 1
+    outputs:
+    - type: mekanized:tritium
+      amount: 1
+  mekanized:processing/lategame/polonium:
+    type: mekanized:activating
+    duration: 1
+    inputs:
+    - type: mekanized:nuclear_waste
+      amount: 10
+    outputs:
+    - type: mekanized:polonium
+      amount: 1

@@ -1,0 +1,232 @@
+# Mekanized machines_shaped recipes for CraftEngine, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+recipes:
+  mekanized:combiner:
+    type: shaped
+    pattern:
+    - ACA
+    - _X_
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/reinforced'
+      C: '#c:circuits/elite'
+      X: mekanized:steel_casing
+      _:
+      - '#minecraft:stone_crafting_materials'
+      - minecraft:cobblestone
+    result:
+      id: mekanized:combiner
+      count: 1
+  mekanized:crusher:
+    type: shaped
+    pattern:
+    - RCR
+    - BXB
+    - RCR
+    ingredients:
+      B: minecraft:lava_bucket
+      C: '#c:circuits/basic'
+      R: minecraft:redstone
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:crusher
+      count: 1
+  mekanized:energized_smelter:
+    type: shaped
+    pattern:
+    - ACA
+    - GXG
+    - ACA
+    ingredients:
+      A: minecraft:redstone
+      C: '#c:circuits/basic'
+      G: minecraft:glass
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:energized_smelter
+      count: 1
+  mekanized:enrichment_chamber:
+    type: shaped
+    pattern:
+    - ACA
+    - IXI
+    - ACA
+    ingredients:
+      A: minecraft:redstone
+      C: '#c:circuits/basic'
+      I: minecraft:iron_ingot
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:enrichment_chamber
+      count: 1
+  mekanized:generator/bio:
+    type: shaped
+    pattern:
+    - RAR
+    - BCB
+    - IAI
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      B: '#c:fuels/bio'
+      C: '#c:circuits/basic'
+      I: minecraft:iron_ingot
+      R: minecraft:redstone
+    result:
+      id: mekanized:bio_generator
+      count: 1
+  mekanized:generator/heat:
+    type: shaped
+    pattern:
+    - III
+    - WOW
+    - CFC
+    ingredients:
+      C: minecraft:copper_ingot
+      F: minecraft:furnace
+      I: minecraft:iron_ingot
+      O: '#c:ingots/osmium'
+      W: '#minecraft:planks'
+    result:
+      id: mekanized:heat_generator
+      count: 1
+  mekanized:metallurgic_infuser:
+    type: shaped
+    pattern:
+    - I#I
+    - ROR
+    - I#I
+    ingredients:
+      '#': minecraft:furnace
+      I: minecraft:iron_ingot
+      O: '#c:ingots/osmium'
+      R: minecraft:redstone
+    result:
+      id: mekanized:metallurgic_infuser
+      count: 1
+  mekanized:osmium_compressor:
+    type: shaped
+    pattern:
+    - ACA
+    - BXB
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      B: minecraft:bucket
+      C: '#c:circuits/advanced'
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:osmium_compressor
+      count: 1
+  mekanized:precision_sawmill:
+    type: shaped
+    pattern:
+    - ICI
+    - AXA
+    - ICI
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      C: '#c:circuits/basic'
+      I: minecraft:iron_ingot
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:precision_sawmill
+      count: 1
+  mekanized:purification_chamber:
+    type: shaped
+    pattern:
+    - ACA
+    - OPO
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      C: '#c:circuits/advanced'
+      O: '#c:ingots/osmium'
+      P: mekanized:enrichment_chamber
+    result:
+      id: mekanized:purification_chamber
+      count: 1
+  mekanized:solar_panel:
+    type: shaped
+    pattern:
+    - GGG
+    - RAR
+    - OOO
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      G: minecraft:glass_pane
+      O: '#c:ingots/osmium'
+      R: minecraft:redstone
+    result:
+      id: mekanized:solar_panel
+      count: 1
+  mekanized:transmitter/universal_cable/advanced:
+    type: shaped
+    pattern:
+    - PPP
+    - PAP
+    - PPP
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      P: mekanized:basic_universal_cable
+    result:
+      id: mekanized:advanced_universal_cable
+      count: 8
+  mekanized:transmitter/universal_cable/basic:
+    type: shaped
+    pattern:
+    - S#S
+    ingredients:
+      '#': minecraft:redstone
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:basic_universal_cable
+      count: 8
+  mekanized:transmitter/universal_cable/elite:
+    type: shaped
+    pattern:
+    - PPP
+    - PAP
+    - PPP
+    ingredients:
+      A: '#mekanized:alloys/reinforced'
+      P: mekanized:advanced_universal_cable
+    result:
+      id: mekanized:elite_universal_cable
+      count: 8
+  mekanized:transmitter/universal_cable/ultimate:
+    type: shaped
+    pattern:
+    - PPP
+    - PAP
+    - PPP
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      P: mekanized:elite_universal_cable
+    result:
+      id: mekanized:ultimate_universal_cable
+      count: 8
+  mekanized:upgrade/energy:
+    type: shaped
+    pattern:
+    - ' G '
+    - A#A
+    - ' G '
+    ingredients:
+      '#': '#c:dusts/gold'
+      A: '#mekanized:alloys/infused'
+      G: minecraft:glass
+    result:
+      id: mekanized:upgrade_energy
+      count: 1
+  mekanized:upgrade/speed:
+    type: shaped
+    pattern:
+    - ' G '
+    - A#A
+    - ' G '
+    ingredients:
+      '#': '#c:dusts/osmium'
+      A: '#mekanized:alloys/infused'
+      G: minecraft:glass
+    result:
+      id: mekanized:upgrade_speed
+      count: 1

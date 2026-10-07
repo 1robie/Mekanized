@@ -1,0 +1,124 @@
+# Mekanized crystallizing recipes, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+# Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.
+# Durations are ticks; energy is Joules per tick. Phase 3 of MEKANIZED_PLAN.md.
+recipes:
+  mekanized:crystallizing/lithium:
+    type: mekanized:crystallizing
+    duration: 200
+    inputs:
+    - type: mekanized:lithium
+      amount: 100
+    outputs:
+    - item: mekanized:dust_lithium
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 160
+  mekanized:crystallizing/salt:
+    type: mekanized:crystallizing
+    duration: 200
+    inputs:
+    - type: mekanized:brine
+      amount: 15
+    outputs:
+    - item: mekanized:salt
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 160
+  mekanized:processing/copper/crystal/from_slurry:
+    type: mekanized:crystallizing
+    duration: 200
+    inputs:
+    - type: mekanized:clean_copper
+      amount: 200
+    outputs:
+    - item: mekanized:crystal_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 160
+  mekanized:processing/gold/crystal/from_slurry:
+    type: mekanized:crystallizing
+    duration: 200
+    inputs:
+    - type: mekanized:clean_gold
+      amount: 200
+    outputs:
+    - item: mekanized:crystal_gold
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 160
+  mekanized:processing/iron/crystal/from_slurry:
+    type: mekanized:crystallizing
+    duration: 200
+    inputs:
+    - type: mekanized:clean_iron
+      amount: 200
+    outputs:
+    - item: mekanized:crystal_iron
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 160
+  mekanized:processing/lategame/antimatter_pellet/from_gas:
+    type: mekanized:crystallizing
+    duration: 200
+    inputs:
+    - type: mekanized:antimatter
+      amount: 1000
+    outputs:
+    - item: mekanized:pellet_antimatter
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 160
+  mekanized:processing/lead/crystal/from_slurry:
+    type: mekanized:crystallizing
+    duration: 200
+    inputs:
+    - type: mekanized:clean_lead
+      amount: 200
+    outputs:
+    - item: mekanized:crystal_lead
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 160
+  mekanized:processing/osmium/crystal/from_slurry:
+    type: mekanized:crystallizing
+    duration: 200
+    inputs:
+    - type: mekanized:clean_osmium
+      amount: 200
+    outputs:
+    - item: mekanized:crystal_osmium
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 160
+  mekanized:processing/tin/crystal/from_slurry:
+    type: mekanized:crystallizing
+    duration: 200
+    inputs:
+    - type: mekanized:clean_tin
+      amount: 200
+    outputs:
+    - item: mekanized:crystal_tin
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 160
+  mekanized:processing/uranium/crystal/from_slurry:
+    type: mekanized:crystallizing
+    duration: 200
+    inputs:
+    - type: mekanized:clean_uranium
+      amount: 200
+    outputs:
+    - item: mekanized:crystal_uranium
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 160

@@ -1,0 +1,1522 @@
+# Mekanized materials, ores and storage blocks (Phase 1), based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+items:
+  mekanized:advanced_control_circuit:
+    data:
+      item_name: <!i><lang:item.mekanized.advanced_control_circuit>
+    model: mekanized:item/advanced_control_circuit
+    settings:
+      tags:
+      - c:circuits
+      - c:circuits/advanced
+  mekanized:alloy_atomic:
+    data:
+      item_name: <!i><lang:item.mekanized.alloy_atomic>
+    model: mekanized:item/alloy_atomic
+    settings:
+      tags:
+      - c:alloys
+      - c:alloys/ultimate
+      - mekanized:alloys
+      - mekanized:alloys/atomic
+  mekanized:alloy_infused:
+    data:
+      item_name: <!i><lang:item.mekanized.alloy_infused>
+    model: mekanized:item/alloy_infused
+    settings:
+      tags:
+      - c:alloys
+      - c:alloys/advanced
+      - mekanized:alloys
+      - mekanized:alloys/infused
+  mekanized:alloy_reinforced:
+    data:
+      item_name: <!i><lang:item.mekanized.alloy_reinforced>
+    model: mekanized:item/alloy_reinforced
+    settings:
+      tags:
+      - c:alloys
+      - c:alloys/elite
+      - mekanized:alloys
+      - mekanized:alloys/reinforced
+  mekanized:basic_control_circuit:
+    data:
+      item_name: <!i><lang:item.mekanized.basic_control_circuit>
+    model: mekanized:item/basic_control_circuit
+    settings:
+      tags:
+      - c:circuits
+      - c:circuits/basic
+  mekanized:bio_fuel:
+    data:
+      item_name: <!i><lang:item.mekanized.bio_fuel>
+    model: mekanized:item/bio_fuel
+    settings:
+      tags:
+      - c:fuels
+      - c:fuels/bio
+  mekanized:block_bio_fuel:
+    data:
+      item_name: <!i><lang:block.mekanized.block_bio_fuel>
+    model: mekanized:block/storage/bio_fuel
+    behavior:
+      type: block_item
+      block: mekanized:block_bio_fuel
+    settings:
+      tags:
+      - c:fuels
+      - c:fuels/block/bio
+  mekanized:block_bronze:
+    data:
+      item_name: <!i><lang:block.mekanized.block_bronze>
+    model: mekanized:block/storage/bronze
+    behavior:
+      type: block_item
+      block: mekanized:block_bronze
+    settings:
+      tags:
+      - c:storage_blocks
+      - c:storage_blocks/bronze
+  mekanized:block_charcoal:
+    data:
+      item_name: <!i><lang:block.mekanized.block_charcoal>
+    model: mekanized:block/storage/charcoal
+    behavior:
+      type: block_item
+      block: mekanized:block_charcoal
+    settings:
+      tags:
+      - c:storage_blocks
+      - c:storage_blocks/charcoal
+  mekanized:block_fluorite:
+    data:
+      item_name: <!i><lang:block.mekanized.block_fluorite>
+    model: mekanized:block/storage/fluorite
+    behavior:
+      type: block_item
+      block: mekanized:block_fluorite
+    settings:
+      tags:
+      - c:storage_blocks
+      - c:storage_blocks/fluorite
+  mekanized:block_lead:
+    data:
+      item_name: <!i><lang:block.mekanized.block_lead>
+    model: mekanized:block/storage/lead
+    behavior:
+      type: block_item
+      block: mekanized:block_lead
+    settings:
+      tags:
+      - c:storage_blocks
+      - c:storage_blocks/lead
+  mekanized:block_osmium:
+    data:
+      item_name: <!i><lang:block.mekanized.block_osmium>
+    model: mekanized:block/storage/osmium
+    behavior:
+      type: block_item
+      block: mekanized:block_osmium
+    settings:
+      tags:
+      - c:storage_blocks
+      - c:storage_blocks/osmium
+  mekanized:block_raw_lead:
+    data:
+      item_name: <!i><lang:block.mekanized.block_raw_lead>
+    model: mekanized:block/storage/raw_lead
+    behavior:
+      type: block_item
+      block: mekanized:block_raw_lead
+    settings:
+      tags:
+      - c:storage_blocks
+      - c:storage_blocks/raw_lead
+  mekanized:block_raw_osmium:
+    data:
+      item_name: <!i><lang:block.mekanized.block_raw_osmium>
+    model: mekanized:block/storage/raw_osmium
+    behavior:
+      type: block_item
+      block: mekanized:block_raw_osmium
+    settings:
+      tags:
+      - c:storage_blocks
+      - c:storage_blocks/raw_osmium
+  mekanized:block_raw_tin:
+    data:
+      item_name: <!i><lang:block.mekanized.block_raw_tin>
+    model: mekanized:block/storage/raw_tin
+    behavior:
+      type: block_item
+      block: mekanized:block_raw_tin
+    settings:
+      tags:
+      - c:storage_blocks
+      - c:storage_blocks/raw_tin
+  mekanized:block_raw_uranium:
+    data:
+      item_name: <!i><lang:block.mekanized.block_raw_uranium>
+    model: mekanized:block/storage/raw_uranium
+    behavior:
+      type: block_item
+      block: mekanized:block_raw_uranium
+    settings:
+      tags:
+      - c:storage_blocks
+      - c:storage_blocks/raw_uranium
+  mekanized:block_refined_glowstone:
+    data:
+      item_name: <!i><lang:block.mekanized.block_refined_glowstone>
+    model: mekanized:block/storage/refined_glowstone
+    behavior:
+      type: block_item
+      block: mekanized:block_refined_glowstone
+    settings:
+      tags:
+      - c:storage_blocks
+      - c:storage_blocks/refined_glowstone
+      - minecraft:piglin_loved
+  mekanized:block_refined_obsidian:
+    data:
+      item_name: <!i><lang:block.mekanized.block_refined_obsidian>
+    model: mekanized:block/storage/refined_obsidian
+    behavior:
+      type: block_item
+      block: mekanized:block_refined_obsidian
+    settings:
+      tags:
+      - c:storage_blocks
+      - c:storage_blocks/refined_obsidian
+  mekanized:block_salt:
+    data:
+      item_name: <!i><lang:block.mekanized.block_salt>
+    model: mekanized:block/storage/salt
+    behavior:
+      type: block_item
+      block: mekanized:block_salt
+  mekanized:block_steel:
+    data:
+      item_name: <!i><lang:block.mekanized.block_steel>
+    model: mekanized:block/storage/steel
+    behavior:
+      type: block_item
+      block: mekanized:block_steel
+    settings:
+      tags:
+      - c:storage_blocks
+      - c:storage_blocks/steel
+  mekanized:block_tin:
+    data:
+      item_name: <!i><lang:block.mekanized.block_tin>
+    model: mekanized:block/storage/tin
+    behavior:
+      type: block_item
+      block: mekanized:block_tin
+    settings:
+      tags:
+      - c:storage_blocks
+      - c:storage_blocks/tin
+  mekanized:block_uranium:
+    data:
+      item_name: <!i><lang:block.mekanized.block_uranium>
+    model: mekanized:block/storage/uranium
+    behavior:
+      type: block_item
+      block: mekanized:block_uranium
+    settings:
+      tags:
+      - c:storage_blocks
+      - c:storage_blocks/uranium
+  mekanized:clump_copper:
+    data:
+      item_name: <!i><lang:item.mekanized.clump_copper>
+    model: mekanized:item/clump_copper
+    settings:
+      tags:
+      - mekanized:clumps
+      - mekanized:clumps/copper
+  mekanized:clump_gold:
+    data:
+      item_name: <!i><lang:item.mekanized.clump_gold>
+    model: mekanized:item/clump_gold
+    settings:
+      tags:
+      - mekanized:clumps
+      - mekanized:clumps/gold
+      - minecraft:piglin_loved
+  mekanized:clump_iron:
+    data:
+      item_name: <!i><lang:item.mekanized.clump_iron>
+    model: mekanized:item/clump_iron
+    settings:
+      tags:
+      - mekanized:clumps
+      - mekanized:clumps/iron
+  mekanized:clump_lead:
+    data:
+      item_name: <!i><lang:item.mekanized.clump_lead>
+    model: mekanized:item/clump_lead
+    settings:
+      tags:
+      - mekanized:clumps
+      - mekanized:clumps/lead
+  mekanized:clump_osmium:
+    data:
+      item_name: <!i><lang:item.mekanized.clump_osmium>
+    model: mekanized:item/clump_osmium
+    settings:
+      tags:
+      - mekanized:clumps
+      - mekanized:clumps/osmium
+  mekanized:clump_tin:
+    data:
+      item_name: <!i><lang:item.mekanized.clump_tin>
+    model: mekanized:item/clump_tin
+    settings:
+      tags:
+      - mekanized:clumps
+      - mekanized:clumps/tin
+  mekanized:clump_uranium:
+    data:
+      item_name: <!i><lang:item.mekanized.clump_uranium>
+    model: mekanized:item/clump_uranium
+    settings:
+      tags:
+      - mekanized:clumps
+      - mekanized:clumps/uranium
+  mekanized:crystal_copper:
+    data:
+      item_name: <!i><lang:item.mekanized.crystal_copper>
+    model: mekanized:item/crystal_copper
+    settings:
+      tags:
+      - mekanized:crystals
+      - mekanized:crystals/copper
+  mekanized:crystal_gold:
+    data:
+      item_name: <!i><lang:item.mekanized.crystal_gold>
+    model: mekanized:item/crystal_gold
+    settings:
+      tags:
+      - mekanized:crystals
+      - mekanized:crystals/gold
+      - minecraft:piglin_loved
+  mekanized:crystal_iron:
+    data:
+      item_name: <!i><lang:item.mekanized.crystal_iron>
+    model: mekanized:item/crystal_iron
+    settings:
+      tags:
+      - mekanized:crystals
+      - mekanized:crystals/iron
+  mekanized:crystal_lead:
+    data:
+      item_name: <!i><lang:item.mekanized.crystal_lead>
+    model: mekanized:item/crystal_lead
+    settings:
+      tags:
+      - mekanized:crystals
+      - mekanized:crystals/lead
+  mekanized:crystal_osmium:
+    data:
+      item_name: <!i><lang:item.mekanized.crystal_osmium>
+    model: mekanized:item/crystal_osmium
+    settings:
+      tags:
+      - mekanized:crystals
+      - mekanized:crystals/osmium
+  mekanized:crystal_tin:
+    data:
+      item_name: <!i><lang:item.mekanized.crystal_tin>
+    model: mekanized:item/crystal_tin
+    settings:
+      tags:
+      - mekanized:crystals
+      - mekanized:crystals/tin
+  mekanized:crystal_uranium:
+    data:
+      item_name: <!i><lang:item.mekanized.crystal_uranium>
+    model: mekanized:item/crystal_uranium
+    settings:
+      tags:
+      - mekanized:crystals
+      - mekanized:crystals/uranium
+  mekanized:deepslate_fluorite_ore:
+    data:
+      item_name: <!i><lang:block.mekanized.deepslate_fluorite_ore>
+    model: mekanized:block/deepslate_ore/fluorite
+    behavior:
+      type: block_item
+      block: mekanized:deepslate_fluorite_ore
+    settings:
+      tags:
+      - c:ore_rates/dense
+      - c:ores
+      - c:ores/fluorite
+      - c:ores_in_ground/deepslate
+  mekanized:deepslate_lead_ore:
+    data:
+      item_name: <!i><lang:block.mekanized.deepslate_lead_ore>
+    model: mekanized:block/deepslate_ore/lead
+    behavior:
+      type: block_item
+      block: mekanized:deepslate_lead_ore
+    settings:
+      tags:
+      - c:ore_rates/singular
+      - c:ores
+      - c:ores/lead
+      - c:ores_in_ground/deepslate
+  mekanized:deepslate_osmium_ore:
+    data:
+      item_name: <!i><lang:block.mekanized.deepslate_osmium_ore>
+    model: mekanized:block/deepslate_ore/osmium
+    behavior:
+      type: block_item
+      block: mekanized:deepslate_osmium_ore
+    settings:
+      tags:
+      - c:ore_rates/singular
+      - c:ores
+      - c:ores/osmium
+      - c:ores_in_ground/deepslate
+  mekanized:deepslate_tin_ore:
+    data:
+      item_name: <!i><lang:block.mekanized.deepslate_tin_ore>
+    model: mekanized:block/deepslate_ore/tin
+    behavior:
+      type: block_item
+      block: mekanized:deepslate_tin_ore
+    settings:
+      tags:
+      - c:ore_rates/singular
+      - c:ores
+      - c:ores/tin
+      - c:ores_in_ground/deepslate
+  mekanized:deepslate_uranium_ore:
+    data:
+      item_name: <!i><lang:block.mekanized.deepslate_uranium_ore>
+    model: mekanized:block/deepslate_ore/uranium
+    behavior:
+      type: block_item
+      block: mekanized:deepslate_uranium_ore
+    settings:
+      tags:
+      - c:ore_rates/singular
+      - c:ores
+      - c:ores/uranium
+      - c:ores_in_ground/deepslate
+  mekanized:dirty_dust_copper:
+    data:
+      item_name: <!i><lang:item.mekanized.dirty_dust_copper>
+    model: mekanized:item/dirty_dust_copper
+    settings:
+      tags:
+      - mekanized:dirty_dusts
+      - mekanized:dirty_dusts/copper
+  mekanized:dirty_dust_gold:
+    data:
+      item_name: <!i><lang:item.mekanized.dirty_dust_gold>
+    model: mekanized:item/dirty_dust_gold
+    settings:
+      tags:
+      - mekanized:dirty_dusts
+      - mekanized:dirty_dusts/gold
+      - minecraft:piglin_loved
+  mekanized:dirty_dust_iron:
+    data:
+      item_name: <!i><lang:item.mekanized.dirty_dust_iron>
+    model: mekanized:item/dirty_dust_iron
+    settings:
+      tags:
+      - mekanized:dirty_dusts
+      - mekanized:dirty_dusts/iron
+  mekanized:dirty_dust_lead:
+    data:
+      item_name: <!i><lang:item.mekanized.dirty_dust_lead>
+    model: mekanized:item/dirty_dust_lead
+    settings:
+      tags:
+      - mekanized:dirty_dusts
+      - mekanized:dirty_dusts/lead
+  mekanized:dirty_dust_osmium:
+    data:
+      item_name: <!i><lang:item.mekanized.dirty_dust_osmium>
+    model: mekanized:item/dirty_dust_osmium
+    settings:
+      tags:
+      - mekanized:dirty_dusts
+      - mekanized:dirty_dusts/osmium
+  mekanized:dirty_dust_tin:
+    data:
+      item_name: <!i><lang:item.mekanized.dirty_dust_tin>
+    model: mekanized:item/dirty_dust_tin
+    settings:
+      tags:
+      - mekanized:dirty_dusts
+      - mekanized:dirty_dusts/tin
+  mekanized:dirty_dust_uranium:
+    data:
+      item_name: <!i><lang:item.mekanized.dirty_dust_uranium>
+    model: mekanized:item/dirty_dust_uranium
+    settings:
+      tags:
+      - mekanized:dirty_dusts
+      - mekanized:dirty_dusts/uranium
+  mekanized:dirty_netherite_scrap:
+    data:
+      item_name: <!i><lang:item.mekanized.dirty_netherite_scrap>
+    model: mekanized:item/dirty_netherite_scrap
+  mekanized:dust_bronze:
+    data:
+      item_name: <!i><lang:item.mekanized.dust_bronze>
+    model: mekanized:item/dust_bronze
+    settings:
+      tags:
+      - c:dusts
+      - c:dusts/bronze
+  mekanized:dust_charcoal:
+    data:
+      item_name: <!i><lang:item.mekanized.dust_charcoal>
+    model: mekanized:item/dust_charcoal
+    settings:
+      tags:
+      - c:dusts
+      - c:dusts/charcoal
+  mekanized:dust_coal:
+    data:
+      item_name: <!i><lang:item.mekanized.dust_coal>
+    model: mekanized:item/dust_coal
+    settings:
+      tags:
+      - c:dusts
+      - c:dusts/coal
+  mekanized:dust_copper:
+    data:
+      item_name: <!i><lang:item.mekanized.dust_copper>
+    model: mekanized:item/dust_copper
+    settings:
+      tags:
+      - c:dusts
+      - c:dusts/copper
+  mekanized:dust_diamond:
+    data:
+      item_name: <!i><lang:item.mekanized.dust_diamond>
+    model: mekanized:item/dust_diamond
+    settings:
+      tags:
+      - c:dusts
+      - c:dusts/diamond
+  mekanized:dust_emerald:
+    data:
+      item_name: <!i><lang:item.mekanized.dust_emerald>
+    model: mekanized:item/dust_emerald
+    settings:
+      tags:
+      - c:dusts
+      - c:dusts/emerald
+  mekanized:dust_fluorite:
+    data:
+      item_name: <!i><lang:item.mekanized.dust_fluorite>
+    model: mekanized:item/dust_fluorite
+    settings:
+      tags:
+      - c:dusts
+      - c:dusts/fluorite
+  mekanized:dust_gold:
+    data:
+      item_name: <!i><lang:item.mekanized.dust_gold>
+    model: mekanized:item/dust_gold
+    settings:
+      tags:
+      - c:dusts
+      - c:dusts/gold
+      - minecraft:piglin_loved
+  mekanized:dust_iron:
+    data:
+      item_name: <!i><lang:item.mekanized.dust_iron>
+    model: mekanized:item/dust_iron
+    settings:
+      tags:
+      - c:dusts
+      - c:dusts/iron
+  mekanized:dust_lapis_lazuli:
+    data:
+      item_name: <!i><lang:item.mekanized.dust_lapis_lazuli>
+    model: mekanized:item/dust_lapis_lazuli
+    settings:
+      tags:
+      - c:dusts
+      - c:dusts/lapis
+  mekanized:dust_lead:
+    data:
+      item_name: <!i><lang:item.mekanized.dust_lead>
+    model: mekanized:item/dust_lead
+    settings:
+      tags:
+      - c:dusts
+      - c:dusts/lead
+  mekanized:dust_lithium:
+    data:
+      item_name: <!i><lang:item.mekanized.dust_lithium>
+    model: mekanized:item/dust_lithium
+    settings:
+      tags:
+      - c:dusts
+      - c:dusts/lithium
+  mekanized:dust_netherite:
+    data:
+      item_name: <!i><lang:item.mekanized.dust_netherite>
+    model: mekanized:item/dust_netherite
+    settings:
+      tags:
+      - c:dusts
+      - c:dusts/netherite
+  mekanized:dust_obsidian:
+    data:
+      item_name: <!i><lang:item.mekanized.dust_obsidian>
+    model: mekanized:item/dust_obsidian
+    settings:
+      tags:
+      - c:dusts
+      - c:dusts/obsidian
+  mekanized:dust_osmium:
+    data:
+      item_name: <!i><lang:item.mekanized.dust_osmium>
+    model: mekanized:item/dust_osmium
+    settings:
+      tags:
+      - c:dusts
+      - c:dusts/osmium
+  mekanized:dust_quartz:
+    data:
+      item_name: <!i><lang:item.mekanized.dust_quartz>
+    model: mekanized:item/dust_quartz
+    settings:
+      tags:
+      - c:dusts
+      - c:dusts/quartz
+  mekanized:dust_refined_obsidian:
+    data:
+      item_name: <!i><lang:item.mekanized.dust_refined_obsidian>
+    model: mekanized:item/dust_refined_obsidian
+    settings:
+      tags:
+      - c:dusts
+      - c:dusts/refined_obsidian
+  mekanized:dust_steel:
+    data:
+      item_name: <!i><lang:item.mekanized.dust_steel>
+    model: mekanized:item/dust_steel
+    settings:
+      tags:
+      - c:dusts
+      - c:dusts/steel
+  mekanized:dust_sulfur:
+    data:
+      item_name: <!i><lang:item.mekanized.dust_sulfur>
+    model: mekanized:item/dust_sulfur
+    settings:
+      tags:
+      - c:dusts
+      - c:dusts/sulfur
+  mekanized:dust_tin:
+    data:
+      item_name: <!i><lang:item.mekanized.dust_tin>
+    model: mekanized:item/dust_tin
+    settings:
+      tags:
+      - c:dusts
+      - c:dusts/tin
+  mekanized:dust_uranium:
+    data:
+      item_name: <!i><lang:item.mekanized.dust_uranium>
+    model: mekanized:item/dust_uranium
+    settings:
+      tags:
+      - c:dusts
+      - c:dusts/uranium
+  mekanized:dye_base:
+    data:
+      item_name: <!i><lang:item.mekanized.dye_base>
+    model: mekanized:item/dye_base
+  mekanized:elite_control_circuit:
+    data:
+      item_name: <!i><lang:item.mekanized.elite_control_circuit>
+    model: mekanized:item/elite_control_circuit
+    settings:
+      tags:
+      - c:circuits
+      - c:circuits/elite
+  mekanized:enriched_carbon:
+    data:
+      item_name: <!i><lang:item.mekanized.enriched_carbon>
+    model: mekanized:item/enriched_carbon
+    settings:
+      tags:
+      - mekanized:enriched
+      - mekanized:enriched/carbon
+  mekanized:enriched_diamond:
+    data:
+      item_name: <!i><lang:item.mekanized.enriched_diamond>
+    model: mekanized:item/enriched_diamond
+    settings:
+      tags:
+      - mekanized:enriched
+      - mekanized:enriched/diamond
+  mekanized:enriched_gold:
+    data:
+      item_name: <!i><lang:item.mekanized.enriched_gold>
+    model: mekanized:item/enriched_gold
+    settings:
+      tags:
+      - mekanized:enriched
+      - mekanized:enriched/gold
+      - minecraft:piglin_loved
+  mekanized:enriched_iron:
+    data:
+      item_name: <!i><lang:item.mekanized.enriched_iron>
+    model: mekanized:item/enriched_iron
+  mekanized:enriched_redstone:
+    data:
+      item_name: <!i><lang:item.mekanized.enriched_redstone>
+    model: mekanized:item/enriched_redstone
+    settings:
+      tags:
+      - mekanized:enriched
+      - mekanized:enriched/redstone
+  mekanized:enriched_refined_obsidian:
+    data:
+      item_name: <!i><lang:item.mekanized.enriched_refined_obsidian>
+    model: mekanized:item/enriched_refined_obsidian
+    settings:
+      tags:
+      - mekanized:enriched
+      - mekanized:enriched/obsidian
+  mekanized:enriched_tin:
+    data:
+      item_name: <!i><lang:item.mekanized.enriched_tin>
+    model: mekanized:item/enriched_tin
+    settings:
+      tags:
+      - mekanized:enriched
+      - mekanized:enriched/tin
+  mekanized:fluorite_gem:
+    data:
+      item_name: <!i><lang:item.mekanized.fluorite_gem>
+    model: mekanized:item/fluorite_gem
+    settings:
+      tags:
+      - c:gems
+      - c:gems/fluorite
+      - mekanized:muffling_center
+  mekanized:fluorite_ore:
+    data:
+      item_name: <!i><lang:block.mekanized.fluorite_ore>
+    model: mekanized:block/ore/fluorite
+    behavior:
+      type: block_item
+      block: mekanized:fluorite_ore
+    settings:
+      tags:
+      - c:ore_rates/dense
+      - c:ores
+      - c:ores/fluorite
+      - c:ores_in_ground/stone
+  mekanized:hdpe_pellet:
+    data:
+      item_name: <!i><lang:item.mekanized.hdpe_pellet>
+    model: mekanized:item/hdpe_pellet
+  mekanized:hdpe_rod:
+    data:
+      item_name: <!i><lang:item.mekanized.hdpe_rod>
+    model: mekanized:item/hdpe_rod
+  mekanized:hdpe_sheet:
+    data:
+      item_name: <!i><lang:item.mekanized.hdpe_sheet>
+    model: mekanized:item/hdpe_sheet
+  mekanized:hdpe_stick:
+    data:
+      item_name: <!i><lang:item.mekanized.hdpe_stick>
+    model: mekanized:item/hdpe_stick
+    settings:
+      tags:
+      - c:rods
+      - c:rods/plastic
+  mekanized:ingot_bronze:
+    data:
+      item_name: <!i><lang:item.mekanized.ingot_bronze>
+    model: mekanized:item/ingot_bronze
+    settings:
+      tags:
+      - c:ingots
+      - c:ingots/bronze
+      - minecraft:beacon_payment_items
+  mekanized:ingot_lead:
+    data:
+      item_name: <!i><lang:item.mekanized.ingot_lead>
+    model: mekanized:item/ingot_lead
+    settings:
+      tags:
+      - c:ingots
+      - c:ingots/lead
+      - mekanized:muffling_center
+      - minecraft:beacon_payment_items
+  mekanized:ingot_osmium:
+    data:
+      item_name: <!i><lang:item.mekanized.ingot_osmium>
+    model: mekanized:item/ingot_osmium
+    settings:
+      tags:
+      - c:ingots
+      - c:ingots/osmium
+      - mekanized:muffling_center
+      - minecraft:beacon_payment_items
+  mekanized:ingot_refined_glowstone:
+    data:
+      item_name: <!i><lang:item.mekanized.ingot_refined_glowstone>
+    model: mekanized:item/ingot_refined_glowstone
+    settings:
+      tags:
+      - c:ingots
+      - c:ingots/refined_glowstone
+      - minecraft:beacon_payment_items
+      - minecraft:piglin_loved
+  mekanized:ingot_refined_obsidian:
+    data:
+      item_name: <!i><lang:item.mekanized.ingot_refined_obsidian>
+    model: mekanized:item/ingot_refined_obsidian
+    settings:
+      tags:
+      - c:ingots
+      - c:ingots/refined_obsidian
+      - minecraft:beacon_payment_items
+  mekanized:ingot_steel:
+    data:
+      item_name: <!i><lang:item.mekanized.ingot_steel>
+    model: mekanized:item/ingot_steel
+    settings:
+      tags:
+      - c:ingots
+      - c:ingots/steel
+      - minecraft:beacon_payment_items
+  mekanized:ingot_tin:
+    data:
+      item_name: <!i><lang:item.mekanized.ingot_tin>
+    model: mekanized:item/ingot_tin
+    settings:
+      tags:
+      - c:ingots
+      - c:ingots/tin
+      - mekanized:muffling_center
+      - minecraft:beacon_payment_items
+  mekanized:ingot_uranium:
+    data:
+      item_name: <!i><lang:item.mekanized.ingot_uranium>
+    model: mekanized:item/ingot_uranium
+    settings:
+      tags:
+      - c:ingots
+      - c:ingots/uranium
+      - minecraft:beacon_payment_items
+  mekanized:lead_ore:
+    data:
+      item_name: <!i><lang:block.mekanized.lead_ore>
+    model: mekanized:block/ore/lead
+    behavior:
+      type: block_item
+      block: mekanized:lead_ore
+    settings:
+      tags:
+      - c:ore_rates/singular
+      - c:ores
+      - c:ores/lead
+      - c:ores_in_ground/stone
+  mekanized:nugget_bronze:
+    data:
+      item_name: <!i><lang:item.mekanized.nugget_bronze>
+    model: mekanized:item/nugget_bronze
+    settings:
+      tags:
+      - c:nuggets
+      - c:nuggets/bronze
+  mekanized:nugget_lead:
+    data:
+      item_name: <!i><lang:item.mekanized.nugget_lead>
+    model: mekanized:item/nugget_lead
+    settings:
+      tags:
+      - c:nuggets
+      - c:nuggets/lead
+  mekanized:nugget_osmium:
+    data:
+      item_name: <!i><lang:item.mekanized.nugget_osmium>
+    model: mekanized:item/nugget_osmium
+    settings:
+      tags:
+      - c:nuggets
+      - c:nuggets/osmium
+  mekanized:nugget_refined_glowstone:
+    data:
+      item_name: <!i><lang:item.mekanized.nugget_refined_glowstone>
+    model: mekanized:item/nugget_refined_glowstone
+    settings:
+      tags:
+      - c:nuggets
+      - c:nuggets/refined_glowstone
+  mekanized:nugget_refined_obsidian:
+    data:
+      item_name: <!i><lang:item.mekanized.nugget_refined_obsidian>
+    model: mekanized:item/nugget_refined_obsidian
+    settings:
+      tags:
+      - c:nuggets
+      - c:nuggets/refined_obsidian
+  mekanized:nugget_steel:
+    data:
+      item_name: <!i><lang:item.mekanized.nugget_steel>
+    model: mekanized:item/nugget_steel
+    settings:
+      tags:
+      - c:nuggets
+      - c:nuggets/steel
+  mekanized:nugget_tin:
+    data:
+      item_name: <!i><lang:item.mekanized.nugget_tin>
+    model: mekanized:item/nugget_tin
+    settings:
+      tags:
+      - c:nuggets
+      - c:nuggets/tin
+  mekanized:nugget_uranium:
+    data:
+      item_name: <!i><lang:item.mekanized.nugget_uranium>
+    model: mekanized:item/nugget_uranium
+    settings:
+      tags:
+      - c:nuggets
+      - c:nuggets/uranium
+  mekanized:osmium_ore:
+    data:
+      item_name: <!i><lang:block.mekanized.osmium_ore>
+    model: mekanized:block/ore/osmium
+    behavior:
+      type: block_item
+      block: mekanized:osmium_ore
+    settings:
+      tags:
+      - c:ore_rates/singular
+      - c:ores
+      - c:ores/osmium
+      - c:ores_in_ground/stone
+  mekanized:pellet_antimatter:
+    data:
+      item_name: <!i><lang:item.mekanized.pellet_antimatter>
+    model: mekanized:item/pellet_antimatter
+    settings:
+      tags:
+      - c:pellets/antimatter
+  mekanized:pellet_plutonium:
+    data:
+      item_name: <!i><lang:item.mekanized.pellet_plutonium>
+    model: mekanized:item/pellet_plutonium
+    settings:
+      tags:
+      - c:pellets/plutonium
+  mekanized:pellet_polonium:
+    data:
+      item_name: <!i><lang:item.mekanized.pellet_polonium>
+    model: mekanized:item/pellet_polonium
+    settings:
+      tags:
+      - c:pellets/polonium
+  mekanized:raw_lead:
+    data:
+      item_name: <!i><lang:item.mekanized.raw_lead>
+    model: mekanized:item/raw_lead
+    settings:
+      tags:
+      - c:raw_materials
+      - c:raw_materials/lead
+  mekanized:raw_osmium:
+    data:
+      item_name: <!i><lang:item.mekanized.raw_osmium>
+    model: mekanized:item/raw_osmium
+    settings:
+      tags:
+      - c:raw_materials
+      - c:raw_materials/osmium
+  mekanized:raw_tin:
+    data:
+      item_name: <!i><lang:item.mekanized.raw_tin>
+    model: mekanized:item/raw_tin
+    settings:
+      tags:
+      - c:raw_materials
+      - c:raw_materials/tin
+  mekanized:raw_uranium:
+    data:
+      item_name: <!i><lang:item.mekanized.raw_uranium>
+    model: mekanized:item/raw_uranium
+    settings:
+      tags:
+      - c:raw_materials
+      - c:raw_materials/uranium
+  mekanized:reprocessed_fissile_fragment:
+    data:
+      item_name: <!i><lang:item.mekanized.reprocessed_fissile_fragment>
+    model: mekanized:item/reprocessed_fissile_fragment
+  mekanized:salt:
+    data:
+      item_name: <!i><lang:item.mekanized.salt>
+    model: mekanized:item/salt
+    settings:
+      tags:
+      - c:dusts
+      - c:dusts/salt
+  mekanized:sawdust:
+    data:
+      item_name: <!i><lang:item.mekanized.sawdust>
+    model: mekanized:item/sawdust
+    settings:
+      tags:
+      - c:dusts
+      - c:dusts/wood
+  mekanized:shard_copper:
+    data:
+      item_name: <!i><lang:item.mekanized.shard_copper>
+    model: mekanized:item/shard_copper
+    settings:
+      tags:
+      - mekanized:shards
+      - mekanized:shards/copper
+  mekanized:shard_gold:
+    data:
+      item_name: <!i><lang:item.mekanized.shard_gold>
+    model: mekanized:item/shard_gold
+    settings:
+      tags:
+      - mekanized:shards
+      - mekanized:shards/gold
+      - minecraft:piglin_loved
+  mekanized:shard_iron:
+    data:
+      item_name: <!i><lang:item.mekanized.shard_iron>
+    model: mekanized:item/shard_iron
+    settings:
+      tags:
+      - mekanized:shards
+      - mekanized:shards/iron
+  mekanized:shard_lead:
+    data:
+      item_name: <!i><lang:item.mekanized.shard_lead>
+    model: mekanized:item/shard_lead
+    settings:
+      tags:
+      - mekanized:shards
+      - mekanized:shards/lead
+  mekanized:shard_osmium:
+    data:
+      item_name: <!i><lang:item.mekanized.shard_osmium>
+    model: mekanized:item/shard_osmium
+    settings:
+      tags:
+      - mekanized:shards
+      - mekanized:shards/osmium
+  mekanized:shard_tin:
+    data:
+      item_name: <!i><lang:item.mekanized.shard_tin>
+    model: mekanized:item/shard_tin
+    settings:
+      tags:
+      - mekanized:shards
+      - mekanized:shards/tin
+  mekanized:shard_uranium:
+    data:
+      item_name: <!i><lang:item.mekanized.shard_uranium>
+    model: mekanized:item/shard_uranium
+    settings:
+      tags:
+      - mekanized:shards
+      - mekanized:shards/uranium
+  mekanized:steel_casing:
+    data:
+      item_name: <!i><lang:block.mekanized.steel_casing>
+    model: mekanized:block/steel_casing
+    behavior:
+      type: block_item
+      block: mekanized:steel_casing
+  mekanized:substrate:
+    data:
+      item_name: <!i><lang:item.mekanized.substrate>
+    model: mekanized:item/substrate
+  mekanized:tin_ore:
+    data:
+      item_name: <!i><lang:block.mekanized.tin_ore>
+    model: mekanized:block/ore/tin
+    behavior:
+      type: block_item
+      block: mekanized:tin_ore
+    settings:
+      tags:
+      - c:ore_rates/singular
+      - c:ores
+      - c:ores/tin
+      - c:ores_in_ground/stone
+  mekanized:ultimate_control_circuit:
+    data:
+      item_name: <!i><lang:item.mekanized.ultimate_control_circuit>
+    model: mekanized:item/ultimate_control_circuit
+    settings:
+      tags:
+      - c:circuits
+      - c:circuits/ultimate
+  mekanized:uranium_ore:
+    data:
+      item_name: <!i><lang:block.mekanized.uranium_ore>
+    model: mekanized:block/ore/uranium
+    behavior:
+      type: block_item
+      block: mekanized:uranium_ore
+    settings:
+      tags:
+      - c:ore_rates/singular
+      - c:ores
+      - c:ores/uranium
+      - c:ores_in_ground/stone
+  mekanized:yellow_cake_uranium:
+    data:
+      item_name: <!i><lang:item.mekanized.yellow_cake_uranium>
+    model: mekanized:item/yellow_cake_uranium
+blocks:
+  mekanized:block_bio_fuel:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/storage/bio_fuel
+  mekanized:block_bronze:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/storage/bronze
+  mekanized:block_charcoal:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/storage/charcoal
+  mekanized:block_fluorite:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/storage/fluorite
+  mekanized:block_lead:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/storage/lead
+  mekanized:block_osmium:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/storage/osmium
+  mekanized:block_raw_lead:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/storage/raw_lead
+  mekanized:block_raw_osmium:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/storage/raw_osmium
+  mekanized:block_raw_tin:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/storage/raw_tin
+  mekanized:block_raw_uranium:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/storage/raw_uranium
+  mekanized:block_refined_glowstone:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/storage/refined_glowstone
+  mekanized:block_refined_obsidian:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/storage/refined_obsidian
+  mekanized:block_salt:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/storage/salt
+  mekanized:block_steel:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/storage/steel
+  mekanized:block_tin:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/storage/tin
+  mekanized:block_uranium:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/storage/uranium
+  mekanized:deepslate_fluorite_ore:
+    loot:
+      template: default:loot_table/ore
+      arguments:
+        ore_drop: mekanized:fluorite_gem
+        ore_block: mekanized:deepslate_fluorite_ore
+        ore_drop_count: 2~4
+    settings:
+      template: default:settings/deepslate_ore
+      arguments:
+        break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/deepslate_ore/fluorite
+  mekanized:deepslate_lead_ore:
+    loot:
+      template: default:loot_table/ore
+      arguments:
+        ore_drop: mekanized:raw_lead
+        ore_block: mekanized:deepslate_lead_ore
+    settings:
+      template: default:settings/deepslate_ore
+      arguments:
+        break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/deepslate_ore/lead
+  mekanized:deepslate_osmium_ore:
+    loot:
+      template: default:loot_table/ore
+      arguments:
+        ore_drop: mekanized:raw_osmium
+        ore_block: mekanized:deepslate_osmium_ore
+    settings:
+      template: default:settings/deepslate_ore
+      arguments:
+        break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/deepslate_ore/osmium
+  mekanized:deepslate_tin_ore:
+    loot:
+      template: default:loot_table/ore
+      arguments:
+        ore_drop: mekanized:raw_tin
+        ore_block: mekanized:deepslate_tin_ore
+    settings:
+      template: default:settings/deepslate_ore
+      arguments:
+        break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/deepslate_ore/tin
+  mekanized:deepslate_uranium_ore:
+    loot:
+      template: default:loot_table/ore
+      arguments:
+        ore_drop: mekanized:raw_uranium
+        ore_block: mekanized:deepslate_uranium_ore
+    settings:
+      template: default:settings/deepslate_ore
+      arguments:
+        break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/deepslate_ore/uranium
+  mekanized:fluorite_ore:
+    loot:
+      template: default:loot_table/ore
+      arguments:
+        ore_drop: mekanized:fluorite_gem
+        ore_block: mekanized:fluorite_ore
+        ore_drop_count: 2~4
+    settings:
+      template: default:settings/ore
+      arguments:
+        break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/ore/fluorite
+  mekanized:lead_ore:
+    loot:
+      template: default:loot_table/ore
+      arguments:
+        ore_drop: mekanized:raw_lead
+        ore_block: mekanized:lead_ore
+    settings:
+      template: default:settings/ore
+      arguments:
+        break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/ore/lead
+  mekanized:osmium_ore:
+    loot:
+      template: default:loot_table/ore
+      arguments:
+        ore_drop: mekanized:raw_osmium
+        ore_block: mekanized:osmium_ore
+    settings:
+      template: default:settings/ore
+      arguments:
+        break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/ore/osmium
+  mekanized:steel_casing:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 5.0
+        resistance: 6.0
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/steel_casing
+  mekanized:tin_ore:
+    loot:
+      template: default:loot_table/ore
+      arguments:
+        ore_drop: mekanized:raw_tin
+        ore_block: mekanized:tin_ore
+    settings:
+      template: default:settings/ore
+      arguments:
+        break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/ore/tin
+  mekanized:uranium_ore:
+    loot:
+      template: default:loot_table/ore
+      arguments:
+        ore_drop: mekanized:raw_uranium
+        ore_block: mekanized:uranium_ore
+    settings:
+      template: default:settings/ore
+      arguments:
+        break_power: 1
+    state:
+      auto_state: solid
+      model:
+        path: mekanized:block/ore/uranium

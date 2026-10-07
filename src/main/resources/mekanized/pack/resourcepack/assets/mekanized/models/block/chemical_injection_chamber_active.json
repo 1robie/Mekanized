@@ -1,0 +1,10 @@
+{
+  "parent": "mekanized:block/chemical_injection_chamber",
+  "textures": {
+    "front": "mekanized:block/chemical_injection_chamber/front_active",
+    "west": "mekanized:block/chemical_injection_chamber/right_active",
+    "east": "mekanized:block/chemical_injection_chamber/left_active",
+    "south": "mekanized:block/chemical_injection_chamber/back_active",
+    "up": "mekanized:block/chemical_injection_chamber/top_active"
+  }
+}

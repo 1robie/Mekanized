@@ -1,0 +1,8 @@
+{
+    "parent": "mekanized:block/bin/basic",
+    "textures": {
+        "led": "mekanized:block/bin/advanced_led",
+        "side": "mekanized:block/bin/advanced_side",
+        "back": "mekanized:block/bin/advanced_back"
+    }
+}

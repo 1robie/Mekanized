@@ -1,0 +1,314 @@
+# Mekanized oxidizing recipes, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+# Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.
+# Durations are ticks; energy is Joules per tick. Phase 3 of MEKANIZED_PLAN.md.
+recipes:
+  mekanized:oxidizing/bio/from_bio_fuel:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - item-tag: c:fuels/bio
+      amount: 1
+    outputs:
+    - type: mekanized:bio
+      amount: 5
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:oxidizing/bio/from_bio_fuel_block:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - item-tag: c:fuels/block/bio
+      amount: 1
+    outputs:
+    - type: mekanized:bio
+      amount: 45
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:oxidizing/brine:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - item-tag: c:dusts/salt
+      amount: 1
+    outputs:
+    - type: mekanized:brine
+      amount: 15
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:oxidizing/carbon/from_charcoal:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - any-of:
+      - item-tag: c:dusts/charcoal
+      - item: minecraft:charcoal
+      amount: 1
+    outputs:
+    - type: mekanized:carbon
+      amount: 20
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:oxidizing/carbon/from_charcoal_block:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - item-tag: c:storage_blocks/charcoal
+      amount: 1
+    outputs:
+    - type: mekanized:carbon
+      amount: 180
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:oxidizing/carbon/from_coal:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - any-of:
+      - item-tag: c:dusts/coal
+      - item: minecraft:coal
+      amount: 1
+    outputs:
+    - type: mekanized:carbon
+      amount: 10
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:oxidizing/carbon/from_coal_block:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - item-tag: c:storage_blocks/coal
+      amount: 1
+    outputs:
+    - type: mekanized:carbon
+      amount: 90
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:oxidizing/carbon/from_enriched:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - item-tag: mekanized:enriched/carbon
+      amount: 1
+    outputs:
+    - type: mekanized:carbon
+      amount: 80
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:oxidizing/diamond/from_dust:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - item-tag: c:dusts/diamond
+      amount: 1
+    outputs:
+    - type: mekanized:diamond
+      amount: 10
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:oxidizing/diamond/from_enriched:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - item-tag: mekanized:enriched/diamond
+      amount: 1
+    outputs:
+    - type: mekanized:diamond
+      amount: 80
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:oxidizing/fungi/from_mushrooms:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - any-of:
+      - any-of:
+        - item-tag: c:mushrooms
+      - any-of:
+        - any-of:
+          - item: minecraft:warped_fungus
+          - item: minecraft:crimson_fungus
+      amount: 1
+    outputs:
+    - type: mekanized:fungi
+      amount: 10
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:oxidizing/gold/from_dust:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - item-tag: c:dusts/gold
+      amount: 1
+    outputs:
+    - type: mekanized:gold
+      amount: 10
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:oxidizing/gold/from_enriched:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - item-tag: mekanized:enriched/gold
+      amount: 1
+    outputs:
+    - type: mekanized:gold
+      amount: 80
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:oxidizing/lithium:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - item-tag: c:dusts/lithium
+      amount: 1
+    outputs:
+    - type: mekanized:lithium
+      amount: 100
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:oxidizing/redstone/from_block:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - item-tag: c:storage_blocks/redstone
+      amount: 1
+    outputs:
+    - type: mekanized:redstone
+      amount: 90
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:oxidizing/redstone/from_dust:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - item-tag: c:dusts/redstone
+      amount: 1
+    outputs:
+    - type: mekanized:redstone
+      amount: 10
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:oxidizing/redstone/from_enriched:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - item-tag: mekanized:enriched/redstone
+      amount: 1
+    outputs:
+    - type: mekanized:redstone
+      amount: 80
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:oxidizing/refined_obsidian/from_dust:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - item-tag: c:dusts/refined_obsidian
+      amount: 1
+    outputs:
+    - type: mekanized:refined_obsidian
+      amount: 10
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:oxidizing/refined_obsidian/from_enriched:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - item-tag: mekanized:enriched/obsidian
+      amount: 1
+    outputs:
+    - type: mekanized:refined_obsidian
+      amount: 80
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:oxidizing/sulfur_dioxide:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - item-tag: c:dusts/sulfur
+      amount: 1
+    outputs:
+    - type: mekanized:sulfur_dioxide
+      amount: 100
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:oxidizing/tin/from_dust:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - item-tag: c:dusts/tin
+      amount: 1
+    outputs:
+    - type: mekanized:tin
+      amount: 10
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:oxidizing/tin/from_enriched:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - item-tag: mekanized:enriched/tin
+      amount: 1
+    outputs:
+    - type: mekanized:tin
+      amount: 80
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:processing/lategame/antimatter/from_pellet:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - item-tag: c:pellets/antimatter
+      amount: 1
+    outputs:
+    - type: mekanized:antimatter
+      amount: 1000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:processing/uranium/reprocessing/to_fuel:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - item: mekanized:reprocessed_fissile_fragment
+      amount: 1
+    outputs:
+    - type: mekanized:fissile_fuel
+      amount: 2000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:processing/uranium/uranium_oxide:
+    type: mekanized:oxidizing
+    duration: 100
+    inputs:
+    - item: mekanized:yellow_cake_uranium
+      amount: 1
+    outputs:
+    - type: mekanized:uranium_oxide
+      amount: 250
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200

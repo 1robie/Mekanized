@@ -1,0 +1,6 @@
+{
+  "parent": "mekanized:block/fusion/controller",
+  "textures": {
+    "up": "mekanized:block/reactor_controller_on"
+  }
+}

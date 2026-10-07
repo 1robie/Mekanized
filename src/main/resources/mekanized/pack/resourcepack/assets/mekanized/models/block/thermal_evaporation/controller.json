@@ -1,0 +1,7 @@
+{
+  "parent": "mekanized:block/machine",
+  "textures": {
+    "sides": "mekanized:block/thermal_evaporation_block",
+    "front": "mekanized:block/thermal_evaporation_controller"
+  }
+}

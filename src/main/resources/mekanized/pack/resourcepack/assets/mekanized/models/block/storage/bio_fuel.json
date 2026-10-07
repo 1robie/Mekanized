@@ -1,0 +1,9 @@
+{
+  "parent": "block/cube_bottom_top",
+  "textures": {
+    "particle": "mekanized:block/bio_fuel_block_top",
+    "top": "mekanized:block/bio_fuel_block_top",
+    "bottom": "mekanized:block/bio_fuel_block_bottom",
+    "side": "mekanized:block/bio_fuel_block_side"
+  }
+}

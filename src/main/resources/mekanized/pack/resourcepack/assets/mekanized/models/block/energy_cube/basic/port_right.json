@@ -1,0 +1,284 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "1": "mekanized:block/models/energy_cube",
+    "2": "mekanized:block/models/ports",
+    "3": "mekanized:block/models/ports_led",
+    "4": "mekanized:block/models/leds",
+    "particle": "mekanized:block/energy_cube_particle",
+    "corner": "mekanized:block/models/energy_cube_basic_corner"
+  },
+  "elements": [
+    {
+      "name": "connectorLeft",
+      "from": [
+        14,
+        5,
+        3
+      ],
+      "to": [
+        15,
+        11,
+        13
+      ],
+      "faces": {
+        "east": {
+          "uv": [
+            0,
+            0,
+            10,
+            6
+          ],
+          "texture": "#1"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            10,
+            6
+          ],
+          "texture": "#1"
+        },
+        "up": {
+          "uv": [
+            10,
+            1,
+            0,
+            0
+          ],
+          "texture": "#1"
+        },
+        "down": {
+          "uv": [
+            10,
+            5,
+            0,
+            6
+          ],
+          "texture": "#1"
+        }
+      }
+    },
+    {
+      "name": "portLeft",
+      "from": [
+        15,
+        4,
+        4
+      ],
+      "to": [
+        16,
+        12,
+        12
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            1,
+            8
+          ],
+          "texture": "#2"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            8,
+            8
+          ],
+          "texture": "#2",
+          "cullface": "east"
+        },
+        "south": {
+          "uv": [
+            7,
+            0,
+            8,
+            8
+          ],
+          "texture": "#2"
+        },
+        "west": {
+          "uv": [
+            8,
+            0,
+            16,
+            8
+          ],
+          "texture": "#2"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            8,
+            1
+          ],
+          "rotation": 90,
+          "texture": "#2"
+        },
+        "down": {
+          "uv": [
+            0,
+            7,
+            8,
+            8
+          ],
+          "rotation": 90,
+          "texture": "#2"
+        }
+      }
+    },
+    {
+      "name": "portLeftLED",
+      "from": [
+        16,
+        4,
+        4
+      ],
+      "to": [
+        16,
+        12,
+        12
+      ],
+      "faces": {
+        "east": {
+          "uv": [
+            8,
+            8,
+            16,
+            16
+          ],
+          "texture": "#3",
+          "cullface": "east"
+        }
+      },
+      "light_emission": 15
+    },
+    {
+      "name": "ledLeft1",
+      "from": [
+        15,
+        7.5,
+        3
+      ],
+      "to": [
+        15.9,
+        8.5,
+        3.5
+      ],
+      "shade": false,
+      "faces": {
+        "east": {
+          "uv": [
+            2,
+            0,
+            2.5,
+            1
+          ],
+          "texture": "#4"
+        },
+        "south": {
+          "uv": [
+            2,
+            0,
+            2.9,
+            1
+          ],
+          "texture": "#4"
+        },
+        "west": {
+          "uv": [
+            2,
+            0,
+            2.5,
+            1
+          ],
+          "texture": "#4"
+        },
+        "up": {
+          "uv": [
+            2,
+            0,
+            2.5,
+            0.9
+          ],
+          "texture": "#4"
+        },
+        "down": {
+          "uv": [
+            2,
+            0,
+            2.5,
+            0.9
+          ],
+          "texture": "#4"
+        }
+      }
+    },
+    {
+      "name": "ledLeft2",
+      "from": [
+        15,
+        7.5,
+        12.5
+      ],
+      "to": [
+        15.9,
+        8.5,
+        13
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "uv": [
+            2,
+            0,
+            2.9,
+            1
+          ],
+          "texture": "#4"
+        },
+        "east": {
+          "uv": [
+            2,
+            0,
+            2.5,
+            1
+          ],
+          "texture": "#4"
+        },
+        "west": {
+          "uv": [
+            2,
+            0,
+            2.5,
+            1
+          ],
+          "texture": "#4"
+        },
+        "up": {
+          "uv": [
+            2,
+            0,
+            2.5,
+            0.9
+          ],
+          "texture": "#4"
+        },
+        "down": {
+          "uv": [
+            2,
+            0,
+            2.5,
+            0.9
+          ],
+          "texture": "#4"
+        }
+      }
+    }
+  ]
+}

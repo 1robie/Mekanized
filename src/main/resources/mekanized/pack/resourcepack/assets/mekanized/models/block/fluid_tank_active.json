@@ -1,0 +1,6 @@
+{
+	"parent": "mekanized:block/fluid_tank_base",
+	"textures": {
+		"glass": "mekanized:block/models/fluid_tank_side_on"
+	}
+}

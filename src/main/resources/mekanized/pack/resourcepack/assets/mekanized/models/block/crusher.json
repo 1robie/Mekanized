@@ -1,0 +1,12 @@
+{
+  "parent": "mekanized:block/machine",
+  "textures": {
+    "sides": "mekanized:block/crusher/side",
+    "front": "mekanized:block/crusher/front",
+    "west": "mekanized:block/crusher/side",
+    "east": "mekanized:block/crusher/side",
+    "south": "mekanized:block/crusher/back",
+    "up": "mekanized:block/crusher/top",
+    "down": "mekanized:block/crusher/bottom"
+  }
+}

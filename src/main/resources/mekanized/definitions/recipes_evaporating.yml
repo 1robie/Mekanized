@@ -1,0 +1,22 @@
+# Mekanized evaporating recipes, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+# Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.
+# Durations are ticks; energy is Joules per tick. Phase 5 of MEKANIZED_PLAN.md.
+recipes:
+  mekanized:evaporating/brine:
+    type: mekanized:evaporating
+    duration: 1
+    inputs:
+    - type: machineengine:fluid/water
+      amount: 10
+    outputs:
+    - type: mekanized:fluid/brine
+      amount: 1
+  mekanized:evaporating/lithium:
+    type: mekanized:evaporating
+    duration: 1
+    inputs:
+    - type: mekanized:fluid/brine
+      amount: 10
+    outputs:
+    - type: mekanized:fluid/lithium
+      amount: 1

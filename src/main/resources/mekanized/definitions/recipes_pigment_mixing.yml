@@ -1,0 +1,228 @@
+# Mekanized pigment_mixing recipes, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+# Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.
+# Durations are ticks; energy is Joules per tick. Phase 6 of MEKANIZED_PLAN.md.
+recipes:
+  mekanized:pigment_mixing/aqua_yellow_to_lime:
+    type: mekanized:pigment_mixing
+    duration: 1
+    inputs:
+    - type: mekanized:aqua
+      amount: 1
+    - type: mekanized:yellow
+      amount: 1
+    outputs:
+    - type: mekanized:lime
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_mixing/black_red_to_dark_red:
+    type: mekanized:pigment_mixing
+    duration: 1
+    inputs:
+    - type: mekanized:black
+      amount: 1
+    - type: mekanized:red
+      amount: 4
+    outputs:
+    - type: mekanized:dark_red
+      amount: 5
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_mixing/black_white_to_gray:
+    type: mekanized:pigment_mixing
+    duration: 1
+    inputs:
+    - type: mekanized:black
+      amount: 1
+    - type: mekanized:white
+      amount: 1
+    outputs:
+    - type: mekanized:gray
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_mixing/blue_green_to_cyan:
+    type: mekanized:pigment_mixing
+    duration: 1
+    inputs:
+    - type: mekanized:blue
+      amount: 1
+    - type: mekanized:green
+      amount: 1
+    outputs:
+    - type: mekanized:cyan
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_mixing/blue_red_to_purple:
+    type: mekanized:pigment_mixing
+    duration: 1
+    inputs:
+    - type: mekanized:blue
+      amount: 1
+    - type: mekanized:red
+      amount: 1
+    outputs:
+    - type: mekanized:purple
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_mixing/blue_white_to_light_blue:
+    type: mekanized:pigment_mixing
+    duration: 1
+    inputs:
+    - type: mekanized:blue
+      amount: 1
+    - type: mekanized:white
+      amount: 1
+    outputs:
+    - type: mekanized:light_blue
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_mixing/blue_yellow_to_green:
+    type: mekanized:pigment_mixing
+    duration: 1
+    inputs:
+    - type: mekanized:blue
+      amount: 1
+    - type: mekanized:yellow
+      amount: 1
+    outputs:
+    - type: mekanized:green
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_mixing/cyan_white_to_aqua:
+    type: mekanized:pigment_mixing
+    duration: 1
+    inputs:
+    - type: mekanized:cyan
+      amount: 1
+    - type: mekanized:white
+      amount: 1
+    outputs:
+    - type: mekanized:aqua
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_mixing/gray_red_to_dark_red:
+    type: mekanized:pigment_mixing
+    duration: 1
+    inputs:
+    - type: mekanized:gray
+      amount: 1
+    - type: mekanized:red
+      amount: 2
+    outputs:
+    - type: mekanized:dark_red
+      amount: 3
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_mixing/gray_white_to_light_gray:
+    type: mekanized:pigment_mixing
+    duration: 1
+    inputs:
+    - type: mekanized:gray
+      amount: 1
+    - type: mekanized:white
+      amount: 1
+    outputs:
+    - type: mekanized:light_gray
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_mixing/green_white_to_lime:
+    type: mekanized:pigment_mixing
+    duration: 1
+    inputs:
+    - type: mekanized:green
+      amount: 1
+    - type: mekanized:white
+      amount: 1
+    outputs:
+    - type: mekanized:lime
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_mixing/light_blue_lime_to_aqua:
+    type: mekanized:pigment_mixing
+    duration: 1
+    inputs:
+    - type: mekanized:light_blue
+      amount: 1
+    - type: mekanized:lime
+      amount: 1
+    outputs:
+    - type: mekanized:aqua
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_mixing/light_blue_red_to_magenta:
+    type: mekanized:pigment_mixing
+    duration: 1
+    inputs:
+    - type: mekanized:light_blue
+      amount: 1
+    - type: mekanized:red
+      amount: 1
+    outputs:
+    - type: mekanized:magenta
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_mixing/purple_pink_to_magenta:
+    type: mekanized:pigment_mixing
+    duration: 1
+    inputs:
+    - type: mekanized:purple
+      amount: 1
+    - type: mekanized:pink
+      amount: 1
+    outputs:
+    - type: mekanized:magenta
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_mixing/red_white_to_pink:
+    type: mekanized:pigment_mixing
+    duration: 1
+    inputs:
+    - type: mekanized:red
+      amount: 1
+    - type: mekanized:white
+      amount: 1
+    outputs:
+    - type: mekanized:pink
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:pigment_mixing/red_yellow_to_orange:
+    type: mekanized:pigment_mixing
+    duration: 1
+    inputs:
+    - type: mekanized:red
+      amount: 1
+    - type: mekanized:yellow
+      amount: 1
+    outputs:
+    - type: mekanized:orange
+      amount: 2
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200

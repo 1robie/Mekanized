@@ -1,0 +1,12 @@
+{
+  "parent": "mekanized:block/machine",
+  "textures": {
+    "sides": "mekanized:block/fuelwood_heater/right",
+    "front": "mekanized:block/fuelwood_heater/front",
+    "west": "mekanized:block/fuelwood_heater/right",
+    "east": "mekanized:block/fuelwood_heater/left",
+    "south": "mekanized:block/fuelwood_heater/back",
+    "up": "mekanized:block/fuelwood_heater/top",
+    "down": "mekanized:block/fuelwood_heater/bottom"
+  }
+}

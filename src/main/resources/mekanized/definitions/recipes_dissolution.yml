@@ -1,0 +1,326 @@
+# Mekanized dissolution recipes, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+# Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.
+# Durations are ticks; energy is Joules per tick. Phase 3 of MEKANIZED_PLAN.md.
+recipes:
+  mekanized:processing/copper/slurry/dirty/from_ore:
+    type: mekanized:dissolution
+    duration: 100
+    inputs:
+    - item-tag: c:ores/copper
+      amount: 1
+    outputs:
+    - type: mekanized:dirty_copper
+      amount: 1000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 400
+    - type: mekanized:sulfuric_acid
+      amount: 1
+  mekanized:processing/copper/slurry/dirty/from_raw_block:
+    type: mekanized:dissolution
+    duration: 100
+    inputs:
+    - item-tag: c:storage_blocks/raw_copper
+      amount: 1
+    outputs:
+    - type: mekanized:dirty_copper
+      amount: 6000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 400
+    - type: mekanized:sulfuric_acid
+      amount: 2
+  mekanized:processing/copper/slurry/dirty/from_raw_ore:
+    type: mekanized:dissolution
+    duration: 100
+    inputs:
+    - item-tag: c:raw_materials/copper
+      amount: 3
+    outputs:
+    - type: mekanized:dirty_copper
+      amount: 2000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 400
+    - type: mekanized:sulfuric_acid
+      amount: 1
+  mekanized:processing/gold/slurry/dirty/from_ore:
+    type: mekanized:dissolution
+    duration: 100
+    inputs:
+    - item-tag: c:ores/gold
+      amount: 1
+    outputs:
+    - type: mekanized:dirty_gold
+      amount: 1000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 400
+    - type: mekanized:sulfuric_acid
+      amount: 1
+  mekanized:processing/gold/slurry/dirty/from_raw_block:
+    type: mekanized:dissolution
+    duration: 100
+    inputs:
+    - item-tag: c:storage_blocks/raw_gold
+      amount: 1
+    outputs:
+    - type: mekanized:dirty_gold
+      amount: 6000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 400
+    - type: mekanized:sulfuric_acid
+      amount: 2
+  mekanized:processing/gold/slurry/dirty/from_raw_ore:
+    type: mekanized:dissolution
+    duration: 100
+    inputs:
+    - item-tag: c:raw_materials/gold
+      amount: 3
+    outputs:
+    - type: mekanized:dirty_gold
+      amount: 2000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 400
+    - type: mekanized:sulfuric_acid
+      amount: 1
+  mekanized:processing/iron/slurry/dirty/from_ore:
+    type: mekanized:dissolution
+    duration: 100
+    inputs:
+    - item-tag: c:ores/iron
+      amount: 1
+    outputs:
+    - type: mekanized:dirty_iron
+      amount: 1000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 400
+    - type: mekanized:sulfuric_acid
+      amount: 1
+  mekanized:processing/iron/slurry/dirty/from_raw_block:
+    type: mekanized:dissolution
+    duration: 100
+    inputs:
+    - item-tag: c:storage_blocks/raw_iron
+      amount: 1
+    outputs:
+    - type: mekanized:dirty_iron
+      amount: 6000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 400
+    - type: mekanized:sulfuric_acid
+      amount: 2
+  mekanized:processing/iron/slurry/dirty/from_raw_ore:
+    type: mekanized:dissolution
+    duration: 100
+    inputs:
+    - item-tag: c:raw_materials/iron
+      amount: 3
+    outputs:
+    - type: mekanized:dirty_iron
+      amount: 2000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 400
+    - type: mekanized:sulfuric_acid
+      amount: 1
+  mekanized:processing/lead/slurry/dirty/from_ore:
+    type: mekanized:dissolution
+    duration: 100
+    inputs:
+    - item-tag: c:ores/lead
+      amount: 1
+    outputs:
+    - type: mekanized:dirty_lead
+      amount: 1000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 400
+    - type: mekanized:sulfuric_acid
+      amount: 1
+  mekanized:processing/lead/slurry/dirty/from_raw_block:
+    type: mekanized:dissolution
+    duration: 100
+    inputs:
+    - item-tag: c:storage_blocks/raw_lead
+      amount: 1
+    outputs:
+    - type: mekanized:dirty_lead
+      amount: 6000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 400
+    - type: mekanized:sulfuric_acid
+      amount: 2
+  mekanized:processing/lead/slurry/dirty/from_raw_ore:
+    type: mekanized:dissolution
+    duration: 100
+    inputs:
+    - item-tag: c:raw_materials/lead
+      amount: 3
+    outputs:
+    - type: mekanized:dirty_lead
+      amount: 2000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 400
+    - type: mekanized:sulfuric_acid
+      amount: 1
+  mekanized:processing/osmium/slurry/dirty/from_ore:
+    type: mekanized:dissolution
+    duration: 100
+    inputs:
+    - item-tag: c:ores/osmium
+      amount: 1
+    outputs:
+    - type: mekanized:dirty_osmium
+      amount: 1000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 400
+    - type: mekanized:sulfuric_acid
+      amount: 1
+  mekanized:processing/osmium/slurry/dirty/from_raw_block:
+    type: mekanized:dissolution
+    duration: 100
+    inputs:
+    - item-tag: c:storage_blocks/raw_osmium
+      amount: 1
+    outputs:
+    - type: mekanized:dirty_osmium
+      amount: 6000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 400
+    - type: mekanized:sulfuric_acid
+      amount: 2
+  mekanized:processing/osmium/slurry/dirty/from_raw_ore:
+    type: mekanized:dissolution
+    duration: 100
+    inputs:
+    - item-tag: c:raw_materials/osmium
+      amount: 3
+    outputs:
+    - type: mekanized:dirty_osmium
+      amount: 2000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 400
+    - type: mekanized:sulfuric_acid
+      amount: 1
+  mekanized:processing/tin/slurry/dirty/from_ore:
+    type: mekanized:dissolution
+    duration: 100
+    inputs:
+    - item-tag: c:ores/tin
+      amount: 1
+    outputs:
+    - type: mekanized:dirty_tin
+      amount: 1000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 400
+    - type: mekanized:sulfuric_acid
+      amount: 1
+  mekanized:processing/tin/slurry/dirty/from_raw_block:
+    type: mekanized:dissolution
+    duration: 100
+    inputs:
+    - item-tag: c:storage_blocks/raw_tin
+      amount: 1
+    outputs:
+    - type: mekanized:dirty_tin
+      amount: 6000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 400
+    - type: mekanized:sulfuric_acid
+      amount: 2
+  mekanized:processing/tin/slurry/dirty/from_raw_ore:
+    type: mekanized:dissolution
+    duration: 100
+    inputs:
+    - item-tag: c:raw_materials/tin
+      amount: 3
+    outputs:
+    - type: mekanized:dirty_tin
+      amount: 2000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 400
+    - type: mekanized:sulfuric_acid
+      amount: 1
+  mekanized:processing/uranium/hydrofluoric_acid:
+    type: mekanized:dissolution
+    duration: 100
+    inputs:
+    - item-tag: c:gems/fluorite
+      amount: 1
+    outputs:
+    - type: mekanized:hydrofluoric_acid
+      amount: 1000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 400
+    - type: mekanized:sulfuric_acid
+      amount: 1
+  mekanized:processing/uranium/hydrofluoric_acid_from_block:
+    type: mekanized:dissolution
+    duration: 100
+    inputs:
+    - item-tag: c:storage_blocks/fluorite
+      amount: 1
+    outputs:
+    - type: mekanized:hydrofluoric_acid
+      amount: 9000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 400
+    - type: mekanized:sulfuric_acid
+      amount: 9
+  mekanized:processing/uranium/slurry/dirty/from_ore:
+    type: mekanized:dissolution
+    duration: 100
+    inputs:
+    - item-tag: c:ores/uranium
+      amount: 1
+    outputs:
+    - type: mekanized:dirty_uranium
+      amount: 1000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 400
+    - type: mekanized:sulfuric_acid
+      amount: 1
+  mekanized:processing/uranium/slurry/dirty/from_raw_block:
+    type: mekanized:dissolution
+    duration: 100
+    inputs:
+    - item-tag: c:storage_blocks/raw_uranium
+      amount: 1
+    outputs:
+    - type: mekanized:dirty_uranium
+      amount: 6000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 400
+    - type: mekanized:sulfuric_acid
+      amount: 2
+  mekanized:processing/uranium/slurry/dirty/from_raw_ore:
+    type: mekanized:dissolution
+    duration: 100
+    inputs:
+    - item-tag: c:raw_materials/uranium
+      amount: 3
+    outputs:
+    - type: mekanized:dirty_uranium
+      amount: 2000
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 400
+    - type: mekanized:sulfuric_acid
+      amount: 1

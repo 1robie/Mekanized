@@ -1,0 +1,7 @@
+{
+    "parent": "mekanized:block/template/cube_all_led",
+    "textures": {
+        "all": "mekanized:block/sps_port",
+        "led": "mekanized:block/sps_port_led"
+    }
+}

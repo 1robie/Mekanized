@@ -1,0 +1,102 @@
+# Mekanized washing recipes, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+# Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.
+# Durations are ticks; energy is Joules per tick. Phase 3 of MEKANIZED_PLAN.md.
+recipes:
+  mekanized:processing/copper/slurry/clean:
+    type: mekanized:washing
+    duration: 1
+    inputs:
+    - type: mekanized:dirty_copper
+      amount: 1
+    - type: machineengine:fluid/water
+      amount: 5
+    outputs:
+    - type: mekanized:clean_copper
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:processing/gold/slurry/clean:
+    type: mekanized:washing
+    duration: 1
+    inputs:
+    - type: mekanized:dirty_gold
+      amount: 1
+    - type: machineengine:fluid/water
+      amount: 5
+    outputs:
+    - type: mekanized:clean_gold
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:processing/iron/slurry/clean:
+    type: mekanized:washing
+    duration: 1
+    inputs:
+    - type: mekanized:dirty_iron
+      amount: 1
+    - type: machineengine:fluid/water
+      amount: 5
+    outputs:
+    - type: mekanized:clean_iron
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:processing/lead/slurry/clean:
+    type: mekanized:washing
+    duration: 1
+    inputs:
+    - type: mekanized:dirty_lead
+      amount: 1
+    - type: machineengine:fluid/water
+      amount: 5
+    outputs:
+    - type: mekanized:clean_lead
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:processing/osmium/slurry/clean:
+    type: mekanized:washing
+    duration: 1
+    inputs:
+    - type: mekanized:dirty_osmium
+      amount: 1
+    - type: machineengine:fluid/water
+      amount: 5
+    outputs:
+    - type: mekanized:clean_osmium
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:processing/tin/slurry/clean:
+    type: mekanized:washing
+    duration: 1
+    inputs:
+    - type: mekanized:dirty_tin
+      amount: 1
+    - type: machineengine:fluid/water
+      amount: 5
+    outputs:
+    - type: mekanized:clean_tin
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200
+  mekanized:processing/uranium/slurry/clean:
+    type: mekanized:washing
+    duration: 1
+    inputs:
+    - type: mekanized:dirty_uranium
+      amount: 1
+    - type: machineengine:fluid/water
+      amount: 5
+    outputs:
+    - type: mekanized:clean_uranium
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 200

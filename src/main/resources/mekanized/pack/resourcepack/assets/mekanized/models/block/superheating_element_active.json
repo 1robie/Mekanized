@@ -1,0 +1,7 @@
+{
+    "parent": "mekanized:block/template/cube_all_led",
+    "textures": {
+        "all": "mekanized:block/superheating_element_on",
+        "led": "mekanized:block/superheating_element_on_led"
+    }
+}

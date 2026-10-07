@@ -1,0 +1,1474 @@
+# Mekanized chemical machines, tanks, tubes, pipes and the pump (Phase 3), based on Mekanism (MIT).
+items:
+  mekanized:display/chemical_oxidizer:
+    model: mekanized:block/chemical_oxidizer
+  mekanized:chemical_oxidizer:
+    data:
+      item_name: <!i><lang:block.mekanized.chemical_oxidizer>
+    model: mekanized:block/chemical_oxidizer
+    behavior:
+      type: block_item
+      block: mekanized:chemical_oxidizer
+  mekanized:display/chemical_infuser:
+    model: mekanized:block/chemical_infuser
+  mekanized:chemical_infuser:
+    data:
+      item_name: <!i><lang:block.mekanized.chemical_infuser>
+    model: mekanized:block/chemical_infuser
+    behavior:
+      type: block_item
+      block: mekanized:chemical_infuser
+  mekanized:chemical_injection_chamber:
+    data:
+      item_name: <!i><lang:block.mekanized.chemical_injection_chamber>
+    model: mekanized:block/chemical_injection_chamber
+    behavior:
+      type: block_item
+      block: mekanized:chemical_injection_chamber
+  mekanized:display/chemical_dissolution_chamber:
+    model: mekanized:block/chemical_dissolution_chamber
+  mekanized:chemical_dissolution_chamber:
+    data:
+      item_name: <!i><lang:block.mekanized.chemical_dissolution_chamber>
+    model: mekanized:block/chemical_dissolution_chamber
+    behavior:
+      type: block_item
+      block: mekanized:chemical_dissolution_chamber
+  mekanized:display/chemical_washer:
+    model: mekanized:block/chemical_washer
+  mekanized:chemical_washer:
+    data:
+      item_name: <!i><lang:block.mekanized.chemical_washer>
+    model: mekanized:block/chemical_washer
+    behavior:
+      type: block_item
+      block: mekanized:chemical_washer
+  mekanized:display/chemical_crystallizer:
+    model: mekanized:block/chemical_crystallizer
+  mekanized:chemical_crystallizer:
+    data:
+      item_name: <!i><lang:block.mekanized.chemical_crystallizer>
+    model: mekanized:block/chemical_crystallizer
+    behavior:
+      type: block_item
+      block: mekanized:chemical_crystallizer
+  mekanized:display/electrolytic_separator:
+    model: mekanized:block/electrolytic_separator
+  mekanized:electrolytic_separator:
+    data:
+      item_name: <!i><lang:block.mekanized.electrolytic_separator>
+    model: mekanized:block/electrolytic_separator
+    behavior:
+      type: block_item
+      block: mekanized:electrolytic_separator
+  mekanized:display/rotary_condensentrator:
+    model: mekanized:block/rotary_condensentrator
+  mekanized:rotary_condensentrator:
+    data:
+      item_name: <!i><lang:block.mekanized.rotary_condensentrator>
+    model: mekanized:block/rotary_condensentrator
+    behavior:
+      type: block_item
+      block: mekanized:rotary_condensentrator
+  mekanized:display/electric_pump:
+    model: mekanized:block/electric_pump
+  mekanized:electric_pump:
+    data:
+      item_name: <!i><lang:block.mekanized.electric_pump>
+    model: mekanized:block/electric_pump
+    behavior:
+      type: block_item
+      block: mekanized:electric_pump
+  mekanized:display/basic_chemical_tank:
+    model: mekanized:block/chemical_tank/basic
+  mekanized:basic_chemical_tank:
+    data:
+      item_name: <!i><lang:block.mekanized.basic_chemical_tank>
+    model: mekanized:block/chemical_tank/basic
+    behavior:
+      type: block_item
+      block: mekanized:basic_chemical_tank
+  mekanized:display/basic_fluid_tank:
+    model: mekanized:block/fluid_tank
+  mekanized:basic_fluid_tank:
+    data:
+      item_name: <!i><lang:block.mekanized.basic_fluid_tank>
+    model: mekanized:block/fluid_tank
+    behavior:
+      type: block_item
+      block: mekanized:basic_fluid_tank
+  mekanized:display/advanced_chemical_tank:
+    model: mekanized:block/chemical_tank/advanced
+  mekanized:advanced_chemical_tank:
+    data:
+      item_name: <!i><lang:block.mekanized.advanced_chemical_tank>
+    model: mekanized:block/chemical_tank/advanced
+    behavior:
+      type: block_item
+      block: mekanized:advanced_chemical_tank
+  mekanized:display/advanced_fluid_tank:
+    model: mekanized:block/fluid_tank
+  mekanized:advanced_fluid_tank:
+    data:
+      item_name: <!i><lang:block.mekanized.advanced_fluid_tank>
+    model: mekanized:block/fluid_tank
+    behavior:
+      type: block_item
+      block: mekanized:advanced_fluid_tank
+  mekanized:display/elite_chemical_tank:
+    model: mekanized:block/chemical_tank/elite
+  mekanized:elite_chemical_tank:
+    data:
+      item_name: <!i><lang:block.mekanized.elite_chemical_tank>
+    model: mekanized:block/chemical_tank/elite
+    behavior:
+      type: block_item
+      block: mekanized:elite_chemical_tank
+  mekanized:display/elite_fluid_tank:
+    model: mekanized:block/fluid_tank
+  mekanized:elite_fluid_tank:
+    data:
+      item_name: <!i><lang:block.mekanized.elite_fluid_tank>
+    model: mekanized:block/fluid_tank
+    behavior:
+      type: block_item
+      block: mekanized:elite_fluid_tank
+  mekanized:display/ultimate_chemical_tank:
+    model: mekanized:block/chemical_tank/ultimate
+  mekanized:ultimate_chemical_tank:
+    data:
+      item_name: <!i><lang:block.mekanized.ultimate_chemical_tank>
+    model: mekanized:block/chemical_tank/ultimate
+    behavior:
+      type: block_item
+      block: mekanized:ultimate_chemical_tank
+  mekanized:display/ultimate_fluid_tank:
+    model: mekanized:block/fluid_tank
+  mekanized:ultimate_fluid_tank:
+    data:
+      item_name: <!i><lang:block.mekanized.ultimate_fluid_tank>
+    model: mekanized:block/fluid_tank
+    behavior:
+      type: block_item
+      block: mekanized:ultimate_fluid_tank
+  mekanized:display/creative_chemical_tank:
+    model: mekanized:block/chemical_tank/creative
+  mekanized:creative_chemical_tank:
+    data:
+      item_name: <!i><lang:block.mekanized.creative_chemical_tank>
+    model: mekanized:block/chemical_tank/creative
+    behavior:
+      type: block_item
+      block: mekanized:creative_chemical_tank
+  mekanized:display/creative_fluid_tank:
+    model: mekanized:block/fluid_tank
+  mekanized:creative_fluid_tank:
+    data:
+      item_name: <!i><lang:block.mekanized.creative_fluid_tank>
+    model: mekanized:block/fluid_tank
+    behavior:
+      type: block_item
+      block: mekanized:creative_fluid_tank
+  mekanized:cable_part/basic_pressurized_tube/center:
+    model: mekanized:block/cable/basic_pressurized_tube/center
+  mekanized:cable_part/basic_pressurized_tube/north:
+    model: mekanized:block/cable/basic_pressurized_tube/north
+  mekanized:cable_part/basic_pressurized_tube/north_pull:
+    model: mekanized:block/cable/basic_pressurized_tube/north_pull
+  mekanized:cable_part/basic_pressurized_tube/north_push:
+    model: mekanized:block/cable/basic_pressurized_tube/north_push
+  mekanized:cable_part/basic_pressurized_tube/south:
+    model: mekanized:block/cable/basic_pressurized_tube/south
+  mekanized:cable_part/basic_pressurized_tube/south_pull:
+    model: mekanized:block/cable/basic_pressurized_tube/south_pull
+  mekanized:cable_part/basic_pressurized_tube/south_push:
+    model: mekanized:block/cable/basic_pressurized_tube/south_push
+  mekanized:cable_part/basic_pressurized_tube/east:
+    model: mekanized:block/cable/basic_pressurized_tube/east
+  mekanized:cable_part/basic_pressurized_tube/east_pull:
+    model: mekanized:block/cable/basic_pressurized_tube/east_pull
+  mekanized:cable_part/basic_pressurized_tube/east_push:
+    model: mekanized:block/cable/basic_pressurized_tube/east_push
+  mekanized:cable_part/basic_pressurized_tube/west:
+    model: mekanized:block/cable/basic_pressurized_tube/west
+  mekanized:cable_part/basic_pressurized_tube/west_pull:
+    model: mekanized:block/cable/basic_pressurized_tube/west_pull
+  mekanized:cable_part/basic_pressurized_tube/west_push:
+    model: mekanized:block/cable/basic_pressurized_tube/west_push
+  mekanized:cable_part/basic_pressurized_tube/up:
+    model: mekanized:block/cable/basic_pressurized_tube/up
+  mekanized:cable_part/basic_pressurized_tube/up_pull:
+    model: mekanized:block/cable/basic_pressurized_tube/up_pull
+  mekanized:cable_part/basic_pressurized_tube/up_push:
+    model: mekanized:block/cable/basic_pressurized_tube/up_push
+  mekanized:cable_part/basic_pressurized_tube/down:
+    model: mekanized:block/cable/basic_pressurized_tube/down
+  mekanized:cable_part/basic_pressurized_tube/down_pull:
+    model: mekanized:block/cable/basic_pressurized_tube/down_pull
+  mekanized:cable_part/basic_pressurized_tube/down_push:
+    model: mekanized:block/cable/basic_pressurized_tube/down_push
+  mekanized:basic_pressurized_tube:
+    data:
+      item_name: <!i><lang:block.mekanized.basic_pressurized_tube>
+    model: mekanized:block/cable/basic_pressurized_tube/center
+    behavior:
+      type: block_item
+      block: mekanized:basic_pressurized_tube
+  mekanized:cable_part/advanced_pressurized_tube/center:
+    model: mekanized:block/cable/advanced_pressurized_tube/center
+  mekanized:cable_part/advanced_pressurized_tube/north:
+    model: mekanized:block/cable/advanced_pressurized_tube/north
+  mekanized:cable_part/advanced_pressurized_tube/north_pull:
+    model: mekanized:block/cable/advanced_pressurized_tube/north_pull
+  mekanized:cable_part/advanced_pressurized_tube/north_push:
+    model: mekanized:block/cable/advanced_pressurized_tube/north_push
+  mekanized:cable_part/advanced_pressurized_tube/south:
+    model: mekanized:block/cable/advanced_pressurized_tube/south
+  mekanized:cable_part/advanced_pressurized_tube/south_pull:
+    model: mekanized:block/cable/advanced_pressurized_tube/south_pull
+  mekanized:cable_part/advanced_pressurized_tube/south_push:
+    model: mekanized:block/cable/advanced_pressurized_tube/south_push
+  mekanized:cable_part/advanced_pressurized_tube/east:
+    model: mekanized:block/cable/advanced_pressurized_tube/east
+  mekanized:cable_part/advanced_pressurized_tube/east_pull:
+    model: mekanized:block/cable/advanced_pressurized_tube/east_pull
+  mekanized:cable_part/advanced_pressurized_tube/east_push:
+    model: mekanized:block/cable/advanced_pressurized_tube/east_push
+  mekanized:cable_part/advanced_pressurized_tube/west:
+    model: mekanized:block/cable/advanced_pressurized_tube/west
+  mekanized:cable_part/advanced_pressurized_tube/west_pull:
+    model: mekanized:block/cable/advanced_pressurized_tube/west_pull
+  mekanized:cable_part/advanced_pressurized_tube/west_push:
+    model: mekanized:block/cable/advanced_pressurized_tube/west_push
+  mekanized:cable_part/advanced_pressurized_tube/up:
+    model: mekanized:block/cable/advanced_pressurized_tube/up
+  mekanized:cable_part/advanced_pressurized_tube/up_pull:
+    model: mekanized:block/cable/advanced_pressurized_tube/up_pull
+  mekanized:cable_part/advanced_pressurized_tube/up_push:
+    model: mekanized:block/cable/advanced_pressurized_tube/up_push
+  mekanized:cable_part/advanced_pressurized_tube/down:
+    model: mekanized:block/cable/advanced_pressurized_tube/down
+  mekanized:cable_part/advanced_pressurized_tube/down_pull:
+    model: mekanized:block/cable/advanced_pressurized_tube/down_pull
+  mekanized:cable_part/advanced_pressurized_tube/down_push:
+    model: mekanized:block/cable/advanced_pressurized_tube/down_push
+  mekanized:advanced_pressurized_tube:
+    data:
+      item_name: <!i><lang:block.mekanized.advanced_pressurized_tube>
+    model: mekanized:block/cable/advanced_pressurized_tube/center
+    behavior:
+      type: block_item
+      block: mekanized:advanced_pressurized_tube
+  mekanized:cable_part/elite_pressurized_tube/center:
+    model: mekanized:block/cable/elite_pressurized_tube/center
+  mekanized:cable_part/elite_pressurized_tube/north:
+    model: mekanized:block/cable/elite_pressurized_tube/north
+  mekanized:cable_part/elite_pressurized_tube/north_pull:
+    model: mekanized:block/cable/elite_pressurized_tube/north_pull
+  mekanized:cable_part/elite_pressurized_tube/north_push:
+    model: mekanized:block/cable/elite_pressurized_tube/north_push
+  mekanized:cable_part/elite_pressurized_tube/south:
+    model: mekanized:block/cable/elite_pressurized_tube/south
+  mekanized:cable_part/elite_pressurized_tube/south_pull:
+    model: mekanized:block/cable/elite_pressurized_tube/south_pull
+  mekanized:cable_part/elite_pressurized_tube/south_push:
+    model: mekanized:block/cable/elite_pressurized_tube/south_push
+  mekanized:cable_part/elite_pressurized_tube/east:
+    model: mekanized:block/cable/elite_pressurized_tube/east
+  mekanized:cable_part/elite_pressurized_tube/east_pull:
+    model: mekanized:block/cable/elite_pressurized_tube/east_pull
+  mekanized:cable_part/elite_pressurized_tube/east_push:
+    model: mekanized:block/cable/elite_pressurized_tube/east_push
+  mekanized:cable_part/elite_pressurized_tube/west:
+    model: mekanized:block/cable/elite_pressurized_tube/west
+  mekanized:cable_part/elite_pressurized_tube/west_pull:
+    model: mekanized:block/cable/elite_pressurized_tube/west_pull
+  mekanized:cable_part/elite_pressurized_tube/west_push:
+    model: mekanized:block/cable/elite_pressurized_tube/west_push
+  mekanized:cable_part/elite_pressurized_tube/up:
+    model: mekanized:block/cable/elite_pressurized_tube/up
+  mekanized:cable_part/elite_pressurized_tube/up_pull:
+    model: mekanized:block/cable/elite_pressurized_tube/up_pull
+  mekanized:cable_part/elite_pressurized_tube/up_push:
+    model: mekanized:block/cable/elite_pressurized_tube/up_push
+  mekanized:cable_part/elite_pressurized_tube/down:
+    model: mekanized:block/cable/elite_pressurized_tube/down
+  mekanized:cable_part/elite_pressurized_tube/down_pull:
+    model: mekanized:block/cable/elite_pressurized_tube/down_pull
+  mekanized:cable_part/elite_pressurized_tube/down_push:
+    model: mekanized:block/cable/elite_pressurized_tube/down_push
+  mekanized:elite_pressurized_tube:
+    data:
+      item_name: <!i><lang:block.mekanized.elite_pressurized_tube>
+    model: mekanized:block/cable/elite_pressurized_tube/center
+    behavior:
+      type: block_item
+      block: mekanized:elite_pressurized_tube
+  mekanized:cable_part/ultimate_pressurized_tube/center:
+    model: mekanized:block/cable/ultimate_pressurized_tube/center
+  mekanized:cable_part/ultimate_pressurized_tube/north:
+    model: mekanized:block/cable/ultimate_pressurized_tube/north
+  mekanized:cable_part/ultimate_pressurized_tube/north_pull:
+    model: mekanized:block/cable/ultimate_pressurized_tube/north_pull
+  mekanized:cable_part/ultimate_pressurized_tube/north_push:
+    model: mekanized:block/cable/ultimate_pressurized_tube/north_push
+  mekanized:cable_part/ultimate_pressurized_tube/south:
+    model: mekanized:block/cable/ultimate_pressurized_tube/south
+  mekanized:cable_part/ultimate_pressurized_tube/south_pull:
+    model: mekanized:block/cable/ultimate_pressurized_tube/south_pull
+  mekanized:cable_part/ultimate_pressurized_tube/south_push:
+    model: mekanized:block/cable/ultimate_pressurized_tube/south_push
+  mekanized:cable_part/ultimate_pressurized_tube/east:
+    model: mekanized:block/cable/ultimate_pressurized_tube/east
+  mekanized:cable_part/ultimate_pressurized_tube/east_pull:
+    model: mekanized:block/cable/ultimate_pressurized_tube/east_pull
+  mekanized:cable_part/ultimate_pressurized_tube/east_push:
+    model: mekanized:block/cable/ultimate_pressurized_tube/east_push
+  mekanized:cable_part/ultimate_pressurized_tube/west:
+    model: mekanized:block/cable/ultimate_pressurized_tube/west
+  mekanized:cable_part/ultimate_pressurized_tube/west_pull:
+    model: mekanized:block/cable/ultimate_pressurized_tube/west_pull
+  mekanized:cable_part/ultimate_pressurized_tube/west_push:
+    model: mekanized:block/cable/ultimate_pressurized_tube/west_push
+  mekanized:cable_part/ultimate_pressurized_tube/up:
+    model: mekanized:block/cable/ultimate_pressurized_tube/up
+  mekanized:cable_part/ultimate_pressurized_tube/up_pull:
+    model: mekanized:block/cable/ultimate_pressurized_tube/up_pull
+  mekanized:cable_part/ultimate_pressurized_tube/up_push:
+    model: mekanized:block/cable/ultimate_pressurized_tube/up_push
+  mekanized:cable_part/ultimate_pressurized_tube/down:
+    model: mekanized:block/cable/ultimate_pressurized_tube/down
+  mekanized:cable_part/ultimate_pressurized_tube/down_pull:
+    model: mekanized:block/cable/ultimate_pressurized_tube/down_pull
+  mekanized:cable_part/ultimate_pressurized_tube/down_push:
+    model: mekanized:block/cable/ultimate_pressurized_tube/down_push
+  mekanized:ultimate_pressurized_tube:
+    data:
+      item_name: <!i><lang:block.mekanized.ultimate_pressurized_tube>
+    model: mekanized:block/cable/ultimate_pressurized_tube/center
+    behavior:
+      type: block_item
+      block: mekanized:ultimate_pressurized_tube
+  mekanized:cable_part/basic_mechanical_pipe/center:
+    model: mekanized:block/cable/basic_mechanical_pipe/center
+  mekanized:cable_part/basic_mechanical_pipe/north:
+    model: mekanized:block/cable/basic_mechanical_pipe/north
+  mekanized:cable_part/basic_mechanical_pipe/north_pull:
+    model: mekanized:block/cable/basic_mechanical_pipe/north_pull
+  mekanized:cable_part/basic_mechanical_pipe/north_push:
+    model: mekanized:block/cable/basic_mechanical_pipe/north_push
+  mekanized:cable_part/basic_mechanical_pipe/south:
+    model: mekanized:block/cable/basic_mechanical_pipe/south
+  mekanized:cable_part/basic_mechanical_pipe/south_pull:
+    model: mekanized:block/cable/basic_mechanical_pipe/south_pull
+  mekanized:cable_part/basic_mechanical_pipe/south_push:
+    model: mekanized:block/cable/basic_mechanical_pipe/south_push
+  mekanized:cable_part/basic_mechanical_pipe/east:
+    model: mekanized:block/cable/basic_mechanical_pipe/east
+  mekanized:cable_part/basic_mechanical_pipe/east_pull:
+    model: mekanized:block/cable/basic_mechanical_pipe/east_pull
+  mekanized:cable_part/basic_mechanical_pipe/east_push:
+    model: mekanized:block/cable/basic_mechanical_pipe/east_push
+  mekanized:cable_part/basic_mechanical_pipe/west:
+    model: mekanized:block/cable/basic_mechanical_pipe/west
+  mekanized:cable_part/basic_mechanical_pipe/west_pull:
+    model: mekanized:block/cable/basic_mechanical_pipe/west_pull
+  mekanized:cable_part/basic_mechanical_pipe/west_push:
+    model: mekanized:block/cable/basic_mechanical_pipe/west_push
+  mekanized:cable_part/basic_mechanical_pipe/up:
+    model: mekanized:block/cable/basic_mechanical_pipe/up
+  mekanized:cable_part/basic_mechanical_pipe/up_pull:
+    model: mekanized:block/cable/basic_mechanical_pipe/up_pull
+  mekanized:cable_part/basic_mechanical_pipe/up_push:
+    model: mekanized:block/cable/basic_mechanical_pipe/up_push
+  mekanized:cable_part/basic_mechanical_pipe/down:
+    model: mekanized:block/cable/basic_mechanical_pipe/down
+  mekanized:cable_part/basic_mechanical_pipe/down_pull:
+    model: mekanized:block/cable/basic_mechanical_pipe/down_pull
+  mekanized:cable_part/basic_mechanical_pipe/down_push:
+    model: mekanized:block/cable/basic_mechanical_pipe/down_push
+  mekanized:basic_mechanical_pipe:
+    data:
+      item_name: <!i><lang:block.mekanized.basic_mechanical_pipe>
+    model: mekanized:block/cable/basic_mechanical_pipe/center
+    behavior:
+      type: block_item
+      block: mekanized:basic_mechanical_pipe
+  mekanized:cable_part/advanced_mechanical_pipe/center:
+    model: mekanized:block/cable/advanced_mechanical_pipe/center
+  mekanized:cable_part/advanced_mechanical_pipe/north:
+    model: mekanized:block/cable/advanced_mechanical_pipe/north
+  mekanized:cable_part/advanced_mechanical_pipe/north_pull:
+    model: mekanized:block/cable/advanced_mechanical_pipe/north_pull
+  mekanized:cable_part/advanced_mechanical_pipe/north_push:
+    model: mekanized:block/cable/advanced_mechanical_pipe/north_push
+  mekanized:cable_part/advanced_mechanical_pipe/south:
+    model: mekanized:block/cable/advanced_mechanical_pipe/south
+  mekanized:cable_part/advanced_mechanical_pipe/south_pull:
+    model: mekanized:block/cable/advanced_mechanical_pipe/south_pull
+  mekanized:cable_part/advanced_mechanical_pipe/south_push:
+    model: mekanized:block/cable/advanced_mechanical_pipe/south_push
+  mekanized:cable_part/advanced_mechanical_pipe/east:
+    model: mekanized:block/cable/advanced_mechanical_pipe/east
+  mekanized:cable_part/advanced_mechanical_pipe/east_pull:
+    model: mekanized:block/cable/advanced_mechanical_pipe/east_pull
+  mekanized:cable_part/advanced_mechanical_pipe/east_push:
+    model: mekanized:block/cable/advanced_mechanical_pipe/east_push
+  mekanized:cable_part/advanced_mechanical_pipe/west:
+    model: mekanized:block/cable/advanced_mechanical_pipe/west
+  mekanized:cable_part/advanced_mechanical_pipe/west_pull:
+    model: mekanized:block/cable/advanced_mechanical_pipe/west_pull
+  mekanized:cable_part/advanced_mechanical_pipe/west_push:
+    model: mekanized:block/cable/advanced_mechanical_pipe/west_push
+  mekanized:cable_part/advanced_mechanical_pipe/up:
+    model: mekanized:block/cable/advanced_mechanical_pipe/up
+  mekanized:cable_part/advanced_mechanical_pipe/up_pull:
+    model: mekanized:block/cable/advanced_mechanical_pipe/up_pull
+  mekanized:cable_part/advanced_mechanical_pipe/up_push:
+    model: mekanized:block/cable/advanced_mechanical_pipe/up_push
+  mekanized:cable_part/advanced_mechanical_pipe/down:
+    model: mekanized:block/cable/advanced_mechanical_pipe/down
+  mekanized:cable_part/advanced_mechanical_pipe/down_pull:
+    model: mekanized:block/cable/advanced_mechanical_pipe/down_pull
+  mekanized:cable_part/advanced_mechanical_pipe/down_push:
+    model: mekanized:block/cable/advanced_mechanical_pipe/down_push
+  mekanized:advanced_mechanical_pipe:
+    data:
+      item_name: <!i><lang:block.mekanized.advanced_mechanical_pipe>
+    model: mekanized:block/cable/advanced_mechanical_pipe/center
+    behavior:
+      type: block_item
+      block: mekanized:advanced_mechanical_pipe
+  mekanized:cable_part/elite_mechanical_pipe/center:
+    model: mekanized:block/cable/elite_mechanical_pipe/center
+  mekanized:cable_part/elite_mechanical_pipe/north:
+    model: mekanized:block/cable/elite_mechanical_pipe/north
+  mekanized:cable_part/elite_mechanical_pipe/north_pull:
+    model: mekanized:block/cable/elite_mechanical_pipe/north_pull
+  mekanized:cable_part/elite_mechanical_pipe/north_push:
+    model: mekanized:block/cable/elite_mechanical_pipe/north_push
+  mekanized:cable_part/elite_mechanical_pipe/south:
+    model: mekanized:block/cable/elite_mechanical_pipe/south
+  mekanized:cable_part/elite_mechanical_pipe/south_pull:
+    model: mekanized:block/cable/elite_mechanical_pipe/south_pull
+  mekanized:cable_part/elite_mechanical_pipe/south_push:
+    model: mekanized:block/cable/elite_mechanical_pipe/south_push
+  mekanized:cable_part/elite_mechanical_pipe/east:
+    model: mekanized:block/cable/elite_mechanical_pipe/east
+  mekanized:cable_part/elite_mechanical_pipe/east_pull:
+    model: mekanized:block/cable/elite_mechanical_pipe/east_pull
+  mekanized:cable_part/elite_mechanical_pipe/east_push:
+    model: mekanized:block/cable/elite_mechanical_pipe/east_push
+  mekanized:cable_part/elite_mechanical_pipe/west:
+    model: mekanized:block/cable/elite_mechanical_pipe/west
+  mekanized:cable_part/elite_mechanical_pipe/west_pull:
+    model: mekanized:block/cable/elite_mechanical_pipe/west_pull
+  mekanized:cable_part/elite_mechanical_pipe/west_push:
+    model: mekanized:block/cable/elite_mechanical_pipe/west_push
+  mekanized:cable_part/elite_mechanical_pipe/up:
+    model: mekanized:block/cable/elite_mechanical_pipe/up
+  mekanized:cable_part/elite_mechanical_pipe/up_pull:
+    model: mekanized:block/cable/elite_mechanical_pipe/up_pull
+  mekanized:cable_part/elite_mechanical_pipe/up_push:
+    model: mekanized:block/cable/elite_mechanical_pipe/up_push
+  mekanized:cable_part/elite_mechanical_pipe/down:
+    model: mekanized:block/cable/elite_mechanical_pipe/down
+  mekanized:cable_part/elite_mechanical_pipe/down_pull:
+    model: mekanized:block/cable/elite_mechanical_pipe/down_pull
+  mekanized:cable_part/elite_mechanical_pipe/down_push:
+    model: mekanized:block/cable/elite_mechanical_pipe/down_push
+  mekanized:elite_mechanical_pipe:
+    data:
+      item_name: <!i><lang:block.mekanized.elite_mechanical_pipe>
+    model: mekanized:block/cable/elite_mechanical_pipe/center
+    behavior:
+      type: block_item
+      block: mekanized:elite_mechanical_pipe
+  mekanized:cable_part/ultimate_mechanical_pipe/center:
+    model: mekanized:block/cable/ultimate_mechanical_pipe/center
+  mekanized:cable_part/ultimate_mechanical_pipe/north:
+    model: mekanized:block/cable/ultimate_mechanical_pipe/north
+  mekanized:cable_part/ultimate_mechanical_pipe/north_pull:
+    model: mekanized:block/cable/ultimate_mechanical_pipe/north_pull
+  mekanized:cable_part/ultimate_mechanical_pipe/north_push:
+    model: mekanized:block/cable/ultimate_mechanical_pipe/north_push
+  mekanized:cable_part/ultimate_mechanical_pipe/south:
+    model: mekanized:block/cable/ultimate_mechanical_pipe/south
+  mekanized:cable_part/ultimate_mechanical_pipe/south_pull:
+    model: mekanized:block/cable/ultimate_mechanical_pipe/south_pull
+  mekanized:cable_part/ultimate_mechanical_pipe/south_push:
+    model: mekanized:block/cable/ultimate_mechanical_pipe/south_push
+  mekanized:cable_part/ultimate_mechanical_pipe/east:
+    model: mekanized:block/cable/ultimate_mechanical_pipe/east
+  mekanized:cable_part/ultimate_mechanical_pipe/east_pull:
+    model: mekanized:block/cable/ultimate_mechanical_pipe/east_pull
+  mekanized:cable_part/ultimate_mechanical_pipe/east_push:
+    model: mekanized:block/cable/ultimate_mechanical_pipe/east_push
+  mekanized:cable_part/ultimate_mechanical_pipe/west:
+    model: mekanized:block/cable/ultimate_mechanical_pipe/west
+  mekanized:cable_part/ultimate_mechanical_pipe/west_pull:
+    model: mekanized:block/cable/ultimate_mechanical_pipe/west_pull
+  mekanized:cable_part/ultimate_mechanical_pipe/west_push:
+    model: mekanized:block/cable/ultimate_mechanical_pipe/west_push
+  mekanized:cable_part/ultimate_mechanical_pipe/up:
+    model: mekanized:block/cable/ultimate_mechanical_pipe/up
+  mekanized:cable_part/ultimate_mechanical_pipe/up_pull:
+    model: mekanized:block/cable/ultimate_mechanical_pipe/up_pull
+  mekanized:cable_part/ultimate_mechanical_pipe/up_push:
+    model: mekanized:block/cable/ultimate_mechanical_pipe/up_push
+  mekanized:cable_part/ultimate_mechanical_pipe/down:
+    model: mekanized:block/cable/ultimate_mechanical_pipe/down
+  mekanized:cable_part/ultimate_mechanical_pipe/down_pull:
+    model: mekanized:block/cable/ultimate_mechanical_pipe/down_pull
+  mekanized:cable_part/ultimate_mechanical_pipe/down_push:
+    model: mekanized:block/cable/ultimate_mechanical_pipe/down_push
+  mekanized:ultimate_mechanical_pipe:
+    data:
+      item_name: <!i><lang:block.mekanized.ultimate_mechanical_pipe>
+    model: mekanized:block/cable/ultimate_mechanical_pipe/center
+    behavior:
+      type: block_item
+      block: mekanized:ultimate_mechanical_pipe
+  mekanized:electrolytic_core:
+    data:
+      item_name: <!i><lang:item.mekanized.electrolytic_core>
+    model: mekanized:item/electrolytic_core
+  mekanized:energy_tablet:
+    data:
+      item_name: <!i><lang:item.mekanized.energy_tablet>
+    model: mekanized:item/energy_tablet
+blocks:
+  mekanized:chemical_oxidizer:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:chemical_oxidizer
+      keep_contents: true
+      display_item: mekanized:display/chemical_oxidizer
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_models_chemical_oxidizer
+          model:
+            path: mekanized:block/display_empty/shared/p_block_models_chemical_oxidizer
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:chemical_infuser:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:chemical_infuser
+      keep_contents: true
+      display_item: mekanized:display/chemical_infuser
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_models_chemical_infuser
+          model:
+            path: mekanized:block/display_empty/shared/p_block_models_chemical_infuser
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:chemical_injection_chamber:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:chemical_injection_chamber
+      keep_contents: true
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/solid_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+        active:
+          type: boolean
+          default: false
+      appearances:
+        facing_north_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/chemical_injection_chamber
+        facing_south_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/chemical_injection_chamber
+            y: 180
+        facing_east_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/chemical_injection_chamber
+            y: 90
+        facing_west_active_false:
+          auto_state: solid
+          model:
+            path: mekanized:block/chemical_injection_chamber
+            y: 270
+        facing_north_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/chemical_injection_chamber_active
+        facing_south_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/chemical_injection_chamber_active
+            y: 180
+        facing_east_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/chemical_injection_chamber_active
+            y: 90
+        facing_west_active_true:
+          auto_state: solid
+          model:
+            path: mekanized:block/chemical_injection_chamber_active
+            y: 270
+      variants:
+        facing=north,active=false:
+          appearance: facing_north_active_false
+        facing=south,active=false:
+          appearance: facing_south_active_false
+        facing=east,active=false:
+          appearance: facing_east_active_false
+        facing=west,active=false:
+          appearance: facing_west_active_false
+        facing=north,active=true:
+          appearance: facing_north_active_true
+        facing=south,active=true:
+          appearance: facing_south_active_true
+        facing=east,active=true:
+          appearance: facing_east_active_true
+        facing=west,active=true:
+          appearance: facing_west_active_true
+  mekanized:chemical_dissolution_chamber:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:chemical_dissolution_chamber
+      keep_contents: true
+      display_item: mekanized:display/chemical_dissolution_chamber
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_bottom
+          model:
+            path: mekanized:block/display_empty/shared/p_block_bottom
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:chemical_washer:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:chemical_washer
+      keep_contents: true
+      display_item: mekanized:display/chemical_washer
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_steel_casing
+          model:
+            path: mekanized:block/display_empty/shared/p_block_steel_casing
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:chemical_crystallizer:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:chemical_crystallizer
+      keep_contents: true
+      display_item: mekanized:display/chemical_crystallizer
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_models_chemical_crystallizer
+          model:
+            path: mekanized:block/display_empty/shared/p_block_models_chemical_crystallizer
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:electrolytic_separator:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:electrolytic_separator
+      keep_contents: true
+      display_item: mekanized:display/electrolytic_separator
+      display_rotation: 90
+      display_rotations: north=0/90,south=0/270,east=0/180,west=0/0
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_steel_casing
+          model:
+            path: mekanized:block/display_empty/shared/p_block_steel_casing
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:rotary_condensentrator:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:rotary_condensentrator
+      keep_contents: true
+      display_item: mekanized:display/rotary_condensentrator
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_models_rotary_condensentrator
+          model:
+            path: mekanized:block/display_empty/shared/p_block_models_rotary_condensentrator
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:electric_pump:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:electric_pump
+      keep_contents: true
+      display_item: mekanized:display/electric_pump
+      display_rotation: 180
+      display_rotations: north=0/180,south=0/0,east=0/270,west=0/90
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_steel_casing
+          model:
+            path: mekanized:block/display_empty/shared/p_block_steel_casing
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:basic_chemical_tank:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:basic_chemical_tank
+      keep_contents: true
+      display_item: mekanized:display/basic_chemical_tank
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_chemical_tank
+          model:
+            path: mekanized:block/display_empty/shared/chemical_tank
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:basic_fluid_tank:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:basic_fluid_tank
+      keep_contents: true
+      display_item: mekanized:display/basic_fluid_tank
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: leaves
+        id: mekanized_display_fluid_tank
+      model:
+        path: mekanized:block/display_empty/shared/fluid_tank
+  mekanized:advanced_chemical_tank:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:advanced_chemical_tank
+      keep_contents: true
+      display_item: mekanized:display/advanced_chemical_tank
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_chemical_tank
+          model:
+            path: mekanized:block/display_empty/shared/chemical_tank
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:advanced_fluid_tank:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:advanced_fluid_tank
+      keep_contents: true
+      display_item: mekanized:display/advanced_fluid_tank
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: leaves
+        id: mekanized_display_fluid_tank
+      model:
+        path: mekanized:block/display_empty/shared/fluid_tank
+  mekanized:elite_chemical_tank:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:elite_chemical_tank
+      keep_contents: true
+      display_item: mekanized:display/elite_chemical_tank
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_chemical_tank
+          model:
+            path: mekanized:block/display_empty/shared/chemical_tank
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:elite_fluid_tank:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:elite_fluid_tank
+      keep_contents: true
+      display_item: mekanized:display/elite_fluid_tank
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: leaves
+        id: mekanized_display_fluid_tank
+      model:
+        path: mekanized:block/display_empty/shared/fluid_tank
+  mekanized:ultimate_chemical_tank:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:ultimate_chemical_tank
+      keep_contents: true
+      display_item: mekanized:display/ultimate_chemical_tank
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_chemical_tank
+          model:
+            path: mekanized:block/display_empty/shared/chemical_tank
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:ultimate_fluid_tank:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:ultimate_fluid_tank
+      keep_contents: true
+      display_item: mekanized:display/ultimate_fluid_tank
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: leaves
+        id: mekanized_display_fluid_tank
+      model:
+        path: mekanized:block/display_empty/shared/fluid_tank
+  mekanized:creative_chemical_tank:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:creative_chemical_tank
+      keep_contents: true
+      display_item: mekanized:display/creative_chemical_tank
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_chemical_tank
+          model:
+            path: mekanized:block/display_empty/shared/chemical_tank
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:creative_fluid_tank:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:creative_fluid_tank
+      keep_contents: true
+      display_item: mekanized:display/creative_fluid_tank
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: leaves
+        id: mekanized_display_fluid_tank
+      model:
+        path: mekanized:block/display_empty/shared/fluid_tank
+  mekanized:basic_pressurized_tube:
+    behavior:
+      type: machineengine:transport
+      transport: mekanized:basic_pressurized_tube
+      connection_items: mekanized:cable_part/basic_pressurized_tube
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: sapling
+        id: mekanized_universal_cable
+      model:
+        path: mekanized:block/display_empty/universal_cable
+  mekanized:advanced_pressurized_tube:
+    behavior:
+      type: machineengine:transport
+      transport: mekanized:advanced_pressurized_tube
+      connection_items: mekanized:cable_part/advanced_pressurized_tube
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: sapling
+        id: mekanized_universal_cable
+      model:
+        path: mekanized:block/display_empty/universal_cable
+  mekanized:elite_pressurized_tube:
+    behavior:
+      type: machineengine:transport
+      transport: mekanized:elite_pressurized_tube
+      connection_items: mekanized:cable_part/elite_pressurized_tube
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: sapling
+        id: mekanized_universal_cable
+      model:
+        path: mekanized:block/display_empty/universal_cable
+  mekanized:ultimate_pressurized_tube:
+    behavior:
+      type: machineengine:transport
+      transport: mekanized:ultimate_pressurized_tube
+      connection_items: mekanized:cable_part/ultimate_pressurized_tube
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: sapling
+        id: mekanized_universal_cable
+      model:
+        path: mekanized:block/display_empty/universal_cable
+  mekanized:basic_mechanical_pipe:
+    behavior:
+      type: machineengine:transport
+      transport: mekanized:basic_mechanical_pipe
+      connection_items: mekanized:cable_part/basic_mechanical_pipe
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: sapling
+        id: mekanized_universal_cable
+      model:
+        path: mekanized:block/display_empty/universal_cable
+  mekanized:advanced_mechanical_pipe:
+    behavior:
+      type: machineengine:transport
+      transport: mekanized:advanced_mechanical_pipe
+      connection_items: mekanized:cable_part/advanced_mechanical_pipe
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: sapling
+        id: mekanized_universal_cable
+      model:
+        path: mekanized:block/display_empty/universal_cable
+  mekanized:elite_mechanical_pipe:
+    behavior:
+      type: machineengine:transport
+      transport: mekanized:elite_mechanical_pipe
+      connection_items: mekanized:cable_part/elite_mechanical_pipe
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: sapling
+        id: mekanized_universal_cable
+      model:
+        path: mekanized:block/display_empty/universal_cable
+  mekanized:ultimate_mechanical_pipe:
+    behavior:
+      type: machineengine:transport
+      transport: mekanized:ultimate_mechanical_pipe
+      connection_items: mekanized:cable_part/ultimate_mechanical_pipe
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: sapling
+        id: mekanized_universal_cable
+      model:
+        path: mekanized:block/display_empty/universal_cable

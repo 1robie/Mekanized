@@ -1,0 +1,32 @@
+# Mekanized compressing recipes, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+# Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.
+# Durations are ticks; energy is Joules per tick. Phase 2 of MEKANIZED_PLAN.md.
+recipes:
+  mekanized:processing/refined_glowstone/ingot/from_dust:
+    type: mekanized:compressing
+    duration: 200
+    inputs:
+    - item-tag: c:dusts/glowstone
+      amount: 1
+    outputs:
+    - item: mekanized:ingot_refined_glowstone
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+    - type: mekanized:osmium
+      amount: 1
+  mekanized:processing/refined_obsidian/ingot/from_dust:
+    type: mekanized:compressing
+    duration: 200
+    inputs:
+    - item-tag: c:dusts/refined_obsidian
+      amount: 1
+    outputs:
+    - item: mekanized:ingot_refined_obsidian
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+    - type: mekanized:osmium
+      amount: 1

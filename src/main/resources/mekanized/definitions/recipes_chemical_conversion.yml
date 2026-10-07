@@ -1,0 +1,206 @@
+# Mekanized chemical_conversion recipes, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+# Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.
+# Durations are ticks; energy is Joules per tick. Phase 2 of MEKANIZED_PLAN.md.
+recipes:
+  mekanized:chemical_conversion/bio/from_bio_fuel:
+    type: mekanized:chemical_conversion
+    inputs:
+    - item-tag: c:fuels/bio
+      amount: 1
+    outputs:
+    - type: mekanized:bio
+      amount: 5
+  mekanized:chemical_conversion/bio/from_bio_fuel_block:
+    type: mekanized:chemical_conversion
+    inputs:
+    - item-tag: c:fuels/block/bio
+      amount: 1
+    outputs:
+    - type: mekanized:bio
+      amount: 45
+  mekanized:chemical_conversion/carbon/from_charcoal:
+    type: mekanized:chemical_conversion
+    inputs:
+    - any-of:
+      - item-tag: c:dusts/charcoal
+      - item: minecraft:charcoal
+      amount: 1
+    outputs:
+    - type: mekanized:carbon
+      amount: 20
+  mekanized:chemical_conversion/carbon/from_charcoal_block:
+    type: mekanized:chemical_conversion
+    inputs:
+    - item-tag: c:storage_blocks/charcoal
+      amount: 1
+    outputs:
+    - type: mekanized:carbon
+      amount: 180
+  mekanized:chemical_conversion/carbon/from_coal:
+    type: mekanized:chemical_conversion
+    inputs:
+    - any-of:
+      - item-tag: c:dusts/coal
+      - item: minecraft:coal
+      amount: 1
+    outputs:
+    - type: mekanized:carbon
+      amount: 10
+  mekanized:chemical_conversion/carbon/from_coal_block:
+    type: mekanized:chemical_conversion
+    inputs:
+    - item-tag: c:storage_blocks/coal
+      amount: 1
+    outputs:
+    - type: mekanized:carbon
+      amount: 90
+  mekanized:chemical_conversion/carbon/from_enriched:
+    type: mekanized:chemical_conversion
+    inputs:
+    - item-tag: mekanized:enriched/carbon
+      amount: 1
+    outputs:
+    - type: mekanized:carbon
+      amount: 80
+  mekanized:chemical_conversion/diamond/from_dust:
+    type: mekanized:chemical_conversion
+    inputs:
+    - item-tag: c:dusts/diamond
+      amount: 1
+    outputs:
+    - type: mekanized:diamond
+      amount: 10
+  mekanized:chemical_conversion/diamond/from_enriched:
+    type: mekanized:chemical_conversion
+    inputs:
+    - item-tag: mekanized:enriched/diamond
+      amount: 1
+    outputs:
+    - type: mekanized:diamond
+      amount: 80
+  mekanized:chemical_conversion/flint_to_oxygen:
+    type: mekanized:chemical_conversion
+    inputs:
+    - item: minecraft:flint
+      amount: 1
+    outputs:
+    - type: mekanized:oxygen
+      amount: 10
+  mekanized:chemical_conversion/fungi/from_mushrooms:
+    type: mekanized:chemical_conversion
+    inputs:
+    - any-of:
+      - any-of:
+        - item-tag: c:mushrooms
+      - any-of:
+        - any-of:
+          - item: minecraft:warped_fungus
+          - item: minecraft:crimson_fungus
+      amount: 1
+    outputs:
+    - type: mekanized:fungi
+      amount: 10
+  mekanized:chemical_conversion/gold/from_dust:
+    type: mekanized:chemical_conversion
+    inputs:
+    - item-tag: c:dusts/gold
+      amount: 1
+    outputs:
+    - type: mekanized:gold
+      amount: 10
+  mekanized:chemical_conversion/gold/from_enriched:
+    type: mekanized:chemical_conversion
+    inputs:
+    - item-tag: mekanized:enriched/gold
+      amount: 1
+    outputs:
+    - type: mekanized:gold
+      amount: 80
+  mekanized:chemical_conversion/osmium_from_block:
+    type: mekanized:chemical_conversion
+    inputs:
+    - item-tag: c:storage_blocks/osmium
+      amount: 1
+    outputs:
+    - type: mekanized:osmium
+      amount: 1800
+  mekanized:chemical_conversion/osmium_from_ingot:
+    type: mekanized:chemical_conversion
+    inputs:
+    - item-tag: c:ingots/osmium
+      amount: 1
+    outputs:
+    - type: mekanized:osmium
+      amount: 200
+  mekanized:chemical_conversion/redstone/from_block:
+    type: mekanized:chemical_conversion
+    inputs:
+    - item-tag: c:storage_blocks/redstone
+      amount: 1
+    outputs:
+    - type: mekanized:redstone
+      amount: 90
+  mekanized:chemical_conversion/redstone/from_dust:
+    type: mekanized:chemical_conversion
+    inputs:
+    - item-tag: c:dusts/redstone
+      amount: 1
+    outputs:
+    - type: mekanized:redstone
+      amount: 10
+  mekanized:chemical_conversion/redstone/from_enriched:
+    type: mekanized:chemical_conversion
+    inputs:
+    - item-tag: mekanized:enriched/redstone
+      amount: 1
+    outputs:
+    - type: mekanized:redstone
+      amount: 80
+  mekanized:chemical_conversion/refined_obsidian/from_dust:
+    type: mekanized:chemical_conversion
+    inputs:
+    - item-tag: c:dusts/refined_obsidian
+      amount: 1
+    outputs:
+    - type: mekanized:refined_obsidian
+      amount: 10
+  mekanized:chemical_conversion/refined_obsidian/from_enriched:
+    type: mekanized:chemical_conversion
+    inputs:
+    - item-tag: mekanized:enriched/obsidian
+      amount: 1
+    outputs:
+    - type: mekanized:refined_obsidian
+      amount: 80
+  mekanized:chemical_conversion/salt_to_hydrogen_chloride:
+    type: mekanized:chemical_conversion
+    inputs:
+    - item-tag: c:dusts/salt
+      amount: 1
+    outputs:
+    - type: mekanized:hydrogen_chloride
+      amount: 2
+  mekanized:chemical_conversion/sulfur_to_sulfuric_acid:
+    type: mekanized:chemical_conversion
+    inputs:
+    - item-tag: c:dusts/sulfur
+      amount: 1
+    outputs:
+    - type: mekanized:sulfuric_acid
+      amount: 2
+  mekanized:chemical_conversion/tin/from_dust:
+    type: mekanized:chemical_conversion
+    inputs:
+    - item-tag: c:dusts/tin
+      amount: 1
+    outputs:
+    - type: mekanized:tin
+      amount: 10
+  mekanized:chemical_conversion/tin/from_enriched:
+    type: mekanized:chemical_conversion
+    inputs:
+    - item-tag: mekanized:enriched/tin
+      amount: 1
+    outputs:
+    - type: mekanized:tin
+      amount: 80

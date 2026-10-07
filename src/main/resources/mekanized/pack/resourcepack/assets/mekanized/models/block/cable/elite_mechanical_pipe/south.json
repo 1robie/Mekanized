@@ -1,0 +1,99 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "center": "mekanized:block/models/multipart/elite_mechanical_pipe",
+    "side": "mekanized:block/models/multipart/elite_mechanical_pipe_vertical",
+    "particle": "mekanized:block/models/multipart/elite_mechanical_pipe"
+  },
+  "elements": [
+    {
+      "from": [
+        4,
+        4,
+        12
+      ],
+      "to": [
+        12,
+        12,
+        16
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#center"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#center"
+        },
+        "east": {
+          "uv": [
+            0,
+            4,
+            16,
+            12
+          ],
+          "rotation": 90,
+          "texture": "#side"
+        },
+        "west": {
+          "uv": [
+            0,
+            4,
+            16,
+            12
+          ],
+          "rotation": 90,
+          "texture": "#side"
+        },
+        "up": {
+          "uv": [
+            0,
+            4,
+            16,
+            12
+          ],
+          "texture": "#side"
+        },
+        "down": {
+          "uv": [
+            0,
+            4,
+            16,
+            12
+          ],
+          "texture": "#side"
+        }
+      }
+    }
+  ],
+  "display": {
+    "none": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  }
+}

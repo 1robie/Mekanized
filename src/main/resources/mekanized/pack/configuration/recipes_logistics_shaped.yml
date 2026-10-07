@@ -1,0 +1,634 @@
+# Mekanized logistics_shaped recipes for CraftEngine, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+recipes:
+  mekanized:configurator:
+    type: shaped
+    pattern:
+    - II
+    - ' A'
+    - ' S'
+    ingredients:
+      A: '#c:ingots/osmium'
+      I: minecraft:iron_ingot
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:configurator
+      count: 1
+  mekanized:factory/advanced/combining:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      C: '#c:circuits/advanced'
+      I: '#c:ingots/osmium'
+      P: mekanized:basic_combining_factory
+    result:
+      id: mekanized:advanced_combining_factory
+      count: 1
+  mekanized:factory/advanced/compressing:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      C: '#c:circuits/advanced'
+      I: '#c:ingots/osmium'
+      P: mekanized:basic_compressing_factory
+    result:
+      id: mekanized:advanced_compressing_factory
+      count: 1
+  mekanized:factory/advanced/crushing:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      C: '#c:circuits/advanced'
+      I: '#c:ingots/osmium'
+      P: mekanized:basic_crushing_factory
+    result:
+      id: mekanized:advanced_crushing_factory
+      count: 1
+  mekanized:factory/advanced/enriching:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      C: '#c:circuits/advanced'
+      I: '#c:ingots/osmium'
+      P: mekanized:basic_enriching_factory
+    result:
+      id: mekanized:advanced_enriching_factory
+      count: 1
+  mekanized:factory/advanced/infusing:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      C: '#c:circuits/advanced'
+      I: '#c:ingots/osmium'
+      P: mekanized:basic_infusing_factory
+    result:
+      id: mekanized:advanced_infusing_factory
+      count: 1
+  mekanized:factory/advanced/injecting:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      C: '#c:circuits/advanced'
+      I: '#c:ingots/osmium'
+      P: mekanized:basic_injecting_factory
+    result:
+      id: mekanized:advanced_injecting_factory
+      count: 1
+  mekanized:factory/advanced/purifying:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      C: '#c:circuits/advanced'
+      I: '#c:ingots/osmium'
+      P: mekanized:basic_purifying_factory
+    result:
+      id: mekanized:advanced_purifying_factory
+      count: 1
+  mekanized:factory/advanced/sawing:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      C: '#c:circuits/advanced'
+      I: '#c:ingots/osmium'
+      P: mekanized:basic_sawing_factory
+    result:
+      id: mekanized:advanced_sawing_factory
+      count: 1
+  mekanized:factory/advanced/smelting:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      C: '#c:circuits/advanced'
+      I: '#c:ingots/osmium'
+      P: mekanized:basic_smelting_factory
+    result:
+      id: mekanized:advanced_smelting_factory
+      count: 1
+  mekanized:factory/basic/combining:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: minecraft:redstone
+      C: '#c:circuits/basic'
+      I: minecraft:iron_ingot
+      P: mekanized:combiner
+    result:
+      id: mekanized:basic_combining_factory
+      count: 1
+  mekanized:factory/basic/compressing:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: minecraft:redstone
+      C: '#c:circuits/basic'
+      I: minecraft:iron_ingot
+      P: mekanized:osmium_compressor
+    result:
+      id: mekanized:basic_compressing_factory
+      count: 1
+  mekanized:factory/basic/crushing:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: minecraft:redstone
+      C: '#c:circuits/basic'
+      I: minecraft:iron_ingot
+      P: mekanized:crusher
+    result:
+      id: mekanized:basic_crushing_factory
+      count: 1
+  mekanized:factory/basic/enriching:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: minecraft:redstone
+      C: '#c:circuits/basic'
+      I: minecraft:iron_ingot
+      P: mekanized:enrichment_chamber
+    result:
+      id: mekanized:basic_enriching_factory
+      count: 1
+  mekanized:factory/basic/infusing:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: minecraft:redstone
+      C: '#c:circuits/basic'
+      I: minecraft:iron_ingot
+      P: mekanized:metallurgic_infuser
+    result:
+      id: mekanized:basic_infusing_factory
+      count: 1
+  mekanized:factory/basic/injecting:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: minecraft:redstone
+      C: '#c:circuits/basic'
+      I: minecraft:iron_ingot
+      P: mekanized:chemical_injection_chamber
+    result:
+      id: mekanized:basic_injecting_factory
+      count: 1
+  mekanized:factory/basic/purifying:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: minecraft:redstone
+      C: '#c:circuits/basic'
+      I: minecraft:iron_ingot
+      P: mekanized:purification_chamber
+    result:
+      id: mekanized:basic_purifying_factory
+      count: 1
+  mekanized:factory/basic/sawing:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: minecraft:redstone
+      C: '#c:circuits/basic'
+      I: minecraft:iron_ingot
+      P: mekanized:precision_sawmill
+    result:
+      id: mekanized:basic_sawing_factory
+      count: 1
+  mekanized:factory/basic/smelting:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: minecraft:redstone
+      C: '#c:circuits/basic'
+      I: minecraft:iron_ingot
+      P: mekanized:energized_smelter
+    result:
+      id: mekanized:basic_smelting_factory
+      count: 1
+  mekanized:factory/elite/combining:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/reinforced'
+      C: '#c:circuits/elite'
+      I: minecraft:gold_ingot
+      P: mekanized:advanced_combining_factory
+    result:
+      id: mekanized:elite_combining_factory
+      count: 1
+  mekanized:factory/elite/compressing:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/reinforced'
+      C: '#c:circuits/elite'
+      I: minecraft:gold_ingot
+      P: mekanized:advanced_compressing_factory
+    result:
+      id: mekanized:elite_compressing_factory
+      count: 1
+  mekanized:factory/elite/crushing:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/reinforced'
+      C: '#c:circuits/elite'
+      I: minecraft:gold_ingot
+      P: mekanized:advanced_crushing_factory
+    result:
+      id: mekanized:elite_crushing_factory
+      count: 1
+  mekanized:factory/elite/enriching:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/reinforced'
+      C: '#c:circuits/elite'
+      I: minecraft:gold_ingot
+      P: mekanized:advanced_enriching_factory
+    result:
+      id: mekanized:elite_enriching_factory
+      count: 1
+  mekanized:factory/elite/infusing:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/reinforced'
+      C: '#c:circuits/elite'
+      I: minecraft:gold_ingot
+      P: mekanized:advanced_infusing_factory
+    result:
+      id: mekanized:elite_infusing_factory
+      count: 1
+  mekanized:factory/elite/injecting:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/reinforced'
+      C: '#c:circuits/elite'
+      I: minecraft:gold_ingot
+      P: mekanized:advanced_injecting_factory
+    result:
+      id: mekanized:elite_injecting_factory
+      count: 1
+  mekanized:factory/elite/purifying:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/reinforced'
+      C: '#c:circuits/elite'
+      I: minecraft:gold_ingot
+      P: mekanized:advanced_purifying_factory
+    result:
+      id: mekanized:elite_purifying_factory
+      count: 1
+  mekanized:factory/elite/sawing:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/reinforced'
+      C: '#c:circuits/elite'
+      I: minecraft:gold_ingot
+      P: mekanized:advanced_sawing_factory
+    result:
+      id: mekanized:elite_sawing_factory
+      count: 1
+  mekanized:factory/elite/smelting:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/reinforced'
+      C: '#c:circuits/elite'
+      I: minecraft:gold_ingot
+      P: mekanized:advanced_smelting_factory
+    result:
+      id: mekanized:elite_smelting_factory
+      count: 1
+  mekanized:factory/ultimate/combining:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      C: '#c:circuits/ultimate'
+      I: minecraft:diamond
+      P: mekanized:elite_combining_factory
+    result:
+      id: mekanized:ultimate_combining_factory
+      count: 1
+  mekanized:factory/ultimate/compressing:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      C: '#c:circuits/ultimate'
+      I: minecraft:diamond
+      P: mekanized:elite_compressing_factory
+    result:
+      id: mekanized:ultimate_compressing_factory
+      count: 1
+  mekanized:factory/ultimate/crushing:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      C: '#c:circuits/ultimate'
+      I: minecraft:diamond
+      P: mekanized:elite_crushing_factory
+    result:
+      id: mekanized:ultimate_crushing_factory
+      count: 1
+  mekanized:factory/ultimate/enriching:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      C: '#c:circuits/ultimate'
+      I: minecraft:diamond
+      P: mekanized:elite_enriching_factory
+    result:
+      id: mekanized:ultimate_enriching_factory
+      count: 1
+  mekanized:factory/ultimate/infusing:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      C: '#c:circuits/ultimate'
+      I: minecraft:diamond
+      P: mekanized:elite_infusing_factory
+    result:
+      id: mekanized:ultimate_infusing_factory
+      count: 1
+  mekanized:factory/ultimate/injecting:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      C: '#c:circuits/ultimate'
+      I: minecraft:diamond
+      P: mekanized:elite_injecting_factory
+    result:
+      id: mekanized:ultimate_injecting_factory
+      count: 1
+  mekanized:factory/ultimate/purifying:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      C: '#c:circuits/ultimate'
+      I: minecraft:diamond
+      P: mekanized:elite_purifying_factory
+    result:
+      id: mekanized:ultimate_purifying_factory
+      count: 1
+  mekanized:factory/ultimate/sawing:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      C: '#c:circuits/ultimate'
+      I: minecraft:diamond
+      P: mekanized:elite_sawing_factory
+    result:
+      id: mekanized:ultimate_sawing_factory
+      count: 1
+  mekanized:factory/ultimate/smelting:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      C: '#c:circuits/ultimate'
+      I: minecraft:diamond
+      P: mekanized:elite_smelting_factory
+    result:
+      id: mekanized:ultimate_smelting_factory
+      count: 1
+  mekanized:logistical_sorter:
+    type: shaped
+    pattern:
+    - I#I
+    - ICI
+    - III
+    ingredients:
+      '#': minecraft:piston
+      C: '#c:circuits/basic'
+      I: minecraft:iron_ingot
+    result:
+      id: mekanized:logistical_sorter
+      count: 1
+  mekanized:tier_installer/advanced:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      C: '#c:circuits/advanced'
+      I: '#c:ingots/osmium'
+      P: '#minecraft:planks'
+    result:
+      id: mekanized:advanced_tier_installer
+      count: 1
+  mekanized:tier_installer/basic:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: minecraft:redstone
+      C: '#c:circuits/basic'
+      I: minecraft:iron_ingot
+      P: '#minecraft:planks'
+    result:
+      id: mekanized:basic_tier_installer
+      count: 1
+  mekanized:tier_installer/elite:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/reinforced'
+      C: '#c:circuits/elite'
+      I: minecraft:gold_ingot
+      P: '#minecraft:planks'
+    result:
+      id: mekanized:elite_tier_installer
+      count: 1
+  mekanized:tier_installer/ultimate:
+    type: shaped
+    pattern:
+    - ACA
+    - IPI
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      C: '#c:circuits/ultimate'
+      I: minecraft:diamond
+      P: '#minecraft:planks'
+    result:
+      id: mekanized:ultimate_tier_installer
+      count: 1
+  mekanized:transmitter/logistical_transporter/advanced:
+    type: shaped
+    pattern:
+    - PPP
+    - PAP
+    - PPP
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      P: mekanized:basic_logistical_transporter
+    result:
+      id: mekanized:advanced_logistical_transporter
+      count: 8
+  mekanized:transmitter/logistical_transporter/basic:
+    type: shaped
+    pattern:
+    - S#S
+    ingredients:
+      '#': '#c:circuits/basic'
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:basic_logistical_transporter
+      count: 8
+  mekanized:transmitter/logistical_transporter/elite:
+    type: shaped
+    pattern:
+    - PPP
+    - PAP
+    - PPP
+    ingredients:
+      A: '#mekanized:alloys/reinforced'
+      P: mekanized:advanced_logistical_transporter
+    result:
+      id: mekanized:elite_logistical_transporter
+      count: 8
+  mekanized:transmitter/logistical_transporter/ultimate:
+    type: shaped
+    pattern:
+    - PPP
+    - PAP
+    - PPP
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      P: mekanized:elite_logistical_transporter
+    result:
+      id: mekanized:ultimate_logistical_transporter
+      count: 8

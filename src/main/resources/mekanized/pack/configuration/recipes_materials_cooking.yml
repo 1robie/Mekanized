@@ -1,0 +1,306 @@
+# Mekanized materials_cooking recipes for CraftEngine, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+recipes:
+  mekanized:processing/bronze/ingot/from_dust_blasting:
+    type: blasting
+    experience: 0.35
+    time: 100
+    ingredient: mekanized:dust_bronze
+    result:
+      id: mekanized:ingot_bronze
+      count: 1
+  mekanized:processing/bronze/ingot/from_dust_smelting:
+    type: smelting
+    experience: 0.35
+    time: 200
+    ingredient: mekanized:dust_bronze
+    result:
+      id: mekanized:ingot_bronze
+      count: 1
+  mekanized:processing/copper/ingot/from_dust_blasting:
+    type: blasting
+    experience: 0.35
+    time: 100
+    ingredient: mekanized:dust_copper
+    result:
+      id: minecraft:copper_ingot
+      count: 1
+  mekanized:processing/copper/ingot/from_dust_smelting:
+    type: smelting
+    experience: 0.35
+    time: 200
+    ingredient: mekanized:dust_copper
+    result:
+      id: minecraft:copper_ingot
+      count: 1
+  mekanized:processing/gold/ingot/from_dust_blasting:
+    type: blasting
+    experience: 0.5
+    time: 100
+    ingredient: mekanized:dust_gold
+    result:
+      id: minecraft:gold_ingot
+      count: 1
+  mekanized:processing/gold/ingot/from_dust_smelting:
+    type: smelting
+    experience: 0.5
+    time: 200
+    ingredient: mekanized:dust_gold
+    result:
+      id: minecraft:gold_ingot
+      count: 1
+  mekanized:processing/iron/ingot/from_dust_blasting:
+    type: blasting
+    experience: 0.35
+    time: 100
+    ingredient: mekanized:dust_iron
+    result:
+      id: minecraft:iron_ingot
+      count: 1
+  mekanized:processing/iron/ingot/from_dust_smelting:
+    type: smelting
+    experience: 0.35
+    time: 200
+    ingredient: mekanized:dust_iron
+    result:
+      id: minecraft:iron_ingot
+      count: 1
+  mekanized:processing/lead/ingot/from_dust_blasting:
+    type: blasting
+    experience: 0.3
+    time: 100
+    ingredient: mekanized:dust_lead
+    result:
+      id: mekanized:ingot_lead
+      count: 1
+  mekanized:processing/lead/ingot/from_dust_smelting:
+    type: smelting
+    experience: 0.3
+    time: 200
+    ingredient: mekanized:dust_lead
+    result:
+      id: mekanized:ingot_lead
+      count: 1
+  mekanized:processing/lead/ingot/from_ore_blasting:
+    type: blasting
+    experience: 0.6
+    time: 100
+    ingredient:
+    - mekanized:lead_ore
+    - mekanized:deepslate_lead_ore
+    result:
+      id: mekanized:ingot_lead
+      count: 1
+  mekanized:processing/lead/ingot/from_ore_smelting:
+    type: smelting
+    experience: 0.6
+    time: 200
+    ingredient:
+    - mekanized:lead_ore
+    - mekanized:deepslate_lead_ore
+    result:
+      id: mekanized:ingot_lead
+      count: 1
+  mekanized:processing/lead/ingot/from_raw_blasting:
+    type: blasting
+    experience: 0.6
+    time: 100
+    ingredient: mekanized:raw_lead
+    result:
+      id: mekanized:ingot_lead
+      count: 1
+  mekanized:processing/lead/ingot/from_raw_smelting:
+    type: smelting
+    experience: 0.6
+    time: 200
+    ingredient: mekanized:raw_lead
+    result:
+      id: mekanized:ingot_lead
+      count: 1
+  mekanized:processing/netherite/ingot_from_dust_blasting:
+    type: blasting
+    experience: 1.0
+    time: 100
+    ingredient: mekanized:dust_netherite
+    result:
+      id: minecraft:netherite_ingot
+      count: 1
+  mekanized:processing/netherite/ingot_from_dust_smelting:
+    type: smelting
+    experience: 1.0
+    time: 200
+    ingredient: mekanized:dust_netherite
+    result:
+      id: minecraft:netherite_ingot
+      count: 1
+  mekanized:processing/osmium/ingot/from_dust_blasting:
+    type: blasting
+    experience: 0.3
+    time: 100
+    ingredient: mekanized:dust_osmium
+    result:
+      id: mekanized:ingot_osmium
+      count: 1
+  mekanized:processing/osmium/ingot/from_dust_smelting:
+    type: smelting
+    experience: 0.3
+    time: 200
+    ingredient: mekanized:dust_osmium
+    result:
+      id: mekanized:ingot_osmium
+      count: 1
+  mekanized:processing/osmium/ingot/from_ore_blasting:
+    type: blasting
+    experience: 0.6
+    time: 100
+    ingredient:
+    - mekanized:osmium_ore
+    - mekanized:deepslate_osmium_ore
+    result:
+      id: mekanized:ingot_osmium
+      count: 1
+  mekanized:processing/osmium/ingot/from_ore_smelting:
+    type: smelting
+    experience: 0.6
+    time: 200
+    ingredient:
+    - mekanized:osmium_ore
+    - mekanized:deepslate_osmium_ore
+    result:
+      id: mekanized:ingot_osmium
+      count: 1
+  mekanized:processing/osmium/ingot/from_raw_blasting:
+    type: blasting
+    experience: 0.6
+    time: 100
+    ingredient: mekanized:raw_osmium
+    result:
+      id: mekanized:ingot_osmium
+      count: 1
+  mekanized:processing/osmium/ingot/from_raw_smelting:
+    type: smelting
+    experience: 0.6
+    time: 200
+    ingredient: mekanized:raw_osmium
+    result:
+      id: mekanized:ingot_osmium
+      count: 1
+  mekanized:processing/steel/ingot/from_dust_blasting:
+    type: blasting
+    experience: 0.4
+    time: 100
+    ingredient: mekanized:dust_steel
+    result:
+      id: mekanized:ingot_steel
+      count: 1
+  mekanized:processing/steel/ingot/from_dust_smelting:
+    type: smelting
+    experience: 0.4
+    time: 200
+    ingredient: mekanized:dust_steel
+    result:
+      id: mekanized:ingot_steel
+      count: 1
+  mekanized:processing/tin/ingot/from_dust_blasting:
+    type: blasting
+    experience: 0.3
+    time: 100
+    ingredient: mekanized:dust_tin
+    result:
+      id: mekanized:ingot_tin
+      count: 1
+  mekanized:processing/tin/ingot/from_dust_smelting:
+    type: smelting
+    experience: 0.3
+    time: 200
+    ingredient: mekanized:dust_tin
+    result:
+      id: mekanized:ingot_tin
+      count: 1
+  mekanized:processing/tin/ingot/from_ore_blasting:
+    type: blasting
+    experience: 0.6
+    time: 100
+    ingredient:
+    - mekanized:tin_ore
+    - mekanized:deepslate_tin_ore
+    result:
+      id: mekanized:ingot_tin
+      count: 1
+  mekanized:processing/tin/ingot/from_ore_smelting:
+    type: smelting
+    experience: 0.6
+    time: 200
+    ingredient:
+    - mekanized:tin_ore
+    - mekanized:deepslate_tin_ore
+    result:
+      id: mekanized:ingot_tin
+      count: 1
+  mekanized:processing/tin/ingot/from_raw_blasting:
+    type: blasting
+    experience: 0.6
+    time: 100
+    ingredient: mekanized:raw_tin
+    result:
+      id: mekanized:ingot_tin
+      count: 1
+  mekanized:processing/tin/ingot/from_raw_smelting:
+    type: smelting
+    experience: 0.6
+    time: 200
+    ingredient: mekanized:raw_tin
+    result:
+      id: mekanized:ingot_tin
+      count: 1
+  mekanized:processing/uranium/ingot/from_dust_blasting:
+    type: blasting
+    experience: 0.3
+    time: 100
+    ingredient: mekanized:dust_uranium
+    result:
+      id: mekanized:ingot_uranium
+      count: 1
+  mekanized:processing/uranium/ingot/from_dust_smelting:
+    type: smelting
+    experience: 0.3
+    time: 200
+    ingredient: mekanized:dust_uranium
+    result:
+      id: mekanized:ingot_uranium
+      count: 1
+  mekanized:processing/uranium/ingot/from_ore_blasting:
+    type: blasting
+    experience: 0.6
+    time: 100
+    ingredient:
+    - mekanized:uranium_ore
+    - mekanized:deepslate_uranium_ore
+    result:
+      id: mekanized:ingot_uranium
+      count: 1
+  mekanized:processing/uranium/ingot/from_ore_smelting:
+    type: smelting
+    experience: 0.6
+    time: 200
+    ingredient:
+    - mekanized:uranium_ore
+    - mekanized:deepslate_uranium_ore
+    result:
+      id: mekanized:ingot_uranium
+      count: 1
+  mekanized:processing/uranium/ingot/from_raw_blasting:
+    type: blasting
+    experience: 0.6
+    time: 100
+    ingredient: mekanized:raw_uranium
+    result:
+      id: mekanized:ingot_uranium
+      count: 1
+  mekanized:processing/uranium/ingot/from_raw_smelting:
+    type: smelting
+    experience: 0.6
+    time: 200
+    ingredient: mekanized:raw_uranium
+    result:
+      id: mekanized:ingot_uranium
+      count: 1

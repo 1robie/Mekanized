@@ -1,0 +1,12 @@
+{
+  "parent": "mekanized:block/machine",
+  "textures": {
+    "sides": "mekanized:block/purification_chamber/right",
+    "front": "mekanized:block/purification_chamber/front",
+    "west": "mekanized:block/purification_chamber/right",
+    "east": "mekanized:block/purification_chamber/left",
+    "south": "mekanized:block/purification_chamber/back",
+    "up": "mekanized:block/purification_chamber/top",
+    "down": "mekanized:block/purification_chamber/bottom"
+  }
+}

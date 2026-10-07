@@ -1,0 +1,12 @@
+{
+  "parent": "mekanized:block/machine",
+  "textures": {
+    "sides": "mekanized:block/formulaic_assemblicator/right",
+    "front": "mekanized:block/formulaic_assemblicator/front",
+    "west": "mekanized:block/formulaic_assemblicator/right",
+    "east": "mekanized:block/formulaic_assemblicator/left",
+    "south": "mekanized:block/formulaic_assemblicator/back",
+    "up": "mekanized:block/formulaic_assemblicator/top",
+    "down": "mekanized:block/formulaic_assemblicator/bottom"
+  }
+}

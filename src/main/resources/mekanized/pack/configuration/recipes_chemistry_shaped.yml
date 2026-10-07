@@ -1,0 +1,423 @@
+# Mekanized chemistry_shaped recipes for CraftEngine, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+recipes:
+  mekanized:chemical_crystallizer:
+    type: shaped
+    pattern:
+    - IAI
+    - CXC
+    - IAI
+    ingredients:
+      A: '#c:gems/fluorite'
+      C: '#c:circuits/ultimate'
+      I: '#c:ingots/refined_obsidian'
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:chemical_crystallizer
+      count: 1
+  mekanized:chemical_dissolution_chamber:
+    type: shaped
+    pattern:
+    - ITI
+    - CXC
+    - ITI
+    ingredients:
+      C: '#c:circuits/ultimate'
+      I: '#c:ingots/refined_obsidian'
+      T: mekanized:basic_chemical_tank
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:chemical_dissolution_chamber
+      count: 1
+  mekanized:chemical_infuser:
+    type: shaped
+    pattern:
+    - ACA
+    - TXT
+    - ACA
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      C: '#c:circuits/basic'
+      T: mekanized:basic_chemical_tank
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:chemical_infuser
+      count: 1
+  mekanized:chemical_injection_chamber:
+    type: shaped
+    pattern:
+    - ACA
+    - I#I
+    - ACA
+    ingredients:
+      '#': mekanized:purification_chamber
+      A: '#mekanized:alloys/reinforced'
+      C: '#c:circuits/elite'
+      I: minecraft:gold_ingot
+    result:
+      id: mekanized:chemical_injection_chamber
+      count: 1
+  mekanized:chemical_oxidizer:
+    type: shaped
+    pattern:
+    - ACA
+    - P#T
+    - ACA
+    ingredients:
+      '#': mekanized:basic_fluid_tank
+      A: '#mekanized:alloys/infused'
+      C: '#c:circuits/basic'
+      P: minecraft:chest
+      T: mekanized:basic_chemical_tank
+    result:
+      id: mekanized:chemical_oxidizer
+      count: 1
+  mekanized:chemical_tank/advanced:
+    type: shaped
+    pattern:
+    - AOA
+    - OPO
+    - AOA
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      O: '#c:ingots/osmium'
+      P: mekanized:basic_chemical_tank
+    result:
+      id: mekanized:advanced_chemical_tank
+      count: 1
+  mekanized:chemical_tank/basic:
+    type: shaped
+    pattern:
+    - AOA
+    - O O
+    - AOA
+    ingredients:
+      A: minecraft:redstone
+      O: '#c:ingots/osmium'
+    result:
+      id: mekanized:basic_chemical_tank
+      count: 1
+  mekanized:chemical_tank/elite:
+    type: shaped
+    pattern:
+    - AOA
+    - OPO
+    - AOA
+    ingredients:
+      A: '#mekanized:alloys/reinforced'
+      O: '#c:ingots/osmium'
+      P: mekanized:advanced_chemical_tank
+    result:
+      id: mekanized:elite_chemical_tank
+      count: 1
+  mekanized:chemical_tank/ultimate:
+    type: shaped
+    pattern:
+    - AOA
+    - OPO
+    - AOA
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      O: '#c:ingots/osmium'
+      P: mekanized:elite_chemical_tank
+    result:
+      id: mekanized:ultimate_chemical_tank
+      count: 1
+  mekanized:chemical_washer:
+    type: shaped
+    pattern:
+    - IBI
+    - CXC
+    - ITI
+    ingredients:
+      B: mekanized:basic_fluid_tank
+      C: '#c:circuits/ultimate'
+      I: '#c:ingots/refined_obsidian'
+      T: mekanized:basic_chemical_tank
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:chemical_washer
+      count: 1
+  mekanized:electric_pump:
+    type: shaped
+    pattern:
+    - ' B '
+    - AXA
+    - OOO
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      B: minecraft:bucket
+      O: '#c:ingots/osmium'
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:electric_pump
+      count: 1
+  mekanized:electrolytic_core:
+    type: shaped
+    pattern:
+    - AOA
+    - IA#
+    - AOA
+    ingredients:
+      '#': '#c:dusts/gold'
+      A: '#mekanized:alloys/infused'
+      I: '#c:dusts/iron'
+      O: '#c:dusts/osmium'
+    result:
+      id: mekanized:electrolytic_core
+      count: 1
+  mekanized:electrolytic_separator:
+    type: shaped
+    pattern:
+    - IRI
+    - A#A
+    - IRI
+    ingredients:
+      '#': mekanized:electrolytic_core
+      A: '#mekanized:alloys/infused'
+      I: minecraft:iron_ingot
+      R: minecraft:redstone
+    result:
+      id: mekanized:electrolytic_separator
+      count: 1
+  mekanized:energy_cube/advanced:
+    type: shaped
+    pattern:
+    - AEA
+    - IPI
+    - AEA
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      E: mekanized:energy_tablet
+      I: '#c:ingots/osmium'
+      P: mekanized:basic_energy_cube
+    result:
+      id: mekanized:advanced_energy_cube
+      count: 1
+  mekanized:energy_cube/basic:
+    type: shaped
+    pattern:
+    - AEA
+    - IPI
+    - AEA
+    ingredients:
+      A: minecraft:redstone
+      E: mekanized:energy_tablet
+      I: minecraft:iron_ingot
+      P: mekanized:steel_casing
+    result:
+      id: mekanized:basic_energy_cube
+      count: 1
+  mekanized:energy_cube/elite:
+    type: shaped
+    pattern:
+    - AEA
+    - IPI
+    - AEA
+    ingredients:
+      A: '#mekanized:alloys/reinforced'
+      E: mekanized:energy_tablet
+      I: minecraft:gold_ingot
+      P: mekanized:advanced_energy_cube
+    result:
+      id: mekanized:elite_energy_cube
+      count: 1
+  mekanized:energy_cube/ultimate:
+    type: shaped
+    pattern:
+    - AEA
+    - IPI
+    - AEA
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      E: mekanized:energy_tablet
+      I: minecraft:diamond
+      P: mekanized:elite_energy_cube
+    result:
+      id: mekanized:ultimate_energy_cube
+      count: 1
+  mekanized:energy_tablet:
+    type: shaped
+    pattern:
+    - RIR
+    - AIA
+    - RIR
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      I: minecraft:gold_ingot
+      R: minecraft:redstone
+    result:
+      id: mekanized:energy_tablet
+      count: 1
+  mekanized:fluid_tank/advanced:
+    type: shaped
+    pattern:
+    - AIA
+    - IPI
+    - AIA
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      I: minecraft:iron_ingot
+      P: mekanized:basic_fluid_tank
+    result:
+      id: mekanized:advanced_fluid_tank
+      count: 1
+  mekanized:fluid_tank/basic:
+    type: shaped
+    pattern:
+    - AIA
+    - I I
+    - AIA
+    ingredients:
+      A: minecraft:redstone
+      I: minecraft:iron_ingot
+    result:
+      id: mekanized:basic_fluid_tank
+      count: 1
+  mekanized:fluid_tank/elite:
+    type: shaped
+    pattern:
+    - AIA
+    - IPI
+    - AIA
+    ingredients:
+      A: '#mekanized:alloys/reinforced'
+      I: minecraft:iron_ingot
+      P: mekanized:advanced_fluid_tank
+    result:
+      id: mekanized:elite_fluid_tank
+      count: 1
+  mekanized:fluid_tank/ultimate:
+    type: shaped
+    pattern:
+    - AIA
+    - IPI
+    - AIA
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      I: minecraft:iron_ingot
+      P: mekanized:elite_fluid_tank
+    result:
+      id: mekanized:ultimate_fluid_tank
+      count: 1
+  mekanized:generator/solar:
+    type: shaped
+    pattern:
+    - '###'
+    - AIA
+    - OEO
+    ingredients:
+      '#': mekanized:solar_panel
+      A: '#mekanized:alloys/infused'
+      E: mekanized:energy_tablet
+      I: minecraft:iron_ingot
+      O: '#c:ingots/osmium'
+    result:
+      id: mekanized:solar_generator
+      count: 1
+  mekanized:rotary_condensentrator:
+    type: shaped
+    pattern:
+    - GCG
+    - TE#
+    - GCG
+    ingredients:
+      '#': mekanized:basic_fluid_tank
+      C: '#c:circuits/basic'
+      E: mekanized:energy_tablet
+      G: minecraft:glass
+      T: mekanized:basic_chemical_tank
+    result:
+      id: mekanized:rotary_condensentrator
+      count: 1
+  mekanized:transmitter/mechanical_pipe/advanced:
+    type: shaped
+    pattern:
+    - PPP
+    - PAP
+    - PPP
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      P: mekanized:basic_mechanical_pipe
+    result:
+      id: mekanized:advanced_mechanical_pipe
+      count: 8
+  mekanized:transmitter/mechanical_pipe/basic:
+    type: shaped
+    pattern:
+    - S#S
+    ingredients:
+      '#': minecraft:bucket
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:basic_mechanical_pipe
+      count: 8
+  mekanized:transmitter/mechanical_pipe/elite:
+    type: shaped
+    pattern:
+    - PPP
+    - PAP
+    - PPP
+    ingredients:
+      A: '#mekanized:alloys/reinforced'
+      P: mekanized:advanced_mechanical_pipe
+    result:
+      id: mekanized:elite_mechanical_pipe
+      count: 8
+  mekanized:transmitter/mechanical_pipe/ultimate:
+    type: shaped
+    pattern:
+    - PPP
+    - PAP
+    - PPP
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      P: mekanized:elite_mechanical_pipe
+    result:
+      id: mekanized:ultimate_mechanical_pipe
+      count: 8
+  mekanized:transmitter/pressurized_tube/advanced:
+    type: shaped
+    pattern:
+    - PPP
+    - PAP
+    - PPP
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      P: mekanized:basic_pressurized_tube
+    result:
+      id: mekanized:advanced_pressurized_tube
+      count: 8
+  mekanized:transmitter/pressurized_tube/basic:
+    type: shaped
+    pattern:
+    - S#S
+    ingredients:
+      '#': minecraft:glass
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:basic_pressurized_tube
+      count: 8
+  mekanized:transmitter/pressurized_tube/elite:
+    type: shaped
+    pattern:
+    - PPP
+    - PAP
+    - PPP
+    ingredients:
+      A: '#mekanized:alloys/reinforced'
+      P: mekanized:advanced_pressurized_tube
+    result:
+      id: mekanized:elite_pressurized_tube
+      count: 8
+  mekanized:transmitter/pressurized_tube/ultimate:
+    type: shaped
+    pattern:
+    - PPP
+    - PAP
+    - PPP
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      P: mekanized:elite_pressurized_tube
+    result:
+      id: mekanized:ultimate_pressurized_tube
+      count: 8

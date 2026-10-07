@@ -1,0 +1,8 @@
+{
+  "parent": "mekanized:block/machine",
+  "textures": {
+    "sides": "mekanized:block/reactor_frame",
+    "front": "mekanized:block/reactor_frame",
+    "up": "mekanized:block/reactor_controller"
+  }
+}

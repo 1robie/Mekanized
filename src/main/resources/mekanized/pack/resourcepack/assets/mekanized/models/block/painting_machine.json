@@ -1,0 +1,12 @@
+{
+  "parent": "mekanized:block/machine_back_port",
+  "textures": {
+    "sides": "mekanized:block/painting_machine/right",
+    "front": "mekanized:block/painting_machine/front",
+    "west": "mekanized:block/painting_machine/right",
+    "east": "mekanized:block/painting_machine/left",
+    "back": "mekanized:block/painting_machine/back",
+    "up": "mekanized:block/painting_machine/top",
+    "down": "mekanized:block/painting_machine/bottom"
+  }
+}

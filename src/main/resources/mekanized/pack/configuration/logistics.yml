@@ -1,0 +1,2231 @@
+# Mekanized transporters, the logistical sorter, factories, tier installers and the configurator (Phase 4), based on Mekanism (MIT).
+items:
+  mekanized:display/logistical_sorter:
+    model: mekanized:block/logistical_sorter
+  mekanized:display/logistical_sorter/active:
+    model: mekanized:block/logistical_sorter_active
+  mekanized:logistical_sorter:
+    data:
+      item_name: <!i><lang:block.mekanized.logistical_sorter>
+    model: mekanized:block/logistical_sorter
+    behavior:
+      type: block_item
+      block: mekanized:logistical_sorter
+  mekanized:display/basic_smelting_factory:
+    model: mekanized:block/factory/smelting/basic
+  mekanized:display/basic_smelting_factory/active:
+    model: mekanized:block/factory/smelting/active/basic
+  mekanized:basic_smelting_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.basic_smelting_factory>
+    model: mekanized:block/factory/smelting/basic
+    behavior:
+      type: block_item
+      block: mekanized:basic_smelting_factory
+  mekanized:display/basic_enriching_factory:
+    model: mekanized:block/factory/enriching/basic
+  mekanized:display/basic_enriching_factory/active:
+    model: mekanized:block/factory/enriching/active/basic
+  mekanized:basic_enriching_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.basic_enriching_factory>
+    model: mekanized:block/factory/enriching/basic
+    behavior:
+      type: block_item
+      block: mekanized:basic_enriching_factory
+  mekanized:display/basic_crushing_factory:
+    model: mekanized:block/factory/crushing/basic
+  mekanized:display/basic_crushing_factory/active:
+    model: mekanized:block/factory/crushing/active/basic
+  mekanized:basic_crushing_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.basic_crushing_factory>
+    model: mekanized:block/factory/crushing/basic
+    behavior:
+      type: block_item
+      block: mekanized:basic_crushing_factory
+  mekanized:display/basic_compressing_factory:
+    model: mekanized:block/factory/compressing/basic
+  mekanized:display/basic_compressing_factory/active:
+    model: mekanized:block/factory/compressing/active/basic
+  mekanized:basic_compressing_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.basic_compressing_factory>
+    model: mekanized:block/factory/compressing/basic
+    behavior:
+      type: block_item
+      block: mekanized:basic_compressing_factory
+  mekanized:display/basic_combining_factory:
+    model: mekanized:block/factory/combining/basic
+  mekanized:display/basic_combining_factory/active:
+    model: mekanized:block/factory/combining/active/basic
+  mekanized:basic_combining_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.basic_combining_factory>
+    model: mekanized:block/factory/combining/basic
+    behavior:
+      type: block_item
+      block: mekanized:basic_combining_factory
+  mekanized:display/basic_purifying_factory:
+    model: mekanized:block/factory/purifying/basic
+  mekanized:display/basic_purifying_factory/active:
+    model: mekanized:block/factory/purifying/active/basic
+  mekanized:basic_purifying_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.basic_purifying_factory>
+    model: mekanized:block/factory/purifying/basic
+    behavior:
+      type: block_item
+      block: mekanized:basic_purifying_factory
+  mekanized:display/basic_injecting_factory:
+    model: mekanized:block/factory/injecting/basic
+  mekanized:display/basic_injecting_factory/active:
+    model: mekanized:block/factory/injecting/active/basic
+  mekanized:basic_injecting_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.basic_injecting_factory>
+    model: mekanized:block/factory/injecting/basic
+    behavior:
+      type: block_item
+      block: mekanized:basic_injecting_factory
+  mekanized:display/basic_infusing_factory:
+    model: mekanized:block/factory/infusing/basic
+  mekanized:display/basic_infusing_factory/active:
+    model: mekanized:block/factory/infusing/active/basic
+  mekanized:basic_infusing_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.basic_infusing_factory>
+    model: mekanized:block/factory/infusing/basic
+    behavior:
+      type: block_item
+      block: mekanized:basic_infusing_factory
+  mekanized:display/basic_sawing_factory:
+    model: mekanized:block/factory/sawing/basic
+  mekanized:display/basic_sawing_factory/active:
+    model: mekanized:block/factory/sawing/active/basic
+  mekanized:basic_sawing_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.basic_sawing_factory>
+    model: mekanized:block/factory/sawing/basic
+    behavior:
+      type: block_item
+      block: mekanized:basic_sawing_factory
+  mekanized:display/advanced_smelting_factory:
+    model: mekanized:block/factory/smelting/advanced
+  mekanized:display/advanced_smelting_factory/active:
+    model: mekanized:block/factory/smelting/active/advanced
+  mekanized:advanced_smelting_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.advanced_smelting_factory>
+    model: mekanized:block/factory/smelting/advanced
+    behavior:
+      type: block_item
+      block: mekanized:advanced_smelting_factory
+  mekanized:display/advanced_enriching_factory:
+    model: mekanized:block/factory/enriching/advanced
+  mekanized:display/advanced_enriching_factory/active:
+    model: mekanized:block/factory/enriching/active/advanced
+  mekanized:advanced_enriching_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.advanced_enriching_factory>
+    model: mekanized:block/factory/enriching/advanced
+    behavior:
+      type: block_item
+      block: mekanized:advanced_enriching_factory
+  mekanized:display/advanced_crushing_factory:
+    model: mekanized:block/factory/crushing/advanced
+  mekanized:display/advanced_crushing_factory/active:
+    model: mekanized:block/factory/crushing/active/advanced
+  mekanized:advanced_crushing_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.advanced_crushing_factory>
+    model: mekanized:block/factory/crushing/advanced
+    behavior:
+      type: block_item
+      block: mekanized:advanced_crushing_factory
+  mekanized:display/advanced_compressing_factory:
+    model: mekanized:block/factory/compressing/advanced
+  mekanized:display/advanced_compressing_factory/active:
+    model: mekanized:block/factory/compressing/active/advanced
+  mekanized:advanced_compressing_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.advanced_compressing_factory>
+    model: mekanized:block/factory/compressing/advanced
+    behavior:
+      type: block_item
+      block: mekanized:advanced_compressing_factory
+  mekanized:display/advanced_combining_factory:
+    model: mekanized:block/factory/combining/advanced
+  mekanized:display/advanced_combining_factory/active:
+    model: mekanized:block/factory/combining/active/advanced
+  mekanized:advanced_combining_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.advanced_combining_factory>
+    model: mekanized:block/factory/combining/advanced
+    behavior:
+      type: block_item
+      block: mekanized:advanced_combining_factory
+  mekanized:display/advanced_purifying_factory:
+    model: mekanized:block/factory/purifying/advanced
+  mekanized:display/advanced_purifying_factory/active:
+    model: mekanized:block/factory/purifying/active/advanced
+  mekanized:advanced_purifying_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.advanced_purifying_factory>
+    model: mekanized:block/factory/purifying/advanced
+    behavior:
+      type: block_item
+      block: mekanized:advanced_purifying_factory
+  mekanized:display/advanced_injecting_factory:
+    model: mekanized:block/factory/injecting/advanced
+  mekanized:display/advanced_injecting_factory/active:
+    model: mekanized:block/factory/injecting/active/advanced
+  mekanized:advanced_injecting_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.advanced_injecting_factory>
+    model: mekanized:block/factory/injecting/advanced
+    behavior:
+      type: block_item
+      block: mekanized:advanced_injecting_factory
+  mekanized:display/advanced_infusing_factory:
+    model: mekanized:block/factory/infusing/advanced
+  mekanized:display/advanced_infusing_factory/active:
+    model: mekanized:block/factory/infusing/active/advanced
+  mekanized:advanced_infusing_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.advanced_infusing_factory>
+    model: mekanized:block/factory/infusing/advanced
+    behavior:
+      type: block_item
+      block: mekanized:advanced_infusing_factory
+  mekanized:display/advanced_sawing_factory:
+    model: mekanized:block/factory/sawing/advanced
+  mekanized:display/advanced_sawing_factory/active:
+    model: mekanized:block/factory/sawing/active/advanced
+  mekanized:advanced_sawing_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.advanced_sawing_factory>
+    model: mekanized:block/factory/sawing/advanced
+    behavior:
+      type: block_item
+      block: mekanized:advanced_sawing_factory
+  mekanized:display/elite_smelting_factory:
+    model: mekanized:block/factory/smelting/elite
+  mekanized:display/elite_smelting_factory/active:
+    model: mekanized:block/factory/smelting/active/elite
+  mekanized:elite_smelting_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.elite_smelting_factory>
+    model: mekanized:block/factory/smelting/elite
+    behavior:
+      type: block_item
+      block: mekanized:elite_smelting_factory
+  mekanized:display/elite_enriching_factory:
+    model: mekanized:block/factory/enriching/elite
+  mekanized:display/elite_enriching_factory/active:
+    model: mekanized:block/factory/enriching/active/elite
+  mekanized:elite_enriching_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.elite_enriching_factory>
+    model: mekanized:block/factory/enriching/elite
+    behavior:
+      type: block_item
+      block: mekanized:elite_enriching_factory
+  mekanized:display/elite_crushing_factory:
+    model: mekanized:block/factory/crushing/elite
+  mekanized:display/elite_crushing_factory/active:
+    model: mekanized:block/factory/crushing/active/elite
+  mekanized:elite_crushing_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.elite_crushing_factory>
+    model: mekanized:block/factory/crushing/elite
+    behavior:
+      type: block_item
+      block: mekanized:elite_crushing_factory
+  mekanized:display/elite_compressing_factory:
+    model: mekanized:block/factory/compressing/elite
+  mekanized:display/elite_compressing_factory/active:
+    model: mekanized:block/factory/compressing/active/elite
+  mekanized:elite_compressing_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.elite_compressing_factory>
+    model: mekanized:block/factory/compressing/elite
+    behavior:
+      type: block_item
+      block: mekanized:elite_compressing_factory
+  mekanized:display/elite_combining_factory:
+    model: mekanized:block/factory/combining/elite
+  mekanized:display/elite_combining_factory/active:
+    model: mekanized:block/factory/combining/active/elite
+  mekanized:elite_combining_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.elite_combining_factory>
+    model: mekanized:block/factory/combining/elite
+    behavior:
+      type: block_item
+      block: mekanized:elite_combining_factory
+  mekanized:display/elite_purifying_factory:
+    model: mekanized:block/factory/purifying/elite
+  mekanized:display/elite_purifying_factory/active:
+    model: mekanized:block/factory/purifying/active/elite
+  mekanized:elite_purifying_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.elite_purifying_factory>
+    model: mekanized:block/factory/purifying/elite
+    behavior:
+      type: block_item
+      block: mekanized:elite_purifying_factory
+  mekanized:display/elite_injecting_factory:
+    model: mekanized:block/factory/injecting/elite
+  mekanized:display/elite_injecting_factory/active:
+    model: mekanized:block/factory/injecting/active/elite
+  mekanized:elite_injecting_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.elite_injecting_factory>
+    model: mekanized:block/factory/injecting/elite
+    behavior:
+      type: block_item
+      block: mekanized:elite_injecting_factory
+  mekanized:display/elite_infusing_factory:
+    model: mekanized:block/factory/infusing/elite
+  mekanized:display/elite_infusing_factory/active:
+    model: mekanized:block/factory/infusing/active/elite
+  mekanized:elite_infusing_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.elite_infusing_factory>
+    model: mekanized:block/factory/infusing/elite
+    behavior:
+      type: block_item
+      block: mekanized:elite_infusing_factory
+  mekanized:display/elite_sawing_factory:
+    model: mekanized:block/factory/sawing/elite
+  mekanized:display/elite_sawing_factory/active:
+    model: mekanized:block/factory/sawing/active/elite
+  mekanized:elite_sawing_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.elite_sawing_factory>
+    model: mekanized:block/factory/sawing/elite
+    behavior:
+      type: block_item
+      block: mekanized:elite_sawing_factory
+  mekanized:display/ultimate_smelting_factory:
+    model: mekanized:block/factory/smelting/ultimate
+  mekanized:display/ultimate_smelting_factory/active:
+    model: mekanized:block/factory/smelting/active/ultimate
+  mekanized:ultimate_smelting_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.ultimate_smelting_factory>
+    model: mekanized:block/factory/smelting/ultimate
+    behavior:
+      type: block_item
+      block: mekanized:ultimate_smelting_factory
+  mekanized:display/ultimate_enriching_factory:
+    model: mekanized:block/factory/enriching/ultimate
+  mekanized:display/ultimate_enriching_factory/active:
+    model: mekanized:block/factory/enriching/active/ultimate
+  mekanized:ultimate_enriching_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.ultimate_enriching_factory>
+    model: mekanized:block/factory/enriching/ultimate
+    behavior:
+      type: block_item
+      block: mekanized:ultimate_enriching_factory
+  mekanized:display/ultimate_crushing_factory:
+    model: mekanized:block/factory/crushing/ultimate
+  mekanized:display/ultimate_crushing_factory/active:
+    model: mekanized:block/factory/crushing/active/ultimate
+  mekanized:ultimate_crushing_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.ultimate_crushing_factory>
+    model: mekanized:block/factory/crushing/ultimate
+    behavior:
+      type: block_item
+      block: mekanized:ultimate_crushing_factory
+  mekanized:display/ultimate_compressing_factory:
+    model: mekanized:block/factory/compressing/ultimate
+  mekanized:display/ultimate_compressing_factory/active:
+    model: mekanized:block/factory/compressing/active/ultimate
+  mekanized:ultimate_compressing_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.ultimate_compressing_factory>
+    model: mekanized:block/factory/compressing/ultimate
+    behavior:
+      type: block_item
+      block: mekanized:ultimate_compressing_factory
+  mekanized:display/ultimate_combining_factory:
+    model: mekanized:block/factory/combining/ultimate
+  mekanized:display/ultimate_combining_factory/active:
+    model: mekanized:block/factory/combining/active/ultimate
+  mekanized:ultimate_combining_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.ultimate_combining_factory>
+    model: mekanized:block/factory/combining/ultimate
+    behavior:
+      type: block_item
+      block: mekanized:ultimate_combining_factory
+  mekanized:display/ultimate_purifying_factory:
+    model: mekanized:block/factory/purifying/ultimate
+  mekanized:display/ultimate_purifying_factory/active:
+    model: mekanized:block/factory/purifying/active/ultimate
+  mekanized:ultimate_purifying_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.ultimate_purifying_factory>
+    model: mekanized:block/factory/purifying/ultimate
+    behavior:
+      type: block_item
+      block: mekanized:ultimate_purifying_factory
+  mekanized:display/ultimate_injecting_factory:
+    model: mekanized:block/factory/injecting/ultimate
+  mekanized:display/ultimate_injecting_factory/active:
+    model: mekanized:block/factory/injecting/active/ultimate
+  mekanized:ultimate_injecting_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.ultimate_injecting_factory>
+    model: mekanized:block/factory/injecting/ultimate
+    behavior:
+      type: block_item
+      block: mekanized:ultimate_injecting_factory
+  mekanized:display/ultimate_infusing_factory:
+    model: mekanized:block/factory/infusing/ultimate
+  mekanized:display/ultimate_infusing_factory/active:
+    model: mekanized:block/factory/infusing/active/ultimate
+  mekanized:ultimate_infusing_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.ultimate_infusing_factory>
+    model: mekanized:block/factory/infusing/ultimate
+    behavior:
+      type: block_item
+      block: mekanized:ultimate_infusing_factory
+  mekanized:display/ultimate_sawing_factory:
+    model: mekanized:block/factory/sawing/ultimate
+  mekanized:display/ultimate_sawing_factory/active:
+    model: mekanized:block/factory/sawing/active/ultimate
+  mekanized:ultimate_sawing_factory:
+    data:
+      item_name: <!i><lang:block.mekanized.ultimate_sawing_factory>
+    model: mekanized:block/factory/sawing/ultimate
+    behavior:
+      type: block_item
+      block: mekanized:ultimate_sawing_factory
+  mekanized:cable_part/basic_logistical_transporter/center:
+    model: mekanized:block/cable/basic_logistical_transporter/center
+  mekanized:cable_part/basic_logistical_transporter/north:
+    model: mekanized:block/cable/basic_logistical_transporter/north
+  mekanized:cable_part/basic_logistical_transporter/north_pull:
+    model: mekanized:block/cable/basic_logistical_transporter/north_pull
+  mekanized:cable_part/basic_logistical_transporter/north_push:
+    model: mekanized:block/cable/basic_logistical_transporter/north_push
+  mekanized:cable_part/basic_logistical_transporter/south:
+    model: mekanized:block/cable/basic_logistical_transporter/south
+  mekanized:cable_part/basic_logistical_transporter/south_pull:
+    model: mekanized:block/cable/basic_logistical_transporter/south_pull
+  mekanized:cable_part/basic_logistical_transporter/south_push:
+    model: mekanized:block/cable/basic_logistical_transporter/south_push
+  mekanized:cable_part/basic_logistical_transporter/east:
+    model: mekanized:block/cable/basic_logistical_transporter/east
+  mekanized:cable_part/basic_logistical_transporter/east_pull:
+    model: mekanized:block/cable/basic_logistical_transporter/east_pull
+  mekanized:cable_part/basic_logistical_transporter/east_push:
+    model: mekanized:block/cable/basic_logistical_transporter/east_push
+  mekanized:cable_part/basic_logistical_transporter/west:
+    model: mekanized:block/cable/basic_logistical_transporter/west
+  mekanized:cable_part/basic_logistical_transporter/west_pull:
+    model: mekanized:block/cable/basic_logistical_transporter/west_pull
+  mekanized:cable_part/basic_logistical_transporter/west_push:
+    model: mekanized:block/cable/basic_logistical_transporter/west_push
+  mekanized:cable_part/basic_logistical_transporter/up:
+    model: mekanized:block/cable/basic_logistical_transporter/up
+  mekanized:cable_part/basic_logistical_transporter/up_pull:
+    model: mekanized:block/cable/basic_logistical_transporter/up_pull
+  mekanized:cable_part/basic_logistical_transporter/up_push:
+    model: mekanized:block/cable/basic_logistical_transporter/up_push
+  mekanized:cable_part/basic_logistical_transporter/down:
+    model: mekanized:block/cable/basic_logistical_transporter/down
+  mekanized:cable_part/basic_logistical_transporter/down_pull:
+    model: mekanized:block/cable/basic_logistical_transporter/down_pull
+  mekanized:cable_part/basic_logistical_transporter/down_push:
+    model: mekanized:block/cable/basic_logistical_transporter/down_push
+  mekanized:basic_logistical_transporter:
+    data:
+      item_name: <!i><lang:block.mekanized.basic_logistical_transporter>
+    model: mekanized:block/cable/basic_logistical_transporter/center
+    behavior:
+      type: block_item
+      block: mekanized:basic_logistical_transporter
+  mekanized:cable_part/advanced_logistical_transporter/center:
+    model: mekanized:block/cable/advanced_logistical_transporter/center
+  mekanized:cable_part/advanced_logistical_transporter/north:
+    model: mekanized:block/cable/advanced_logistical_transporter/north
+  mekanized:cable_part/advanced_logistical_transporter/north_pull:
+    model: mekanized:block/cable/advanced_logistical_transporter/north_pull
+  mekanized:cable_part/advanced_logistical_transporter/north_push:
+    model: mekanized:block/cable/advanced_logistical_transporter/north_push
+  mekanized:cable_part/advanced_logistical_transporter/south:
+    model: mekanized:block/cable/advanced_logistical_transporter/south
+  mekanized:cable_part/advanced_logistical_transporter/south_pull:
+    model: mekanized:block/cable/advanced_logistical_transporter/south_pull
+  mekanized:cable_part/advanced_logistical_transporter/south_push:
+    model: mekanized:block/cable/advanced_logistical_transporter/south_push
+  mekanized:cable_part/advanced_logistical_transporter/east:
+    model: mekanized:block/cable/advanced_logistical_transporter/east
+  mekanized:cable_part/advanced_logistical_transporter/east_pull:
+    model: mekanized:block/cable/advanced_logistical_transporter/east_pull
+  mekanized:cable_part/advanced_logistical_transporter/east_push:
+    model: mekanized:block/cable/advanced_logistical_transporter/east_push
+  mekanized:cable_part/advanced_logistical_transporter/west:
+    model: mekanized:block/cable/advanced_logistical_transporter/west
+  mekanized:cable_part/advanced_logistical_transporter/west_pull:
+    model: mekanized:block/cable/advanced_logistical_transporter/west_pull
+  mekanized:cable_part/advanced_logistical_transporter/west_push:
+    model: mekanized:block/cable/advanced_logistical_transporter/west_push
+  mekanized:cable_part/advanced_logistical_transporter/up:
+    model: mekanized:block/cable/advanced_logistical_transporter/up
+  mekanized:cable_part/advanced_logistical_transporter/up_pull:
+    model: mekanized:block/cable/advanced_logistical_transporter/up_pull
+  mekanized:cable_part/advanced_logistical_transporter/up_push:
+    model: mekanized:block/cable/advanced_logistical_transporter/up_push
+  mekanized:cable_part/advanced_logistical_transporter/down:
+    model: mekanized:block/cable/advanced_logistical_transporter/down
+  mekanized:cable_part/advanced_logistical_transporter/down_pull:
+    model: mekanized:block/cable/advanced_logistical_transporter/down_pull
+  mekanized:cable_part/advanced_logistical_transporter/down_push:
+    model: mekanized:block/cable/advanced_logistical_transporter/down_push
+  mekanized:advanced_logistical_transporter:
+    data:
+      item_name: <!i><lang:block.mekanized.advanced_logistical_transporter>
+    model: mekanized:block/cable/advanced_logistical_transporter/center
+    behavior:
+      type: block_item
+      block: mekanized:advanced_logistical_transporter
+  mekanized:cable_part/elite_logistical_transporter/center:
+    model: mekanized:block/cable/elite_logistical_transporter/center
+  mekanized:cable_part/elite_logistical_transporter/north:
+    model: mekanized:block/cable/elite_logistical_transporter/north
+  mekanized:cable_part/elite_logistical_transporter/north_pull:
+    model: mekanized:block/cable/elite_logistical_transporter/north_pull
+  mekanized:cable_part/elite_logistical_transporter/north_push:
+    model: mekanized:block/cable/elite_logistical_transporter/north_push
+  mekanized:cable_part/elite_logistical_transporter/south:
+    model: mekanized:block/cable/elite_logistical_transporter/south
+  mekanized:cable_part/elite_logistical_transporter/south_pull:
+    model: mekanized:block/cable/elite_logistical_transporter/south_pull
+  mekanized:cable_part/elite_logistical_transporter/south_push:
+    model: mekanized:block/cable/elite_logistical_transporter/south_push
+  mekanized:cable_part/elite_logistical_transporter/east:
+    model: mekanized:block/cable/elite_logistical_transporter/east
+  mekanized:cable_part/elite_logistical_transporter/east_pull:
+    model: mekanized:block/cable/elite_logistical_transporter/east_pull
+  mekanized:cable_part/elite_logistical_transporter/east_push:
+    model: mekanized:block/cable/elite_logistical_transporter/east_push
+  mekanized:cable_part/elite_logistical_transporter/west:
+    model: mekanized:block/cable/elite_logistical_transporter/west
+  mekanized:cable_part/elite_logistical_transporter/west_pull:
+    model: mekanized:block/cable/elite_logistical_transporter/west_pull
+  mekanized:cable_part/elite_logistical_transporter/west_push:
+    model: mekanized:block/cable/elite_logistical_transporter/west_push
+  mekanized:cable_part/elite_logistical_transporter/up:
+    model: mekanized:block/cable/elite_logistical_transporter/up
+  mekanized:cable_part/elite_logistical_transporter/up_pull:
+    model: mekanized:block/cable/elite_logistical_transporter/up_pull
+  mekanized:cable_part/elite_logistical_transporter/up_push:
+    model: mekanized:block/cable/elite_logistical_transporter/up_push
+  mekanized:cable_part/elite_logistical_transporter/down:
+    model: mekanized:block/cable/elite_logistical_transporter/down
+  mekanized:cable_part/elite_logistical_transporter/down_pull:
+    model: mekanized:block/cable/elite_logistical_transporter/down_pull
+  mekanized:cable_part/elite_logistical_transporter/down_push:
+    model: mekanized:block/cable/elite_logistical_transporter/down_push
+  mekanized:elite_logistical_transporter:
+    data:
+      item_name: <!i><lang:block.mekanized.elite_logistical_transporter>
+    model: mekanized:block/cable/elite_logistical_transporter/center
+    behavior:
+      type: block_item
+      block: mekanized:elite_logistical_transporter
+  mekanized:cable_part/ultimate_logistical_transporter/center:
+    model: mekanized:block/cable/ultimate_logistical_transporter/center
+  mekanized:cable_part/ultimate_logistical_transporter/north:
+    model: mekanized:block/cable/ultimate_logistical_transporter/north
+  mekanized:cable_part/ultimate_logistical_transporter/north_pull:
+    model: mekanized:block/cable/ultimate_logistical_transporter/north_pull
+  mekanized:cable_part/ultimate_logistical_transporter/north_push:
+    model: mekanized:block/cable/ultimate_logistical_transporter/north_push
+  mekanized:cable_part/ultimate_logistical_transporter/south:
+    model: mekanized:block/cable/ultimate_logistical_transporter/south
+  mekanized:cable_part/ultimate_logistical_transporter/south_pull:
+    model: mekanized:block/cable/ultimate_logistical_transporter/south_pull
+  mekanized:cable_part/ultimate_logistical_transporter/south_push:
+    model: mekanized:block/cable/ultimate_logistical_transporter/south_push
+  mekanized:cable_part/ultimate_logistical_transporter/east:
+    model: mekanized:block/cable/ultimate_logistical_transporter/east
+  mekanized:cable_part/ultimate_logistical_transporter/east_pull:
+    model: mekanized:block/cable/ultimate_logistical_transporter/east_pull
+  mekanized:cable_part/ultimate_logistical_transporter/east_push:
+    model: mekanized:block/cable/ultimate_logistical_transporter/east_push
+  mekanized:cable_part/ultimate_logistical_transporter/west:
+    model: mekanized:block/cable/ultimate_logistical_transporter/west
+  mekanized:cable_part/ultimate_logistical_transporter/west_pull:
+    model: mekanized:block/cable/ultimate_logistical_transporter/west_pull
+  mekanized:cable_part/ultimate_logistical_transporter/west_push:
+    model: mekanized:block/cable/ultimate_logistical_transporter/west_push
+  mekanized:cable_part/ultimate_logistical_transporter/up:
+    model: mekanized:block/cable/ultimate_logistical_transporter/up
+  mekanized:cable_part/ultimate_logistical_transporter/up_pull:
+    model: mekanized:block/cable/ultimate_logistical_transporter/up_pull
+  mekanized:cable_part/ultimate_logistical_transporter/up_push:
+    model: mekanized:block/cable/ultimate_logistical_transporter/up_push
+  mekanized:cable_part/ultimate_logistical_transporter/down:
+    model: mekanized:block/cable/ultimate_logistical_transporter/down
+  mekanized:cable_part/ultimate_logistical_transporter/down_pull:
+    model: mekanized:block/cable/ultimate_logistical_transporter/down_pull
+  mekanized:cable_part/ultimate_logistical_transporter/down_push:
+    model: mekanized:block/cable/ultimate_logistical_transporter/down_push
+  mekanized:ultimate_logistical_transporter:
+    data:
+      item_name: <!i><lang:block.mekanized.ultimate_logistical_transporter>
+    model: mekanized:block/cable/ultimate_logistical_transporter/center
+    behavior:
+      type: block_item
+      block: mekanized:ultimate_logistical_transporter
+  mekanized:basic_tier_installer:
+    data:
+      item_name: <!i><lang:item.mekanized.basic_tier_installer>
+    model: mekanized:item/basic_tier_installer
+  mekanized:advanced_tier_installer:
+    data:
+      item_name: <!i><lang:item.mekanized.advanced_tier_installer>
+    model: mekanized:item/advanced_tier_installer
+  mekanized:elite_tier_installer:
+    data:
+      item_name: <!i><lang:item.mekanized.elite_tier_installer>
+    model: mekanized:item/elite_tier_installer
+  mekanized:ultimate_tier_installer:
+    data:
+      item_name: <!i><lang:item.mekanized.ultimate_tier_installer>
+    model: mekanized:item/ultimate_tier_installer
+  mekanized:configurator:
+    data:
+      item_name: <!i><lang:item.mekanized.configurator>
+    model: mekanized:item/configurator
+    settings:
+      tags:
+      - c:tools/wrench
+      - mekanized:configurators
+blocks:
+  mekanized:logistical_sorter:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:logistical_sorter
+      keep_contents: true
+      display_item: mekanized:display/logistical_sorter
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270,up=270/0,down=90/0
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 6-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_p_block_models_logistical_sorter
+          model:
+            path: mekanized:block/display_empty/shared/p_block_models_logistical_sorter
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+        facing=up:
+          appearance: default
+        facing=down:
+          appearance: default
+  mekanized:basic_smelting_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:basic_smelting_factory
+      keep_contents: true
+      display_item: mekanized:display/basic_smelting_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_smelting_factory
+          model:
+            path: mekanized:block/display_empty/smelting_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:basic_enriching_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:basic_enriching_factory
+      keep_contents: true
+      display_item: mekanized:display/basic_enriching_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_enriching_factory
+          model:
+            path: mekanized:block/display_empty/enriching_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:basic_crushing_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:basic_crushing_factory
+      keep_contents: true
+      display_item: mekanized:display/basic_crushing_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_crushing_factory
+          model:
+            path: mekanized:block/display_empty/crushing_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:basic_compressing_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:basic_compressing_factory
+      keep_contents: true
+      display_item: mekanized:display/basic_compressing_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_compressing_factory
+          model:
+            path: mekanized:block/display_empty/compressing_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:basic_combining_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:basic_combining_factory
+      keep_contents: true
+      display_item: mekanized:display/basic_combining_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_combining_factory
+          model:
+            path: mekanized:block/display_empty/combining_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:basic_purifying_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:basic_purifying_factory
+      keep_contents: true
+      display_item: mekanized:display/basic_purifying_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_purifying_factory
+          model:
+            path: mekanized:block/display_empty/purifying_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:basic_injecting_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:basic_injecting_factory
+      keep_contents: true
+      display_item: mekanized:display/basic_injecting_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_injecting_factory
+          model:
+            path: mekanized:block/display_empty/injecting_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:basic_infusing_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:basic_infusing_factory
+      keep_contents: true
+      display_item: mekanized:display/basic_infusing_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_infusing_factory
+          model:
+            path: mekanized:block/display_empty/infusing_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:basic_sawing_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:basic_sawing_factory
+      keep_contents: true
+      display_item: mekanized:display/basic_sawing_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_sawing_factory
+          model:
+            path: mekanized:block/display_empty/sawing_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:advanced_smelting_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:advanced_smelting_factory
+      keep_contents: true
+      display_item: mekanized:display/advanced_smelting_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_smelting_factory
+          model:
+            path: mekanized:block/display_empty/smelting_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:advanced_enriching_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:advanced_enriching_factory
+      keep_contents: true
+      display_item: mekanized:display/advanced_enriching_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_enriching_factory
+          model:
+            path: mekanized:block/display_empty/enriching_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:advanced_crushing_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:advanced_crushing_factory
+      keep_contents: true
+      display_item: mekanized:display/advanced_crushing_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_crushing_factory
+          model:
+            path: mekanized:block/display_empty/crushing_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:advanced_compressing_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:advanced_compressing_factory
+      keep_contents: true
+      display_item: mekanized:display/advanced_compressing_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_compressing_factory
+          model:
+            path: mekanized:block/display_empty/compressing_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:advanced_combining_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:advanced_combining_factory
+      keep_contents: true
+      display_item: mekanized:display/advanced_combining_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_combining_factory
+          model:
+            path: mekanized:block/display_empty/combining_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:advanced_purifying_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:advanced_purifying_factory
+      keep_contents: true
+      display_item: mekanized:display/advanced_purifying_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_purifying_factory
+          model:
+            path: mekanized:block/display_empty/purifying_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:advanced_injecting_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:advanced_injecting_factory
+      keep_contents: true
+      display_item: mekanized:display/advanced_injecting_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_injecting_factory
+          model:
+            path: mekanized:block/display_empty/injecting_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:advanced_infusing_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:advanced_infusing_factory
+      keep_contents: true
+      display_item: mekanized:display/advanced_infusing_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_infusing_factory
+          model:
+            path: mekanized:block/display_empty/infusing_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:advanced_sawing_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:advanced_sawing_factory
+      keep_contents: true
+      display_item: mekanized:display/advanced_sawing_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_sawing_factory
+          model:
+            path: mekanized:block/display_empty/sawing_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:elite_smelting_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:elite_smelting_factory
+      keep_contents: true
+      display_item: mekanized:display/elite_smelting_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_smelting_factory
+          model:
+            path: mekanized:block/display_empty/smelting_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:elite_enriching_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:elite_enriching_factory
+      keep_contents: true
+      display_item: mekanized:display/elite_enriching_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_enriching_factory
+          model:
+            path: mekanized:block/display_empty/enriching_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:elite_crushing_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:elite_crushing_factory
+      keep_contents: true
+      display_item: mekanized:display/elite_crushing_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_crushing_factory
+          model:
+            path: mekanized:block/display_empty/crushing_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:elite_compressing_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:elite_compressing_factory
+      keep_contents: true
+      display_item: mekanized:display/elite_compressing_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_compressing_factory
+          model:
+            path: mekanized:block/display_empty/compressing_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:elite_combining_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:elite_combining_factory
+      keep_contents: true
+      display_item: mekanized:display/elite_combining_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_combining_factory
+          model:
+            path: mekanized:block/display_empty/combining_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:elite_purifying_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:elite_purifying_factory
+      keep_contents: true
+      display_item: mekanized:display/elite_purifying_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_purifying_factory
+          model:
+            path: mekanized:block/display_empty/purifying_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:elite_injecting_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:elite_injecting_factory
+      keep_contents: true
+      display_item: mekanized:display/elite_injecting_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_injecting_factory
+          model:
+            path: mekanized:block/display_empty/injecting_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:elite_infusing_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:elite_infusing_factory
+      keep_contents: true
+      display_item: mekanized:display/elite_infusing_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_infusing_factory
+          model:
+            path: mekanized:block/display_empty/infusing_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:elite_sawing_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:elite_sawing_factory
+      keep_contents: true
+      display_item: mekanized:display/elite_sawing_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_sawing_factory
+          model:
+            path: mekanized:block/display_empty/sawing_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:ultimate_smelting_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:ultimate_smelting_factory
+      keep_contents: true
+      display_item: mekanized:display/ultimate_smelting_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_smelting_factory
+          model:
+            path: mekanized:block/display_empty/smelting_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:ultimate_enriching_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:ultimate_enriching_factory
+      keep_contents: true
+      display_item: mekanized:display/ultimate_enriching_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_enriching_factory
+          model:
+            path: mekanized:block/display_empty/enriching_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:ultimate_crushing_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:ultimate_crushing_factory
+      keep_contents: true
+      display_item: mekanized:display/ultimate_crushing_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_crushing_factory
+          model:
+            path: mekanized:block/display_empty/crushing_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:ultimate_compressing_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:ultimate_compressing_factory
+      keep_contents: true
+      display_item: mekanized:display/ultimate_compressing_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_compressing_factory
+          model:
+            path: mekanized:block/display_empty/compressing_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:ultimate_combining_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:ultimate_combining_factory
+      keep_contents: true
+      display_item: mekanized:display/ultimate_combining_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_combining_factory
+          model:
+            path: mekanized:block/display_empty/combining_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:ultimate_purifying_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:ultimate_purifying_factory
+      keep_contents: true
+      display_item: mekanized:display/ultimate_purifying_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_purifying_factory
+          model:
+            path: mekanized:block/display_empty/purifying_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:ultimate_injecting_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:ultimate_injecting_factory
+      keep_contents: true
+      display_item: mekanized:display/ultimate_injecting_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_injecting_factory
+          model:
+            path: mekanized:block/display_empty/injecting_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:ultimate_infusing_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:ultimate_infusing_factory
+      keep_contents: true
+      display_item: mekanized:display/ultimate_infusing_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_infusing_factory
+          model:
+            path: mekanized:block/display_empty/infusing_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:ultimate_sawing_factory:
+    behavior:
+      type: machineengine:machine
+      machine: mekanized:ultimate_sawing_factory
+      keep_contents: true
+      display_item: mekanized:display/ultimate_sawing_factory
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_sawing_factory
+          model:
+            path: mekanized:block/display_empty/sawing_factory
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+  mekanized:basic_logistical_transporter:
+    behavior:
+      type: machineengine:transport
+      transport: mekanized:basic_logistical_transporter
+      connection_items: mekanized:cable_part/basic_logistical_transporter
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: sapling
+        id: mekanized_universal_cable
+      model:
+        path: mekanized:block/display_empty/universal_cable
+  mekanized:advanced_logistical_transporter:
+    behavior:
+      type: machineengine:transport
+      transport: mekanized:advanced_logistical_transporter
+      connection_items: mekanized:cable_part/advanced_logistical_transporter
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: sapling
+        id: mekanized_universal_cable
+      model:
+        path: mekanized:block/display_empty/universal_cable
+  mekanized:elite_logistical_transporter:
+    behavior:
+      type: machineengine:transport
+      transport: mekanized:elite_logistical_transporter
+      connection_items: mekanized:cable_part/elite_logistical_transporter
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: sapling
+        id: mekanized_universal_cable
+      model:
+        path: mekanized:block/display_empty/universal_cable
+  mekanized:ultimate_logistical_transporter:
+    behavior:
+      type: machineengine:transport
+      transport: mekanized:ultimate_logistical_transporter
+      connection_items: mekanized:cable_part/ultimate_logistical_transporter
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: default:settings/transparent_1x1x1
+      overrides:
+        hardness: 3.5
+        resistance: 8.0
+        push_reaction: block
+        tags:
+        - minecraft:mineable/pickaxe
+        correct_tools:
+        - '#minecraft:pickaxes'
+        required_break_power: 1
+    state:
+      auto_state:
+        type: sapling
+        id: mekanized_universal_cable
+      model:
+        path: mekanized:block/display_empty/universal_cable

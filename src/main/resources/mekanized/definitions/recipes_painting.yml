@@ -1,0 +1,2948 @@
+# Mekanized painting recipes, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+# Edit freely: updates replace this file only while it is unedited; delete it to get the defaults back.
+# Durations are ticks; energy is Joules per tick. Phase 6 of MEKANIZED_PLAN.md.
+recipes:
+  mekanized:painting/banner/black:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:black
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - not:
+          item: minecraft:black_banner
+      amount: 1
+    outputs:
+    - item: minecraft:black_banner
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/banner/blue:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:blue
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - not:
+          item: minecraft:blue_banner
+      amount: 1
+    outputs:
+    - item: minecraft:blue_banner
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/banner/brown:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:brown
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - not:
+          item: minecraft:brown_banner
+      amount: 1
+    outputs:
+    - item: minecraft:brown_banner
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/banner/cyan:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:cyan
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - not:
+          item: minecraft:cyan_banner
+      amount: 1
+    outputs:
+    - item: minecraft:cyan_banner
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/banner/gray:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:gray
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - not:
+          item: minecraft:gray_banner
+      amount: 1
+    outputs:
+    - item: minecraft:gray_banner
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/banner/green:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:green
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - not:
+          item: minecraft:green_banner
+      amount: 1
+    outputs:
+    - item: minecraft:green_banner
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/banner/light_blue:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:light_blue
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - not:
+          item: minecraft:light_blue_banner
+      amount: 1
+    outputs:
+    - item: minecraft:light_blue_banner
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/banner/light_gray:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:light_gray
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - not:
+          item: minecraft:light_gray_banner
+      amount: 1
+    outputs:
+    - item: minecraft:light_gray_banner
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/banner/lime:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:lime
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - not:
+          item: minecraft:lime_banner
+      amount: 1
+    outputs:
+    - item: minecraft:lime_banner
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/banner/magenta:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:magenta
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - not:
+          item: minecraft:magenta_banner
+      amount: 1
+    outputs:
+    - item: minecraft:magenta_banner
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/banner/orange:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:orange
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - not:
+          item: minecraft:orange_banner
+      amount: 1
+    outputs:
+    - item: minecraft:orange_banner
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/banner/pink:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:pink
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - not:
+          item: minecraft:pink_banner
+      amount: 1
+    outputs:
+    - item: minecraft:pink_banner
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/banner/purple:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:purple
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - not:
+          item: minecraft:purple_banner
+      amount: 1
+    outputs:
+    - item: minecraft:purple_banner
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/banner/red:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:red
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - not:
+          item: minecraft:red_banner
+      amount: 1
+    outputs:
+    - item: minecraft:red_banner
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/banner/white:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:white
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - not:
+          item: minecraft:white_banner
+      amount: 1
+    outputs:
+    - item: minecraft:white_banner
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/banner/yellow:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:yellow
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/banners
+      - not:
+          item: minecraft:yellow_banner
+      amount: 1
+    outputs:
+    - item: minecraft:yellow_banner
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/bed/black:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:black
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/beds
+      - not:
+          item: minecraft:black_bed
+      amount: 1
+    outputs:
+    - item: minecraft:black_bed
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/bed/blue:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:blue
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/beds
+      - not:
+          item: minecraft:blue_bed
+      amount: 1
+    outputs:
+    - item: minecraft:blue_bed
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/bed/brown:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:brown
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/beds
+      - not:
+          item: minecraft:brown_bed
+      amount: 1
+    outputs:
+    - item: minecraft:brown_bed
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/bed/cyan:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:cyan
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/beds
+      - not:
+          item: minecraft:cyan_bed
+      amount: 1
+    outputs:
+    - item: minecraft:cyan_bed
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/bed/gray:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:gray
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/beds
+      - not:
+          item: minecraft:gray_bed
+      amount: 1
+    outputs:
+    - item: minecraft:gray_bed
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/bed/green:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:green
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/beds
+      - not:
+          item: minecraft:green_bed
+      amount: 1
+    outputs:
+    - item: minecraft:green_bed
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/bed/light_blue:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:light_blue
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/beds
+      - not:
+          item: minecraft:light_blue_bed
+      amount: 1
+    outputs:
+    - item: minecraft:light_blue_bed
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/bed/light_gray:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:light_gray
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/beds
+      - not:
+          item: minecraft:light_gray_bed
+      amount: 1
+    outputs:
+    - item: minecraft:light_gray_bed
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/bed/lime:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:lime
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/beds
+      - not:
+          item: minecraft:lime_bed
+      amount: 1
+    outputs:
+    - item: minecraft:lime_bed
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/bed/magenta:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:magenta
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/beds
+      - not:
+          item: minecraft:magenta_bed
+      amount: 1
+    outputs:
+    - item: minecraft:magenta_bed
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/bed/orange:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:orange
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/beds
+      - not:
+          item: minecraft:orange_bed
+      amount: 1
+    outputs:
+    - item: minecraft:orange_bed
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/bed/pink:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:pink
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/beds
+      - not:
+          item: minecraft:pink_bed
+      amount: 1
+    outputs:
+    - item: minecraft:pink_bed
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/bed/purple:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:purple
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/beds
+      - not:
+          item: minecraft:purple_bed
+      amount: 1
+    outputs:
+    - item: minecraft:purple_bed
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/bed/red:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:red
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/beds
+      - not:
+          item: minecraft:red_bed
+      amount: 1
+    outputs:
+    - item: minecraft:red_bed
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/bed/white:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:white
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/beds
+      - not:
+          item: minecraft:white_bed
+      amount: 1
+    outputs:
+    - item: minecraft:white_bed
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/bed/yellow:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:yellow
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/beds
+      - not:
+          item: minecraft:yellow_bed
+      amount: 1
+    outputs:
+    - item: minecraft:yellow_bed
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/candle/black:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:black
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - not:
+          item: minecraft:black_candle
+      amount: 1
+    outputs:
+    - item: minecraft:black_candle
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/candle/blue:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:blue
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - not:
+          item: minecraft:blue_candle
+      amount: 1
+    outputs:
+    - item: minecraft:blue_candle
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/candle/brown:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:brown
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - not:
+          item: minecraft:brown_candle
+      amount: 1
+    outputs:
+    - item: minecraft:brown_candle
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/candle/cyan:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:cyan
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - not:
+          item: minecraft:cyan_candle
+      amount: 1
+    outputs:
+    - item: minecraft:cyan_candle
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/candle/gray:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:gray
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - not:
+          item: minecraft:gray_candle
+      amount: 1
+    outputs:
+    - item: minecraft:gray_candle
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/candle/green:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:green
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - not:
+          item: minecraft:green_candle
+      amount: 1
+    outputs:
+    - item: minecraft:green_candle
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/candle/light_blue:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:light_blue
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - not:
+          item: minecraft:light_blue_candle
+      amount: 1
+    outputs:
+    - item: minecraft:light_blue_candle
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/candle/light_gray:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:light_gray
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - not:
+          item: minecraft:light_gray_candle
+      amount: 1
+    outputs:
+    - item: minecraft:light_gray_candle
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/candle/lime:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:lime
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - not:
+          item: minecraft:lime_candle
+      amount: 1
+    outputs:
+    - item: minecraft:lime_candle
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/candle/magenta:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:magenta
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - not:
+          item: minecraft:magenta_candle
+      amount: 1
+    outputs:
+    - item: minecraft:magenta_candle
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/candle/orange:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:orange
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - not:
+          item: minecraft:orange_candle
+      amount: 1
+    outputs:
+    - item: minecraft:orange_candle
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/candle/pink:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:pink
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - not:
+          item: minecraft:pink_candle
+      amount: 1
+    outputs:
+    - item: minecraft:pink_candle
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/candle/purple:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:purple
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - not:
+          item: minecraft:purple_candle
+      amount: 1
+    outputs:
+    - item: minecraft:purple_candle
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/candle/red:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:red
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - not:
+          item: minecraft:red_candle
+      amount: 1
+    outputs:
+    - item: minecraft:red_candle
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/candle/white:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:white
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - not:
+          item: minecraft:white_candle
+      amount: 1
+    outputs:
+    - item: minecraft:white_candle
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/candle/yellow:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:yellow
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/candle
+      - not:
+          item: minecraft:yellow_candle
+      amount: 1
+    outputs:
+    - item: minecraft:yellow_candle
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/carpet/black:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:black
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - not:
+          item: minecraft:black_carpet
+      amount: 1
+    outputs:
+    - item: minecraft:black_carpet
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/carpet/blue:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:blue
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - not:
+          item: minecraft:blue_carpet
+      amount: 1
+    outputs:
+    - item: minecraft:blue_carpet
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/carpet/brown:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:brown
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - not:
+          item: minecraft:brown_carpet
+      amount: 1
+    outputs:
+    - item: minecraft:brown_carpet
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/carpet/cyan:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:cyan
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - not:
+          item: minecraft:cyan_carpet
+      amount: 1
+    outputs:
+    - item: minecraft:cyan_carpet
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/carpet/gray:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:gray
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - not:
+          item: minecraft:gray_carpet
+      amount: 1
+    outputs:
+    - item: minecraft:gray_carpet
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/carpet/green:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:green
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - not:
+          item: minecraft:green_carpet
+      amount: 1
+    outputs:
+    - item: minecraft:green_carpet
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/carpet/light_blue:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:light_blue
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - not:
+          item: minecraft:light_blue_carpet
+      amount: 1
+    outputs:
+    - item: minecraft:light_blue_carpet
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/carpet/light_gray:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:light_gray
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - not:
+          item: minecraft:light_gray_carpet
+      amount: 1
+    outputs:
+    - item: minecraft:light_gray_carpet
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/carpet/lime:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:lime
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - not:
+          item: minecraft:lime_carpet
+      amount: 1
+    outputs:
+    - item: minecraft:lime_carpet
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/carpet/magenta:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:magenta
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - not:
+          item: minecraft:magenta_carpet
+      amount: 1
+    outputs:
+    - item: minecraft:magenta_carpet
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/carpet/orange:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:orange
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - not:
+          item: minecraft:orange_carpet
+      amount: 1
+    outputs:
+    - item: minecraft:orange_carpet
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/carpet/pink:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:pink
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - not:
+          item: minecraft:pink_carpet
+      amount: 1
+    outputs:
+    - item: minecraft:pink_carpet
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/carpet/purple:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:purple
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - not:
+          item: minecraft:purple_carpet
+      amount: 1
+    outputs:
+    - item: minecraft:purple_carpet
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/carpet/red:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:red
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - not:
+          item: minecraft:red_carpet
+      amount: 1
+    outputs:
+    - item: minecraft:red_carpet
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/carpet/white:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:white
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - not:
+          item: minecraft:white_carpet
+      amount: 1
+    outputs:
+    - item: minecraft:white_carpet
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/carpet/yellow:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:yellow
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/carpets
+      - not:
+          item: minecraft:yellow_carpet
+      amount: 1
+    outputs:
+    - item: minecraft:yellow_carpet
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete/black:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:black
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - not:
+          item: minecraft:black_concrete
+      amount: 1
+    outputs:
+    - item: minecraft:black_concrete
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete/blue:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:blue
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - not:
+          item: minecraft:blue_concrete
+      amount: 1
+    outputs:
+    - item: minecraft:blue_concrete
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete/brown:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:brown
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - not:
+          item: minecraft:brown_concrete
+      amount: 1
+    outputs:
+    - item: minecraft:brown_concrete
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete/cyan:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:cyan
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - not:
+          item: minecraft:cyan_concrete
+      amount: 1
+    outputs:
+    - item: minecraft:cyan_concrete
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete/gray:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:gray
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - not:
+          item: minecraft:gray_concrete
+      amount: 1
+    outputs:
+    - item: minecraft:gray_concrete
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete/green:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:green
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - not:
+          item: minecraft:green_concrete
+      amount: 1
+    outputs:
+    - item: minecraft:green_concrete
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete/light_blue:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:light_blue
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - not:
+          item: minecraft:light_blue_concrete
+      amount: 1
+    outputs:
+    - item: minecraft:light_blue_concrete
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete/light_gray:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:light_gray
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - not:
+          item: minecraft:light_gray_concrete
+      amount: 1
+    outputs:
+    - item: minecraft:light_gray_concrete
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete/lime:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:lime
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - not:
+          item: minecraft:lime_concrete
+      amount: 1
+    outputs:
+    - item: minecraft:lime_concrete
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete/magenta:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:magenta
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - not:
+          item: minecraft:magenta_concrete
+      amount: 1
+    outputs:
+    - item: minecraft:magenta_concrete
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete/orange:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:orange
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - not:
+          item: minecraft:orange_concrete
+      amount: 1
+    outputs:
+    - item: minecraft:orange_concrete
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete/pink:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:pink
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - not:
+          item: minecraft:pink_concrete
+      amount: 1
+    outputs:
+    - item: minecraft:pink_concrete
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete/purple:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:purple
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - not:
+          item: minecraft:purple_concrete
+      amount: 1
+    outputs:
+    - item: minecraft:purple_concrete
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete/red:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:red
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - not:
+          item: minecraft:red_concrete
+      amount: 1
+    outputs:
+    - item: minecraft:red_concrete
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete/white:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:white
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - not:
+          item: minecraft:white_concrete
+      amount: 1
+    outputs:
+    - item: minecraft:white_concrete
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete/yellow:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:yellow
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete
+      - not:
+          item: minecraft:yellow_concrete
+      amount: 1
+    outputs:
+    - item: minecraft:yellow_concrete
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete_powder/black:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:black
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - not:
+          item: minecraft:black_concrete_powder
+      amount: 1
+    outputs:
+    - item: minecraft:black_concrete_powder
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete_powder/blue:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:blue
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - not:
+          item: minecraft:blue_concrete_powder
+      amount: 1
+    outputs:
+    - item: minecraft:blue_concrete_powder
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete_powder/brown:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:brown
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - not:
+          item: minecraft:brown_concrete_powder
+      amount: 1
+    outputs:
+    - item: minecraft:brown_concrete_powder
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete_powder/cyan:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:cyan
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - not:
+          item: minecraft:cyan_concrete_powder
+      amount: 1
+    outputs:
+    - item: minecraft:cyan_concrete_powder
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete_powder/gray:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:gray
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - not:
+          item: minecraft:gray_concrete_powder
+      amount: 1
+    outputs:
+    - item: minecraft:gray_concrete_powder
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete_powder/green:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:green
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - not:
+          item: minecraft:green_concrete_powder
+      amount: 1
+    outputs:
+    - item: minecraft:green_concrete_powder
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete_powder/light_blue:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:light_blue
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - not:
+          item: minecraft:light_blue_concrete_powder
+      amount: 1
+    outputs:
+    - item: minecraft:light_blue_concrete_powder
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete_powder/light_gray:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:light_gray
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - not:
+          item: minecraft:light_gray_concrete_powder
+      amount: 1
+    outputs:
+    - item: minecraft:light_gray_concrete_powder
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete_powder/lime:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:lime
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - not:
+          item: minecraft:lime_concrete_powder
+      amount: 1
+    outputs:
+    - item: minecraft:lime_concrete_powder
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete_powder/magenta:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:magenta
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - not:
+          item: minecraft:magenta_concrete_powder
+      amount: 1
+    outputs:
+    - item: minecraft:magenta_concrete_powder
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete_powder/orange:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:orange
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - not:
+          item: minecraft:orange_concrete_powder
+      amount: 1
+    outputs:
+    - item: minecraft:orange_concrete_powder
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete_powder/pink:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:pink
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - not:
+          item: minecraft:pink_concrete_powder
+      amount: 1
+    outputs:
+    - item: minecraft:pink_concrete_powder
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete_powder/purple:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:purple
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - not:
+          item: minecraft:purple_concrete_powder
+      amount: 1
+    outputs:
+    - item: minecraft:purple_concrete_powder
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete_powder/red:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:red
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - not:
+          item: minecraft:red_concrete_powder
+      amount: 1
+    outputs:
+    - item: minecraft:red_concrete_powder
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete_powder/white:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:white
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - not:
+          item: minecraft:white_concrete_powder
+      amount: 1
+    outputs:
+    - item: minecraft:white_concrete_powder
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/concrete_powder/yellow:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:yellow
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/concrete_powder
+      - not:
+          item: minecraft:yellow_concrete_powder
+      amount: 1
+    outputs:
+    - item: minecraft:yellow_concrete_powder
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/dye/black:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:black
+      amount: 256
+    - item: mekanized:dye_base
+      amount: 1
+    outputs:
+    - item: minecraft:black_dye
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/dye/blue:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:blue
+      amount: 256
+    - item: mekanized:dye_base
+      amount: 1
+    outputs:
+    - item: minecraft:blue_dye
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/dye/brown:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:brown
+      amount: 256
+    - item: mekanized:dye_base
+      amount: 1
+    outputs:
+    - item: minecraft:brown_dye
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/dye/cyan:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:cyan
+      amount: 256
+    - item: mekanized:dye_base
+      amount: 1
+    outputs:
+    - item: minecraft:cyan_dye
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/dye/gray:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:gray
+      amount: 256
+    - item: mekanized:dye_base
+      amount: 1
+    outputs:
+    - item: minecraft:gray_dye
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/dye/green:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:green
+      amount: 256
+    - item: mekanized:dye_base
+      amount: 1
+    outputs:
+    - item: minecraft:green_dye
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/dye/light_blue:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:light_blue
+      amount: 256
+    - item: mekanized:dye_base
+      amount: 1
+    outputs:
+    - item: minecraft:light_blue_dye
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/dye/light_gray:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:light_gray
+      amount: 256
+    - item: mekanized:dye_base
+      amount: 1
+    outputs:
+    - item: minecraft:light_gray_dye
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/dye/lime:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:lime
+      amount: 256
+    - item: mekanized:dye_base
+      amount: 1
+    outputs:
+    - item: minecraft:lime_dye
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/dye/magenta:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:magenta
+      amount: 256
+    - item: mekanized:dye_base
+      amount: 1
+    outputs:
+    - item: minecraft:magenta_dye
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/dye/orange:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:orange
+      amount: 256
+    - item: mekanized:dye_base
+      amount: 1
+    outputs:
+    - item: minecraft:orange_dye
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/dye/pink:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:pink
+      amount: 256
+    - item: mekanized:dye_base
+      amount: 1
+    outputs:
+    - item: minecraft:pink_dye
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/dye/purple:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:purple
+      amount: 256
+    - item: mekanized:dye_base
+      amount: 1
+    outputs:
+    - item: minecraft:purple_dye
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/dye/red:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:red
+      amount: 256
+    - item: mekanized:dye_base
+      amount: 1
+    outputs:
+    - item: minecraft:red_dye
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/dye/white:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:white
+      amount: 256
+    - item: mekanized:dye_base
+      amount: 1
+    outputs:
+    - item: minecraft:white_dye
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/dye/yellow:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:yellow
+      amount: 256
+    - item: mekanized:dye_base
+      amount: 1
+    outputs:
+    - item: minecraft:yellow_dye
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass/black:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:black
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - not:
+          item: minecraft:black_stained_glass
+      amount: 1
+    outputs:
+    - item: minecraft:black_stained_glass
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass/blue:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:blue
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - not:
+          item: minecraft:blue_stained_glass
+      amount: 1
+    outputs:
+    - item: minecraft:blue_stained_glass
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass/brown:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:brown
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - not:
+          item: minecraft:brown_stained_glass
+      amount: 1
+    outputs:
+    - item: minecraft:brown_stained_glass
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass/cyan:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:cyan
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - not:
+          item: minecraft:cyan_stained_glass
+      amount: 1
+    outputs:
+    - item: minecraft:cyan_stained_glass
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass/gray:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:gray
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - not:
+          item: minecraft:gray_stained_glass
+      amount: 1
+    outputs:
+    - item: minecraft:gray_stained_glass
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass/green:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:green
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - not:
+          item: minecraft:green_stained_glass
+      amount: 1
+    outputs:
+    - item: minecraft:green_stained_glass
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass/light_blue:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:light_blue
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - not:
+          item: minecraft:light_blue_stained_glass
+      amount: 1
+    outputs:
+    - item: minecraft:light_blue_stained_glass
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass/light_gray:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:light_gray
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - not:
+          item: minecraft:light_gray_stained_glass
+      amount: 1
+    outputs:
+    - item: minecraft:light_gray_stained_glass
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass/lime:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:lime
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - not:
+          item: minecraft:lime_stained_glass
+      amount: 1
+    outputs:
+    - item: minecraft:lime_stained_glass
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass/magenta:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:magenta
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - not:
+          item: minecraft:magenta_stained_glass
+      amount: 1
+    outputs:
+    - item: minecraft:magenta_stained_glass
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass/orange:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:orange
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - not:
+          item: minecraft:orange_stained_glass
+      amount: 1
+    outputs:
+    - item: minecraft:orange_stained_glass
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass/pink:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:pink
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - not:
+          item: minecraft:pink_stained_glass
+      amount: 1
+    outputs:
+    - item: minecraft:pink_stained_glass
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass/purple:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:purple
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - not:
+          item: minecraft:purple_stained_glass
+      amount: 1
+    outputs:
+    - item: minecraft:purple_stained_glass
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass/red:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:red
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - not:
+          item: minecraft:red_stained_glass
+      amount: 1
+    outputs:
+    - item: minecraft:red_stained_glass
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass/white:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:white
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - not:
+          item: minecraft:white_stained_glass
+      amount: 1
+    outputs:
+    - item: minecraft:white_stained_glass
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass/yellow:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:yellow
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass
+      - not:
+          item: minecraft:yellow_stained_glass
+      amount: 1
+    outputs:
+    - item: minecraft:yellow_stained_glass
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass_pane/black:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:black
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - not:
+          item: minecraft:black_stained_glass_pane
+      amount: 1
+    outputs:
+    - item: minecraft:black_stained_glass_pane
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass_pane/blue:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:blue
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - not:
+          item: minecraft:blue_stained_glass_pane
+      amount: 1
+    outputs:
+    - item: minecraft:blue_stained_glass_pane
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass_pane/brown:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:brown
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - not:
+          item: minecraft:brown_stained_glass_pane
+      amount: 1
+    outputs:
+    - item: minecraft:brown_stained_glass_pane
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass_pane/cyan:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:cyan
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - not:
+          item: minecraft:cyan_stained_glass_pane
+      amount: 1
+    outputs:
+    - item: minecraft:cyan_stained_glass_pane
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass_pane/gray:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:gray
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - not:
+          item: minecraft:gray_stained_glass_pane
+      amount: 1
+    outputs:
+    - item: minecraft:gray_stained_glass_pane
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass_pane/green:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:green
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - not:
+          item: minecraft:green_stained_glass_pane
+      amount: 1
+    outputs:
+    - item: minecraft:green_stained_glass_pane
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass_pane/light_blue:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:light_blue
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - not:
+          item: minecraft:light_blue_stained_glass_pane
+      amount: 1
+    outputs:
+    - item: minecraft:light_blue_stained_glass_pane
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass_pane/light_gray:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:light_gray
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - not:
+          item: minecraft:light_gray_stained_glass_pane
+      amount: 1
+    outputs:
+    - item: minecraft:light_gray_stained_glass_pane
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass_pane/lime:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:lime
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - not:
+          item: minecraft:lime_stained_glass_pane
+      amount: 1
+    outputs:
+    - item: minecraft:lime_stained_glass_pane
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass_pane/magenta:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:magenta
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - not:
+          item: minecraft:magenta_stained_glass_pane
+      amount: 1
+    outputs:
+    - item: minecraft:magenta_stained_glass_pane
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass_pane/orange:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:orange
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - not:
+          item: minecraft:orange_stained_glass_pane
+      amount: 1
+    outputs:
+    - item: minecraft:orange_stained_glass_pane
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass_pane/pink:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:pink
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - not:
+          item: minecraft:pink_stained_glass_pane
+      amount: 1
+    outputs:
+    - item: minecraft:pink_stained_glass_pane
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass_pane/purple:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:purple
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - not:
+          item: minecraft:purple_stained_glass_pane
+      amount: 1
+    outputs:
+    - item: minecraft:purple_stained_glass_pane
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass_pane/red:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:red
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - not:
+          item: minecraft:red_stained_glass_pane
+      amount: 1
+    outputs:
+    - item: minecraft:red_stained_glass_pane
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass_pane/white:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:white
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - not:
+          item: minecraft:white_stained_glass_pane
+      amount: 1
+    outputs:
+    - item: minecraft:white_stained_glass_pane
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/glass_pane/yellow:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:yellow
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/glass_panes
+      - not:
+          item: minecraft:yellow_stained_glass_pane
+      amount: 1
+    outputs:
+    - item: minecraft:yellow_stained_glass_pane
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/terracotta/black:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:black
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - not:
+          item: minecraft:black_terracotta
+      amount: 1
+    outputs:
+    - item: minecraft:black_terracotta
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/terracotta/blue:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:blue
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - not:
+          item: minecraft:blue_terracotta
+      amount: 1
+    outputs:
+    - item: minecraft:blue_terracotta
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/terracotta/brown:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:brown
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - not:
+          item: minecraft:brown_terracotta
+      amount: 1
+    outputs:
+    - item: minecraft:brown_terracotta
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/terracotta/cyan:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:cyan
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - not:
+          item: minecraft:cyan_terracotta
+      amount: 1
+    outputs:
+    - item: minecraft:cyan_terracotta
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/terracotta/gray:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:gray
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - not:
+          item: minecraft:gray_terracotta
+      amount: 1
+    outputs:
+    - item: minecraft:gray_terracotta
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/terracotta/green:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:green
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - not:
+          item: minecraft:green_terracotta
+      amount: 1
+    outputs:
+    - item: minecraft:green_terracotta
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/terracotta/light_blue:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:light_blue
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - not:
+          item: minecraft:light_blue_terracotta
+      amount: 1
+    outputs:
+    - item: minecraft:light_blue_terracotta
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/terracotta/light_gray:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:light_gray
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - not:
+          item: minecraft:light_gray_terracotta
+      amount: 1
+    outputs:
+    - item: minecraft:light_gray_terracotta
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/terracotta/lime:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:lime
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - not:
+          item: minecraft:lime_terracotta
+      amount: 1
+    outputs:
+    - item: minecraft:lime_terracotta
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/terracotta/magenta:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:magenta
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - not:
+          item: minecraft:magenta_terracotta
+      amount: 1
+    outputs:
+    - item: minecraft:magenta_terracotta
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/terracotta/orange:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:orange
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - not:
+          item: minecraft:orange_terracotta
+      amount: 1
+    outputs:
+    - item: minecraft:orange_terracotta
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/terracotta/pink:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:pink
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - not:
+          item: minecraft:pink_terracotta
+      amount: 1
+    outputs:
+    - item: minecraft:pink_terracotta
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/terracotta/purple:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:purple
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - not:
+          item: minecraft:purple_terracotta
+      amount: 1
+    outputs:
+    - item: minecraft:purple_terracotta
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/terracotta/red:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:red
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - not:
+          item: minecraft:red_terracotta
+      amount: 1
+    outputs:
+    - item: minecraft:red_terracotta
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/terracotta/white:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:white
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - not:
+          item: minecraft:white_terracotta
+      amount: 1
+    outputs:
+    - item: minecraft:white_terracotta
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/terracotta/yellow:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:yellow
+      amount: 32
+    - all:
+      - item-tag: mekanized:colorable/terracotta
+      - not:
+          item: minecraft:yellow_terracotta
+      amount: 1
+    outputs:
+    - item: minecraft:yellow_terracotta
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/wool/black:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:black
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - not:
+          item: minecraft:black_wool
+      amount: 1
+    outputs:
+    - item: minecraft:black_wool
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/wool/blue:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:blue
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - not:
+          item: minecraft:blue_wool
+      amount: 1
+    outputs:
+    - item: minecraft:blue_wool
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/wool/brown:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:brown
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - not:
+          item: minecraft:brown_wool
+      amount: 1
+    outputs:
+    - item: minecraft:brown_wool
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/wool/cyan:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:cyan
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - not:
+          item: minecraft:cyan_wool
+      amount: 1
+    outputs:
+    - item: minecraft:cyan_wool
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/wool/gray:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:gray
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - not:
+          item: minecraft:gray_wool
+      amount: 1
+    outputs:
+    - item: minecraft:gray_wool
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/wool/green:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:green
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - not:
+          item: minecraft:green_wool
+      amount: 1
+    outputs:
+    - item: minecraft:green_wool
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/wool/light_blue:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:light_blue
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - not:
+          item: minecraft:light_blue_wool
+      amount: 1
+    outputs:
+    - item: minecraft:light_blue_wool
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/wool/light_gray:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:light_gray
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - not:
+          item: minecraft:light_gray_wool
+      amount: 1
+    outputs:
+    - item: minecraft:light_gray_wool
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/wool/lime:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:lime
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - not:
+          item: minecraft:lime_wool
+      amount: 1
+    outputs:
+    - item: minecraft:lime_wool
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/wool/magenta:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:magenta
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - not:
+          item: minecraft:magenta_wool
+      amount: 1
+    outputs:
+    - item: minecraft:magenta_wool
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/wool/orange:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:orange
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - not:
+          item: minecraft:orange_wool
+      amount: 1
+    outputs:
+    - item: minecraft:orange_wool
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/wool/pink:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:pink
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - not:
+          item: minecraft:pink_wool
+      amount: 1
+    outputs:
+    - item: minecraft:pink_wool
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/wool/purple:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:purple
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - not:
+          item: minecraft:purple_wool
+      amount: 1
+    outputs:
+    - item: minecraft:purple_wool
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/wool/red:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:red
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - not:
+          item: minecraft:red_wool
+      amount: 1
+    outputs:
+    - item: minecraft:red_wool
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/wool/white:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:white
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - not:
+          item: minecraft:white_wool
+      amount: 1
+    outputs:
+    - item: minecraft:white_wool
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100
+  mekanized:painting/wool/yellow:
+    type: mekanized:painting
+    duration: 256
+    inputs:
+    - type: mekanized:yellow
+      amount: 256
+    - all:
+      - item-tag: mekanized:colorable/wool
+      - not:
+          item: minecraft:yellow_wool
+      amount: 1
+    outputs:
+    - item: minecraft:yellow_wool
+      amount: 1
+    cost-per-tick:
+    - type: machineengine:energy
+      amount: 100

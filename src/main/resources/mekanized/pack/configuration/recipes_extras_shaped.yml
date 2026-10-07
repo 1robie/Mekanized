@@ -1,0 +1,178 @@
+# Mekanized extras_shaped recipes for CraftEngine, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+recipes:
+  mekanized:dimensional_stabilizer:
+    type: shaped
+    pattern:
+    - ICI
+    - ADA
+    - ICI
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      C: '#c:circuits/ultimate'
+      D: minecraft:diamond_block
+      I: '#c:ingots/refined_obsidian'
+    result:
+      id: mekanized:dimensional_stabilizer
+      count: 1
+  mekanized:dosimeter:
+    type: shaped
+    pattern:
+    - ' I '
+    - IRI
+    - ' I '
+    ingredients:
+      I: '#c:ingots/lead'
+      R: minecraft:redstone
+    result:
+      id: mekanized:dosimeter
+      count: 1
+  mekanized:geiger_counter:
+    type: shaped
+    pattern:
+    - ' I '
+    - ICI
+    - ' I '
+    ingredients:
+      C: '#c:circuits/basic'
+      I: '#c:ingots/lead'
+    result:
+      id: mekanized:geiger_counter
+      count: 1
+  mekanized:modification_station:
+    type: shaped
+    pattern:
+    - PWP
+    - CXC
+    - PAP
+    ingredients:
+      A: '#c:pellets/polonium'
+      C: '#c:circuits/ultimate'
+      P: mekanized:hdpe_sheet
+      W:
+      - minecraft:chest
+      - minecraft:trapped_chest
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:modification_station
+      count: 1
+  mekanized:module_dosimeter_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - APA
+    - HHH
+    ingredients:
+      '#': mekanized:dosimeter
+      A: '#c:alloys/advanced'
+      H: mekanized:hdpe_sheet
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_dosimeter_unit
+      count: 1
+  mekanized:module_geiger_unit:
+    type: shaped
+    pattern:
+    - A#A
+    - APA
+    - HHH
+    ingredients:
+      '#': mekanized:geiger_counter
+      A: '#c:alloys/advanced'
+      H: mekanized:hdpe_sheet
+      P: mekanized:module_base
+    result:
+      id: mekanized:module_geiger_unit
+      count: 1
+  mekanized:nutritional_liquifier:
+    type: shaped
+    pattern:
+    - RCR
+    - '#X#'
+    - RCR
+    ingredients:
+      '#': minecraft:bowl
+      C: '#c:circuits/basic'
+      R: minecraft:redstone
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:nutritional_liquifier
+      count: 1
+  mekanized:quantum_entangloporter:
+    type: shaped
+    pattern:
+    - ICI
+    - ATA
+    - ICI
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      C: '#c:circuits/ultimate'
+      I: '#c:ingots/refined_obsidian'
+      T: mekanized:teleportation_core
+    result:
+      id: mekanized:quantum_entangloporter
+      count: 1
+  mekanized:radioactive_waste_barrel:
+    type: shaped
+    pattern:
+    - SIS
+    - I I
+    - SIS
+    ingredients:
+      I: '#c:ingots/lead'
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:radioactive_waste_barrel
+      count: 1
+  mekanized:upgrade/anchor:
+    type: shaped
+    pattern:
+    - ' G '
+    - A#A
+    - ' G '
+    ingredients:
+      '#': '#c:dusts/diamond'
+      A: '#mekanized:alloys/infused'
+      G: minecraft:glass
+    result:
+      id: mekanized:upgrade_anchor
+      count: 1
+  mekanized:upgrade/chemical:
+    type: shaped
+    pattern:
+    - ' G '
+    - A#A
+    - ' G '
+    ingredients:
+      '#': '#c:dusts/iron'
+      A: '#mekanized:alloys/infused'
+      G: minecraft:glass
+    result:
+      id: mekanized:upgrade_chemical
+      count: 1
+  mekanized:upgrade/filter:
+    type: shaped
+    pattern:
+    - ' G '
+    - A#A
+    - ' G '
+    ingredients:
+      '#': '#c:dusts/tin'
+      A: '#mekanized:alloys/infused'
+      G: minecraft:glass
+    result:
+      id: mekanized:upgrade_filter
+      count: 1
+  mekanized:upgrade/stone_generator:
+    type: shaped
+    pattern:
+    - ' G '
+    - '#AB'
+    - ' G '
+    ingredients:
+      '#': minecraft:water_bucket
+      A: '#mekanized:alloys/infused'
+      B: minecraft:lava_bucket
+      G: minecraft:glass
+    result:
+      id: mekanized:upgrade_stone_generator
+      count: 1

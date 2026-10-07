@@ -1,0 +1,12 @@
+{
+  "parent": "mekanized:block/machine",
+  "textures": {
+    "sides": "mekanized:block/enrichment_chamber/right",
+    "front": "mekanized:block/enrichment_chamber/front",
+    "west": "mekanized:block/enrichment_chamber/right",
+    "east": "mekanized:block/enrichment_chamber/left",
+    "south": "mekanized:block/enrichment_chamber/back",
+    "up": "mekanized:block/enrichment_chamber/top",
+    "down": "mekanized:block/enrichment_chamber/bottom"
+  }
+}

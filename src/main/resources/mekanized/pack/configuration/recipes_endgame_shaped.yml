@@ -1,0 +1,329 @@
+# Mekanized endgame_shaped recipes for CraftEngine, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+recipes:
+  mekanized:antiprotonic_nucleosynthesizer:
+    type: shaped
+    pattern:
+    - '#C#'
+    - AXA
+    - '#C#'
+    ingredients:
+      '#': mekanized:alloy_atomic
+      A: '#c:pellets/antimatter'
+      C: '#c:circuits/ultimate'
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:antiprotonic_nucleosynthesizer
+      count: 1
+  mekanized:bin/advanced:
+    type: shaped
+    pattern:
+    - _C_
+    - APA
+    - ___
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      C: '#c:circuits/advanced'
+      P: mekanized:basic_bin
+      _:
+      - '#minecraft:stone_crafting_materials'
+      - minecraft:cobblestone
+    result:
+      id: mekanized:advanced_bin
+      count: 1
+  mekanized:bin/basic:
+    type: shaped
+    pattern:
+    - _C_
+    - A A
+    - ___
+    ingredients:
+      A: minecraft:redstone
+      C: '#c:circuits/basic'
+      _:
+      - '#minecraft:stone_crafting_materials'
+      - minecraft:cobblestone
+    result:
+      id: mekanized:basic_bin
+      count: 1
+  mekanized:bin/elite:
+    type: shaped
+    pattern:
+    - _C_
+    - APA
+    - ___
+    ingredients:
+      A: '#mekanized:alloys/reinforced'
+      C: '#c:circuits/elite'
+      P: mekanized:advanced_bin
+      _:
+      - '#minecraft:stone_crafting_materials'
+      - minecraft:cobblestone
+    result:
+      id: mekanized:elite_bin
+      count: 1
+  mekanized:bin/ultimate:
+    type: shaped
+    pattern:
+    - _C_
+    - APA
+    - ___
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      C: '#c:circuits/ultimate'
+      P: mekanized:elite_bin
+      _:
+      - '#minecraft:stone_crafting_materials'
+      - minecraft:cobblestone
+    result:
+      id: mekanized:ultimate_bin
+      count: 1
+  mekanized:chargepad:
+    type: shaped
+    pattern:
+    - '###'
+    - SES
+    ingredients:
+      '#': minecraft:polished_blackstone_pressure_plate
+      E: mekanized:energy_tablet
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:chargepad
+      count: 1
+  mekanized:fluidic_plenisher:
+    type: shaped
+    pattern:
+    - III
+    - CPC
+    - III
+    ingredients:
+      C: '#c:circuits/basic'
+      I: '#c:ingots/tin'
+      P: mekanized:electric_pump
+    result:
+      id: mekanized:fluidic_plenisher
+      count: 1
+  mekanized:formulaic_assemblicator:
+    type: shaped
+    pattern:
+    - SPS
+    - CXC
+    - S#S
+    ingredients:
+      '#':
+      - minecraft:chest
+      - minecraft:trapped_chest
+      C: '#c:circuits/basic'
+      P: minecraft:crafter
+      S: '#c:ingots/steel'
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:formulaic_assemblicator
+      count: 1
+  mekanized:generator/advanced_solar:
+    type: shaped
+    pattern:
+    - PAP
+    - PAP
+    - III
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      I: minecraft:iron_ingot
+      P: mekanized:solar_generator
+    result:
+      id: mekanized:advanced_solar_generator
+      count: 1
+  mekanized:generator/gas_burning:
+    type: shaped
+    pattern:
+    - OAO
+    - XCX
+    - OAO
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      C: mekanized:electrolytic_core
+      O: '#c:ingots/osmium'
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:gas_burning_generator
+      count: 1
+  mekanized:generator/wind:
+    type: shaped
+    pattern:
+    - ' O '
+    - OAO
+    - ECE
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      C: '#c:circuits/basic'
+      E: mekanized:energy_tablet
+      O: '#c:ingots/osmium'
+    result:
+      id: mekanized:wind_generator
+      count: 1
+  mekanized:industrial_alarm:
+    type: shaped
+    pattern:
+    - III
+    - C#C
+    - III
+    ingredients:
+      '#': minecraft:redstone_lamp
+      C: '#c:circuits/basic'
+      I: '#c:ingots/lead'
+    result:
+      id: mekanized:industrial_alarm
+      count: 1
+  mekanized:isotopic_centrifuge:
+    type: shaped
+    pattern:
+    - III
+    - CTC
+    - III
+    ingredients:
+      C: '#c:circuits/ultimate'
+      I: '#c:ingots/lead'
+      T: mekanized:basic_chemical_tank
+    result:
+      id: mekanized:isotopic_centrifuge
+      count: 1
+  mekanized:laser:
+    type: shaped
+    pattern:
+    - 'AE '
+    - AX#
+    - 'AE '
+    ingredients:
+      '#': minecraft:diamond
+      A: '#mekanized:alloys/reinforced'
+      E: mekanized:energy_tablet
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:laser
+      count: 1
+  mekanized:laser_amplifier:
+    type: shaped
+    pattern:
+    - SSS
+    - SE#
+    - SSS
+    ingredients:
+      '#': minecraft:diamond
+      E: mekanized:basic_energy_cube
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:laser_amplifier
+      count: 1
+  mekanized:laser_tractor_beam:
+    type: shaped
+    pattern:
+    - P
+    - '#'
+    ingredients:
+      '#': mekanized:laser_amplifier
+      P: '#mekanized:personal_storage'
+    result:
+      id: mekanized:laser_tractor_beam
+      count: 1
+  mekanized:painting_machine:
+    type: shaped
+    pattern:
+    - ACA
+    - '#X#'
+    - ACA
+    ingredients:
+      '#': mekanized:dye_base
+      A: '#mekanized:alloys/infused'
+      C: '#c:circuits/advanced'
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:painting_machine
+      count: 1
+  mekanized:personal_barrel:
+    type: shaped
+    pattern:
+    - SGS
+    - PCP
+    - SSS
+    ingredients:
+      C: '#c:circuits/basic'
+      G: minecraft:glass
+      P: minecraft:barrel
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:personal_barrel
+      count: 1
+  mekanized:personal_chest:
+    type: shaped
+    pattern:
+    - SGS
+    - PCP
+    - SSS
+    ingredients:
+      C: '#c:circuits/basic'
+      G: minecraft:glass
+      P:
+      - minecraft:chest
+      - minecraft:trapped_chest
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:personal_chest
+      count: 1
+  mekanized:pigment_extractor:
+    type: shaped
+    pattern:
+    - RCR
+    - '#X#'
+    - RCR
+    ingredients:
+      '#': minecraft:flint
+      C: '#c:circuits/basic'
+      R: minecraft:redstone
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:pigment_extractor
+      count: 1
+  mekanized:pigment_mixer:
+    type: shaped
+    pattern:
+    - ACA
+    - '#X#'
+    - ACA
+    ingredients:
+      '#': mekanized:hdpe_rod
+      A: '#mekanized:alloys/reinforced'
+      C: '#c:circuits/elite'
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:pigment_mixer
+      count: 1
+  mekanized:pressurized_reaction_chamber:
+    type: shaped
+    pattern:
+    - SAS
+    - CPC
+    - T#T
+    ingredients:
+      '#': mekanized:dynamic_tank
+      A: '#mekanized:alloys/infused'
+      C: '#c:circuits/basic'
+      P: mekanized:enrichment_chamber
+      S: '#c:ingots/steel'
+      T: mekanized:basic_chemical_tank
+    result:
+      id: mekanized:pressurized_reaction_chamber
+      count: 1
+  mekanized:solar_neutron_activator:
+    type: shaped
+    pattern:
+    - A#A
+    - CXC
+    - III
+    ingredients:
+      '#': mekanized:hdpe_sheet
+      A: '#mekanized:alloys/reinforced'
+      C: '#c:circuits/elite'
+      I: '#c:ingots/bronze'
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:solar_neutron_activator
+      count: 1

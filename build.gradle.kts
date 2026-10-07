@@ -11,51 +11,23 @@ dependencies {
     // A content addon: MachineEngine's public API only (D27).
     compileOnly(project(":api"))
 
-    // Headless tests of the imported content (machines, recipes, tags), no server. The harness exposes
+    // Headless tests of the content (machines, recipes, tags), no server. The harness exposes
     // engine internals; that is allowed in tests (D28).
     testImplementation(project(":test"))
 }
 
-// -- Mekanism import (MEKANIZED_PLAN.md Phase 0, K4) -------------------------------------------------
+// -- Content: src/main/resources/mekanized, kept by hand (D31). Based on Mekanism (MIT) at commit
+// 4718860a0c98598cf1b34e9f631b24eaa7c7ff47 (branch 26.1), imported once and edited since.
 
-val fetchMekanism = tasks.register<FetchMekanism>("fetchMekanism") {
+val contentManifest = tasks.register<ContentManifest>("contentManifest") {
     group = "mekanized"
-    description = "Checks out the pinned Mekanism commit (only the folders Mekanized imports)."
-    repositoryUrl = providers.gradleProperty("mekanism_repository")
-    commit = providers.gradleProperty("mekanism_commit")
-    paths = listOf(
-        "/LICENSE",
-        "/src/main/resources/assets/mekanism/",
-        "/src/generators/resources/assets/mekanismgenerators/",
-        "/src/datagen/generated/mekanism/",
-        "/src/datagen/generated/mekanismgenerators/",
-        // Java entity models of the gear (jetpack, disassembler...), turned into item models.
-        "/src/main/java/mekanism/client/model/",
-    )
-    sourceDirectory = rootProject.layout.projectDirectory.dir(".mekanism/source")
-}
-
-val importMekanism = tasks.register<ImportMekanism>("importMekanism") {
-    group = "mekanized"
-    description = "Converts the Mekanism checkout into Mekanized assets, recipes and tags."
-    dependsOn(fetchMekanism)
-    commit = fetchMekanism.flatMap { it.commit }
-    sourceDirectory = fetchMekanism.flatMap { it.sourceDirectory }
-    // Only the folders fetchMekanism checks out (and the import reads), never the checkout's .git folder.
-    sources.from(fetchMekanism.flatMap { fetch ->
-        fetch.sourceDirectory.zip(fetch.paths) { directory, paths ->
-            objects.fileTree().setDir(directory).include(paths.map { it.removePrefix("/") + if (it.endsWith("/")) "**" else "" })
-        }
-    })
-    outputDirectory = layout.buildDirectory.dir("generated/mekanized")
+    description = "Lists the content files the plugin installs (mekanized/manifest.yml)."
+    contentDirectory = layout.projectDirectory.dir("src/main/resources/mekanized")
+    outputDirectory = layout.buildDirectory.dir("generated/manifest")
 }
 
 tasks.processResources {
-    // Generated content ships under mekanized/ in the jar; the plugin installs it on first start.
-    from(importMekanism) {
-        into("mekanized")
-        exclude("import-report.txt")
-    }
+    from(contentManifest)
 }
 
 paper {

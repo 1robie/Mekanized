@@ -1,0 +1,14 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": { 
+        "layer0": "mekanized:item/geiger_counter_0"
+    },
+    "overrides": [
+        { "predicate": { "mekanized:radiation": 0 }, "model": "mekanized:item/geiger_counter_0" },
+        { "predicate": { "mekanized:radiation": 1 }, "model": "mekanized:item/geiger_counter_1" },
+        { "predicate": { "mekanized:radiation": 2 }, "model": "mekanized:item/geiger_counter_2" },
+        { "predicate": { "mekanized:radiation": 3 }, "model": "mekanized:item/geiger_counter_3" },
+        { "predicate": { "mekanized:radiation": 4 }, "model": "mekanized:item/geiger_counter_4" },
+        { "predicate": { "mekanized:radiation": 5 }, "model": "mekanized:item/geiger_counter_5" }
+    ]
+}

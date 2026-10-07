@@ -1,0 +1,402 @@
+# Mekanized reactors_shaped recipes for CraftEngine, based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
+recipes:
+  mekanized:boiler_casing:
+    type: shaped
+    pattern:
+    - ' S '
+    - SIS
+    - ' S '
+    ingredients:
+      I: minecraft:iron_ingot
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:boiler_casing
+      count: 4
+  mekanized:boiler_valve:
+    type: shaped
+    pattern:
+    - ' # '
+    - '#C#'
+    - ' # '
+    ingredients:
+      '#': mekanized:boiler_casing
+      C: '#c:circuits/advanced'
+    result:
+      id: mekanized:boiler_valve
+      count: 2
+  mekanized:electromagnetic_coil:
+    type: shaped
+    pattern:
+    - SIS
+    - IEI
+    - SIS
+    ingredients:
+      E: mekanized:energy_tablet
+      I: minecraft:gold_ingot
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:electromagnetic_coil
+      count: 1
+  mekanized:fission_reactor/casing:
+    type: shaped
+    pattern:
+    - ' I '
+    - IXI
+    - ' I '
+    ingredients:
+      I: '#c:ingots/lead'
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:fission_reactor_casing
+      count: 4
+  mekanized:fission_reactor/control_rod_assembly:
+    type: shaped
+    pattern:
+    - ICI
+    - SIS
+    - SIS
+    ingredients:
+      C: '#c:circuits/elite'
+      I: '#c:ingots/lead'
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:control_rod_assembly
+      count: 1
+  mekanized:fission_reactor/fuel_assembly:
+    type: shaped
+    pattern:
+    - ISI
+    - ITI
+    - ISI
+    ingredients:
+      I: '#c:ingots/lead'
+      S: '#c:ingots/steel'
+      T: mekanized:basic_chemical_tank
+    result:
+      id: mekanized:fission_fuel_assembly
+      count: 1
+  mekanized:fission_reactor/logic_adapter:
+    type: shaped
+    pattern:
+    - ' R '
+    - RFR
+    - ' R '
+    ingredients:
+      F: mekanized:fission_reactor_casing
+      R: minecraft:redstone
+    result:
+      id: mekanized:fission_reactor_logic_adapter
+      count: 1
+  mekanized:fission_reactor/port:
+    type: shaped
+    pattern:
+    - ' F '
+    - FCF
+    - ' F '
+    ingredients:
+      C: '#c:circuits/elite'
+      F: mekanized:fission_reactor_casing
+    result:
+      id: mekanized:fission_reactor_port
+      count: 2
+  mekanized:fuelwood_heater:
+    type: shaped
+    pattern:
+    - SCS
+    - '#X#'
+    - SSS
+    ingredients:
+      '#': minecraft:furnace
+      C: '#c:circuits/basic'
+      S: '#c:ingots/steel'
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:fuelwood_heater
+      count: 1
+  mekanized:laser_focus_matrix:
+    type: shaped
+    pattern:
+    - ' G '
+    - GRG
+    - ' G '
+    ingredients:
+      G: mekanized:reactor_glass
+      R: minecraft:redstone_block
+    result:
+      id: mekanized:laser_focus_matrix
+      count: 2
+  mekanized:pressure_disperser:
+    type: shaped
+    pattern:
+    - S#S
+    - '#A#'
+    - S#S
+    ingredients:
+      '#': minecraft:iron_bars
+      A: '#mekanized:alloys/infused'
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:pressure_disperser
+      count: 1
+  mekanized:reactor/controller:
+    type: shaped
+    pattern:
+    - CGC
+    - FTF
+    - FFF
+    ingredients:
+      C: '#c:circuits/ultimate'
+      F: mekanized:fusion_reactor_frame
+      G: minecraft:glass_pane
+      T: mekanized:basic_chemical_tank
+    result:
+      id: mekanized:fusion_reactor_controller
+      count: 1
+  mekanized:reactor/frame:
+    type: shaped
+    pattern:
+    - A#A
+    - '#X#'
+    - A#A
+    ingredients:
+      '#': '#c:pellets/polonium'
+      A: '#c:alloys/ultimate'
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:fusion_reactor_frame
+      count: 4
+  mekanized:reactor/glass:
+    type: shaped
+    pattern:
+    - SIS
+    - IGI
+    - SIS
+    ingredients:
+      G: minecraft:glass
+      I: '#c:ingots/lead'
+      S: mekanized:enriched_iron
+    result:
+      id: mekanized:reactor_glass
+      count: 4
+  mekanized:reactor/logic_adapter:
+    type: shaped
+    pattern:
+    - ' R '
+    - RFR
+    - ' R '
+    ingredients:
+      F: mekanized:fusion_reactor_frame
+      R: minecraft:redstone
+    result:
+      id: mekanized:fusion_reactor_logic_adapter
+      count: 1
+  mekanized:reactor/port:
+    type: shaped
+    pattern:
+    - ' F '
+    - FCF
+    - ' F '
+    ingredients:
+      C: '#c:circuits/ultimate'
+      F: mekanized:fusion_reactor_frame
+    result:
+      id: mekanized:fusion_reactor_port
+      count: 2
+  mekanized:resistive_heater:
+    type: shaped
+    pattern:
+    - IRI
+    - RXR
+    - IEI
+    ingredients:
+      E: mekanized:energy_tablet
+      I: '#c:ingots/tin'
+      R: minecraft:redstone
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:resistive_heater
+      count: 1
+  mekanized:rotational_complex:
+    type: shaped
+    pattern:
+    - SAS
+    - CAC
+    - SAS
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      C: '#c:circuits/advanced'
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:rotational_complex
+      count: 1
+  mekanized:saturating_condenser:
+    type: shaped
+    pattern:
+    - SIS
+    - IBI
+    - SIS
+    ingredients:
+      B: minecraft:bucket
+      I: '#c:ingots/tin'
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:saturating_condenser
+      count: 1
+  mekanized:sps_casing:
+    type: shaped
+    pattern:
+    - PAP
+    - A#A
+    - PAP
+    ingredients:
+      '#': '#c:pellets/plutonium'
+      A: '#c:pellets/polonium'
+      P: mekanized:hdpe_sheet
+    result:
+      id: mekanized:sps_casing
+      count: 1
+  mekanized:sps_port:
+    type: shaped
+    pattern:
+    - ' # '
+    - '#C#'
+    - ' # '
+    ingredients:
+      '#': mekanized:sps_casing
+      C: '#c:circuits/ultimate'
+    result:
+      id: mekanized:sps_port
+      count: 1
+  mekanized:supercharged_coil:
+    type: shaped
+    pattern:
+    - ccc
+    - C#C
+    - AAA
+    ingredients:
+      '#': mekanized:laser
+      A: '#c:pellets/polonium'
+      C: '#c:circuits/ultimate'
+      c: minecraft:copper_ingot
+    result:
+      id: mekanized:supercharged_coil
+      count: 1
+  mekanized:superheating_element:
+    type: shaped
+    pattern:
+    - AIA
+    - IXI
+    - AIA
+    ingredients:
+      A: minecraft:redstone
+      I: minecraft:copper_ingot
+      X: mekanized:steel_casing
+    result:
+      id: mekanized:superheating_element
+      count: 1
+  mekanized:transmitter/thermodynamic_conductor/advanced:
+    type: shaped
+    pattern:
+    - PPP
+    - PAP
+    - PPP
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      P: mekanized:basic_thermodynamic_conductor
+    result:
+      id: mekanized:advanced_thermodynamic_conductor
+      count: 8
+  mekanized:transmitter/thermodynamic_conductor/basic:
+    type: shaped
+    pattern:
+    - S#S
+    ingredients:
+      '#': minecraft:copper_ingot
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:basic_thermodynamic_conductor
+      count: 8
+  mekanized:transmitter/thermodynamic_conductor/elite:
+    type: shaped
+    pattern:
+    - PPP
+    - PAP
+    - PPP
+    ingredients:
+      A: '#mekanized:alloys/reinforced'
+      P: mekanized:advanced_thermodynamic_conductor
+    result:
+      id: mekanized:elite_thermodynamic_conductor
+      count: 8
+  mekanized:transmitter/thermodynamic_conductor/ultimate:
+    type: shaped
+    pattern:
+    - PPP
+    - PAP
+    - PPP
+    ingredients:
+      A: '#mekanized:alloys/atomic'
+      P: mekanized:elite_thermodynamic_conductor
+    result:
+      id: mekanized:ultimate_thermodynamic_conductor
+      count: 8
+  mekanized:turbine/blade:
+    type: shaped
+    pattern:
+    - ' S '
+    - SAS
+    - ' S '
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:turbine_blade
+      count: 1
+  mekanized:turbine/casing:
+    type: shaped
+    pattern:
+    - ' S '
+    - SOS
+    - ' S '
+    ingredients:
+      O: '#c:ingots/osmium'
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:turbine_casing
+      count: 4
+  mekanized:turbine/rotor:
+    type: shaped
+    pattern:
+    - SAS
+    - SAS
+    - SAS
+    ingredients:
+      A: '#mekanized:alloys/infused'
+      S: '#c:ingots/steel'
+    result:
+      id: mekanized:turbine_rotor
+      count: 1
+  mekanized:turbine/valve:
+    type: shaped
+    pattern:
+    - ' # '
+    - '#C#'
+    - ' # '
+    ingredients:
+      '#': mekanized:turbine_casing
+      C: '#c:circuits/advanced'
+    result:
+      id: mekanized:turbine_valve
+      count: 2
+  mekanized:turbine/vent:
+    type: shaped
+    pattern:
+    - ' # '
+    - '#B#'
+    - ' # '
+    ingredients:
+      '#': mekanized:turbine_casing
+      B: minecraft:iron_bars
+    result:
+      id: mekanized:turbine_vent
+      count: 2

@@ -1,0 +1,11 @@
+{
+    "parent": "mekanized:block/bin/base",
+    "textures": {
+        "led": "mekanized:block/bin/basic_led",
+        "front": "mekanized:block/bin/front",
+        "side": "mekanized:block/bin/side",
+        "top": "mekanized:block/bin/top",
+        "back": "mekanized:block/bin/back",
+        "bottom": "mekanized:block/bin/bottom"
+    }
+}
