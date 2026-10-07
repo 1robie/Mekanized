@@ -19,8 +19,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataType;
-import static fr.robie.machineengine.mekanized.paper.gear.GearItems.MODULES;
+import fr.robie.machineengine.mekanized.paper.ItemData;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.capacity;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.energy;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.id;
@@ -65,8 +64,8 @@ public final class GearModules {
             player.sendActionBar(Component.text("Already installed", NamedTextColor.RED));
             return;
         }
+        ItemData.setStrings(gear, ItemData.Field.MODULES, List.copyOf(modules));
         gear.editMeta(meta -> {
-            meta.getPersistentDataContainer().set(MODULES, PersistentDataType.STRING, GearRules.formatModules(modules));
             // What the module gives the gear: its item config (glider, enchantment).
             ModuleHolderBehavior.Module options = GearBehaviors.module(module);
             if (options != null && options.glider()) setGlider(meta);
@@ -87,10 +86,8 @@ public final class GearModules {
     static void uninstall(Player player, ItemStack gear, String id) {
         List<String> modules = new ArrayList<>(modules(gear));
         String module = modules.removeLast();
+        ItemData.setStrings(gear, ItemData.Field.MODULES, modules);
         gear.editMeta(meta -> {
-            String left = GearRules.formatModules(modules);
-            if (left == null) meta.getPersistentDataContainer().remove(MODULES);
-            else meta.getPersistentDataContainer().set(MODULES, PersistentDataType.STRING, left);
             ModuleHolderBehavior.Module options = GearBehaviors.module(module);
             if (options != null && options.glider()) setGlider(meta, false);
             Enchantment enchantment = options == null ? null : options.enchantment();

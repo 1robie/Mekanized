@@ -42,6 +42,8 @@ import org.bukkit.plugin.Plugin;
  *   <li>{@code check-hopper}: hopper (10 iron) → bin → hopper → chest; all 10 end in the chest.</li>
  *   <li>{@code check-comparator}: a comparator reading a half-full bin gives 8, an empty one 0.</li>
  *   <li>{@code fill <size>}: a size×size grid of idle crushers, to measure the idle cost.</li>
+ *   <li>{@code check-item-data}: items holding the old Bukkit persistent data read the same through
+ *       CraftEngine item data, which then holds it (D32).</li>
  * </ul>
  */
 @SuppressWarnings("UnstableApiUsage")
@@ -63,6 +65,10 @@ final class EngineCheckCommands {
                         PositionArguments.Default.PLACEMENT, onRegion(this::checkHopper)))
                 .then(PositionArguments.optionalPosition(Commands.literal("check-comparator").requires(EngineCheckCommands::admin),
                         PositionArguments.Default.PLACEMENT, onRegion(this::checkComparator)))
+                .then(Commands.literal("check-item-data").requires(EngineCheckCommands::admin).executes(context -> {
+                    checkItemData();
+                    return com.mojang.brigadier.Command.SINGLE_SUCCESS;
+                }))
                 .then(Commands.literal("fill").requires(EngineCheckCommands::admin)
                         .then(PositionArguments.optionalPosition(Commands.argument("size", IntegerArgumentType.integer(1, 200)),
                                 PositionArguments.Default.PLACEMENT, onRegion(this::fill))));
@@ -199,6 +205,48 @@ final class EngineCheckCommands {
             if (stack != null && stack.getType() == Material.IRON_INGOT) total += stack.getAmount();
         }
         return total;
+    }
+
+    /** Old items: values written as Bukkit persistent data, as Mekanized did before D32, then read the new way. */
+    private void checkItemData() {
+        org.bukkit.NamespacedKey energy = new org.bukkit.NamespacedKey(MekanizedContent.NAMESPACE, "energy");
+        org.bukkit.NamespacedKey modules = new org.bukkit.NamespacedKey(MekanizedContent.NAMESPACE, "modules");
+        org.bukkit.NamespacedKey card = new org.bukkit.NamespacedKey(MekanizedContent.NAMESPACE, "configuration");
+        org.bukkit.NamespacedKey dropper = new org.bukkit.NamespacedKey(MekanizedContent.NAMESPACE, "dropper_amount");
+        org.bukkit.NamespacedKey box = new org.bukkit.NamespacedKey(MekanizedContent.NAMESPACE, "box_items");
+        ItemStack tool = PaperItems.itemOf(MekanizedContent.key("meka_tool"));
+        ItemStack cardItem = PaperItems.itemOf(MekanizedContent.key("configuration_card"));
+        if (tool == null || cardItem == null) {
+            log("check-item-data: Mekanized items are not loaded");
+            return;
+        }
+        tool.editMeta(meta -> {
+            meta.getPersistentDataContainer().set(energy, org.bukkit.persistence.PersistentDataType.LONG, 5000L);
+            meta.getPersistentDataContainer().set(modules, org.bukkit.persistence.PersistentDataType.STRING, "vein_mining_unit,energy_unit");
+        });
+        cardItem.editMeta(meta -> {
+            meta.getPersistentDataContainer().set(card, org.bukkit.persistence.PersistentDataType.STRING, "old card");
+            meta.getPersistentDataContainer().set(dropper, org.bukkit.persistence.PersistentDataType.LONG, 42L);
+            meta.getPersistentDataContainer().set(box, org.bukkit.persistence.PersistentDataType.BYTE_ARRAY, new byte[] {1, 2, 3});
+        });
+        long joules = fr.robie.machineengine.api.paper.PaperItemResources.amount(tool, fr.robie.machineengine.api.resource.Energy.KEY);
+        long capacity = fr.robie.machineengine.api.paper.PaperItemResources.capacity(tool, fr.robie.machineengine.api.resource.Energy.KEY);
+        var installed = fr.robie.machineengine.mekanized.paper.ItemData.getStrings(tool, fr.robie.machineengine.mekanized.paper.ItemData.Field.MODULES);
+        String text = fr.robie.machineengine.mekanized.paper.ItemData.getString(cardItem, fr.robie.machineengine.mekanized.paper.ItemData.Field.CONFIGURATION);
+        long amount = fr.robie.machineengine.mekanized.paper.ItemData.getLong(cardItem, fr.robie.machineengine.mekanized.paper.ItemData.Field.DROPPER_AMOUNT);
+        byte[] bytes = fr.robie.machineengine.mekanized.paper.ItemData.getBytes(cardItem, fr.robie.machineengine.mekanized.paper.ItemData.Field.BOX_ITEMS);
+        log("check-item-data: energy " + joules + " (expected 5000), capacity " + capacity + " (expected 64000000, energy unit x4), modules "
+                + installed + " (expected [vein_mining_unit, energy_unit]), card '" + text + "' (expected 'old card'), dropper " + amount
+                + " (expected 42), box " + java.util.Arrays.toString(bytes) + " (expected [1, 2, 3])");
+        // Writing the new way: kept, and the old persistent data is gone.
+        fr.robie.machineengine.api.paper.PaperItemResources.withAmount(tool, fr.robie.machineengine.api.resource.Energy.KEY, 7000);
+        fr.robie.machineengine.mekanized.paper.ItemData.setStrings(tool, fr.robie.machineengine.mekanized.paper.ItemData.Field.MODULES,
+                java.util.List.of("silk_touch_unit"));
+        boolean oldGone = !tool.getItemMeta().getPersistentDataContainer().has(energy) && !tool.getItemMeta().getPersistentDataContainer().has(modules);
+        log("check-item-data: after writing, energy " + fr.robie.machineengine.api.paper.PaperItemResources.amount(tool,
+                fr.robie.machineengine.api.resource.Energy.KEY) + " (expected 7000), modules "
+                + fr.robie.machineengine.mekanized.paper.ItemData.getStrings(tool, fr.robie.machineengine.mekanized.paper.ItemData.Field.MODULES)
+                + " (expected [silk_touch_unit]), old persistent data gone: " + oldGone + " (expected true)");
     }
 
     private void log(String message) {

@@ -20,35 +20,26 @@ import fr.robie.machineengine.mekanized.paper.persist.LineStore;
 import fr.robie.machineengine.mekanized.machine.SaveLines;
 import fr.robie.machineengine.api.platform.Nms;
 import fr.robie.machineengine.api.paper.PaperItems;
-import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.block.Container;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -57,6 +48,8 @@ import fr.robie.machineengine.api.paper.PaperItemBehavior;
 import fr.robie.machineengine.api.item.MachineTool;
 import org.bukkit.entity.Entity;
 import fr.robie.machineengine.api.paper.MachineInteractions;
+import fr.robie.machineengine.mekanized.paper.gear.GearBehaviors;
+import fr.robie.machineengine.mekanized.paper.ItemData;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -83,9 +76,6 @@ import java.util.concurrent.ConcurrentHashMap;
  * (a chest menu of everything the frequency's drive arrays hold).
  */
 public final class PaperAutomation implements Listener {
-    private static final NamespacedKey BOX_BLOCK = new NamespacedKey(MekanizedContent.NAMESPACE, "box_block");
-    private static final NamespacedKey BOX_ITEMS = new NamespacedKey(MekanizedContent.NAMESPACE, "box_items");
-    private static final NamespacedKey BOX_SPAWNER = new NamespacedKey(MekanizedContent.NAMESPACE, "box_spawner");
     /** Blocks the cardboard box leaves alone. */
     private static final Set<Material> UNBOXABLE = EnumSet.of(Material.BEDROCK, Material.END_PORTAL_FRAME,
             Material.END_PORTAL, Material.NETHER_PORTAL, Material.END_GATEWAY, Material.BARRIER, Material.COMMAND_BLOCK,
@@ -135,12 +125,9 @@ public final class PaperAutomation implements Listener {
             Block block = player.getTargetBlockExact(6);
             MachineInstance machine = block == null ? null : PaperWorld.machine(block);
             ItemStack hand = player.getInventory().getItemInMainHand();
-            String held = GearItems.id(hand);
-            if (("portable_teleporter".equals(held) || "portable_qio_dashboard".equals(held)) && (machine == null)) {
-                hand.editMeta(meta -> {
-                    meta.getPersistentDataContainer().set(ITEM_FREQUENCY, PersistentDataType.STRING, frequency);
-                    meta.lore(List.of(Lore.line("Frequency: " + frequency)));
-                });
+            if (GearBehaviors.of(hand, PortableBehavior.class) != null && machine == null) {
+                ItemData.setString(hand, ItemData.Field.FREQUENCY, frequency);
+                hand.editMeta(meta -> meta.lore(List.of(Lore.line("Frequency: " + frequency))));
                 player.sendMessage(Component.text("Frequency of the item set to ", NamedTextColor.GRAY).append(Component.text(frequency, NamedTextColor.YELLOW)));
                 return;
             }
@@ -201,9 +188,6 @@ public final class PaperAutomation implements Listener {
 
     // -- portable teleporter, portable QIO dashboard ------------------------------------------
 
-    /** The frequency of a portable teleporter or dashboard. */
-    static final NamespacedKey ITEM_FREQUENCY = new NamespacedKey(MekanizedContent.NAMESPACE, "frequency");
-
     /**
      * {@code mekanized:portable_teleporter} and {@code mekanized:portable_qio}: right-click to go to the
      * teleporter on the item's frequency, or to open the QIO network on it.
@@ -227,7 +211,7 @@ public final class PaperAutomation implements Listener {
     }
 
     private void usePortable(Player player, ItemStack hand, boolean dashboard) {
-        String frequency = hand.getItemMeta().getPersistentDataContainer().get(ITEM_FREQUENCY, PersistentDataType.STRING);
+        String frequency = ItemData.getString(hand, ItemData.Field.FREQUENCY);
         if (frequency == null || frequency.isEmpty()) {
             player.sendActionBar(Component.text("No frequency: hold it and use /mekanized frequency <name>", NamedTextColor.RED));
             return;
@@ -340,13 +324,10 @@ public final class PaperAutomation implements Listener {
         }
         byte[] finalItems = items;
         String finalSpawned = spawned;
-        full.editMeta(meta -> {
-            PersistentDataContainer pdc = meta.getPersistentDataContainer();
-            pdc.set(BOX_BLOCK, PersistentDataType.STRING, data);
-            if (finalItems != null) pdc.set(BOX_ITEMS, PersistentDataType.BYTE_ARRAY, finalItems);
-            if (finalSpawned != null) pdc.set(BOX_SPAWNER, PersistentDataType.STRING, finalSpawned);
-            meta.lore(List.of(Lore.line("Contains: " + block.getType().getKey().getKey().replace('_', ' '))));
-        });
+        ItemData.setString(full, ItemData.Field.BOX_BLOCK, data);
+        ItemData.setBytes(full, ItemData.Field.BOX_ITEMS, finalItems);
+        ItemData.setString(full, ItemData.Field.BOX_SPAWNER, finalSpawned);
+        full.editMeta(meta -> meta.lore(List.of(Lore.line("Contains: " + block.getType().getKey().getKey().replace('_', ' ')))));
         block.setType(Material.AIR, false);
         box.setAmount(box.getAmount() - 1);
         PaperWorld.give(player, full);
@@ -355,20 +336,19 @@ public final class PaperAutomation implements Listener {
     /** Places the boxed block back where there is room, with what it held. */
     private void unpack(Player player, Block target, ItemStack box) {
         if (!target.getType().isAir() && !target.isReplaceable()) return;
-        PersistentDataContainer pdc = box.getItemMeta().getPersistentDataContainer();
-        String data = pdc.get(BOX_BLOCK, PersistentDataType.STRING);
+        String data = ItemData.getString(box, ItemData.Field.BOX_BLOCK);
         if (data == null) return;
         try {
             target.setBlockData(Bukkit.createBlockData(data), false);
         } catch (IllegalArgumentException e) {
             return;
         }
-        byte[] items = pdc.get(BOX_ITEMS, PersistentDataType.BYTE_ARRAY);
+        byte[] items = ItemData.getBytes(box, ItemData.Field.BOX_ITEMS);
         if (items != null && target.getState(false) instanceof Container container) {
             ItemStack[] contents = deserialize(items);
             container.getInventory().setContents(Arrays.copyOf(contents, container.getInventory().getSize()));
         }
-        String spawned = pdc.get(BOX_SPAWNER, PersistentDataType.STRING);
+        String spawned = ItemData.getString(box, ItemData.Field.BOX_SPAWNER);
         if (spawned != null && target.getState(false) instanceof CreatureSpawner spawner) {
             try {
                 spawner.setSpawnedType(EntityType.valueOf(spawned));

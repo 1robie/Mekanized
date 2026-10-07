@@ -17,7 +17,6 @@ import fr.robie.machineengine.mekanized.machine.ConfigurationCard;
 import fr.robie.machineengine.mekanized.machine.EjectBehavior;
 import fr.robie.machineengine.mekanized.machine.GaugeDropper;
 import fr.robie.machineengine.mekanized.machine.UtilityMachines;
-import fr.robie.machineengine.mekanized.paper.ItemLongs;
 import fr.robie.machineengine.mekanized.paper.Lore;
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.api.paper.PaperItems;
@@ -26,13 +25,10 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.Nullable;
 import net.momirealms.craftengine.core.item.behavior.ItemBehaviorFactory;
 import fr.robie.machineengine.api.paper.PaperItemBehavior;
@@ -62,10 +58,6 @@ public final class PaperTools {
     private PaperTools() {
     }
 
-    private static final NamespacedKey CARD = new NamespacedKey(MekanizedContent.NAMESPACE, "configuration");
-    private static final NamespacedKey DROPPER_TYPE = new NamespacedKey(MekanizedContent.NAMESPACE, "dropper_type");
-    private static final NamespacedKey DROPPER_AMOUNT = new NamespacedKey(MekanizedContent.NAMESPACE, "dropper_amount");
-    private static final NamespacedKey FORMULA = new NamespacedKey(MekanizedContent.NAMESPACE, "formula");
 
     /** {@code mekanized:configuration_card}: sneak-right-click a machine to copy, right-click to paste. */
     public static final class CardBehavior extends PaperItemBehavior implements MachineTool {
@@ -143,15 +135,13 @@ public final class PaperTools {
         String text = ConfigurationCard.encode(machine.inspect().type().asString(), ports,
                 has(machine, EjectBehavior.EJECT) ? context.get(EjectBehavior.EJECT) : null,
                 has(machine, UtilityMachines.REDSTONE) ? context.get(UtilityMachines.REDSTONE) : null);
-        card.editMeta(meta -> {
-            meta.getPersistentDataContainer().set(CARD, PersistentDataType.STRING, text);
-            meta.lore(List.of(Lore.line("Holds: " + machine.inspect().type().value().replace('_', ' '))));
-        });
+        ItemData.setString(card, ItemData.Field.CONFIGURATION, text);
+        card.editMeta(meta -> meta.lore(List.of(Lore.line("Holds: " + machine.inspect().type().value().replace('_', ' ')))));
         player.sendActionBar(Component.text("Configuration copied", NamedTextColor.GREEN));
     }
 
     private static void paste(Player player, ItemStack card, MachineInstance machine) {
-        String text = card.getItemMeta().getPersistentDataContainer().get(CARD, PersistentDataType.STRING);
+        String text = ItemData.getString(card, ItemData.Field.CONFIGURATION);
         if (text == null) {
             player.sendActionBar(Component.text("Empty: sneak-right-click a machine to copy it", NamedTextColor.RED));
             return;
@@ -217,29 +207,21 @@ public final class PaperTools {
     // -- gauge dropper -----------------------------------------------------------------------------
 
     private static @Nullable ResourceType dropperType(ItemStack dropper) {
-        String key = dropper.getItemMeta().getPersistentDataContainer().get(DROPPER_TYPE, PersistentDataType.STRING);
+        String key = ItemData.getString(dropper, ItemData.Field.DROPPER_TYPE);
         if (key == null) return null;
         // Through the registry, so keys saved before a rename (mekanized:fluid/water) follow its aliases.
         return MachineEngine.get().registries().registry(Registries.RESOURCE_TYPE).get(Key.key(key)).orElse(null);
     }
 
     private static long dropperAmount(ItemStack dropper) {
-        return ItemLongs.get(dropper, DROPPER_AMOUNT);
+        return ItemData.getLong(dropper, ItemData.Field.DROPPER_AMOUNT);
     }
 
     private static void setDropper(ItemStack dropper, @Nullable ResourceType type, long amount) {
-        dropper.editMeta(meta -> {
-            PersistentDataContainer pdc = meta.getPersistentDataContainer();
-            if (type == null || amount <= 0) {
-                pdc.remove(DROPPER_TYPE);
-                pdc.remove(DROPPER_AMOUNT);
-                meta.lore(List.of());
-                return;
-            }
-            pdc.set(DROPPER_TYPE, PersistentDataType.STRING, type.key().asString());
-            pdc.set(DROPPER_AMOUNT, PersistentDataType.LONG, amount);
-            meta.lore(List.of(Lore.line(GaugeDropper.lore(type, amount))));
-        });
+        boolean empty = type == null || amount <= 0;
+        ItemData.setString(dropper, ItemData.Field.DROPPER_TYPE, empty ? null : type.key().asString());
+        ItemData.setLong(dropper, ItemData.Field.DROPPER_AMOUNT, empty ? 0 : amount);
+        dropper.editMeta(meta -> meta.lore(empty ? List.of() : List.of(Lore.line(GaugeDropper.lore(type, amount)))));
     }
 
     /** Takes a fluid or chemical (the one it holds, or the first the machine has) into the dropper. */
@@ -293,14 +275,12 @@ public final class PaperTools {
                 player.sendActionBar(Component.text("The assemblicator has no pattern", NamedTextColor.RED));
                 return;
             }
-            formula.editMeta(meta -> {
-                meta.getPersistentDataContainer().set(FORMULA, PersistentDataType.STRING, String.join(",", cells));
-                meta.lore(List.of(Lore.line("Encoded", NamedTextColor.AQUA)));
-            });
+            ItemData.setString(formula, ItemData.Field.FORMULA, String.join(",", cells));
+            formula.editMeta(meta -> meta.lore(List.of(Lore.line("Encoded", NamedTextColor.AQUA))));
             player.sendActionBar(Component.text("Pattern recorded", NamedTextColor.GREEN));
             return;
         }
-        String encoded = formula.getItemMeta().getPersistentDataContainer().get(FORMULA, PersistentDataType.STRING);
+        String encoded = ItemData.getString(formula, ItemData.Field.FORMULA);
         if (encoded == null) {
             player.sendActionBar(Component.text("Blank: sneak-right-click an assemblicator to record its pattern", NamedTextColor.RED));
             return;

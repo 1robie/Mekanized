@@ -5,7 +5,6 @@ import fr.robie.machineengine.api.paper.PaperItemResources;
 import fr.robie.machineengine.api.paper.PaperItems;
 import fr.robie.machineengine.api.resource.Energy;
 import fr.robie.machineengine.mekanized.MekanizedContent;
-import fr.robie.machineengine.mekanized.machine.GearRules;
 import fr.robie.machineengine.mekanized.paper.Lore;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +14,12 @@ import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.Tag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.components.ToolComponent;
-import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.Nullable;
+import java.util.LinkedHashSet;
+import fr.robie.machineengine.mekanized.paper.ItemData;
 
 /**
  * What a piece of Mekanized gear carries: energy and a chemical (MachineEngine's
@@ -30,8 +29,6 @@ import org.jetbrains.annotations.Nullable;
 public final class GearItems {
     private GearItems() {
     }
-
-    public static final NamespacedKey MODULES = new NamespacedKey(MekanizedContent.NAMESPACE, "modules");
 
     // -- item data ------------------------------------------------------------------------------
 
@@ -78,9 +75,7 @@ public final class GearItems {
     }
 
     public static Set<String> modules(@Nullable ItemStack stack) {
-        if (stack == null || stack.isEmpty() || !stack.hasItemMeta()) return Set.of();
-        String list = stack.getItemMeta().getPersistentDataContainer().get(MODULES, PersistentDataType.STRING);
-        return GearRules.parseModules(list);
+        return new LinkedHashSet<>(ItemData.getStrings(stack, ItemData.Field.MODULES));
     }
 
     /** The item's energy capacity, with its modules (an energy unit raises it). */
