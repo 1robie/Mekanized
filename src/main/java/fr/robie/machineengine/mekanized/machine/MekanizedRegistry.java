@@ -26,7 +26,7 @@ import static fr.robie.machineengine.mekanized.MekanizedContent.key;
  * What every Mekanized machine shares and the registration of all its content: the recipe types, upgrades,
  * modifiers, the energy network and cables, the upgrade rules, and the order the machine families register in.
  * Numbers are Mekanism's defaults (energy in Joules, chemicals in mB); recipe durations and per-tick
- * energy come from the imported recipe files, where server owners can change them.
+ * energy come from the recipe files, where server owners can change them.
  */
 public final class MekanizedRegistry {
     // -- recipe types ----------------------------------------------------------------------------

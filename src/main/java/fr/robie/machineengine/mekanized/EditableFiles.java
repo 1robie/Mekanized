@@ -11,7 +11,7 @@ import java.util.Properties;
 import java.util.zip.CRC32;
 
 /**
- * Installs generated files server owners may edit (recipes, menus, block configs): a new version
+ * Installs content files server owners may edit (recipes, menus, block configs): a new version
  * replaces the installed file only if nobody changed it since Mekanized wrote it. Edited files are
  * kept (with a warning), so updates never overwrite a server's changes. Checksums of what was
  * installed live in {@code plugins/Mekanized/installed.properties}.

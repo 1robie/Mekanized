@@ -30,7 +30,7 @@ import org.bukkit.plugin.Plugin;
 /**
  * {@code /mekanized test [<x y z>] [world]} (admin): places an enrichment chamber, gives it energy
  * and one osmium ore, and reports the dust after the process (2 expected). A server-side check of
- * the whole chain: CraftEngine block, machine, imported recipe and tags, energy. {@code test-cable}
+ * the whole chain: CraftEngine block, machine, recipe and tags, energy. {@code test-cable}
  * and {@code test-chemistry} check energy and chemical transport the same way; {@code place-set} places
  * a crusher, an energy cube and a cable.
  */

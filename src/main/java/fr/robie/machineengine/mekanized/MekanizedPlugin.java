@@ -39,13 +39,13 @@ import java.util.jar.JarFile;
  * CraftEngine loads packs.</p>
  */
 public final class MekanizedPlugin extends JavaPlugin {
-    /** Inside the jar: what the Gradle import generated, under {@code mekanized/}. */
-    private static final String GENERATED = "mekanized/";
+    /** Inside the jar: the content (src/main/resources/mekanized), under {@code mekanized/}. */
+    private static final String CONTENT = "mekanized/";
     /**
-     * The generated files to install, as listed by the import ({@code mekanized/manifest.yml}): a file
-     * the import writes is installed, with no list kept by hand to forget it in.
+     * The content files to install, as listed by the build ({@code mekanized/manifest.yml}): a file
+     * added to the content is installed, with no list kept by hand to forget it in.
      */
-    private GeneratedManifest manifest = new GeneratedManifest(java.util.Set.of(), java.util.List.of());
+    private ContentManifest manifest = new ContentManifest(java.util.Set.of(), java.util.List.of());
 
     @Override
     public void onLoad() {
@@ -59,11 +59,11 @@ public final class MekanizedPlugin extends JavaPlugin {
                 .register(MekanizedContent::register)
                 .build());
         try {
-            this.manifest = GeneratedManifest.load(getClassLoader());
+            this.manifest = ContentManifest.load(getClassLoader());
         } catch (IOException | RuntimeException e) {
-            getLogger().severe("Could not read the list of generated Mekanized files: " + e.getMessage());
+            getLogger().severe("Could not read the list of Mekanized content files: " + e.getMessage());
         }
-        // Editable generated files are updated only while nobody changed them (EditableFiles).
+        // Editable content files are updated only while nobody changed them (EditableFiles).
         try (EditableFiles files = new EditableFiles(this)) {
             installCraftEnginePack(files);
             installDefinitions(files);
@@ -74,13 +74,13 @@ public final class MekanizedPlugin extends JavaPlugin {
     }
 
     /**
-     * Copies the generated definitions the manifest lists to {@code plugins/MachineEngine/definitions/mekanized/}:
+     * Copies the definitions the manifest lists to {@code plugins/MachineEngine/definitions/mekanized/}:
      * server owners edit them there; edited files are never overwritten (delete one to get the default).
      */
     private void installDefinitions(EditableFiles files) {
         Path target = getDataFolder().toPath().getParent().resolve("MachineEngine/definitions/mekanized");
         for (String file : this.manifest.definitions()) {
-            try (InputStream in = getResource(GENERATED + "definitions/" + file)) {
+            try (InputStream in = getResource(CONTENT + "definitions/" + file)) {
                 if (in == null) throw new IOException("missing resource " + file);
                 files.install(target.resolve(file), in.readAllBytes());
             } catch (IOException e) {
@@ -116,22 +116,22 @@ public final class MekanizedPlugin extends JavaPlugin {
     }
 
     /**
-     * Copies {@code mekanized/pack/} to {@code plugins/CraftEngine/resources/mekanized/}. Imported
-     * assets ({@code resourcepack/}) are refreshed on every start; configuration files are installed
+     * Copies {@code mekanized/pack/} to {@code plugins/CraftEngine/resources/mekanized/}. Assets
+     * ({@code resourcepack/}) are refreshed on every start; configuration files are installed
      * once, so server owners' edits are kept.
      */
     private void installCraftEnginePack(EditableFiles files) {
         Path target = getDataFolder().toPath().getParent().resolve("CraftEngine/resources/mekanized");
         int copied = 0;
         try (JarFile jar = new JarFile(getFile())) {
-            // Imported assets are generated: start from an empty folder so files removed from the jar go too.
+            // Assets are not editable: start from an empty folder so files removed from the jar go too.
             deleteRecursively(target.resolve("resourcepack"));
             Enumeration<JarEntry> entries = jar.entries();
             while (entries.hasMoreElements()) {
                 JarEntry entry = entries.nextElement();
                 String name = entry.getName();
-                if (entry.isDirectory() || !name.startsWith(GENERATED + "pack/")) continue;
-                String relative = name.substring((GENERATED + "pack/").length());
+                if (entry.isDirectory() || !name.startsWith(CONTENT + "pack/")) continue;
+                String relative = name.substring((CONTENT + "pack/").length());
                 Path destination = target.resolve(relative);
                 boolean asset = relative.startsWith("resourcepack/");
                 if (!asset) {
@@ -148,7 +148,7 @@ public final class MekanizedPlugin extends JavaPlugin {
                 copied++;
             }
             copyResource("pack.yml", target.resolve("pack.yml"), false);
-            copyResource(GENERATED + "LICENSE-MEKANISM.txt", target.resolve("LICENSE-MEKANISM.txt"), true);
+            copyResource(CONTENT + "LICENSE-MEKANISM.txt", target.resolve("LICENSE-MEKANISM.txt"), true);
         } catch (IOException e) {
             getLogger().severe("Could not install the Mekanized CraftEngine pack: " + e.getMessage());
             return;

@@ -53,7 +53,7 @@ import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * What every Mekanized test needs: an engine with the content and the generated definitions (read from
+ * What every Mekanized test needs: an engine with the content and its definitions (read from
  * the jar the way the plugin installs them), stand-in items identified by id, and the usual machine
  * helpers. Annotate a test class with {@code @ExtendWith(MekanizedTestKit.ResetStatics.class)} so the
  * static state (settings, hooks, listeners, registries of loaders) starts and ends each test clean.
@@ -70,7 +70,7 @@ public final class MekanizedTestKit {
 
     // -- the engine -------------------------------------------------------------------------------
 
-    /** A started engine with the Mekanized addon and every generated definition. */
+    /** A started engine with the Mekanized addon and every definition. */
     public static CoreMachineEngine engine() {
         return TestEngine.builder()
                 .addon(AddonRegistration.builder("Mekanized", "1.0.0").register(MekanizedContent::register).build())
@@ -188,11 +188,11 @@ public final class MekanizedTestKit {
         }
     }
 
-    // -- the generated definitions, read from the jar like the plugin installs them ---------------
+    // -- the definitions, read from the jar like the plugin installs them -------------------------
 
-    private static GeneratedManifest manifest() {
+    private static ContentManifest manifest() {
         try {
-            return GeneratedManifest.load(MekanizedTestKit.class.getClassLoader());
+            return ContentManifest.load(MekanizedTestKit.class.getClassLoader());
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
@@ -202,7 +202,7 @@ public final class MekanizedTestKit {
         List<DefinitionFile> files = new ArrayList<>();
         for (String name : DEFINITIONS) {
             try (InputStream in = MekanizedTestKit.class.getClassLoader().getResourceAsStream("mekanized/definitions/" + name)) {
-                if (in == null) throw new IllegalStateException("missing generated definitions " + name);
+                if (in == null) throw new IllegalStateException("missing definitions " + name);
                 Map<String, Object> yaml = new Yaml().load(in);
                 files.add(new DefinitionFile("definitions/mekanized/" + name, (DataMap) toData(yaml)));
             } catch (IOException e) {

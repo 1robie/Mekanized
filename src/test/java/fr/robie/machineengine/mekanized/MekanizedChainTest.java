@@ -29,10 +29,10 @@ class MekanizedChainTest {
     private final CoreMachineEngine engine = MekanizedTestKit.engine();
 
     @Test
-    void everyImportedRecipeAndTagLoads() {
+    void everyRecipeAndTagLoads() {
         List<Diagnostic> problems = new ArrayList<>(this.engine.startupReport().errors());
         problems.addAll(this.engine.startupReport().warnings());
-        assertTrue(problems.isEmpty(), "imported definitions load cleanly: " + this.engine.startupReport().format());
+        assertTrue(problems.isEmpty(), "definitions load cleanly: " + this.engine.startupReport().format());
         assertTrue(this.engine.registries().registry(Registries.RECIPE).size() > 400, "recipes loaded");
     }
 

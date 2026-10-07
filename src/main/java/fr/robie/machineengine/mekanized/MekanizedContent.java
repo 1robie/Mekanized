@@ -28,7 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * <ul>
  *   <li>{@link #ENERGY}: MachineEngine's energy ({@code machineengine:energy}, D29), in Joules by default;</li>
  *   <li>chemicals: gases, infuse types and slurries (Mekanism 1.21 unifies them), one resource type
- *       each in {@link #CHEMICAL}, from the imported {@code mekanized/chemicals.txt};</li>
+ *       each in {@link #CHEMICAL}, from {@code mekanized/chemicals.txt};</li>
  *   <li>fluids, in MachineEngine's global {@link #FLUID} category: water and lava are MachineEngine's
  *       ({@code machineengine:fluid/water}); Mekanism's others are {@code mekanized:fluid/<name>}, from
  *       {@code mekanized/fluids.txt}, apart from the chemicals of the same name.</li>

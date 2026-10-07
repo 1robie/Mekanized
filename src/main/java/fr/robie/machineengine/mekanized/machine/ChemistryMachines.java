@@ -34,7 +34,7 @@ import static fr.robie.machineengine.mekanized.machine.MekanizedRegistry.SPEED;
 /**
  * Chemical machines, chemical and fluid tanks, pressurized tubes,
  * mechanical pipes and the electric pump. Mekanism's numbers (Joules, mB); recipe durations and
- * per-tick energy come from the imported recipe files.
+ * per-tick energy come from the recipe files.
  */
 public final class ChemistryMachines {
     // -- recipe types ----------------------------------------------------------------------------
