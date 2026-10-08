@@ -1,61 +1,31 @@
 # Mekanized multiblocks: Dynamic Tank, Induction Matrix, Thermal Evaporation Plant (Phase 5a), based on Mekanism (MIT).
 items:
   mekanized:dynamic_tank:
-    data:
-      item_name: <!i><lang:block.mekanized.dynamic_tank>
-    model: mekanized:block/dynamic_tank
-    behavior:
-      type: block_item
-      block: mekanized:dynamic_tank
+    template: mekanized:item/block_item
   mekanized:dynamic_valve:
-    data:
-      item_name: <!i><lang:block.mekanized.dynamic_valve>
-    model: mekanized:block/dynamic_valve
-    behavior:
-      type: block_item
-      block: mekanized:dynamic_valve
+    template: mekanized:item/block_item
   mekanized:structural_glass:
-    data:
-      item_name: <!i><lang:block.mekanized.structural_glass>
-    model: mekanized:block/structural_glass
-    behavior:
-      type: block_item
-      block: mekanized:structural_glass
+    template: mekanized:item/block_item
   mekanized:induction_casing:
-    data:
-      item_name: <!i><lang:block.mekanized.induction_casing>
-    model: mekanized:block/induction/casing
-    behavior:
-      type: block_item
-      block: mekanized:induction_casing
+    template: mekanized:item/block_item
+    arguments:
+      model: mekanized:block/induction/casing
   mekanized:induction_port:
-    data:
-      item_name: <!i><lang:block.mekanized.induction_port>
-    model: mekanized:block/induction/port
-    behavior:
-      type: block_item
-      block: mekanized:induction_port
+    template: mekanized:item/block_item
+    arguments:
+      model: mekanized:block/induction/port
   mekanized:thermal_evaporation_block:
-    data:
-      item_name: <!i><lang:block.mekanized.thermal_evaporation_block>
-    model: mekanized:block/thermal_evaporation/block
-    behavior:
-      type: block_item
-      block: mekanized:thermal_evaporation_block
+    template: mekanized:item/block_item
+    arguments:
+      model: mekanized:block/thermal_evaporation/block
   mekanized:thermal_evaporation_valve:
-    data:
-      item_name: <!i><lang:block.mekanized.thermal_evaporation_valve>
-    model: mekanized:block/thermal_evaporation/valve
-    behavior:
-      type: block_item
-      block: mekanized:thermal_evaporation_valve
+    template: mekanized:item/block_item
+    arguments:
+      model: mekanized:block/thermal_evaporation/valve
   mekanized:thermal_evaporation_controller:
-    data:
-      item_name: <!i><lang:block.mekanized.thermal_evaporation_controller>
-    model: mekanized:block/thermal_evaporation/controller
-    behavior:
-      type: block_item
-      block: mekanized:thermal_evaporation_controller
+    template: mekanized:item/block_item
+    arguments:
+      model: mekanized:block/thermal_evaporation/controller
 blocks:
   mekanized:dynamic_tank:
     template: mekanized:block/machine

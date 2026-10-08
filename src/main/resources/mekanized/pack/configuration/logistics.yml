@@ -5,48 +5,33 @@ items:
   mekanized:display/logistical_sorter/active:
     model: mekanized:block/logistical_sorter_active
   mekanized:logistical_sorter:
-    data:
-      item_name: <!i><lang:block.mekanized.logistical_sorter>
-    model: mekanized:block/logistical_sorter
-    behavior:
-      type: block_item
-      block: mekanized:logistical_sorter
+    template: mekanized:item/block_item
   mekanized:basic_tier_installer:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:tier_installer
       tier: basic
-    data:
-      item_name: <!i><lang:item.mekanized.basic_tier_installer>
-    model: mekanized:item/basic_tier_installer
   mekanized:advanced_tier_installer:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:tier_installer
       tier: advanced
-    data:
-      item_name: <!i><lang:item.mekanized.advanced_tier_installer>
-    model: mekanized:item/advanced_tier_installer
   mekanized:elite_tier_installer:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:tier_installer
       tier: elite
-    data:
-      item_name: <!i><lang:item.mekanized.elite_tier_installer>
-    model: mekanized:item/elite_tier_installer
   mekanized:ultimate_tier_installer:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:tier_installer
       tier: ultimate
-    data:
-      item_name: <!i><lang:item.mekanized.ultimate_tier_installer>
-    model: mekanized:item/ultimate_tier_installer
   mekanized:configurator:
+    template: mekanized:item/named
     behaviors:
     - type: machineengine:wrench
       sneak-click: rotate
     - type: mekanized:configurator
-    data:
-      item_name: <!i><lang:item.mekanized.configurator>
-    model: mekanized:item/configurator
     settings:
       tags:
       - c:tools/wrench

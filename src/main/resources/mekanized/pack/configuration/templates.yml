@@ -159,3 +159,31 @@ templates:
       template: mekanized:settings/transparent_machine
     states:
       template: machineengine:block_state/display_rendered_facing_6
+
+  # A block of a material: drops itself, one solid model (argument model, default
+  # <namespace>:block/<id>).
+  mekanized:block/storage_block:
+    loot:
+      template: default:loot_table/self
+    settings:
+      template: mekanized:settings/storage_block
+    state:
+      template: machineengine:block_state/solid
+
+  # Items. Their names come from lang.yml (block.<namespace>.<id> or item.<namespace>.<id>).
+  # Other keys (settings, behaviors, components, ...) go next to the template.
+
+  # The item that places the block of the same id. Argument model (default <namespace>:block/<id>).
+  mekanized:item/block_item:
+    data:
+      item_name: <!i><lang:block.${__NAMESPACE__}.${__ID__}>
+    model: ${model:-"${__NAMESPACE__}:block/${__ID__}"}
+    behavior:
+      type: block_item
+      block: ${__NAMESPACE__}:${__ID__}
+
+  # Any other item. Argument model (default <namespace>:item/<id>).
+  mekanized:item/named:
+    data:
+      item_name: <!i><lang:item.${__NAMESPACE__}.${__ID__}>
+    model: ${model:-"${__NAMESPACE__}:item/${__ID__}"}

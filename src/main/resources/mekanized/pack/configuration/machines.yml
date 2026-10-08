@@ -3,53 +3,29 @@ items:
   mekanized:display/metallurgic_infuser:
     model: mekanized:block/metallurgic_infuser
   mekanized:metallurgic_infuser:
-    data:
-      item_name: <!i><lang:block.mekanized.metallurgic_infuser>
-    model: mekanized:block/metallurgic_infuser
-    behavior:
-      type: block_item
-      block: mekanized:metallurgic_infuser
+    template: mekanized:item/block_item
   mekanized:display/heat_generator:
     model: mekanized:block/heat_generator
   mekanized:display/heat_generator/active:
     model: mekanized:block/heat_generator_active
   mekanized:heat_generator:
-    data:
-      item_name: <!i><lang:block.mekanized.heat_generator>
-    model: mekanized:block/heat_generator
-    behavior:
-      type: block_item
-      block: mekanized:heat_generator
+    template: mekanized:item/block_item
   mekanized:display/solar_generator:
     model: mekanized:block/solar_generator
   mekanized:solar_generator:
-    data:
-      item_name: <!i><lang:block.mekanized.solar_generator>
-    model: mekanized:item/solar_generator
-    behavior:
-      type: block_item
-      block: mekanized:solar_generator
+    template: mekanized:item/block_item
+    arguments:
+      model: mekanized:item/solar_generator
   mekanized:display/bio_generator:
     model: mekanized:block/bio_generator
   mekanized:bio_generator:
-    data:
-      item_name: <!i><lang:block.mekanized.bio_generator>
-    model: mekanized:block/bio_generator
-    behavior:
-      type: block_item
-      block: mekanized:bio_generator
+    template: mekanized:item/block_item
   mekanized:upgrade_speed:
-    data:
-      item_name: <!i><lang:item.mekanized.upgrade_speed>
-    model: mekanized:item/upgrade_speed
+    template: mekanized:item/named
   mekanized:upgrade_energy:
-    data:
-      item_name: <!i><lang:item.mekanized.upgrade_energy>
-    model: mekanized:item/upgrade_energy
+    template: mekanized:item/named
   mekanized:solar_panel:
-    data:
-      item_name: <!i><lang:item.mekanized.solar_panel>
-    model: mekanized:item/solar_panel
+    template: mekanized:item/named
 blocks:
   mekanized:metallurgic_infuser:
     template: mekanized:block/display_machine_facing

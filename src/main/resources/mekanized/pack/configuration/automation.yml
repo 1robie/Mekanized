@@ -3,77 +3,41 @@ items:
   mekanized:display/digital_miner:
     model: mekanized:block/digital_miner
   mekanized:digital_miner:
-    data:
-      item_name: <!i><lang:block.mekanized.digital_miner>
-    model: mekanized:block/digital_miner
-    behavior:
-      type: block_item
-      block: mekanized:digital_miner
+    template: mekanized:item/block_item
   mekanized:display/seismic_vibrator:
     model: mekanized:block/seismic_vibrator
   mekanized:seismic_vibrator:
-    data:
-      item_name: <!i><lang:block.mekanized.seismic_vibrator>
-    model: mekanized:item/seismic_vibrator
-    behavior:
-      type: block_item
-      block: mekanized:seismic_vibrator
+    template: mekanized:item/block_item
+    arguments:
+      model: mekanized:item/seismic_vibrator
   mekanized:teleporter:
-    data:
-      item_name: <!i><lang:block.mekanized.teleporter>
-    model: mekanized:block/teleporter
-    behavior:
-      type: block_item
-      block: mekanized:teleporter
+    template: mekanized:item/block_item
   mekanized:teleporter_frame:
-    data:
-      item_name: <!i><lang:block.mekanized.teleporter_frame>
-    model: mekanized:block/teleporter_frame
-    behavior:
-      type: block_item
-      block: mekanized:teleporter_frame
+    template: mekanized:item/block_item
   mekanized:display/qio_drive_array:
     model: mekanized:block/qio_drive_array_offline
   mekanized:qio_drive_array:
-    data:
-      item_name: <!i><lang:block.mekanized.qio_drive_array>
-    model: mekanized:block/qio_drive_array_offline
-    behavior:
-      type: block_item
-      block: mekanized:qio_drive_array
+    template: mekanized:item/block_item
+    arguments:
+      model: mekanized:block/qio_drive_array_offline
   mekanized:display/qio_dashboard:
     model: mekanized:block/qio_dashboard_offline
   mekanized:display/qio_dashboard/active:
     model: mekanized:block/qio_dashboard
   mekanized:qio_dashboard:
-    data:
-      item_name: <!i><lang:block.mekanized.qio_dashboard>
-    model: mekanized:block/qio_dashboard
-    behavior:
-      type: block_item
-      block: mekanized:qio_dashboard
+    template: mekanized:item/block_item
   mekanized:display/qio_importer:
     model: mekanized:block/qio_importer_offline
   mekanized:display/qio_importer/active:
     model: mekanized:block/qio_importer
   mekanized:qio_importer:
-    data:
-      item_name: <!i><lang:block.mekanized.qio_importer>
-    model: mekanized:block/qio_importer
-    behavior:
-      type: block_item
-      block: mekanized:qio_importer
+    template: mekanized:item/block_item
   mekanized:display/qio_exporter:
     model: mekanized:block/qio_exporter_offline
   mekanized:display/qio_exporter/active:
     model: mekanized:block/qio_exporter
   mekanized:qio_exporter:
-    data:
-      item_name: <!i><lang:block.mekanized.qio_exporter>
-    model: mekanized:block/qio_exporter
-    behavior:
-      type: block_item
-      block: mekanized:qio_exporter
+    template: mekanized:item/block_item
   mekanized:cardboard_box:
     behaviors:
     - type: mekanized:cardboard_box
@@ -81,47 +45,35 @@ items:
       item_name: <!i><lang:block.mekanized.cardboard_box>
     model: mekanized:block/cardboard_box
   mekanized:teleportation_core:
-    data:
-      item_name: <!i><lang:item.mekanized.teleportation_core>
-    model: mekanized:item/teleportation_core
+    template: mekanized:item/named
   mekanized:robit:
-    data:
-      item_name: <!i><lang:item.mekanized.robit>
-    model: mekanized:item/robit_transforms
+    template: mekanized:item/named
+    arguments:
+      model: mekanized:item/robit_transforms
   mekanized:seismic_reader:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:seismic_reader
-    data:
-      item_name: <!i><lang:item.mekanized.seismic_reader>
-    model: mekanized:item/seismic_reader
   mekanized:qio_drive_base:
-    data:
-      item_name: <!i><lang:item.mekanized.qio_drive_base>
-    model: mekanized:item/qio_drive_base
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:qio_drive
       items: 16000
       kinds: 128
   mekanized:qio_drive_hyper_dense:
-    data:
-      item_name: <!i><lang:item.mekanized.qio_drive_hyper_dense>
-    model: mekanized:item/qio_drive_hyper_dense
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:qio_drive
       items: 128000
       kinds: 256
   mekanized:qio_drive_time_dilating:
-    data:
-      item_name: <!i><lang:item.mekanized.qio_drive_time_dilating>
-    model: mekanized:item/qio_drive_time_dilating
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:qio_drive
       items: 1048000
       kinds: 1024
   mekanized:qio_drive_supermassive:
-    data:
-      item_name: <!i><lang:item.mekanized.qio_drive_supermassive>
-    model: mekanized:item/qio_drive_supermassive
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:qio_drive
       items: 16000000

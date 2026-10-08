@@ -5,208 +5,101 @@ items:
   mekanized:display/resistive_heater/active:
     model: mekanized:block/resistive_heater_active
   mekanized:resistive_heater:
-    data:
-      item_name: <!i><lang:block.mekanized.resistive_heater>
-    model: mekanized:block/resistive_heater
-    behavior:
-      type: block_item
-      block: mekanized:resistive_heater
+    template: mekanized:item/block_item
   mekanized:fuelwood_heater:
-    data:
-      item_name: <!i><lang:block.mekanized.fuelwood_heater>
-    model: mekanized:block/fuelwood_heater
-    behavior:
-      type: block_item
-      block: mekanized:fuelwood_heater
+    template: mekanized:item/block_item
   mekanized:boiler_casing:
-    data:
-      item_name: <!i><lang:block.mekanized.boiler_casing>
-    model: mekanized:block/boiler_casing
-    behavior:
-      type: block_item
-      block: mekanized:boiler_casing
+    template: mekanized:item/block_item
   mekanized:boiler_valve:
-    data:
-      item_name: <!i><lang:block.mekanized.boiler_valve>
-    model: mekanized:block/boiler_valve_input
-    behavior:
-      type: block_item
-      block: mekanized:boiler_valve
+    template: mekanized:item/block_item
+    arguments:
+      model: mekanized:block/boiler_valve_input
   mekanized:pressure_disperser:
-    data:
-      item_name: <!i><lang:block.mekanized.pressure_disperser>
-    model: mekanized:block/pressure_disperser
-    behavior:
-      type: block_item
-      block: mekanized:pressure_disperser
+    template: mekanized:item/block_item
   mekanized:superheating_element:
-    data:
-      item_name: <!i><lang:block.mekanized.superheating_element>
-    model: mekanized:block/superheating_element
-    behavior:
-      type: block_item
-      block: mekanized:superheating_element
+    template: mekanized:item/block_item
   mekanized:turbine_casing:
-    data:
-      item_name: <!i><lang:block.mekanized.turbine_casing>
-    model: mekanized:block/turbine/casing
-    behavior:
-      type: block_item
-      block: mekanized:turbine_casing
+    template: mekanized:item/block_item
+    arguments:
+      model: mekanized:block/turbine/casing
   mekanized:turbine_valve:
-    data:
-      item_name: <!i><lang:block.mekanized.turbine_valve>
-    model: mekanized:block/turbine/valve
-    behavior:
-      type: block_item
-      block: mekanized:turbine_valve
+    template: mekanized:item/block_item
+    arguments:
+      model: mekanized:block/turbine/valve
   mekanized:turbine_vent:
-    data:
-      item_name: <!i><lang:block.mekanized.turbine_vent>
-    model: mekanized:block/turbine/vent
-    behavior:
-      type: block_item
-      block: mekanized:turbine_vent
+    template: mekanized:item/block_item
+    arguments:
+      model: mekanized:block/turbine/vent
   mekanized:display/turbine_rotor:
     model: mekanized:block/turbine/rotor
   mekanized:turbine_rotor:
-    data:
-      item_name: <!i><lang:block.mekanized.turbine_rotor>
-    model: mekanized:block/turbine/rotor
-    behavior:
-      type: block_item
-      block: mekanized:turbine_rotor
+    template: mekanized:item/block_item
+    arguments:
+      model: mekanized:block/turbine/rotor
   mekanized:rotational_complex:
-    data:
-      item_name: <!i><lang:block.mekanized.rotational_complex>
-    model: mekanized:block/rotational_complex
-    behavior:
-      type: block_item
-      block: mekanized:rotational_complex
+    template: mekanized:item/block_item
   mekanized:electromagnetic_coil:
-    data:
-      item_name: <!i><lang:block.mekanized.electromagnetic_coil>
-    model: mekanized:block/electromagnetic_coil
-    behavior:
-      type: block_item
-      block: mekanized:electromagnetic_coil
+    template: mekanized:item/block_item
   mekanized:saturating_condenser:
-    data:
-      item_name: <!i><lang:block.mekanized.saturating_condenser>
-    model: mekanized:block/saturating_condenser
-    behavior:
-      type: block_item
-      block: mekanized:saturating_condenser
+    template: mekanized:item/block_item
   mekanized:fission_reactor_casing:
-    data:
-      item_name: <!i><lang:block.mekanized.fission_reactor_casing>
-    model: mekanized:block/fission/casing
-    behavior:
-      type: block_item
-      block: mekanized:fission_reactor_casing
+    template: mekanized:item/block_item
+    arguments:
+      model: mekanized:block/fission/casing
   mekanized:fission_reactor_port:
-    data:
-      item_name: <!i><lang:block.mekanized.fission_reactor_port>
-    model: mekanized:block/fission/port_input
-    behavior:
-      type: block_item
-      block: mekanized:fission_reactor_port
+    template: mekanized:item/block_item
+    arguments:
+      model: mekanized:block/fission/port_input
   mekanized:fission_reactor_logic_adapter:
-    data:
-      item_name: <!i><lang:block.mekanized.fission_reactor_logic_adapter>
-    model: mekanized:block/fission/logic_adapter
-    behavior:
-      type: block_item
-      block: mekanized:fission_reactor_logic_adapter
+    template: mekanized:item/block_item
+    arguments:
+      model: mekanized:block/fission/logic_adapter
   mekanized:reactor_glass:
-    data:
-      item_name: <!i><lang:block.mekanized.reactor_glass>
-    model: mekanized:block/reactor_glass
-    behavior:
-      type: block_item
-      block: mekanized:reactor_glass
+    template: mekanized:item/block_item
   mekanized:display/fission_fuel_assembly:
     model: mekanized:block/fission/fuel_assembly
   mekanized:fission_fuel_assembly:
-    data:
-      item_name: <!i><lang:block.mekanized.fission_fuel_assembly>
-    model: mekanized:block/fission/fuel_assembly
-    behavior:
-      type: block_item
-      block: mekanized:fission_fuel_assembly
+    template: mekanized:item/block_item
+    arguments:
+      model: mekanized:block/fission/fuel_assembly
   mekanized:display/control_rod_assembly:
     model: mekanized:block/fission/control_rod_assembly
   mekanized:control_rod_assembly:
-    data:
-      item_name: <!i><lang:block.mekanized.control_rod_assembly>
-    model: mekanized:block/fission/control_rod_assembly
-    behavior:
-      type: block_item
-      block: mekanized:control_rod_assembly
+    template: mekanized:item/block_item
+    arguments:
+      model: mekanized:block/fission/control_rod_assembly
   mekanized:fusion_reactor_controller:
-    data:
-      item_name: <!i><lang:block.mekanized.fusion_reactor_controller>
-    model: mekanized:block/fusion/controller
-    behavior:
-      type: block_item
-      block: mekanized:fusion_reactor_controller
+    template: mekanized:item/block_item
+    arguments:
+      model: mekanized:block/fusion/controller
   mekanized:fusion_reactor_frame:
-    data:
-      item_name: <!i><lang:block.mekanized.fusion_reactor_frame>
-    model: mekanized:block/fusion/frame
-    behavior:
-      type: block_item
-      block: mekanized:fusion_reactor_frame
+    template: mekanized:item/block_item
+    arguments:
+      model: mekanized:block/fusion/frame
   mekanized:fusion_reactor_port:
-    data:
-      item_name: <!i><lang:block.mekanized.fusion_reactor_port>
-    model: mekanized:block/fusion/port
-    behavior:
-      type: block_item
-      block: mekanized:fusion_reactor_port
+    template: mekanized:item/block_item
+    arguments:
+      model: mekanized:block/fusion/port
   mekanized:fusion_reactor_logic_adapter:
-    data:
-      item_name: <!i><lang:block.mekanized.fusion_reactor_logic_adapter>
-    model: mekanized:block/fusion/logic_adapter
-    behavior:
-      type: block_item
-      block: mekanized:fusion_reactor_logic_adapter
+    template: mekanized:item/block_item
+    arguments:
+      model: mekanized:block/fusion/logic_adapter
   mekanized:laser_focus_matrix:
-    data:
-      item_name: <!i><lang:block.mekanized.laser_focus_matrix>
-    model: mekanized:block/fusion/laser_focus_matrix
-    behavior:
-      type: block_item
-      block: mekanized:laser_focus_matrix
+    template: mekanized:item/block_item
+    arguments:
+      model: mekanized:block/fusion/laser_focus_matrix
   mekanized:sps_casing:
-    data:
-      item_name: <!i><lang:block.mekanized.sps_casing>
-    model: mekanized:block/sps_casing
-    behavior:
-      type: block_item
-      block: mekanized:sps_casing
+    template: mekanized:item/block_item
   mekanized:sps_port:
-    data:
-      item_name: <!i><lang:block.mekanized.sps_port>
-    model: mekanized:block/sps_port
-    behavior:
-      type: block_item
-      block: mekanized:sps_port
+    template: mekanized:item/block_item
   mekanized:display/supercharged_coil:
     model: mekanized:block/supercharged_coil
   mekanized:supercharged_coil:
-    data:
-      item_name: <!i><lang:block.mekanized.supercharged_coil>
-    model: mekanized:block/supercharged_coil
-    behavior:
-      type: block_item
-      block: mekanized:supercharged_coil
+    template: mekanized:item/block_item
   mekanized:turbine_blade:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:turbine_blade
-    data:
-      item_name: <!i><lang:item.mekanized.turbine_blade>
-    model: mekanized:item/turbine_blade
 blocks:
   mekanized:resistive_heater:
     template: mekanized:block/display_machine_facing

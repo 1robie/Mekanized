@@ -1,6 +1,7 @@
 # Mekanized tools, armour and modules (Phase 6 wave 5), based on Mekanism (MIT).
 items:
   mekanized:atomic_disassembler:
+    template: mekanized:item/named
     material: netherite_pickaxe
     behaviors:
     - type: machineengine:energy_item
@@ -12,11 +13,9 @@ items:
       damage: 20.0
       charged-speed: 16.0
     data:
-      item_name: <!i><lang:item.mekanized.atomic_disassembler>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
-    model: mekanized:item/atomic_disassembler
     settings:
       tags:
       - c:tools/mining_tool
@@ -26,6 +25,9 @@ items:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:meka_tool:
+    template: mekanized:item/named
+    arguments:
+      model: mekanized:item/atomic_disassembler
     material: netherite_pickaxe
     behaviors:
     - type: machineengine:energy_item
@@ -44,11 +46,9 @@ items:
       charged-speed: 16.0
       amplified-speed: 32.0
     data:
-      item_name: <!i><lang:item.mekanized.meka_tool>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
-    model: mekanized:item/atomic_disassembler
     settings:
       tags:
       - c:tools/mining_tool
@@ -58,6 +58,7 @@ items:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:flamethrower:
+    template: mekanized:item/named
     material: stick
     behaviors:
     - type: machineengine:resource_item
@@ -68,15 +69,14 @@ items:
       hydrogen-per-use: 5
       damage: 2.0
     data:
-      item_name: <!i><lang:item.mekanized.flamethrower>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
-    model: mekanized:item/flamethrower
     client-bound-data:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:electric_bow:
+    template: mekanized:item/named
     material: bow
     behaviors:
     - type: machineengine:energy_item
@@ -84,11 +84,9 @@ items:
     - type: mekanized:electric_bow
       energy-per-shot: 120
     data:
-      item_name: <!i><lang:item.mekanized.electric_bow>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
-    model: mekanized:item/electric_bow
     settings:
       tags:
       - c:tools/bow
@@ -98,16 +96,16 @@ items:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:network_reader:
+    template: mekanized:item/named
     behaviors:
     - type: machineengine:storage_reader
     material: stick
     data:
-      item_name: <!i><lang:item.mekanized.network_reader>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
-    model: mekanized:item/network_reader
   mekanized:canteen:
+    template: mekanized:item/named
     material: paper
     behaviors:
     - type: machineengine:resource_item
@@ -116,93 +114,86 @@ items:
       fill-from-machines: true
     - type: mekanized:canteen
     data:
-      item_name: <!i><lang:item.mekanized.canteen>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
-    model: mekanized:item/canteen
     client-bound-data:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:portable_teleporter:
+    template: mekanized:item/named
     material: paper
     behaviors:
     - type: machineengine:energy_item
       max-energy: 1000000
     - type: mekanized:portable_teleporter
     data:
-      item_name: <!i><lang:item.mekanized.portable_teleporter>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
-    model: mekanized:item/portable_teleporter
     client-bound-data:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:portable_qio_dashboard:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:portable_qio
     material: paper
     data:
-      item_name: <!i><lang:item.mekanized.portable_qio_dashboard>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
-    model: mekanized:item/portable_qio_dashboard
     client-bound-data:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:configuration_card:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:configuration_card
     material: paper
     data:
-      item_name: <!i><lang:item.mekanized.configuration_card>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
-    model: mekanized:item/configuration_card
     client-bound-data:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:gauge_dropper:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:gauge_dropper
       capacity: 16000
     material: paper
     data:
-      item_name: <!i><lang:item.mekanized.gauge_dropper>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
-    model: mekanized:item/gauge_dropper
     client-bound-data:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:dictionary:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:dictionary
     material: paper
     data:
-      item_name: <!i><lang:item.mekanized.dictionary>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
-    model: mekanized:item/dictionary
   mekanized:crafting_formula:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:crafting_formula
     material: paper
     data:
-      item_name: <!i><lang:item.mekanized.crafting_formula>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
-    model: mekanized:item/crafting_formula
     client-bound-data:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:jetpack:
+    template: mekanized:item/named
     material: paper
     behaviors:
     - type: machineengine:resource_item
@@ -216,17 +207,16 @@ items:
       walk-speed: 0.3
       sprint-speed: 0.45
     data:
-      item_name: <!i><lang:item.mekanized.jetpack>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
       equippable:
         slot: chest
-    model: mekanized:item/jetpack
     client-bound-data:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:jetpack_armored:
+    template: mekanized:item/named
     material: diamond_chestplate
     behaviors:
     - type: machineengine:resource_item
@@ -240,17 +230,16 @@ items:
       walk-speed: 0.3
       sprint-speed: 0.45
     data:
-      item_name: <!i><lang:item.mekanized.jetpack_armored>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
       equippable:
         slot: chest
-    model: mekanized:item/jetpack_armored
     client-bound-data:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:scuba_tank:
+    template: mekanized:item/named
     material: paper
     behaviors:
     - type: machineengine:resource_item
@@ -261,27 +250,25 @@ items:
       oxygen-per-refill: 20
       mask: mekanized:scuba_mask
     data:
-      item_name: <!i><lang:item.mekanized.scuba_tank>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
       equippable:
         slot: chest
-    model: mekanized:item/scuba_tank
     client-bound-data:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:scuba_mask:
+    template: mekanized:item/named
     material: paper
     data:
-      item_name: <!i><lang:item.mekanized.scuba_mask>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
       equippable:
         slot: head
-    model: mekanized:item/scuba_mask
   mekanized:free_runners:
+    template: mekanized:item/named
     material: leather_boots
     behaviors:
     - type: machineengine:energy_item
@@ -289,17 +276,16 @@ items:
     - type: mekanized:fall_absorber
       energy-per-damage: 50
     data:
-      item_name: <!i><lang:item.mekanized.free_runners>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
       equippable:
         slot: feet
-    model: mekanized:item/free_runners
     client-bound-data:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:free_runners_armored:
+    template: mekanized:item/named
     material: diamond_boots
     behaviors:
     - type: machineengine:energy_item
@@ -307,17 +293,16 @@ items:
     - type: mekanized:fall_absorber
       energy-per-damage: 50
     data:
-      item_name: <!i><lang:item.mekanized.free_runners_armored>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
       equippable:
         slot: feet
-    model: mekanized:item/free_runners_armored
     client-bound-data:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:mekasuit_helmet:
+    template: mekanized:item/named
     material: netherite_helmet
     behaviors:
     - type: machineengine:energy_item
@@ -327,11 +312,9 @@ items:
       protection: 0.25
       requires-module: radiation_shielding_unit
     data:
-      item_name: <!i><lang:item.mekanized.mekasuit_helmet>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
-    model: mekanized:item/mekasuit_helmet
     settings:
       tags:
       - mekanized:mekasuit_hud_renderer
@@ -341,6 +324,7 @@ items:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:mekasuit_bodyarmor:
+    template: mekanized:item/named
     material: netherite_chestplate
     behaviors:
     - type: machineengine:energy_item
@@ -361,11 +345,9 @@ items:
       protection: 0.25
       requires-module: radiation_shielding_unit
     data:
-      item_name: <!i><lang:item.mekanized.mekasuit_bodyarmor>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
-    model: mekanized:item/mekasuit_bodyarmor
     settings:
       tags:
       - minecraft:chest_armor
@@ -374,6 +356,7 @@ items:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:mekasuit_pants:
+    template: mekanized:item/named
     material: netherite_leggings
     behaviors:
     - type: machineengine:energy_item
@@ -383,11 +366,9 @@ items:
       protection: 0.25
       requires-module: radiation_shielding_unit
     data:
-      item_name: <!i><lang:item.mekanized.mekasuit_pants>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
-    model: mekanized:item/mekasuit_pants
     settings:
       tags:
       - minecraft:freeze_immune_wearables
@@ -396,6 +377,7 @@ items:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:mekasuit_boots:
+    template: mekanized:item/named
     material: netherite_boots
     behaviors:
     - type: machineengine:energy_item
@@ -407,11 +389,9 @@ items:
       protection: 0.25
       requires-module: radiation_shielding_unit
     data:
-      item_name: <!i><lang:item.mekanized.mekasuit_boots>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
-    model: mekanized:item/mekasuit_boots
     settings:
       tags:
       - minecraft:foot_armor
@@ -420,209 +400,182 @@ items:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:hazmat_mask:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:radiation_shielding
       protection: 0.25
     material: leather_helmet
     data:
-      item_name: <!i><lang:item.mekanized.hazmat_mask>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
-    model: mekanized:item/hazmat_mask
     settings:
       tags:
       - minecraft:head_armor
   mekanized:hazmat_gown:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:radiation_shielding
       protection: 0.25
     material: leather_chestplate
     data:
-      item_name: <!i><lang:item.mekanized.hazmat_gown>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
-    model: mekanized:item/hazmat_gown
     settings:
       tags:
       - minecraft:chest_armor
   mekanized:hazmat_pants:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:radiation_shielding
       protection: 0.25
     material: leather_leggings
     data:
-      item_name: <!i><lang:item.mekanized.hazmat_pants>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
-    model: mekanized:item/hazmat_pants
     settings:
       tags:
       - minecraft:leg_armor
   mekanized:hazmat_boots:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:radiation_shielding
       protection: 0.25
     material: leather_boots
     data:
-      item_name: <!i><lang:item.mekanized.hazmat_boots>
       unbreakable: true
       components:
         minecraft:max_stack_size: 1
-    model: mekanized:item/hazmat_boots
     settings:
       tags:
       - minecraft:foot_armor
   mekanized:module_base:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: base
-    data:
-      item_name: <!i><lang:item.mekanized.module_base>
-    model: mekanized:item/module_base
   mekanized:module_electrolytic_breathing_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: electrolytic_breathing_unit
       energy: 2000
       fits:
       - mekanized:mekasuit_helmet
-    data:
-      item_name: <!i><lang:item.mekanized.module_electrolytic_breathing_unit>
-    model: mekanized:item/module_electrolytic_breathing_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_vision_enhancement_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: vision_enhancement_unit
       energy: 200
       fits:
       - mekanized:mekasuit_helmet
-    data:
-      item_name: <!i><lang:item.mekanized.module_vision_enhancement_unit>
-    model: mekanized:item/module_vision_enhancement_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_nutritional_injection_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: nutritional_injection_unit
       energy: 2500
       fits:
       - mekanized:mekasuit_helmet
-    data:
-      item_name: <!i><lang:item.mekanized.module_nutritional_injection_unit>
-    model: mekanized:item/module_nutritional_injection_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_inhalation_purification_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: inhalation_purification_unit
       energy: 2000
       fits:
       - mekanized:mekasuit_helmet
-    data:
-      item_name: <!i><lang:item.mekanized.module_inhalation_purification_unit>
-    model: mekanized:item/module_inhalation_purification_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_jetpack_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: jetpack_unit
       fits:
       - mekanized:mekasuit_bodyarmor
-    data:
-      item_name: <!i><lang:item.mekanized.module_jetpack_unit>
-    model: mekanized:item/module_jetpack_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_gravitational_modulating_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: gravitational_modulating_unit
       energy: 20000
       fits:
       - mekanized:mekasuit_bodyarmor
-    data:
-      item_name: <!i><lang:item.mekanized.module_gravitational_modulating_unit>
-    model: mekanized:item/module_gravitational_modulating_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_elytra_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: elytra_unit
       glider: true
       fits:
       - mekanized:mekasuit_bodyarmor
-    data:
-      item_name: <!i><lang:item.mekanized.module_elytra_unit>
-    model: mekanized:item/module_elytra_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_locomotive_boosting_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: locomotive_boosting_unit
       energy: 2000
       fits:
       - mekanized:mekasuit_pants
-    data:
-      item_name: <!i><lang:item.mekanized.module_locomotive_boosting_unit>
-    model: mekanized:item/module_locomotive_boosting_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_hydraulic_propulsion_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: hydraulic_propulsion_unit
       energy: 200
       fits:
       - mekanized:mekasuit_boots
-    data:
-      item_name: <!i><lang:item.mekanized.module_hydraulic_propulsion_unit>
-    model: mekanized:item/module_hydraulic_propulsion_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_excavation_escalation_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: excavation_escalation_unit
       fits:
       - mekanized:meka_tool
-    data:
-      item_name: <!i><lang:item.mekanized.module_excavation_escalation_unit>
-    model: mekanized:item/module_excavation_escalation_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_attack_amplification_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: attack_amplification_unit
       fits:
       - mekanized:meka_tool
-    data:
-      item_name: <!i><lang:item.mekanized.module_attack_amplification_unit>
-    model: mekanized:item/module_attack_amplification_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_silk_touch_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: silk_touch_unit
@@ -630,13 +583,11 @@ items:
       enchantment-level: 1
       fits:
       - mekanized:meka_tool
-    data:
-      item_name: <!i><lang:item.mekanized.module_silk_touch_unit>
-    model: mekanized:item/module_silk_touch_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_fortune_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: fortune_unit
@@ -644,37 +595,31 @@ items:
       enchantment-level: 3
       fits:
       - mekanized:meka_tool
-    data:
-      item_name: <!i><lang:item.mekanized.module_fortune_unit>
-    model: mekanized:item/module_fortune_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_vein_mining_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: vein_mining_unit
       fits:
       - mekanized:meka_tool
-    data:
-      item_name: <!i><lang:item.mekanized.module_vein_mining_unit>
-    model: mekanized:item/module_vein_mining_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_teleportation_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: teleportation_unit
       fits:
       - mekanized:meka_tool
-    data:
-      item_name: <!i><lang:item.mekanized.module_teleportation_unit>
-    model: mekanized:item/module_teleportation_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_radiation_shielding_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: radiation_shielding_unit
@@ -683,37 +628,31 @@ items:
       - mekanized:mekasuit_bodyarmor
       - mekanized:mekasuit_pants
       - mekanized:mekasuit_boots
-    data:
-      item_name: <!i><lang:item.mekanized.module_radiation_shielding_unit>
-    model: mekanized:item/module_radiation_shielding_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_geiger_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: geiger_unit
       fits:
       - mekanized:mekasuit_helmet
-    data:
-      item_name: <!i><lang:item.mekanized.module_geiger_unit>
-    model: mekanized:item/module_geiger_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_dosimeter_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: dosimeter_unit
       fits:
       - mekanized:mekasuit_helmet
-    data:
-      item_name: <!i><lang:item.mekanized.module_dosimeter_unit>
-    model: mekanized:item/module_dosimeter_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_energy_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: energy_unit
@@ -723,91 +662,77 @@ items:
       - mekanized:mekasuit_bodyarmor
       - mekanized:mekasuit_pants
       - mekanized:mekasuit_boots
-    data:
-      item_name: <!i><lang:item.mekanized.module_energy_unit>
-    model: mekanized:item/module_energy_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_charge_distribution_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: charge_distribution_unit
       energy: 20000
       fits:
       - mekanized:mekasuit_bodyarmor
-    data:
-      item_name: <!i><lang:item.mekanized.module_charge_distribution_unit>
-    model: mekanized:item/module_charge_distribution_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_gyroscopic_stabilization_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: gyroscopic_stabilization_unit
       energy: 200
       fits:
       - mekanized:mekasuit_bodyarmor
-    data:
-      item_name: <!i><lang:item.mekanized.module_gyroscopic_stabilization_unit>
-    model: mekanized:item/module_gyroscopic_stabilization_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_solar_recharging_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: solar_recharging_unit
       energy: 2000
       fits:
       - mekanized:mekasuit_helmet
-    data:
-      item_name: <!i><lang:item.mekanized.module_solar_recharging_unit>
-    model: mekanized:item/module_solar_recharging_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_geothermal_generator_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: geothermal_generator_unit
       energy: 10000
       fits:
       - mekanized:mekasuit_pants
-    data:
-      item_name: <!i><lang:item.mekanized.module_geothermal_generator_unit>
-    model: mekanized:item/module_geothermal_generator_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_motorized_servo_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: motorized_servo_unit
       energy: 100
       fits:
       - mekanized:mekasuit_pants
-    data:
-      item_name: <!i><lang:item.mekanized.module_motorized_servo_unit>
-    model: mekanized:item/module_motorized_servo_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_hydrostatic_repulsor_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: hydrostatic_repulsor_unit
       energy: 500
       fits:
       - mekanized:mekasuit_pants
-    data:
-      item_name: <!i><lang:item.mekanized.module_hydrostatic_repulsor_unit>
-    model: mekanized:item/module_hydrostatic_repulsor_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_magnetic_attraction_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: magnetic_attraction_unit
@@ -815,13 +740,11 @@ items:
       range: 8
       fits:
       - mekanized:mekasuit_boots
-    data:
-      item_name: <!i><lang:item.mekanized.module_magnetic_attraction_unit>
-    model: mekanized:item/module_magnetic_attraction_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_frost_walker_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: frost_walker_unit
@@ -829,13 +752,11 @@ items:
       enchantment-level: 2
       fits:
       - mekanized:mekasuit_boots
-    data:
-      item_name: <!i><lang:item.mekanized.module_frost_walker_unit>
-    model: mekanized:item/module_frost_walker_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_soul_surfer_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: soul_surfer_unit
@@ -843,52 +764,41 @@ items:
       enchantment-level: 3
       fits:
       - mekanized:mekasuit_boots
-    data:
-      item_name: <!i><lang:item.mekanized.module_soul_surfer_unit>
-    model: mekanized:item/module_soul_surfer_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_blasting_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: blasting_unit
       fits:
       - mekanized:meka_tool
-    data:
-      item_name: <!i><lang:item.mekanized.module_blasting_unit>
-    model: mekanized:item/module_blasting_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_farming_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: farming_unit
       fits:
       - mekanized:meka_tool
-    data:
-      item_name: <!i><lang:item.mekanized.module_farming_unit>
-    model: mekanized:item/module_farming_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:module_shearing_unit:
+    template: mekanized:item/named
     behaviors:
     - type: mekanized:module
       module: shearing_unit
       fits:
       - mekanized:meka_tool
-    data:
-      item_name: <!i><lang:item.mekanized.module_shearing_unit>
-    model: mekanized:item/module_shearing_unit
     settings:
       tags:
       - mekanized:unit
   mekanized:hdpe_elytra:
-    data:
-      item_name: <!i><lang:item.mekanized.hdpe_elytra>
-    model: mekanized:item/hdpe_elytra
+    template: mekanized:item/named
     settings:
       tags:
       - minecraft:enchantable/durability

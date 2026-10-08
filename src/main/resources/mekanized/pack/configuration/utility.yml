@@ -3,95 +3,47 @@ items:
   mekanized:display/personal_chest:
     model: mekanized:block/personal_chest
   mekanized:personal_chest:
-    data:
-      item_name: <!i><lang:block.mekanized.personal_chest>
-    model: mekanized:item/personal_chest
-    behavior:
-      type: block_item
-      block: mekanized:personal_chest
+    template: mekanized:item/block_item
+    arguments:
+      model: mekanized:item/personal_chest
     settings:
       tags:
       - mekanized:personal_storage
   mekanized:personal_barrel:
-    data:
-      item_name: <!i><lang:block.mekanized.personal_barrel>
-    model: mekanized:block/personal_barrel
-    behavior:
-      type: block_item
-      block: mekanized:personal_barrel
+    template: mekanized:item/block_item
     settings:
       tags:
       - mekanized:personal_storage
   mekanized:display/chargepad:
     model: mekanized:block/chargepad
   mekanized:chargepad:
-    data:
-      item_name: <!i><lang:block.mekanized.chargepad>
-    model: mekanized:block/chargepad
-    behavior:
-      type: block_item
-      block: mekanized:chargepad
+    template: mekanized:item/block_item
   mekanized:display/fluidic_plenisher:
     model: mekanized:block/fluidic_plenisher
   mekanized:fluidic_plenisher:
-    data:
-      item_name: <!i><lang:block.mekanized.fluidic_plenisher>
-    model: mekanized:block/fluidic_plenisher
-    behavior:
-      type: block_item
-      block: mekanized:fluidic_plenisher
+    template: mekanized:item/block_item
   mekanized:formulaic_assemblicator:
-    data:
-      item_name: <!i><lang:block.mekanized.formulaic_assemblicator>
-    model: mekanized:block/formulaic_assemblicator
-    behavior:
-      type: block_item
-      block: mekanized:formulaic_assemblicator
+    template: mekanized:item/block_item
   mekanized:display/laser:
     model: mekanized:block/laser
   mekanized:laser:
-    data:
-      item_name: <!i><lang:block.mekanized.laser>
-    model: mekanized:block/laser
-    behavior:
-      type: block_item
-      block: mekanized:laser
+    template: mekanized:item/block_item
   mekanized:display/laser_amplifier:
     model: mekanized:block/laser_amplifier
   mekanized:laser_amplifier:
-    data:
-      item_name: <!i><lang:block.mekanized.laser_amplifier>
-    model: mekanized:block/laser_amplifier
-    behavior:
-      type: block_item
-      block: mekanized:laser_amplifier
+    template: mekanized:item/block_item
   mekanized:display/laser_tractor_beam:
     model: mekanized:block/laser_tractor_beam
   mekanized:laser_tractor_beam:
-    data:
-      item_name: <!i><lang:block.mekanized.laser_tractor_beam>
-    model: mekanized:block/laser_tractor_beam
-    behavior:
-      type: block_item
-      block: mekanized:laser_tractor_beam
+    template: mekanized:item/block_item
   mekanized:oredictionificator:
-    data:
-      item_name: <!i><lang:block.mekanized.oredictionificator>
-    model: mekanized:block/oredictionificator
-    behavior:
-      type: block_item
-      block: mekanized:oredictionificator
+    template: mekanized:item/block_item
   mekanized:display/industrial_alarm:
     model: mekanized:block/industrial_alarm
   mekanized:display/industrial_alarm/active:
     model: mekanized:block/industrial_alarm_active
   mekanized:industrial_alarm:
-    data:
-      item_name: <!i><lang:block.mekanized.industrial_alarm>
-    model: mekanized:block/industrial_alarm
-    behavior:
-      type: block_item
-      block: mekanized:industrial_alarm
+    template: mekanized:item/block_item
 blocks:
   mekanized:personal_chest:
     template: mekanized:block/display_machine_facing

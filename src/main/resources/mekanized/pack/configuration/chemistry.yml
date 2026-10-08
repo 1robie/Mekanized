@@ -3,93 +3,44 @@ items:
   mekanized:display/chemical_oxidizer:
     model: mekanized:block/chemical_oxidizer
   mekanized:chemical_oxidizer:
-    data:
-      item_name: <!i><lang:block.mekanized.chemical_oxidizer>
-    model: mekanized:block/chemical_oxidizer
-    behavior:
-      type: block_item
-      block: mekanized:chemical_oxidizer
+    template: mekanized:item/block_item
   mekanized:display/chemical_infuser:
     model: mekanized:block/chemical_infuser
   mekanized:chemical_infuser:
-    data:
-      item_name: <!i><lang:block.mekanized.chemical_infuser>
-    model: mekanized:block/chemical_infuser
-    behavior:
-      type: block_item
-      block: mekanized:chemical_infuser
+    template: mekanized:item/block_item
   mekanized:chemical_injection_chamber:
-    data:
-      item_name: <!i><lang:block.mekanized.chemical_injection_chamber>
-    model: mekanized:block/chemical_injection_chamber
-    behavior:
-      type: block_item
-      block: mekanized:chemical_injection_chamber
+    template: mekanized:item/block_item
   mekanized:display/chemical_dissolution_chamber:
     model: mekanized:block/chemical_dissolution_chamber
   mekanized:chemical_dissolution_chamber:
-    data:
-      item_name: <!i><lang:block.mekanized.chemical_dissolution_chamber>
-    model: mekanized:block/chemical_dissolution_chamber
-    behavior:
-      type: block_item
-      block: mekanized:chemical_dissolution_chamber
+    template: mekanized:item/block_item
   mekanized:display/chemical_washer:
     model: mekanized:block/chemical_washer
   mekanized:chemical_washer:
-    data:
-      item_name: <!i><lang:block.mekanized.chemical_washer>
-    model: mekanized:block/chemical_washer
-    behavior:
-      type: block_item
-      block: mekanized:chemical_washer
+    template: mekanized:item/block_item
   mekanized:display/chemical_crystallizer:
     model: mekanized:block/chemical_crystallizer
   mekanized:chemical_crystallizer:
-    data:
-      item_name: <!i><lang:block.mekanized.chemical_crystallizer>
-    model: mekanized:block/chemical_crystallizer
-    behavior:
-      type: block_item
-      block: mekanized:chemical_crystallizer
+    template: mekanized:item/block_item
   mekanized:display/electrolytic_separator:
     model: mekanized:block/electrolytic_separator
   mekanized:electrolytic_separator:
-    data:
-      item_name: <!i><lang:block.mekanized.electrolytic_separator>
-    model: mekanized:block/electrolytic_separator
-    behavior:
-      type: block_item
-      block: mekanized:electrolytic_separator
+    template: mekanized:item/block_item
   mekanized:display/rotary_condensentrator:
     model: mekanized:block/rotary_condensentrator
   mekanized:rotary_condensentrator:
-    data:
-      item_name: <!i><lang:block.mekanized.rotary_condensentrator>
-    model: mekanized:block/rotary_condensentrator
-    behavior:
-      type: block_item
-      block: mekanized:rotary_condensentrator
+    template: mekanized:item/block_item
   mekanized:display/electric_pump:
     model: mekanized:block/electric_pump
   mekanized:electric_pump:
-    data:
-      item_name: <!i><lang:block.mekanized.electric_pump>
-    model: mekanized:block/electric_pump
-    behavior:
-      type: block_item
-      block: mekanized:electric_pump
+    template: mekanized:item/block_item
   mekanized:electrolytic_core:
-    data:
-      item_name: <!i><lang:item.mekanized.electrolytic_core>
-    model: mekanized:item/electrolytic_core
+    template: mekanized:item/named
   mekanized:energy_tablet:
+    template: mekanized:item/named
     behaviors:
     - type: machineengine:energy_item
       max-energy: 1000000
-    data:
-      item_name: <!i><lang:item.mekanized.energy_tablet>
-    model: mekanized:item/energy_tablet
     client-bound-data:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}

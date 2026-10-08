@@ -3,101 +3,51 @@ items:
   mekanized:display/pressurized_reaction_chamber:
     model: mekanized:block/pressurized_reaction_chamber
   mekanized:pressurized_reaction_chamber:
-    data:
-      item_name: <!i><lang:block.mekanized.pressurized_reaction_chamber>
-    model: mekanized:block/pressurized_reaction_chamber
-    behavior:
-      type: block_item
-      block: mekanized:pressurized_reaction_chamber
+    template: mekanized:item/block_item
   mekanized:display/isotopic_centrifuge:
     model: mekanized:block/isotopic_centrifuge
   mekanized:isotopic_centrifuge:
-    data:
-      item_name: <!i><lang:block.mekanized.isotopic_centrifuge>
-    model: mekanized:block/isotopic_centrifuge
-    behavior:
-      type: block_item
-      block: mekanized:isotopic_centrifuge
+    template: mekanized:item/block_item
   mekanized:display/solar_neutron_activator:
     model: mekanized:block/solar_neutron_activator
   mekanized:display/solar_neutron_activator/active:
     model: mekanized:block/solar_neutron_activator_active
   mekanized:solar_neutron_activator:
-    data:
-      item_name: <!i><lang:block.mekanized.solar_neutron_activator>
-    model: mekanized:block/solar_neutron_activator
-    behavior:
-      type: block_item
-      block: mekanized:solar_neutron_activator
+    template: mekanized:item/block_item
   mekanized:display/antiprotonic_nucleosynthesizer:
     model: mekanized:block/antiprotonic_nucleosynthesizer
   mekanized:antiprotonic_nucleosynthesizer:
-    data:
-      item_name: <!i><lang:block.mekanized.antiprotonic_nucleosynthesizer>
-    model: mekanized:block/antiprotonic_nucleosynthesizer
-    behavior:
-      type: block_item
-      block: mekanized:antiprotonic_nucleosynthesizer
+    template: mekanized:item/block_item
   mekanized:display/painting_machine:
     model: mekanized:block/painting_machine
   mekanized:display/painting_machine/active:
     model: mekanized:block/painting_machine_active
   mekanized:painting_machine:
-    data:
-      item_name: <!i><lang:block.mekanized.painting_machine>
-    model: mekanized:block/painting_machine
-    behavior:
-      type: block_item
-      block: mekanized:painting_machine
+    template: mekanized:item/block_item
   mekanized:display/pigment_extractor:
     model: mekanized:block/pigment_extractor
   mekanized:display/pigment_extractor/active:
     model: mekanized:block/pigment_extractor_active
   mekanized:pigment_extractor:
-    data:
-      item_name: <!i><lang:block.mekanized.pigment_extractor>
-    model: mekanized:block/pigment_extractor
-    behavior:
-      type: block_item
-      block: mekanized:pigment_extractor
+    template: mekanized:item/block_item
   mekanized:display/pigment_mixer:
     model: mekanized:block/pigment_mixer
   mekanized:display/pigment_mixer/active:
     model: mekanized:block/pigment_mixer_active
   mekanized:pigment_mixer:
-    data:
-      item_name: <!i><lang:block.mekanized.pigment_mixer>
-    model: mekanized:block/pigment_mixer
-    behavior:
-      type: block_item
-      block: mekanized:pigment_mixer
+    template: mekanized:item/block_item
   mekanized:display/gas_burning_generator:
     model: mekanized:block/gas_burning_generator
   mekanized:gas_burning_generator:
-    data:
-      item_name: <!i><lang:block.mekanized.gas_burning_generator>
-    model: mekanized:block/gas_burning_generator
-    behavior:
-      type: block_item
-      block: mekanized:gas_burning_generator
+    template: mekanized:item/block_item
   mekanized:display/wind_generator:
     model: mekanized:block/wind_generator
   mekanized:wind_generator:
-    data:
-      item_name: <!i><lang:block.mekanized.wind_generator>
-    model: mekanized:block/wind_generator
-    behavior:
-      type: block_item
-      block: mekanized:wind_generator
+    template: mekanized:item/block_item
   mekanized:display/advanced_solar_generator:
     model: mekanized:block/advanced_solar_generator
   mekanized:advanced_solar_generator:
-    data:
-      item_name: <!i><lang:block.mekanized.advanced_solar_generator>
-    model: mekanized:block/advanced_solar_generator
-    behavior:
-      type: block_item
-      block: mekanized:advanced_solar_generator
+    template: mekanized:item/block_item
 blocks:
   mekanized:pressurized_reaction_chamber:
     template: mekanized:block/display_machine_facing
