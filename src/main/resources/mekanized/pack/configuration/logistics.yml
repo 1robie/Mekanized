@@ -407,186 +407,6 @@ items:
     behavior:
       type: block_item
       block: mekanized:ultimate_sawing_factory
-  mekanized:cable_part/basic_logistical_transporter/center:
-    model: mekanized:block/cable/basic_logistical_transporter/center
-  mekanized:cable_part/basic_logistical_transporter/north:
-    model: mekanized:block/cable/basic_logistical_transporter/north
-  mekanized:cable_part/basic_logistical_transporter/north_pull:
-    model: mekanized:block/cable/basic_logistical_transporter/north_pull
-  mekanized:cable_part/basic_logistical_transporter/north_push:
-    model: mekanized:block/cable/basic_logistical_transporter/north_push
-  mekanized:cable_part/basic_logistical_transporter/south:
-    model: mekanized:block/cable/basic_logistical_transporter/south
-  mekanized:cable_part/basic_logistical_transporter/south_pull:
-    model: mekanized:block/cable/basic_logistical_transporter/south_pull
-  mekanized:cable_part/basic_logistical_transporter/south_push:
-    model: mekanized:block/cable/basic_logistical_transporter/south_push
-  mekanized:cable_part/basic_logistical_transporter/east:
-    model: mekanized:block/cable/basic_logistical_transporter/east
-  mekanized:cable_part/basic_logistical_transporter/east_pull:
-    model: mekanized:block/cable/basic_logistical_transporter/east_pull
-  mekanized:cable_part/basic_logistical_transporter/east_push:
-    model: mekanized:block/cable/basic_logistical_transporter/east_push
-  mekanized:cable_part/basic_logistical_transporter/west:
-    model: mekanized:block/cable/basic_logistical_transporter/west
-  mekanized:cable_part/basic_logistical_transporter/west_pull:
-    model: mekanized:block/cable/basic_logistical_transporter/west_pull
-  mekanized:cable_part/basic_logistical_transporter/west_push:
-    model: mekanized:block/cable/basic_logistical_transporter/west_push
-  mekanized:cable_part/basic_logistical_transporter/up:
-    model: mekanized:block/cable/basic_logistical_transporter/up
-  mekanized:cable_part/basic_logistical_transporter/up_pull:
-    model: mekanized:block/cable/basic_logistical_transporter/up_pull
-  mekanized:cable_part/basic_logistical_transporter/up_push:
-    model: mekanized:block/cable/basic_logistical_transporter/up_push
-  mekanized:cable_part/basic_logistical_transporter/down:
-    model: mekanized:block/cable/basic_logistical_transporter/down
-  mekanized:cable_part/basic_logistical_transporter/down_pull:
-    model: mekanized:block/cable/basic_logistical_transporter/down_pull
-  mekanized:cable_part/basic_logistical_transporter/down_push:
-    model: mekanized:block/cable/basic_logistical_transporter/down_push
-  mekanized:basic_logistical_transporter:
-    data:
-      item_name: <!i><lang:block.mekanized.basic_logistical_transporter>
-    model: mekanized:block/cable/basic_logistical_transporter/center
-    behavior:
-      type: block_item
-      block: mekanized:basic_logistical_transporter
-  mekanized:cable_part/advanced_logistical_transporter/center:
-    model: mekanized:block/cable/advanced_logistical_transporter/center
-  mekanized:cable_part/advanced_logistical_transporter/north:
-    model: mekanized:block/cable/advanced_logistical_transporter/north
-  mekanized:cable_part/advanced_logistical_transporter/north_pull:
-    model: mekanized:block/cable/advanced_logistical_transporter/north_pull
-  mekanized:cable_part/advanced_logistical_transporter/north_push:
-    model: mekanized:block/cable/advanced_logistical_transporter/north_push
-  mekanized:cable_part/advanced_logistical_transporter/south:
-    model: mekanized:block/cable/advanced_logistical_transporter/south
-  mekanized:cable_part/advanced_logistical_transporter/south_pull:
-    model: mekanized:block/cable/advanced_logistical_transporter/south_pull
-  mekanized:cable_part/advanced_logistical_transporter/south_push:
-    model: mekanized:block/cable/advanced_logistical_transporter/south_push
-  mekanized:cable_part/advanced_logistical_transporter/east:
-    model: mekanized:block/cable/advanced_logistical_transporter/east
-  mekanized:cable_part/advanced_logistical_transporter/east_pull:
-    model: mekanized:block/cable/advanced_logistical_transporter/east_pull
-  mekanized:cable_part/advanced_logistical_transporter/east_push:
-    model: mekanized:block/cable/advanced_logistical_transporter/east_push
-  mekanized:cable_part/advanced_logistical_transporter/west:
-    model: mekanized:block/cable/advanced_logistical_transporter/west
-  mekanized:cable_part/advanced_logistical_transporter/west_pull:
-    model: mekanized:block/cable/advanced_logistical_transporter/west_pull
-  mekanized:cable_part/advanced_logistical_transporter/west_push:
-    model: mekanized:block/cable/advanced_logistical_transporter/west_push
-  mekanized:cable_part/advanced_logistical_transporter/up:
-    model: mekanized:block/cable/advanced_logistical_transporter/up
-  mekanized:cable_part/advanced_logistical_transporter/up_pull:
-    model: mekanized:block/cable/advanced_logistical_transporter/up_pull
-  mekanized:cable_part/advanced_logistical_transporter/up_push:
-    model: mekanized:block/cable/advanced_logistical_transporter/up_push
-  mekanized:cable_part/advanced_logistical_transporter/down:
-    model: mekanized:block/cable/advanced_logistical_transporter/down
-  mekanized:cable_part/advanced_logistical_transporter/down_pull:
-    model: mekanized:block/cable/advanced_logistical_transporter/down_pull
-  mekanized:cable_part/advanced_logistical_transporter/down_push:
-    model: mekanized:block/cable/advanced_logistical_transporter/down_push
-  mekanized:advanced_logistical_transporter:
-    data:
-      item_name: <!i><lang:block.mekanized.advanced_logistical_transporter>
-    model: mekanized:block/cable/advanced_logistical_transporter/center
-    behavior:
-      type: block_item
-      block: mekanized:advanced_logistical_transporter
-  mekanized:cable_part/elite_logistical_transporter/center:
-    model: mekanized:block/cable/elite_logistical_transporter/center
-  mekanized:cable_part/elite_logistical_transporter/north:
-    model: mekanized:block/cable/elite_logistical_transporter/north
-  mekanized:cable_part/elite_logistical_transporter/north_pull:
-    model: mekanized:block/cable/elite_logistical_transporter/north_pull
-  mekanized:cable_part/elite_logistical_transporter/north_push:
-    model: mekanized:block/cable/elite_logistical_transporter/north_push
-  mekanized:cable_part/elite_logistical_transporter/south:
-    model: mekanized:block/cable/elite_logistical_transporter/south
-  mekanized:cable_part/elite_logistical_transporter/south_pull:
-    model: mekanized:block/cable/elite_logistical_transporter/south_pull
-  mekanized:cable_part/elite_logistical_transporter/south_push:
-    model: mekanized:block/cable/elite_logistical_transporter/south_push
-  mekanized:cable_part/elite_logistical_transporter/east:
-    model: mekanized:block/cable/elite_logistical_transporter/east
-  mekanized:cable_part/elite_logistical_transporter/east_pull:
-    model: mekanized:block/cable/elite_logistical_transporter/east_pull
-  mekanized:cable_part/elite_logistical_transporter/east_push:
-    model: mekanized:block/cable/elite_logistical_transporter/east_push
-  mekanized:cable_part/elite_logistical_transporter/west:
-    model: mekanized:block/cable/elite_logistical_transporter/west
-  mekanized:cable_part/elite_logistical_transporter/west_pull:
-    model: mekanized:block/cable/elite_logistical_transporter/west_pull
-  mekanized:cable_part/elite_logistical_transporter/west_push:
-    model: mekanized:block/cable/elite_logistical_transporter/west_push
-  mekanized:cable_part/elite_logistical_transporter/up:
-    model: mekanized:block/cable/elite_logistical_transporter/up
-  mekanized:cable_part/elite_logistical_transporter/up_pull:
-    model: mekanized:block/cable/elite_logistical_transporter/up_pull
-  mekanized:cable_part/elite_logistical_transporter/up_push:
-    model: mekanized:block/cable/elite_logistical_transporter/up_push
-  mekanized:cable_part/elite_logistical_transporter/down:
-    model: mekanized:block/cable/elite_logistical_transporter/down
-  mekanized:cable_part/elite_logistical_transporter/down_pull:
-    model: mekanized:block/cable/elite_logistical_transporter/down_pull
-  mekanized:cable_part/elite_logistical_transporter/down_push:
-    model: mekanized:block/cable/elite_logistical_transporter/down_push
-  mekanized:elite_logistical_transporter:
-    data:
-      item_name: <!i><lang:block.mekanized.elite_logistical_transporter>
-    model: mekanized:block/cable/elite_logistical_transporter/center
-    behavior:
-      type: block_item
-      block: mekanized:elite_logistical_transporter
-  mekanized:cable_part/ultimate_logistical_transporter/center:
-    model: mekanized:block/cable/ultimate_logistical_transporter/center
-  mekanized:cable_part/ultimate_logistical_transporter/north:
-    model: mekanized:block/cable/ultimate_logistical_transporter/north
-  mekanized:cable_part/ultimate_logistical_transporter/north_pull:
-    model: mekanized:block/cable/ultimate_logistical_transporter/north_pull
-  mekanized:cable_part/ultimate_logistical_transporter/north_push:
-    model: mekanized:block/cable/ultimate_logistical_transporter/north_push
-  mekanized:cable_part/ultimate_logistical_transporter/south:
-    model: mekanized:block/cable/ultimate_logistical_transporter/south
-  mekanized:cable_part/ultimate_logistical_transporter/south_pull:
-    model: mekanized:block/cable/ultimate_logistical_transporter/south_pull
-  mekanized:cable_part/ultimate_logistical_transporter/south_push:
-    model: mekanized:block/cable/ultimate_logistical_transporter/south_push
-  mekanized:cable_part/ultimate_logistical_transporter/east:
-    model: mekanized:block/cable/ultimate_logistical_transporter/east
-  mekanized:cable_part/ultimate_logistical_transporter/east_pull:
-    model: mekanized:block/cable/ultimate_logistical_transporter/east_pull
-  mekanized:cable_part/ultimate_logistical_transporter/east_push:
-    model: mekanized:block/cable/ultimate_logistical_transporter/east_push
-  mekanized:cable_part/ultimate_logistical_transporter/west:
-    model: mekanized:block/cable/ultimate_logistical_transporter/west
-  mekanized:cable_part/ultimate_logistical_transporter/west_pull:
-    model: mekanized:block/cable/ultimate_logistical_transporter/west_pull
-  mekanized:cable_part/ultimate_logistical_transporter/west_push:
-    model: mekanized:block/cable/ultimate_logistical_transporter/west_push
-  mekanized:cable_part/ultimate_logistical_transporter/up:
-    model: mekanized:block/cable/ultimate_logistical_transporter/up
-  mekanized:cable_part/ultimate_logistical_transporter/up_pull:
-    model: mekanized:block/cable/ultimate_logistical_transporter/up_pull
-  mekanized:cable_part/ultimate_logistical_transporter/up_push:
-    model: mekanized:block/cable/ultimate_logistical_transporter/up_push
-  mekanized:cable_part/ultimate_logistical_transporter/down:
-    model: mekanized:block/cable/ultimate_logistical_transporter/down
-  mekanized:cable_part/ultimate_logistical_transporter/down_pull:
-    model: mekanized:block/cable/ultimate_logistical_transporter/down_pull
-  mekanized:cable_part/ultimate_logistical_transporter/down_push:
-    model: mekanized:block/cable/ultimate_logistical_transporter/down_push
-  mekanized:ultimate_logistical_transporter:
-    data:
-      item_name: <!i><lang:block.mekanized.ultimate_logistical_transporter>
-    model: mekanized:block/cable/ultimate_logistical_transporter/center
-    behavior:
-      type: block_item
-      block: mekanized:ultimate_logistical_transporter
   mekanized:basic_tier_installer:
     behaviors:
     - type: mekanized:tier_installer
@@ -1671,67 +1491,69 @@ blocks:
           appearance: default
         facing=west:
           appearance: default
-  mekanized:basic_logistical_transporter:
-    behavior:
-      type: machineengine:transport
-      transport: mekanized:basic_logistical_transporter
-      rate: 8
-      connection_items: mekanized:cable_part/basic_logistical_transporter
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: sapling
-        id: mekanized_universal_cable
-      model:
-        path: mekanized:block/display_empty/universal_cable
-  mekanized:advanced_logistical_transporter:
-    behavior:
-      type: machineengine:transport
-      transport: mekanized:advanced_logistical_transporter
-      rate: 16
-      connection_items: mekanized:cable_part/advanced_logistical_transporter
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: sapling
-        id: mekanized_universal_cable
-      model:
-        path: mekanized:block/display_empty/universal_cable
-  mekanized:elite_logistical_transporter:
-    behavior:
-      type: machineengine:transport
-      transport: mekanized:elite_logistical_transporter
-      rate: 32
-      connection_items: mekanized:cable_part/elite_logistical_transporter
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: sapling
-        id: mekanized_universal_cable
-      model:
-        path: mekanized:block/display_empty/universal_cable
-  mekanized:ultimate_logistical_transporter:
-    behavior:
-      type: machineengine:transport
-      transport: mekanized:ultimate_logistical_transporter
-      rate: 64
-      connection_items: mekanized:cable_part/ultimate_logistical_transporter
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: sapling
-        id: mekanized_universal_cable
-      model:
-        path: mekanized:block/display_empty/universal_cable
+
+# Logistical transporters: one row per block. A row's rate is the block's (D34): what one block passes per tick.
+# Each row makes the block, its item and the 19 parts display entities draw it with
+# (mekanized:cable_part/<transport>/<part>); see docs/CE_TEMPLATES_PLAN.md.
+config_factory#item_transports:
+  instances:
+  - transport: basic_logistical_transporter
+    rate: 8
+  - transport: advanced_logistical_transporter
+    rate: 16
+  - transport: elite_logistical_transporter
+    rate: 32
+  - transport: ultimate_logistical_transporter
+    rate: 64
+  blueprint:
+    items:
+      mekanized:${transport}:
+        data:
+          item_name: <!i><lang:block.mekanized.${transport}>
+        model: mekanized:block/cable/${transport}/center
+        behavior:
+          type: block_item
+          block: mekanized:${transport}
+      mekanized:cable_part/${transport}/center:
+        model: mekanized:block/cable/${transport}/center
+      mekanized:cable_part/${transport}/north:
+        model: mekanized:block/cable/${transport}/north
+      mekanized:cable_part/${transport}/north_pull:
+        model: mekanized:block/cable/${transport}/north_pull
+      mekanized:cable_part/${transport}/north_push:
+        model: mekanized:block/cable/${transport}/north_push
+      mekanized:cable_part/${transport}/south:
+        model: mekanized:block/cable/${transport}/south
+      mekanized:cable_part/${transport}/south_pull:
+        model: mekanized:block/cable/${transport}/south_pull
+      mekanized:cable_part/${transport}/south_push:
+        model: mekanized:block/cable/${transport}/south_push
+      mekanized:cable_part/${transport}/east:
+        model: mekanized:block/cable/${transport}/east
+      mekanized:cable_part/${transport}/east_pull:
+        model: mekanized:block/cable/${transport}/east_pull
+      mekanized:cable_part/${transport}/east_push:
+        model: mekanized:block/cable/${transport}/east_push
+      mekanized:cable_part/${transport}/west:
+        model: mekanized:block/cable/${transport}/west
+      mekanized:cable_part/${transport}/west_pull:
+        model: mekanized:block/cable/${transport}/west_pull
+      mekanized:cable_part/${transport}/west_push:
+        model: mekanized:block/cable/${transport}/west_push
+      mekanized:cable_part/${transport}/up:
+        model: mekanized:block/cable/${transport}/up
+      mekanized:cable_part/${transport}/up_pull:
+        model: mekanized:block/cable/${transport}/up_pull
+      mekanized:cable_part/${transport}/up_push:
+        model: mekanized:block/cable/${transport}/up_push
+      mekanized:cable_part/${transport}/down:
+        model: mekanized:block/cable/${transport}/down
+      mekanized:cable_part/${transport}/down_pull:
+        model: mekanized:block/cable/${transport}/down_pull
+      mekanized:cable_part/${transport}/down_push:
+        model: mekanized:block/cable/${transport}/down_push
+    blocks:
+      mekanized:${transport}:
+        template: mekanized:block/transport
+        behavior:
+          rate: ${rate}

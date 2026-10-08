@@ -232,186 +232,6 @@ items:
     behavior:
       type: block_item
       block: mekanized:creative_energy_cube
-  mekanized:cable_part/basic_universal_cable/center:
-    model: mekanized:block/cable/basic_universal_cable/center
-  mekanized:cable_part/basic_universal_cable/north:
-    model: mekanized:block/cable/basic_universal_cable/north
-  mekanized:cable_part/basic_universal_cable/north_pull:
-    model: mekanized:block/cable/basic_universal_cable/north_pull
-  mekanized:cable_part/basic_universal_cable/north_push:
-    model: mekanized:block/cable/basic_universal_cable/north_push
-  mekanized:cable_part/basic_universal_cable/south:
-    model: mekanized:block/cable/basic_universal_cable/south
-  mekanized:cable_part/basic_universal_cable/south_pull:
-    model: mekanized:block/cable/basic_universal_cable/south_pull
-  mekanized:cable_part/basic_universal_cable/south_push:
-    model: mekanized:block/cable/basic_universal_cable/south_push
-  mekanized:cable_part/basic_universal_cable/east:
-    model: mekanized:block/cable/basic_universal_cable/east
-  mekanized:cable_part/basic_universal_cable/east_pull:
-    model: mekanized:block/cable/basic_universal_cable/east_pull
-  mekanized:cable_part/basic_universal_cable/east_push:
-    model: mekanized:block/cable/basic_universal_cable/east_push
-  mekanized:cable_part/basic_universal_cable/west:
-    model: mekanized:block/cable/basic_universal_cable/west
-  mekanized:cable_part/basic_universal_cable/west_pull:
-    model: mekanized:block/cable/basic_universal_cable/west_pull
-  mekanized:cable_part/basic_universal_cable/west_push:
-    model: mekanized:block/cable/basic_universal_cable/west_push
-  mekanized:cable_part/basic_universal_cable/up:
-    model: mekanized:block/cable/basic_universal_cable/up
-  mekanized:cable_part/basic_universal_cable/up_pull:
-    model: mekanized:block/cable/basic_universal_cable/up_pull
-  mekanized:cable_part/basic_universal_cable/up_push:
-    model: mekanized:block/cable/basic_universal_cable/up_push
-  mekanized:cable_part/basic_universal_cable/down:
-    model: mekanized:block/cable/basic_universal_cable/down
-  mekanized:cable_part/basic_universal_cable/down_pull:
-    model: mekanized:block/cable/basic_universal_cable/down_pull
-  mekanized:cable_part/basic_universal_cable/down_push:
-    model: mekanized:block/cable/basic_universal_cable/down_push
-  mekanized:basic_universal_cable:
-    data:
-      item_name: <!i><lang:block.mekanized.basic_universal_cable>
-    model: mekanized:block/cable/basic_universal_cable/center
-    behavior:
-      type: block_item
-      block: mekanized:basic_universal_cable
-  mekanized:cable_part/advanced_universal_cable/center:
-    model: mekanized:block/cable/advanced_universal_cable/center
-  mekanized:cable_part/advanced_universal_cable/north:
-    model: mekanized:block/cable/advanced_universal_cable/north
-  mekanized:cable_part/advanced_universal_cable/north_pull:
-    model: mekanized:block/cable/advanced_universal_cable/north_pull
-  mekanized:cable_part/advanced_universal_cable/north_push:
-    model: mekanized:block/cable/advanced_universal_cable/north_push
-  mekanized:cable_part/advanced_universal_cable/south:
-    model: mekanized:block/cable/advanced_universal_cable/south
-  mekanized:cable_part/advanced_universal_cable/south_pull:
-    model: mekanized:block/cable/advanced_universal_cable/south_pull
-  mekanized:cable_part/advanced_universal_cable/south_push:
-    model: mekanized:block/cable/advanced_universal_cable/south_push
-  mekanized:cable_part/advanced_universal_cable/east:
-    model: mekanized:block/cable/advanced_universal_cable/east
-  mekanized:cable_part/advanced_universal_cable/east_pull:
-    model: mekanized:block/cable/advanced_universal_cable/east_pull
-  mekanized:cable_part/advanced_universal_cable/east_push:
-    model: mekanized:block/cable/advanced_universal_cable/east_push
-  mekanized:cable_part/advanced_universal_cable/west:
-    model: mekanized:block/cable/advanced_universal_cable/west
-  mekanized:cable_part/advanced_universal_cable/west_pull:
-    model: mekanized:block/cable/advanced_universal_cable/west_pull
-  mekanized:cable_part/advanced_universal_cable/west_push:
-    model: mekanized:block/cable/advanced_universal_cable/west_push
-  mekanized:cable_part/advanced_universal_cable/up:
-    model: mekanized:block/cable/advanced_universal_cable/up
-  mekanized:cable_part/advanced_universal_cable/up_pull:
-    model: mekanized:block/cable/advanced_universal_cable/up_pull
-  mekanized:cable_part/advanced_universal_cable/up_push:
-    model: mekanized:block/cable/advanced_universal_cable/up_push
-  mekanized:cable_part/advanced_universal_cable/down:
-    model: mekanized:block/cable/advanced_universal_cable/down
-  mekanized:cable_part/advanced_universal_cable/down_pull:
-    model: mekanized:block/cable/advanced_universal_cable/down_pull
-  mekanized:cable_part/advanced_universal_cable/down_push:
-    model: mekanized:block/cable/advanced_universal_cable/down_push
-  mekanized:advanced_universal_cable:
-    data:
-      item_name: <!i><lang:block.mekanized.advanced_universal_cable>
-    model: mekanized:block/cable/advanced_universal_cable/center
-    behavior:
-      type: block_item
-      block: mekanized:advanced_universal_cable
-  mekanized:cable_part/elite_universal_cable/center:
-    model: mekanized:block/cable/elite_universal_cable/center
-  mekanized:cable_part/elite_universal_cable/north:
-    model: mekanized:block/cable/elite_universal_cable/north
-  mekanized:cable_part/elite_universal_cable/north_pull:
-    model: mekanized:block/cable/elite_universal_cable/north_pull
-  mekanized:cable_part/elite_universal_cable/north_push:
-    model: mekanized:block/cable/elite_universal_cable/north_push
-  mekanized:cable_part/elite_universal_cable/south:
-    model: mekanized:block/cable/elite_universal_cable/south
-  mekanized:cable_part/elite_universal_cable/south_pull:
-    model: mekanized:block/cable/elite_universal_cable/south_pull
-  mekanized:cable_part/elite_universal_cable/south_push:
-    model: mekanized:block/cable/elite_universal_cable/south_push
-  mekanized:cable_part/elite_universal_cable/east:
-    model: mekanized:block/cable/elite_universal_cable/east
-  mekanized:cable_part/elite_universal_cable/east_pull:
-    model: mekanized:block/cable/elite_universal_cable/east_pull
-  mekanized:cable_part/elite_universal_cable/east_push:
-    model: mekanized:block/cable/elite_universal_cable/east_push
-  mekanized:cable_part/elite_universal_cable/west:
-    model: mekanized:block/cable/elite_universal_cable/west
-  mekanized:cable_part/elite_universal_cable/west_pull:
-    model: mekanized:block/cable/elite_universal_cable/west_pull
-  mekanized:cable_part/elite_universal_cable/west_push:
-    model: mekanized:block/cable/elite_universal_cable/west_push
-  mekanized:cable_part/elite_universal_cable/up:
-    model: mekanized:block/cable/elite_universal_cable/up
-  mekanized:cable_part/elite_universal_cable/up_pull:
-    model: mekanized:block/cable/elite_universal_cable/up_pull
-  mekanized:cable_part/elite_universal_cable/up_push:
-    model: mekanized:block/cable/elite_universal_cable/up_push
-  mekanized:cable_part/elite_universal_cable/down:
-    model: mekanized:block/cable/elite_universal_cable/down
-  mekanized:cable_part/elite_universal_cable/down_pull:
-    model: mekanized:block/cable/elite_universal_cable/down_pull
-  mekanized:cable_part/elite_universal_cable/down_push:
-    model: mekanized:block/cable/elite_universal_cable/down_push
-  mekanized:elite_universal_cable:
-    data:
-      item_name: <!i><lang:block.mekanized.elite_universal_cable>
-    model: mekanized:block/cable/elite_universal_cable/center
-    behavior:
-      type: block_item
-      block: mekanized:elite_universal_cable
-  mekanized:cable_part/ultimate_universal_cable/center:
-    model: mekanized:block/cable/ultimate_universal_cable/center
-  mekanized:cable_part/ultimate_universal_cable/north:
-    model: mekanized:block/cable/ultimate_universal_cable/north
-  mekanized:cable_part/ultimate_universal_cable/north_pull:
-    model: mekanized:block/cable/ultimate_universal_cable/north_pull
-  mekanized:cable_part/ultimate_universal_cable/north_push:
-    model: mekanized:block/cable/ultimate_universal_cable/north_push
-  mekanized:cable_part/ultimate_universal_cable/south:
-    model: mekanized:block/cable/ultimate_universal_cable/south
-  mekanized:cable_part/ultimate_universal_cable/south_pull:
-    model: mekanized:block/cable/ultimate_universal_cable/south_pull
-  mekanized:cable_part/ultimate_universal_cable/south_push:
-    model: mekanized:block/cable/ultimate_universal_cable/south_push
-  mekanized:cable_part/ultimate_universal_cable/east:
-    model: mekanized:block/cable/ultimate_universal_cable/east
-  mekanized:cable_part/ultimate_universal_cable/east_pull:
-    model: mekanized:block/cable/ultimate_universal_cable/east_pull
-  mekanized:cable_part/ultimate_universal_cable/east_push:
-    model: mekanized:block/cable/ultimate_universal_cable/east_push
-  mekanized:cable_part/ultimate_universal_cable/west:
-    model: mekanized:block/cable/ultimate_universal_cable/west
-  mekanized:cable_part/ultimate_universal_cable/west_pull:
-    model: mekanized:block/cable/ultimate_universal_cable/west_pull
-  mekanized:cable_part/ultimate_universal_cable/west_push:
-    model: mekanized:block/cable/ultimate_universal_cable/west_push
-  mekanized:cable_part/ultimate_universal_cable/up:
-    model: mekanized:block/cable/ultimate_universal_cable/up
-  mekanized:cable_part/ultimate_universal_cable/up_pull:
-    model: mekanized:block/cable/ultimate_universal_cable/up_pull
-  mekanized:cable_part/ultimate_universal_cable/up_push:
-    model: mekanized:block/cable/ultimate_universal_cable/up_push
-  mekanized:cable_part/ultimate_universal_cable/down:
-    model: mekanized:block/cable/ultimate_universal_cable/down
-  mekanized:cable_part/ultimate_universal_cable/down_pull:
-    model: mekanized:block/cable/ultimate_universal_cable/down_pull
-  mekanized:cable_part/ultimate_universal_cable/down_push:
-    model: mekanized:block/cable/ultimate_universal_cable/down_push
-  mekanized:ultimate_universal_cable:
-    data:
-      item_name: <!i><lang:block.mekanized.ultimate_universal_cable>
-    model: mekanized:block/cable/ultimate_universal_cable/center
-    behavior:
-      type: block_item
-      block: mekanized:ultimate_universal_cable
   mekanized:upgrade_speed:
     data:
       item_name: <!i><lang:item.mekanized.upgrade_speed>
@@ -1200,67 +1020,69 @@ blocks:
           appearance: default
         facing=west:
           appearance: default
-  mekanized:basic_universal_cable:
-    behavior:
-      type: machineengine:transport
-      transport: mekanized:basic_universal_cable
-      rate: 8000
-      connection_items: mekanized:cable_part/basic_universal_cable
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: sapling
-        id: mekanized_universal_cable
-      model:
-        path: mekanized:block/display_empty/universal_cable
-  mekanized:advanced_universal_cable:
-    behavior:
-      type: machineengine:transport
-      transport: mekanized:advanced_universal_cable
-      rate: 128000
-      connection_items: mekanized:cable_part/advanced_universal_cable
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: sapling
-        id: mekanized_universal_cable
-      model:
-        path: mekanized:block/display_empty/universal_cable
-  mekanized:elite_universal_cable:
-    behavior:
-      type: machineengine:transport
-      transport: mekanized:elite_universal_cable
-      rate: 1024000
-      connection_items: mekanized:cable_part/elite_universal_cable
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: sapling
-        id: mekanized_universal_cable
-      model:
-        path: mekanized:block/display_empty/universal_cable
-  mekanized:ultimate_universal_cable:
-    behavior:
-      type: machineengine:transport
-      transport: mekanized:ultimate_universal_cable
-      rate: 8192000
-      connection_items: mekanized:cable_part/ultimate_universal_cable
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: sapling
-        id: mekanized_universal_cable
-      model:
-        path: mekanized:block/display_empty/universal_cable
+
+# Universal cables: one row per block. A row's rate is the block's (D34): what one block passes per tick.
+# Each row makes the block, its item and the 19 parts display entities draw it with
+# (mekanized:cable_part/<transport>/<part>); see docs/CE_TEMPLATES_PLAN.md.
+config_factory#energy_transports:
+  instances:
+  - transport: basic_universal_cable
+    rate: 8000
+  - transport: advanced_universal_cable
+    rate: 128000
+  - transport: elite_universal_cable
+    rate: 1024000
+  - transport: ultimate_universal_cable
+    rate: 8192000
+  blueprint:
+    items:
+      mekanized:${transport}:
+        data:
+          item_name: <!i><lang:block.mekanized.${transport}>
+        model: mekanized:block/cable/${transport}/center
+        behavior:
+          type: block_item
+          block: mekanized:${transport}
+      mekanized:cable_part/${transport}/center:
+        model: mekanized:block/cable/${transport}/center
+      mekanized:cable_part/${transport}/north:
+        model: mekanized:block/cable/${transport}/north
+      mekanized:cable_part/${transport}/north_pull:
+        model: mekanized:block/cable/${transport}/north_pull
+      mekanized:cable_part/${transport}/north_push:
+        model: mekanized:block/cable/${transport}/north_push
+      mekanized:cable_part/${transport}/south:
+        model: mekanized:block/cable/${transport}/south
+      mekanized:cable_part/${transport}/south_pull:
+        model: mekanized:block/cable/${transport}/south_pull
+      mekanized:cable_part/${transport}/south_push:
+        model: mekanized:block/cable/${transport}/south_push
+      mekanized:cable_part/${transport}/east:
+        model: mekanized:block/cable/${transport}/east
+      mekanized:cable_part/${transport}/east_pull:
+        model: mekanized:block/cable/${transport}/east_pull
+      mekanized:cable_part/${transport}/east_push:
+        model: mekanized:block/cable/${transport}/east_push
+      mekanized:cable_part/${transport}/west:
+        model: mekanized:block/cable/${transport}/west
+      mekanized:cable_part/${transport}/west_pull:
+        model: mekanized:block/cable/${transport}/west_pull
+      mekanized:cable_part/${transport}/west_push:
+        model: mekanized:block/cable/${transport}/west_push
+      mekanized:cable_part/${transport}/up:
+        model: mekanized:block/cable/${transport}/up
+      mekanized:cable_part/${transport}/up_pull:
+        model: mekanized:block/cable/${transport}/up_pull
+      mekanized:cable_part/${transport}/up_push:
+        model: mekanized:block/cable/${transport}/up_push
+      mekanized:cable_part/${transport}/down:
+        model: mekanized:block/cable/${transport}/down
+      mekanized:cable_part/${transport}/down_pull:
+        model: mekanized:block/cable/${transport}/down_pull
+      mekanized:cable_part/${transport}/down_push:
+        model: mekanized:block/cable/${transport}/down_push
+    blocks:
+      mekanized:${transport}:
+        template: mekanized:block/transport
+        behavior:
+          rate: ${rate}

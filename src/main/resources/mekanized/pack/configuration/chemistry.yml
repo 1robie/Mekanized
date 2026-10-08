@@ -169,366 +169,6 @@ items:
     behavior:
       type: block_item
       block: mekanized:creative_fluid_tank
-  mekanized:cable_part/basic_pressurized_tube/center:
-    model: mekanized:block/cable/basic_pressurized_tube/center
-  mekanized:cable_part/basic_pressurized_tube/north:
-    model: mekanized:block/cable/basic_pressurized_tube/north
-  mekanized:cable_part/basic_pressurized_tube/north_pull:
-    model: mekanized:block/cable/basic_pressurized_tube/north_pull
-  mekanized:cable_part/basic_pressurized_tube/north_push:
-    model: mekanized:block/cable/basic_pressurized_tube/north_push
-  mekanized:cable_part/basic_pressurized_tube/south:
-    model: mekanized:block/cable/basic_pressurized_tube/south
-  mekanized:cable_part/basic_pressurized_tube/south_pull:
-    model: mekanized:block/cable/basic_pressurized_tube/south_pull
-  mekanized:cable_part/basic_pressurized_tube/south_push:
-    model: mekanized:block/cable/basic_pressurized_tube/south_push
-  mekanized:cable_part/basic_pressurized_tube/east:
-    model: mekanized:block/cable/basic_pressurized_tube/east
-  mekanized:cable_part/basic_pressurized_tube/east_pull:
-    model: mekanized:block/cable/basic_pressurized_tube/east_pull
-  mekanized:cable_part/basic_pressurized_tube/east_push:
-    model: mekanized:block/cable/basic_pressurized_tube/east_push
-  mekanized:cable_part/basic_pressurized_tube/west:
-    model: mekanized:block/cable/basic_pressurized_tube/west
-  mekanized:cable_part/basic_pressurized_tube/west_pull:
-    model: mekanized:block/cable/basic_pressurized_tube/west_pull
-  mekanized:cable_part/basic_pressurized_tube/west_push:
-    model: mekanized:block/cable/basic_pressurized_tube/west_push
-  mekanized:cable_part/basic_pressurized_tube/up:
-    model: mekanized:block/cable/basic_pressurized_tube/up
-  mekanized:cable_part/basic_pressurized_tube/up_pull:
-    model: mekanized:block/cable/basic_pressurized_tube/up_pull
-  mekanized:cable_part/basic_pressurized_tube/up_push:
-    model: mekanized:block/cable/basic_pressurized_tube/up_push
-  mekanized:cable_part/basic_pressurized_tube/down:
-    model: mekanized:block/cable/basic_pressurized_tube/down
-  mekanized:cable_part/basic_pressurized_tube/down_pull:
-    model: mekanized:block/cable/basic_pressurized_tube/down_pull
-  mekanized:cable_part/basic_pressurized_tube/down_push:
-    model: mekanized:block/cable/basic_pressurized_tube/down_push
-  mekanized:basic_pressurized_tube:
-    data:
-      item_name: <!i><lang:block.mekanized.basic_pressurized_tube>
-    model: mekanized:block/cable/basic_pressurized_tube/center
-    behavior:
-      type: block_item
-      block: mekanized:basic_pressurized_tube
-  mekanized:cable_part/advanced_pressurized_tube/center:
-    model: mekanized:block/cable/advanced_pressurized_tube/center
-  mekanized:cable_part/advanced_pressurized_tube/north:
-    model: mekanized:block/cable/advanced_pressurized_tube/north
-  mekanized:cable_part/advanced_pressurized_tube/north_pull:
-    model: mekanized:block/cable/advanced_pressurized_tube/north_pull
-  mekanized:cable_part/advanced_pressurized_tube/north_push:
-    model: mekanized:block/cable/advanced_pressurized_tube/north_push
-  mekanized:cable_part/advanced_pressurized_tube/south:
-    model: mekanized:block/cable/advanced_pressurized_tube/south
-  mekanized:cable_part/advanced_pressurized_tube/south_pull:
-    model: mekanized:block/cable/advanced_pressurized_tube/south_pull
-  mekanized:cable_part/advanced_pressurized_tube/south_push:
-    model: mekanized:block/cable/advanced_pressurized_tube/south_push
-  mekanized:cable_part/advanced_pressurized_tube/east:
-    model: mekanized:block/cable/advanced_pressurized_tube/east
-  mekanized:cable_part/advanced_pressurized_tube/east_pull:
-    model: mekanized:block/cable/advanced_pressurized_tube/east_pull
-  mekanized:cable_part/advanced_pressurized_tube/east_push:
-    model: mekanized:block/cable/advanced_pressurized_tube/east_push
-  mekanized:cable_part/advanced_pressurized_tube/west:
-    model: mekanized:block/cable/advanced_pressurized_tube/west
-  mekanized:cable_part/advanced_pressurized_tube/west_pull:
-    model: mekanized:block/cable/advanced_pressurized_tube/west_pull
-  mekanized:cable_part/advanced_pressurized_tube/west_push:
-    model: mekanized:block/cable/advanced_pressurized_tube/west_push
-  mekanized:cable_part/advanced_pressurized_tube/up:
-    model: mekanized:block/cable/advanced_pressurized_tube/up
-  mekanized:cable_part/advanced_pressurized_tube/up_pull:
-    model: mekanized:block/cable/advanced_pressurized_tube/up_pull
-  mekanized:cable_part/advanced_pressurized_tube/up_push:
-    model: mekanized:block/cable/advanced_pressurized_tube/up_push
-  mekanized:cable_part/advanced_pressurized_tube/down:
-    model: mekanized:block/cable/advanced_pressurized_tube/down
-  mekanized:cable_part/advanced_pressurized_tube/down_pull:
-    model: mekanized:block/cable/advanced_pressurized_tube/down_pull
-  mekanized:cable_part/advanced_pressurized_tube/down_push:
-    model: mekanized:block/cable/advanced_pressurized_tube/down_push
-  mekanized:advanced_pressurized_tube:
-    data:
-      item_name: <!i><lang:block.mekanized.advanced_pressurized_tube>
-    model: mekanized:block/cable/advanced_pressurized_tube/center
-    behavior:
-      type: block_item
-      block: mekanized:advanced_pressurized_tube
-  mekanized:cable_part/elite_pressurized_tube/center:
-    model: mekanized:block/cable/elite_pressurized_tube/center
-  mekanized:cable_part/elite_pressurized_tube/north:
-    model: mekanized:block/cable/elite_pressurized_tube/north
-  mekanized:cable_part/elite_pressurized_tube/north_pull:
-    model: mekanized:block/cable/elite_pressurized_tube/north_pull
-  mekanized:cable_part/elite_pressurized_tube/north_push:
-    model: mekanized:block/cable/elite_pressurized_tube/north_push
-  mekanized:cable_part/elite_pressurized_tube/south:
-    model: mekanized:block/cable/elite_pressurized_tube/south
-  mekanized:cable_part/elite_pressurized_tube/south_pull:
-    model: mekanized:block/cable/elite_pressurized_tube/south_pull
-  mekanized:cable_part/elite_pressurized_tube/south_push:
-    model: mekanized:block/cable/elite_pressurized_tube/south_push
-  mekanized:cable_part/elite_pressurized_tube/east:
-    model: mekanized:block/cable/elite_pressurized_tube/east
-  mekanized:cable_part/elite_pressurized_tube/east_pull:
-    model: mekanized:block/cable/elite_pressurized_tube/east_pull
-  mekanized:cable_part/elite_pressurized_tube/east_push:
-    model: mekanized:block/cable/elite_pressurized_tube/east_push
-  mekanized:cable_part/elite_pressurized_tube/west:
-    model: mekanized:block/cable/elite_pressurized_tube/west
-  mekanized:cable_part/elite_pressurized_tube/west_pull:
-    model: mekanized:block/cable/elite_pressurized_tube/west_pull
-  mekanized:cable_part/elite_pressurized_tube/west_push:
-    model: mekanized:block/cable/elite_pressurized_tube/west_push
-  mekanized:cable_part/elite_pressurized_tube/up:
-    model: mekanized:block/cable/elite_pressurized_tube/up
-  mekanized:cable_part/elite_pressurized_tube/up_pull:
-    model: mekanized:block/cable/elite_pressurized_tube/up_pull
-  mekanized:cable_part/elite_pressurized_tube/up_push:
-    model: mekanized:block/cable/elite_pressurized_tube/up_push
-  mekanized:cable_part/elite_pressurized_tube/down:
-    model: mekanized:block/cable/elite_pressurized_tube/down
-  mekanized:cable_part/elite_pressurized_tube/down_pull:
-    model: mekanized:block/cable/elite_pressurized_tube/down_pull
-  mekanized:cable_part/elite_pressurized_tube/down_push:
-    model: mekanized:block/cable/elite_pressurized_tube/down_push
-  mekanized:elite_pressurized_tube:
-    data:
-      item_name: <!i><lang:block.mekanized.elite_pressurized_tube>
-    model: mekanized:block/cable/elite_pressurized_tube/center
-    behavior:
-      type: block_item
-      block: mekanized:elite_pressurized_tube
-  mekanized:cable_part/ultimate_pressurized_tube/center:
-    model: mekanized:block/cable/ultimate_pressurized_tube/center
-  mekanized:cable_part/ultimate_pressurized_tube/north:
-    model: mekanized:block/cable/ultimate_pressurized_tube/north
-  mekanized:cable_part/ultimate_pressurized_tube/north_pull:
-    model: mekanized:block/cable/ultimate_pressurized_tube/north_pull
-  mekanized:cable_part/ultimate_pressurized_tube/north_push:
-    model: mekanized:block/cable/ultimate_pressurized_tube/north_push
-  mekanized:cable_part/ultimate_pressurized_tube/south:
-    model: mekanized:block/cable/ultimate_pressurized_tube/south
-  mekanized:cable_part/ultimate_pressurized_tube/south_pull:
-    model: mekanized:block/cable/ultimate_pressurized_tube/south_pull
-  mekanized:cable_part/ultimate_pressurized_tube/south_push:
-    model: mekanized:block/cable/ultimate_pressurized_tube/south_push
-  mekanized:cable_part/ultimate_pressurized_tube/east:
-    model: mekanized:block/cable/ultimate_pressurized_tube/east
-  mekanized:cable_part/ultimate_pressurized_tube/east_pull:
-    model: mekanized:block/cable/ultimate_pressurized_tube/east_pull
-  mekanized:cable_part/ultimate_pressurized_tube/east_push:
-    model: mekanized:block/cable/ultimate_pressurized_tube/east_push
-  mekanized:cable_part/ultimate_pressurized_tube/west:
-    model: mekanized:block/cable/ultimate_pressurized_tube/west
-  mekanized:cable_part/ultimate_pressurized_tube/west_pull:
-    model: mekanized:block/cable/ultimate_pressurized_tube/west_pull
-  mekanized:cable_part/ultimate_pressurized_tube/west_push:
-    model: mekanized:block/cable/ultimate_pressurized_tube/west_push
-  mekanized:cable_part/ultimate_pressurized_tube/up:
-    model: mekanized:block/cable/ultimate_pressurized_tube/up
-  mekanized:cable_part/ultimate_pressurized_tube/up_pull:
-    model: mekanized:block/cable/ultimate_pressurized_tube/up_pull
-  mekanized:cable_part/ultimate_pressurized_tube/up_push:
-    model: mekanized:block/cable/ultimate_pressurized_tube/up_push
-  mekanized:cable_part/ultimate_pressurized_tube/down:
-    model: mekanized:block/cable/ultimate_pressurized_tube/down
-  mekanized:cable_part/ultimate_pressurized_tube/down_pull:
-    model: mekanized:block/cable/ultimate_pressurized_tube/down_pull
-  mekanized:cable_part/ultimate_pressurized_tube/down_push:
-    model: mekanized:block/cable/ultimate_pressurized_tube/down_push
-  mekanized:ultimate_pressurized_tube:
-    data:
-      item_name: <!i><lang:block.mekanized.ultimate_pressurized_tube>
-    model: mekanized:block/cable/ultimate_pressurized_tube/center
-    behavior:
-      type: block_item
-      block: mekanized:ultimate_pressurized_tube
-  mekanized:cable_part/basic_mechanical_pipe/center:
-    model: mekanized:block/cable/basic_mechanical_pipe/center
-  mekanized:cable_part/basic_mechanical_pipe/north:
-    model: mekanized:block/cable/basic_mechanical_pipe/north
-  mekanized:cable_part/basic_mechanical_pipe/north_pull:
-    model: mekanized:block/cable/basic_mechanical_pipe/north_pull
-  mekanized:cable_part/basic_mechanical_pipe/north_push:
-    model: mekanized:block/cable/basic_mechanical_pipe/north_push
-  mekanized:cable_part/basic_mechanical_pipe/south:
-    model: mekanized:block/cable/basic_mechanical_pipe/south
-  mekanized:cable_part/basic_mechanical_pipe/south_pull:
-    model: mekanized:block/cable/basic_mechanical_pipe/south_pull
-  mekanized:cable_part/basic_mechanical_pipe/south_push:
-    model: mekanized:block/cable/basic_mechanical_pipe/south_push
-  mekanized:cable_part/basic_mechanical_pipe/east:
-    model: mekanized:block/cable/basic_mechanical_pipe/east
-  mekanized:cable_part/basic_mechanical_pipe/east_pull:
-    model: mekanized:block/cable/basic_mechanical_pipe/east_pull
-  mekanized:cable_part/basic_mechanical_pipe/east_push:
-    model: mekanized:block/cable/basic_mechanical_pipe/east_push
-  mekanized:cable_part/basic_mechanical_pipe/west:
-    model: mekanized:block/cable/basic_mechanical_pipe/west
-  mekanized:cable_part/basic_mechanical_pipe/west_pull:
-    model: mekanized:block/cable/basic_mechanical_pipe/west_pull
-  mekanized:cable_part/basic_mechanical_pipe/west_push:
-    model: mekanized:block/cable/basic_mechanical_pipe/west_push
-  mekanized:cable_part/basic_mechanical_pipe/up:
-    model: mekanized:block/cable/basic_mechanical_pipe/up
-  mekanized:cable_part/basic_mechanical_pipe/up_pull:
-    model: mekanized:block/cable/basic_mechanical_pipe/up_pull
-  mekanized:cable_part/basic_mechanical_pipe/up_push:
-    model: mekanized:block/cable/basic_mechanical_pipe/up_push
-  mekanized:cable_part/basic_mechanical_pipe/down:
-    model: mekanized:block/cable/basic_mechanical_pipe/down
-  mekanized:cable_part/basic_mechanical_pipe/down_pull:
-    model: mekanized:block/cable/basic_mechanical_pipe/down_pull
-  mekanized:cable_part/basic_mechanical_pipe/down_push:
-    model: mekanized:block/cable/basic_mechanical_pipe/down_push
-  mekanized:basic_mechanical_pipe:
-    data:
-      item_name: <!i><lang:block.mekanized.basic_mechanical_pipe>
-    model: mekanized:block/cable/basic_mechanical_pipe/center
-    behavior:
-      type: block_item
-      block: mekanized:basic_mechanical_pipe
-  mekanized:cable_part/advanced_mechanical_pipe/center:
-    model: mekanized:block/cable/advanced_mechanical_pipe/center
-  mekanized:cable_part/advanced_mechanical_pipe/north:
-    model: mekanized:block/cable/advanced_mechanical_pipe/north
-  mekanized:cable_part/advanced_mechanical_pipe/north_pull:
-    model: mekanized:block/cable/advanced_mechanical_pipe/north_pull
-  mekanized:cable_part/advanced_mechanical_pipe/north_push:
-    model: mekanized:block/cable/advanced_mechanical_pipe/north_push
-  mekanized:cable_part/advanced_mechanical_pipe/south:
-    model: mekanized:block/cable/advanced_mechanical_pipe/south
-  mekanized:cable_part/advanced_mechanical_pipe/south_pull:
-    model: mekanized:block/cable/advanced_mechanical_pipe/south_pull
-  mekanized:cable_part/advanced_mechanical_pipe/south_push:
-    model: mekanized:block/cable/advanced_mechanical_pipe/south_push
-  mekanized:cable_part/advanced_mechanical_pipe/east:
-    model: mekanized:block/cable/advanced_mechanical_pipe/east
-  mekanized:cable_part/advanced_mechanical_pipe/east_pull:
-    model: mekanized:block/cable/advanced_mechanical_pipe/east_pull
-  mekanized:cable_part/advanced_mechanical_pipe/east_push:
-    model: mekanized:block/cable/advanced_mechanical_pipe/east_push
-  mekanized:cable_part/advanced_mechanical_pipe/west:
-    model: mekanized:block/cable/advanced_mechanical_pipe/west
-  mekanized:cable_part/advanced_mechanical_pipe/west_pull:
-    model: mekanized:block/cable/advanced_mechanical_pipe/west_pull
-  mekanized:cable_part/advanced_mechanical_pipe/west_push:
-    model: mekanized:block/cable/advanced_mechanical_pipe/west_push
-  mekanized:cable_part/advanced_mechanical_pipe/up:
-    model: mekanized:block/cable/advanced_mechanical_pipe/up
-  mekanized:cable_part/advanced_mechanical_pipe/up_pull:
-    model: mekanized:block/cable/advanced_mechanical_pipe/up_pull
-  mekanized:cable_part/advanced_mechanical_pipe/up_push:
-    model: mekanized:block/cable/advanced_mechanical_pipe/up_push
-  mekanized:cable_part/advanced_mechanical_pipe/down:
-    model: mekanized:block/cable/advanced_mechanical_pipe/down
-  mekanized:cable_part/advanced_mechanical_pipe/down_pull:
-    model: mekanized:block/cable/advanced_mechanical_pipe/down_pull
-  mekanized:cable_part/advanced_mechanical_pipe/down_push:
-    model: mekanized:block/cable/advanced_mechanical_pipe/down_push
-  mekanized:advanced_mechanical_pipe:
-    data:
-      item_name: <!i><lang:block.mekanized.advanced_mechanical_pipe>
-    model: mekanized:block/cable/advanced_mechanical_pipe/center
-    behavior:
-      type: block_item
-      block: mekanized:advanced_mechanical_pipe
-  mekanized:cable_part/elite_mechanical_pipe/center:
-    model: mekanized:block/cable/elite_mechanical_pipe/center
-  mekanized:cable_part/elite_mechanical_pipe/north:
-    model: mekanized:block/cable/elite_mechanical_pipe/north
-  mekanized:cable_part/elite_mechanical_pipe/north_pull:
-    model: mekanized:block/cable/elite_mechanical_pipe/north_pull
-  mekanized:cable_part/elite_mechanical_pipe/north_push:
-    model: mekanized:block/cable/elite_mechanical_pipe/north_push
-  mekanized:cable_part/elite_mechanical_pipe/south:
-    model: mekanized:block/cable/elite_mechanical_pipe/south
-  mekanized:cable_part/elite_mechanical_pipe/south_pull:
-    model: mekanized:block/cable/elite_mechanical_pipe/south_pull
-  mekanized:cable_part/elite_mechanical_pipe/south_push:
-    model: mekanized:block/cable/elite_mechanical_pipe/south_push
-  mekanized:cable_part/elite_mechanical_pipe/east:
-    model: mekanized:block/cable/elite_mechanical_pipe/east
-  mekanized:cable_part/elite_mechanical_pipe/east_pull:
-    model: mekanized:block/cable/elite_mechanical_pipe/east_pull
-  mekanized:cable_part/elite_mechanical_pipe/east_push:
-    model: mekanized:block/cable/elite_mechanical_pipe/east_push
-  mekanized:cable_part/elite_mechanical_pipe/west:
-    model: mekanized:block/cable/elite_mechanical_pipe/west
-  mekanized:cable_part/elite_mechanical_pipe/west_pull:
-    model: mekanized:block/cable/elite_mechanical_pipe/west_pull
-  mekanized:cable_part/elite_mechanical_pipe/west_push:
-    model: mekanized:block/cable/elite_mechanical_pipe/west_push
-  mekanized:cable_part/elite_mechanical_pipe/up:
-    model: mekanized:block/cable/elite_mechanical_pipe/up
-  mekanized:cable_part/elite_mechanical_pipe/up_pull:
-    model: mekanized:block/cable/elite_mechanical_pipe/up_pull
-  mekanized:cable_part/elite_mechanical_pipe/up_push:
-    model: mekanized:block/cable/elite_mechanical_pipe/up_push
-  mekanized:cable_part/elite_mechanical_pipe/down:
-    model: mekanized:block/cable/elite_mechanical_pipe/down
-  mekanized:cable_part/elite_mechanical_pipe/down_pull:
-    model: mekanized:block/cable/elite_mechanical_pipe/down_pull
-  mekanized:cable_part/elite_mechanical_pipe/down_push:
-    model: mekanized:block/cable/elite_mechanical_pipe/down_push
-  mekanized:elite_mechanical_pipe:
-    data:
-      item_name: <!i><lang:block.mekanized.elite_mechanical_pipe>
-    model: mekanized:block/cable/elite_mechanical_pipe/center
-    behavior:
-      type: block_item
-      block: mekanized:elite_mechanical_pipe
-  mekanized:cable_part/ultimate_mechanical_pipe/center:
-    model: mekanized:block/cable/ultimate_mechanical_pipe/center
-  mekanized:cable_part/ultimate_mechanical_pipe/north:
-    model: mekanized:block/cable/ultimate_mechanical_pipe/north
-  mekanized:cable_part/ultimate_mechanical_pipe/north_pull:
-    model: mekanized:block/cable/ultimate_mechanical_pipe/north_pull
-  mekanized:cable_part/ultimate_mechanical_pipe/north_push:
-    model: mekanized:block/cable/ultimate_mechanical_pipe/north_push
-  mekanized:cable_part/ultimate_mechanical_pipe/south:
-    model: mekanized:block/cable/ultimate_mechanical_pipe/south
-  mekanized:cable_part/ultimate_mechanical_pipe/south_pull:
-    model: mekanized:block/cable/ultimate_mechanical_pipe/south_pull
-  mekanized:cable_part/ultimate_mechanical_pipe/south_push:
-    model: mekanized:block/cable/ultimate_mechanical_pipe/south_push
-  mekanized:cable_part/ultimate_mechanical_pipe/east:
-    model: mekanized:block/cable/ultimate_mechanical_pipe/east
-  mekanized:cable_part/ultimate_mechanical_pipe/east_pull:
-    model: mekanized:block/cable/ultimate_mechanical_pipe/east_pull
-  mekanized:cable_part/ultimate_mechanical_pipe/east_push:
-    model: mekanized:block/cable/ultimate_mechanical_pipe/east_push
-  mekanized:cable_part/ultimate_mechanical_pipe/west:
-    model: mekanized:block/cable/ultimate_mechanical_pipe/west
-  mekanized:cable_part/ultimate_mechanical_pipe/west_pull:
-    model: mekanized:block/cable/ultimate_mechanical_pipe/west_pull
-  mekanized:cable_part/ultimate_mechanical_pipe/west_push:
-    model: mekanized:block/cable/ultimate_mechanical_pipe/west_push
-  mekanized:cable_part/ultimate_mechanical_pipe/up:
-    model: mekanized:block/cable/ultimate_mechanical_pipe/up
-  mekanized:cable_part/ultimate_mechanical_pipe/up_pull:
-    model: mekanized:block/cable/ultimate_mechanical_pipe/up_pull
-  mekanized:cable_part/ultimate_mechanical_pipe/up_push:
-    model: mekanized:block/cable/ultimate_mechanical_pipe/up_push
-  mekanized:cable_part/ultimate_mechanical_pipe/down:
-    model: mekanized:block/cable/ultimate_mechanical_pipe/down
-  mekanized:cable_part/ultimate_mechanical_pipe/down_pull:
-    model: mekanized:block/cable/ultimate_mechanical_pipe/down_pull
-  mekanized:cable_part/ultimate_mechanical_pipe/down_push:
-    model: mekanized:block/cable/ultimate_mechanical_pipe/down_push
-  mekanized:ultimate_mechanical_pipe:
-    data:
-      item_name: <!i><lang:block.mekanized.ultimate_mechanical_pipe>
-    model: mekanized:block/cable/ultimate_mechanical_pipe/center
-    behavior:
-      type: block_item
-      block: mekanized:ultimate_mechanical_pipe
   mekanized:electrolytic_core:
     data:
       item_name: <!i><lang:item.mekanized.electrolytic_core>
@@ -1075,131 +715,77 @@ blocks:
         id: mekanized_display_fluid_tank
       model:
         path: mekanized:block/display_empty/shared/fluid_tank
-  mekanized:basic_pressurized_tube:
-    behavior:
-      type: machineengine:transport
-      transport: mekanized:basic_pressurized_tube
-      rate: 750
-      connection_items: mekanized:cable_part/basic_pressurized_tube
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: sapling
-        id: mekanized_universal_cable
-      model:
-        path: mekanized:block/display_empty/universal_cable
-  mekanized:advanced_pressurized_tube:
-    behavior:
-      type: machineengine:transport
-      transport: mekanized:advanced_pressurized_tube
-      rate: 2000
-      connection_items: mekanized:cable_part/advanced_pressurized_tube
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: sapling
-        id: mekanized_universal_cable
-      model:
-        path: mekanized:block/display_empty/universal_cable
-  mekanized:elite_pressurized_tube:
-    behavior:
-      type: machineengine:transport
-      transport: mekanized:elite_pressurized_tube
-      rate: 64000
-      connection_items: mekanized:cable_part/elite_pressurized_tube
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: sapling
-        id: mekanized_universal_cable
-      model:
-        path: mekanized:block/display_empty/universal_cable
-  mekanized:ultimate_pressurized_tube:
-    behavior:
-      type: machineengine:transport
-      transport: mekanized:ultimate_pressurized_tube
-      rate: 256000
-      connection_items: mekanized:cable_part/ultimate_pressurized_tube
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: sapling
-        id: mekanized_universal_cable
-      model:
-        path: mekanized:block/display_empty/universal_cable
-  mekanized:basic_mechanical_pipe:
-    behavior:
-      type: machineengine:transport
-      transport: mekanized:basic_mechanical_pipe
-      rate: 250
-      connection_items: mekanized:cable_part/basic_mechanical_pipe
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: sapling
-        id: mekanized_universal_cable
-      model:
-        path: mekanized:block/display_empty/universal_cable
-  mekanized:advanced_mechanical_pipe:
-    behavior:
-      type: machineengine:transport
-      transport: mekanized:advanced_mechanical_pipe
-      rate: 1000
-      connection_items: mekanized:cable_part/advanced_mechanical_pipe
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: sapling
-        id: mekanized_universal_cable
-      model:
-        path: mekanized:block/display_empty/universal_cable
-  mekanized:elite_mechanical_pipe:
-    behavior:
-      type: machineengine:transport
-      transport: mekanized:elite_mechanical_pipe
-      rate: 8000
-      connection_items: mekanized:cable_part/elite_mechanical_pipe
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: sapling
-        id: mekanized_universal_cable
-      model:
-        path: mekanized:block/display_empty/universal_cable
-  mekanized:ultimate_mechanical_pipe:
-    behavior:
-      type: machineengine:transport
-      transport: mekanized:ultimate_mechanical_pipe
-      rate: 32000
-      connection_items: mekanized:cable_part/ultimate_mechanical_pipe
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: sapling
-        id: mekanized_universal_cable
-      model:
-        path: mekanized:block/display_empty/universal_cable
+
+# Pressurized tubes (chemicals) and mechanical pipes (fluids): one row per block. A row's rate is the block's (D34): what one block passes per tick.
+# Each row makes the block, its item and the 19 parts display entities draw it with
+# (mekanized:cable_part/<transport>/<part>); see docs/CE_TEMPLATES_PLAN.md.
+config_factory#chemistry_transports:
+  instances:
+  - transport: basic_pressurized_tube
+    rate: 750
+  - transport: advanced_pressurized_tube
+    rate: 2000
+  - transport: elite_pressurized_tube
+    rate: 64000
+  - transport: ultimate_pressurized_tube
+    rate: 256000
+  - transport: basic_mechanical_pipe
+    rate: 250
+  - transport: advanced_mechanical_pipe
+    rate: 1000
+  - transport: elite_mechanical_pipe
+    rate: 8000
+  - transport: ultimate_mechanical_pipe
+    rate: 32000
+  blueprint:
+    items:
+      mekanized:${transport}:
+        data:
+          item_name: <!i><lang:block.mekanized.${transport}>
+        model: mekanized:block/cable/${transport}/center
+        behavior:
+          type: block_item
+          block: mekanized:${transport}
+      mekanized:cable_part/${transport}/center:
+        model: mekanized:block/cable/${transport}/center
+      mekanized:cable_part/${transport}/north:
+        model: mekanized:block/cable/${transport}/north
+      mekanized:cable_part/${transport}/north_pull:
+        model: mekanized:block/cable/${transport}/north_pull
+      mekanized:cable_part/${transport}/north_push:
+        model: mekanized:block/cable/${transport}/north_push
+      mekanized:cable_part/${transport}/south:
+        model: mekanized:block/cable/${transport}/south
+      mekanized:cable_part/${transport}/south_pull:
+        model: mekanized:block/cable/${transport}/south_pull
+      mekanized:cable_part/${transport}/south_push:
+        model: mekanized:block/cable/${transport}/south_push
+      mekanized:cable_part/${transport}/east:
+        model: mekanized:block/cable/${transport}/east
+      mekanized:cable_part/${transport}/east_pull:
+        model: mekanized:block/cable/${transport}/east_pull
+      mekanized:cable_part/${transport}/east_push:
+        model: mekanized:block/cable/${transport}/east_push
+      mekanized:cable_part/${transport}/west:
+        model: mekanized:block/cable/${transport}/west
+      mekanized:cable_part/${transport}/west_pull:
+        model: mekanized:block/cable/${transport}/west_pull
+      mekanized:cable_part/${transport}/west_push:
+        model: mekanized:block/cable/${transport}/west_push
+      mekanized:cable_part/${transport}/up:
+        model: mekanized:block/cable/${transport}/up
+      mekanized:cable_part/${transport}/up_pull:
+        model: mekanized:block/cable/${transport}/up_pull
+      mekanized:cable_part/${transport}/up_push:
+        model: mekanized:block/cable/${transport}/up_push
+      mekanized:cable_part/${transport}/down:
+        model: mekanized:block/cable/${transport}/down
+      mekanized:cable_part/${transport}/down_pull:
+        model: mekanized:block/cable/${transport}/down_pull
+      mekanized:cable_part/${transport}/down_push:
+        model: mekanized:block/cable/${transport}/down_push
+    blocks:
+      mekanized:${transport}:
+        template: mekanized:block/transport
+        behavior:
+          rate: ${rate}

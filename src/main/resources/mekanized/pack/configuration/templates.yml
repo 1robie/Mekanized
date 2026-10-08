@@ -42,3 +42,19 @@ templates:
       correct_tools:
       - '#minecraft:pickaxes'
       required_break_power: 1
+
+  # A cable, tube, pipe, transporter or conductor. Invisible itself (all of them share one visual
+  # state): display entities draw its parts, the items mekanized:cable_part/<id>/<part>.
+  # Use: template: mekanized:block/transport, with behavior: { rate: ... } next to it.
+  mekanized:block/transport:
+    template: machineengine:block/transport
+    behavior:
+      connection_items: ${__NAMESPACE__}:cable_part/${__ID__}
+    settings:
+      template: mekanized:settings/transparent_machine
+    state:
+      auto_state:
+        type: sapling
+        id: mekanized_universal_cable
+      model:
+        path: mekanized:block/display_empty/universal_cable

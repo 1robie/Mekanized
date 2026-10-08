@@ -29,7 +29,9 @@ object SnapshotMarkers {
     const val ID_KEY = "ce_snapshot_id"
     private val ENTRY_SECTIONS = setOf("items", "item", "blocks", "block")
     private val BLUEPRINTS = setOf("blueprint", "prototype", "schema")
-    private val KEY = Regex("""^( *)('[^']*'|"[^"]*"|[^\s#'"-][^#]*?):(\s.*)?$""")
+    /** A key line, once its comment is cut; keys may hold `:` (ids) and `#` (`config_factory#name`). */
+    private val KEY = Regex("""^( *)('[^']*'|"[^"]*"|[^\s'"-].*?):(\s.*)?$""")
+    private val COMMENT = Regex("""\s+#.*$""")
 
     fun mark(file: String, lines: List<String>): List<String> {
         val out = ArrayList<String>(lines.size * 2)
@@ -39,7 +41,7 @@ object SnapshotMarkers {
             out += line
             val trimmed = line.trim()
             if (trimmed.isEmpty() || trimmed.startsWith("#") || trimmed.startsWith("-")) continue
-            val match = KEY.find(line) ?: continue
+            val match = KEY.find(line.replace(COMMENT, "")) ?: continue
             val indent = match.groupValues[1].length
             val key = match.groupValues[2].trim().removeSurrounding("'").removeSurrounding("\"")
             while (stack.isNotEmpty() && stack.last().first >= indent) stack.removeLast()

@@ -201,186 +201,6 @@ items:
     behavior:
       type: block_item
       block: mekanized:supercharged_coil
-  mekanized:cable_part/basic_thermodynamic_conductor/center:
-    model: mekanized:block/cable/basic_thermodynamic_conductor/center
-  mekanized:cable_part/basic_thermodynamic_conductor/north:
-    model: mekanized:block/cable/basic_thermodynamic_conductor/north
-  mekanized:cable_part/basic_thermodynamic_conductor/north_pull:
-    model: mekanized:block/cable/basic_thermodynamic_conductor/north_pull
-  mekanized:cable_part/basic_thermodynamic_conductor/north_push:
-    model: mekanized:block/cable/basic_thermodynamic_conductor/north_push
-  mekanized:cable_part/basic_thermodynamic_conductor/south:
-    model: mekanized:block/cable/basic_thermodynamic_conductor/south
-  mekanized:cable_part/basic_thermodynamic_conductor/south_pull:
-    model: mekanized:block/cable/basic_thermodynamic_conductor/south_pull
-  mekanized:cable_part/basic_thermodynamic_conductor/south_push:
-    model: mekanized:block/cable/basic_thermodynamic_conductor/south_push
-  mekanized:cable_part/basic_thermodynamic_conductor/east:
-    model: mekanized:block/cable/basic_thermodynamic_conductor/east
-  mekanized:cable_part/basic_thermodynamic_conductor/east_pull:
-    model: mekanized:block/cable/basic_thermodynamic_conductor/east_pull
-  mekanized:cable_part/basic_thermodynamic_conductor/east_push:
-    model: mekanized:block/cable/basic_thermodynamic_conductor/east_push
-  mekanized:cable_part/basic_thermodynamic_conductor/west:
-    model: mekanized:block/cable/basic_thermodynamic_conductor/west
-  mekanized:cable_part/basic_thermodynamic_conductor/west_pull:
-    model: mekanized:block/cable/basic_thermodynamic_conductor/west_pull
-  mekanized:cable_part/basic_thermodynamic_conductor/west_push:
-    model: mekanized:block/cable/basic_thermodynamic_conductor/west_push
-  mekanized:cable_part/basic_thermodynamic_conductor/up:
-    model: mekanized:block/cable/basic_thermodynamic_conductor/up
-  mekanized:cable_part/basic_thermodynamic_conductor/up_pull:
-    model: mekanized:block/cable/basic_thermodynamic_conductor/up_pull
-  mekanized:cable_part/basic_thermodynamic_conductor/up_push:
-    model: mekanized:block/cable/basic_thermodynamic_conductor/up_push
-  mekanized:cable_part/basic_thermodynamic_conductor/down:
-    model: mekanized:block/cable/basic_thermodynamic_conductor/down
-  mekanized:cable_part/basic_thermodynamic_conductor/down_pull:
-    model: mekanized:block/cable/basic_thermodynamic_conductor/down_pull
-  mekanized:cable_part/basic_thermodynamic_conductor/down_push:
-    model: mekanized:block/cable/basic_thermodynamic_conductor/down_push
-  mekanized:basic_thermodynamic_conductor:
-    data:
-      item_name: <!i><lang:block.mekanized.basic_thermodynamic_conductor>
-    model: mekanized:block/cable/basic_thermodynamic_conductor/center
-    behavior:
-      type: block_item
-      block: mekanized:basic_thermodynamic_conductor
-  mekanized:cable_part/advanced_thermodynamic_conductor/center:
-    model: mekanized:block/cable/advanced_thermodynamic_conductor/center
-  mekanized:cable_part/advanced_thermodynamic_conductor/north:
-    model: mekanized:block/cable/advanced_thermodynamic_conductor/north
-  mekanized:cable_part/advanced_thermodynamic_conductor/north_pull:
-    model: mekanized:block/cable/advanced_thermodynamic_conductor/north_pull
-  mekanized:cable_part/advanced_thermodynamic_conductor/north_push:
-    model: mekanized:block/cable/advanced_thermodynamic_conductor/north_push
-  mekanized:cable_part/advanced_thermodynamic_conductor/south:
-    model: mekanized:block/cable/advanced_thermodynamic_conductor/south
-  mekanized:cable_part/advanced_thermodynamic_conductor/south_pull:
-    model: mekanized:block/cable/advanced_thermodynamic_conductor/south_pull
-  mekanized:cable_part/advanced_thermodynamic_conductor/south_push:
-    model: mekanized:block/cable/advanced_thermodynamic_conductor/south_push
-  mekanized:cable_part/advanced_thermodynamic_conductor/east:
-    model: mekanized:block/cable/advanced_thermodynamic_conductor/east
-  mekanized:cable_part/advanced_thermodynamic_conductor/east_pull:
-    model: mekanized:block/cable/advanced_thermodynamic_conductor/east_pull
-  mekanized:cable_part/advanced_thermodynamic_conductor/east_push:
-    model: mekanized:block/cable/advanced_thermodynamic_conductor/east_push
-  mekanized:cable_part/advanced_thermodynamic_conductor/west:
-    model: mekanized:block/cable/advanced_thermodynamic_conductor/west
-  mekanized:cable_part/advanced_thermodynamic_conductor/west_pull:
-    model: mekanized:block/cable/advanced_thermodynamic_conductor/west_pull
-  mekanized:cable_part/advanced_thermodynamic_conductor/west_push:
-    model: mekanized:block/cable/advanced_thermodynamic_conductor/west_push
-  mekanized:cable_part/advanced_thermodynamic_conductor/up:
-    model: mekanized:block/cable/advanced_thermodynamic_conductor/up
-  mekanized:cable_part/advanced_thermodynamic_conductor/up_pull:
-    model: mekanized:block/cable/advanced_thermodynamic_conductor/up_pull
-  mekanized:cable_part/advanced_thermodynamic_conductor/up_push:
-    model: mekanized:block/cable/advanced_thermodynamic_conductor/up_push
-  mekanized:cable_part/advanced_thermodynamic_conductor/down:
-    model: mekanized:block/cable/advanced_thermodynamic_conductor/down
-  mekanized:cable_part/advanced_thermodynamic_conductor/down_pull:
-    model: mekanized:block/cable/advanced_thermodynamic_conductor/down_pull
-  mekanized:cable_part/advanced_thermodynamic_conductor/down_push:
-    model: mekanized:block/cable/advanced_thermodynamic_conductor/down_push
-  mekanized:advanced_thermodynamic_conductor:
-    data:
-      item_name: <!i><lang:block.mekanized.advanced_thermodynamic_conductor>
-    model: mekanized:block/cable/advanced_thermodynamic_conductor/center
-    behavior:
-      type: block_item
-      block: mekanized:advanced_thermodynamic_conductor
-  mekanized:cable_part/elite_thermodynamic_conductor/center:
-    model: mekanized:block/cable/elite_thermodynamic_conductor/center
-  mekanized:cable_part/elite_thermodynamic_conductor/north:
-    model: mekanized:block/cable/elite_thermodynamic_conductor/north
-  mekanized:cable_part/elite_thermodynamic_conductor/north_pull:
-    model: mekanized:block/cable/elite_thermodynamic_conductor/north_pull
-  mekanized:cable_part/elite_thermodynamic_conductor/north_push:
-    model: mekanized:block/cable/elite_thermodynamic_conductor/north_push
-  mekanized:cable_part/elite_thermodynamic_conductor/south:
-    model: mekanized:block/cable/elite_thermodynamic_conductor/south
-  mekanized:cable_part/elite_thermodynamic_conductor/south_pull:
-    model: mekanized:block/cable/elite_thermodynamic_conductor/south_pull
-  mekanized:cable_part/elite_thermodynamic_conductor/south_push:
-    model: mekanized:block/cable/elite_thermodynamic_conductor/south_push
-  mekanized:cable_part/elite_thermodynamic_conductor/east:
-    model: mekanized:block/cable/elite_thermodynamic_conductor/east
-  mekanized:cable_part/elite_thermodynamic_conductor/east_pull:
-    model: mekanized:block/cable/elite_thermodynamic_conductor/east_pull
-  mekanized:cable_part/elite_thermodynamic_conductor/east_push:
-    model: mekanized:block/cable/elite_thermodynamic_conductor/east_push
-  mekanized:cable_part/elite_thermodynamic_conductor/west:
-    model: mekanized:block/cable/elite_thermodynamic_conductor/west
-  mekanized:cable_part/elite_thermodynamic_conductor/west_pull:
-    model: mekanized:block/cable/elite_thermodynamic_conductor/west_pull
-  mekanized:cable_part/elite_thermodynamic_conductor/west_push:
-    model: mekanized:block/cable/elite_thermodynamic_conductor/west_push
-  mekanized:cable_part/elite_thermodynamic_conductor/up:
-    model: mekanized:block/cable/elite_thermodynamic_conductor/up
-  mekanized:cable_part/elite_thermodynamic_conductor/up_pull:
-    model: mekanized:block/cable/elite_thermodynamic_conductor/up_pull
-  mekanized:cable_part/elite_thermodynamic_conductor/up_push:
-    model: mekanized:block/cable/elite_thermodynamic_conductor/up_push
-  mekanized:cable_part/elite_thermodynamic_conductor/down:
-    model: mekanized:block/cable/elite_thermodynamic_conductor/down
-  mekanized:cable_part/elite_thermodynamic_conductor/down_pull:
-    model: mekanized:block/cable/elite_thermodynamic_conductor/down_pull
-  mekanized:cable_part/elite_thermodynamic_conductor/down_push:
-    model: mekanized:block/cable/elite_thermodynamic_conductor/down_push
-  mekanized:elite_thermodynamic_conductor:
-    data:
-      item_name: <!i><lang:block.mekanized.elite_thermodynamic_conductor>
-    model: mekanized:block/cable/elite_thermodynamic_conductor/center
-    behavior:
-      type: block_item
-      block: mekanized:elite_thermodynamic_conductor
-  mekanized:cable_part/ultimate_thermodynamic_conductor/center:
-    model: mekanized:block/cable/ultimate_thermodynamic_conductor/center
-  mekanized:cable_part/ultimate_thermodynamic_conductor/north:
-    model: mekanized:block/cable/ultimate_thermodynamic_conductor/north
-  mekanized:cable_part/ultimate_thermodynamic_conductor/north_pull:
-    model: mekanized:block/cable/ultimate_thermodynamic_conductor/north_pull
-  mekanized:cable_part/ultimate_thermodynamic_conductor/north_push:
-    model: mekanized:block/cable/ultimate_thermodynamic_conductor/north_push
-  mekanized:cable_part/ultimate_thermodynamic_conductor/south:
-    model: mekanized:block/cable/ultimate_thermodynamic_conductor/south
-  mekanized:cable_part/ultimate_thermodynamic_conductor/south_pull:
-    model: mekanized:block/cable/ultimate_thermodynamic_conductor/south_pull
-  mekanized:cable_part/ultimate_thermodynamic_conductor/south_push:
-    model: mekanized:block/cable/ultimate_thermodynamic_conductor/south_push
-  mekanized:cable_part/ultimate_thermodynamic_conductor/east:
-    model: mekanized:block/cable/ultimate_thermodynamic_conductor/east
-  mekanized:cable_part/ultimate_thermodynamic_conductor/east_pull:
-    model: mekanized:block/cable/ultimate_thermodynamic_conductor/east_pull
-  mekanized:cable_part/ultimate_thermodynamic_conductor/east_push:
-    model: mekanized:block/cable/ultimate_thermodynamic_conductor/east_push
-  mekanized:cable_part/ultimate_thermodynamic_conductor/west:
-    model: mekanized:block/cable/ultimate_thermodynamic_conductor/west
-  mekanized:cable_part/ultimate_thermodynamic_conductor/west_pull:
-    model: mekanized:block/cable/ultimate_thermodynamic_conductor/west_pull
-  mekanized:cable_part/ultimate_thermodynamic_conductor/west_push:
-    model: mekanized:block/cable/ultimate_thermodynamic_conductor/west_push
-  mekanized:cable_part/ultimate_thermodynamic_conductor/up:
-    model: mekanized:block/cable/ultimate_thermodynamic_conductor/up
-  mekanized:cable_part/ultimate_thermodynamic_conductor/up_pull:
-    model: mekanized:block/cable/ultimate_thermodynamic_conductor/up_pull
-  mekanized:cable_part/ultimate_thermodynamic_conductor/up_push:
-    model: mekanized:block/cable/ultimate_thermodynamic_conductor/up_push
-  mekanized:cable_part/ultimate_thermodynamic_conductor/down:
-    model: mekanized:block/cable/ultimate_thermodynamic_conductor/down
-  mekanized:cable_part/ultimate_thermodynamic_conductor/down_pull:
-    model: mekanized:block/cable/ultimate_thermodynamic_conductor/down_pull
-  mekanized:cable_part/ultimate_thermodynamic_conductor/down_push:
-    model: mekanized:block/cable/ultimate_thermodynamic_conductor/down_push
-  mekanized:ultimate_thermodynamic_conductor:
-    data:
-      item_name: <!i><lang:block.mekanized.ultimate_thermodynamic_conductor>
-    model: mekanized:block/cable/ultimate_thermodynamic_conductor/center
-    behavior:
-      type: block_item
-      block: mekanized:ultimate_thermodynamic_conductor
   mekanized:turbine_blade:
     behaviors:
     - type: mekanized:turbine_blade
@@ -875,67 +695,69 @@ blocks:
           appearance: default
         facing=west:
           appearance: default
-  mekanized:basic_thermodynamic_conductor:
-    behavior:
-      type: machineengine:transport
-      transport: mekanized:basic_thermodynamic_conductor
-      rate: 10000
-      connection_items: mekanized:cable_part/basic_thermodynamic_conductor
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: sapling
-        id: mekanized_universal_cable
-      model:
-        path: mekanized:block/display_empty/universal_cable
-  mekanized:advanced_thermodynamic_conductor:
-    behavior:
-      type: machineengine:transport
-      transport: mekanized:advanced_thermodynamic_conductor
-      rate: 40000
-      connection_items: mekanized:cable_part/advanced_thermodynamic_conductor
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: sapling
-        id: mekanized_universal_cable
-      model:
-        path: mekanized:block/display_empty/universal_cable
-  mekanized:elite_thermodynamic_conductor:
-    behavior:
-      type: machineengine:transport
-      transport: mekanized:elite_thermodynamic_conductor
-      rate: 160000
-      connection_items: mekanized:cable_part/elite_thermodynamic_conductor
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: sapling
-        id: mekanized_universal_cable
-      model:
-        path: mekanized:block/display_empty/universal_cable
-  mekanized:ultimate_thermodynamic_conductor:
-    behavior:
-      type: machineengine:transport
-      transport: mekanized:ultimate_thermodynamic_conductor
-      rate: 640000
-      connection_items: mekanized:cable_part/ultimate_thermodynamic_conductor
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: sapling
-        id: mekanized_universal_cable
-      model:
-        path: mekanized:block/display_empty/universal_cable
+
+# Thermodynamic conductors: one row per block. A row's rate is the block's (D34): what one block passes per tick.
+# Each row makes the block, its item and the 19 parts display entities draw it with
+# (mekanized:cable_part/<transport>/<part>); see docs/CE_TEMPLATES_PLAN.md.
+config_factory#heat_transports:
+  instances:
+  - transport: basic_thermodynamic_conductor
+    rate: 10000
+  - transport: advanced_thermodynamic_conductor
+    rate: 40000
+  - transport: elite_thermodynamic_conductor
+    rate: 160000
+  - transport: ultimate_thermodynamic_conductor
+    rate: 640000
+  blueprint:
+    items:
+      mekanized:${transport}:
+        data:
+          item_name: <!i><lang:block.mekanized.${transport}>
+        model: mekanized:block/cable/${transport}/center
+        behavior:
+          type: block_item
+          block: mekanized:${transport}
+      mekanized:cable_part/${transport}/center:
+        model: mekanized:block/cable/${transport}/center
+      mekanized:cable_part/${transport}/north:
+        model: mekanized:block/cable/${transport}/north
+      mekanized:cable_part/${transport}/north_pull:
+        model: mekanized:block/cable/${transport}/north_pull
+      mekanized:cable_part/${transport}/north_push:
+        model: mekanized:block/cable/${transport}/north_push
+      mekanized:cable_part/${transport}/south:
+        model: mekanized:block/cable/${transport}/south
+      mekanized:cable_part/${transport}/south_pull:
+        model: mekanized:block/cable/${transport}/south_pull
+      mekanized:cable_part/${transport}/south_push:
+        model: mekanized:block/cable/${transport}/south_push
+      mekanized:cable_part/${transport}/east:
+        model: mekanized:block/cable/${transport}/east
+      mekanized:cable_part/${transport}/east_pull:
+        model: mekanized:block/cable/${transport}/east_pull
+      mekanized:cable_part/${transport}/east_push:
+        model: mekanized:block/cable/${transport}/east_push
+      mekanized:cable_part/${transport}/west:
+        model: mekanized:block/cable/${transport}/west
+      mekanized:cable_part/${transport}/west_pull:
+        model: mekanized:block/cable/${transport}/west_pull
+      mekanized:cable_part/${transport}/west_push:
+        model: mekanized:block/cable/${transport}/west_push
+      mekanized:cable_part/${transport}/up:
+        model: mekanized:block/cable/${transport}/up
+      mekanized:cable_part/${transport}/up_pull:
+        model: mekanized:block/cable/${transport}/up_pull
+      mekanized:cable_part/${transport}/up_push:
+        model: mekanized:block/cable/${transport}/up_push
+      mekanized:cable_part/${transport}/down:
+        model: mekanized:block/cable/${transport}/down
+      mekanized:cable_part/${transport}/down_pull:
+        model: mekanized:block/cable/${transport}/down_pull
+      mekanized:cable_part/${transport}/down_push:
+        model: mekanized:block/cable/${transport}/down_push
+    blocks:
+      mekanized:${transport}:
+        template: mekanized:block/transport
+        behavior:
+          rate: ${rate}
