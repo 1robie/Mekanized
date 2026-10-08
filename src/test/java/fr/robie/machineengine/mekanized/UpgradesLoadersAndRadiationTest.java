@@ -14,6 +14,7 @@ import fr.robie.machineengine.mekanized.machine.MekanizedRegistry;
 import fr.robie.machineengine.mekanized.machine.Radiation;
 import fr.robie.machineengine.mekanized.machine.RadiationSettings;
 import fr.robie.machineengine.test.FakeWorld;
+import java.util.Map;
 import net.kyori.adventure.key.Key;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -75,8 +76,8 @@ class UpgradesLoadersAndRadiationTest {
 
     @Test
     void aWasteBarrelDecaysAtTheConfiguredRate() {
-        RadiationSettings.barrelDecay = 10;
         FakeWorld world = FakeWorld.singleRegion(this.engine);
+        world.setOptions(HERE, MekanizedTestKit.options("radioactive_waste_barrel", Map.of("decay-per-second", 10)));
         MachineInstanceImpl barrel = world.place(type(this.engine, "radioactive_waste_barrel"), HERE, Direction.NORTH);
         fill(barrel, "waste", MekanizedContent.chemical("nuclear_waste").stack(100));
         world.tick(100);
@@ -157,7 +158,7 @@ class UpgradesLoadersAndRadiationTest {
     @Test
     void aStabilizerPaysTheConfiguredEnergyPerChunk() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        ChunkLoadingSettings.energyPerChunk = 10_000;
+        world.setOptions(HERE, MekanizedTestKit.options("dimensional_stabilizer", Map.of("energy-per-chunk", 10_000)));
         MachineInstanceImpl stabilizer = world.place(type(this.engine, "dimensional_stabilizer"), HERE, Direction.NORTH);
         // Its own chunk only: 10 kJ x 20 ticks = 200 kJ a second, more than it holds.
         fill(stabilizer, "energy", MekanizedContent.ENERGY.stack(150_000));

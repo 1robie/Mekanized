@@ -841,6 +841,10 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:laser
+      options:
+        energy-per-tick: 5000
+        range: 64
+        energy-per-hardness: 100000
       keep_contents: true
       display_item: mekanized:display/laser
       display_rotation: 180
@@ -887,6 +891,10 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:laser_amplifier
+      options:
+        energy-per-tick: 5000000
+        range: 64
+        energy-per-hardness: 100000
       keep_contents: true
       display_item: mekanized:display/laser_amplifier
       display_rotation: 180
@@ -933,6 +941,10 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:laser_tractor_beam
+      options:
+        energy-per-tick: 5000000
+        range: 64
+        energy-per-hardness: 100000
       keep_contents: true
       display_item: mekanized:display/laser_tractor_beam
       display_rotation: 180

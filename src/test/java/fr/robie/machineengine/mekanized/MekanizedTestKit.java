@@ -1,6 +1,7 @@
 package fr.robie.machineengine.mekanized;
 
 import fr.robie.machineengine.api.addon.AddonRegistration;
+import fr.robie.machineengine.api.config.BlockOptions;
 import fr.robie.machineengine.api.data.DataMap;
 import fr.robie.machineengine.api.data.DataValue;
 import fr.robie.machineengine.api.definition.DefinitionFile;
@@ -80,6 +81,13 @@ public final class MekanizedTestKit {
                     }
                 })
                 .start();
+    }
+
+    /** What the block config of the Mekanized block {@code name} would give its machine (D34): set it with {@link FakeWorld#setOptions}. */
+    public static BlockOptions options(String name, Map<String, ?> options) {
+        return BlockOptions.of(MekanizedContent.key(name).asString(), options, null, message -> {
+            throw new AssertionError(message);
+        });
     }
 
     public static MachineType type(CoreMachineEngine engine, String name) {

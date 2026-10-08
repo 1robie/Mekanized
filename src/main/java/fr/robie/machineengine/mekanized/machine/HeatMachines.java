@@ -1,6 +1,7 @@
 package fr.robie.machineengine.mekanized.machine;
 
 import fr.robie.machineengine.api.addon.RegistrationContext;
+import fr.robie.machineengine.api.config.ConfigKey;
 import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.machine.MachineBehavior;
 import fr.robie.machineengine.api.machine.MachineContext;
@@ -16,6 +17,7 @@ import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.api.resource.match.ResourcePredicate;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.RelativeSide;
+import fr.robie.machineengine.mekanized.MekanizedConfig;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import org.jetbrains.annotations.NotNull;
 
@@ -38,8 +40,8 @@ public final class HeatMachines {
     private static final String[] TIERS = {"basic", "advanced", "elite", "ultimate"};
     /** Joules of energy per tick the resistive heater turns into heat (a setting in its menu). */
     public static final MachineDataKey<String> HEATER_RATE = DataKeys.string("heater_rate", "100");
-    /** Heat per tick of a burning fuelwood heater (Mekanism's 400). */
-    static final long FUELWOOD_HEAT = 400;
+    /** Heat per tick of a burning fuelwood heater (Mekanism's 400): its block config's option (D34). */
+    public static final ConfigKey<Long> FUELWOOD_HEAT = ConfigKey.whole("heat-per-tick", 400, 0, MekanizedConfig.MAX).clamped();
 
     private HeatMachines() {
     }
@@ -105,9 +107,10 @@ public final class HeatMachines {
                 return;
             }
             long ticks = Math.min(20, burn);
+            long heat = context.options().get(FUELWOOD_HEAT) * ticks;
             try (Transaction transaction = context.transactions().openOuter()) {
-                long inserted = context.storage("heat").insert(MekanizedContent.HEAT.variant(), FUELWOOD_HEAT * ticks, transaction);
-                if (inserted < FUELWOOD_HEAT * ticks) {
+                long inserted = context.storage("heat").insert(MekanizedContent.HEAT.variant(), heat, transaction);
+                if (inserted < heat) {
                     context.setActive(false); // full: keep the fuel burning later
                     context.wakeIn(20);
                     return;

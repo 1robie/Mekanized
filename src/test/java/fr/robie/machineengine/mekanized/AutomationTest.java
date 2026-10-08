@@ -14,6 +14,7 @@ import fr.robie.machineengine.mekanized.machine.AutomationMachines;
 import fr.robie.machineengine.mekanized.machine.DigitalMinerSettings;
 import fr.robie.machineengine.mekanized.machine.QioSettings;
 import fr.robie.machineengine.test.FakeWorld;
+import java.util.Map;
 import net.kyori.adventure.key.Key;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,7 +33,7 @@ class AutomationTest {
     @Test
     void theMinerPaysTheConfiguredEnergyPerBlock() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
-        DigitalMinerSettings.energyPerBlock = 60_000;
+        world.setOptions(HERE, MekanizedTestKit.options("digital_miner", Map.of("energy-per-block", 60_000)));
         MachineInstanceImpl miner = world.place(type(this.engine, "digital_miner"), HERE, Direction.NORTH);
         world.setBlock(FakeWorld.at(2, 60, -1), Key.key("minecraft", "iron_ore"));
         fill(miner, "energy", MekanizedContent.ENERGY.stack(50_000));

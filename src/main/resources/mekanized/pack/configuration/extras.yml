@@ -80,6 +80,8 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:dimensional_stabilizer
+      options:
+        energy-per-chunk: 500
       keep_contents: true
     loot:
       template: machineengine:loot_table/keep_contents
@@ -162,6 +164,10 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:radioactive_waste_barrel
+      storages:
+        waste: { capacity: 512000 }
+      options:
+        decay-per-second: 1
       keep_contents: true
       display_item: mekanized:display/radioactive_waste_barrel
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
@@ -203,6 +209,9 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:nutritional_liquifier
+      options:
+        ticks: 100
+        energy-per-tick: 200
       keep_contents: true
       display_item: mekanized:display/nutritional_liquifier
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270

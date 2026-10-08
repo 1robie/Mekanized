@@ -7,11 +7,19 @@ import fr.robie.machineengine.api.network.TransportType;
 import fr.robie.machineengine.api.registry.Registries;
 import fr.robie.machineengine.core.lifecycle.CoreMachineEngine;
 import fr.robie.machineengine.core.machine.MachineInstanceImpl;
+import fr.robie.machineengine.mekanized.machine.AutomationMachines;
+import fr.robie.machineengine.mekanized.machine.ChemistryBehaviors;
+import fr.robie.machineengine.mekanized.machine.ChunkLoaders;
+import fr.robie.machineengine.mekanized.machine.HeatMachines;
+import fr.robie.machineengine.mekanized.machine.Liquifier;
+import fr.robie.machineengine.mekanized.machine.Radiation;
+import fr.robie.machineengine.mekanized.machine.UtilityBehaviors;
 import fr.robie.machineengine.mekanized.machine.UtilityMachines;
 import fr.robie.machineengine.test.FakeWorld;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -57,12 +65,36 @@ class BlockNumbersTest {
                 checked++;
             }
         }
-        assertTrue(checked >= 4, "the bins at least");
+        assertTrue(checked >= 5, "the bins and the waste barrel at least");
     }
 
     @Test
-    void theChargepadsShippedOptionIsItsDefault() {
-        assertEquals(UtilityMachines.CHARGE_PER_TICK.defaultValue(), ((Number) ShippedBlocks.option("chargepad", "charge-per-tick")).longValue());
+    void everyShippedOptionIsItsDefault() {
+        Map<String, Map<String, Number>> expected = new LinkedHashMap<>();
+        expected.put("chargepad", Map.of("charge-per-tick", UtilityMachines.CHARGE_PER_TICK.defaultValue()));
+        expected.put("nutritional_liquifier", Map.of("ticks", Liquifier.TICKS.defaultValue(), "energy-per-tick", Liquifier.ENERGY_PER_TICK.defaultValue()));
+        // The pump's and lasers' defaults are the arguments of their behaviors.
+        expected.put("electric_pump", Map.of("energy", 2_000, "ticks", 20, "range", 32,
+                "heavy-water-per-block", ChemistryBehaviors.HEAVY_WATER_PER_BLOCK.defaultValue()));
+        expected.put("fuelwood_heater", Map.of("heat-per-tick", HeatMachines.FUELWOOD_HEAT.defaultValue()));
+        expected.put("seismic_vibrator", Map.of("energy-per-tick", AutomationMachines.VIBRATOR_ENERGY.defaultValue()));
+        for (String laser : new String[]{"laser", "laser_amplifier", "laser_tractor_beam"}) {
+            expected.put(laser, Map.of("energy-per-tick", laser.equals("laser") ? 5_000 : 5_000_000,
+                    "range", UtilityBehaviors.BEAM_RANGE.defaultValue(), "energy-per-hardness", UtilityBehaviors.ENERGY_PER_HARDNESS.defaultValue()));
+        }
+        expected.put("radioactive_waste_barrel", Map.of("decay-per-second", Radiation.BARREL_DECAY.defaultValue()));
+        expected.put("digital_miner", Map.of("energy-per-block", AutomationMachines.MINER_ENERGY.defaultValue(),
+                "ticks-per-block", AutomationMachines.MINER_TICKS.defaultValue()));
+        expected.put("dimensional_stabilizer", Map.of("energy-per-chunk", ChunkLoaders.ENERGY_PER_CHUNK.defaultValue()));
+
+        for (Map.Entry<String, Map<String, Object>> block : ShippedBlocks.BEHAVIORS.entrySet()) {
+            if (!(block.getValue().get("options") instanceof Map<?, ?> options)) continue;
+            Map<String, Number> wanted = expected.get(block.getKey());
+            assertNotNull(wanted, block.getKey() + " has options this test does not know");
+            assertEquals(wanted.keySet(), options.keySet(), block.getKey());
+            wanted.forEach((key, value) -> assertEquals(value.longValue(), ((Number) options.get(key)).longValue(), block.getKey() + " " + key));
+        }
+        for (String block : expected.keySet()) assertNotNull(ShippedBlocks.behavior(block).get("options"), block + " has options");
     }
 
     @Test

@@ -918,6 +918,11 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:electric_pump
+      options:
+        energy: 2000
+        ticks: 20
+        range: 32
+        heavy-water-per-block: 10
       keep_contents: true
       display_item: mekanized:display/electric_pump
       display_rotation: 180

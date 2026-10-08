@@ -7,12 +7,9 @@ package fr.robie.machineengine.mekanized.machine;
  */
 public final class ChunkLoadingSettings {
     public static final int DEFAULT_MAX_RADIUS = 2;
-    public static final long DEFAULT_ENERGY_PER_CHUNK = 500;
 
     /** Chunks around its own the stabilizer can load: 2 is a 5 x 5 area. */
     public static volatile int maxRadius = DEFAULT_MAX_RADIUS;
-    /** Joules per tick for each chunk a stabilizer keeps loaded. */
-    public static volatile long energyPerChunk = DEFAULT_ENERGY_PER_CHUNK;
 
     private ChunkLoadingSettings() {
     }
@@ -20,6 +17,5 @@ public final class ChunkLoadingSettings {
     /** Back to the defaults (tests). */
     public static void reset() {
         maxRadius = DEFAULT_MAX_RADIUS;
-        energyPerChunk = DEFAULT_ENERGY_PER_CHUNK;
     }
 }

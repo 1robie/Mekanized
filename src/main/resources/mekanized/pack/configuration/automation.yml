@@ -124,6 +124,9 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:digital_miner
+      options:
+        energy-per-block: 2000
+        ticks-per-block: 10
       keep_contents: true
       display_item: mekanized:display/digital_miner
     loot:
@@ -164,6 +167,8 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:seismic_vibrator
+      options:
+        energy-per-tick: 50
       keep_contents: true
       display_item: mekanized:display/seismic_vibrator
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270

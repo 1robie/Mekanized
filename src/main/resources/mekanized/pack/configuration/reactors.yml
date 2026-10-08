@@ -433,6 +433,8 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:fuelwood_heater
+      options:
+        heat-per-tick: 400
       keep_contents: true
     loot:
       template: machineengine:loot_table/keep_contents

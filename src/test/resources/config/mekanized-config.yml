@@ -30,8 +30,6 @@ teleporter:
 chunk-loading:
   # chunks around its own a stabilizer can load (0-8); 2 is a 5 x 5 area
   max-radius: 2
-  # J per tick for each chunk it keeps loaded
-  energy-per-chunk: 500
 
 # Radiation (Mekanism's, simplified). Dose and radiation are in Sieverts (Sv, Sv/h).
 radiation:
@@ -49,17 +47,9 @@ radiation:
   damage-dose: 10.0
   # Sv from which every second does heavy damage
   lethal-dose: 100.0
-  # mB a radioactive waste barrel holds (a restart rebuilds the machine)
-  barrel-capacity: 512000
-  # mB that decay in a barrel each second
-  barrel-decay-per-second: 1
 
 # The digital miner.
 digital-miner:
-  # J per block mined
-  energy-per-block: 2000
-  # ticks per block mined (speed upgrades shorten it)
-  ticks-per-block: 10
   # positions it looks at per tick for the next block to mine
   scan-per-tick: 2048
   # widest radius (1-128); 32 is a 65 x 65 area

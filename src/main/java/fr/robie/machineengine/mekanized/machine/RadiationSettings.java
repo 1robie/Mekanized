@@ -13,8 +13,6 @@ public final class RadiationSettings {
     public static final double DEFAULT_SICKNESS_DOSE = 1;
     public static final double DEFAULT_DAMAGE_DOSE = 10;
     public static final double DEFAULT_LETHAL_DOSE = 100;
-    public static final long DEFAULT_BARREL_CAPACITY = 512_000;
-    public static final long DEFAULT_BARREL_DECAY = 1;
 
     /** Sv/h everywhere. */
     public static volatile double background = DEFAULT_BACKGROUND;
@@ -28,9 +26,6 @@ public final class RadiationSettings {
     public static volatile double sicknessDose = DEFAULT_SICKNESS_DOSE;
     public static volatile double damageDose = DEFAULT_DAMAGE_DOSE;
     public static volatile double lethalDose = DEFAULT_LETHAL_DOSE;
-    /** Radioactive waste barrel: what it holds (mB), and how many mB decay every second. */
-    public static volatile long barrelCapacity = DEFAULT_BARREL_CAPACITY;
-    public static volatile long barrelDecay = DEFAULT_BARREL_DECAY;
 
     private RadiationSettings() {
     }
@@ -44,7 +39,5 @@ public final class RadiationSettings {
         sicknessDose = DEFAULT_SICKNESS_DOSE;
         damageDose = DEFAULT_DAMAGE_DOSE;
         lethalDose = DEFAULT_LETHAL_DOSE;
-        barrelCapacity = DEFAULT_BARREL_CAPACITY;
-        barrelDecay = DEFAULT_BARREL_DECAY;
     }
 }

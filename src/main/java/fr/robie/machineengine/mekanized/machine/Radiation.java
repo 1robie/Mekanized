@@ -1,6 +1,7 @@
 package fr.robie.machineengine.mekanized.machine;
 
 import fr.robie.machineengine.api.addon.RegistrationContext;
+import fr.robie.machineengine.api.config.ConfigKey;
 import fr.robie.machineengine.api.machine.MachineBehavior;
 import fr.robie.machineengine.api.machine.MachineType;
 import fr.robie.machineengine.api.machine.PortDefinition;
@@ -11,6 +12,7 @@ import fr.robie.machineengine.api.resource.match.ResourcePredicate;
 import fr.robie.machineengine.api.transfer.StorageView;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.WorldPosition;
+import fr.robie.machineengine.mekanized.MekanizedConfig;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.NotNull;
@@ -128,20 +130,25 @@ public final class Radiation {
     static void register(RegistrationContext context) {
         ResourcePredicate radioactive = MekanizedRegistry.IS_CHEMICAL.and((variant, tags) -> radioactivity(variant) > 0);
         context.machineTypes().register(MachineType.builder(key("radioactive_waste_barrel"))
-                .storage(StorageDefinition.tank("waste", RadiationSettings.barrelCapacity).filter(radioactive))
+                .storage(StorageDefinition.tank("waste", BARREL_CAPACITY).filter(radioactive))
                 .port(PortDefinition.builder("waste", "waste").direction(PortDirection.INPUT).filter(radioactive).group("chemical").build())
                 .behavior(barrel())
                 .build());
     }
 
-    /** Lets {@link RadiationSettings#barrelDecay} mB of what it holds decay every second. */
+    /** mB a waste barrel holds: its block config's {@code storages.waste.capacity} replaces it (D34). */
+    public static final long BARREL_CAPACITY = 512_000;
+    /** mB of what a barrel holds that decay every second: its block config's option (D34). */
+    public static final ConfigKey<Long> BARREL_DECAY = ConfigKey.whole("decay-per-second", 1, 0, MekanizedConfig.MAX).clamped();
+
+    /** Lets {@link #BARREL_DECAY} mB of what it holds decay every second. */
     static @NotNull MachineBehavior.Factory barrel() {
         return type -> context -> {
             boolean decayed = false;
             try (Transaction transaction = context.transactions().openOuter()) {
                 for (StorageView view : context.storage("waste").views()) {
                     if (view.isEmpty()) continue;
-                    decayed = context.storage("waste").extract(view.variant(), RadiationSettings.barrelDecay, transaction) > 0;
+                    decayed = context.storage("waste").extract(view.variant(), context.options().get(BARREL_DECAY), transaction) > 0;
                     break;
                 }
                 transaction.commit();

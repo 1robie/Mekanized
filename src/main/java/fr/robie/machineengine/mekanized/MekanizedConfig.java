@@ -19,7 +19,7 @@ import java.util.List;
  */
 public final class MekanizedConfig {
     /** Upper bound of a Joule or mB setting: far above any real value, small enough that sums never overflow. */
-    static final long MAX = 1_000_000_000_000L;
+    public static final long MAX = 1_000_000_000_000L;
 
     private static final List<ConfigKey<?>> KEYS = new ArrayList<>();
 
@@ -48,8 +48,6 @@ public final class MekanizedConfig {
             0, 3600, "seconds a player waits between two teleports");
     public static final ConfigKey<Integer> CHUNK_MAX_RADIUS = integer("chunk-loading.max-radius", ChunkLoadingSettings.DEFAULT_MAX_RADIUS, 0, 8,
             "chunks around its own a stabilizer can load (0-8); 2 is a 5 x 5 area");
-    public static final ConfigKey<Long> CHUNK_ENERGY = joules("chunk-loading.energy-per-chunk", ChunkLoadingSettings.DEFAULT_ENERGY_PER_CHUNK,
-            "J per tick for each chunk it keeps loaded");
 
     // -- radiation --------------------------------------------------------------------------------
 
@@ -67,17 +65,9 @@ public final class MekanizedConfig {
             "Sv from which players get nauseous, weak and hurt");
     public static final ConfigKey<Double> LETHAL_DOSE = decimal("radiation.lethal-dose", RadiationSettings.DEFAULT_LETHAL_DOSE, 0, 1_000_000,
             "Sv from which every second does heavy damage");
-    public static final ConfigKey<Long> BARREL_CAPACITY = whole("radiation.barrel-capacity", RadiationSettings.DEFAULT_BARREL_CAPACITY, 1, MAX,
-            "mB a radioactive waste barrel holds (a restart rebuilds the machine)");
-    public static final ConfigKey<Long> BARREL_DECAY = whole("radiation.barrel-decay-per-second", RadiationSettings.DEFAULT_BARREL_DECAY, 0, MAX,
-            "mB that decay in a barrel each second");
 
     // -- digital miner, QIO -----------------------------------------------------------------------
 
-    public static final ConfigKey<Long> MINER_ENERGY = joules("digital-miner.energy-per-block", DigitalMinerSettings.DEFAULT_ENERGY_PER_BLOCK,
-            "J per block mined");
-    public static final ConfigKey<Long> MINER_TICKS = whole("digital-miner.ticks-per-block", DigitalMinerSettings.DEFAULT_TICKS_PER_BLOCK, 1, 72_000,
-            "ticks per block mined (speed upgrades shorten it)");
     public static final ConfigKey<Integer> MINER_SCAN = integer("digital-miner.scan-per-tick", DigitalMinerSettings.DEFAULT_SCAN_PER_TICK, 1, 1_000_000,
             "positions it looks at per tick for the next block to mine");
     public static final ConfigKey<Integer> MINER_MAX_RADIUS = integer("digital-miner.max-radius", DigitalMinerSettings.DEFAULT_MAX_RADIUS, 1, 128,
@@ -91,7 +81,8 @@ public final class MekanizedConfig {
     public static final ConfigKey<Long> QIO_IO_RATE = whole("qio.importer-exporter-rate", QioSettings.DEFAULT_IO_RATE, 1, 1_000_000,
             "items an importer or exporter moves per second");
 
-    // Gear has no settings here: every tool, suit piece and module keeps its numbers in its CraftEngine item
+    // The stabilizer's energy per chunk, the waste barrel, and the miner's energy and ticks per block are in their
+    // block configs (D34); their old keys left in a file are kept and ignored. Gear has no settings here either: every tool, suit piece and module keeps its numbers in its CraftEngine item
     // config (D32). Old gear.* keys left in a file are kept and ignored.
 
     public static final ConfigSpec SPEC = ConfigSpec.builder()

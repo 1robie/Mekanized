@@ -2,6 +2,7 @@ package fr.robie.machineengine.mekanized.machine;
 
 import fr.robie.machineengine.api.addon.RegistrationContext;
 import fr.robie.machineengine.api.capability.Capabilities;
+import fr.robie.machineengine.api.config.ConfigKey;
 import fr.robie.machineengine.api.item.ItemData;
 import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.machine.MachineBehavior;
@@ -24,6 +25,7 @@ import fr.robie.machineengine.api.world.BlockPosition;
 import fr.robie.machineengine.api.world.Direction;
 import fr.robie.machineengine.api.world.RelativeSide;
 import fr.robie.machineengine.api.world.WorldPosition;
+import fr.robie.machineengine.mekanized.MekanizedConfig;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.NotNull;
@@ -59,8 +61,11 @@ public final class AutomationMachines {
     public static final MachineDataKey<Long> CURSOR = DataKeys.number("cursor");
     public static final MachineDataKey<String> STATUS = DataKeys.STATUS;
 
-    /** Seismic vibrator: Joules per tick while it runs. */
-    public static final long VIBRATOR_ENERGY = 50;
+    /** Seismic vibrator: Joules per tick while it runs (its block config's option, D34). */
+    public static final ConfigKey<Long> VIBRATOR_ENERGY = ConfigKey.whole("energy-per-tick", 50, 0, MekanizedConfig.MAX).clamped();
+    /** Digital miner: Joules and ticks per block mined (its block config's options, D34). */
+    public static final ConfigKey<Long> MINER_ENERGY = ConfigKey.whole("energy-per-block", 2_000, 0, MekanizedConfig.MAX).clamped();
+    public static final ConfigKey<Long> MINER_TICKS = ConfigKey.whole("ticks-per-block", 10, 1, 72_000).clamped();
     /** QIO drive items, in the order of {@link QioSettings}: what each holds is set there (Mekanism's by default). */
     private static final List<Key> DRIVES = List.of(key("qio_drive_base"), key("qio_drive_hyper_dense"),
             key("qio_drive_time_dilating"), key("qio_drive_supermassive"));
@@ -131,7 +136,7 @@ public final class AutomationMachines {
                 idle(context, "Output full", 20);
                 return;
             }
-            long cost = context.modifiedCost(MekanizedContent.ENERGY, DigitalMinerSettings.energyPerBlock);
+            long cost = context.modifiedCost(MekanizedContent.ENERGY, context.options().get(MINER_ENERGY));
             if (context.storage("energy").views().getFirst().amount() < cost) {
                 idle(context, "Needs energy", 20);
                 return;
@@ -167,7 +172,7 @@ public final class AutomationMachines {
                 context.set(CURSOR, cursor + 1);
                 context.setActive(true);
                 context.set(STATUS, String.format(Locale.ROOT, "Mining: %s at y %d", block.value().replace('_', ' '), at.y()));
-                context.wakeIn(Math.max(1, context.modified(StandardModifiers.PROCESS_DURATION, DigitalMinerSettings.ticksPerBlock)));
+                context.wakeIn(Math.max(1, context.modified(StandardModifiers.PROCESS_DURATION, context.options().get(MINER_TICKS))));
                 return;
             }
             context.set(CURSOR, cursor);
@@ -198,7 +203,7 @@ public final class AutomationMachines {
         return type -> context -> {
             boolean running;
             try (Transaction transaction = context.transactions().openOuter()) {
-                running = MachineParts.pay(context.storage("energy"), VIBRATOR_ENERGY * 20, transaction);
+                running = MachineParts.pay(context.storage("energy"), context.options().get(VIBRATOR_ENERGY) * 20, transaction);
                 if (running) transaction.commit();
             }
             context.setActive(running);

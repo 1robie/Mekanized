@@ -174,7 +174,6 @@ class SettingsTest {
     @Test
     void chunkLoadingDefaultsAreTheOldNumbers() {
         assertEquals(2, ChunkLoadingSettings.maxRadius);
-        assertEquals(500, ChunkLoadingSettings.energyPerChunk);
     }
 
     @Test
@@ -186,13 +185,11 @@ class SettingsTest {
 
     @Test
     void chunkLoadingSettingsAreReadAndLimited() {
-        load("chunk-loading:\n  max-radius: 3\n  energy-per-chunk: 250\n");
+        load("chunk-loading:\n  max-radius: 3\n");
         assertEquals(3, ChunkLoadingSettings.maxRadius);
-        assertEquals(250, ChunkLoadingSettings.energyPerChunk);
-        load("chunk-loading:\n  max-radius: 40\n  energy-per-chunk: -1\n");
+        load("chunk-loading:\n  max-radius: 40\n");
         assertEquals(8, ChunkLoadingSettings.maxRadius, "a 17 x 17 area at most");
-        assertEquals(0, ChunkLoadingSettings.energyPerChunk);
-        assertEquals(2, this.warnings.size(), this.warnings.toString());
+        assertEquals(1, this.warnings.size(), this.warnings.toString());
     }
 
     // -- radiation --------------------------------------------------------------------------------
@@ -206,8 +203,6 @@ class SettingsTest {
         assertEquals(1, RadiationSettings.sicknessDose);
         assertEquals(10, RadiationSettings.damageDose);
         assertEquals(100, RadiationSettings.lethalDose);
-        assertEquals(512_000, RadiationSettings.barrelCapacity);
-        assertEquals(1, RadiationSettings.barrelDecay);
     }
 
     @Test
@@ -219,23 +214,19 @@ class SettingsTest {
 
     @Test
     void radiationSettingsAreReadAndLimited() {
-        load("radiation:\n  lethal-dose: 50\n  barrel-decay-per-second: 4\n  source-decay-per-second: 0.9\n");
+        load("radiation:\n  lethal-dose: 50\n  source-decay-per-second: 0.9\n");
         assertEquals(50, RadiationSettings.lethalDose);
-        assertEquals(4, RadiationSettings.barrelDecay);
         assertEquals(0.9, RadiationSettings.sourceDecayPerSecond);
-        load("radiation:\n  source-decay-per-second: 1.5\n  barrel-capacity: 0\n  damage-dose: high\n");
+        load("radiation:\n  source-decay-per-second: 1.5\n  damage-dose: high\n");
         assertEquals(1, RadiationSettings.sourceDecayPerSecond, "a source cannot grow");
-        assertEquals(1, RadiationSettings.barrelCapacity);
         assertEquals(10, RadiationSettings.damageDose, "not a number: the default");
-        assertEquals(3, this.warnings.size(), this.warnings.toString());
+        assertEquals(2, this.warnings.size(), this.warnings.toString());
     }
 
     // -- digital miner ----------------------------------------------------------------------------
 
     @Test
     void digitalMinerDefaultsAreTheOldNumbers() {
-        assertEquals(2_000, DigitalMinerSettings.energyPerBlock);
-        assertEquals(10, DigitalMinerSettings.ticksPerBlock);
         assertEquals(2_048, DigitalMinerSettings.scanPerTick);
         assertEquals(32, DigitalMinerSettings.maxRadius);
     }
@@ -249,15 +240,12 @@ class SettingsTest {
 
     @Test
     void digitalMinerSettingsAreReadAndLimited() {
-        load("digital-miner:\n  energy-per-block: 500\n  ticks-per-block: 4\n  max-radius: 16\n");
-        assertEquals(500, DigitalMinerSettings.energyPerBlock);
-        assertEquals(4, DigitalMinerSettings.ticksPerBlock);
+        load("digital-miner:\n  max-radius: 16\n");
         assertEquals(16, DigitalMinerSettings.maxRadius);
-        load("digital-miner:\n  ticks-per-block: 0\n  max-radius: 5000\n  scan-per-tick: many\n");
-        assertEquals(1, DigitalMinerSettings.ticksPerBlock, "at least a tick");
+        load("digital-miner:\n  max-radius: 5000\n  scan-per-tick: many\n");
         assertEquals(128, DigitalMinerSettings.maxRadius);
         assertEquals(2_048, DigitalMinerSettings.scanPerTick, "not a number: the default");
-        assertEquals(3, this.warnings.size(), this.warnings.toString());
+        assertEquals(2, this.warnings.size(), this.warnings.toString());
     }
 
     // -- qio --------------------------------------------------------------------------------------

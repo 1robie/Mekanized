@@ -1,5 +1,6 @@
 package fr.robie.machineengine.mekanized.machine;
 
+import fr.robie.machineengine.api.config.ConfigKey;
 import fr.robie.machineengine.api.error.MachineError;
 import fr.robie.machineengine.api.machine.MachineBehavior;
 import fr.robie.machineengine.api.machine.MachineContext;
@@ -17,6 +18,7 @@ import fr.robie.machineengine.api.world.BlockPosition;
 import fr.robie.machineengine.api.world.Direction;
 import fr.robie.machineengine.api.world.RelativeSide;
 import fr.robie.machineengine.api.world.WorldFluid;
+import fr.robie.machineengine.mekanized.MekanizedConfig;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.NotNull;
@@ -61,20 +63,25 @@ public final class ChemistryBehaviors {
         }
     }
 
+    /** Heavy water a filter-upgraded pump gets from a block of water: its block config's option (D34). */
+    public static final ConfigKey<Long> HEAVY_WATER_PER_BLOCK = ConfigKey.whole("heavy-water-per-block", 10, 1, 1_000_000).clamped();
+
     /**
      * Mekanism's electric pump: every {@code ticks} (shorter with speed upgrades) it takes one source
      * block of water or lava, below it or connected to the fluid below it, for {@code energy} Joules,
      * and stores a bucket of it (Fluids.bucket(), 1000 mB by default). Flowing fluid is followed to reach sources, up to {@code range} blocks
-     * away; blocks of other regions (Folia) are not reached.
+     * away; blocks of other regions (Folia) are not reached. The block config's options {@code energy}, {@code ticks} and
+     * {@code range} replace these (D34).
      */
-    /** Heavy water a filter-upgraded pump gets from a block of water. */
-    public static final long HEAVY_WATER_PER_BLOCK = 10;
-
-    public static @NotNull MachineBehavior.Factory pump(@NotNull String tank, @NotNull String energyStorage, long energy, long ticks,
-                                                        int range) {
+    public static @NotNull MachineBehavior.Factory pump(@NotNull String tank, @NotNull String energyStorage, long defaultEnergy,
+                                                        long defaultTicks, int defaultRange) {
+        ConfigKey<Long> energyKey = ConfigKey.whole("energy", defaultEnergy, 0, MekanizedConfig.MAX).clamped();
+        ConfigKey<Long> ticksKey = ConfigKey.whole("ticks", defaultTicks, 1, 72_000).clamped();
+        ConfigKey<Integer> rangeKey = ConfigKey.integer("range", defaultRange, 0, 128).clamped();
         return type -> context -> {
-            long cost = context.modifiedCost(MekanizedContent.ENERGY, energy);
-            long delay = Math.max(1, context.modified(StandardModifiers.PROCESS_DURATION, ticks));
+            int range = context.options().get(rangeKey);
+            long cost = context.modifiedCost(MekanizedContent.ENERGY, context.options().get(energyKey));
+            long delay = Math.max(1, context.modified(StandardModifiers.PROCESS_DURATION, context.options().get(ticksKey)));
             BlockPosition below = context.machine().position().position().relative(Direction.DOWN);
             WorldFluid start = context.world().fluidAt(below);
             ResourceType fluid = start == null ? null : Fluids.fromWorld(start.fluid());
@@ -90,7 +97,7 @@ public final class ChemistryBehaviors {
             ResourceType heavyWater = MekanizedContent.fluid("heavy_water");
             if (heavyWater != null && fluid == Fluids.water() && MekanizedRegistry.installed(context, MekanizedRegistry.FILTER_UPGRADE)) {
                 fluid = heavyWater;
-                amount = HEAVY_WATER_PER_BLOCK;
+                amount = context.options().get(HEAVY_WATER_PER_BLOCK);
             }
             try (Transaction transaction = context.transactions().openOuter()) {
                 if (storage.insert(fluid.variant(), amount, transaction) != amount) {

@@ -2,7 +2,6 @@ package fr.robie.machineengine.mekanized.paper.menu;
 
 import fr.robie.machineengine.mekanized.machine.ChunkLoadingSettings;
 import fr.robie.machineengine.mekanized.machine.Liquifier;
-import fr.robie.machineengine.mekanized.machine.RadiationSettings;
 import fr.robie.machineengine.mekanized.paper.menu.MenuYaml.Menu;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -36,8 +35,7 @@ final class LoaderAndBufferMenus {
     static void add(List<Menu> menus) {
         Map<String, String> stabilizer = new LinkedHashMap<>();
         stabilizer.put("info", display(4, "END_CRYSTAL", "<light_purple>Dimensional Stabilizer", "<gray>Keeps the chunks around it loaded",
-                "<gray>while it has energy (" + ChunkLoadingSettings.energyPerChunk
-                        + " J/t per chunk)."));
+                "<gray>while it has energy, paid per chunk."));
         stabilizer.put("radius", setting(11, "radius", radii(), "COMPASS",
                 "<yellow>Chunks around: %zmenu_machineengine_data_radius%", "<gray>" + radiusAreas()));
         stabilizer.put("energy", energyDisplay(13));
@@ -60,7 +58,7 @@ final class LoaderAndBufferMenus {
 
         Map<String, String> barrel = new LinkedHashMap<>();
         barrel.put("info", display(4, "BARREL", "<green>Radioactive Waste Barrel", "<gray>Holds radioactive chemicals safely",
-                "<gray>while they slowly decay (" + RadiationSettings.barrelDecay + " mB a second)."));
+                "<gray>while they slowly decay."));
         barrel.put("waste", chemical(13, "waste", "Waste"));
         menus.add(new Menu("radioactive_waste_barrel", barrel, -1));
 

@@ -1,6 +1,7 @@
 package fr.robie.machineengine.mekanized.machine;
 
 import fr.robie.machineengine.api.addon.RegistrationContext;
+import fr.robie.machineengine.api.config.ConfigKey;
 import fr.robie.machineengine.api.item.ItemData;
 import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.machine.MachineBehavior;
@@ -13,6 +14,7 @@ import fr.robie.machineengine.api.resource.match.ResourcePredicate;
 import fr.robie.machineengine.api.transfer.StorageView;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.upgrade.StandardModifiers;
+import fr.robie.machineengine.mekanized.MekanizedConfig;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,9 +28,9 @@ import java.util.Map;
 public final class Liquifier {
     /** Paste per hunger point (Mekanism's). */
     public static final long PASTE_PER_FOOD = 50;
-    /** Ticks per item (speed upgrades shorten it) and Joules per tick. */
-    public static final long TICKS = 100;
-    public static final long ENERGY_PER_TICK = 200;
+    /** Ticks per item (speed upgrades shorten it) and Joules per tick: its block config's options (D34). */
+    public static final ConfigKey<Long> TICKS = ConfigKey.whole("ticks", 100, 1, 72_000).clamped();
+    public static final ConfigKey<Long> ENERGY_PER_TICK = ConfigKey.whole("energy-per-tick", 200, 0, MekanizedConfig.MAX).clamped();
     /** Hunger points of Minecraft's foods. */
     public static final Map<String, Integer> NUTRITION = Map.ofEntries(
             Map.entry("apple", 4), Map.entry("baked_potato", 5), Map.entry("beef", 3), Map.entry("beetroot", 1),
@@ -69,8 +71,8 @@ public final class Liquifier {
     static @NotNull MachineBehavior.Factory liquifier() {
         return type -> context -> {
             ResourceType paste = MekanizedContent.fluid("nutritional_paste");
-            long ticks = Math.max(1, context.modified(StandardModifiers.PROCESS_DURATION, TICKS));
-            long cost = context.modifiedCost(MekanizedContent.ENERGY, ENERGY_PER_TICK) * ticks;
+            long ticks = Math.max(1, context.modified(StandardModifiers.PROCESS_DURATION, context.options().get(TICKS)));
+            long cost = context.modifiedCost(MekanizedContent.ENERGY, context.options().get(ENERGY_PER_TICK)) * ticks;
             StorageView food = context.storage("input").views().stream().filter(view -> !view.isEmpty()).findFirst().orElse(null);
             if (paste == null || food == null) {
                 context.setActive(false);

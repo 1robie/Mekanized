@@ -50,7 +50,6 @@ public final class MekanizedSettings {
         TeleporterSettings.otherWorldCost = config.get(MekanizedConfig.TELEPORT_OTHER_WORLD_COST);
         TeleporterSettings.cooldownMs = Math.round(config.get(MekanizedConfig.TELEPORT_COOLDOWN) * 1000);
         ChunkLoadingSettings.maxRadius = config.get(MekanizedConfig.CHUNK_MAX_RADIUS);
-        ChunkLoadingSettings.energyPerChunk = config.get(MekanizedConfig.CHUNK_ENERGY);
 
         RadiationSettings.background = config.get(MekanizedConfig.RADIATION_BACKGROUND);
         RadiationSettings.sourceDecayPerSecond = config.get(MekanizedConfig.SOURCE_DECAY);
@@ -59,11 +58,7 @@ public final class MekanizedSettings {
         RadiationSettings.sicknessDose = config.get(MekanizedConfig.SICKNESS_DOSE);
         RadiationSettings.damageDose = config.get(MekanizedConfig.DAMAGE_DOSE);
         RadiationSettings.lethalDose = config.get(MekanizedConfig.LETHAL_DOSE);
-        RadiationSettings.barrelCapacity = config.get(MekanizedConfig.BARREL_CAPACITY);
-        RadiationSettings.barrelDecay = config.get(MekanizedConfig.BARREL_DECAY);
 
-        DigitalMinerSettings.energyPerBlock = config.get(MekanizedConfig.MINER_ENERGY);
-        DigitalMinerSettings.ticksPerBlock = config.get(MekanizedConfig.MINER_TICKS);
         DigitalMinerSettings.scanPerTick = config.get(MekanizedConfig.MINER_SCAN);
         DigitalMinerSettings.maxRadius = config.get(MekanizedConfig.MINER_MAX_RADIUS);
         QioSettings.driveItems = longs(config.get(MekanizedConfig.QIO_DRIVE_ITEMS));

@@ -1,6 +1,7 @@
 package fr.robie.machineengine.mekanized.machine;
 
 import fr.robie.machineengine.api.addon.RegistrationContext;
+import fr.robie.machineengine.api.config.ConfigKey;
 import fr.robie.machineengine.api.event.EventPhase;
 import fr.robie.machineengine.api.machine.MachineBehavior;
 import fr.robie.machineengine.api.machine.MachineDataKey;
@@ -8,6 +9,7 @@ import fr.robie.machineengine.api.machine.MachineEvents;
 import fr.robie.machineengine.api.machine.MachineInstance;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.WorldPosition;
+import fr.robie.machineengine.mekanized.MekanizedConfig;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -77,12 +79,15 @@ public final class ChunkLoaders {
         else if (LOADERS.containsKey(machine.position())) set(machine.position(), null);
     }
 
-    /** Once a second: pays for its chunks ({@link ChunkLoadingSettings#energyPerChunk} each, per tick) and keeps them loaded. */
+    /** Joules per tick for each chunk a stabilizer keeps loaded: its block config's option (D34). */
+    public static final ConfigKey<Long> ENERGY_PER_CHUNK = ConfigKey.whole("energy-per-chunk", 500, 0, MekanizedConfig.MAX).clamped();
+
+    /** Once a second: pays for its chunks ({@link #ENERGY_PER_CHUNK} each, per tick) and keeps them loaded. */
     static @NotNull MachineBehavior.Factory stabilizer() {
         return type -> context -> {
             int radius = DataKeys.parseInt(context.get(RADIUS), 0, 0, ChunkLoadingSettings.maxRadius);
             long chunks = (2L * radius + 1) * (2L * radius + 1);
-            long cost = context.modifiedCost(MekanizedContent.ENERGY, ChunkLoadingSettings.energyPerChunk * chunks) * 20;
+            long cost = context.modifiedCost(MekanizedContent.ENERGY, context.options().get(ENERGY_PER_CHUNK) * chunks) * 20;
             boolean paid;
             try (Transaction transaction = context.transactions().openOuter()) {
                 paid = MachineParts.pay(context.storage("energy"), cost, transaction);

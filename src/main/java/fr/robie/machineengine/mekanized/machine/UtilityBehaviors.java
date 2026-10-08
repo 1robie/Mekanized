@@ -1,5 +1,6 @@
 package fr.robie.machineengine.mekanized.machine;
 
+import fr.robie.machineengine.api.config.ConfigKey;
 import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.machine.MachineBehavior;
 import fr.robie.machineengine.api.machine.MachineContext;
@@ -17,6 +18,7 @@ import fr.robie.machineengine.api.world.WorldFluid;
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.api.multiblock.Multiblocks;
+import fr.robie.machineengine.mekanized.MekanizedConfig;
 import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -190,9 +192,9 @@ public final class UtilityBehaviors {
 
     /** Laser receivers: the beam's energy goes into their {@code energy} storage. */
     static final Set<String> LASER_RECEIVERS = Set.of("laser_amplifier", "laser_tractor_beam");
-    private static final int BEAM_RANGE = 64;
-    /** Joules of beam energy per point of block hardness to break it. */
-    private static final long ENERGY_PER_HARDNESS = 100_000;
+    /** Blocks a beam reaches, and Joules of beam energy per point of block hardness to break a block: block config options (D34). */
+    public static final ConfigKey<Integer> BEAM_RANGE = ConfigKey.integer("range", 64, 1, 256).clamped();
+    public static final ConfigKey<Long> ENERGY_PER_HARDNESS = ConfigKey.whole("energy-per-hardness", 100_000, 1, MekanizedConfig.MAX).clamped();
     private static final int BEAM_COLOR = 0xFF2020;
 
     /**
@@ -200,9 +202,10 @@ public final class UtilityBehaviors {
      * receiver (its energy), or into a block, which breaks once it took its hardness x 100 kJ. A
      * laser fires {@code perTick} Joules from its energy; an amplifier or tractor beam fires what it
      * stores, up to {@code perTick}. Each follows its redstone control. A tractor beam keeps the drops
-     * of the blocks its beam breaks.
+     * of the blocks its beam breaks. The block config's option {@code energy-per-tick} replaces {@code perTick} (D34).
      */
-    public static @NotNull MachineBehavior.Factory laser(long perTick, boolean fromStorage, boolean collects) {
+    public static @NotNull MachineBehavior.Factory laser(long defaultPerTick, boolean fromStorage, boolean collects) {
+        ConfigKey<Long> perTickKey = ConfigKey.whole("energy-per-tick", defaultPerTick, 1, MekanizedConfig.MAX).clamped();
         return type -> new MachineBehavior() {
             private BlockPosition target;
             private long heat;
@@ -214,6 +217,7 @@ public final class UtilityBehaviors {
                     idle(context, 20);
                     return;
                 }
+                long perTick = context.options().get(perTickKey);
                 long fired;
                 try (Transaction transaction = context.transactions().openOuter()) {
                     fired = context.storage("energy").extract(MekanizedContent.ENERGY.variant(), perTick, transaction);
@@ -248,7 +252,8 @@ public final class UtilityBehaviors {
                 WorldPosition origin = context.machine().position();
                 Direction facing = context.machine().facing();
                 BlockPosition at = origin.position();
-                for (int step = 1; step <= BEAM_RANGE; step++) {
+                int range = context.options().get(BEAM_RANGE);
+                for (int step = 1; step <= range; step++) {
                     at = at.relative(facing);
                     Key block = context.world().blockAt(at);
                     if (block == null) return at; // not loaded: the beam stops
@@ -285,7 +290,7 @@ public final class UtilityBehaviors {
                         this.heat = 0;
                     }
                     this.heat += joules;
-                    if (this.heat >= (long) Math.max(1, hardness * ENERGY_PER_HARDNESS) && context.world().breakBlock(at)) {
+                    if (this.heat >= (long) Math.max(1, hardness * context.options().get(ENERGY_PER_HARDNESS)) && context.world().breakBlock(at)) {
                         this.target = null;
                         this.heat = 0;
                         if (collects) collect(context, at);

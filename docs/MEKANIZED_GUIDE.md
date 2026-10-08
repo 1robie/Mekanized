@@ -150,12 +150,12 @@ Click a machine's upgrade button with the upgrade in hand to install it.
   (the file keeps what you wrote, for you to fix). Settings added by an update are written into your file, with
   their comments, at the next start; your values and comments are kept.
   - `dynamic-tank`, `thermal-evaporation`: Dynamic Tank capacity, Thermal Evaporation rate.
-  - `radiation`: background, how fast sources and doses fade, the doses that make players sick, hurt them and kill them, and the waste barrel.
+  - `radiation`: background, how fast sources and doses fade, the doses that make players sick, hurt them and kill them.
   - `teleporter`: Joules per teleport (base, per block, to another world) and the cooldown between teleports.
     The Meka-Tool's teleportation unit uses the same costs.
-  - `chunk-loading`: the dimensional stabilizer's widest radius and its energy per chunk.
+  - `chunk-loading`: the dimensional stabilizer's widest radius.
   - `qio`: what each drive holds (items and kinds), kinds per drive array, items per second of importers and exporters.
-  - `digital-miner`: energy and ticks per block, positions scanned per tick, widest radius.
+  - `digital-miner`: positions scanned per tick, widest radius.
 - **Recipes** (durations, energy per tick, inputs and outputs): edit
   `plugins/MachineEngine/definitions/mekanized/recipes_*.yml`. They reload with the server's recipes.
   The Energized Smelter uses every furnace recipe of the server, datapacks included.
@@ -171,10 +171,16 @@ Click a machine's upgrade button with the upgrade in hand to install it.
   - `rate:` on every universal cable, pressurized tube, mechanical pipe, logistical transporter and
     thermodynamic conductor (per tick; transporters: items every 10 ticks);
   - `storages: { items: { capacity: ... } }` on the bins;
-  - `options: { charge-per-tick: ... }` on the chargepad (Joules per player per tick).
+  - `options: { charge-per-tick: ... }` on the chargepad (Joules per player per tick);
+  - `options:` on the nutritional liquifier (`ticks`, `energy-per-tick`), electric pump (`energy`, `ticks`,
+    `range`, `heavy-water-per-block`), fuelwood heater (`heat-per-tick`), seismic vibrator (`energy-per-tick`),
+    lasers (`energy-per-tick`, `range`, `energy-per-hardness`), digital miner (`energy-per-block`,
+    `ticks-per-block`) and dimensional stabilizer (`energy-per-chunk`);
+  - the radioactive waste barrel: `storages: { waste: { capacity: ... } }` and `options: { decay-per-second: ... }`.
 
-  Machines read them when they load: restart, or let their chunks reload, after editing. Old `transport.*` keys
-  left in `config.yml` are ignored.
+  Machines read them when they load: restart, or let their chunks reload, after editing. Old `config.yml` keys
+  for these (`transport.*`, `radiation.barrel-*`, `chunk-loading.energy-per-chunk`,
+  `digital-miner.energy-per-block`, `digital-miner.ticks-per-block`) are ignored.
 
   | Behavior | Items | Options |
   |---|---|---|
