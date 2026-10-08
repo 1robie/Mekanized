@@ -3,6 +3,7 @@ package fr.robie.machineengine.mekanized;
 import fr.robie.machineengine.api.config.BlockOptions;
 import fr.robie.machineengine.api.config.ConfigKey;
 import fr.robie.machineengine.api.machine.MachineType;
+import fr.robie.machineengine.api.machine.PortDefinition;
 import fr.robie.machineengine.api.machine.StorageDefinition;
 import fr.robie.machineengine.api.network.TransportType;
 import fr.robie.machineengine.api.registry.Registries;
@@ -75,7 +76,24 @@ class BlockNumbersTest {
                 checked++;
             }
         }
-        assertTrue(checked >= 5, "the bins and the waste barrel at least");
+        assertTrue(checked >= 17, "the bins, the waste barrel, the cubes and the tanks at least");
+    }
+
+    @Test
+    void everyShippedPortRateIsTheMachinesDefault() {
+        CoreMachineEngine engine = MekanizedTestKit.engine();
+        int checked = 0;
+        for (Map.Entry<String, Map<String, Object>> block : ShippedBlocks.BEHAVIORS.entrySet()) {
+            if (!(block.getValue().get("ports") instanceof Map<?, ?> ports)) continue;
+            MachineType type = MekanizedTestKit.type(engine, String.valueOf(block.getValue().get("machine")).substring("mekanized:".length()));
+            for (Map.Entry<?, ?> port : ports.entrySet()) {
+                PortDefinition definition = type.ports().stream().filter(p -> p.id().equals(port.getKey())).findFirst().orElseThrow();
+                long rate = ((Number) ((Map<?, ?>) port.getValue()).get("rate")).longValue();
+                assertEquals(definition.ratePerTick(), rate, block.getKey() + " " + port.getKey());
+                checked++;
+            }
+        }
+        assertEquals(12, checked, "the energy cubes, chemical tanks and fluid tanks");
     }
 
     @Test
@@ -98,6 +116,15 @@ class BlockNumbersTest {
         expected.put("dimensional_stabilizer", Map.of("energy-per-chunk", ChunkLoaders.ENERGY_PER_CHUNK.defaultValue()));
         expected.put("qio_importer", Map.of("items-per-second", AutomationMachines.IO_RATE.defaultValue()));
         expected.put("qio_exporter", Map.of("items-per-second", AutomationMachines.IO_RATE.defaultValue()));
+        // Behavior arguments that became options: the arguments are their defaults.
+        expected.put("heat_generator", Map.of("energy-per-tick", 200));
+        expected.put("bio_generator", Map.of("energy-per-tick", 350));
+        expected.put("solar_generator", Map.of("energy-per-tick", 50));
+        expected.put("advanced_solar_generator", Map.of("energy-per-tick", 300));
+        expected.put("wind_generator", Map.of("max-energy-per-tick", 480));
+        expected.put("logistical_sorter", Map.of("every-ticks", 10, "stack-size", 64));
+        expected.put("fluidic_plenisher", Map.of("energy", 2_000, "ticks", 20, "range", 32));
+        expected.put("formulaic_assemblicator", Map.of("energy", 4_000, "ticks", 40));
         // Multiblocks: on the casing that anchors each structure, the providers' on the induction port.
         expected.put("dynamic_tank", Map.of("fluid-per-block", MultiblockMachines.TANK_FLUID_PER_BLOCK.defaultValue(),
                 "chemical-per-block", MultiblockMachines.TANK_CHEMICAL_PER_BLOCK.defaultValue()));

@@ -1,6 +1,7 @@
 package fr.robie.machineengine.mekanized.machine;
 
 import fr.robie.machineengine.api.capability.Capabilities;
+import fr.robie.machineengine.api.config.ConfigKey;
 import fr.robie.machineengine.api.item.ItemData;
 import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.machine.MachineBehavior;
@@ -26,8 +27,13 @@ public final class SorterBehavior {
     private SorterBehavior() {
     }
 
-    public static @NotNull MachineBehavior.Factory of(long everyTicks, int stack) {
+    /** Every {@code every-ticks} it moves a stack of up to {@code stack-size} items: its block config's options (D34). */
+    public static @NotNull MachineBehavior.Factory of(long defaultEveryTicks, int defaultStack) {
+        ConfigKey<Long> everyKey = ConfigKey.whole("every-ticks", defaultEveryTicks, 1, 1_200).clamped();
+        ConfigKey<Integer> stackKey = ConfigKey.integer("stack-size", defaultStack, 1, 64).clamped();
         return type -> context -> {
+            long everyTicks = context.options().get(everyKey);
+            int stack = context.options().get(stackKey);
             boolean moved = pull(context, stack);
             moved |= context.push(RelativeSide.FRONT, "buffer", variant -> true, stack).moved() > 0;
             context.setActive(moved);

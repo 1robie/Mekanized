@@ -748,6 +748,10 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:fluidic_plenisher
+      options:
+        energy: 2000
+        ticks: 20
+        range: 32
       keep_contents: true
       display_item: mekanized:display/fluidic_plenisher
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
@@ -789,6 +793,9 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:formulaic_assemblicator
+      options:
+        energy: 4000
+        ticks: 40
       keep_contents: true
     loot:
       template: machineengine:loot_table/keep_contents

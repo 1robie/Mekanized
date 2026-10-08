@@ -1,5 +1,6 @@
 package fr.robie.machineengine.mekanized;
 
+import fr.robie.machineengine.api.config.BlockOptions;
 import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.Direction;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.List;
+import java.util.Map;
 
 import static fr.robie.machineengine.mekanized.MekanizedTestKit.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -60,5 +62,21 @@ class EnergyItemsChainTest {
                 transaction.commit();
             }
         }
+    }
+
+    @Test
+    void aCubeChargesAtItsBlocksPortRate() {
+        installChargeAccess();
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        // The block config's ports.out.rate replaces the cube's output rate (D34).
+        world.setOptions(HERE, BlockOptions.of("mekanized:basic_energy_cube", null, null,
+                Map.of("out", Map.of("rate", 1_000)), message -> {
+                    throw new AssertionError(message);
+                }));
+        MachineInstanceImpl cube = place(this.engine, world, "basic_energy_cube");
+        fill(cube, "energy", MekanizedContent.ENERGY.stack(100_000));
+        fill(cube, "charge", item("mekanized:energy_tablet").stack(1));
+        world.tick(10);
+        assertEquals(10_000, chargeOf(cube.inspect().storages().get("charge").getFirst().variant()), "1 kJ per tick");
     }
 }

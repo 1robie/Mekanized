@@ -63,10 +63,17 @@ public final class UtilityBehaviors {
     /**
      * The pump the other way round: every {@code ticks} (shorter with speed upgrades) it places a
      * water or lava source block (a bucket, 1000 mB by default) in the nearest air or flowing fluid below it, up to
-     * {@code range} blocks away, for {@code energy} Joules.
+     * {@code range} blocks away, for {@code energy} Joules. The block config's options {@code energy},
+     * {@code ticks} and {@code range} replace these (D34).
      */
-    public static @NotNull MachineBehavior.Factory plenisher(@NotNull String tank, long energy, long ticks, int range) {
+    public static @NotNull MachineBehavior.Factory plenisher(@NotNull String tank, long defaultEnergy, long defaultTicks, int defaultRange) {
+        ConfigKey<Long> energyKey = ConfigKey.whole("energy", defaultEnergy, 0, MekanizedConfig.MAX).clamped();
+        ConfigKey<Long> ticksKey = ConfigKey.whole("ticks", defaultTicks, 1, 72_000).clamped();
+        ConfigKey<Integer> rangeKey = ConfigKey.integer("range", defaultRange, 0, 128).clamped();
         return type -> context -> {
+            long energy = context.options().get(energyKey);
+            long ticks = context.options().get(ticksKey);
+            int range = context.options().get(rangeKey);
             long delay = Math.max(1, context.modified(StandardModifiers.PROCESS_DURATION, ticks));
             long cost = context.modifiedCost(MekanizedContent.ENERGY, energy);
             ResourceHandler fluid = context.storage(tank);
@@ -144,10 +151,15 @@ public final class UtilityBehaviors {
 
     /**
      * Crafts its {@code pattern} (9 slots, one item each, a recipe laid out like a crafting table) from
-     * the items in {@code input}, every {@code ticks}, for {@code energy} Joules per craft.
+     * the items in {@code input}, every {@code ticks}, for {@code energy} Joules per craft. The block config's
+     * options {@code energy} and {@code ticks} replace these (D34).
      */
-    public static @NotNull MachineBehavior.Factory assemblicator(long energy, long ticks) {
+    public static @NotNull MachineBehavior.Factory assemblicator(long defaultEnergy, long defaultTicks) {
+        ConfigKey<Long> energyKey = ConfigKey.whole("energy", defaultEnergy, 0, MekanizedConfig.MAX).clamped();
+        ConfigKey<Long> ticksKey = ConfigKey.whole("ticks", defaultTicks, 1, 72_000).clamped();
         return type -> context -> {
+            long energy = context.options().get(energyKey);
+            long ticks = context.options().get(ticksKey);
             Crafting current = crafting;
             List<StorageView> pattern = context.storage("pattern").views();
             List<ResourceVariant> grid = new ArrayList<>();

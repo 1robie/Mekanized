@@ -431,6 +431,8 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:wind_generator
+      options:
+        max-energy-per-tick: 480
       keep_contents: true
       display_item: mekanized:display/wind_generator
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
@@ -472,6 +474,8 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:advanced_solar_generator
+      options:
+        energy-per-tick: 300
       keep_contents: true
       display_item: mekanized:display/advanced_solar_generator
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270

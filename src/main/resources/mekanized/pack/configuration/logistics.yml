@@ -632,6 +632,9 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:logistical_sorter
+      options:
+        every-ticks: 10
+        stack-size: 64
       keep_contents: true
       display_item: mekanized:display/logistical_sorter
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270,up=270/0,down=90/0

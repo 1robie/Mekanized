@@ -965,6 +965,10 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:basic_chemical_tank
+      storages:
+        chemical: { capacity: 64000 }
+      ports:
+        out: { rate: 1000 }
       keep_contents: true
       display_item: mekanized:display/basic_chemical_tank
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
@@ -1006,6 +1010,10 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:basic_fluid_tank
+      storages:
+        fluid: { capacity: 32000 }
+      ports:
+        out: { rate: 1000 }
       keep_contents: true
       display_item: mekanized:display/basic_fluid_tank
     loot:
@@ -1031,6 +1039,10 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:advanced_chemical_tank
+      storages:
+        chemical: { capacity: 256000 }
+      ports:
+        out: { rate: 16000 }
       keep_contents: true
       display_item: mekanized:display/advanced_chemical_tank
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
@@ -1072,6 +1084,10 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:advanced_fluid_tank
+      storages:
+        fluid: { capacity: 64000 }
+      ports:
+        out: { rate: 4000 }
       keep_contents: true
       display_item: mekanized:display/advanced_fluid_tank
     loot:
@@ -1097,6 +1113,10 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:elite_chemical_tank
+      storages:
+        chemical: { capacity: 1024000 }
+      ports:
+        out: { rate: 128000 }
       keep_contents: true
       display_item: mekanized:display/elite_chemical_tank
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
@@ -1138,6 +1158,10 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:elite_fluid_tank
+      storages:
+        fluid: { capacity: 128000 }
+      ports:
+        out: { rate: 16000 }
       keep_contents: true
       display_item: mekanized:display/elite_fluid_tank
     loot:
@@ -1163,6 +1187,10 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:ultimate_chemical_tank
+      storages:
+        chemical: { capacity: 8192000 }
+      ports:
+        out: { rate: 512000 }
       keep_contents: true
       display_item: mekanized:display/ultimate_chemical_tank
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
@@ -1204,6 +1232,10 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:ultimate_fluid_tank
+      storages:
+        fluid: { capacity: 256000 }
+      ports:
+        out: { rate: 64000 }
       keep_contents: true
       display_item: mekanized:display/ultimate_fluid_tank
     loot:

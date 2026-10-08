@@ -1,5 +1,6 @@
 package fr.robie.machineengine.mekanized.machine;
 
+import fr.robie.machineengine.api.config.ConfigKey;
 import fr.robie.machineengine.api.item.ItemResources;
 
 import fr.robie.machineengine.api.error.MachineError;
@@ -15,6 +16,7 @@ import fr.robie.machineengine.api.transfer.ResourceHandler;
 import fr.robie.machineengine.api.transfer.StorageView;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.RelativeSide;
+import fr.robie.machineengine.mekanized.MekanizedConfig;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.NotNull;
@@ -53,10 +55,13 @@ public final class EnergyBehaviors {
 
     /**
      * Burns one fuel item at a time from {@code fuel}, producing {@code joulesPerTick} while it burns,
-     * and pushes energy to every neighbor. Pauses (keeping the burn) while the buffer is full.
+     * and pushes energy to every neighbor. Pauses (keeping the burn) while the buffer is full. The block
+     * config's option {@code energy-per-tick} replaces {@code defaultJoulesPerTick} (D34).
      */
-    public static @NotNull MachineBehavior.Factory fuelGenerator(@NotNull String fuel, long joulesPerTick, @NotNull List<Fuel> fuels) {
+    public static @NotNull MachineBehavior.Factory fuelGenerator(@NotNull String fuel, long defaultJoulesPerTick, @NotNull List<Fuel> fuels) {
+        ConfigKey<Long> key = ConfigKey.whole("energy-per-tick", defaultJoulesPerTick, 0, MekanizedConfig.MAX).clamped();
         return type -> context -> {
+            long joulesPerTick = context.options().get(key);
             pushAround(context, joulesPerTick * 2);
             long burn = context.get(BURN);
             if (burn <= 0) {
@@ -80,10 +85,13 @@ public final class EnergyBehaviors {
 
     /**
      * Produces {@code joulesPerTick} in daylight under open sky (a fifth while it rains), in batches
-     * of 20 ticks, and pushes energy to every neighbor.
+     * of 20 ticks, and pushes energy to every neighbor. The block config's option {@code energy-per-tick}
+     * replaces {@code defaultJoulesPerTick} (D34).
      */
-    public static @NotNull MachineBehavior.Factory solar(long joulesPerTick) {
+    public static @NotNull MachineBehavior.Factory solar(long defaultJoulesPerTick) {
+        ConfigKey<Long> key = ConfigKey.whole("energy-per-tick", defaultJoulesPerTick, 0, MekanizedConfig.MAX).clamped();
         return type -> context -> {
+            long joulesPerTick = context.options().get(key);
             MachineEnvironment environment = context.environment();
             long rate = !environment.skyVisible() || !environment.daytime() ? 0 : environment.raining() ? joulesPerTick / 5 : joulesPerTick;
             boolean produced = rate > 0 && insertEnergy(context, rate * 20);
@@ -97,8 +105,10 @@ public final class EnergyBehaviors {
      * Stores energy and pushes it out of its front at {@code outputPerTick}, and charges the energy item
      * in its {@code charge} slot at the same rate; sleeps while that moves nothing.
      */
-    public static @NotNull MachineBehavior.Factory cube(long outputPerTick, boolean creative) {
+    public static @NotNull MachineBehavior.Factory cube(long defaultOutputPerTick, boolean creative) {
         return type -> context -> {
+            // As fast as its output port: the block config's ports.out.rate replaces the default (D34).
+            long outputPerTick = context.options().portRate("out", defaultOutputPerTick);
             if (creative) insertEnergy(context, Long.MAX_VALUE / 4);
             PushResult result = context.push(RelativeSide.FRONT, ENERGY, IS_ENERGY, outputPerTick);
             long charged = ItemResources.transfer(context, "charge", ENERGY, MekanizedContent.ENERGY, outputPerTick, false);
@@ -136,10 +146,13 @@ public final class EnergyBehaviors {
 
     /**
      * Mekanism's wind generator: up to {@code maxJoulesPerTick}, by height (nothing at y 24 and below,
-     * all at y 255 and above), under open sky; in batches of 20 ticks.
+     * all at y 255 and above), under open sky; in batches of 20 ticks. The block config's option
+     * {@code max-energy-per-tick} replaces {@code defaultMaxJoulesPerTick} (D34).
      */
-    public static @NotNull MachineBehavior.Factory wind(long maxJoulesPerTick) {
+    public static @NotNull MachineBehavior.Factory wind(long defaultMaxJoulesPerTick) {
+        ConfigKey<Long> key = ConfigKey.whole("max-energy-per-tick", defaultMaxJoulesPerTick, 0, MekanizedConfig.MAX).clamped();
         return type -> context -> {
+            long maxJoulesPerTick = context.options().get(key);
             int y = context.machine().position().position().y();
             double height = Math.max(0, Math.min(1, (y - 24) / 231.0));
             long rate = context.environment().skyVisible() ? (long) (maxJoulesPerTick * height) : 0;

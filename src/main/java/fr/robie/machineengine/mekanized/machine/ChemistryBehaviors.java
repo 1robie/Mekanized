@@ -47,7 +47,8 @@ public final class ChemistryBehaviors {
                                                         boolean creative) {
         return type -> context -> {
             if (creative) refill(context, storage);
-            PushResult result = context.push(side, storage, variant -> true, outputPerTick);
+            // As fast as its output port: the block config's ports.out.rate replaces outputPerTick (D34).
+            PushResult result = context.push(side, storage, variant -> true, context.options().portRate("out", outputPerTick));
             if (result.moved() == 0) context.sleep();
         };
     }

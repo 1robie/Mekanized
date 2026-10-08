@@ -176,6 +176,11 @@ Click a machine's upgrade button with the upgrade in hand to install it.
     lasers (`energy-per-tick`, `range`, `energy-per-hardness`), digital miner (`energy-per-block`,
     `ticks-per-block`) and dimensional stabilizer (`energy-per-chunk`);
   - the radioactive waste barrel: `storages: { waste: { capacity: ... } }` and `options: { decay-per-second: ... }`;
+  - energy cubes, chemical tanks and fluid tanks: `storages:` (their capacity) and `ports: { out: { rate: ... } }`
+    (what they give out per tick, and how fast they charge an item);
+  - `options:` on the heat, bio, solar and advanced solar generators (`energy-per-tick`), the wind generator
+    (`max-energy-per-tick`), the logistical sorter (`every-ticks`, `stack-size`), the fluidic plenisher (`energy`,
+    `ticks`, `range`) and the formulaic assemblicator (`energy`, `ticks`);
   - `options: { items-per-second: ... }` on the QIO importer and exporter;
   - multiblocks: `options:` on the casing that anchors each structure (`multiblocks.yml`, `reactors.yml`): the
     dynamic tank, the induction casing (`cell-capacity` per tier), the thermal evaporation block, the boiler,
@@ -185,6 +190,9 @@ Click a machine's upgrade button with the upgrade in hand to install it.
 
   A QIO drive's size is in its item config: `- type: mekanized:qio_drive` with `items` and `kinds`
   (`automation.yml`). Any item given that behavior goes into a drive array; `/ce reload` applies it.
+
+  Any machine block also takes `storages: { <id>: { capacity: ... } }` and `ports: { <id>: { rate: ... } }` for its
+  own storages and ports, shipped or not (`/machineengine inspect` lists a machine's storages).
 
   Restart the server after editing a block's options: a machine keeps the ones it read when it loaded (whether
   `/ce reload` reaches machines already loaded is not checked yet). Old `config.yml` keys

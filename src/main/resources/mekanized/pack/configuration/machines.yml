@@ -1044,6 +1044,8 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:heat_generator
+      options:
+        energy-per-tick: 200
       keep_contents: true
       display_item: mekanized:display/heat_generator
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
@@ -1085,6 +1087,8 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:solar_generator
+      options:
+        energy-per-tick: 50
       keep_contents: true
       display_item: mekanized:display/solar_generator
     loot:
@@ -1110,6 +1114,8 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:bio_generator
+      options:
+        energy-per-tick: 350
       keep_contents: true
       display_item: mekanized:display/bio_generator
       display_rotation: 180
@@ -1152,6 +1158,10 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:basic_energy_cube
+      storages:
+        energy: { capacity: 4000000 }
+      ports:
+        out: { rate: 4000 }
       keep_contents: true
       display_item: mekanized:display/basic_energy_cube
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270,up=270/0,down=90/0
@@ -1201,6 +1211,10 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:advanced_energy_cube
+      storages:
+        energy: { capacity: 16000000 }
+      ports:
+        out: { rate: 16000 }
       keep_contents: true
       display_item: mekanized:display/advanced_energy_cube
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270,up=270/0,down=90/0
@@ -1250,6 +1264,10 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:elite_energy_cube
+      storages:
+        energy: { capacity: 64000000 }
+      ports:
+        out: { rate: 64000 }
       keep_contents: true
       display_item: mekanized:display/elite_energy_cube
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270,up=270/0,down=90/0
@@ -1299,6 +1317,10 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:ultimate_energy_cube
+      storages:
+        energy: { capacity: 256000000 }
+      ports:
+        out: { rate: 256000 }
       keep_contents: true
       display_item: mekanized:display/ultimate_energy_cube
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270,up=270/0,down=90/0
