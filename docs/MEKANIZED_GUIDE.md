@@ -123,7 +123,12 @@ Click a machine's upgrade button with the upgrade in hand to install it.
 - **Dose:** players take in the radiation around them. A high dose makes them hungry, then sick, then hurts.
 - **Protection:** each hazmat piece, or MekaSuit piece with a radiation shielding unit, stops a quarter.
 - **Tools:** the Geiger counter reads the radiation where you stand, and the dosimeter your dose. A
-  MekaSuit helmet with the matching unit shows them on the action bar.
+  MekaSuit helmet with the matching unit shows them on the action bar; players hide it with
+  `/machinesettings radiation_hud off`.
+- **Saved dose:** the dose is player data `mekanized:radiation_dose` (reset on death). Menus show it
+  with `%zmenu_machineengine_player_mekanized_radiation_dose%`; admins read or clear it with
+  `/machineengine player <player> get|reset mekanized:radiation_dose`. Doses saved by older versions
+  move over the first time each player joins.
 - **Radioactive Waste Barrel:** stores up to 512,000 mB of radioactive chemicals while they decay.
 
 ### Tools
