@@ -194,8 +194,8 @@ Click a machine's upgrade button with the upgrade in hand to install it.
   Any machine block also takes `storages: { <id>: { capacity: ... } }` and `ports: { <id>: { rate: ... } }` for its
   own storages and ports, shipped or not (`/machineengine inspect` lists a machine's storages).
 
-  After editing a block's options, `/ce reload` applies them to blocks placed afterwards; blocks already placed
-  keep theirs until the server restarts. Old `config.yml` keys
+  After editing a block's options, run `/ce reload`: placed machines and cables read them again too. Old
+  `config.yml` keys
   for these (`transport.*`, `radiation.barrel-*`, `chunk-loading.energy-per-chunk`,
   `digital-miner.energy-per-block`, `digital-miner.ticks-per-block`, `qio.drive-items`, `qio.drive-kinds`,
   `qio.importer-exporter-rate`, `dynamic-tank.*`, `thermal-evaporation.*`) are ignored.
