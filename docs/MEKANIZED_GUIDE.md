@@ -166,10 +166,12 @@ Click a machine's upgrade button with the upgrade in hand to install it.
   (`plugins/CraftEngine/resources/mekanized/configuration/gear.yml`, `chemistry.yml`), under `behaviors`.
   Edit it there and run `/ce reload`. Old `gear.*` keys left in `config.yml` are ignored.
 
-  Blocks keep their own numbers in their CraftEngine block config the same way (D34), under `behavior`:
+  Blocks keep their own numbers in their CraftEngine block config the same way (D34), under `behavior`
+  (or, for a block made by a config factory, in its row: see "Reading the block and item files" below):
   - `rate:` on every universal cable, pressurized tube, mechanical pipe, logistical transporter and
-    thermodynamic conductor (per tick; transporters: items every 10 ticks);
-  - `storages: { items: { capacity: ... } }` on the bins;
+    thermodynamic conductor (per tick; transporters: items every 10 ticks), in the rows of the
+    `config_factory#..._transports` at the end of `machines.yml`, `chemistry.yml`, `logistics.yml` and `reactors.yml`;
+  - `storages: { items: { capacity: ... } }` on the bins (rows of `config_factory#bins`, `utility.yml`);
   - `options: { charge-per-tick: ... }` on the chargepad (Joules per player per tick);
   - `options:` on the nutritional liquifier (`ticks`, `energy-per-tick`), electric pump (`energy`, `ticks`,
     `range`, `heavy-water-per-block`), fuelwood heater (`heat-per-tick`), seismic vibrator (`energy-per-tick`),
@@ -177,7 +179,8 @@ Click a machine's upgrade button with the upgrade in hand to install it.
     `ticks-per-block`) and dimensional stabilizer (`energy-per-chunk`);
   - the radioactive waste barrel: `storages: { waste: { capacity: ... } }` and `options: { decay-per-second: ... }`;
   - energy cubes, chemical tanks and fluid tanks: `storages:` (their capacity) and `ports: { out: { rate: ... } }`
-    (what they give out per tick, and how fast they charge an item);
+    (what they give out per tick, and how fast they charge an item), in the rows of `config_factory#energy_cubes`
+    (`machines.yml`), `#fluid_tanks` and `#chemical_tanks` (`chemistry.yml`);
   - `options:` on the heat, bio, solar and advanced solar generators (`energy-per-tick`), the wind generator
     (`max-energy-per-tick`), the logistical sorter (`every-ticks`, `stack-size`), the fluidic plenisher (`energy`,
     `ticks`, `range`) and the formulaic assemblicator (`energy`, `ticks`);
@@ -187,6 +190,20 @@ Click a machine's upgrade button with the upgrade in hand to install it.
     fission and SPS casings, the fusion reactor frame and the turbine casing: their capacities per block and their
     physics (heat per mB, ignition energy, steam energy, vent flow...). The induction port has `provider-output`
     per tier.
+
+  **Reading the block and item files.** Most entries are short: they name a CraftEngine template and add
+  what is their own.
+  - `template: mekanized:block/display_machine_facing` (or `machine`, `machine_facing_active`, …) gives the
+    block's shape: its behavior type, drops, hardness and states. The keys written next to it (`behavior:
+    { options: ... }`, `arguments: { model: ... }`) are the block's own and are merged in. To change one block,
+    edit or add keys there: `settings: { hardness: 10.0 }` next to the template changes only that block.
+  - `config_factory#<name>:` makes a whole family: each row of `instances:` is one block (with its item and
+    display items), and `blueprint:` is written once for all of them. A row holds the block's numbers, e.g.
+    `- transport: basic_universal_cable` / `rate: 8000`, or `- tier: basic` / `behavior: { storages: ... }`.
+    Edit the row to change one block; edit the blueprint to change the whole family.
+  - The templates are in `configuration/templates.yml` next to these files, and MachineEngine's in
+    `plugins/CraftEngine/resources/machineengine/configuration/templates.yml`. Both are rewritten at every
+    start: to change a template, copy it into your own pack under another name and point blocks at the copy.
 
   A QIO drive's size is in its item config: `- type: mekanized:qio_drive` with `items` and `kinds`
   (`automation.yml`). Any item given that behavior goes into a drive array; `/ce reload` applies it.
