@@ -18,17 +18,7 @@ import java.util.List;
  * headless tests use them. Recipes (durations, energy, outputs) are edited in their own definition files instead.
  */
 public final class MekanizedSettings {
-    public static final long DEFAULT_TANK_FLUID_PER_BLOCK = 350_000;
-    public static final long DEFAULT_TANK_CHEMICAL_PER_BLOCK = 16_000_000;
-    public static final long DEFAULT_EVAPORATION_PER_LEVEL = 10;
-    public static final long DEFAULT_EVAPORATION_TANK_PER_LEVEL = 16_000;
 
-    /** Dynamic Tank: mB of fluid, and of chemical, per block inside. */
-    public static long tankFluidPerBlock = DEFAULT_TANK_FLUID_PER_BLOCK;
-    public static long tankChemicalPerBlock = DEFAULT_TANK_CHEMICAL_PER_BLOCK;
-    /** Thermal Evaporation Plant: input mB evaporated per tick per level (by day), input tank mB per level. */
-    public static long evaporationPerLevel = DEFAULT_EVAPORATION_PER_LEVEL;
-    public static long evaporationTankPerLevel = DEFAULT_EVAPORATION_TANK_PER_LEVEL;
 
     private MekanizedSettings() {
     }
@@ -40,10 +30,6 @@ public final class MekanizedSettings {
 
     /** Copies the settings into the classes that use them. */
     public static void apply(@NotNull ConfigValues config) {
-        tankFluidPerBlock = config.get(MekanizedConfig.TANK_FLUID_PER_BLOCK);
-        tankChemicalPerBlock = config.get(MekanizedConfig.TANK_CHEMICAL_PER_BLOCK);
-        evaporationPerLevel = config.get(MekanizedConfig.EVAPORATION_PER_LEVEL);
-        evaporationTankPerLevel = config.get(MekanizedConfig.EVAPORATION_TANK_PER_LEVEL);
 
         TeleporterSettings.baseCost = config.get(MekanizedConfig.TELEPORT_BASE_COST);
         TeleporterSettings.costPerBlock = config.get(MekanizedConfig.TELEPORT_COST_PER_BLOCK);

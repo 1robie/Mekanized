@@ -10,6 +10,8 @@ import fr.robie.machineengine.api.multiblock.MultiblockShape;
 import fr.robie.machineengine.api.multiblock.MultiblockStructure;
 
 import fr.robie.machineengine.api.addon.RegistrationContext;
+import fr.robie.machineengine.api.config.BlockOptions;
+import fr.robie.machineengine.api.config.ConfigKey;
 import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.machine.MachineType;
 import fr.robie.machineengine.api.machine.PortDefinition;
@@ -18,8 +20,8 @@ import fr.robie.machineengine.api.machine.StorageDefinition;
 import fr.robie.machineengine.api.recipe.ProcessingRecipe;
 import fr.robie.machineengine.api.recipe.RecipeType;
 import fr.robie.machineengine.api.resource.match.ResourcePredicate;
+import fr.robie.machineengine.mekanized.MekanizedConfig;
 import fr.robie.machineengine.mekanized.MekanizedContent;
-import fr.robie.machineengine.mekanized.MekanizedSettings;
 import fr.robie.machineengine.mekanized.machine.ChemistryMachines;
 import fr.robie.machineengine.mekanized.machine.ConvertingBehavior;
 import fr.robie.machineengine.mekanized.machine.MachineParts;
@@ -42,18 +44,29 @@ public final class MultiblockMachines {
     private static final ResourcePredicate IS_FLUID = ResourcePredicate.category(MekanizedContent.FLUID);
     private static final Set<Key> AIR = Set.of(Key.key("minecraft", "air"), Key.key("minecraft", "cave_air"), Key.key("minecraft", "void_air"));
     private static final String[] TIERS = {"basic", "advanced", "elite", "ultimate"};
-    private static final long[] CELLS = {8_000_000_000L, 64_000_000_000L, 512_000_000_000L, 4_000_000_000_000L};
-    private static final long[] PROVIDERS = {256_000L, 2_048_000L, 16_384_000L, 131_072_000L};
+    // Block config options (D34): the dynamic tank's on its casing (the anchor), the matrix's cells on the induction
+    // casing (the anchor), its providers on the induction port (each port pushes at their rate).
+    /** mB of fluid, and of chemical, per block inside a dynamic tank. */
+    public static final ConfigKey<Long> TANK_FLUID_PER_BLOCK = ConfigKey.whole("fluid-per-block", 350_000, 1, MekanizedConfig.MAX).clamped();
+    public static final ConfigKey<Long> TANK_CHEMICAL_PER_BLOCK = ConfigKey.whole("chemical-per-block", 16_000_000, 1, MekanizedConfig.MAX).clamped();
+    /** Thermal evaporation, its tower block's options: mB of input evaporated per tick per level by day (half at night,
+     *  half again in rain), mB of input held per level, mB of output held. */
+    public static final ConfigKey<Long> EVAPORATION_PER_LEVEL = ConfigKey.whole("input-per-level-per-tick", 10, 1, MekanizedConfig.MAX).clamped();
+    public static final ConfigKey<Long> EVAPORATION_TANK_PER_LEVEL = ConfigKey.whole("input-tank-per-level", 16_000, 1, MekanizedConfig.MAX).clamped();
+    public static final ConfigKey<Long> EVAPORATION_OUTPUT_TANK = ConfigKey.whole("output-tank", 10_000, 1, MekanizedConfig.MAX).clamped();
+    /** Joules each induction cell tier stores, and each provider tier lets out per tick. */
+    public static final List<ConfigKey<Long>> CELLS = tiers("cell-capacity", 8_000_000_000L, 64_000_000_000L, 512_000_000_000L, 4_000_000_000_000L);
+    public static final List<ConfigKey<Long>> PROVIDERS = tiers("provider-output", 256_000L, 2_048_000L, 16_384_000L, 131_072_000L);
 
     public static final MultiblockType DYNAMIC_TANK = new MultiblockType(key("dynamic_tank"),
             new MultiblockShape.Box(key("dynamic_tank"), Set.of(key("dynamic_tank"), key("dynamic_valve"), key("structural_glass")), AIR::contains),
-            structure -> Map.of("fluid", structure.volume() * MekanizedSettings.tankFluidPerBlock,
-                    "chemical", structure.volume() * MekanizedSettings.tankChemicalPerBlock));
+            (structure, options) -> Map.of("fluid", structure.volume() * options.get(TANK_FLUID_PER_BLOCK),
+                    "chemical", structure.volume() * options.get(TANK_CHEMICAL_PER_BLOCK)));
 
     public static final MultiblockType INDUCTION_MATRIX = new MultiblockType(key("induction_matrix"),
             new MultiblockShape.Box(key("induction_casing"), Set.of(key("induction_casing"), key("induction_port"), key("structural_glass")),
                     block -> AIR.contains(block) || block.value().endsWith("_induction_cell") || block.value().endsWith("_induction_provider")),
-            structure -> Map.of("energy", sum(structure, "_induction_cell", CELLS)));
+            (structure, options) -> Map.of("energy", sum(structure, "_induction_cell", CELLS, options)));
 
     /** Mekanism's evaporating recipes: water to brine, brine to liquid lithium. */
     public static final RecipeType<ProcessingRecipe> EVAPORATING =
@@ -64,7 +77,8 @@ public final class MultiblockMachines {
      * holds 16,000 mB per level, the output 10,000 mB.
      */
     public static final MultiblockType THERMAL_EVAPORATION = new MultiblockType(key("thermal_evaporation"), new MultiblockShape.Box(key("thermal_evaporation_block"), Set.of(key("thermal_evaporation_block"), key("thermal_evaporation_valve"), key("thermal_evaporation_controller")), AIR::contains,
-                    MultiblockShape.Box.MIN_SIZE, MultiblockShape.Box.MAX_SIZE, 4, true, key("thermal_evaporation_controller")), structure -> Map.of("input", structure.height() * MekanizedSettings.evaporationTankPerLevel, "output", 10_000L));
+                    MultiblockShape.Box.MIN_SIZE, MultiblockShape.Box.MAX_SIZE, 4, true, key("thermal_evaporation_controller")), (structure, options) -> Map.of("input", structure.height() * options.get(EVAPORATION_TANK_PER_LEVEL),
+                    "output", options.get(EVAPORATION_OUTPUT_TANK)));
 
     /** Every structure, in the order they are registered; the frame blocks of their walls are the structures' members. */
     public static final List<MultiblockType> TYPES = List.of(DYNAMIC_TANK, INDUCTION_MATRIX, THERMAL_EVAPORATION, Boilers.BOILER,
@@ -82,10 +96,19 @@ public final class MultiblockMachines {
     }
 
     /** The energy cells hold, or providers give per tick, in a structure. */
-    static long sum(MultiblockStructure structure, String suffix, long[] perTier) {
+    static long sum(MultiblockStructure structure, String suffix, List<ConfigKey<Long>> perTier, BlockOptions options) {
         long total = 0;
-        for (int i = 0; i < TIERS.length; i++) total += structure.count(key(TIERS[i] + suffix)) * perTier[i];
+        for (int i = 0; i < TIERS.length; i++) total += structure.count(key(TIERS[i] + suffix)) * options.get(perTier.get(i));
         return total;
+    }
+
+    /** One key per tier: {@code <name>.basic}, {@code <name>.advanced}, ... */
+    private static List<ConfigKey<Long>> tiers(String name, long... defaults) {
+        List<ConfigKey<Long>> keys = new java.util.ArrayList<>();
+        for (int i = 0; i < defaults.length; i++) {
+            keys.add(ConfigKey.whole(name + "." + TIERS[i], defaults[i], 0, Long.MAX_VALUE / 1_000_000).clamped());
+        }
+        return List.copyOf(keys);
     }
 
     public static void register(RegistrationContext context) {
@@ -140,7 +163,7 @@ public final class MultiblockMachines {
                 .storage(StorageDefinition.tank("energy", 1).filter(IS_ENERGY))
                 .port(PortDefinition.builder("energy", "energy").filter(IS_ENERGY).group("energy").build())
                 .data(MultiblockMachines.PORT_MODE)
-                .behavior(MultiblockMachines.members(matrix).port("energy", structure -> sum(structure, "_induction_provider", PROVIDERS)))
+                .behavior(MultiblockMachines.members(matrix).port("energy", (structure, options) -> sum(structure, "_induction_provider", PROVIDERS, options)))
                 .build());
     }
 

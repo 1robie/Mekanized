@@ -23,19 +23,9 @@ public final class MekanizedConfig {
 
     private static final List<ConfigKey<?>> KEYS = new ArrayList<>();
 
-    // -- multiblocks -------------------------------------------------------------------------------
-
-    // Transport rates are in each cable's, tube's, pipe's and transporter's block config (D34). Old
-    // transport.* keys left in a file are kept and ignored.
-    public static final ConfigKey<Long> TANK_FLUID_PER_BLOCK = add(ConfigKey.whole("dynamic-tank.fluid-per-block",
-            MekanizedSettings.DEFAULT_TANK_FLUID_PER_BLOCK, 1, MAX).comment("mB of fluid per block inside the tank"));
-    public static final ConfigKey<Long> TANK_CHEMICAL_PER_BLOCK = add(ConfigKey.whole("dynamic-tank.chemical-per-block",
-            MekanizedSettings.DEFAULT_TANK_CHEMICAL_PER_BLOCK, 1, MAX).comment("mB of chemical per block inside the tank"));
-    public static final ConfigKey<Long> EVAPORATION_PER_LEVEL = add(ConfigKey.whole("thermal-evaporation.input-per-level-per-tick",
-            MekanizedSettings.DEFAULT_EVAPORATION_PER_LEVEL, 1, MAX)
-            .comment("mB of input evaporated per tick per level, by day (half at night, half again in rain)"));
-    public static final ConfigKey<Long> EVAPORATION_TANK_PER_LEVEL = add(ConfigKey.whole("thermal-evaporation.input-tank-per-level",
-            MekanizedSettings.DEFAULT_EVAPORATION_TANK_PER_LEVEL, 1, MAX).comment("mB of input the tower holds per level"));
+    // Transport rates and multiblock numbers are in their block configs (D34): each cable's, tube's, pipe's and
+    // transporter's, each structure's casing. Old transport.*, dynamic-tank.* and thermal-evaporation.* keys left
+    // in a file are kept and ignored.
 
     // -- teleporter, chunk loading ----------------------------------------------------------------
 

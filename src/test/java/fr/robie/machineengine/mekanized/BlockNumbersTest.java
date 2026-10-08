@@ -1,6 +1,7 @@
 package fr.robie.machineengine.mekanized;
 
 import fr.robie.machineengine.api.config.BlockOptions;
+import fr.robie.machineengine.api.config.ConfigKey;
 import fr.robie.machineengine.api.machine.MachineType;
 import fr.robie.machineengine.api.machine.StorageDefinition;
 import fr.robie.machineengine.api.network.TransportType;
@@ -17,11 +18,18 @@ import fr.robie.machineengine.mekanized.machine.QioDrives;
 import fr.robie.machineengine.mekanized.machine.Radiation;
 import fr.robie.machineengine.mekanized.machine.UtilityBehaviors;
 import fr.robie.machineengine.mekanized.machine.UtilityMachines;
+import fr.robie.machineengine.mekanized.multiblock.Boilers;
+import fr.robie.machineengine.mekanized.multiblock.Fission;
+import fr.robie.machineengine.mekanized.multiblock.Fusion;
+import fr.robie.machineengine.mekanized.multiblock.MultiblockMachines;
+import fr.robie.machineengine.mekanized.multiblock.Sps;
+import fr.robie.machineengine.mekanized.multiblock.Turbines;
 import fr.robie.machineengine.test.FakeWorld;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -90,13 +98,34 @@ class BlockNumbersTest {
         expected.put("dimensional_stabilizer", Map.of("energy-per-chunk", ChunkLoaders.ENERGY_PER_CHUNK.defaultValue()));
         expected.put("qio_importer", Map.of("items-per-second", AutomationMachines.IO_RATE.defaultValue()));
         expected.put("qio_exporter", Map.of("items-per-second", AutomationMachines.IO_RATE.defaultValue()));
+        // Multiblocks: on the casing that anchors each structure, the providers' on the induction port.
+        expected.put("dynamic_tank", Map.of("fluid-per-block", MultiblockMachines.TANK_FLUID_PER_BLOCK.defaultValue(),
+                "chemical-per-block", MultiblockMachines.TANK_CHEMICAL_PER_BLOCK.defaultValue()));
+        expected.put("induction_casing", defaults(MultiblockMachines.CELLS));
+        expected.put("induction_port", defaults(MultiblockMachines.PROVIDERS));
+        expected.put("thermal_evaporation_block", defaults(List.of(MultiblockMachines.EVAPORATION_PER_LEVEL,
+                MultiblockMachines.EVAPORATION_TANK_PER_LEVEL, MultiblockMachines.EVAPORATION_OUTPUT_TANK)));
+        expected.put("boiler_casing", defaults(List.of(Boilers.HEAT_PER_MB, Boilers.BOIL_PER_ELEMENT, Boilers.WATER_PER_BLOCK,
+                Boilers.STEAM_PER_BLOCK, Boilers.HEAT_PER_BLOCK, Boilers.COOLANT_PER_BLOCK, Boilers.COOLED_PER_BLOCK)));
+        expected.put("fission_reactor_casing", defaults(List.of(Fission.FISSION_HEAT_PER_MB, Fission.COOLANT_HEAT_PER_MB,
+                Fission.FUEL_PER_ASSEMBLY, Fission.WASTE_PER_ASSEMBLY, Fission.WATER_PER_ASSEMBLY, Fission.SODIUM_PER_ASSEMBLY,
+                Fission.STEAM_PER_ASSEMBLY, Fission.HOT_PER_ASSEMBLY)));
+        expected.put("fusion_reactor_frame", defaults(List.of(Fusion.FUSION_IGNITION, Fusion.FUSION_ENERGY_PER_MB, Fusion.FUEL_TANK,
+                Fusion.ENERGY_BUFFER)));
+        expected.put("sps_casing", defaults(List.of(Sps.SPS_POLONIUM_PER_ANTIMATTER, Sps.SPS_ENERGY_PER_POLONIUM, Sps.POLONIUM_TANK,
+                Sps.ANTIMATTER_TANK, Sps.ENERGY_BUFFER)));
+        Map<String, Number> turbine = new LinkedHashMap<>(defaults(List.of(Turbines.FULL_BLADES, Turbines.BLADES_PER_COIL,
+                Turbines.VENT_FLOW, Turbines.CONDENSER_RATE, Turbines.STEAM_PER_BLOCK, Turbines.ENERGY_PER_BLOCK)));
+        turbine.put(Turbines.STEAM_ENERGY.path(), Turbines.STEAM_ENERGY.defaultValue());
+        expected.put("turbine_casing", turbine);
 
         for (Map.Entry<String, Map<String, Object>> block : ShippedBlocks.BEHAVIORS.entrySet()) {
-            if (!(block.getValue().get("options") instanceof Map<?, ?> options)) continue;
+            if (!(block.getValue().get("options") instanceof Map<?, ?> nested)) continue;
             Map<String, Number> wanted = expected.get(block.getKey());
             assertNotNull(wanted, block.getKey() + " has options this test does not know");
+            Map<String, Number> options = flatten("", nested, new LinkedHashMap<>());
             assertEquals(wanted.keySet(), options.keySet(), block.getKey());
-            wanted.forEach((key, value) -> assertEquals(value.longValue(), ((Number) options.get(key)).longValue(), block.getKey() + " " + key));
+            wanted.forEach((key, value) -> assertEquals(value.doubleValue(), options.get(key).doubleValue(), block.getKey() + " " + key));
         }
         for (String block : expected.keySet()) assertNotNull(ShippedBlocks.behavior(block).get("options"), block + " has options");
     }
@@ -109,6 +138,21 @@ class BlockNumbersTest {
             assertEquals(limits.items(), ((Number) ShippedItems.option(id.value(), "mekanized:qio_drive", "items")).longValue(), id.asString());
             assertEquals(limits.kinds(), ((Number) ShippedItems.option(id.value(), "mekanized:qio_drive", "kinds")).longValue(), id.asString());
         });
+    }
+
+    private static Map<String, Number> defaults(List<ConfigKey<Long>> keys) {
+        Map<String, Number> defaults = new LinkedHashMap<>();
+        for (ConfigKey<Long> key : keys) defaults.put(key.path(), key.defaultValue());
+        return defaults;
+    }
+
+    /** {@code {a: {b: 1}}} as {@code {a.b: 1}}: the paths the machines' keys read. */
+    private static Map<String, Number> flatten(String prefix, Map<?, ?> map, Map<String, Number> into) {
+        map.forEach((key, value) -> {
+            if (value instanceof Map<?, ?> child) flatten(prefix + key + ".", child, into);
+            else into.put(prefix + key, (Number) value);
+        });
+        return into;
     }
 
     @Test

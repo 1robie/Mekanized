@@ -117,6 +117,9 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:dynamic_tank
+      options:
+        fluid-per-block: 350000
+        chemical-per-block: 16000000
       keep_contents: true
     loot:
       template: machineengine:loot_table/keep_contents
@@ -183,6 +186,12 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:induction_casing
+      options:
+        cell-capacity:
+          basic: 8000000000
+          advanced: 64000000000
+          elite: 512000000000
+          ultimate: 4000000000000
       keep_contents: true
     loot:
       template: machineengine:loot_table/keep_contents
@@ -205,6 +214,12 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:induction_port
+      options:
+        provider-output:
+          basic: 256000
+          advanced: 2048000
+          elite: 16384000
+          ultimate: 131072000
       keep_contents: true
     loot:
       template: machineengine:loot_table/keep_contents
@@ -242,6 +257,10 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:thermal_evaporation_block
+      options:
+        input-per-level-per-tick: 10
+        input-tank-per-level: 16000
+        output-tank: 10000
       keep_contents: true
     loot:
       template: machineengine:loot_table/keep_contents

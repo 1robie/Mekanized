@@ -1,6 +1,7 @@
 package fr.robie.machineengine.mekanized.multiblock;
 
 import fr.robie.machineengine.api.addon.RegistrationContext;
+import fr.robie.machineengine.api.config.ConfigKey;
 import fr.robie.machineengine.api.machine.MachineContext;
 import fr.robie.machineengine.api.machine.MachineDataKey;
 import fr.robie.machineengine.api.machine.MachineType;
@@ -11,6 +12,7 @@ import fr.robie.machineengine.api.multiblock.MultiblockStructure;
 import fr.robie.machineengine.api.multiblock.MultiblockType;
 import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.api.transfer.Transaction;
+import fr.robie.machineengine.mekanized.MekanizedConfig;
 import fr.robie.machineengine.mekanized.machine.DataKeys;
 import fr.robie.machineengine.mekanized.machine.Radiation;
 import java.util.List;
@@ -18,7 +20,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import static fr.robie.machineengine.mekanized.MekanizedContent.key;
-import static fr.robie.machineengine.mekanized.multiblock.Boilers.HEAT_PER_MB;
 import static fr.robie.machineengine.mekanized.multiblock.Fusion.FUSION;
 import static fr.robie.machineengine.mekanized.multiblock.ReactorMachines.*;
 import static fr.robie.machineengine.mekanized.multiblock.Sps.SPS;
@@ -28,18 +29,29 @@ import static fr.robie.machineengine.mekanized.multiblock.Sps.SPS;
  * SCRAMs. 1 mB of fissile fuel gives 1 MJ, so 1 mB/t of fuel boils 20,000 mB/t.
  */
 public final class Fission {
+    // The casing's block config options (D34); the anchor is a casing.
     /** Joules of heat per mB of fissile fuel burned. */
-    public static final long FISSION_HEAT_PER_MB = 1_000_000;
+    public static final ConfigKey<Long> FISSION_HEAT_PER_MB = ConfigKey.whole("heat-per-mb-burned", 1_000_000, 1, MekanizedConfig.MAX).clamped();
+    /** Heat that turns 1 mB of coolant (water or sodium) into steam or superheated sodium. */
+    public static final ConfigKey<Long> COOLANT_HEAT_PER_MB = ConfigKey.whole("coolant-heat-per-mb", 50, 1, MekanizedConfig.MAX).clamped();
+    /** What the reactor holds per fuel assembly inside it. */
+    public static final ConfigKey<Long> FUEL_PER_ASSEMBLY = ConfigKey.whole("fuel-per-assembly", 8_000, 1, MekanizedConfig.MAX).clamped();
+    public static final ConfigKey<Long> WASTE_PER_ASSEMBLY = ConfigKey.whole("waste-per-assembly", 8_000, 1, MekanizedConfig.MAX).clamped();
+    public static final ConfigKey<Long> WATER_PER_ASSEMBLY = ConfigKey.whole("water-per-assembly", 100_000, 1, MekanizedConfig.MAX).clamped();
+    public static final ConfigKey<Long> SODIUM_PER_ASSEMBLY = ConfigKey.whole("sodium-per-assembly", 100_000, 1, MekanizedConfig.MAX).clamped();
+    public static final ConfigKey<Long> STEAM_PER_ASSEMBLY = ConfigKey.whole("steam-per-assembly", 1_000_000, 1, MekanizedConfig.MAX).clamped();
+    public static final ConfigKey<Long> HOT_PER_ASSEMBLY = ConfigKey.whole("superheated-sodium-per-assembly", 1_000_000, 1, MekanizedConfig.MAX).clamped();
     /** Fission burn rate in mB/t. */
     public static final MachineDataKey<String> BURN_RATE = DataKeys.string("burn_rate", "0.1");
     /** Heat the fission reactor holds (J) and its damage (0 to 100, a SCRAM at 100). */
     public static final MachineDataKey<Long> REACTOR_HEAT = DataKeys.number("reactor_heat");
     public static final MachineDataKey<Long> DAMAGE = DataKeys.number("damage");
 
-    public static final MultiblockType FISSION = new MultiblockType(key("fission_reactor"), new MultiblockShape.Box(key("fission_reactor_casing"), Set.of(key("fission_reactor_casing"), key("fission_reactor_port"), key("fission_reactor_logic_adapter"), key("reactor_glass")), block -> AIR.contains(block) || block.equals(key("fission_fuel_assembly")) || block.equals(key("control_rod_assembly"))), structure -> {
+    public static final MultiblockType FISSION = new MultiblockType(key("fission_reactor"), new MultiblockShape.Box(key("fission_reactor_casing"), Set.of(key("fission_reactor_casing"), key("fission_reactor_port"), key("fission_reactor_logic_adapter"), key("reactor_glass")), block -> AIR.contains(block) || block.equals(key("fission_fuel_assembly")) || block.equals(key("control_rod_assembly"))), (structure, options) -> {
                 long assemblies = Math.max(1, structure.count(key("fission_fuel_assembly")));
-                return Map.of("fuel", assemblies * 8_000, "waste", assemblies * 8_000, "water", assemblies * 100_000,
-                        "sodium", assemblies * 100_000, "steam", assemblies * 1_000_000, "hot", assemblies * 1_000_000);
+                return Map.of("fuel", assemblies * options.get(FUEL_PER_ASSEMBLY), "waste", assemblies * options.get(WASTE_PER_ASSEMBLY),
+                        "water", assemblies * options.get(WATER_PER_ASSEMBLY), "sodium", assemblies * options.get(SODIUM_PER_ASSEMBLY),
+                        "steam", assemblies * options.get(STEAM_PER_ASSEMBLY), "hot", assemblies * options.get(HOT_PER_ASSEMBLY));
             });
 
     private Fission() {
@@ -71,6 +83,7 @@ public final class Fission {
 
     /** Fission: burns fuel into waste and heat; coolant carries the heat away; too hot, it SCRAMs. */
     static void fission(MachineContext anchor, MultiblockStructure structure) {
+        long heatPerMb = anchor.options().get(FISSION_HEAT_PER_MB);
         long assemblies = structure.count(key("fission_fuel_assembly"));
         long heat = anchor.get(REACTOR_HEAT);
         long damage = anchor.get(DAMAGE);
@@ -85,14 +98,14 @@ public final class Fission {
                     anchor.storage("waste").insert(chemical("nuclear_waste"), burned, transaction);
                     transaction.commit();
                 }
-                heat += burned * FISSION_HEAT_PER_MB;
+                heat += burned * heatPerMb;
             }
         }
         // Coolant: water into steam, sodium into superheated sodium.
         heat -= cool(anchor, "water", "steam", chemical("steam"), heat);
         heat -= cool(anchor, "sodium", "hot", chemical("superheated_sodium"), heat);
         heat -= heat / 100; // the casing loses a little
-        long safe = Math.max(1, assemblies) * 5L * FISSION_HEAT_PER_MB;
+        long safe = Math.max(1, assemblies) * 5L * heatPerMb;
         if (heat > safe) damage = Math.min(100, damage + Math.max(1, (heat - safe) * 10 / safe));
         else if (damage > 0) damage--;
         if (damage >= 100 && anchor.get(RUNNING)) {
@@ -118,13 +131,14 @@ public final class Fission {
 
     /** Moves up to {@code heat} of the reactor's heat into coolant; returns the heat taken. */
     private static long cool(MachineContext anchor, String from, String to, ResourceVariant made, long heat) {
-        long amount = Math.min(Math.min(amount(anchor, from), room(anchor, to)), heat / HEAT_PER_MB);
+        long heatPerMb = anchor.options().get(COOLANT_HEAT_PER_MB);
+        long amount = Math.min(Math.min(amount(anchor, from), room(anchor, to)), heat / heatPerMb);
         if (amount <= 0) return 0;
         try (Transaction transaction = anchor.transactions().openOuter()) {
             anchor.storage(from).extract(variant(anchor, from), amount, transaction);
             anchor.storage(to).insert(made, amount, transaction);
             transaction.commit();
         }
-        return amount * HEAT_PER_MB;
+        return amount * heatPerMb;
     }
 }

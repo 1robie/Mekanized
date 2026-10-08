@@ -20,7 +20,7 @@ Mekanized writes its files on the first start:
 | `plugins/CraftEngine/resources/mekanized/` | Blocks, items, crafting recipes, names in every language Mekanism has |
 | `plugins/MachineEngine/definitions/mekanized/` | Machine recipes and tags |
 | `plugins/MachineEngine/menus/mekanized_*.yml` | Machine menus (zMenu) |
-| `plugins/Mekanized/config.yml` | Gameplay numbers: multiblocks, radiation, teleporters, chunk loading, QIO, digital miner |
+| `plugins/Mekanized/config.yml` | Gameplay rules: radiation, teleporters, chunk loading and miner limits, QIO array size |
 
 **Updates:** updating Mekanized replaces these files only if you have not edited them. An edited file is
 kept, and the log says so; to get the new default, delete it.
@@ -149,7 +149,6 @@ Click a machine's upgrade button with the upgrade in hand to install it.
   keeps its default; a wrong value is replaced or limited to its nearest allowed value, with a warning in the log
   (the file keeps what you wrote, for you to fix). Settings added by an update are written into your file, with
   their comments, at the next start; your values and comments are kept.
-  - `dynamic-tank`, `thermal-evaporation`: Dynamic Tank capacity, Thermal Evaporation rate.
   - `radiation`: background, how fast sources and doses fade, the doses that make players sick, hurt them and kill them.
   - `teleporter`: Joules per teleport (base, per block, to another world) and the cooldown between teleports.
     The Meka-Tool's teleportation unit uses the same costs.
@@ -177,7 +176,12 @@ Click a machine's upgrade button with the upgrade in hand to install it.
     lasers (`energy-per-tick`, `range`, `energy-per-hardness`), digital miner (`energy-per-block`,
     `ticks-per-block`) and dimensional stabilizer (`energy-per-chunk`);
   - the radioactive waste barrel: `storages: { waste: { capacity: ... } }` and `options: { decay-per-second: ... }`;
-  - `options: { items-per-second: ... }` on the QIO importer and exporter.
+  - `options: { items-per-second: ... }` on the QIO importer and exporter;
+  - multiblocks: `options:` on the casing that anchors each structure (`multiblocks.yml`, `reactors.yml`): the
+    dynamic tank, the induction casing (`cell-capacity` per tier), the thermal evaporation block, the boiler,
+    fission and SPS casings, the fusion reactor frame and the turbine casing: their capacities per block and their
+    physics (heat per mB, ignition energy, steam energy, vent flow...). The induction port has `provider-output`
+    per tier.
 
   A QIO drive's size is in its item config: `- type: mekanized:qio_drive` with `items` and `kinds`
   (`automation.yml`). Any item given that behavior goes into a drive array; `/ce reload` applies it.
@@ -185,7 +189,7 @@ Click a machine's upgrade button with the upgrade in hand to install it.
   Machines read them when they load: restart, or let their chunks reload, after editing. Old `config.yml` keys
   for these (`transport.*`, `radiation.barrel-*`, `chunk-loading.energy-per-chunk`,
   `digital-miner.energy-per-block`, `digital-miner.ticks-per-block`, `qio.drive-items`, `qio.drive-kinds`,
-  `qio.importer-exporter-rate`) are ignored.
+  `qio.importer-exporter-rate`, `dynamic-tank.*`, `thermal-evaporation.*`) are ignored.
 
   | Behavior | Items | Options |
   |---|---|---|

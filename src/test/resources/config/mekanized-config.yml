@@ -3,18 +3,6 @@
 # plugins/MachineEngine/definitions/mekanized/ instead, and reload with the server's recipes.
 # Missing settings are added with their defaults when the server starts.
 
-dynamic-tank:
-  # mB of fluid per block inside the tank
-  fluid-per-block: 350000
-  # mB of chemical per block inside the tank
-  chemical-per-block: 16000000
-
-thermal-evaporation:
-  # mB of input evaporated per tick per level, by day (half at night, half again in rain)
-  input-per-level-per-tick: 10
-  # mB of input the tower holds per level
-  input-tank-per-level: 16000
-
 # The teleporter and the portable teleporter. Costs are Joules; defaults are Mekanism's.
 teleporter:
   # J of any teleport

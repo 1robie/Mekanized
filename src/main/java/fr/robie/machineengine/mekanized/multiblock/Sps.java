@@ -1,6 +1,7 @@
 package fr.robie.machineengine.mekanized.multiblock;
 
 import fr.robie.machineengine.api.addon.RegistrationContext;
+import fr.robie.machineengine.api.config.ConfigKey;
 import fr.robie.machineengine.api.machine.MachineContext;
 import fr.robie.machineengine.api.machine.MachineDataKey;
 import fr.robie.machineengine.api.machine.MachineType;
@@ -10,6 +11,7 @@ import fr.robie.machineengine.api.multiblock.MultiblockShape;
 import fr.robie.machineengine.api.multiblock.MultiblockStructure;
 import fr.robie.machineengine.api.multiblock.MultiblockType;
 import fr.robie.machineengine.api.transfer.Transaction;
+import fr.robie.machineengine.mekanized.MekanizedConfig;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.mekanized.machine.DataKeys;
 import java.util.List;
@@ -23,13 +25,19 @@ import static fr.robie.machineengine.mekanized.multiblock.ReactorMachines.*;
  * The supercritical phase shifter: energy turns polonium into antimatter, 1,000 mB and 1 GJ per mB.
  */
 public final class Sps {
+    // The casing's block config options (D34); the anchor is a casing.
     /** SPS: mB of polonium per mB of antimatter, Joules per mB of polonium. */
-    public static final long SPS_POLONIUM_PER_ANTIMATTER = 1_000;
-    public static final long SPS_ENERGY_PER_POLONIUM = 1_000_000;
+    public static final ConfigKey<Long> SPS_POLONIUM_PER_ANTIMATTER = ConfigKey.whole("polonium-per-antimatter", 1_000, 1, MekanizedConfig.MAX).clamped();
+    public static final ConfigKey<Long> SPS_ENERGY_PER_POLONIUM = ConfigKey.whole("energy-per-polonium", 1_000_000, 1, MekanizedConfig.MAX).clamped();
+    /** What it holds: polonium, antimatter, energy. */
+    public static final ConfigKey<Long> POLONIUM_TANK = ConfigKey.whole("polonium-tank", 10_000, 1, MekanizedConfig.MAX).clamped();
+    public static final ConfigKey<Long> ANTIMATTER_TANK = ConfigKey.whole("antimatter-tank", 1_000, 1, MekanizedConfig.MAX).clamped();
+    public static final ConfigKey<Long> ENERGY_BUFFER = ConfigKey.whole("energy-buffer", 2_000_000_000, 1, MekanizedConfig.MAX).clamped();
     /** Polonium processed towards the next mB of antimatter. */
     public static final MachineDataKey<Long> SPS_PROGRESS = DataKeys.number("sps_progress");
 
-    public static final MultiblockType SPS = new MultiblockType(key("sps"), new MultiblockShape.Box(key("sps_casing"), Set.of(key("sps_casing"), key("sps_port"), key("reactor_glass"), key("structural_glass")), AIR::contains), structure -> Map.of("polonium", 10_000L, "antimatter", 1_000L, "energy", 2_000_000_000L));
+    public static final MultiblockType SPS = new MultiblockType(key("sps"), new MultiblockShape.Box(key("sps_casing"), Set.of(key("sps_casing"), key("sps_port"), key("reactor_glass"), key("structural_glass")), AIR::contains), (structure, options) -> Map.of("polonium", options.get(POLONIUM_TANK),
+            "antimatter", options.get(ANTIMATTER_TANK), "energy", options.get(ENERGY_BUFFER)));
 
     private Sps() {
     }
@@ -54,7 +62,9 @@ public final class Sps {
 
     /** SPS: energy turns polonium into antimatter, 1,000 mB and 1 GJ per mB. */
     static void shift(MachineContext anchor, MultiblockStructure structure) {
-        long polonium = Math.min(amount(anchor, "polonium"), amount(anchor, "energy") / SPS_ENERGY_PER_POLONIUM);
+        long poloniumPerAntimatter = anchor.options().get(SPS_POLONIUM_PER_ANTIMATTER);
+        long energyPerPolonium = anchor.options().get(SPS_ENERGY_PER_POLONIUM);
+        long polonium = Math.min(amount(anchor, "polonium"), amount(anchor, "energy") / energyPerPolonium);
         long progress = anchor.get(SPS_PROGRESS);
         if (room(anchor, "antimatter") <= 0) polonium = 0;
         if (polonium <= 0) {
@@ -62,15 +72,15 @@ public final class Sps {
             return;
         }
         progress += polonium;
-        long made = Math.min(progress / SPS_POLONIUM_PER_ANTIMATTER, room(anchor, "antimatter"));
+        long made = Math.min(progress / poloniumPerAntimatter, room(anchor, "antimatter"));
         try (Transaction transaction = anchor.transactions().openOuter()) {
             anchor.storage("polonium").extract(chemical("polonium"), polonium, transaction);
-            anchor.storage("energy").extract(MekanizedContent.ENERGY.variant(), polonium * SPS_ENERGY_PER_POLONIUM, transaction);
+            anchor.storage("energy").extract(MekanizedContent.ENERGY.variant(), polonium * energyPerPolonium, transaction);
             if (made > 0) anchor.storage("antimatter").insert(chemical("antimatter"), made, transaction);
             transaction.commit();
         }
-        anchor.set(SPS_PROGRESS, progress - made * SPS_POLONIUM_PER_ANTIMATTER);
+        anchor.set(SPS_PROGRESS, progress - made * poloniumPerAntimatter);
         working(anchor, String.format(Locale.ROOT, "Shifting %,d mB/s of polonium (%d %% to the next mB)", polonium,
-                anchor.get(SPS_PROGRESS) * 100 / SPS_POLONIUM_PER_ANTIMATTER));
+                anchor.get(SPS_PROGRESS) * 100 / poloniumPerAntimatter));
     }
 }

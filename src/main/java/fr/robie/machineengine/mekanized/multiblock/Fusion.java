@@ -1,6 +1,7 @@
 package fr.robie.machineengine.mekanized.multiblock;
 
 import fr.robie.machineengine.api.addon.RegistrationContext;
+import fr.robie.machineengine.api.config.ConfigKey;
 import fr.robie.machineengine.api.data.Codecs;
 import fr.robie.machineengine.api.data.VersionedCodec;
 import fr.robie.machineengine.api.machine.MachineContext;
@@ -12,6 +13,7 @@ import fr.robie.machineengine.api.multiblock.MultiblockShape;
 import fr.robie.machineengine.api.multiblock.MultiblockStructure;
 import fr.robie.machineengine.api.multiblock.MultiblockType;
 import fr.robie.machineengine.api.transfer.Transaction;
+import fr.robie.machineengine.mekanized.MekanizedConfig;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.mekanized.machine.DataKeys;
 import java.util.List;
@@ -26,9 +28,13 @@ import static fr.robie.machineengine.mekanized.multiblock.ReactorMachines.*;
  * rate) into energy.
  */
 public final class Fusion {
+    // The frame's block config options (D34); the anchor is a frame.
     /** Fusion: laser energy to ignite, Joules per mB of fuel burned. */
-    public static final long FUSION_IGNITION = 400_000_000;
-    public static final long FUSION_ENERGY_PER_MB = 200_000;
+    public static final ConfigKey<Long> FUSION_IGNITION = ConfigKey.whole("ignition-energy", 400_000_000, 1, MekanizedConfig.MAX).clamped();
+    public static final ConfigKey<Long> FUSION_ENERGY_PER_MB = ConfigKey.whole("energy-per-mb", 200_000, 1, MekanizedConfig.MAX).clamped();
+    /** What the reactor holds: each fuel, and its energy buffer. */
+    public static final ConfigKey<Long> FUEL_TANK = ConfigKey.whole("fuel-tank", 10_000, 1, MekanizedConfig.MAX).clamped();
+    public static final ConfigKey<Long> ENERGY_BUFFER = ConfigKey.whole("energy-buffer", 1_000_000_000, 1, MekanizedConfig.MAX).clamped();
     /** Fusion injection rate in mB/t. */
     public static final MachineDataKey<String> INJECTION_RATE = DataKeys.string("injection_rate", "2");
     public static final MachineDataKey<Boolean> IGNITED = MachineDataKey.of("ignited",
@@ -36,7 +42,8 @@ public final class Fusion {
 
     public static final MultiblockType FUSION = new MultiblockType(key("fusion_reactor"), new MultiblockShape.Box(key("fusion_reactor_frame"), Set.of(key("fusion_reactor_frame"), key("fusion_reactor_port"), key("fusion_reactor_logic_adapter"),
                     key("laser_focus_matrix"), key("reactor_glass"), key("fusion_reactor_controller")), AIR::contains,
-                    MultiblockShape.Box.MIN_SIZE, MultiblockShape.Box.MAX_SIZE, 0, false, key("fusion_reactor_controller")), structure -> Map.of("deuterium", 10_000L, "tritium", 10_000L, "energy", 1_000_000_000L, "ignition", FUSION_IGNITION));
+                    MultiblockShape.Box.MIN_SIZE, MultiblockShape.Box.MAX_SIZE, 0, false, key("fusion_reactor_controller")), (structure, options) -> Map.of("deuterium", options.get(FUEL_TANK), "tritium", options.get(FUEL_TANK),
+                    "energy", options.get(ENERGY_BUFFER), "ignition", options.get(FUSION_IGNITION)));
 
     private Fusion() {
     }
@@ -65,17 +72,19 @@ public final class Fusion {
 
     /** Fusion: lasers ignite it; then it burns deuterium and tritium (half each of the injection rate) into energy. */
     static void fuse(MachineContext anchor, MultiblockStructure structure) {
+        long ignition = anchor.options().get(FUSION_IGNITION);
+        long energyPerMb = anchor.options().get(FUSION_ENERGY_PER_MB);
         if (!anchor.get(IGNITED)) {
             boolean fueled = amount(anchor, "deuterium") > 0 && amount(anchor, "tritium") > 0;
-            if (amount(anchor, "ignition") >= FUSION_IGNITION && fueled) {
+            if (amount(anchor, "ignition") >= ignition && fueled) {
                 try (Transaction transaction = anchor.transactions().openOuter()) {
-                    anchor.storage("ignition").extract(MekanizedContent.ENERGY.variant(), FUSION_IGNITION, transaction);
+                    anchor.storage("ignition").extract(MekanizedContent.ENERGY.variant(), ignition, transaction);
                     transaction.commit();
                 }
                 anchor.set(IGNITED, true);
             } else {
                 idle(anchor, String.format(Locale.ROOT, "Not ignited: %,d / %,d MJ of laser energy%s",
-                        amount(anchor, "ignition") / 1_000_000, FUSION_IGNITION / 1_000_000, fueled ? "" : ", needs deuterium and tritium"));
+                        amount(anchor, "ignition") / 1_000_000, ignition / 1_000_000, fueled ? "" : ", needs deuterium and tritium"));
                 return;
             }
         }
@@ -86,7 +95,7 @@ public final class Fusion {
             idle(anchor, "Out of fuel: needs igniting again");
             return;
         }
-        long energy = Math.min(2 * each * FUSION_ENERGY_PER_MB, room(anchor, "energy"));
+        long energy = Math.min(2 * each * energyPerMb, room(anchor, "energy"));
         try (Transaction transaction = anchor.transactions().openOuter()) {
             anchor.storage("deuterium").extract(chemical("deuterium"), each, transaction);
             anchor.storage("tritium").extract(chemical("tritium"), each, transaction);

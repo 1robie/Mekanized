@@ -131,4 +131,14 @@ class MultiblockTest {
         world.tick(3);
         assertNull(Multiblocks.containing(FakeWorld.at(0, 64, 0)), "stone inside a tank");
     }
+
+    @Test
+    void aTankIsSizedByItsCasingsBlockConfig() {
+        FakeWorld world = FakeWorld.singleRegion(this.engine);
+        // The anchor is the casing at the lowest corner: its block config sizes the structure (D34).
+        world.setOptions(FakeWorld.at(0, 64, 0), MekanizedTestKit.options("dynamic_tank", Map.of("fluid-per-block", 1_000)));
+        box(this.engine, world, 3, "dynamic_tank", Map.of());
+        world.tick(3);
+        assertEquals(1_000, MekanizedTestKit.capacity(world.machine(FakeWorld.at(0, 64, 0)), "fluid"), "one block inside, 1,000 mB each");
+    }
 }

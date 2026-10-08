@@ -1,6 +1,7 @@
 package fr.robie.machineengine.mekanized.multiblock;
 
 import fr.robie.machineengine.api.addon.RegistrationContext;
+import fr.robie.machineengine.api.config.ConfigKey;
 import fr.robie.machineengine.api.machine.MachineContext;
 import fr.robie.machineengine.api.machine.MachineType;
 import fr.robie.machineengine.api.machine.PortDefinition;
@@ -10,6 +11,7 @@ import fr.robie.machineengine.api.multiblock.MultiblockStructure;
 import fr.robie.machineengine.api.multiblock.MultiblockType;
 import fr.robie.machineengine.api.multiblock.Multiblocks;
 import fr.robie.machineengine.api.transfer.Transaction;
+import fr.robie.machineengine.mekanized.MekanizedConfig;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import java.util.List;
 import java.util.Locale;
@@ -23,16 +25,25 @@ import static fr.robie.machineengine.mekanized.multiblock.ReactorMachines.*;
  * superheated sodium) boils water into steam. Its anchor (lowest corner) holds the tanks and does the work
  * every second.
  *
- * <p>Boiling 1 mB of water (or heating 1 mB of sodium) takes {@link #HEAT_PER_MB} J of heat.</p>
+ * <p>Boiling 1 mB of water (or heating 1 mB of sodium) takes {@link #HEAT_PER_MB} J of heat (50 by default).</p>
  */
 public final class Boilers {
+    // The casing's block config options (D34); the anchor is a casing.
     /** Heat to boil 1 mB of water into steam, or to heat 1 mB of sodium; what 1 mB of superheated sodium gives back. */
-    public static final long HEAT_PER_MB = 50;
+    public static final ConfigKey<Long> HEAT_PER_MB = ConfigKey.whole("heat-per-mb", 50, 1, MekanizedConfig.MAX).clamped();
     /** mB of water each superheating element boils per tick at most. */
-    public static final long BOIL_PER_ELEMENT = 320;
+    public static final ConfigKey<Long> BOIL_PER_ELEMENT = ConfigKey.whole("boil-per-element", 320, 1, MekanizedConfig.MAX).clamped();
+    /** What the boiler holds per block inside it. */
+    public static final ConfigKey<Long> WATER_PER_BLOCK = ConfigKey.whole("water-per-block", 16_000, 1, MekanizedConfig.MAX).clamped();
+    public static final ConfigKey<Long> STEAM_PER_BLOCK = ConfigKey.whole("steam-per-block", 160_000, 1, MekanizedConfig.MAX).clamped();
+    public static final ConfigKey<Long> HEAT_PER_BLOCK = ConfigKey.whole("heat-per-block", 1_000_000, 1, MekanizedConfig.MAX).clamped();
+    public static final ConfigKey<Long> COOLANT_PER_BLOCK = ConfigKey.whole("superheated-sodium-per-block", 16_000, 1, MekanizedConfig.MAX).clamped();
+    public static final ConfigKey<Long> COOLED_PER_BLOCK = ConfigKey.whole("sodium-per-block", 16_000, 1, MekanizedConfig.MAX).clamped();
 
-    public static final MultiblockType BOILER = new MultiblockType(key("boiler"), new MultiblockShape.Box(key("boiler_casing"), Set.of(key("boiler_casing"), key("boiler_valve"), key("structural_glass")), block -> AIR.contains(block) || block.equals(key("pressure_disperser")) || block.equals(key("superheating_element"))), structure -> Map.of("water", structure.volume() * 16_000L, "steam", structure.volume() * 160_000L,
-                    "heat", structure.volume() * 1_000_000L, "coolant", structure.volume() * 16_000L, "cooled", structure.volume() * 16_000L));
+    public static final MultiblockType BOILER = new MultiblockType(key("boiler"), new MultiblockShape.Box(key("boiler_casing"), Set.of(key("boiler_casing"), key("boiler_valve"), key("structural_glass")), block -> AIR.contains(block) || block.equals(key("pressure_disperser")) || block.equals(key("superheating_element"))), (structure, options) -> Map.of(
+                    "water", structure.volume() * options.get(WATER_PER_BLOCK), "steam", structure.volume() * options.get(STEAM_PER_BLOCK),
+                    "heat", structure.volume() * options.get(HEAT_PER_BLOCK), "coolant", structure.volume() * options.get(COOLANT_PER_BLOCK),
+                    "cooled", structure.volume() * options.get(COOLED_PER_BLOCK)));
 
     private Boilers() {
     }
@@ -62,6 +73,8 @@ public final class Boilers {
 
     /** Boiler: heat (from heaters, and from superheated sodium) boils water into steam, up to the elements' rate. */
     static void boil(MachineContext anchor, MultiblockStructure structure) {
+        long heatPerMb = anchor.options().get(HEAT_PER_MB);
+        long boilPerElement = anchor.options().get(BOIL_PER_ELEMENT);
         long elements = structure.count(key("superheating_element"));
         if (structure.count(key("pressure_disperser")) == 0) {
             idle(anchor, "Needs a pressure disperser inside");
@@ -77,19 +90,19 @@ public final class Boilers {
             try (Transaction transaction = anchor.transactions().openOuter()) {
                 anchor.storage("coolant").extract(variant(anchor, "coolant"), cooled, transaction);
                 anchor.storage("cooled").insert(chemical("sodium"), cooled, transaction);
-                anchor.storage("heat").insert(MekanizedContent.HEAT.variant(), cooled * HEAT_PER_MB, transaction);
+                anchor.storage("heat").insert(MekanizedContent.HEAT.variant(), cooled * heatPerMb, transaction);
                 transaction.commit();
             }
         }
-        long boiled = Math.min(Math.min(amount(anchor, "water"), amount(anchor, "heat") / HEAT_PER_MB),
-                Math.min(elements * BOIL_PER_ELEMENT * EVERY_TICKS, room(anchor, "steam")));
+        long boiled = Math.min(Math.min(amount(anchor, "water"), amount(anchor, "heat") / heatPerMb),
+                Math.min(elements * boilPerElement * EVERY_TICKS, room(anchor, "steam")));
         if (boiled <= 0) {
-            idle(anchor, amount(anchor, "water") == 0 ? "Needs water" : amount(anchor, "heat") < HEAT_PER_MB ? "Needs heat" : "Steam tank full");
+            idle(anchor, amount(anchor, "water") == 0 ? "Needs water" : amount(anchor, "heat") < heatPerMb ? "Needs heat" : "Steam tank full");
             return;
         }
         try (Transaction transaction = anchor.transactions().openOuter()) {
             anchor.storage("water").extract(variant(anchor, "water"), boiled, transaction);
-            anchor.storage("heat").extract(MekanizedContent.HEAT.variant(), boiled * HEAT_PER_MB, transaction);
+            anchor.storage("heat").extract(MekanizedContent.HEAT.variant(), boiled * heatPerMb, transaction);
             anchor.storage("steam").insert(chemical("steam"), boiled, transaction);
             transaction.commit();
         }

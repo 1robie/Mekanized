@@ -517,6 +517,14 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:boiler_casing
+      options:
+        heat-per-mb: 50
+        boil-per-element: 320
+        water-per-block: 16000
+        steam-per-block: 160000
+        heat-per-block: 1000000
+        superheated-sodium-per-block: 16000
+        sodium-per-block: 16000
       keep_contents: true
     loot:
       template: machineengine:loot_table/keep_contents
@@ -645,6 +653,14 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:turbine_casing
+      options:
+        steam-energy: 10.0
+        full-blades: 28
+        blades-per-coil: 4
+        vent-flow: 32000
+        condenser-rate: 64000
+        steam-per-block: 64000
+        energy-per-block: 16000000
       keep_contents: true
     loot:
       template: machineengine:loot_table/keep_contents
@@ -802,6 +818,15 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:fission_reactor_casing
+      options:
+        heat-per-mb-burned: 1000000
+        coolant-heat-per-mb: 50
+        fuel-per-assembly: 8000
+        waste-per-assembly: 8000
+        water-per-assembly: 100000
+        sodium-per-assembly: 100000
+        steam-per-assembly: 1000000
+        superheated-sodium-per-assembly: 1000000
       keep_contents: true
     loot:
       template: machineengine:loot_table/keep_contents
@@ -1002,6 +1027,11 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:fusion_reactor_frame
+      options:
+        ignition-energy: 400000000
+        energy-per-mb: 200000
+        fuel-tank: 10000
+        energy-buffer: 1000000000
       keep_contents: true
     loot:
       template: machineengine:loot_table/keep_contents
@@ -1105,6 +1135,12 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:sps_casing
+      options:
+        polonium-per-antimatter: 1000
+        energy-per-polonium: 1000000
+        polonium-tank: 10000
+        antimatter-tank: 1000
+        energy-buffer: 2000000000
       keep_contents: true
     loot:
       template: machineengine:loot_table/keep_contents

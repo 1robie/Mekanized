@@ -103,7 +103,7 @@ class ReactorTest {
         MachineInstanceImpl anchor = world.machine(FakeWorld.at(0, 64, 0));
         fill(anchor, "deuterium", chemical(this.engine, "deuterium", 1_000));
         fill(anchor, "tritium", chemical(this.engine, "tritium", 1_000));
-        fill(amplifier, "energy", MekanizedContent.ENERGY.stack(Fusion.FUSION_IGNITION));
+        fill(amplifier, "energy", MekanizedContent.ENERGY.stack(Fusion.FUSION_IGNITION.defaultValue()));
         world.tick(200);
         assertTrue(anchor.context().get(Fusion.IGNITED), "ignited: " + anchor.context().get(ReactorMachines.STATUS));
         assertTrue(amount(anchor, "energy") > 0);

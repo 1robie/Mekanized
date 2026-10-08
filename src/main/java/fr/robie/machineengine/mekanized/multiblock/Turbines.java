@@ -1,6 +1,7 @@
 package fr.robie.machineengine.mekanized.multiblock;
 
 import fr.robie.machineengine.api.addon.RegistrationContext;
+import fr.robie.machineengine.api.config.ConfigKey;
 import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.machine.MachineContext;
 import fr.robie.machineengine.api.machine.MachineType;
@@ -13,6 +14,7 @@ import fr.robie.machineengine.api.transfer.StorageView;
 import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.BlockPosition;
 import fr.robie.machineengine.api.world.WorldPosition;
+import fr.robie.machineengine.mekanized.MekanizedConfig;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import java.util.List;
 import java.util.Locale;
@@ -27,17 +29,22 @@ import static fr.robie.machineengine.mekanized.multiblock.ReactorMachines.*;
  * water back. A turbine makes up to 10 J per mB of steam, with 28 blades and enough coils.
  */
 public final class Turbines {
+    // The casing's block config options (D34); the anchor is a casing.
     /** A turbine's Joules per mB of steam with all its blades driven. */
-    public static final double STEAM_ENERGY = 10;
-    /** Blades for a turbine's full yield, blades a coil drives, steam a vent lets through per tick. */
-    public static final int FULL_BLADES = 28;
-    public static final int BLADES_PER_COIL = 4;
-    public static final long VENT_FLOW = 32_000;
-    public static final long CONDENSER_RATE = 64_000;
+    public static final ConfigKey<Double> STEAM_ENERGY = ConfigKey.decimal("steam-energy", 10, 0, 1_000_000).clamped();
+    /** Blades for a turbine's full yield, blades a coil drives, steam a vent lets through per tick, water a condenser gives back. */
+    public static final ConfigKey<Long> FULL_BLADES = ConfigKey.whole("full-blades", 28, 1, 10_000).clamped();
+    public static final ConfigKey<Long> BLADES_PER_COIL = ConfigKey.whole("blades-per-coil", 4, 1, 10_000).clamped();
+    public static final ConfigKey<Long> VENT_FLOW = ConfigKey.whole("vent-flow", 32_000, 1, MekanizedConfig.MAX).clamped();
+    public static final ConfigKey<Long> CONDENSER_RATE = ConfigKey.whole("condenser-rate", 64_000, 1, MekanizedConfig.MAX).clamped();
+    /** What it holds per block inside it. */
+    public static final ConfigKey<Long> STEAM_PER_BLOCK = ConfigKey.whole("steam-per-block", 64_000, 1, MekanizedConfig.MAX).clamped();
+    public static final ConfigKey<Long> ENERGY_PER_BLOCK = ConfigKey.whole("energy-per-block", 16_000_000, 1, MekanizedConfig.MAX).clamped();
 
     public static final MultiblockType TURBINE = new MultiblockType(key("turbine"), new MultiblockShape.Box(key("turbine_casing"), Set.of(key("turbine_casing"), key("turbine_valve"), key("turbine_vent"), key("structural_glass")), block -> AIR.contains(block) || Set.of("turbine_rotor", "rotational_complex", "electromagnetic_coil", "pressure_disperser",
-                    "saturating_condenser").contains(block.value()) && block.namespace().equals(MekanizedContent.NAMESPACE)), structure -> Map.of("steam", structure.volume() * 64_000L, "energy", structure.volume() * 16_000_000L,
-                    "water", Math.max(1, structure.count(key("saturating_condenser")) * CONDENSER_RATE * EVERY_TICKS)));
+                    "saturating_condenser").contains(block.value()) && block.namespace().equals(MekanizedContent.NAMESPACE)), (structure, options) -> Map.of("steam", structure.volume() * options.get(STEAM_PER_BLOCK),
+                    "energy", structure.volume() * options.get(ENERGY_PER_BLOCK),
+                    "water", Math.max(1, structure.count(key("saturating_condenser")) * options.get(CONDENSER_RATE) * EVERY_TICKS)));
 
     private Turbines() {
     }
@@ -71,6 +78,11 @@ public final class Turbines {
 
     /** Turbine: steam through the vents turns the blades; coils make energy; condensers give water back. */
     static void turn(MachineContext anchor, MultiblockStructure structure) {
+        double steamEnergy = anchor.options().get(STEAM_ENERGY);
+        long fullBlades = anchor.options().get(FULL_BLADES);
+        long bladesPerCoil = anchor.options().get(BLADES_PER_COIL);
+        long ventFlow = anchor.options().get(VENT_FLOW);
+        long condenserRate = anchor.options().get(CONDENSER_RATE);
         long vents = 0;
         long blades = 0;
         BlockPosition min = structure.min();
@@ -94,15 +106,15 @@ public final class Turbines {
             idle(anchor, "Needs blades on its rotors");
             return;
         }
-        double perMb = STEAM_ENERGY * Math.min(1.0, Math.min(blades, coils * BLADES_PER_COIL) / (double) FULL_BLADES);
-        long steam = Math.min(amount(anchor, "steam"), vents * VENT_FLOW * EVERY_TICKS);
+        double perMb = steamEnergy * Math.min(1.0, Math.min(blades, coils * bladesPerCoil) / (double) fullBlades);
+        long steam = Math.min(amount(anchor, "steam"), vents * ventFlow * EVERY_TICKS);
         steam = Math.min(steam, (long) (room(anchor, "energy") / perMb));
         if (steam <= 0) {
             idle(anchor, amount(anchor, "steam") == 0 ? "Needs steam" : "Energy buffer full");
             return;
         }
         long energy = (long) (steam * perMb);
-        long water = Math.min(Math.min(steam, structure.count(key("saturating_condenser")) * CONDENSER_RATE * EVERY_TICKS), room(anchor, "water"));
+        long water = Math.min(Math.min(steam, structure.count(key("saturating_condenser")) * condenserRate * EVERY_TICKS), room(anchor, "water"));
         try (Transaction transaction = anchor.transactions().openOuter()) {
             anchor.storage("steam").extract(chemical("steam"), steam, transaction);
             anchor.storage("energy").insert(MekanizedContent.ENERGY.variant(), energy, transaction);
