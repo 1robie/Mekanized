@@ -1,22 +1,14 @@
 package fr.robie.machineengine.mekanized;
 
-import org.yaml.snakeyaml.Yaml;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UncheckedIOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * What the shipped CraftEngine item configs say about items, read without a server (D32): what they
  * hold ({@code machineengine:energy_item}, {@code machineengine:resource_item}) and their behaviors' options.
  */
 final class ShippedItems {
-    private static final List<String> FILES = List.of("automation.yml", "chemistry.yml", "endgame.yml", "extras.yml", "gear.yml",
-            "logistics.yml", "machines.yml", "materials.yml", "multiblocks.yml", "reactors.yml", "utility.yml");
     /** Item id (without namespace) -> behavior type -> its options. */
     private static final Map<String, Map<String, Map<String, Object>>> BEHAVIORS = load();
 
@@ -42,24 +34,14 @@ final class ShippedItems {
     @SuppressWarnings("unchecked")
     private static Map<String, Map<String, Map<String, Object>>> load() {
         Map<String, Map<String, Map<String, Object>>> all = new HashMap<>();
-        for (String file : FILES) {
-            try (InputStream in = Objects.requireNonNull(ShippedItems.class.getClassLoader()
-                    .getResourceAsStream("mekanized/pack/configuration/" + file), file)) {
-                Map<String, Object> root = new Yaml().load(in);
-                Map<String, Object> items = (Map<String, Object>) root.getOrDefault("items", Map.of());
-                items.forEach((id, value) -> {
-                    Object behaviors = ((Map<String, Object>) value).get("behaviors");
-                    if (!(behaviors instanceof List<?> list)) return;
-                    Map<String, Map<String, Object>> byType = all.computeIfAbsent(id.substring(id.indexOf(':') + 1), k -> new HashMap<>());
-                    for (Object entry : list) {
-                        Map<String, Object> behavior = (Map<String, Object>) entry;
-                        byType.put(String.valueOf(behavior.get("type")), behavior);
-                    }
-                });
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
+        ShippedConfig.forEach("items", (id, item) -> {
+            if (!(item.get("behaviors") instanceof List<?> list)) return;
+            Map<String, Map<String, Object>> byType = all.computeIfAbsent(id.substring(id.indexOf(':') + 1), k -> new HashMap<>());
+            for (Object entry : list) {
+                Map<String, Object> behavior = (Map<String, Object>) entry;
+                byType.put(String.valueOf(behavior.get("type")), behavior);
             }
-        }
+        });
         return all;
     }
 }
