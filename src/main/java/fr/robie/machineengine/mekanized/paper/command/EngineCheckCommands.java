@@ -14,6 +14,7 @@ import fr.robie.machineengine.api.transfer.Transaction;
 import fr.robie.machineengine.api.world.Direction;
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.MekanizedContent;
+import fr.robie.machineengine.mekanized.machine.UtilityMachines;
 import fr.robie.machineengine.api.paper.PaperItems;
 import fr.robie.machineengine.api.paper.PositionArguments;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
@@ -44,6 +45,11 @@ import org.bukkit.plugin.Plugin;
  *   <li>{@code fill <size>}: a size×size grid of idle crushers, to measure the idle cost.</li>
  *   <li>{@code check-item-data}: items holding the old Bukkit persistent data read the same through
  *       CraftEngine item data, which then holds it (D32).</li>
+ *   <li>{@code check-block-options}: a basic bin, basic energy cube, chargepad and basic universal cable in a
+ *       row from the position (placed if missing, kept otherwise), and what their machines read from their
+ *       block configs (D34): the bin's capacity, the cube's output rate, the chargepad's charge per tick. The
+ *       cable's rate is shown by {@code /machineengine network}. Run again after {@code /ce reload} on the same
+ *       row to see whether loaded machines follow.</li>
  * </ul>
  */
 @SuppressWarnings("UnstableApiUsage")
@@ -65,6 +71,8 @@ final class EngineCheckCommands {
                         PositionArguments.Default.PLACEMENT, onRegion(this::checkHopper)))
                 .then(PositionArguments.optionalPosition(Commands.literal("check-comparator").requires(EngineCheckCommands::admin),
                         PositionArguments.Default.PLACEMENT, onRegion(this::checkComparator)))
+                .then(PositionArguments.optionalPosition(Commands.literal("check-block-options").requires(EngineCheckCommands::admin),
+                        PositionArguments.Default.PLACEMENT, onRegion(this::checkBlockOptions)))
                 .then(Commands.literal("check-item-data").requires(EngineCheckCommands::admin).executes(context -> {
                     checkItemData();
                     return com.mojang.brigadier.Command.SINGLE_SUCCESS;
@@ -145,6 +153,33 @@ final class EngineCheckCommands {
                 log("check-comparator: half full " + halfPower + " (expected 8), empty " + emptyPower + " (expected 0)");
             }, 10);
         }, 10);
+    }
+
+    private void checkBlockOptions(CommandContext<CommandSourceStack> context, World world, int x, int y, int z) {
+        String[] blocks = {BIN, "basic_energy_cube", "chargepad", "basic_universal_cable"};
+        MachineInstance[] machines = new MachineInstance[blocks.length];
+        for (int i = 0; i < blocks.length; i++) {
+            Block block = world.getBlockAt(x + 2 * i, y, z);
+            boolean placed = false;
+            if (!CraftEngineBlocks.isCustomBlock(block)) {
+                if (!MekanizedDebugCommands.place(world, x + 2 * i, y, z, blocks[i])) {
+                    MekanizedCommands.reply(context, "check-block-options: could not place a " + blocks[i]);
+                    return;
+                }
+                placed = true;
+            }
+            machines[i] = MachineEngine.get().machineAt(WorldPosition.of(world.getKey(), x + 2 * i, y, z)).orElse(null);
+            log("check-block-options: " + blocks[i] + " at " + (x + 2 * i) + " " + y + " " + z + (placed ? " placed" : " already there"));
+        }
+        if (machines[0] == null || machines[1] == null || machines[2] == null) {
+            log("check-block-options: a machine is missing");
+            return;
+        }
+        long capacity = machines[0].inspect().storages().get("items").getFirst().capacity();
+        long rate = machines[1].context().options().portRate("out", -1);
+        long charge = machines[2].context().options().get(UtilityMachines.CHARGE_PER_TICK);
+        log("check-block-options: bin capacity " + capacity + ", energy cube out rate " + rate + ", chargepad charge-per-tick " + charge
+                + " (shipped: 4096, 4000, 51200)");
     }
 
     private void fill(CommandContext<CommandSourceStack> context, World world, int x, int y, int z) {
