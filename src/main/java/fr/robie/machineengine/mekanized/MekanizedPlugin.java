@@ -11,6 +11,7 @@ import fr.robie.machineengine.mekanized.paper.gear.SuitTicker;
 import fr.robie.machineengine.mekanized.paper.automation.PaperAutomation;
 import fr.robie.machineengine.mekanized.paper.menu.MenuCatalog;
 import fr.robie.machineengine.mekanized.paper.command.MekanizedCommands;
+import fr.robie.paperdispatch.manager.CommandManager;
 
 import fr.robie.machineengine.api.MachineEngine;
 import fr.robie.machineengine.api.addon.AddonRegistration;
@@ -39,6 +40,9 @@ import java.util.jar.JarFile;
  * CraftEngine loads packs.</p>
  */
 public final class MekanizedPlugin extends JavaPlugin {
+    /** Paper-Dispatch's, Mekanized's own relocated copy (D35). */
+    private final CommandManager<MekanizedPlugin> commands = new CommandManager<>(this);
+
     /** Inside the jar: the content (src/main/resources/mekanized), under {@code mekanized/}. */
     private static final String CONTENT = "mekanized/";
     /**
@@ -93,6 +97,7 @@ public final class MekanizedPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        this.commands.unregisterAll(this);
         PaperEntangloporters.save();
         PaperRadiation.saveNow();
         LineStore.flush();
@@ -113,9 +118,8 @@ public final class MekanizedPlugin extends JavaPlugin {
         PaperRadiation.install(this);
         fr.robie.machineengine.api.paper.ResourceNames.register(PaperResourceNames::name);
         PaperConfigurator.install();
-        MekanizedCommands commands = new MekanizedCommands(this);
-        getLifecycleManager().registerEventHandler(io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents.COMMANDS,
-                event -> event.registrar().register(commands.build(), "Mekanized commands"));
+        this.commands.trackCommand(new MekanizedCommands(this));
+        this.commands.flushRegistrations();
     }
 
     /**

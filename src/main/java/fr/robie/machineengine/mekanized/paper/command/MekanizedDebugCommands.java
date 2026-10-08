@@ -1,8 +1,6 @@
 package fr.robie.machineengine.mekanized.paper.command;
 
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
-import com.mojang.brigadier.Command;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import fr.robie.machineengine.api.MachineEngine;
 import fr.robie.machineengine.api.capability.Capabilities;
@@ -17,15 +15,16 @@ import fr.robie.machineengine.api.world.Direction;
 import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.api.paper.PaperItems;
-import fr.robie.machineengine.api.paper.PositionArguments;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
-import io.papermc.paper.command.brigadier.Commands;
+import fr.robie.paperdispatch.command.SubCommand;
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
 import net.momirealms.craftengine.core.util.Key;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+
+import java.util.List;
 
 /**
  * {@code /mekanized test [<x y z>] [world]} (admin): places an enrichment chamber, gives it energy
@@ -42,37 +41,17 @@ final class MekanizedDebugCommands {
         this.plugin = plugin;
     }
 
-    /** Adds the admin test commands to {@code root}. */
-    void addTo(LiteralArgumentBuilder<CommandSourceStack> root) {
-        root
-                .then(PositionArguments.optionalPosition(Commands.literal("test").requires(MekanizedDebugCommands::admin), PositionArguments.Default.PLACEMENT,
-                        (context, world, x, y, z) -> {
-                            PaperWorld.scheduler().run(new Location(world, x, y, z), () -> test(context, world, x, y, z));
-                            return Command.SINGLE_SUCCESS;
-                        }))
-                .then(PositionArguments.optionalPosition(Commands.literal("place-set").requires(MekanizedDebugCommands::admin), PositionArguments.Default.PLACEMENT,
-                        (context, world, x, y, z) -> {
-                            PaperWorld.scheduler().run(new Location(world, x, y, z), () -> {
-                                boolean placed = place(world, x, y, z, "crusher") && place(world, x + 1, y, z, "basic_energy_cube")
-                                        && place(world, x + 2, y, z, "basic_universal_cable");
-                                MekanizedCommands.reply(context, "mekanized place-set: " + (placed ? "crusher, energy cube, cable placed" : "placement failed"));
-                            });
-                            return Command.SINGLE_SUCCESS;
-                        }))
-                .then(PositionArguments.optionalPosition(Commands.literal("test-chemistry").requires(MekanizedDebugCommands::admin), PositionArguments.Default.PLACEMENT,
-                        (context, world, x, y, z) -> {
-                            PaperWorld.scheduler().run(new Location(world, x, y, z), () -> testChemistry(context, world, x, y, z));
-                            return Command.SINGLE_SUCCESS;
-                        }))
-                .then(PositionArguments.optionalPosition(Commands.literal("test-cable").requires(MekanizedDebugCommands::admin), PositionArguments.Default.PLACEMENT,
-                        (context, world, x, y, z) -> {
-                            PaperWorld.scheduler().run(new Location(world, x, y, z), () -> testCable(context, world, x, y, z));
-                            return Command.SINGLE_SUCCESS;
-                        }));
-    }
-
-    private static boolean admin(CommandSourceStack source) {
-        return source.getSender().hasPermission("machineengine.admin");
+    /** The admin test commands. */
+    List<SubCommand<Plugin>> commands() {
+        return List.of(
+                new PositionSubCommand(this.plugin, "test", this::test),
+                new PositionSubCommand(this.plugin, "place-set", (context, world, x, y, z) -> {
+                    boolean placed = place(world, x, y, z, "crusher") && place(world, x + 1, y, z, "basic_energy_cube")
+                            && place(world, x + 2, y, z, "basic_universal_cable");
+                    MekanizedCommands.reply(context, "mekanized place-set: " + (placed ? "crusher, energy cube, cable placed" : "placement failed"));
+                }),
+                new PositionSubCommand(this.plugin, "test-chemistry", this::testChemistry),
+                new PositionSubCommand(this.plugin, "test-cable", this::testCable));
     }
 
     private void test(CommandContext<CommandSourceStack> context, World world, int x, int y, int z) {

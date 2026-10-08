@@ -1,9 +1,7 @@
 package fr.robie.machineengine.mekanized.paper.command;
 
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
-import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import fr.robie.machineengine.api.MachineEngine;
 import fr.robie.machineengine.api.capability.Capabilities;
@@ -17,7 +15,8 @@ import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.mekanized.machine.UtilityMachines;
 import fr.robie.machineengine.api.paper.PaperItems;
-import fr.robie.machineengine.api.paper.PositionArguments;
+import fr.robie.paperdispatch.command.CommandResultType;
+import fr.robie.paperdispatch.command.SubCommand;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
@@ -34,6 +33,8 @@ import org.bukkit.entity.Item;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+
+import java.util.List;
 
 /**
  * Server-side checks of engine features that headless tests cannot reach (vanilla blocks, drops,
@@ -63,40 +64,20 @@ final class EngineCheckCommands {
         this.plugin = plugin;
     }
 
-    /** Adds the checks to {@code root}. */
-    void addTo(LiteralArgumentBuilder<CommandSourceStack> root) {
-        root
-                .then(PositionArguments.optionalPosition(Commands.literal("check-drop").requires(EngineCheckCommands::admin),
-                        PositionArguments.Default.PLACEMENT, onRegion(this::checkDrop)))
-                .then(PositionArguments.optionalPosition(Commands.literal("check-hopper").requires(EngineCheckCommands::admin),
-                        PositionArguments.Default.PLACEMENT, onRegion(this::checkHopper)))
-                .then(PositionArguments.optionalPosition(Commands.literal("check-comparator").requires(EngineCheckCommands::admin),
-                        PositionArguments.Default.PLACEMENT, onRegion(this::checkComparator)))
-                .then(PositionArguments.optionalPosition(Commands.literal("check-block-options").requires(EngineCheckCommands::admin),
-                        PositionArguments.Default.PLACEMENT, onRegion(this::checkBlockOptions)))
-                .then(Commands.literal("check-item-data").requires(EngineCheckCommands::admin).executes(context -> {
-                    checkItemData();
-                    return com.mojang.brigadier.Command.SINGLE_SUCCESS;
-                }))
-                .then(Commands.literal("fill").requires(EngineCheckCommands::admin)
-                        .then(PositionArguments.optionalPosition(Commands.argument("size", IntegerArgumentType.integer(1, 200)),
-                                PositionArguments.Default.PLACEMENT, onRegion(this::fill))));
-    }
-
-    private static boolean admin(CommandSourceStack source) {
-        return source.getSender().hasPermission("machineengine.admin");
-    }
-
-    private interface Check {
-        void run(CommandContext<CommandSourceStack> context, World world, int x, int y, int z);
-    }
-
-    /** Runs {@code check} on the thread owning the target position, because it touches the world there. */
-    private PositionArguments.PositionCommand onRegion(Check check) {
-        return (context, world, x, y, z) -> {
-            PaperWorld.scheduler().run(new Location(world, x, y, z), () -> check.run(context, world, x, y, z));
-            return Command.SINGLE_SUCCESS;
-        };
+    /** The checks. */
+    List<SubCommand<Plugin>> commands() {
+        return List.of(
+                new PositionSubCommand(this.plugin, "check-drop", this::checkDrop),
+                new PositionSubCommand(this.plugin, "check-hopper", this::checkHopper),
+                new PositionSubCommand(this.plugin, "check-comparator", this::checkComparator),
+                new PositionSubCommand(this.plugin, "check-block-options", this::checkBlockOptions),
+                SubCommand.builder(this.plugin, "check-item-data").permission(PositionSubCommand.ADMIN)
+                        .executes(dispatch -> {
+                            checkItemData();
+                            return CommandResultType.SUCCESS;
+                        }).build(),
+                new PositionSubCommand(this.plugin, "fill", this::fill,
+                        Commands.argument("size", IntegerArgumentType.integer(1, 200))));
     }
 
     private void checkDrop(CommandContext<CommandSourceStack> context, World world, int x, int y, int z) {
