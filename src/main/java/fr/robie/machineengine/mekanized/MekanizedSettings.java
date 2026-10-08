@@ -10,16 +10,13 @@ import fr.robie.machineengine.mekanized.machine.TeleporterSettings;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
 /**
- * Server owners' settings ({@code plugins/Mekanized/config.yml}, keys in {@link MekanizedConfig}), read
+ * Server owners' world-wide rules ({@code plugins/Mekanized/config.yml}, keys in {@link MekanizedConfig}), read
  * once when the plugin loads, before Mekanized registers its machines. Defaults are Mekanism's numbers;
- * headless tests use them. Recipes (durations, energy, outputs) are edited in their own definition files instead.
+ * headless tests use them. Recipes (durations, energy, outputs) are edited in their own definition files, and
+ * each block's and item's own numbers in its CraftEngine config (D32, D34).
  */
 public final class MekanizedSettings {
-
-
     private MekanizedSettings() {
     }
 
@@ -30,7 +27,6 @@ public final class MekanizedSettings {
 
     /** Copies the settings into the classes that use them. */
     public static void apply(@NotNull ConfigValues config) {
-
         TeleporterSettings.baseCost = config.get(MekanizedConfig.TELEPORT_BASE_COST);
         TeleporterSettings.costPerBlock = config.get(MekanizedConfig.TELEPORT_COST_PER_BLOCK);
         TeleporterSettings.otherWorldCost = config.get(MekanizedConfig.TELEPORT_OTHER_WORLD_COST);
@@ -48,10 +44,5 @@ public final class MekanizedSettings {
         DigitalMinerSettings.scanPerTick = config.get(MekanizedConfig.MINER_SCAN);
         DigitalMinerSettings.maxRadius = config.get(MekanizedConfig.MINER_MAX_RADIUS);
         QioSettings.arrayKinds = config.get(MekanizedConfig.QIO_ARRAY_KINDS);
-
-    }
-
-    private static long[] longs(List<Long> values) {
-        return values.stream().mapToLong(Long::longValue).toArray();
     }
 }

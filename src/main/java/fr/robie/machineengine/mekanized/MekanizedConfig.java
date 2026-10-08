@@ -9,7 +9,6 @@ import fr.robie.machineengine.mekanized.machine.RadiationSettings;
 import fr.robie.machineengine.mekanized.machine.TeleporterSettings;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,9 +22,10 @@ public final class MekanizedConfig {
 
     private static final List<ConfigKey<?>> KEYS = new ArrayList<>();
 
-    // Transport rates and multiblock numbers are in their block configs (D34): each cable's, tube's, pipe's and
-    // transporter's, each structure's casing. Old transport.*, dynamic-tank.* and thermal-evaporation.* keys left
-    // in a file are kept and ignored.
+    // Only world-wide rules are here. A block's or an item's own numbers are in its CraftEngine config: gear,
+    // modules, drives and the gauge dropper in their item config (D32); cables, machines and each structure's
+    // casing in their block config (D34). Old keys left in a file for those (gear.*, transport.*, dynamic-tank.*,
+    // thermal-evaporation.*, ...) are kept and ignored.
 
     // -- teleporter, chunk loading ----------------------------------------------------------------
 
@@ -65,15 +65,13 @@ public final class MekanizedConfig {
     public static final ConfigKey<Integer> QIO_ARRAY_KINDS = integer("qio.array-kinds", QioSettings.DEFAULT_ARRAY_KINDS, 1, 16_384,
             "kinds of item a drive array holds at most, whatever its drives (1-16384)");
 
-    // The stabilizer's energy per chunk, the waste barrel, and the miner's energy and ticks per block are in their
-    // block configs (D34); their old keys left in a file are kept and ignored. Gear has no settings here either: every tool, suit piece and module keeps its numbers in its CraftEngine item
-    // config (D32). Old gear.* keys left in a file are kept and ignored.
-
     public static final ConfigSpec SPEC = ConfigSpec.builder()
             .header("Mekanized settings. Read when the server starts: restart to apply changes.",
                     "Defaults are Mekanism's. Recipes (durations, energy per tick, outputs) are edited in",
                     "plugins/MachineEngine/definitions/mekanized/ instead, and reload with the server's recipes.",
-                    "Missing settings are added with their defaults when the server starts.")
+                    "Missing settings are added with their defaults when the server starts.",
+                    "Each block's and item's own numbers (capacities, rates, costs) are in its CraftEngine config,",
+                    "plugins/CraftEngine/resources/mekanized/configuration/: under behavior (blocks) or behaviors (items).")
             .section("teleporter", "The teleporter and the portable teleporter. Costs are Joules; defaults are Mekanism's.")
             .section("chunk-loading", "The dimensional stabilizer. Anchor upgrades always load only the machine's own chunk, for free.")
             .section("radiation", "Radiation (Mekanism's, simplified). Dose and radiation are in Sieverts (Sv, Sv/h).")
@@ -104,9 +102,5 @@ public final class MekanizedConfig {
 
     private static ConfigKey<Double> decimal(String path, double defaultValue, double min, double max, String... comment) {
         return add(ConfigKey.decimal(path, defaultValue, min, max).clamped().comment(comment));
-    }
-
-    private static List<Long> longs(long[] values) {
-        return Arrays.stream(values).boxed().toList();
     }
 }

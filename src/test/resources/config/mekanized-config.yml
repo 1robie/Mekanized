@@ -2,6 +2,8 @@
 # Defaults are Mekanism's. Recipes (durations, energy per tick, outputs) are edited in
 # plugins/MachineEngine/definitions/mekanized/ instead, and reload with the server's recipes.
 # Missing settings are added with their defaults when the server starts.
+# Each block's and item's own numbers (capacities, rates, costs) are in its CraftEngine config,
+# plugins/CraftEngine/resources/mekanized/configuration/: under behavior (blocks) or behaviors (items).
 
 # The teleporter and the portable teleporter. Costs are Joules; defaults are Mekanism's.
 teleporter:

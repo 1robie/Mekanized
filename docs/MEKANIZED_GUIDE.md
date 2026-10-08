@@ -186,7 +186,8 @@ Click a machine's upgrade button with the upgrade in hand to install it.
   A QIO drive's size is in its item config: `- type: mekanized:qio_drive` with `items` and `kinds`
   (`automation.yml`). Any item given that behavior goes into a drive array; `/ce reload` applies it.
 
-  Machines read them when they load: restart, or let their chunks reload, after editing. Old `config.yml` keys
+  Restart the server after editing a block's options: a machine keeps the ones it read when it loaded (whether
+  `/ce reload` reaches machines already loaded is not checked yet). Old `config.yml` keys
   for these (`transport.*`, `radiation.barrel-*`, `chunk-loading.energy-per-chunk`,
   `digital-miner.energy-per-block`, `digital-miner.ticks-per-block`, `qio.drive-items`, `qio.drive-kinds`,
   `qio.importer-exporter-rate`, `dynamic-tank.*`, `thermal-evaporation.*`) are ignored.
