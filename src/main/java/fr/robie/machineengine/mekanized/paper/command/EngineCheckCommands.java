@@ -1,5 +1,6 @@
 package fr.robie.machineengine.mekanized.paper.command;
 
+import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -93,7 +94,7 @@ final class EngineCheckCommands {
     /** Runs {@code check} on the thread owning the target position, because it touches the world there. */
     private PositionArguments.PositionCommand onRegion(Check check) {
         return (context, world, x, y, z) -> {
-            Bukkit.getRegionScheduler().execute(this.plugin, new Location(world, x, y, z), () -> check.run(context, world, x, y, z));
+            PaperWorld.scheduler().run(new Location(world, x, y, z), () -> check.run(context, world, x, y, z));
             return Command.SINGLE_SUCCESS;
         };
     }
@@ -105,7 +106,7 @@ final class EngineCheckCommands {
         ResourceStack iron = PaperItems.toResource(new ItemStack(Material.IRON_INGOT, 100));
         long inserted = move(port, iron, true);
         CraftEngineBlocks.remove(world.getBlockAt(x, y, z));
-        Bukkit.getRegionScheduler().runDelayed(this.plugin, new Location(world, x, y, z), task -> {
+        PaperWorld.scheduler().runLater(new Location(world, x, y, z), () -> {
             int dropped = world.getNearbyEntitiesByType(Item.class, new Location(world, x + 0.5, y + 0.5, z + 0.5), 3).stream()
                     .filter(item -> item.getItemStack().getType() == Material.IRON_INGOT)
                     .mapToInt(item -> item.getItemStack().getAmount()).sum();
@@ -122,7 +123,7 @@ final class EngineCheckCommands {
         world.getBlockAt(x, y + 1, z).setBlockData(Bukkit.createBlockData("minecraft:hopper[facing=down]"));
         ((Hopper) world.getBlockAt(x, y + 1, z).getState(false)).getInventory().addItem(new ItemStack(Material.IRON_INGOT, 10));
         MekanizedCommands.reply(context, "check-hopper: hopper (10 iron) > bin > hopper > chest; counting in 15 s");
-        Bukkit.getRegionScheduler().runDelayed(this.plugin, new Location(world, x, y, z), task -> {
+        PaperWorld.scheduler().runLater(new Location(world, x, y, z), () -> {
             int top = ironIn(((Hopper) world.getBlockAt(x, y + 1, z).getState(false)).getInventory());
             int bottom = ironIn(((Hopper) world.getBlockAt(x, y - 1, z).getState(false)).getInventory());
             int chest = ironIn(((Chest) world.getBlockAt(x, y - 2, z).getState(false)).getInventory());
@@ -145,10 +146,10 @@ final class EngineCheckCommands {
         ResourceStack iron = PaperItems.toResource(new ItemStack(Material.IRON_INGOT, 2_048));
         move(port, iron, true);
         Location at = new Location(world, x, y, z);
-        Bukkit.getRegionScheduler().runDelayed(this.plugin, at, half -> {
+        PaperWorld.scheduler().runLater(at, () -> {
             int halfPower = ((RedstoneWire) world.getBlockAt(x + 2, y, z).getBlockData()).getPower();
             move(port, iron, false);
-            Bukkit.getRegionScheduler().runDelayed(this.plugin, at, empty -> {
+            PaperWorld.scheduler().runLater(at, () -> {
                 int emptyPower = ((RedstoneWire) world.getBlockAt(x + 2, y, z).getBlockData()).getPower();
                 log("check-comparator: half full " + halfPower + " (expected 8), empty " + emptyPower + " (expected 0)");
             }, 10);

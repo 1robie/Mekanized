@@ -5,7 +5,6 @@ import fr.robie.machineengine.mekanized.machine.ChunkLoaders;
 import fr.robie.machineengine.mekanized.paper.persist.LineStore;
 import fr.robie.machineengine.mekanized.machine.SaveLines;
 import net.kyori.adventure.key.Key;
-import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 
@@ -36,11 +35,11 @@ public final class PaperChunkLoaders {
     public static void install(Plugin plugin) {
         PaperChunkLoaders loaders = new PaperChunkLoaders(plugin);
         loaders.load();
-        ChunkLoaders.onChange(() -> Bukkit.getGlobalRegionScheduler().execute(plugin, () -> {
+        ChunkLoaders.onChange(() -> PaperWorld.scheduler().run(() -> {
             loaders.save();
             loaders.sync();
         }));
-        Bukkit.getGlobalRegionScheduler().execute(plugin, loaders::sync);
+        PaperWorld.scheduler().run(loaders::sync);
     }
 
     /** Adds the tickets now wanted and removes the others. */
@@ -66,7 +65,7 @@ public final class PaperChunkLoaders {
     private boolean ticket(Chunk chunk, boolean add) {
         World world = PaperWorld.world(chunk.world());
         if (world == null) return false;
-        Bukkit.getRegionScheduler().execute(this.plugin, world, chunk.x(), chunk.z(), () -> {
+        PaperWorld.scheduler().run(world, chunk.x(), chunk.z(), () -> {
             if (add) world.addPluginChunkTicket(chunk.x(), chunk.z(), this.plugin);
             else world.removePluginChunkTicket(chunk.x(), chunk.z(), this.plugin);
         });

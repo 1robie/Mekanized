@@ -1,5 +1,6 @@
 package fr.robie.machineengine.mekanized.paper.gear;
 
+import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.mekanized.machine.Frequencies;
 import fr.robie.machineengine.mekanized.machine.Liquifier;
 import io.papermc.paper.entity.Shearable;
@@ -49,16 +50,14 @@ import static fr.robie.machineengine.mekanized.paper.gear.GearItems.useEnergy;
  * are in {@link GearItems}.
  */
 public final class GearTools implements Listener {
-    private final Plugin plugin;
     /** Blocks being broken by vein mining (their own break events must not start another vein). */
     private final Set<Block> veining = ConcurrentHashMap.newKeySet();
 
-    private GearTools(Plugin plugin) {
-        this.plugin = plugin;
+    private GearTools() {
     }
 
     public static void install(Plugin plugin) {
-        Bukkit.getPluginManager().registerEvents(new GearTools(plugin), plugin);
+        Bukkit.getPluginManager().registerEvents(new GearTools(), plugin);
     }
 
     // -- tools ----------------------------------------------------------------------------------
@@ -95,7 +94,7 @@ public final class GearTools implements Listener {
             for (BlockFace face : List.of(BlockFace.UP, BlockFace.DOWN, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST)) {
                 Block next = at.getRelative(face);
                 // Folia: blocks of another region are not this thread's to read or break.
-                if (!Bukkit.isOwnedByCurrentRegion(next)) continue;
+                if (!PaperWorld.scheduler().isOwnedByCurrentThread(next.getLocation())) continue;
                 if (next.getType() != start.getType() || !seen.add(next)) continue;
                 if (!useEnergy(tool, mining.energyPerBlock())) return;
                 // Protection plugins decide for each block, as for breaking it by hand.
@@ -121,7 +120,7 @@ public final class GearTools implements Listener {
             for (int b = -1; b <= 1; b++) {
                 if (a == 0 && b == 0) continue;
                 Block next = ay >= ax && ay >= az ? start.getRelative(a, 0, b) : ax >= az ? start.getRelative(0, a, b) : start.getRelative(a, b, 0);
-                if (!Bukkit.isOwnedByCurrentRegion(next)) continue;
+                if (!PaperWorld.scheduler().isOwnedByCurrentThread(next.getLocation())) continue;
                 if (next.getType().isAir() || next.getType().getHardness() < 0 || next.isLiquid()) continue;
                 if (CraftEngineBlocks.isCustomBlock(next)) continue;
                 if (!useEnergy(tool, energyPerBlock)) return;
@@ -178,7 +177,7 @@ public final class GearTools implements Listener {
         if (event.getProjectile() instanceof AbstractArrow arrow) {
             arrow.setPickupStatus(AbstractArrow.PickupStatus.CREATIVE_ONLY);
         }
-        if (event.getEntity() instanceof Player player) player.getScheduler().run(this.plugin, task -> player.updateInventory(), null);
+        if (event.getEntity() instanceof Player player) PaperWorld.scheduler().run(player, () -> player.updateInventory(), null);
     }
 
     /** {@code mekanized:flamethrower}: a burst of fire in front, for {@code hydrogen-per-use} (5 mB), doing {@code damage} (2.0). */
@@ -294,7 +293,7 @@ public final class GearTools implements Listener {
         Block target = targetBlock(player, range);
         if (target == null) return;
         Location destination = target.getLocation().add(0.5, 1, 0.5);
-        if (!Bukkit.isOwnedByCurrentRegion(destination.clone().add(0, 1, 0))) return;
+        if (!PaperWorld.scheduler().isOwnedByCurrentThread(destination.clone().add(0, 1, 0))) return;
         if (!destination.getBlock().isPassable() || !destination.clone().add(0, 1, 0).getBlock().isPassable()) return;
         long cost = Frequencies.cost(player.getLocation().distance(destination));
         if (!useEnergy(tool, cost)) {
@@ -316,7 +315,7 @@ public final class GearTools implements Listener {
         Location at = eye.clone();
         for (int i = 0; i < range * 4; i++) {
             at.add(step);
-            if (!Bukkit.isOwnedByCurrentRegion(at)) return null;
+            if (!PaperWorld.scheduler().isOwnedByCurrentThread(at)) return null;
             Block block = at.getBlock();
             if (!block.isPassable()) return block;
         }

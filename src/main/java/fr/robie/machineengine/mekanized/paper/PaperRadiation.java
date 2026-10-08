@@ -60,7 +60,7 @@ public final class PaperRadiation implements Listener {
         radiation.load();
         Bukkit.getPluginManager().registerEvents(radiation, plugin);
         long[] seconds = {0};
-        Bukkit.getGlobalRegionScheduler().runAtFixedRate(plugin, task -> {
+        PaperWorld.scheduler().runTimer(() -> {
             Radiation.decay();
             if (++seconds[0] % SAVE_SECONDS == 0) radiation.save();
         }, 20, 20);
@@ -73,7 +73,7 @@ public final class PaperRadiation implements Listener {
     }
 
     private void start(Player player) {
-        player.getScheduler().runAtFixedRate(this.plugin, task -> {
+        PaperWorld.scheduler().runTimer(player, () -> {
             if (player.isOnline() && !player.isDead()) expose(player);
         }, null, 20, 20);
     }

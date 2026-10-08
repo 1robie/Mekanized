@@ -1,5 +1,6 @@
 package fr.robie.machineengine.mekanized.paper.command;
 
+import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
@@ -21,7 +22,6 @@ import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
 import net.momirealms.craftengine.core.util.Key;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
@@ -47,12 +47,12 @@ final class MekanizedDebugCommands {
         root
                 .then(PositionArguments.optionalPosition(Commands.literal("test").requires(MekanizedDebugCommands::admin), PositionArguments.Default.PLACEMENT,
                         (context, world, x, y, z) -> {
-                            Bukkit.getRegionScheduler().execute(this.plugin, new Location(world, x, y, z), () -> test(context, world, x, y, z));
+                            PaperWorld.scheduler().run(new Location(world, x, y, z), () -> test(context, world, x, y, z));
                             return Command.SINGLE_SUCCESS;
                         }))
                 .then(PositionArguments.optionalPosition(Commands.literal("place-set").requires(MekanizedDebugCommands::admin), PositionArguments.Default.PLACEMENT,
                         (context, world, x, y, z) -> {
-                            Bukkit.getRegionScheduler().execute(this.plugin, new Location(world, x, y, z), () -> {
+                            PaperWorld.scheduler().run(new Location(world, x, y, z), () -> {
                                 boolean placed = place(world, x, y, z, "crusher") && place(world, x + 1, y, z, "basic_energy_cube")
                                         && place(world, x + 2, y, z, "basic_universal_cable");
                                 MekanizedCommands.reply(context, "mekanized place-set: " + (placed ? "crusher, energy cube, cable placed" : "placement failed"));
@@ -61,12 +61,12 @@ final class MekanizedDebugCommands {
                         }))
                 .then(PositionArguments.optionalPosition(Commands.literal("test-chemistry").requires(MekanizedDebugCommands::admin), PositionArguments.Default.PLACEMENT,
                         (context, world, x, y, z) -> {
-                            Bukkit.getRegionScheduler().execute(this.plugin, new Location(world, x, y, z), () -> testChemistry(context, world, x, y, z));
+                            PaperWorld.scheduler().run(new Location(world, x, y, z), () -> testChemistry(context, world, x, y, z));
                             return Command.SINGLE_SUCCESS;
                         }))
                 .then(PositionArguments.optionalPosition(Commands.literal("test-cable").requires(MekanizedDebugCommands::admin), PositionArguments.Default.PLACEMENT,
                         (context, world, x, y, z) -> {
-                            Bukkit.getRegionScheduler().execute(this.plugin, new Location(world, x, y, z), () -> testCable(context, world, x, y, z));
+                            PaperWorld.scheduler().run(new Location(world, x, y, z), () -> testCable(context, world, x, y, z));
                             return Command.SINGLE_SUCCESS;
                         }));
     }
@@ -96,7 +96,7 @@ final class MekanizedDebugCommands {
             transaction.commit();
         }
         MekanizedCommands.reply(context, "mekanized test: enrichment chamber fed with 20 kJ and 1 osmium ore; result in 11 s");
-        Bukkit.getRegionScheduler().runDelayed(this.plugin, at, task -> {
+        PaperWorld.scheduler().runLater(at, () -> {
             MachineInstance machine = MachineEngine.get().machineAt(position).orElse(null);
             if (machine == null) return;
             long dust = 0;
@@ -131,7 +131,7 @@ final class MekanizedDebugCommands {
             transaction.commit();
         }
         MekanizedCommands.reply(context, "mekanized test-cable: cube > cable > chamber with 1 osmium ore; result in 12 s");
-        Bukkit.getRegionScheduler().runDelayed(this.plugin, new Location(world, x, y, z), task -> {
+        PaperWorld.scheduler().runLater(new Location(world, x, y, z), () -> {
             MachineInstance machine = MachineEngine.get().machineAt(chamberAt).orElse(null);
             if (machine == null) return;
             long dust = 0;
@@ -164,7 +164,7 @@ final class MekanizedDebugCommands {
             transaction.commit();
         }
         MekanizedCommands.reply(context, "mekanized test-chemistry: separator > tube > chemical tank with 1000 mB of water; result in 30 s");
-        Bukkit.getRegionScheduler().runDelayed(this.plugin, new Location(world, x, y, z), task -> {
+        PaperWorld.scheduler().runLater(new Location(world, x, y, z), () -> {
             WorldPosition tankAt = WorldPosition.of(world.getKey(), x + 2, y, z);
             this.plugin.getLogger().info("mekanized test-chemistry: tank " + contents(tankAt, "chemical") + ", separator "
                     + contents(separatorAt, "output") + " (expected 1000 mB hydrogen and 500 mB oxygen in all)");
@@ -185,7 +185,7 @@ final class MekanizedDebugCommands {
 
     /** Places a Mekanized block; false (nothing placed) if the position belongs to another Folia region. */
     static boolean place(World world, int x, int y, int z, String block) {
-        if (!Bukkit.isOwnedByCurrentRegion(world, x >> 4, z >> 4)) return false;
+        if (!PaperWorld.scheduler().isOwnedByCurrentThread(world, x >> 4, z >> 4)) return false;
         return CraftEngineBlocks.place(new Location(world, x, y, z), Key.of(MekanizedContent.NAMESPACE, block), false);
     }
 }

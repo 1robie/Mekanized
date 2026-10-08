@@ -17,6 +17,7 @@ import fr.robie.machineengine.api.addon.AddonRegistration;
 import fr.robie.machineengine.mekanized.machine.MekanizedRegistry;
 import fr.robie.machineengine.mekanized.paper.PaperFurnaceRecipes;
 import fr.robie.machineengine.mekanized.paper.PaperResourceNames;
+import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.mekanized.paper.persist.LineStore;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -100,6 +101,8 @@ public final class MekanizedPlugin extends JavaPlugin {
     @Override
     @SuppressWarnings("UnstableApiUsage")
     public void onEnable() {
+        // First: everything below may schedule (D35).
+        PaperWorld.install(MachineEngine.scheduler(this));
         MekanizedItemBehaviors.install();
         PaperUtility.install(this);
         PaperAutomation.install(this);

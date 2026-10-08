@@ -1,5 +1,6 @@
 package fr.robie.machineengine.mekanized.paper.gear;
 
+import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.api.platform.Nms;
 import fr.robie.machineengine.api.platform.PlayerInput;
 import java.util.List;
@@ -46,19 +47,17 @@ public final class SuitTicker implements Listener {
             PotionEffectType.NAUSEA, PotionEffectType.BLINDNESS, PotionEffectType.SLOWNESS, PotionEffectType.MINING_FATIGUE,
             PotionEffectType.WEAKNESS, PotionEffectType.DARKNESS);
 
-    private final Plugin plugin;
     /** Players this plugin let fly (gravitational modulating unit). */
     private final Set<UUID> flying = ConcurrentHashMap.newKeySet();
 
     /** Players whose step height the servos raised. */
     private final Set<UUID> stepping = ConcurrentHashMap.newKeySet();
 
-    private SuitTicker(Plugin plugin) {
-        this.plugin = plugin;
+    private SuitTicker() {
     }
 
     public static void install(Plugin plugin) {
-        SuitTicker ticker = new SuitTicker(plugin);
+        SuitTicker ticker = new SuitTicker();
         Bukkit.getPluginManager().registerEvents(ticker, plugin);
         for (Player player : Bukkit.getOnlinePlayers()) ticker.start(player);
     }
@@ -70,7 +69,7 @@ public final class SuitTicker implements Listener {
 
     private void start(Player player) {
         long[] tick = {0};
-        player.getScheduler().runAtFixedRate(this.plugin, task -> {
+        PaperWorld.scheduler().runTimer(player, () -> {
             if (!player.isOnline()) return;
             jetpack(player);
             if (++tick[0] % 5 == 0) magnet(player);

@@ -13,7 +13,6 @@ import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.api.paper.PositionArguments;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -25,12 +24,10 @@ import org.bukkit.plugin.Plugin;
  */
 @SuppressWarnings("UnstableApiUsage")
 public final class MekanizedCommands {
-    private final Plugin plugin;
     private final MekanizedDebugCommands debug;
     private final EngineCheckCommands engineChecks;
 
     public MekanizedCommands(Plugin plugin) {
-        this.plugin = plugin;
         this.debug = new MekanizedDebugCommands(plugin);
         this.engineChecks = new EngineCheckCommands(plugin);
     }
@@ -41,7 +38,7 @@ public final class MekanizedCommands {
         for (String name : MekanizedStructures.STRUCTURES.keySet()) {
             build.then(PositionArguments.optionalPosition(Commands.literal(name), PositionArguments.Default.PLACEMENT,
                     (context, world, x, y, z) -> {
-                        Bukkit.getRegionScheduler().execute(this.plugin, new Location(world, x, y, z), () -> {
+                        PaperWorld.scheduler().run(new Location(world, x, y, z), () -> {
                             String problem = MekanizedStructures.build(name, world, x, y, z);
                             reply(context, problem == null ? "mekanized build: " + name.replace('_', ' ') + " built at " + x + " " + y + " " + z
                                     : "mekanized build: " + problem);
@@ -63,7 +60,7 @@ public final class MekanizedCommands {
                         .requires(source -> source.getSender() instanceof Player)
                         .then(Commands.argument("name", StringArgumentType.word())
                                 .executes(context -> {
-                                    PaperAutomation.setFrequency(this.plugin, (Player) context.getSource().getSender(),
+                                    PaperAutomation.setFrequency((Player) context.getSource().getSender(),
                                             StringArgumentType.getString(context, "name"));
                                     return Command.SINGLE_SUCCESS;
                                 })))

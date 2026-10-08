@@ -2,6 +2,7 @@ package fr.robie.machineengine.mekanized.paper;
 
 import fr.robie.machineengine.api.MachineEngine;
 import fr.robie.machineengine.api.machine.MachineInstance;
+import fr.robie.machineengine.api.platform.Scheduler;
 import fr.robie.machineengine.api.world.WorldPosition;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
@@ -11,11 +12,29 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /** Bukkit blocks, worlds and players to MachineEngine positions and machines, shared by the Paper-side classes. */
 public final class PaperWorld {
+    private static volatile @Nullable Scheduler scheduler;
+
     private PaperWorld() {
+    }
+
+    /** Mekanized's scheduler (D35): its tasks stop when Mekanized is disabled. Set first in {@code onEnable}. */
+    public static void install(@NotNull Scheduler mekanized) {
+        scheduler = mekanized;
+    }
+
+    /**
+     * @return Mekanized's scheduler
+     * @throws IllegalStateException before Mekanized has enabled
+     */
+    public static @NotNull Scheduler scheduler() {
+        Scheduler current = scheduler;
+        if (current == null) throw new IllegalStateException("Mekanized has not enabled yet: no scheduler");
+        return current;
     }
 
     /** The engine position of {@code block}. */
@@ -40,7 +59,7 @@ public final class PaperWorld {
     /** Whether the current thread owns {@code position} (Folia: its region; Paper: the main thread); false while its world is not loaded. */
     public static boolean isOwnedByCurrentThread(WorldPosition position) {
         World world = world(position);
-        return world != null && Bukkit.isOwnedByCurrentRegion(world, position.position().x() >> 4, position.position().z() >> 4);
+        return world != null && scheduler().isOwnedByCurrentThread(world, position.position().x() >> 4, position.position().z() >> 4);
     }
 
     /** The loaded world with this key, or {@code null}. */

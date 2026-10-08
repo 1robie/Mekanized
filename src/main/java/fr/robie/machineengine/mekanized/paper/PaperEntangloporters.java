@@ -11,7 +11,6 @@ import fr.robie.machineengine.mekanized.machine.SaveLines;
 import fr.robie.machineengine.mekanized.paper.persist.LineStore;
 import fr.robie.machineengine.api.paper.PaperItems;
 import net.kyori.adventure.key.Key;
-import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Nullable;
@@ -36,7 +35,7 @@ public final class PaperEntangloporters {
         owner = plugin;
         file = plugin.getDataFolder().toPath().resolve("entangloporters.txt");
         load();
-        Bukkit.getGlobalRegionScheduler().runAtFixedRate(plugin, task -> {
+        PaperWorld.scheduler().runTimer(() -> {
             if (Entangloporters.takeDirty()) save();
         }, SAVE_TICKS, SAVE_TICKS);
     }

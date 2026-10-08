@@ -10,7 +10,6 @@ import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.api.paper.PaperItems;
 import net.momirealms.craftengine.bukkit.api.CraftEngineBlocks;
 import net.momirealms.craftengine.core.util.Key;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
@@ -129,7 +128,7 @@ public final class MekanizedStructures {
         if (structure == null) return "unknown structure " + name;
         // Folia: the whole structure must belong to the region running the command.
         for (List<Integer> at : structure.blocks().keySet()) {
-            if (!Bukkit.isOwnedByCurrentRegion(world, (x + at.get(0)) >> 4, (z + at.get(2)) >> 4)) {
+            if (!PaperWorld.scheduler().isOwnedByCurrentThread(world, (x + at.get(0)) >> 4, (z + at.get(2)) >> 4)) {
                 return "the structure crosses into another region: build it a few blocks away";
             }
         }

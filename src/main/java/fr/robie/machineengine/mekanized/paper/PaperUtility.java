@@ -57,10 +57,7 @@ public final class PaperUtility implements Listener {
     /** Crafting grids already looked up: recipes do not change while the server runs (bounded). */
     private static final Map<List<ResourceVariant>, Optional<ResourceStack>> CRAFTED = new ConcurrentHashMap<>();
 
-    private final Plugin plugin;
-
-    private PaperUtility(Plugin plugin) {
-        this.plugin = plugin;
+    private PaperUtility() {
     }
 
     public static void install(Plugin plugin) {
@@ -69,7 +66,7 @@ public final class PaperUtility implements Listener {
             return stack == null ? null : PaperItems.toResource(stack, id).variant();
         });
         UtilityBehaviors.setCrafting(PaperUtility::craft);
-        PaperUtility listener = new PaperUtility(plugin);
+        PaperUtility listener = new PaperUtility();
         Bukkit.getPluginManager().registerEvents(listener, plugin);
         for (Key type : MachineEngine.get().registries().registry(Registries.MACHINE_TYPE).keys()) {
             if (UtilityMachines.isBin(type)) MachineInteractions.register(type, BIN);
@@ -194,7 +191,7 @@ public final class PaperUtility implements Listener {
 
     /** On the player's own thread (Folia: the region they are in), which owns the block they stand on. */
     private void startCharging(Player player) {
-        player.getScheduler().runAtFixedRate(this.plugin, task -> charge(player), null, CHARGE_EVERY, CHARGE_EVERY);
+        PaperWorld.scheduler().runTimer(player, () -> charge(player), null, CHARGE_EVERY, CHARGE_EVERY);
     }
 
     private static void charge(Player player) {

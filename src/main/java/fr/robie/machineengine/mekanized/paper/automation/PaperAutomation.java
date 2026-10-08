@@ -120,8 +120,8 @@ public final class PaperAutomation implements Listener {
     // -- frequencies --------------------------------------------------------------------------
 
     /** Sets the frequency of the teleporter or QIO block {@code player} looks at (on the player's thread). */
-    public static void setFrequency(Plugin plugin, Player player, String frequency) {
-        player.getScheduler().run(plugin, task -> {
+    public static void setFrequency(Player player, String frequency) {
+        PaperWorld.scheduler().run(player, () -> {
             Block block = player.getTargetBlockExact(6);
             MachineInstance machine = block == null ? null : PaperWorld.machine(block);
             ItemStack hand = player.getInventory().getItemInMainHand();
@@ -521,7 +521,7 @@ public final class PaperAutomation implements Listener {
             return;
         }
         if (index >= arrays.size()) {
-            player.getScheduler().run(this.plugin, task -> {
+            PaperWorld.scheduler().run(player, () -> {
                 for (ItemStack left : PaperItems.toItemStacks(new ResourceStack(variant, amount))) PaperWorld.give(player, left);
                 player.sendActionBar(Component.text("The drive arrays are full", NamedTextColor.RED));
                 refresh(player);
@@ -534,7 +534,7 @@ public final class PaperAutomation implements Listener {
             depositInto(player, arrays, index + 1, variant, amount);
             return;
         }
-        Bukkit.getRegionScheduler().run(this.plugin, location, task -> {
+        PaperWorld.scheduler().run(location, () -> {
             long inserted = 0;
             MachineInstance array = PaperWorld.machine(position);
             if (array != null) {
@@ -555,7 +555,7 @@ public final class PaperAutomation implements Listener {
             Frequencies.Array array = Frequencies.arrays().get(position);
             Location location = PaperWorld.location(position);
             if (array == null || location == null || !array.contents().containsKey(variant)) continue;
-            Bukkit.getRegionScheduler().run(this.plugin, location, task -> {
+            PaperWorld.scheduler().run(location, () -> {
                 long taken = 0;
                 MachineInstance machine = PaperWorld.machine(position);
                 if (machine != null) {
@@ -567,7 +567,7 @@ public final class PaperAutomation implements Listener {
                     if (taken > 0) machine.wake(WakeReason.RESOURCE_EXTRACTED);
                 }
                 long finalTaken = taken;
-                player.getScheduler().run(this.plugin, give -> {
+                PaperWorld.scheduler().run(player, () -> {
                     for (ItemStack stack : PaperItems.toItemStacks(new ResourceStack(variant, finalTaken))) PaperWorld.give(player, stack);
                     refresh(player);
                 }, null);
@@ -578,7 +578,7 @@ public final class PaperAutomation implements Listener {
 
     /** Redraws the open dashboard once the arrays published their new contents. */
     private void refresh(Player player) {
-        player.getScheduler().runDelayed(this.plugin, task -> {
+        PaperWorld.scheduler().runLater(player, () -> {
             if (Nms.get().topInventory(player).getHolder(false) instanceof Dashboard dashboard) dashboard.render();
         }, null, 21);
     }
