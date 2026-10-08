@@ -1,13 +1,13 @@
 package fr.robie.machineengine.mekanized.paper.gear;
 
+import fr.robie.machineengine.api.player.MachinePlayer;
+import fr.robie.machineengine.mekanized.MekanizedPlayers;
 import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.api.platform.Nms;
 import fr.robie.machineengine.api.platform.PlayerInput;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
@@ -46,12 +46,6 @@ public final class SuitTicker implements Listener {
     private static final Set<PotionEffectType> HARMFUL = Set.of(PotionEffectType.POISON, PotionEffectType.WITHER, PotionEffectType.HUNGER,
             PotionEffectType.NAUSEA, PotionEffectType.BLINDNESS, PotionEffectType.SLOWNESS, PotionEffectType.MINING_FATIGUE,
             PotionEffectType.WEAKNESS, PotionEffectType.DARKNESS);
-
-    /** Players this plugin let fly (gravitational modulating unit). */
-    private final Set<UUID> flying = ConcurrentHashMap.newKeySet();
-
-    /** Players whose step height the servos raised. */
-    private final Set<UUID> stepping = ConcurrentHashMap.newKeySet();
 
     private SuitTicker() {
     }
@@ -159,14 +153,17 @@ public final class SuitTicker implements Listener {
         // Flight: the gravitational modulating unit, 1 kJ a tick while flying.
         boolean canFly = modules(chest).contains("gravitational_modulating_unit")
                 && energy(chest) >= moduleEnergy("gravitational_modulating_unit");
+        MachinePlayer data = MekanizedPlayers.of(player).orElse(null);
+        if (data == null) return;
         if (canFly) {
             if (!player.getAllowFlight()) {
                 player.setAllowFlight(true);
-                this.flying.add(player.getUniqueId());
+                data.set(MekanizedPlayers.SUIT_FLIGHT, true);
             }
             if (player.isFlying()) useEnergy(chest, moduleEnergy("gravitational_modulating_unit"));
-        } else if (this.flying.remove(player.getUniqueId()) && player.getGameMode() != GameMode.CREATIVE
+        } else if (data.get(MekanizedPlayers.SUIT_FLIGHT) && player.getGameMode() != GameMode.CREATIVE
                 && player.getGameMode() != GameMode.SPECTATOR) {
+            data.set(MekanizedPlayers.SUIT_FLIGHT, false);
             player.setFlying(false);
             player.setAllowFlight(false);
         }
@@ -196,7 +193,7 @@ public final class SuitTicker implements Listener {
         }
         // Motorized servos: step up a full block (Minecraft 1.20.5+).
         boolean servo = modules(legs).contains("motorized_servo_unit") && energy(legs) >= moduleEnergy("motorized_servo_unit");
-        stepHeight(player, servo ? 1.1 : -1);
+        stepHeight(player, data, servo ? 1.1 : -1);
         if (modules(legs).contains("hydrostatic_repulsor_unit") && player.isInWater()
                 && useEnergy(legs, moduleEnergy("hydrostatic_repulsor_unit"))) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, 40, 0, true, false, false));
@@ -209,8 +206,9 @@ public final class SuitTicker implements Listener {
     }
 
     /** Sets the step height ({@code height} below 0: back to normal, if it was raised). */
-    private void stepHeight(Player player, double height) {
-        if (height < 0 && !this.stepping.remove(player.getUniqueId())) return;
+    private static void stepHeight(Player player, MachinePlayer data, double height) {
+        if (height < 0 && !data.get(MekanizedPlayers.RAISED_STEP)) return;
+        data.set(MekanizedPlayers.RAISED_STEP, height >= 0);
         Attribute attribute = null;
         for (String key : List.of("step_height", "generic.step_height")) {
             attribute = Registry.ATTRIBUTE.get(NamespacedKey.minecraft(key));
@@ -219,7 +217,6 @@ public final class SuitTicker implements Listener {
         var instance = attribute == null ? null : player.getAttribute(attribute);
         if (instance == null) return;
         instance.setBaseValue(height < 0 ? 0.6 : height);
-        if (height >= 0) this.stepping.add(player.getUniqueId());
     }
 
     /**

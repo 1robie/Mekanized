@@ -4074,6 +4074,8 @@ lang:
     item.mekanized.upgrade_speed: Speed Upgrade
     item.mekanized.upgrade_stone_generator: Stone Generator Upgrade
     item.mekanized.yellow_cake_uranium: Yellow Cake Uranium
+    setting.mekanized.radiation_hud: Radiation display
+    setting.mekanized.radiation_hud.description: The MekaSuit helmet shows radiation and dose in the action bar
   enws:
     block.mekanized.advanced_bin: Bin Nguyen
     block.mekanized.advanced_energy_cube: 'Emotional Containment Prism: Advanced'
@@ -7056,6 +7058,8 @@ lang:
     item.mekanized.upgrade_speed: Mise à niveau de la vitesse
     item.mekanized.upgrade_stone_generator: Mise à niveau du générateur de roche
     item.mekanized.yellow_cake_uranium: Yellowcake d'uranium
+    setting.mekanized.radiation_hud: Affichage des radiations
+    setting.mekanized.radiation_hud.description: Le casque MekaSuit affiche les radiations et la dose dans la barre d'action
   he_il:
     block.mekanized.advanced_bin: סל מתקדם
     block.mekanized.advanced_chemical_tank: מיכל כימיקלים מתקדם

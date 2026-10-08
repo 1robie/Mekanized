@@ -92,6 +92,7 @@ public final class MekanizedContent {
         context.resourceTypes().alias(key("fluid/water"), Fluids.WATER_KEY);
         context.resourceTypes().alias(key("fluid/lava"), Fluids.LAVA_KEY);
         context.modifierTypes().alias(key("process_cost/energy"), MekanizedRegistry.ENERGY_COST.key());
+        MekanizedPlayers.register(context);
         context.resourceCategories().register(HEAT_CATEGORY);
         context.resourceTypes().register(HEAT);
         context.resourceCategories().register(CHEMICAL);

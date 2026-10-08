@@ -4,7 +4,8 @@ import fr.robie.machineengine.mekanized.paper.gear.GearItems;
 import java.util.List;
 import java.util.ArrayList;
 import fr.robie.machineengine.mekanized.paper.gear.GearBehaviors;
-import fr.robie.machineengine.mekanized.MekanizedContent;
+import fr.robie.machineengine.mekanized.MekanizedPlayers;
+import fr.robie.machineengine.api.player.MachinePlayer;
 
 import fr.robie.machineengine.mekanized.machine.Radiation;
 import fr.robie.machineengine.mekanized.machine.RadiationSettings;
@@ -15,14 +16,11 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -38,12 +36,11 @@ import java.util.concurrent.ThreadLocalRandom;
  * The player side of {@link Radiation}: each second a player takes in the radiation where they stand
  * (less what hazmat pieces and MekaSuit radiation shielding units stop, a quarter each by default), their dose
  * fades slowly, and a high dose hurts. The Geiger counter reads the radiation, the dosimeter the dose;
- * a MekaSuit helmet with the matching unit shows them all the time. Sources are saved in
- * {@code plugins/Mekanized/radiation.txt}.
+ * a MekaSuit helmet with the matching unit shows them all the time (unless the player turned off the setting
+ * {@code mekanized:radiation_hud}). The dose is player data ({@link MekanizedPlayers#RADIATION_DOSE}, reset on
+ * death by MachineEngine); sources are saved in {@code plugins/Mekanized/radiation.txt}.
  */
 public final class PaperRadiation implements Listener {
-    /** The player's dose in Sv. */
-    static final NamespacedKey DOSE = new NamespacedKey(MekanizedContent.NAMESPACE, "radiation_dose");
     private static final long SAVE_SECONDS = 30;
 
     private final Plugin plugin;
@@ -80,12 +77,14 @@ public final class PaperRadiation implements Listener {
 
     /** One second of radiation for {@code player}. */
     private void expose(Player player) {
+        MachinePlayer data = MekanizedPlayers.of(player).orElse(null);
+        if (data == null) return;
         Location at = player.getLocation();
         double level = level(at);
-        double dose = Radiation.nextDose(dose(player), level, shielding(player));
-        player.getPersistentDataContainer().set(DOSE, PersistentDataType.DOUBLE, dose);
+        double shielding = shielding(player);
+        double dose = data.update(MekanizedPlayers.RADIATION_DOSE, old -> Radiation.nextDose(old, level, shielding));
         ItemStack helmet = player.getInventory().getHelmet();
-        if ("mekasuit_helmet".equals(GearItems.id(helmet))) {
+        if ("mekasuit_helmet".equals(GearItems.id(helmet)) && data.get(MekanizedPlayers.RADIATION_HUD)) {
             var modules = GearItems.modules(helmet);
             String shown = (modules.contains("geiger_unit") ? "Radiation " + Radiation.format(level, "/h") : "")
                     + (modules.contains("geiger_unit") && modules.contains("dosimeter_unit") ? " - " : "")
@@ -107,9 +106,9 @@ public final class PaperRadiation implements Listener {
         return Radiation.levelAt(Key.key(at.getWorld().getKey().asString()), at.getX(), at.getY() + 1, at.getZ());
     }
 
+    /** The player's dose in Sv ({@link MekanizedPlayers#RADIATION_DOSE}). */
     static double dose(Player player) {
-        Double dose = player.getPersistentDataContainer().get(DOSE, PersistentDataType.DOUBLE);
-        return dose == null ? 0 : dose;
+        return MekanizedPlayers.of(player).map(data -> data.get(MekanizedPlayers.RADIATION_DOSE)).orElse(0.0);
     }
 
     /**
@@ -125,11 +124,6 @@ public final class PaperRadiation implements Listener {
             protections.add(shielding.protection());
         }
         return Radiation.shielding(protections);
-    }
-
-    @EventHandler
-    public void onDeath(PlayerDeathEvent event) {
-        event.getEntity().getPersistentDataContainer().remove(DOSE);
     }
 
     /**

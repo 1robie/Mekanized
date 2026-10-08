@@ -1,5 +1,7 @@
 package fr.robie.machineengine.mekanized.paper.automation;
 
+import fr.robie.machineengine.api.player.MachinePlayer;
+import fr.robie.machineengine.mekanized.MekanizedPlayers;
 import fr.robie.machineengine.mekanized.paper.gear.GearItems;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 
@@ -67,8 +69,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * The Paper side of the automation machines: frequencies ({@code /mekanized frequency}), teleporting players
@@ -87,7 +87,6 @@ public final class PaperAutomation implements Listener {
 
     private final Plugin plugin;
     private final Path teleporterFile;
-    private final Map<UUID, Long> lastTeleport = new ConcurrentHashMap<>();
 
     private PaperAutomation(Plugin plugin) {
         this.plugin = plugin;
@@ -146,15 +145,15 @@ public final class PaperAutomation implements Listener {
     /** A player standing on a formed teleporter goes to the other one on its frequency. */
     private void steppedOn(MachineInstance source, Entity entity) {
         if (!(entity instanceof Player player)) return;
-        Long last = this.lastTeleport.get(player.getUniqueId());
-        if (last != null && System.currentTimeMillis() - last < TeleporterSettings.cooldownMs) return;
+        MachinePlayer data = MekanizedPlayers.of(player).orElse(null);
+        if (data == null || System.currentTimeMillis() - data.get(MekanizedPlayers.LAST_TELEPORT) < TeleporterSettings.cooldownMs) return;
         WorldPosition from = source.position();
         Frequencies.Teleporter teleporter = Frequencies.teleporters().get(from);
         if (teleporter == null || !teleporter.formed()) return;
         WorldPosition to = Frequencies.destination(from, teleporter.frequency());
         if (to == null) {
             player.sendActionBar(Component.text("No other teleporter on " + teleporter.frequency(), NamedTextColor.RED));
-            this.lastTeleport.put(player.getUniqueId(), System.currentTimeMillis());
+            data.set(MekanizedPlayers.LAST_TELEPORT, System.currentTimeMillis());
             return;
         }
         World world = PaperWorld.world(to);
@@ -164,12 +163,12 @@ public final class PaperAutomation implements Listener {
         try (Transaction transaction = context.transactions().openOuter()) {
             if (!MachineParts.pay(context.storage("energy"), cost, transaction)) {
                 player.sendActionBar(Component.text(String.format(Locale.ROOT, "The teleporter needs %,d J", cost), NamedTextColor.RED));
-                this.lastTeleport.put(player.getUniqueId(), System.currentTimeMillis());
+                data.set(MekanizedPlayers.LAST_TELEPORT, System.currentTimeMillis());
                 return;
             }
             transaction.commit();
         }
-        this.lastTeleport.put(player.getUniqueId(), System.currentTimeMillis());
+        data.set(MekanizedPlayers.LAST_TELEPORT, System.currentTimeMillis());
         Location target = new Location(world, to.position().x() + 0.5, to.position().y() + 1, to.position().z() + 0.5,
                 player.getLocation().getYaw(), player.getLocation().getPitch());
         player.teleportAsync(target);
@@ -219,9 +218,9 @@ public final class PaperAutomation implements Listener {
             new Dashboard(frequency, 0).open(player);
             return;
         }
-        Long last = this.lastTeleport.get(player.getUniqueId());
-        if (last != null && System.currentTimeMillis() - last < TeleporterSettings.cooldownMs) return;
-        this.lastTeleport.put(player.getUniqueId(), System.currentTimeMillis());
+        MachinePlayer data = MekanizedPlayers.of(player).orElse(null);
+        if (data == null || System.currentTimeMillis() - data.get(MekanizedPlayers.LAST_TELEPORT) < TeleporterSettings.cooldownMs) return;
+        data.set(MekanizedPlayers.LAST_TELEPORT, System.currentTimeMillis());
         WorldPosition from = PaperWorld.position(player.getLocation().getBlock());
         WorldPosition to = Frequencies.teleporters().entrySet().stream()
                 .filter(entry -> entry.getValue().formed() && entry.getValue().frequency().equals(frequency))
