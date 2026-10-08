@@ -41,7 +41,7 @@ final class ShippedBlocks {
         Map<String, Map<String, Object>> all = new HashMap<>();
         ShippedConfig.forEach("blocks", (id, block) -> {
             Map<String, Object> behavior = block.get("behavior") instanceof Map<?, ?> map ? new HashMap<>((Map<String, Object>) map) : null;
-            if (MACHINE_TEMPLATE.equals(block.get("template"))) {
+            if (ShippedConfig.usesTemplate(block, MACHINE_TEMPLATE)) {
                 // What machineengine:block/machine gives (the engine's templates.yml); the block's keys win.
                 if (behavior == null) behavior = new HashMap<>();
                 behavior.putIfAbsent("type", "machineengine:machine");

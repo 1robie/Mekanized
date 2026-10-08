@@ -79,96 +79,6 @@ items:
     behavior:
       type: block_item
       block: mekanized:electric_pump
-  mekanized:display/basic_chemical_tank:
-    model: mekanized:block/chemical_tank/basic
-  mekanized:basic_chemical_tank:
-    data:
-      item_name: <!i><lang:block.mekanized.basic_chemical_tank>
-    model: mekanized:block/chemical_tank/basic
-    behavior:
-      type: block_item
-      block: mekanized:basic_chemical_tank
-  mekanized:display/basic_fluid_tank:
-    model: mekanized:block/fluid_tank
-  mekanized:basic_fluid_tank:
-    data:
-      item_name: <!i><lang:block.mekanized.basic_fluid_tank>
-    model: mekanized:block/fluid_tank
-    behavior:
-      type: block_item
-      block: mekanized:basic_fluid_tank
-  mekanized:display/advanced_chemical_tank:
-    model: mekanized:block/chemical_tank/advanced
-  mekanized:advanced_chemical_tank:
-    data:
-      item_name: <!i><lang:block.mekanized.advanced_chemical_tank>
-    model: mekanized:block/chemical_tank/advanced
-    behavior:
-      type: block_item
-      block: mekanized:advanced_chemical_tank
-  mekanized:display/advanced_fluid_tank:
-    model: mekanized:block/fluid_tank
-  mekanized:advanced_fluid_tank:
-    data:
-      item_name: <!i><lang:block.mekanized.advanced_fluid_tank>
-    model: mekanized:block/fluid_tank
-    behavior:
-      type: block_item
-      block: mekanized:advanced_fluid_tank
-  mekanized:display/elite_chemical_tank:
-    model: mekanized:block/chemical_tank/elite
-  mekanized:elite_chemical_tank:
-    data:
-      item_name: <!i><lang:block.mekanized.elite_chemical_tank>
-    model: mekanized:block/chemical_tank/elite
-    behavior:
-      type: block_item
-      block: mekanized:elite_chemical_tank
-  mekanized:display/elite_fluid_tank:
-    model: mekanized:block/fluid_tank
-  mekanized:elite_fluid_tank:
-    data:
-      item_name: <!i><lang:block.mekanized.elite_fluid_tank>
-    model: mekanized:block/fluid_tank
-    behavior:
-      type: block_item
-      block: mekanized:elite_fluid_tank
-  mekanized:display/ultimate_chemical_tank:
-    model: mekanized:block/chemical_tank/ultimate
-  mekanized:ultimate_chemical_tank:
-    data:
-      item_name: <!i><lang:block.mekanized.ultimate_chemical_tank>
-    model: mekanized:block/chemical_tank/ultimate
-    behavior:
-      type: block_item
-      block: mekanized:ultimate_chemical_tank
-  mekanized:display/ultimate_fluid_tank:
-    model: mekanized:block/fluid_tank
-  mekanized:ultimate_fluid_tank:
-    data:
-      item_name: <!i><lang:block.mekanized.ultimate_fluid_tank>
-    model: mekanized:block/fluid_tank
-    behavior:
-      type: block_item
-      block: mekanized:ultimate_fluid_tank
-  mekanized:display/creative_chemical_tank:
-    model: mekanized:block/chemical_tank/creative
-  mekanized:creative_chemical_tank:
-    data:
-      item_name: <!i><lang:block.mekanized.creative_chemical_tank>
-    model: mekanized:block/chemical_tank/creative
-    behavior:
-      type: block_item
-      block: mekanized:creative_chemical_tank
-  mekanized:display/creative_fluid_tank:
-    model: mekanized:block/fluid_tank
-  mekanized:creative_fluid_tank:
-    data:
-      item_name: <!i><lang:block.mekanized.creative_fluid_tank>
-    model: mekanized:block/fluid_tank
-    behavior:
-      type: block_item
-      block: mekanized:creative_fluid_tank
   mekanized:electrolytic_core:
     data:
       item_name: <!i><lang:item.mekanized.electrolytic_core>
@@ -483,239 +393,6 @@ blocks:
           appearance: default
         facing=west:
           appearance: default
-  mekanized:basic_chemical_tank:
-    template: machineengine:block/machine
-    behavior:
-      storages:
-        chemical: { capacity: 64000 }
-      ports:
-        out: { rate: 1000 }
-      display_item: mekanized:display/basic_chemical_tank
-      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_chemical_tank
-          model:
-            path: mekanized:block/display_empty/shared/chemical_tank
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
-  mekanized:basic_fluid_tank:
-    template: machineengine:block/machine
-    behavior:
-      storages:
-        fluid: { capacity: 32000 }
-      ports:
-        out: { rate: 1000 }
-      display_item: mekanized:display/basic_fluid_tank
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: leaves
-        id: mekanized_display_fluid_tank
-      model:
-        path: mekanized:block/display_empty/shared/fluid_tank
-  mekanized:advanced_chemical_tank:
-    template: machineengine:block/machine
-    behavior:
-      storages:
-        chemical: { capacity: 256000 }
-      ports:
-        out: { rate: 16000 }
-      display_item: mekanized:display/advanced_chemical_tank
-      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_chemical_tank
-          model:
-            path: mekanized:block/display_empty/shared/chemical_tank
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
-  mekanized:advanced_fluid_tank:
-    template: machineengine:block/machine
-    behavior:
-      storages:
-        fluid: { capacity: 64000 }
-      ports:
-        out: { rate: 4000 }
-      display_item: mekanized:display/advanced_fluid_tank
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: leaves
-        id: mekanized_display_fluid_tank
-      model:
-        path: mekanized:block/display_empty/shared/fluid_tank
-  mekanized:elite_chemical_tank:
-    template: machineengine:block/machine
-    behavior:
-      storages:
-        chemical: { capacity: 1024000 }
-      ports:
-        out: { rate: 128000 }
-      display_item: mekanized:display/elite_chemical_tank
-      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_chemical_tank
-          model:
-            path: mekanized:block/display_empty/shared/chemical_tank
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
-  mekanized:elite_fluid_tank:
-    template: machineengine:block/machine
-    behavior:
-      storages:
-        fluid: { capacity: 128000 }
-      ports:
-        out: { rate: 16000 }
-      display_item: mekanized:display/elite_fluid_tank
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: leaves
-        id: mekanized_display_fluid_tank
-      model:
-        path: mekanized:block/display_empty/shared/fluid_tank
-  mekanized:ultimate_chemical_tank:
-    template: machineengine:block/machine
-    behavior:
-      storages:
-        chemical: { capacity: 8192000 }
-      ports:
-        out: { rate: 512000 }
-      display_item: mekanized:display/ultimate_chemical_tank
-      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_chemical_tank
-          model:
-            path: mekanized:block/display_empty/shared/chemical_tank
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
-  mekanized:ultimate_fluid_tank:
-    template: machineengine:block/machine
-    behavior:
-      storages:
-        fluid: { capacity: 256000 }
-      ports:
-        out: { rate: 64000 }
-      display_item: mekanized:display/ultimate_fluid_tank
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: leaves
-        id: mekanized_display_fluid_tank
-      model:
-        path: mekanized:block/display_empty/shared/fluid_tank
-  mekanized:creative_chemical_tank:
-    template: machineengine:block/machine
-    behavior:
-      display_item: mekanized:display/creative_chemical_tank
-      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_chemical_tank
-          model:
-            path: mekanized:block/display_empty/shared/chemical_tank
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
-  mekanized:creative_fluid_tank:
-    template: machineengine:block/machine
-    behavior:
-      display_item: mekanized:display/creative_fluid_tank
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: leaves
-        id: mekanized_display_fluid_tank
-      model:
-        path: mekanized:block/display_empty/shared/fluid_tank
-
 # Pressurized tubes (chemicals) and mechanical pipes (fluids): one row per block. A row's rate is the block's (D34): what one block passes per tick.
 # Each row makes the block, its item and the 19 parts display entities draw it with
 # (mekanized:cable_part/<transport>/<part>); see docs/CE_TEMPLATES_PLAN.md.
@@ -789,3 +466,95 @@ config_factory#chemistry_transports:
         template: mekanized:block/transport
         behavior:
           rate: ${rate}
+
+# Fluid tanks. One row per tier. A row's behavior holds that block's numbers (D34: storages,
+# ports), merged into what the family template gives; the creative tier has none.
+config_factory#fluid_tanks:
+  instances:
+  - tier: basic
+    behavior:
+      storages:
+        fluid: { capacity: 32000 }
+      ports:
+        out: { rate: 1000 }
+  - tier: advanced
+    behavior:
+      storages:
+        fluid: { capacity: 64000 }
+      ports:
+        out: { rate: 4000 }
+  - tier: elite
+    behavior:
+      storages:
+        fluid: { capacity: 128000 }
+      ports:
+        out: { rate: 16000 }
+  - tier: ultimate
+    behavior:
+      storages:
+        fluid: { capacity: 256000 }
+      ports:
+        out: { rate: 64000 }
+  - tier: creative
+    behavior: {}
+  blueprint:
+    items:
+      mekanized:${tier}_fluid_tank:
+        data:
+          item_name: <!i><lang:block.mekanized.${tier}_fluid_tank>
+        model: mekanized:block/fluid_tank
+        behavior:
+          type: block_item
+          block: mekanized:${tier}_fluid_tank
+      mekanized:display/${tier}_fluid_tank:
+        model: mekanized:block/fluid_tank
+    blocks:
+      mekanized:${tier}_fluid_tank:
+        template: mekanized:block/fluid_tank
+        behavior: ${behavior}
+
+# Chemical tanks. One row per tier. A row's behavior holds that block's numbers (D34: storages,
+# ports), merged into what the family template gives; the creative tier has none.
+config_factory#chemical_tanks:
+  instances:
+  - tier: basic
+    behavior:
+      storages:
+        chemical: { capacity: 64000 }
+      ports:
+        out: { rate: 1000 }
+  - tier: advanced
+    behavior:
+      storages:
+        chemical: { capacity: 256000 }
+      ports:
+        out: { rate: 16000 }
+  - tier: elite
+    behavior:
+      storages:
+        chemical: { capacity: 1024000 }
+      ports:
+        out: { rate: 128000 }
+  - tier: ultimate
+    behavior:
+      storages:
+        chemical: { capacity: 8192000 }
+      ports:
+        out: { rate: 512000 }
+  - tier: creative
+    behavior: {}
+  blueprint:
+    items:
+      mekanized:${tier}_chemical_tank:
+        data:
+          item_name: <!i><lang:block.mekanized.${tier}_chemical_tank>
+        model: mekanized:block/chemical_tank/${tier}
+        behavior:
+          type: block_item
+          block: mekanized:${tier}_chemical_tank
+      mekanized:display/${tier}_chemical_tank:
+        model: mekanized:block/chemical_tank/${tier}
+    blocks:
+      mekanized:${tier}_chemical_tank:
+        template: mekanized:block/chemical_tank
+        behavior: ${behavior}

@@ -30,6 +30,8 @@ final class ShippedConfig {
     /** {@code ${name}} or {@code ${name:-default}}; the default may be quoted. */
     private static final Pattern PLACEHOLDER = Pattern.compile("\\$\\{([A-Za-z0-9_]+)(?::-(\"[^\"]*\"|'[^']*'|[^}]*))?}");
 
+    private static final Map<String, Object> TEMPLATES = loadTemplates();
+
     private ShippedConfig() {
     }
 
@@ -42,6 +44,39 @@ final class ShippedConfig {
             } catch (IOException e) {
                 throw new UncheckedIOException(e);
             }
+        }
+    }
+
+    /**
+     * Whether {@code entry} uses the template {@code name}, itself or through the Mekanized templates it
+     * names ({@code templates.yml}: a template whose root is {@code template: <name>}).
+     */
+    static boolean usesTemplate(Map<String, Object> entry, String name) {
+        for (Object used : templateNames(entry.get("template"))) {
+            if (name.equals(used)) return true;
+            if (TEMPLATES.get(used) instanceof Map<?, ?> template && usesTemplate(castMap(template), name)) return true;
+        }
+        return false;
+    }
+
+    private static List<?> templateNames(Object template) {
+        if (template == null) return List.of();
+        return template instanceof List<?> list ? list : List.of(template);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static Map<String, Object> castMap(Map<?, ?> map) {
+        return (Map<String, Object>) map;
+    }
+
+    /** Mekanized's templates by name. */
+    @SuppressWarnings("unchecked")
+    private static Map<String, Object> loadTemplates() {
+        try (InputStream in = Objects.requireNonNull(ShippedConfig.class.getClassLoader()
+                .getResourceAsStream("mekanized/pack/configuration/templates.yml"), "templates.yml")) {
+            return (Map<String, Object>) new Yaml().<Map<String, Object>>load(in).getOrDefault("templates", Map.of());
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
         }
     }
 

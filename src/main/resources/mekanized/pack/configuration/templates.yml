@@ -58,3 +58,89 @@ templates:
         id: mekanized_universal_cable
       model:
         path: mekanized:block/display_empty/universal_cable
+
+  # Tiered storage drawn by display entities. Argument: tier (basic, ..., creative). A block's
+  # numbers (storages, ports: D34) go next to the template, under behavior.
+
+  # An energy cube: a frame, an energy core with 4 fill levels and a port on each output side
+  # (the items mekanized:display/<id>, display/energy_core/<tier>/<1-4>, display/<id>/port/<side>).
+  mekanized:block/energy_cube:
+    template: machineengine:block/machine
+    behavior:
+      display_item: ${__NAMESPACE__}:display/${__ID__}
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270,up=270/0,down=90/0
+      level_display: ${__NAMESPACE__}:display/energy_core/${tier}
+      level_storage: energy
+      level_steps: 4
+      side_display: ${__NAMESPACE__}:display/${__ID__}/port
+    settings:
+      template: mekanized:settings/transparent_machine
+    states:
+      properties:
+        facing:
+          type: 6-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_energy_cube
+          model:
+            path: mekanized:block/display_empty/shared/energy_cube
+      variants:
+        facing=down:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=up:
+          appearance: default
+        facing=west:
+          appearance: default
+
+  # A chemical tank, turned by facing (the item mekanized:display/<id> draws it).
+  mekanized:block/chemical_tank:
+    template: machineengine:block/machine
+    behavior:
+      display_item: ${__NAMESPACE__}:display/${__ID__}
+      display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
+    settings:
+      template: mekanized:settings/transparent_machine
+    states:
+      properties:
+        facing:
+          type: 4-direction
+          default: north
+      appearances:
+        default:
+          auto_state:
+            type: leaves
+            id: mekanized_display_chemical_tank
+          model:
+            path: mekanized:block/display_empty/shared/chemical_tank
+      variants:
+        facing=north:
+          appearance: default
+        facing=south:
+          appearance: default
+        facing=east:
+          appearance: default
+        facing=west:
+          appearance: default
+
+  # A fluid tank (the item mekanized:display/<id> draws it).
+  mekanized:block/fluid_tank:
+    template: machineengine:block/machine
+    behavior:
+      display_item: ${__NAMESPACE__}:display/${__ID__}
+    settings:
+      template: mekanized:settings/transparent_machine
+    state:
+      auto_state:
+        type: leaves
+        id: mekanized_display_fluid_tank
+      model:
+        path: mekanized:block/display_empty/shared/fluid_tank

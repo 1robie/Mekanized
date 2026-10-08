@@ -56,62 +56,6 @@ items:
     behavior:
       type: block_item
       block: mekanized:thermal_evaporation_controller
-  mekanized:basic_induction_cell:
-    data:
-      item_name: <!i><lang:block.mekanized.basic_induction_cell>
-    model: mekanized:block/induction/cell/basic
-    behavior:
-      type: block_item
-      block: mekanized:basic_induction_cell
-  mekanized:basic_induction_provider:
-    data:
-      item_name: <!i><lang:block.mekanized.basic_induction_provider>
-    model: mekanized:block/induction/provider/basic
-    behavior:
-      type: block_item
-      block: mekanized:basic_induction_provider
-  mekanized:advanced_induction_cell:
-    data:
-      item_name: <!i><lang:block.mekanized.advanced_induction_cell>
-    model: mekanized:block/induction/cell/advanced
-    behavior:
-      type: block_item
-      block: mekanized:advanced_induction_cell
-  mekanized:advanced_induction_provider:
-    data:
-      item_name: <!i><lang:block.mekanized.advanced_induction_provider>
-    model: mekanized:block/induction/provider/advanced
-    behavior:
-      type: block_item
-      block: mekanized:advanced_induction_provider
-  mekanized:elite_induction_cell:
-    data:
-      item_name: <!i><lang:block.mekanized.elite_induction_cell>
-    model: mekanized:block/induction/cell/elite
-    behavior:
-      type: block_item
-      block: mekanized:elite_induction_cell
-  mekanized:elite_induction_provider:
-    data:
-      item_name: <!i><lang:block.mekanized.elite_induction_provider>
-    model: mekanized:block/induction/provider/elite
-    behavior:
-      type: block_item
-      block: mekanized:elite_induction_provider
-  mekanized:ultimate_induction_cell:
-    data:
-      item_name: <!i><lang:block.mekanized.ultimate_induction_cell>
-    model: mekanized:block/induction/cell/ultimate
-    behavior:
-      type: block_item
-      block: mekanized:ultimate_induction_cell
-  mekanized:ultimate_induction_provider:
-    data:
-      item_name: <!i><lang:block.mekanized.ultimate_induction_provider>
-    model: mekanized:block/induction/provider/ultimate
-    behavior:
-      type: block_item
-      block: mekanized:ultimate_induction_provider
 blocks:
   mekanized:dynamic_tank:
     template: machineengine:block/machine
@@ -275,75 +219,47 @@ blocks:
           appearance: facing_east_active_true
         facing=west,active=true:
           appearance: facing_west_active_true
-  mekanized:basic_induction_cell:
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/storage_block
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/induction/cell/basic
-  mekanized:basic_induction_provider:
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/storage_block
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/induction/provider/basic
-  mekanized:advanced_induction_cell:
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/storage_block
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/induction/cell/advanced
-  mekanized:advanced_induction_provider:
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/storage_block
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/induction/provider/advanced
-  mekanized:elite_induction_cell:
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/storage_block
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/induction/cell/elite
-  mekanized:elite_induction_provider:
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/storage_block
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/induction/provider/elite
-  mekanized:ultimate_induction_cell:
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/storage_block
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/induction/cell/ultimate
-  mekanized:ultimate_induction_provider:
-    loot:
-      template: default:loot_table/self
-    settings:
-      template: mekanized:settings/storage_block
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/induction/provider/ultimate
+
+# Induction cells and providers, one row per tier. They are plain blocks the induction matrix
+# counts: their numbers are the matrix's options (D34).
+config_factory#induction_parts:
+  instances:
+  - tier: basic
+  - tier: advanced
+  - tier: elite
+  - tier: ultimate
+  blueprint:
+    items:
+      mekanized:${tier}_induction_cell:
+        data:
+          item_name: <!i><lang:block.mekanized.${tier}_induction_cell>
+        model: mekanized:block/induction/cell/${tier}
+        behavior:
+          type: block_item
+          block: mekanized:${tier}_induction_cell
+      mekanized:${tier}_induction_provider:
+        data:
+          item_name: <!i><lang:block.mekanized.${tier}_induction_provider>
+        model: mekanized:block/induction/provider/${tier}
+        behavior:
+          type: block_item
+          block: mekanized:${tier}_induction_provider
+    blocks:
+      mekanized:${tier}_induction_cell:
+        loot:
+          template: default:loot_table/self
+        settings:
+          template: mekanized:settings/storage_block
+        state:
+          auto_state: solid
+          model:
+            path: mekanized:block/induction/cell/${tier}
+      mekanized:${tier}_induction_provider:
+        loot:
+          template: default:loot_table/self
+        settings:
+          template: mekanized:settings/storage_block
+        state:
+          auto_state: solid
+          model:
+            path: mekanized:block/induction/provider/${tier}

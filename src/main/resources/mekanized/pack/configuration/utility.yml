@@ -1,40 +1,5 @@
 # Mekanized bins, personal storage, chargepad, plenisher, assemblicator, lasers (Phase 6), based on Mekanism (MIT).
 items:
-  mekanized:basic_bin:
-    data:
-      item_name: <!i><lang:block.mekanized.basic_bin>
-    model: mekanized:block/bin/basic
-    behavior:
-      type: block_item
-      block: mekanized:basic_bin
-  mekanized:advanced_bin:
-    data:
-      item_name: <!i><lang:block.mekanized.advanced_bin>
-    model: mekanized:block/bin/advanced
-    behavior:
-      type: block_item
-      block: mekanized:advanced_bin
-  mekanized:elite_bin:
-    data:
-      item_name: <!i><lang:block.mekanized.elite_bin>
-    model: mekanized:block/bin/elite
-    behavior:
-      type: block_item
-      block: mekanized:elite_bin
-  mekanized:ultimate_bin:
-    data:
-      item_name: <!i><lang:block.mekanized.ultimate_bin>
-    model: mekanized:block/bin/ultimate
-    behavior:
-      type: block_item
-      block: mekanized:ultimate_bin
-  mekanized:creative_bin:
-    data:
-      item_name: <!i><lang:block.mekanized.creative_bin>
-    model: mekanized:block/bin/creative
-    behavior:
-      type: block_item
-      block: mekanized:creative_bin
   mekanized:display/personal_chest:
     model: mekanized:block/personal_chest
   mekanized:personal_chest:
@@ -128,358 +93,6 @@ items:
       type: block_item
       block: mekanized:industrial_alarm
 blocks:
-  mekanized:basic_bin:
-    template: machineengine:block/machine
-    behavior:
-      storages:
-        items: { capacity: 4096 }
-    settings:
-      template: mekanized:settings/machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-        active:
-          type: boolean
-          default: false
-      appearances:
-        facing_north_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/basic
-        facing_south_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/basic
-            y: 180
-        facing_east_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/basic
-            y: 90
-        facing_west_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/basic
-            y: 270
-        facing_north_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/active/basic
-        facing_south_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/active/basic
-            y: 180
-        facing_east_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/active/basic
-            y: 90
-        facing_west_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/active/basic
-            y: 270
-      variants:
-        facing=north,active=false:
-          appearance: facing_north_active_false
-        facing=south,active=false:
-          appearance: facing_south_active_false
-        facing=east,active=false:
-          appearance: facing_east_active_false
-        facing=west,active=false:
-          appearance: facing_west_active_false
-        facing=north,active=true:
-          appearance: facing_north_active_true
-        facing=south,active=true:
-          appearance: facing_south_active_true
-        facing=east,active=true:
-          appearance: facing_east_active_true
-        facing=west,active=true:
-          appearance: facing_west_active_true
-  mekanized:advanced_bin:
-    template: machineengine:block/machine
-    behavior:
-      storages:
-        items: { capacity: 8192 }
-    settings:
-      template: mekanized:settings/machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-        active:
-          type: boolean
-          default: false
-      appearances:
-        facing_north_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/advanced
-        facing_south_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/advanced
-            y: 180
-        facing_east_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/advanced
-            y: 90
-        facing_west_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/advanced
-            y: 270
-        facing_north_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/active/advanced
-        facing_south_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/active/advanced
-            y: 180
-        facing_east_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/active/advanced
-            y: 90
-        facing_west_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/active/advanced
-            y: 270
-      variants:
-        facing=north,active=false:
-          appearance: facing_north_active_false
-        facing=south,active=false:
-          appearance: facing_south_active_false
-        facing=east,active=false:
-          appearance: facing_east_active_false
-        facing=west,active=false:
-          appearance: facing_west_active_false
-        facing=north,active=true:
-          appearance: facing_north_active_true
-        facing=south,active=true:
-          appearance: facing_south_active_true
-        facing=east,active=true:
-          appearance: facing_east_active_true
-        facing=west,active=true:
-          appearance: facing_west_active_true
-  mekanized:elite_bin:
-    template: machineengine:block/machine
-    behavior:
-      storages:
-        items: { capacity: 32768 }
-    settings:
-      template: mekanized:settings/machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-        active:
-          type: boolean
-          default: false
-      appearances:
-        facing_north_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/elite
-        facing_south_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/elite
-            y: 180
-        facing_east_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/elite
-            y: 90
-        facing_west_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/elite
-            y: 270
-        facing_north_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/active/elite
-        facing_south_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/active/elite
-            y: 180
-        facing_east_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/active/elite
-            y: 90
-        facing_west_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/active/elite
-            y: 270
-      variants:
-        facing=north,active=false:
-          appearance: facing_north_active_false
-        facing=south,active=false:
-          appearance: facing_south_active_false
-        facing=east,active=false:
-          appearance: facing_east_active_false
-        facing=west,active=false:
-          appearance: facing_west_active_false
-        facing=north,active=true:
-          appearance: facing_north_active_true
-        facing=south,active=true:
-          appearance: facing_south_active_true
-        facing=east,active=true:
-          appearance: facing_east_active_true
-        facing=west,active=true:
-          appearance: facing_west_active_true
-  mekanized:ultimate_bin:
-    template: machineengine:block/machine
-    behavior:
-      storages:
-        items: { capacity: 262144 }
-    settings:
-      template: mekanized:settings/machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-        active:
-          type: boolean
-          default: false
-      appearances:
-        facing_north_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/ultimate
-        facing_south_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/ultimate
-            y: 180
-        facing_east_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/ultimate
-            y: 90
-        facing_west_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/ultimate
-            y: 270
-        facing_north_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/active/ultimate
-        facing_south_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/active/ultimate
-            y: 180
-        facing_east_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/active/ultimate
-            y: 90
-        facing_west_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/active/ultimate
-            y: 270
-      variants:
-        facing=north,active=false:
-          appearance: facing_north_active_false
-        facing=south,active=false:
-          appearance: facing_south_active_false
-        facing=east,active=false:
-          appearance: facing_east_active_false
-        facing=west,active=false:
-          appearance: facing_west_active_false
-        facing=north,active=true:
-          appearance: facing_north_active_true
-        facing=south,active=true:
-          appearance: facing_south_active_true
-        facing=east,active=true:
-          appearance: facing_east_active_true
-        facing=west,active=true:
-          appearance: facing_west_active_true
-  mekanized:creative_bin:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-        active:
-          type: boolean
-          default: false
-      appearances:
-        facing_north_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/creative
-        facing_south_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/creative
-            y: 180
-        facing_east_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/creative
-            y: 90
-        facing_west_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/creative
-            y: 270
-        facing_north_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/active/creative
-        facing_south_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/active/creative
-            y: 180
-        facing_east_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/active/creative
-            y: 90
-        facing_west_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/bin/active/creative
-            y: 270
-      variants:
-        facing=north,active=false:
-          appearance: facing_north_active_false
-        facing=south,active=false:
-          appearance: facing_south_active_false
-        facing=east,active=false:
-          appearance: facing_east_active_false
-        facing=west,active=false:
-          appearance: facing_west_active_false
-        facing=north,active=true:
-          appearance: facing_north_active_true
-        facing=south,active=true:
-          appearance: facing_south_active_true
-        facing=east,active=true:
-          appearance: facing_east_active_true
-        facing=west,active=true:
-          appearance: facing_west_active_true
   mekanized:personal_chest:
     template: machineengine:block/machine
     behavior:
@@ -897,3 +510,46 @@ blocks:
           appearance: default
         facing=west:
           appearance: default
+
+# Bins. One row per tier. A row's behavior holds that block's numbers (D34: storages,
+# ports), merged into what the family template gives; the creative tier has none.
+config_factory#bins:
+  instances:
+  - tier: basic
+    behavior:
+      storages:
+        items: { capacity: 4096 }
+  - tier: advanced
+    behavior:
+      storages:
+        items: { capacity: 8192 }
+  - tier: elite
+    behavior:
+      storages:
+        items: { capacity: 32768 }
+  - tier: ultimate
+    behavior:
+      storages:
+        items: { capacity: 262144 }
+  - tier: creative
+    behavior: {}
+  blueprint:
+    items:
+      mekanized:${tier}_bin:
+        data:
+          item_name: <!i><lang:block.mekanized.${tier}_bin>
+        model: mekanized:block/bin/${tier}
+        behavior:
+          type: block_item
+          block: mekanized:${tier}_bin
+    blocks:
+      mekanized:${tier}_bin:
+        template: machineengine:block/machine
+        behavior: ${behavior}
+        settings:
+          template: mekanized:settings/machine
+        states:
+          template: machineengine:block_state/facing_active
+          arguments:
+            model: mekanized:block/bin/${tier}
+            active_model: mekanized:block/bin/active/${tier}
