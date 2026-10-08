@@ -241,7 +241,11 @@ Click a machine's upgrade button with the upgrade in hand to install it.
 | Command | What it does |
 |---|---|
 | `/mekanized build <structure> [x y z]` | Builds the smallest working multiblock (dynamic_tank, induction_matrix, thermal_evaporation, boiler, turbine, fission_reactor, fusion_reactor, sps, teleporter) towards +x, +y, +z |
-| `/mekanized radiation <Sv/h>` / `clear` | Adds a radiation source where you stand / removes every source |
+| `/mekanized radiation add <Sv/h>` (or `radiation <Sv/h>`) / `clear` | Adds a radiation source where you stand / removes every source |
+| `/mekanized radiation sources` | Lists the radiation sources, strongest first |
+| `/mekanized radiation level` | The radiation where you stand (everyone: `mekanized.radiation.dose`) |
+| `/mekanized radiation dose` | Your own dose (everyone: `mekanized.radiation.dose`) |
+| `/mekanized radiation dose <player> [set <Sv> \| add <Sv> \| clear]` | Shows or changes a player's dose (admins) |
 | `/mekanized test` | Places an Enrichment Chamber, feeds it, and logs the result (2 osmium dust) |
 | `/mekanized test-cable` | A creative energy cube powering a chamber through a cable |
 | `/mekanized test-chemistry` | An Electrolytic Separator feeding a chemical tank through a tube |

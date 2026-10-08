@@ -53,6 +53,12 @@ paper {
             joinClasspath = true
         }
     }
+    permissions {
+        register("mekanized.radiation.dose") {
+            description = "See your own radiation dose and the radiation where you stand (/mekanized radiation dose|level)"
+            default = net.minecrell.pluginyml.bukkit.BukkitPluginDescription.Permission.Default.TRUE
+        }
+    }
 }
 
 // The plugin jar is the shaded one; the plain jar keeps a classifier so the two never overwrite each other.
