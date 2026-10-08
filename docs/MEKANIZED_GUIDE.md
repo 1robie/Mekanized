@@ -154,7 +154,7 @@ Click a machine's upgrade button with the upgrade in hand to install it.
   - `teleporter`: Joules per teleport (base, per block, to another world) and the cooldown between teleports.
     The Meka-Tool's teleportation unit uses the same costs.
   - `chunk-loading`: the dimensional stabilizer's widest radius.
-  - `qio`: what each drive holds (items and kinds), kinds per drive array, items per second of importers and exporters.
+  - `qio`: kinds per drive array (it sets the array's slots).
   - `digital-miner`: positions scanned per tick, widest radius.
 - **Recipes** (durations, energy per tick, inputs and outputs): edit
   `plugins/MachineEngine/definitions/mekanized/recipes_*.yml`. They reload with the server's recipes.
@@ -176,11 +176,16 @@ Click a machine's upgrade button with the upgrade in hand to install it.
     `range`, `heavy-water-per-block`), fuelwood heater (`heat-per-tick`), seismic vibrator (`energy-per-tick`),
     lasers (`energy-per-tick`, `range`, `energy-per-hardness`), digital miner (`energy-per-block`,
     `ticks-per-block`) and dimensional stabilizer (`energy-per-chunk`);
-  - the radioactive waste barrel: `storages: { waste: { capacity: ... } }` and `options: { decay-per-second: ... }`.
+  - the radioactive waste barrel: `storages: { waste: { capacity: ... } }` and `options: { decay-per-second: ... }`;
+  - `options: { items-per-second: ... }` on the QIO importer and exporter.
+
+  A QIO drive's size is in its item config: `- type: mekanized:qio_drive` with `items` and `kinds`
+  (`automation.yml`). Any item given that behavior goes into a drive array; `/ce reload` applies it.
 
   Machines read them when they load: restart, or let their chunks reload, after editing. Old `config.yml` keys
   for these (`transport.*`, `radiation.barrel-*`, `chunk-loading.energy-per-chunk`,
-  `digital-miner.energy-per-block`, `digital-miner.ticks-per-block`) are ignored.
+  `digital-miner.energy-per-block`, `digital-miner.ticks-per-block`, `qio.drive-items`, `qio.drive-kinds`,
+  `qio.importer-exporter-rate`) are ignored.
 
   | Behavior | Items | Options |
   |---|---|---|

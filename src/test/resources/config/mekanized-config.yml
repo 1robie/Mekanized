@@ -55,21 +55,7 @@ digital-miner:
   # widest radius (1-128); 32 is a 65 x 65 area
   max-radius: 32
 
-# The QIO network. Lists are for the drives: [base, hyper-dense, time-dilating, supermassive].
+# The QIO network. What each drive holds is in its item config, an importer's or exporter's rate in its block config.
 qio:
-  # items each drive holds
-  drive-items:
-  - 16000
-  - 128000
-  - 1048000
-  - 16000000
-  # kinds of item each drive holds
-  drive-kinds:
-  - 128
-  - 256
-  - 1024
-  - 8192
   # kinds of item a drive array holds at most, whatever its drives (1-16384)
   array-kinds: 1024
-  # items an importer or exporter moves per second
-  importer-exporter-rate: 64

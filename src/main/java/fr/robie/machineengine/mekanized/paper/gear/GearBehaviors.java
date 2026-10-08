@@ -110,6 +110,26 @@ public final class GearBehaviors {
                         s.getString("requires-module", (String) null)));
     }
 
+    /**
+     * {@code mekanized:qio_drive}: a QIO drive holding {@code items} items of at most {@code kinds} kinds
+     * (D34). Any item with this behavior goes into a drive array.
+     */
+    public record QioDrive(long items, long kinds) {
+        public static final ItemBehaviorFactory<Holder<QioDrive>> FACTORY = (pack, path, id, s) ->
+                new Holder<>(new QioDrive(Math.max(1, s.getLong("items", 16_000)), Math.max(1, s.getLong("kinds", 128))));
+    }
+
+    /** The options of type {@code type} of the CraftEngine item {@code item} (a {@link Holder}), or {@code null}. */
+    public static <T> @Nullable T options(net.kyori.adventure.key.Key item, Class<T> type) {
+        ItemDefinition definition = CraftEngineItems.byId(net.momirealms.craftengine.core.util.Key.of(item.namespace(), item.value()));
+        if (definition == null) return null;
+        Object[] found = {null};
+        definition.behavior().let(Holder.class, holder -> {
+            if (found[0] == null && type.isInstance(holder.options())) found[0] = holder.options();
+        });
+        return type.cast(found[0]);
+    }
+
     /** A behavior that only carries options, found with {@link #options(ItemStack, Class)}. */
     public static final class Holder<T> extends ItemBehavior {
         private final T options;

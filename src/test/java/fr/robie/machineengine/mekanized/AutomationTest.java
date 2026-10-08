@@ -12,7 +12,7 @@ import fr.robie.machineengine.core.machine.MachineInstanceImpl;
 import fr.robie.machineengine.mekanized.machine.Frequencies;
 import fr.robie.machineengine.mekanized.machine.AutomationMachines;
 import fr.robie.machineengine.mekanized.machine.DigitalMinerSettings;
-import fr.robie.machineengine.mekanized.machine.QioSettings;
+import fr.robie.machineengine.mekanized.machine.QioDrives;
 import fr.robie.machineengine.test.FakeWorld;
 import java.util.Map;
 import net.kyori.adventure.key.Key;
@@ -168,9 +168,8 @@ class AutomationTest {
     }
 
     @Test
-    void driveCapacitiesComeFromSettings() {
-        QioSettings.driveItems = new long[]{100, 128_000, 1_048_000, 16_000_000};
-        QioSettings.driveKinds = new long[]{1, 256, 1_024, 8_192};
+    void driveCapacitiesComeFromTheItemConfig() {
+        QioDrives.setAccess(id -> id.equals(MekanizedContent.key("qio_drive_base")) ? new QioDrives.Limits(100, 1) : null);
         FakeWorld world = FakeWorld.singleRegion(this.engine);
         MachineInstanceImpl array = world.place(type(this.engine, "qio_drive_array"), HERE, Direction.NORTH);
         var context = array.context();
@@ -185,8 +184,8 @@ class AutomationTest {
 
     @Test
     void importersMoveTheConfiguredItemsPerSecond() {
-        QioSettings.ioRate = 5;
         FakeWorld world = FakeWorld.singleRegion(this.engine);
+        world.setOptions(HERE, MekanizedTestKit.options("qio_importer", Map.of("items-per-second", 5)));
         MachineInstanceImpl array = world.place(type(this.engine, "qio_drive_array"), FakeWorld.at(5, 64, 5), Direction.NORTH);
         fill(array, "drives", item("mekanized:qio_drive_base").stack(1));
         MachineInstanceImpl importer = world.place(type(this.engine, "qio_importer"), HERE, Direction.NORTH);

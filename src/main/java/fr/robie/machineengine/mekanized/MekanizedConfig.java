@@ -72,14 +72,8 @@ public final class MekanizedConfig {
             "positions it looks at per tick for the next block to mine");
     public static final ConfigKey<Integer> MINER_MAX_RADIUS = integer("digital-miner.max-radius", DigitalMinerSettings.DEFAULT_MAX_RADIUS, 1, 128,
             "widest radius (1-128); 32 is a 65 x 65 area");
-    public static final ConfigKey<List<Long>> QIO_DRIVE_ITEMS = add(ConfigKey.wholes("qio.drive-items", longs(QioSettings.DEFAULT_DRIVE_ITEMS), 4, 1,
-            Long.MAX_VALUE).comment("items each drive holds"));
-    public static final ConfigKey<List<Long>> QIO_DRIVE_KINDS = add(ConfigKey.wholes("qio.drive-kinds", longs(QioSettings.DEFAULT_DRIVE_KINDS), 4, 1,
-            Long.MAX_VALUE).comment("kinds of item each drive holds"));
     public static final ConfigKey<Integer> QIO_ARRAY_KINDS = integer("qio.array-kinds", QioSettings.DEFAULT_ARRAY_KINDS, 1, 16_384,
             "kinds of item a drive array holds at most, whatever its drives (1-16384)");
-    public static final ConfigKey<Long> QIO_IO_RATE = whole("qio.importer-exporter-rate", QioSettings.DEFAULT_IO_RATE, 1, 1_000_000,
-            "items an importer or exporter moves per second");
 
     // The stabilizer's energy per chunk, the waste barrel, and the miner's energy and ticks per block are in their
     // block configs (D34); their old keys left in a file are kept and ignored. Gear has no settings here either: every tool, suit piece and module keeps its numbers in its CraftEngine item
@@ -94,7 +88,7 @@ public final class MekanizedConfig {
             .section("chunk-loading", "The dimensional stabilizer. Anchor upgrades always load only the machine's own chunk, for free.")
             .section("radiation", "Radiation (Mekanism's, simplified). Dose and radiation are in Sieverts (Sv, Sv/h).")
             .section("digital-miner", "The digital miner.")
-            .section("qio", "The QIO network. Lists are for the drives: [base, hyper-dense, time-dilating, supermassive].")
+            .section("qio", "The QIO network. What each drive holds is in its item config, an importer's or exporter's rate in its block config.")
             .keys(KEYS)
             .build();
 

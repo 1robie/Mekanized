@@ -31,6 +31,7 @@ import fr.robie.machineengine.mekanized.machine.RadiationSettings;
 import fr.robie.machineengine.mekanized.machine.TeleporterSettings;
 import fr.robie.machineengine.mekanized.machine.UtilityBehaviors;
 import fr.robie.machineengine.api.multiblock.Multiblocks;
+import fr.robie.machineengine.mekanized.machine.QioDrives;
 import fr.robie.machineengine.test.FakeWorld;
 import fr.robie.machineengine.test.TestEngine;
 import net.kyori.adventure.key.Key;
@@ -291,6 +292,7 @@ public final class MekanizedTestKit {
             RadiationSettings.reset();
             DigitalMinerSettings.reset();
             QioSettings.reset();
+            QioDrives.setAccess(null);
             UtilityBehaviors.setCrafting(null);
             UtilityBehaviors.setItemFactory(null);
             ItemResources.setAccess(null);

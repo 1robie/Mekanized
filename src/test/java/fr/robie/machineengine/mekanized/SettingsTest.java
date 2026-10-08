@@ -252,10 +252,7 @@ class SettingsTest {
 
     @Test
     void qioDefaultsAreTheOldNumbers() {
-        assertArrayEquals(new long[]{16_000, 128_000, 1_048_000, 16_000_000}, QioSettings.driveItems);
-        assertArrayEquals(new long[]{128, 256, 1_024, 8_192}, QioSettings.driveKinds);
         assertEquals(1_024, QioSettings.arrayKinds);
-        assertEquals(64, QioSettings.ioRate);
     }
 
     @Test
@@ -267,14 +264,11 @@ class SettingsTest {
 
     @Test
     void qioSettingsAreReadAndValidated() {
-        load("qio:\n  drive-items: [1, 2, 3, 4]\n  importer-exporter-rate: 8\n");
-        assertArrayEquals(new long[]{1, 2, 3, 4}, QioSettings.driveItems);
-        assertEquals(8, QioSettings.ioRate);
-        load("qio:\n  drive-kinds: [1, 2, 3]\n  array-kinds: 0\n  drive-items: [1, 2, 3, -4]\n");
-        assertArrayEquals(new long[]{128, 256, 1_024, 8_192}, QioSettings.driveKinds, "three numbers: the defaults");
-        assertArrayEquals(new long[]{16_000, 128_000, 1_048_000, 16_000_000}, QioSettings.driveItems, "a negative one: the defaults");
+        load("qio:\n  array-kinds: 64\n");
+        assertEquals(64, QioSettings.arrayKinds);
+        load("qio:\n  array-kinds: 0\n");
         assertEquals(1, QioSettings.arrayKinds);
-        assertEquals(3, this.warnings.size(), this.warnings.toString());
+        assertEquals(1, this.warnings.size(), this.warnings.toString());
     }
 
     // -- gear -------------------------------------------------------------------------------------

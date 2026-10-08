@@ -5,6 +5,7 @@ import fr.robie.machineengine.api.paper.PaperItemResources;
 import fr.robie.machineengine.api.resource.Energy;
 import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.mekanized.paper.automation.PaperAutomation;
+import fr.robie.machineengine.mekanized.machine.QioDrives;
 import fr.robie.machineengine.mekanized.paper.gear.GearBehaviors;
 import fr.robie.machineengine.mekanized.paper.gear.GearItems;
 import fr.robie.machineengine.mekanized.paper.gear.GearLoreProcessor;
@@ -45,6 +46,7 @@ public final class MekanizedItemBehaviors {
         register("scuba_tank", GearBehaviors.ScubaTank.FACTORY);
         register("fall_absorber", GearBehaviors.FallAbsorber.FACTORY);
         register("radiation_shielding", GearBehaviors.RadiationShielding.FACTORY);
+        register("qio_drive", GearBehaviors.QioDrive.FACTORY);
         register("portable_teleporter", PaperAutomation.PortableBehavior.TELEPORTER);
         register("portable_qio", PaperAutomation.PortableBehavior.QIO);
         register("cardboard_box", PaperAutomation.BoxBehavior.FACTORY);
@@ -63,6 +65,11 @@ public final class MekanizedItemBehaviors {
 
     /** In {@code onEnable}: old item data, and the lore that shows what an item holds. */
     public static void install() {
+        // What a QIO drive holds: its item config's mekanized:qio_drive (D34).
+        QioDrives.setAccess(item -> {
+            GearBehaviors.QioDrive drive = GearBehaviors.options(item, GearBehaviors.QioDrive.class);
+            return drive == null ? null : new QioDrives.Limits(drive.items(), drive.kinds());
+        });
         // Before D32 the amounts were Bukkit persistent data.
         PaperItemResources.migratePdcLong(MekanizedContent.NAMESPACE + ":energy", Energy.KEY);
         PaperItemResources.migratePdcLong(MekanizedContent.NAMESPACE + ":gear_chemical", item -> {

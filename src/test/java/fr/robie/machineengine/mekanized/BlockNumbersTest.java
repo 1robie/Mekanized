@@ -12,6 +12,7 @@ import fr.robie.machineengine.mekanized.machine.ChemistryBehaviors;
 import fr.robie.machineengine.mekanized.machine.ChunkLoaders;
 import fr.robie.machineengine.mekanized.machine.HeatMachines;
 import fr.robie.machineengine.mekanized.machine.Liquifier;
+import fr.robie.machineengine.mekanized.machine.QioDrives;
 import fr.robie.machineengine.mekanized.machine.Radiation;
 import fr.robie.machineengine.mekanized.machine.UtilityBehaviors;
 import fr.robie.machineengine.mekanized.machine.UtilityMachines;
@@ -86,6 +87,8 @@ class BlockNumbersTest {
         expected.put("digital_miner", Map.of("energy-per-block", AutomationMachines.MINER_ENERGY.defaultValue(),
                 "ticks-per-block", AutomationMachines.MINER_TICKS.defaultValue()));
         expected.put("dimensional_stabilizer", Map.of("energy-per-chunk", ChunkLoaders.ENERGY_PER_CHUNK.defaultValue()));
+        expected.put("qio_importer", Map.of("items-per-second", AutomationMachines.IO_RATE.defaultValue()));
+        expected.put("qio_exporter", Map.of("items-per-second", AutomationMachines.IO_RATE.defaultValue()));
 
         for (Map.Entry<String, Map<String, Object>> block : ShippedBlocks.BEHAVIORS.entrySet()) {
             if (!(block.getValue().get("options") instanceof Map<?, ?> options)) continue;
@@ -95,6 +98,16 @@ class BlockNumbersTest {
             wanted.forEach((key, value) -> assertEquals(value.longValue(), ((Number) options.get(key)).longValue(), block.getKey() + " " + key));
         }
         for (String block : expected.keySet()) assertNotNull(ShippedBlocks.behavior(block).get("options"), block + " has options");
+    }
+
+    @Test
+    void everyShippedDriveHoldsTheDefault() {
+        // The drives' numbers are item config (D32): what headless tests use without a platform lookup.
+        assertEquals(4, QioDrives.DEFAULTS.size());
+        QioDrives.DEFAULTS.forEach((id, limits) -> {
+            assertEquals(limits.items(), ((Number) ShippedItems.option(id.value(), "mekanized:qio_drive", "items")).longValue(), id.asString());
+            assertEquals(limits.kinds(), ((Number) ShippedItems.option(id.value(), "mekanized:qio_drive", "kinds")).longValue(), id.asString());
+        });
     }
 
     @Test

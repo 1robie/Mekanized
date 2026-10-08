@@ -61,10 +61,7 @@ public final class MekanizedSettings {
 
         DigitalMinerSettings.scanPerTick = config.get(MekanizedConfig.MINER_SCAN);
         DigitalMinerSettings.maxRadius = config.get(MekanizedConfig.MINER_MAX_RADIUS);
-        QioSettings.driveItems = longs(config.get(MekanizedConfig.QIO_DRIVE_ITEMS));
-        QioSettings.driveKinds = longs(config.get(MekanizedConfig.QIO_DRIVE_KINDS));
         QioSettings.arrayKinds = config.get(MekanizedConfig.QIO_ARRAY_KINDS);
-        QioSettings.ioRate = config.get(MekanizedConfig.QIO_IO_RATE);
 
     }
 

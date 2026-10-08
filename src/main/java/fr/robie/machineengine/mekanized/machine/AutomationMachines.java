@@ -66,9 +66,8 @@ public final class AutomationMachines {
     /** Digital miner: Joules and ticks per block mined (its block config's options, D34). */
     public static final ConfigKey<Long> MINER_ENERGY = ConfigKey.whole("energy-per-block", 2_000, 0, MekanizedConfig.MAX).clamped();
     public static final ConfigKey<Long> MINER_TICKS = ConfigKey.whole("ticks-per-block", 10, 1, 72_000).clamped();
-    /** QIO drive items, in the order of {@link QioSettings}: what each holds is set there (Mekanism's by default). */
-    private static final List<Key> DRIVES = List.of(key("qio_drive_base"), key("qio_drive_hyper_dense"),
-            key("qio_drive_time_dilating"), key("qio_drive_supermassive"));
+    /** Items an importer or exporter moves per second: its block config's option (D34). */
+    public static final ConfigKey<Long> IO_RATE = ConfigKey.whole("items-per-second", 64, 1, 1_000_000).clamped();
 
     private AutomationMachines() {
     }
@@ -257,11 +256,11 @@ public final class AutomationMachines {
 
     // -- QIO -----------------------------------------------------------------------------------
 
-    /** The items and kinds a drive item holds, or null if it is no drive. */
+    /** The items and kinds a drive item holds (its item config, {@link QioDrives}), or null if it is no drive. */
     public static long @Nullable [] drive(@NotNull ResourceVariant variant) {
         ItemData data = variant.components().get(Items.DATA);
-        int drive = data == null ? -1 : DRIVES.indexOf(data.item());
-        return drive < 0 ? null : new long[]{QioSettings.driveItems[drive], QioSettings.driveKinds[drive]};
+        QioDrives.Limits limits = data == null ? null : QioDrives.of(data.item());
+        return limits == null ? null : new long[]{limits.items(), limits.kinds()};
     }
 
     /** A drive array: its drives set how many items (and kinds) it holds; it publishes what it holds. */
@@ -367,7 +366,7 @@ public final class AutomationMachines {
             context.wakeIn(20);
             if (network.isEmpty() || source == null) return;
             Set<Key> filters = filters(context);
-            long budget = QioSettings.ioRate;
+            long budget = context.options().get(IO_RATE);
             for (StorageView view : List.copyOf(source.views())) {
                 if (budget <= 0) break;
                 if (view.isEmpty() || !passes(view.variant(), filters, true)) continue;
@@ -396,7 +395,7 @@ public final class AutomationMachines {
             context.wakeIn(20);
             Set<Key> filters = filters(context);
             if (network.isEmpty() || target == null || filters.isEmpty()) return;
-            long budget = QioSettings.ioRate;
+            long budget = context.options().get(IO_RATE);
             for (ResourceHandler[] array : network) {
                 for (StorageView view : List.copyOf(array[1].views())) {
                     if (budget <= 0) return;

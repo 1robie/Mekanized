@@ -98,18 +98,34 @@ items:
     data:
       item_name: <!i><lang:item.mekanized.qio_drive_base>
     model: mekanized:item/qio_drive_base
+    behaviors:
+    - type: mekanized:qio_drive
+      items: 16000
+      kinds: 128
   mekanized:qio_drive_hyper_dense:
     data:
       item_name: <!i><lang:item.mekanized.qio_drive_hyper_dense>
     model: mekanized:item/qio_drive_hyper_dense
+    behaviors:
+    - type: mekanized:qio_drive
+      items: 128000
+      kinds: 256
   mekanized:qio_drive_time_dilating:
     data:
       item_name: <!i><lang:item.mekanized.qio_drive_time_dilating>
     model: mekanized:item/qio_drive_time_dilating
+    behaviors:
+    - type: mekanized:qio_drive
+      items: 1048000
+      kinds: 1024
   mekanized:qio_drive_supermassive:
     data:
       item_name: <!i><lang:item.mekanized.qio_drive_supermassive>
     model: mekanized:item/qio_drive_supermassive
+    behaviors:
+    - type: mekanized:qio_drive
+      items: 16000000
+      kinds: 8192
   mekanized:cardboard_box_storage:
     behaviors:
     - type: mekanized:cardboard_box_storage
@@ -339,6 +355,8 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:qio_importer
+      options:
+        items-per-second: 64
       keep_contents: true
       display_item: mekanized:display/qio_importer
       display_rotation: 180
@@ -385,6 +403,8 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:qio_exporter
+      options:
+        items-per-second: 64
       keep_contents: true
       display_item: mekanized:display/qio_exporter
       display_rotation: 180
