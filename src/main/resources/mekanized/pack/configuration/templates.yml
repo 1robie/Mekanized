@@ -103,33 +103,12 @@ templates:
 
   # A chemical tank, turned by facing (the item mekanized:display/<id> draws it).
   mekanized:block/chemical_tank:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_chemical_tank
+      display_model: mekanized:block/display_empty/shared/chemical_tank
     behavior:
-      display_item: ${__NAMESPACE__}:display/${__ID__}
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_chemical_tank
-          model:
-            path: mekanized:block/display_empty/shared/chemical_tank
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
 
   # A fluid tank (the item mekanized:display/<id> draws it).
   mekanized:block/fluid_tank:
@@ -144,3 +123,19 @@ templates:
         id: mekanized_display_fluid_tank
       model:
         path: mekanized:block/display_empty/shared/fluid_tank
+
+  # A machine drawn by display entities (the item mekanized:display/<id>), turned by facing.
+  # Arguments display_state and display_model: see machineengine:block_state/display_rendered_facing
+  # (Mekanized shares one state per breaking-particle texture). A block that turns its display
+  # adds behavior: { display_rotations: ... } next to the template.
+  mekanized:block/display_machine_facing:
+    template: machineengine:block/machine
+    behavior:
+      display_item: ${__NAMESPACE__}:display/${__ID__}
+    settings:
+      template: mekanized:settings/transparent_machine
+    states:
+      template: machineengine:block_state/display_rendered_facing
+      arguments:
+        display_state: ${display_state}
+        display_model: ${display_model}
