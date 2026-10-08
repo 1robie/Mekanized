@@ -6,6 +6,7 @@ import fr.robie.machineengine.api.paper.ResourceNames;
 import fr.robie.machineengine.api.registry.Registries;
 import fr.robie.machineengine.mekanized.machine.ConfigurationCard;
 import fr.robie.machineengine.mekanized.machine.GaugeDropper;
+import fr.robie.machineengine.mekanized.paper.PaperTools;
 import fr.robie.machineengine.mekanized.paper.ItemData;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
@@ -68,7 +69,7 @@ public final class GearLoreProcessor implements SimpleNetworkItemProcessor {
             Component name = type == null ? Component.text(dropperType) : MiniMessage.miniMessage().deserialize(ResourceNames.of(type.variant()));
             lines.add(Component.translatable("mekanized.lore.dropper", "§7%s: %s / %s mB", name,
                     Component.text(String.format(Locale.ROOT, "%,d", dropped)),
-                    Component.text(String.format(Locale.ROOT, "%,d", GaugeDropper.CAPACITY))));
+                    Component.text(String.format(Locale.ROOT, "%,d", dropperCapacity(item)))));
         }
         if (ItemData.peekString(item, ItemData.Field.FORMULA) != null) {
             lines.add(Component.translatable("mekanized.lore.formula", "§bEncoded"));
@@ -113,5 +114,13 @@ public final class GearLoreProcessor implements SimpleNetworkItemProcessor {
     @Override
     public String nbtPathString(Item item, ItemBuildContext context) {
         return "display.Lore";
+    }
+
+    /** The dropper's {@code capacity} from its item config (D32), or Mekanism's. */
+    private static long dropperCapacity(Item item) {
+        return item.getBehavior()
+                .map(found -> found.getFirst(PaperTools.DropperBehavior.class))
+                .map(PaperTools.DropperBehavior::capacity)
+                .orElse(GaugeDropper.DEFAULT_CAPACITY);
     }
 }

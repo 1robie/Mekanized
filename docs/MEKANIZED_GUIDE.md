@@ -131,7 +131,7 @@ Click a machine's upgrade button with the upgrade in hand to install it.
 |---|---|
 | Configuration Card | Sneak-right-click a machine to copy its sides, auto-eject and redstone setting; right-click another of the same kind to paste |
 | Dictionary | Right-click a block (or the air, for the item in your off hand) to list its tags |
-| Gauge Dropper | Right-click a machine to take up to 16,000 mB of a fluid or chemical; sneak-right-click to put it back; sneak-right-click the air to empty it |
+| Gauge Dropper | Right-click a machine to take up to 16,000 mB (its item config's `capacity`) of a fluid or chemical; sneak-right-click to put it back; sneak-right-click the air to empty it |
 | Crafting Formula | Sneak-right-click a Formulaic Assemblicator to record its pattern; right-click one with an empty pattern to set it |
 | Portable Teleporter | Right-click to go to the teleporter of its frequency (energy as a teleporter) |
 | Portable QIO Dashboard | Right-click to open the QIO of its frequency |

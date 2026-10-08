@@ -168,6 +168,7 @@ items:
   mekanized:gauge_dropper:
     behaviors:
     - type: mekanized:gauge_dropper
+      capacity: 16000
     material: paper
     data:
       item_name: <!i><lang:item.mekanized.gauge_dropper>

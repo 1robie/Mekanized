@@ -10,6 +10,7 @@ import fr.robie.machineengine.core.machine.MachineInstanceImpl;
 import fr.robie.machineengine.mekanized.machine.AutomationMachines;
 import fr.robie.machineengine.mekanized.machine.ChemistryBehaviors;
 import fr.robie.machineengine.mekanized.machine.ChunkLoaders;
+import fr.robie.machineengine.mekanized.machine.GaugeDropper;
 import fr.robie.machineengine.mekanized.machine.HeatMachines;
 import fr.robie.machineengine.mekanized.machine.Liquifier;
 import fr.robie.machineengine.mekanized.machine.QioDrives;
@@ -108,6 +109,11 @@ class BlockNumbersTest {
             assertEquals(limits.items(), ((Number) ShippedItems.option(id.value(), "mekanized:qio_drive", "items")).longValue(), id.asString());
             assertEquals(limits.kinds(), ((Number) ShippedItems.option(id.value(), "mekanized:qio_drive", "kinds")).longValue(), id.asString());
         });
+    }
+
+    @Test
+    void theShippedGaugeDropperHoldsTheDefault() {
+        assertEquals(GaugeDropper.DEFAULT_CAPACITY, ((Number) ShippedItems.option("gauge_dropper", "mekanized:gauge_dropper", "capacity")).longValue());
     }
 
     @Test

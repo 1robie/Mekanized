@@ -85,7 +85,18 @@ public final class PaperTools {
 
     /** {@code mekanized:gauge_dropper}: takes from a machine, sneak to put back, sneak in the air to empty. */
     public static final class DropperBehavior extends PaperItemBehavior implements MachineTool {
-        public static final ItemBehaviorFactory<DropperBehavior> FACTORY = (pack, path, id, section) -> new DropperBehavior();
+        public static final ItemBehaviorFactory<DropperBehavior> FACTORY = (pack, path, id, section) ->
+                new DropperBehavior(Math.max(1, section.getLong("capacity", GaugeDropper.DEFAULT_CAPACITY)));
+        private final long capacity;
+
+        private DropperBehavior(long capacity) {
+            this.capacity = capacity;
+        }
+
+        /** mB it holds when full: its item config's {@code capacity} (D32). */
+        public long capacity() {
+            return this.capacity;
+        }
 
         @Override
         protected boolean use(Use use) {
@@ -97,7 +108,7 @@ public final class PaperTools {
             } else if (use.sneaking()) {
                 putBack(player, use.item(), machine);
             } else {
-                take(player, use.item(), machine);
+                take(player, use.item(), machine, this.capacity);
             }
             return true;
         }
@@ -222,10 +233,10 @@ public final class PaperTools {
     }
 
     /** Takes a fluid or chemical (the one it holds, or the first the machine has) into the dropper. */
-    private static void take(Player player, ItemStack dropper, MachineInstance machine) {
+    private static void take(Player player, ItemStack dropper, MachineInstance machine, long capacity) {
         ResourceType held = dropperType(dropper);
-        long room = GaugeDropper.CAPACITY - dropperAmount(dropper);
-        GaugeDropper.Taken taken = GaugeDropper.take(machine.context(), machine.inspect().storages(), held, dropperAmount(dropper));
+        long room = capacity - dropperAmount(dropper);
+        GaugeDropper.Taken taken = GaugeDropper.take(machine.context(), machine.inspect().storages(), held, dropperAmount(dropper), capacity);
         if (taken != null) {
             setDropper(dropper, taken.type(), dropperAmount(dropper) + taken.amount());
             machine.wake(WakeReason.RESOURCE_EXTRACTED);

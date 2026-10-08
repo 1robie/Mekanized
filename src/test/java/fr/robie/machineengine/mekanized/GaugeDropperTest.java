@@ -40,21 +40,21 @@ class GaugeDropperTest {
 
     @Test
     void theLoreSaysWhatItHolds() {
-        assertEquals("water: 1,500 / 16,000 mB", GaugeDropper.lore(WATER, 1_500));
+        assertEquals("water: 1,500 / 16,000 mB", GaugeDropper.lore(WATER, 1_500, GaugeDropper.DEFAULT_CAPACITY));
     }
 
     @Test
     void takingFillsTheDropperUpToItsCapacity() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
         MachineInstanceImpl tank = tank(world, 10_000);
-        GaugeDropper.Taken first = GaugeDropper.take(tank.context(), tank.inspect().storages(), null, 0);
+        GaugeDropper.Taken first = GaugeDropper.take(tank.context(), tank.inspect().storages(), null, 0, GaugeDropper.DEFAULT_CAPACITY);
         assertNotNull(first);
         assertEquals(WATER, first.type());
         assertEquals(10_000, first.amount());
         assertEquals(0, amountOf(tank, "fluid", Fluids.water().variant()), "the tank gave it all");
 
         fill(tank, "fluid", WATER.stack(10_000));
-        GaugeDropper.Taken second = GaugeDropper.take(tank.context(), tank.inspect().storages(), WATER, 10_000);
+        GaugeDropper.Taken second = GaugeDropper.take(tank.context(), tank.inspect().storages(), WATER, 10_000, GaugeDropper.DEFAULT_CAPACITY);
         assertNotNull(second);
         assertEquals(6_000, second.amount(), "only the room left in the dropper");
         assertEquals(4_000, amountOf(tank, "fluid", Fluids.water().variant()));
@@ -64,10 +64,10 @@ class GaugeDropperTest {
     void aFullDropperOrAnEmptyMachineGivesNothing() {
         FakeWorld world = FakeWorld.singleRegion(this.engine);
         MachineInstanceImpl tank = tank(world, 5_000);
-        assertNull(GaugeDropper.take(tank.context(), tank.inspect().storages(), WATER, GaugeDropper.CAPACITY), "no room");
+        assertNull(GaugeDropper.take(tank.context(), tank.inspect().storages(), WATER, GaugeDropper.DEFAULT_CAPACITY, GaugeDropper.DEFAULT_CAPACITY), "no room");
         assertEquals(5_000, amountOf(tank, "fluid", Fluids.water().variant()));
         MachineInstanceImpl empty = place(this.engine, world, "basic_fluid_tank");
-        assertNull(GaugeDropper.take(empty.context(), empty.inspect().storages(), null, 0), "nothing to take");
+        assertNull(GaugeDropper.take(empty.context(), empty.inspect().storages(), null, 0, GaugeDropper.DEFAULT_CAPACITY), "nothing to take");
     }
 
     @Test
@@ -77,7 +77,7 @@ class GaugeDropperTest {
         fill(chamber, "fluid", fluid("water", 1_000));
         fill(chamber, "chemical", chemical(this.engine, "plutonium", 500));
         ResourceType plutonium = chemical(this.engine, "plutonium", 1).variant().type();
-        GaugeDropper.Taken taken = GaugeDropper.take(chamber.context(), chamber.inspect().storages(), plutonium, 0);
+        GaugeDropper.Taken taken = GaugeDropper.take(chamber.context(), chamber.inspect().storages(), plutonium, 0, GaugeDropper.DEFAULT_CAPACITY);
         assertNotNull(taken);
         assertEquals(plutonium, taken.type());
         assertEquals(500, taken.amount());

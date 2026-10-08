@@ -14,12 +14,12 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * The gauge dropper: carries up to {@link #CAPACITY} mB of one fluid or chemical between machines. This
- * moves the liquid between a machine's storages and a dropper's contents; the platform keeps the contents
- * in the item and shows them.
+ * The gauge dropper: carries up to its capacity (its item config's {@code capacity}, D32; Mekanism's
+ * {@link #DEFAULT_CAPACITY} mB) of one fluid or chemical between machines. This moves the liquid between a
+ * machine's storages and a dropper's contents; the platform keeps the contents in the item and shows them.
  */
 public final class GaugeDropper {
-    public static final long CAPACITY = 16_000;
+    public static final long DEFAULT_CAPACITY = 16_000;
 
     /** What was taken: the type and how many mB. */
     public record Taken(@NotNull ResourceType type, long amount) {
@@ -33,19 +33,19 @@ public final class GaugeDropper {
     }
 
     /** The line under the dropper's name: what it holds. */
-    public static @NotNull String lore(@NotNull ResourceType type, long amount) {
-        return String.format(Locale.ROOT, "%s: %,d / %,d mB", MekanizedContent.displayName(type), amount, CAPACITY);
+    public static @NotNull String lore(@NotNull ResourceType type, long amount, long capacity) {
+        return String.format(Locale.ROOT, "%s: %,d / %,d mB", MekanizedContent.displayName(type), amount, capacity);
     }
 
     /**
      * Takes up to the dropper's free room from the first storage with a liquid: of {@code held} if the dropper
-     * already holds one, else of whichever comes first.
+     * already holds one, else of whichever comes first. {@code capacity} is what the dropper holds when full.
      *
      * @return what was taken, or null for nothing (the dropper is full, or the machine has none to give)
      */
     public static @Nullable Taken take(@NotNull MachineContext context, @NotNull Map<String, List<StorageView>> storages,
-                                       @Nullable ResourceType held, long heldAmount) {
-        long room = CAPACITY - heldAmount;
+                                       @Nullable ResourceType held, long heldAmount, long capacity) {
+        long room = capacity - heldAmount;
         for (Map.Entry<String, List<StorageView>> storage : storages.entrySet()) {
             for (StorageView view : storage.getValue()) {
                 if (view.isEmpty() || !isLiquid(view.variant()) || held != null && view.variant().type() != held) continue;
