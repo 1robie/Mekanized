@@ -132,6 +132,8 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:basic_bin
+      storages:
+        items: { capacity: 4096 }
       keep_contents: true
     loot:
       template: machineengine:loot_table/keep_contents
@@ -214,6 +216,8 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:advanced_bin
+      storages:
+        items: { capacity: 8192 }
       keep_contents: true
     loot:
       template: machineengine:loot_table/keep_contents
@@ -296,6 +300,8 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:elite_bin
+      storages:
+        items: { capacity: 32768 }
       keep_contents: true
     loot:
       template: machineengine:loot_table/keep_contents
@@ -378,6 +384,8 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:ultimate_bin
+      storages:
+        items: { capacity: 262144 }
       keep_contents: true
     loot:
       template: machineengine:loot_table/keep_contents
@@ -699,6 +707,8 @@ blocks:
     behavior:
       type: machineengine:machine
       machine: mekanized:chargepad
+      options:
+        charge-per-tick: 51200
       keep_contents: true
       display_item: mekanized:display/chargepad
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270

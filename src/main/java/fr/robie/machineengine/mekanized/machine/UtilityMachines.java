@@ -1,6 +1,7 @@
 package fr.robie.machineengine.mekanized.machine;
 
 import fr.robie.machineengine.api.addon.RegistrationContext;
+import fr.robie.machineengine.api.config.ConfigKey;
 import fr.robie.machineengine.api.item.Items;
 import fr.robie.machineengine.api.machine.MachineBehavior;
 import fr.robie.machineengine.api.machine.MachineDataKey;
@@ -28,15 +29,18 @@ import static fr.robie.machineengine.mekanized.machine.MekanizedRegistry.IS_ENER
  * chargepads through {@code PaperConfigurator}.
  */
 public final class UtilityMachines {
-    /** Items each bin tier holds (Mekanism's defaults); the creative bin is refilled forever. */
+    /**
+     * Items each bin tier holds (Mekanism's); a block config's {@code storages.items.capacity} replaces it
+     * (D34). The creative bin is refilled forever.
+     */
     public static final long[] BIN_CAPACITY = {4_096, 8_192, 32_768, 262_144, Long.MAX_VALUE / 4};
     public static final String[] BIN_TIERS = {"basic", "advanced", "elite", "ultimate", "creative"};
     /** The player (UUID) a personal chest or barrel belongs to; empty until someone opens it. */
     public static final MachineDataKey<String> OWNER = DataKeys.string("owner", "");
     /** Redstone control of the lasers: ignored, high (works while powered) or low (while not powered). */
     public static final MachineDataKey<String> REDSTONE = DataKeys.string("redstone", "ignored");
-    /** Joules the chargepad gives each player standing on it, per tick. */
-    public static final long CHARGEPAD_RATE = 1_024_000 / 20;
+    /** Joules the chargepad gives each player standing on it, per tick: its block config's option (D34). */
+    public static final ConfigKey<Long> CHARGE_PER_TICK = ConfigKey.whole("charge-per-tick", 1_024_000 / 20, 0, 1_000_000_000_000L).clamped();
     private static final ResourcePredicate IS_FLUID = ResourcePredicate.category(MekanizedContent.FLUID);
 
     private UtilityMachines() {

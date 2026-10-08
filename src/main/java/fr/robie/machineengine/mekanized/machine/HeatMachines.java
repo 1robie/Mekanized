@@ -33,7 +33,7 @@ public final class HeatMachines {
     public static final ResourcePredicate IS_HEAT = ResourcePredicate.type(MekanizedContent.HEAT);
     private static final Predicate<ResourceVariant> HEAT = variant -> variant.type() == MekanizedContent.HEAT;
     public static final NetworkType HEAT_NETWORK = NetworkType.of(key("heat"), NetworkBehavior.distributing());
-    /** Joules of heat each conductor tier carries per tick. */
+    /** Joules of heat each conductor tier carries per tick; a block config's rate replaces it (D34). */
     private static final long[] CONDUCTOR_RATES = {10_000, 40_000, 160_000, 640_000};
     private static final String[] TIERS = {"basic", "advanced", "elite", "ultimate"};
     /** Joules of energy per tick the resistive heater turns into heat (a setting in its menu). */

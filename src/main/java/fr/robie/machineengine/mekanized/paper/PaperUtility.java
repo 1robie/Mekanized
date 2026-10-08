@@ -212,7 +212,7 @@ public final class PaperUtility implements Listener {
         }
         if (pad == null) return;
         MachineContext context = pad.context();
-        long budget = UtilityMachines.CHARGEPAD_RATE * CHARGE_EVERY;
+        long budget = context.options().get(UtilityMachines.CHARGE_PER_TICK) * CHARGE_EVERY;
         PlayerInventory inventory = player.getInventory();
         boolean charged = false;
         for (int slot = 0; slot < inventory.getSize() && budget > 0; slot++) {

@@ -23,13 +23,10 @@ public final class MekanizedConfig {
 
     private static final List<ConfigKey<?>> KEYS = new ArrayList<>();
 
-    // -- transport and multiblocks ----------------------------------------------------------------
+    // -- multiblocks -------------------------------------------------------------------------------
 
-    public static final ConfigKey<List<Long>> UNIVERSAL_CABLE = tiers("transport.universal-cable", MekanizedSettings.DEFAULT_CABLE_RATES, "Joules per tick");
-    public static final ConfigKey<List<Long>> PRESSURIZED_TUBE = tiers("transport.pressurized-tube", MekanizedSettings.DEFAULT_TUBE_RATES, "mB per tick");
-    public static final ConfigKey<List<Long>> MECHANICAL_PIPE = tiers("transport.mechanical-pipe", MekanizedSettings.DEFAULT_PIPE_RATES, "mB per tick");
-    public static final ConfigKey<List<Long>> LOGISTICAL_TRANSPORTER = tiers("transport.logistical-transporter",
-            MekanizedSettings.DEFAULT_TRANSPORTER_RATES, "items every 10 ticks");
+    // Transport rates are in each cable's, tube's, pipe's and transporter's block config (D34). Old
+    // transport.* keys left in a file are kept and ignored.
     public static final ConfigKey<Long> TANK_FLUID_PER_BLOCK = add(ConfigKey.whole("dynamic-tank.fluid-per-block",
             MekanizedSettings.DEFAULT_TANK_FLUID_PER_BLOCK, 1, MAX).comment("mB of fluid per block inside the tank"));
     public static final ConfigKey<Long> TANK_CHEMICAL_PER_BLOCK = add(ConfigKey.whole("dynamic-tank.chemical-per-block",
@@ -102,7 +99,6 @@ public final class MekanizedConfig {
                     "Defaults are Mekanism's. Recipes (durations, energy per tick, outputs) are edited in",
                     "plugins/MachineEngine/definitions/mekanized/ instead, and reload with the server's recipes.",
                     "Missing settings are added with their defaults when the server starts.")
-            .section("transport", "How much a network moves per tick, per tier: [basic, advanced, elite, ultimate].")
             .section("teleporter", "The teleporter and the portable teleporter. Costs are Joules; defaults are Mekanism's.")
             .section("chunk-loading", "The dimensional stabilizer. Anchor upgrades always load only the machine's own chunk, for free.")
             .section("radiation", "Radiation (Mekanism's, simplified). Dose and radiation are in Sieverts (Sv, Sv/h).")
@@ -117,10 +113,6 @@ public final class MekanizedConfig {
     private static <T> ConfigKey<T> add(ConfigKey<T> key) {
         KEYS.add(key);
         return key;
-    }
-
-    private static ConfigKey<List<Long>> tiers(String path, long[] defaults, String unit) {
-        return add(ConfigKey.wholes(path, longs(defaults), 4, 1, MAX).comment(unit));
     }
 
     private static ConfigKey<Long> joules(String path, long defaultValue, String... comment) {

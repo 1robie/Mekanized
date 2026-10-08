@@ -18,23 +18,11 @@ import java.util.List;
  * headless tests use them. Recipes (durations, energy, outputs) are edited in their own definition files instead.
  */
 public final class MekanizedSettings {
-    public static final long[] DEFAULT_CABLE_RATES = {8_000, 128_000, 1_024_000, 8_192_000};
-    public static final long[] DEFAULT_TUBE_RATES = {750, 2_000, 64_000, 256_000};
-    public static final long[] DEFAULT_PIPE_RATES = {250, 1_000, 8_000, 32_000};
-    public static final long[] DEFAULT_TRANSPORTER_RATES = {8, 16, 32, 64};
     public static final long DEFAULT_TANK_FLUID_PER_BLOCK = 350_000;
     public static final long DEFAULT_TANK_CHEMICAL_PER_BLOCK = 16_000_000;
     public static final long DEFAULT_EVAPORATION_PER_LEVEL = 10;
     public static final long DEFAULT_EVAPORATION_TANK_PER_LEVEL = 16_000;
 
-    /** Per tier (basic, advanced, elite, ultimate): Joules per tick a universal cable network moves. */
-    public static long[] cableRates = DEFAULT_CABLE_RATES.clone();
-    /** mB per tick a pressurized tube network moves. */
-    public static long[] tubeRates = DEFAULT_TUBE_RATES.clone();
-    /** mB per tick a mechanical pipe network moves. */
-    public static long[] pipeRates = DEFAULT_PIPE_RATES.clone();
-    /** Items a logistical transporter network moves every 10 ticks. */
-    public static long[] transporterRates = DEFAULT_TRANSPORTER_RATES.clone();
     /** Dynamic Tank: mB of fluid, and of chemical, per block inside. */
     public static long tankFluidPerBlock = DEFAULT_TANK_FLUID_PER_BLOCK;
     public static long tankChemicalPerBlock = DEFAULT_TANK_CHEMICAL_PER_BLOCK;
@@ -52,10 +40,6 @@ public final class MekanizedSettings {
 
     /** Copies the settings into the classes that use them. */
     public static void apply(@NotNull ConfigValues config) {
-        cableRates = longs(config.get(MekanizedConfig.UNIVERSAL_CABLE));
-        tubeRates = longs(config.get(MekanizedConfig.PRESSURIZED_TUBE));
-        pipeRates = longs(config.get(MekanizedConfig.MECHANICAL_PIPE));
-        transporterRates = longs(config.get(MekanizedConfig.LOGISTICAL_TRANSPORTER));
         tankFluidPerBlock = config.get(MekanizedConfig.TANK_FLUID_PER_BLOCK);
         tankChemicalPerBlock = config.get(MekanizedConfig.TANK_CHEMICAL_PER_BLOCK);
         evaporationPerLevel = config.get(MekanizedConfig.EVAPORATION_PER_LEVEL);

@@ -1397,6 +1397,7 @@ blocks:
     behavior:
       type: machineengine:transport
       transport: mekanized:basic_universal_cable
+      rate: 8000
       connection_items: mekanized:cable_part/basic_universal_cable
     loot:
       template: default:loot_table/self
@@ -1421,6 +1422,7 @@ blocks:
     behavior:
       type: machineengine:transport
       transport: mekanized:advanced_universal_cable
+      rate: 128000
       connection_items: mekanized:cable_part/advanced_universal_cable
     loot:
       template: default:loot_table/self
@@ -1445,6 +1447,7 @@ blocks:
     behavior:
       type: machineengine:transport
       transport: mekanized:elite_universal_cable
+      rate: 1024000
       connection_items: mekanized:cable_part/elite_universal_cable
     loot:
       template: default:loot_table/self
@@ -1469,6 +1472,7 @@ blocks:
     behavior:
       type: machineengine:transport
       transport: mekanized:ultimate_universal_cable
+      rate: 8192000
       connection_items: mekanized:cable_part/ultimate_universal_cable
     loot:
       template: default:loot_table/self

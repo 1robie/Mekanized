@@ -1290,6 +1290,7 @@ blocks:
     behavior:
       type: machineengine:transport
       transport: mekanized:basic_pressurized_tube
+      rate: 750
       connection_items: mekanized:cable_part/basic_pressurized_tube
     loot:
       template: default:loot_table/self
@@ -1314,6 +1315,7 @@ blocks:
     behavior:
       type: machineengine:transport
       transport: mekanized:advanced_pressurized_tube
+      rate: 2000
       connection_items: mekanized:cable_part/advanced_pressurized_tube
     loot:
       template: default:loot_table/self
@@ -1338,6 +1340,7 @@ blocks:
     behavior:
       type: machineengine:transport
       transport: mekanized:elite_pressurized_tube
+      rate: 64000
       connection_items: mekanized:cable_part/elite_pressurized_tube
     loot:
       template: default:loot_table/self
@@ -1362,6 +1365,7 @@ blocks:
     behavior:
       type: machineengine:transport
       transport: mekanized:ultimate_pressurized_tube
+      rate: 256000
       connection_items: mekanized:cable_part/ultimate_pressurized_tube
     loot:
       template: default:loot_table/self
@@ -1386,6 +1390,7 @@ blocks:
     behavior:
       type: machineengine:transport
       transport: mekanized:basic_mechanical_pipe
+      rate: 250
       connection_items: mekanized:cable_part/basic_mechanical_pipe
     loot:
       template: default:loot_table/self
@@ -1410,6 +1415,7 @@ blocks:
     behavior:
       type: machineengine:transport
       transport: mekanized:advanced_mechanical_pipe
+      rate: 1000
       connection_items: mekanized:cable_part/advanced_mechanical_pipe
     loot:
       template: default:loot_table/self
@@ -1434,6 +1440,7 @@ blocks:
     behavior:
       type: machineengine:transport
       transport: mekanized:elite_mechanical_pipe
+      rate: 8000
       connection_items: mekanized:cable_part/elite_mechanical_pipe
     loot:
       template: default:loot_table/self
@@ -1458,6 +1465,7 @@ blocks:
     behavior:
       type: machineengine:transport
       transport: mekanized:ultimate_mechanical_pipe
+      rate: 32000
       connection_items: mekanized:cable_part/ultimate_mechanical_pipe
     loot:
       template: default:loot_table/self

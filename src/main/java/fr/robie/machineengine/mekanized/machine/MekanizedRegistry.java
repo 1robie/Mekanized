@@ -15,7 +15,6 @@ import fr.robie.machineengine.api.upgrade.ModifierType;
 import fr.robie.machineengine.api.upgrade.StandardModifiers;
 import fr.robie.machineengine.api.upgrade.UpgradeType;
 import fr.robie.machineengine.mekanized.MekanizedContent;
-import fr.robie.machineengine.mekanized.MekanizedSettings;
 import fr.robie.machineengine.mekanized.multiblock.MultiblockMachines;
 import fr.robie.machineengine.mekanized.multiblock.ReactorMachines;
 import java.util.List;
@@ -77,11 +76,13 @@ public final class MekanizedRegistry {
     public static final NetworkType ENERGY_NETWORK = NetworkType.of(key("energy"), NetworkBehavior.distributing());
     static final ResourcePredicate IS_ENERGY = ResourcePredicate.type(MekanizedContent.ENERGY);
     static final ResourcePredicate IS_CHEMICAL = ResourcePredicate.category(MekanizedContent.CHEMICAL);
+    /** Joules per tick, per tier: the default when a cable's block config has no {@code rate} (D34). */
+    public static final long[] CABLE_RATES = {8_000, 128_000, 1_024_000, 8_192_000};
     public static final List<TransportType> CABLES = List.of(
-            TransportType.of(key("basic_universal_cable"), ENERGY_NETWORK, MekanizedSettings.cableRates[0], IS_ENERGY),
-            TransportType.of(key("advanced_universal_cable"), ENERGY_NETWORK, MekanizedSettings.cableRates[1], IS_ENERGY),
-            TransportType.of(key("elite_universal_cable"), ENERGY_NETWORK, MekanizedSettings.cableRates[2], IS_ENERGY),
-            TransportType.of(key("ultimate_universal_cable"), ENERGY_NETWORK, MekanizedSettings.cableRates[3], IS_ENERGY));
+            TransportType.of(key("basic_universal_cable"), ENERGY_NETWORK, CABLE_RATES[0], IS_ENERGY),
+            TransportType.of(key("advanced_universal_cable"), ENERGY_NETWORK, CABLE_RATES[1], IS_ENERGY),
+            TransportType.of(key("elite_universal_cable"), ENERGY_NETWORK, CABLE_RATES[2], IS_ENERGY),
+            TransportType.of(key("ultimate_universal_cable"), ENERGY_NETWORK, CABLE_RATES[3], IS_ENERGY));
 
     /** The server's furnace recipes for the energized smelter, set by the platform (none in headless tests). */
     private static volatile Consumer<ReloadContext<Recipe>> furnaceRecipes;

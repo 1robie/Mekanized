@@ -3,33 +3,6 @@
 # plugins/MachineEngine/definitions/mekanized/ instead, and reload with the server's recipes.
 # Missing settings are added with their defaults when the server starts.
 
-# How much a network moves per tick, per tier: [basic, advanced, elite, ultimate].
-transport:
-  # Joules per tick
-  universal-cable:
-  - 8000
-  - 128000
-  - 1024000
-  - 8192000
-  # mB per tick
-  pressurized-tube:
-  - 750
-  - 2000
-  - 64000
-  - 256000
-  # mB per tick
-  mechanical-pipe:
-  - 250
-  - 1000
-  - 8000
-  - 32000
-  # items every 10 ticks
-  logistical-transporter:
-  - 8
-  - 16
-  - 32
-  - 64
-
 dynamic-tank:
   # mB of fluid per block inside the tank
   fluid-per-block: 350000

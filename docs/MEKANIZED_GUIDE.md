@@ -20,7 +20,7 @@ Mekanized writes its files on the first start:
 | `plugins/CraftEngine/resources/mekanized/` | Blocks, items, crafting recipes, names in every language Mekanism has |
 | `plugins/MachineEngine/definitions/mekanized/` | Machine recipes and tags |
 | `plugins/MachineEngine/menus/mekanized_*.yml` | Machine menus (zMenu) |
-| `plugins/Mekanized/config.yml` | Gameplay numbers: transport rates, multiblocks, gear, radiation, teleporters, chunk loading, QIO, digital miner |
+| `plugins/Mekanized/config.yml` | Gameplay numbers: multiblocks, radiation, teleporters, chunk loading, QIO, digital miner |
 
 **Updates:** updating Mekanized replaces these files only if you have not edited them. An edited file is
 kept, and the log says so; to get the new default, delete it.
@@ -149,8 +149,7 @@ Click a machine's upgrade button with the upgrade in hand to install it.
   keeps its default; a wrong value is replaced or limited to its nearest allowed value, with a warning in the log
   (the file keeps what you wrote, for you to fix). Settings added by an update are written into your file, with
   their comments, at the next start; your values and comments are kept.
-  - `transport`, `dynamic-tank`, `thermal-evaporation`: network rates per tier, Dynamic Tank capacity,
-    Thermal Evaporation rate.
+  - `dynamic-tank`, `thermal-evaporation`: Dynamic Tank capacity, Thermal Evaporation rate.
   - `radiation`: background, how fast sources and doses fade, the doses that make players sick, hurt them and kill them, and the waste barrel.
   - `teleporter`: Joules per teleport (base, per block, to another world) and the cooldown between teleports.
     The Meka-Tool's teleportation unit uses the same costs.
@@ -167,6 +166,15 @@ Click a machine's upgrade button with the upgrade in hand to install it.
   Gear has no `config.yml` settings any more: every number is in the item's CraftEngine config
   (`plugins/CraftEngine/resources/mekanized/configuration/gear.yml`, `chemistry.yml`), under `behaviors`.
   Edit it there and run `/ce reload`. Old `gear.*` keys left in `config.yml` are ignored.
+
+  Blocks keep their own numbers in their CraftEngine block config the same way (D34), under `behavior`:
+  - `rate:` on every universal cable, pressurized tube, mechanical pipe, logistical transporter and
+    thermodynamic conductor (per tick; transporters: items every 10 ticks);
+  - `storages: { items: { capacity: ... } }` on the bins;
+  - `options: { charge-per-tick: ... }` on the chargepad (Joules per player per tick).
+
+  Machines read them when they load: restart, or let their chunks reload, after editing. Old `transport.*` keys
+  left in `config.yml` are ignored.
 
   | Behavior | Items | Options |
   |---|---|---|

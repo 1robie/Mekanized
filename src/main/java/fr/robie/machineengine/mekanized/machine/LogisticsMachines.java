@@ -14,7 +14,6 @@ import fr.robie.machineengine.api.recipe.ProcessingRecipe;
 import fr.robie.machineengine.api.recipe.RecipeType;
 import fr.robie.machineengine.api.world.RelativeSide;
 import fr.robie.machineengine.mekanized.MekanizedContent;
-import fr.robie.machineengine.mekanized.MekanizedSettings;
 import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -37,6 +36,7 @@ public final class LogisticsMachines {
     public static final NetworkType ITEM_NETWORK = NetworkType.of(key("items"), NetworkBehavior.distributing(10));
     public static final String[] TIERS = {"basic", "advanced", "elite", "ultimate"};
     private static final int[] LANES = {3, 5, 7, 9};
+    private static final long[] TRANSPORTER_RATES = {8, 16, 32, 64};
     public static final List<TransportType> TRANSPORTERS = transporters();
 
     /** A factory kind: its recipes, the machine it upgrades, and what that machine has besides items and energy. */
@@ -61,9 +61,9 @@ public final class LogisticsMachines {
     private static List<TransportType> transporters() {
         List<TransportType> transporters = new ArrayList<>();
         for (int i = 0; i < TIERS.length; i++) {
-            // Items per batch (every 10 ticks), from the settings.
+            // Items per batch (every 10 ticks); a block config's rate replaces it (D34).
             transporters.add(TransportType.of(key(TIERS[i] + "_logistical_transporter"), ITEM_NETWORK,
-                    MekanizedSettings.transporterRates[i], Items.anyItem()));
+                    TRANSPORTER_RATES[i], Items.anyItem()));
         }
         return List.copyOf(transporters);
     }

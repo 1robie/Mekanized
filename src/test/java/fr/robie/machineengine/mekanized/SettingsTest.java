@@ -4,6 +4,7 @@ import fr.robie.machineengine.api.world.WorldPosition;
 import fr.robie.machineengine.mekanized.machine.ChunkLoadingSettings;
 import fr.robie.machineengine.mekanized.machine.DigitalMinerSettings;
 import fr.robie.machineengine.mekanized.machine.Frequencies;
+import fr.robie.machineengine.mekanized.machine.MekanizedRegistry;
 import fr.robie.machineengine.mekanized.machine.QioSettings;
 import fr.robie.machineengine.mekanized.machine.RadiationSettings;
 import fr.robie.machineengine.mekanized.machine.TeleporterSettings;
@@ -113,7 +114,8 @@ class SettingsTest {
         assertTrue(this.warnings.isEmpty(), this.warnings.toString());
         gearDefaultsAreTheOldNumbersInTheItemConfig();
         qioDefaultsAreTheOldNumbers();
-        assertArrayEquals(new long[]{8_000, 128_000, 1_024_000, 8_192_000}, MekanizedSettings.cableRates);
+        // Its transport.* rates are kept in the file and ignored: the block configs hold them now (D34).
+        assertEquals(8_000, MekanizedRegistry.CABLES.getFirst().ratePerTick());
     }
 
     @Test

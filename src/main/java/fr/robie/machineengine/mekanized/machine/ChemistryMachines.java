@@ -18,7 +18,6 @@ import fr.robie.machineengine.api.resource.match.ResourcePredicate;
 import fr.robie.machineengine.api.upgrade.UpgradeType;
 import fr.robie.machineengine.api.world.RelativeSide;
 import fr.robie.machineengine.mekanized.MekanizedContent;
-import fr.robie.machineengine.mekanized.MekanizedSettings;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,14 +54,14 @@ public final class ChemistryMachines {
 
     static final ResourcePredicate IS_FLUID = ResourcePredicate.category(MekanizedContent.FLUID);
 
-    // -- transport: rates are Mekanism's pull amounts per tick -----------------------------------
+    // -- transport: Mekanism's pull amounts per tick, the defaults of the block configs' rate (D34) -
     public static final NetworkType CHEMICAL_NETWORK = NetworkType.of(key("chemical"), NetworkBehavior.distributing());
     public static final NetworkType FLUID_NETWORK = NetworkType.of(key("fluid"), NetworkBehavior.distributing());
     private static final String[] TIERS = {"basic", "advanced", "elite", "ultimate"};
     public static final List<TransportType> TUBES = transports("pressurized_tube", CHEMICAL_NETWORK, IS_CHEMICAL,
-            MekanizedSettings.tubeRates);
+            750, 2_000, 64_000, 256_000);
     public static final List<TransportType> PIPES = transports("mechanical_pipe", FLUID_NETWORK, IS_FLUID,
-            MekanizedSettings.pipeRates);
+            250, 1_000, 8_000, 32_000);
 
     private ChemistryMachines() {
     }

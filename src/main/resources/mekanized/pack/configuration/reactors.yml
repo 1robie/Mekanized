@@ -1208,6 +1208,7 @@ blocks:
     behavior:
       type: machineengine:transport
       transport: mekanized:basic_thermodynamic_conductor
+      rate: 10000
       connection_items: mekanized:cable_part/basic_thermodynamic_conductor
     loot:
       template: default:loot_table/self
@@ -1232,6 +1233,7 @@ blocks:
     behavior:
       type: machineengine:transport
       transport: mekanized:advanced_thermodynamic_conductor
+      rate: 40000
       connection_items: mekanized:cable_part/advanced_thermodynamic_conductor
     loot:
       template: default:loot_table/self
@@ -1256,6 +1258,7 @@ blocks:
     behavior:
       type: machineengine:transport
       transport: mekanized:elite_thermodynamic_conductor
+      rate: 160000
       connection_items: mekanized:cable_part/elite_thermodynamic_conductor
     loot:
       template: default:loot_table/self
@@ -1280,6 +1283,7 @@ blocks:
     behavior:
       type: machineengine:transport
       transport: mekanized:ultimate_thermodynamic_conductor
+      rate: 640000
       connection_items: mekanized:cable_part/ultimate_thermodynamic_conductor
     loot:
       template: default:loot_table/self
