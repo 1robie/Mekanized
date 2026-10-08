@@ -45,6 +45,8 @@ public final class MekanizedPlugin extends JavaPlugin {
 
     /** Inside the jar: the content (src/main/resources/mekanized), under {@code mekanized/}. */
     private static final String CONTENT = "mekanized/";
+    /** Mekanized's CraftEngine templates: rewritten at every start, owners copy one under another name to change it. */
+    private static final String TEMPLATES = "configuration/templates.yml";
     /**
      * The content files to install, as listed by the build ({@code mekanized/manifest.yml}): a file
      * added to the content is installed, with no list kept by hand to forget it in.
@@ -124,8 +126,9 @@ public final class MekanizedPlugin extends JavaPlugin {
 
     /**
      * Copies {@code mekanized/pack/} to {@code plugins/CraftEngine/resources/mekanized/}. Assets
-     * ({@code resourcepack/}) are refreshed on every start; configuration files are installed
-     * once, so server owners' edits are kept.
+     * ({@code resourcepack/}) and the templates ({@code configuration/templates.yml}, which the block
+     * files rely on) are refreshed on every start; other configuration files are installed once, so
+     * server owners' edits are kept.
      */
     private void installCraftEnginePack(EditableFiles files) {
         Path target = getDataFolder().toPath().getParent().resolve("CraftEngine/resources/mekanized");
@@ -141,7 +144,7 @@ public final class MekanizedPlugin extends JavaPlugin {
                 String relative = name.substring((CONTENT + "pack/").length());
                 Path destination = target.resolve(relative);
                 boolean asset = relative.startsWith("resourcepack/");
-                if (!asset) {
+                if (!asset && !relative.equals(TEMPLATES)) {
                     if (!this.manifest.pack().contains(relative)) continue;
                     try (InputStream in = jar.getInputStream(entry)) {
                         if (files.install(destination, in.readAllBytes())) copied++;

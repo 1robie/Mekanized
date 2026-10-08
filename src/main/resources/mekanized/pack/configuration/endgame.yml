@@ -100,25 +100,12 @@ items:
       block: mekanized:advanced_solar_generator
 blocks:
   mekanized:pressurized_reaction_chamber:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:pressurized_reaction_chamber
-      keep_contents: true
       display_item: mekanized:display/pressurized_reaction_chamber
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -141,25 +128,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:isotopic_centrifuge:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:isotopic_centrifuge
-      keep_contents: true
       display_item: mekanized:display/isotopic_centrifuge
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -182,25 +156,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:solar_neutron_activator:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:solar_neutron_activator
-      keep_contents: true
       display_item: mekanized:display/solar_neutron_activator
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -223,25 +184,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:antiprotonic_nucleosynthesizer:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:antiprotonic_nucleosynthesizer
-      keep_contents: true
       display_item: mekanized:display/antiprotonic_nucleosynthesizer
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -264,25 +212,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:painting_machine:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:painting_machine
-      keep_contents: true
       display_item: mekanized:display/painting_machine
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -305,25 +240,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:pigment_extractor:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:pigment_extractor
-      keep_contents: true
       display_item: mekanized:display/pigment_extractor
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -346,25 +268,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:pigment_mixer:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:pigment_mixer
-      keep_contents: true
       display_item: mekanized:display/pigment_mixer
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -387,25 +296,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:gas_burning_generator:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:gas_burning_generator
-      keep_contents: true
       display_item: mekanized:display/gas_burning_generator
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -428,27 +324,14 @@ blocks:
         facing=east:
           appearance: default
   mekanized:wind_generator:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:wind_generator
       options:
         max-energy-per-tick: 480
-      keep_contents: true
       display_item: mekanized:display/wind_generator
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -471,27 +354,14 @@ blocks:
         facing=east:
           appearance: default
   mekanized:advanced_solar_generator:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:advanced_solar_generator
       options:
         energy-per-tick: 300
-      keep_contents: true
       display_item: mekanized:display/advanced_solar_generator
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:

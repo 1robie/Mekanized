@@ -137,27 +137,14 @@ items:
       machineengine:resource_lore: {}
 blocks:
   mekanized:digital_miner:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:digital_miner
       options:
         energy-per-block: 2000
         ticks-per-block: 10
-      keep_contents: true
       display_item: mekanized:display/digital_miner
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -180,27 +167,14 @@ blocks:
         facing=west:
           appearance: default
   mekanized:seismic_vibrator:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:seismic_vibrator
       options:
         energy-per-tick: 50
-      keep_contents: true
       display_item: mekanized:display/seismic_vibrator
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -223,68 +197,27 @@ blocks:
         facing=west:
           appearance: default
   mekanized:teleporter:
-    behavior:
-      type: machineengine:machine
-      machine: mekanized:teleporter
-      keep_contents: true
-    loot:
-      template: machineengine:loot_table/keep_contents
+    template: machineengine:block/machine
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/machine
     state:
       auto_state: solid
       model:
         path: mekanized:block/teleporter
   mekanized:teleporter_frame:
-    behavior:
-      type: machineengine:machine
-      machine: mekanized:teleporter_frame
-      keep_contents: true
-    loot:
-      template: machineengine:loot_table/keep_contents
+    template: machineengine:block/machine
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/machine
     state:
       auto_state: solid
       model:
         path: mekanized:block/teleporter_frame
   mekanized:qio_drive_array:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:qio_drive_array
-      keep_contents: true
       display_item: mekanized:display/qio_drive_array
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -307,25 +240,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:qio_dashboard:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:qio_dashboard
-      keep_contents: true
       display_item: mekanized:display/qio_dashboard
       display_rotations: north=90/0,south=90/180,east=90/90,west=90/270,up=0/0,down=180/0
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -352,28 +272,15 @@ blocks:
         facing=west:
           appearance: default
   mekanized:qio_importer:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:qio_importer
       options:
         items-per-second: 64
-      keep_contents: true
       display_item: mekanized:display/qio_importer
       display_rotation: 180
       display_rotations: north=270/180,south=270/0,east=270/270,west=270/90,up=0/0,down=180/0
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -400,28 +307,15 @@ blocks:
         facing=west:
           appearance: default
   mekanized:qio_exporter:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:qio_exporter
       options:
         items-per-second: 64
-      keep_contents: true
       display_item: mekanized:display/qio_exporter
       display_rotation: 180
       display_rotations: north=270/180,south=270/0,east=270/270,west=270/90,up=0/0,down=180/0
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:

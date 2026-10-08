@@ -114,126 +114,59 @@ items:
       block: mekanized:ultimate_induction_provider
 blocks:
   mekanized:dynamic_tank:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:dynamic_tank
       options:
         fluid-per-block: 350000
         chemical-per-block: 16000000
-      keep_contents: true
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/machine
     state:
       auto_state: solid
       model:
         path: mekanized:block/dynamic_tank
   mekanized:dynamic_valve:
-    behavior:
-      type: machineengine:machine
-      machine: mekanized:dynamic_valve
-      keep_contents: true
-    loot:
-      template: machineengine:loot_table/keep_contents
+    template: machineengine:block/machine
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/machine
     state:
       auto_state: solid
       model:
         path: mekanized:block/dynamic_valve
   mekanized:structural_glass:
-    behavior:
-      type: machineengine:machine
-      machine: mekanized:structural_glass
-      keep_contents: true
-    loot:
-      template: machineengine:loot_table/keep_contents
+    template: machineengine:block/machine
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     state:
       auto_state: tintable_leaves
       model:
         path: mekanized:block/structural_glass
   mekanized:induction_casing:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:induction_casing
       options:
         cell-capacity:
           basic: 8000000000
           advanced: 64000000000
           elite: 512000000000
           ultimate: 4000000000000
-      keep_contents: true
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/machine
     state:
       auto_state: solid
       model:
         path: mekanized:block/induction/casing
   mekanized:induction_port:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:induction_port
       options:
         provider-output:
           basic: 256000
           advanced: 2048000
           elite: 16384000
           ultimate: 131072000
-      keep_contents: true
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/machine
     states:
       properties:
         active:
@@ -254,71 +187,30 @@ blocks:
         active=true:
           appearance: active_true
   mekanized:thermal_evaporation_block:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:thermal_evaporation_block
       options:
         input-per-level-per-tick: 10
         input-tank-per-level: 16000
         output-tank: 10000
-      keep_contents: true
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/machine
     state:
       auto_state: solid
       model:
         path: mekanized:block/thermal_evaporation/block
   mekanized:thermal_evaporation_valve:
-    behavior:
-      type: machineengine:machine
-      machine: mekanized:thermal_evaporation_valve
-      keep_contents: true
-    loot:
-      template: machineengine:loot_table/keep_contents
+    template: machineengine:block/machine
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/machine
     state:
       auto_state: solid
       model:
         path: mekanized:block/thermal_evaporation/valve
   mekanized:thermal_evaporation_controller:
-    behavior:
-      type: machineengine:machine
-      machine: mekanized:thermal_evaporation_controller
-      keep_contents: true
-    loot:
-      template: machineengine:loot_table/keep_contents
+    template: machineengine:block/machine
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/machine
     states:
       properties:
         facing:
@@ -387,15 +279,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:
@@ -404,15 +288,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:
@@ -421,15 +297,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:
@@ -438,15 +306,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:
@@ -455,15 +315,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:
@@ -472,15 +324,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:
@@ -489,15 +333,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:
@@ -506,15 +342,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:

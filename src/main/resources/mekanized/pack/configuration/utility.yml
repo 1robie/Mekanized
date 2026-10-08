@@ -129,25 +129,12 @@ items:
       block: mekanized:industrial_alarm
 blocks:
   mekanized:basic_bin:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:basic_bin
       storages:
         items: { capacity: 4096 }
-      keep_contents: true
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/machine
     states:
       properties:
         facing:
@@ -213,25 +200,12 @@ blocks:
         facing=west,active=true:
           appearance: facing_west_active_true
   mekanized:advanced_bin:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:advanced_bin
       storages:
         items: { capacity: 8192 }
-      keep_contents: true
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/machine
     states:
       properties:
         facing:
@@ -297,25 +271,12 @@ blocks:
         facing=west,active=true:
           appearance: facing_west_active_true
   mekanized:elite_bin:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:elite_bin
       storages:
         items: { capacity: 32768 }
-      keep_contents: true
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/machine
     states:
       properties:
         facing:
@@ -381,25 +342,12 @@ blocks:
         facing=west,active=true:
           appearance: facing_west_active_true
   mekanized:ultimate_bin:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:ultimate_bin
       storages:
         items: { capacity: 262144 }
-      keep_contents: true
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/machine
     states:
       properties:
         facing:
@@ -465,23 +413,9 @@ blocks:
         facing=west,active=true:
           appearance: facing_west_active_true
   mekanized:creative_bin:
-    behavior:
-      type: machineengine:machine
-      machine: mekanized:creative_bin
-      keep_contents: true
-    loot:
-      template: machineengine:loot_table/keep_contents
+    template: machineengine:block/machine
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/machine
     states:
       properties:
         facing:
@@ -547,25 +481,14 @@ blocks:
         facing=west,active=true:
           appearance: facing_west_active_true
   mekanized:personal_chest:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:personal_chest
-      keep_contents: true
       display_item: mekanized:display/personal_chest
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
+      template: mekanized:settings/transparent_machine
       overrides:
-        hardness: 3.5
         resistance: 3600000.0  # personal storage: no explosion breaks it
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
     states:
       properties:
         facing:
@@ -588,23 +511,11 @@ blocks:
         facing=west:
           appearance: default
   mekanized:personal_barrel:
-    behavior:
-      type: machineengine:machine
-      machine: mekanized:personal_barrel
-      keep_contents: true
-    loot:
-      template: machineengine:loot_table/keep_contents
+    template: machineengine:block/machine
     settings:
-      template: default:settings/solid_1x1x1
+      template: mekanized:settings/machine
       overrides:
-        hardness: 3.5
         resistance: 3600000.0  # personal storage: no explosion breaks it
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
     states:
       properties:
         facing:
@@ -704,27 +615,14 @@ blocks:
         facing=west,open=true:
           appearance: facing_west_open_true
   mekanized:chargepad:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:chargepad
       options:
         charge-per-tick: 51200
-      keep_contents: true
       display_item: mekanized:display/chargepad
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -745,29 +643,16 @@ blocks:
         facing=west:
           appearance: default
   mekanized:fluidic_plenisher:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:fluidic_plenisher
       options:
         energy: 2000
         ticks: 20
         range: 32
-      keep_contents: true
       display_item: mekanized:display/fluidic_plenisher
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -790,26 +675,13 @@ blocks:
         facing=west:
           appearance: default
   mekanized:formulaic_assemblicator:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:formulaic_assemblicator
       options:
         energy: 4000
         ticks: 40
-      keep_contents: true
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/machine
     states:
       properties:
         facing:
@@ -845,30 +717,17 @@ blocks:
         facing=west:
           appearance: facing_west
   mekanized:laser:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:laser
       options:
         energy-per-tick: 5000
         range: 64
         energy-per-hardness: 100000
-      keep_contents: true
       display_item: mekanized:display/laser
       display_rotation: 180
       display_rotations: north=270/180,south=270/0,east=270/270,west=270/90,up=0/0,down=180/0
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -895,30 +754,17 @@ blocks:
         facing=west:
           appearance: default
   mekanized:laser_amplifier:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:laser_amplifier
       options:
         energy-per-tick: 5000000
         range: 64
         energy-per-hardness: 100000
-      keep_contents: true
       display_item: mekanized:display/laser_amplifier
       display_rotation: 180
       display_rotations: north=270/180,south=270/0,east=270/270,west=270/90,up=0/0,down=180/0
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -945,30 +791,17 @@ blocks:
         facing=west:
           appearance: default
   mekanized:laser_tractor_beam:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:laser_tractor_beam
       options:
         energy-per-tick: 5000000
         range: 64
         energy-per-hardness: 100000
-      keep_contents: true
       display_item: mekanized:display/laser_tractor_beam
       display_rotation: 180
       display_rotations: north=270/180,south=270/0,east=270/270,west=270/90,up=0/0,down=180/0
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -995,23 +828,9 @@ blocks:
         facing=west:
           appearance: default
   mekanized:oredictionificator:
-    behavior:
-      type: machineengine:machine
-      machine: mekanized:oredictionificator
-      keep_contents: true
-    loot:
-      template: machineengine:loot_table/keep_contents
+    template: machineengine:block/machine
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/machine
     states:
       properties:
         facing:
@@ -1047,25 +866,12 @@ blocks:
         facing=west:
           appearance: facing_west
   mekanized:industrial_alarm:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:industrial_alarm
-      keep_contents: true
       display_item: mekanized:display/industrial_alarm
       display_rotations: north=90/0,south=90/180,east=90/90,west=90/270,up=0/0,down=180/0
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:

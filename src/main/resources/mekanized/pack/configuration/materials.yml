@@ -1093,15 +1093,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:
@@ -1110,15 +1102,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:
@@ -1127,15 +1111,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:
@@ -1144,15 +1120,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:
@@ -1161,15 +1129,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:
@@ -1178,15 +1138,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:
@@ -1195,15 +1147,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:
@@ -1212,15 +1156,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:
@@ -1229,15 +1165,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:
@@ -1246,15 +1174,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:
@@ -1263,15 +1183,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:
@@ -1280,15 +1192,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:
@@ -1297,15 +1201,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:
@@ -1314,15 +1210,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:
@@ -1331,15 +1219,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:
@@ -1348,15 +1228,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:
@@ -1479,15 +1351,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 5.0
-        resistance: 6.0
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/storage_block
     state:
       auto_state: solid
       model:

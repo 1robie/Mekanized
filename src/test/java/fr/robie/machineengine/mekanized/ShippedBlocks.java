@@ -9,6 +9,7 @@ import java.util.Map;
  * by a config factory ({@link ShippedConfig}).
  */
 final class ShippedBlocks {
+    private static final String MACHINE_TEMPLATE = "machineengine:block/machine";
     /** Block id (without namespace) -> its behavior section. */
     static final Map<String, Map<String, Object>> BEHAVIORS = load();
 
@@ -39,9 +40,15 @@ final class ShippedBlocks {
     private static Map<String, Map<String, Object>> load() {
         Map<String, Map<String, Object>> all = new HashMap<>();
         ShippedConfig.forEach("blocks", (id, block) -> {
-            if (block.get("behavior") instanceof Map<?, ?> behavior) {
-                all.put(id.substring(id.indexOf(':') + 1), (Map<String, Object>) behavior);
+            Map<String, Object> behavior = block.get("behavior") instanceof Map<?, ?> map ? new HashMap<>((Map<String, Object>) map) : null;
+            if (MACHINE_TEMPLATE.equals(block.get("template"))) {
+                // What machineengine:block/machine gives (the engine's templates.yml); the block's keys win.
+                if (behavior == null) behavior = new HashMap<>();
+                behavior.putIfAbsent("type", "machineengine:machine");
+                behavior.putIfAbsent("machine", id);
+                behavior.putIfAbsent("keep_contents", true);
             }
+            if (behavior != null) all.put(id.substring(id.indexOf(':') + 1), behavior);
         });
         return all;
     }

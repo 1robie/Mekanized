@@ -1,0 +1,44 @@
+# Mekanized's CraftEngine templates, used by the block and item files next to this one.
+# Rewritten at every start: do not edit (copy a template into your own pack under another name to
+# change it, and point the blocks you want at the copy). See docs/CE_TEMPLATES_PLAN.md.
+templates:
+  # Block settings. Use: settings: { template: mekanized:settings/machine }
+  # A block changes one value with overrides: settings: { template: ..., overrides: { resistance: 12.0 } }
+
+  # A full machine block.
+  mekanized:settings/machine:
+    template: default:settings/solid_1x1x1
+    overrides:
+      hardness: 3.5
+      resistance: 8.0
+      push_reaction: block
+      tags:
+      - minecraft:mineable/pickaxe
+      correct_tools:
+      - '#minecraft:pickaxes'
+      required_break_power: 1
+
+  # A machine drawn by display entities, or a transport: it does not hide its neighbours' faces.
+  mekanized:settings/transparent_machine:
+    template: default:settings/transparent_1x1x1
+    overrides:
+      hardness: 3.5
+      resistance: 8.0
+      push_reaction: block
+      tags:
+      - minecraft:mineable/pickaxe
+      correct_tools:
+      - '#minecraft:pickaxes'
+      required_break_power: 1
+
+  # A block of a material (osmium block, bio fuel block, …).
+  mekanized:settings/storage_block:
+    template: default:settings/solid_1x1x1
+    overrides:
+      hardness: 5.0
+      resistance: 6.0
+      tags:
+      - minecraft:mineable/pickaxe
+      correct_tools:
+      - '#minecraft:pickaxes'
+      required_break_power: 1

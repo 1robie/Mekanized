@@ -545,25 +545,12 @@ items:
       machineengine:resource_lore: {}
 blocks:
   mekanized:chemical_oxidizer:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:chemical_oxidizer
-      keep_contents: true
       display_item: mekanized:display/chemical_oxidizer
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -586,25 +573,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:chemical_infuser:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:chemical_infuser
-      keep_contents: true
       display_item: mekanized:display/chemical_infuser
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -627,23 +601,9 @@ blocks:
         facing=west:
           appearance: default
   mekanized:chemical_injection_chamber:
-    behavior:
-      type: machineengine:machine
-      machine: mekanized:chemical_injection_chamber
-      keep_contents: true
-    loot:
-      template: machineengine:loot_table/keep_contents
+    template: machineengine:block/machine
     settings:
-      template: default:settings/solid_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/machine
     states:
       properties:
         facing:
@@ -709,25 +669,12 @@ blocks:
         facing=west,active=true:
           appearance: facing_west_active_true
   mekanized:chemical_dissolution_chamber:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:chemical_dissolution_chamber
-      keep_contents: true
       display_item: mekanized:display/chemical_dissolution_chamber
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -750,25 +697,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:chemical_washer:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:chemical_washer
-      keep_contents: true
       display_item: mekanized:display/chemical_washer
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -791,25 +725,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:chemical_crystallizer:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:chemical_crystallizer
-      keep_contents: true
       display_item: mekanized:display/chemical_crystallizer
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -832,26 +753,13 @@ blocks:
         facing=west:
           appearance: default
   mekanized:electrolytic_separator:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:electrolytic_separator
-      keep_contents: true
       display_item: mekanized:display/electrolytic_separator
       display_rotation: 90
       display_rotations: north=0/90,south=0/270,east=0/180,west=0/0
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -874,25 +782,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:rotary_condensentrator:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:rotary_condensentrator
-      keep_contents: true
       display_item: mekanized:display/rotary_condensentrator
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -915,31 +810,18 @@ blocks:
         facing=west:
           appearance: default
   mekanized:electric_pump:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:electric_pump
       options:
         energy: 2000
         ticks: 20
         range: 32
         heavy-water-per-block: 10
-      keep_contents: true
       display_item: mekanized:display/electric_pump
       display_rotation: 180
       display_rotations: north=0/180,south=0/0,east=0/270,west=0/90
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -962,29 +844,16 @@ blocks:
         facing=west:
           appearance: default
   mekanized:basic_chemical_tank:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:basic_chemical_tank
       storages:
         chemical: { capacity: 64000 }
       ports:
         out: { rate: 1000 }
-      keep_contents: true
       display_item: mekanized:display/basic_chemical_tank
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1007,28 +876,15 @@ blocks:
         facing=west:
           appearance: default
   mekanized:basic_fluid_tank:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:basic_fluid_tank
       storages:
         fluid: { capacity: 32000 }
       ports:
         out: { rate: 1000 }
-      keep_contents: true
       display_item: mekanized:display/basic_fluid_tank
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     state:
       auto_state:
         type: leaves
@@ -1036,29 +892,16 @@ blocks:
       model:
         path: mekanized:block/display_empty/shared/fluid_tank
   mekanized:advanced_chemical_tank:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:advanced_chemical_tank
       storages:
         chemical: { capacity: 256000 }
       ports:
         out: { rate: 16000 }
-      keep_contents: true
       display_item: mekanized:display/advanced_chemical_tank
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1081,28 +924,15 @@ blocks:
         facing=west:
           appearance: default
   mekanized:advanced_fluid_tank:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:advanced_fluid_tank
       storages:
         fluid: { capacity: 64000 }
       ports:
         out: { rate: 4000 }
-      keep_contents: true
       display_item: mekanized:display/advanced_fluid_tank
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     state:
       auto_state:
         type: leaves
@@ -1110,29 +940,16 @@ blocks:
       model:
         path: mekanized:block/display_empty/shared/fluid_tank
   mekanized:elite_chemical_tank:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:elite_chemical_tank
       storages:
         chemical: { capacity: 1024000 }
       ports:
         out: { rate: 128000 }
-      keep_contents: true
       display_item: mekanized:display/elite_chemical_tank
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1155,28 +972,15 @@ blocks:
         facing=west:
           appearance: default
   mekanized:elite_fluid_tank:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:elite_fluid_tank
       storages:
         fluid: { capacity: 128000 }
       ports:
         out: { rate: 16000 }
-      keep_contents: true
       display_item: mekanized:display/elite_fluid_tank
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     state:
       auto_state:
         type: leaves
@@ -1184,29 +988,16 @@ blocks:
       model:
         path: mekanized:block/display_empty/shared/fluid_tank
   mekanized:ultimate_chemical_tank:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:ultimate_chemical_tank
       storages:
         chemical: { capacity: 8192000 }
       ports:
         out: { rate: 512000 }
-      keep_contents: true
       display_item: mekanized:display/ultimate_chemical_tank
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1229,28 +1020,15 @@ blocks:
         facing=west:
           appearance: default
   mekanized:ultimate_fluid_tank:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:ultimate_fluid_tank
       storages:
         fluid: { capacity: 256000 }
       ports:
         out: { rate: 64000 }
-      keep_contents: true
       display_item: mekanized:display/ultimate_fluid_tank
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     state:
       auto_state:
         type: leaves
@@ -1258,25 +1036,12 @@ blocks:
       model:
         path: mekanized:block/display_empty/shared/fluid_tank
   mekanized:creative_chemical_tank:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:creative_chemical_tank
-      keep_contents: true
       display_item: mekanized:display/creative_chemical_tank
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1299,24 +1064,11 @@ blocks:
         facing=west:
           appearance: default
   mekanized:creative_fluid_tank:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:creative_fluid_tank
-      keep_contents: true
       display_item: mekanized:display/creative_fluid_tank
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     state:
       auto_state:
         type: leaves
@@ -1332,16 +1084,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     state:
       auto_state:
         type: sapling
@@ -1357,16 +1100,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     state:
       auto_state:
         type: sapling
@@ -1382,16 +1116,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     state:
       auto_state:
         type: sapling
@@ -1407,16 +1132,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     state:
       auto_state:
         type: sapling
@@ -1432,16 +1148,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     state:
       auto_state:
         type: sapling
@@ -1457,16 +1164,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     state:
       auto_state:
         type: sapling
@@ -1482,16 +1180,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     state:
       auto_state:
         type: sapling
@@ -1507,16 +1196,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     state:
       auto_state:
         type: sapling

@@ -629,28 +629,15 @@ items:
       - mekanized:configurators
 blocks:
   mekanized:logistical_sorter:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:logistical_sorter
       options:
         every-ticks: 10
         stack-size: 64
-      keep_contents: true
       display_item: mekanized:display/logistical_sorter
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270,up=270/0,down=90/0
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -677,25 +664,12 @@ blocks:
         facing=down:
           appearance: default
   mekanized:basic_smelting_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:basic_smelting_factory
-      keep_contents: true
       display_item: mekanized:display/basic_smelting_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -718,25 +692,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:basic_enriching_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:basic_enriching_factory
-      keep_contents: true
       display_item: mekanized:display/basic_enriching_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -759,25 +720,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:basic_crushing_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:basic_crushing_factory
-      keep_contents: true
       display_item: mekanized:display/basic_crushing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -800,25 +748,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:basic_compressing_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:basic_compressing_factory
-      keep_contents: true
       display_item: mekanized:display/basic_compressing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -841,25 +776,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:basic_combining_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:basic_combining_factory
-      keep_contents: true
       display_item: mekanized:display/basic_combining_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -882,25 +804,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:basic_purifying_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:basic_purifying_factory
-      keep_contents: true
       display_item: mekanized:display/basic_purifying_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -923,25 +832,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:basic_injecting_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:basic_injecting_factory
-      keep_contents: true
       display_item: mekanized:display/basic_injecting_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -964,25 +860,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:basic_infusing_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:basic_infusing_factory
-      keep_contents: true
       display_item: mekanized:display/basic_infusing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1005,25 +888,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:basic_sawing_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:basic_sawing_factory
-      keep_contents: true
       display_item: mekanized:display/basic_sawing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1046,25 +916,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:advanced_smelting_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:advanced_smelting_factory
-      keep_contents: true
       display_item: mekanized:display/advanced_smelting_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1087,25 +944,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:advanced_enriching_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:advanced_enriching_factory
-      keep_contents: true
       display_item: mekanized:display/advanced_enriching_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1128,25 +972,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:advanced_crushing_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:advanced_crushing_factory
-      keep_contents: true
       display_item: mekanized:display/advanced_crushing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1169,25 +1000,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:advanced_compressing_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:advanced_compressing_factory
-      keep_contents: true
       display_item: mekanized:display/advanced_compressing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1210,25 +1028,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:advanced_combining_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:advanced_combining_factory
-      keep_contents: true
       display_item: mekanized:display/advanced_combining_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1251,25 +1056,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:advanced_purifying_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:advanced_purifying_factory
-      keep_contents: true
       display_item: mekanized:display/advanced_purifying_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1292,25 +1084,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:advanced_injecting_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:advanced_injecting_factory
-      keep_contents: true
       display_item: mekanized:display/advanced_injecting_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1333,25 +1112,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:advanced_infusing_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:advanced_infusing_factory
-      keep_contents: true
       display_item: mekanized:display/advanced_infusing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1374,25 +1140,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:advanced_sawing_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:advanced_sawing_factory
-      keep_contents: true
       display_item: mekanized:display/advanced_sawing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1415,25 +1168,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:elite_smelting_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:elite_smelting_factory
-      keep_contents: true
       display_item: mekanized:display/elite_smelting_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1456,25 +1196,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:elite_enriching_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:elite_enriching_factory
-      keep_contents: true
       display_item: mekanized:display/elite_enriching_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1497,25 +1224,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:elite_crushing_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:elite_crushing_factory
-      keep_contents: true
       display_item: mekanized:display/elite_crushing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1538,25 +1252,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:elite_compressing_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:elite_compressing_factory
-      keep_contents: true
       display_item: mekanized:display/elite_compressing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1579,25 +1280,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:elite_combining_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:elite_combining_factory
-      keep_contents: true
       display_item: mekanized:display/elite_combining_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1620,25 +1308,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:elite_purifying_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:elite_purifying_factory
-      keep_contents: true
       display_item: mekanized:display/elite_purifying_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1661,25 +1336,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:elite_injecting_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:elite_injecting_factory
-      keep_contents: true
       display_item: mekanized:display/elite_injecting_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1702,25 +1364,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:elite_infusing_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:elite_infusing_factory
-      keep_contents: true
       display_item: mekanized:display/elite_infusing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1743,25 +1392,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:elite_sawing_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:elite_sawing_factory
-      keep_contents: true
       display_item: mekanized:display/elite_sawing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1784,25 +1420,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:ultimate_smelting_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:ultimate_smelting_factory
-      keep_contents: true
       display_item: mekanized:display/ultimate_smelting_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1825,25 +1448,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:ultimate_enriching_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:ultimate_enriching_factory
-      keep_contents: true
       display_item: mekanized:display/ultimate_enriching_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1866,25 +1476,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:ultimate_crushing_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:ultimate_crushing_factory
-      keep_contents: true
       display_item: mekanized:display/ultimate_crushing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1907,25 +1504,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:ultimate_compressing_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:ultimate_compressing_factory
-      keep_contents: true
       display_item: mekanized:display/ultimate_compressing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1948,25 +1532,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:ultimate_combining_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:ultimate_combining_factory
-      keep_contents: true
       display_item: mekanized:display/ultimate_combining_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -1989,25 +1560,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:ultimate_purifying_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:ultimate_purifying_factory
-      keep_contents: true
       display_item: mekanized:display/ultimate_purifying_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -2030,25 +1588,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:ultimate_injecting_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:ultimate_injecting_factory
-      keep_contents: true
       display_item: mekanized:display/ultimate_injecting_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -2071,25 +1616,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:ultimate_infusing_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:ultimate_infusing_factory
-      keep_contents: true
       display_item: mekanized:display/ultimate_infusing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -2112,25 +1644,12 @@ blocks:
         facing=west:
           appearance: default
   mekanized:ultimate_sawing_factory:
+    template: machineengine:block/machine
     behavior:
-      type: machineengine:machine
-      machine: mekanized:ultimate_sawing_factory
-      keep_contents: true
       display_item: mekanized:display/ultimate_sawing_factory
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    loot:
-      template: machineengine:loot_table/keep_contents
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     states:
       properties:
         facing:
@@ -2161,16 +1680,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     state:
       auto_state:
         type: sapling
@@ -2186,16 +1696,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     state:
       auto_state:
         type: sapling
@@ -2211,16 +1712,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     state:
       auto_state:
         type: sapling
@@ -2236,16 +1728,7 @@ blocks:
     loot:
       template: default:loot_table/self
     settings:
-      template: default:settings/transparent_1x1x1
-      overrides:
-        hardness: 3.5
-        resistance: 8.0
-        push_reaction: block
-        tags:
-        - minecraft:mineable/pickaxe
-        correct_tools:
-        - '#minecraft:pickaxes'
-        required_break_power: 1
+      template: mekanized:settings/transparent_machine
     state:
       auto_state:
         type: sapling
