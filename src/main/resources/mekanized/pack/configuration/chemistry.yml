@@ -95,304 +95,70 @@ items:
       machineengine:resource_lore: {}
 blocks:
   mekanized:chemical_oxidizer:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_models_chemical_oxidizer
+      display_model: mekanized:block/display_empty/shared/p_block_models_chemical_oxidizer
     behavior:
-      display_item: mekanized:display/chemical_oxidizer
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_models_chemical_oxidizer
-          model:
-            path: mekanized:block/display_empty/shared/p_block_models_chemical_oxidizer
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
   mekanized:chemical_infuser:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_models_chemical_infuser
+      display_model: mekanized:block/display_empty/shared/p_block_models_chemical_infuser
     behavior:
-      display_item: mekanized:display/chemical_infuser
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_models_chemical_infuser
-          model:
-            path: mekanized:block/display_empty/shared/p_block_models_chemical_infuser
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
   mekanized:chemical_injection_chamber:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-        active:
-          type: boolean
-          default: false
-      appearances:
-        facing_north_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/chemical_injection_chamber
-        facing_south_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/chemical_injection_chamber
-            y: 180
-        facing_east_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/chemical_injection_chamber
-            y: 90
-        facing_west_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/chemical_injection_chamber
-            y: 270
-        facing_north_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/chemical_injection_chamber_active
-        facing_south_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/chemical_injection_chamber_active
-            y: 180
-        facing_east_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/chemical_injection_chamber_active
-            y: 90
-        facing_west_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/chemical_injection_chamber_active
-            y: 270
-      variants:
-        facing=north,active=false:
-          appearance: facing_north_active_false
-        facing=south,active=false:
-          appearance: facing_south_active_false
-        facing=east,active=false:
-          appearance: facing_east_active_false
-        facing=west,active=false:
-          appearance: facing_west_active_false
-        facing=north,active=true:
-          appearance: facing_north_active_true
-        facing=south,active=true:
-          appearance: facing_south_active_true
-        facing=east,active=true:
-          appearance: facing_east_active_true
-        facing=west,active=true:
-          appearance: facing_west_active_true
+    template: mekanized:block/machine_facing_active
   mekanized:chemical_dissolution_chamber:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_bottom
+      display_model: mekanized:block/display_empty/shared/p_block_bottom
     behavior:
-      display_item: mekanized:display/chemical_dissolution_chamber
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_bottom
-          model:
-            path: mekanized:block/display_empty/shared/p_block_bottom
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
   mekanized:chemical_washer:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_steel_casing
+      display_model: mekanized:block/display_empty/shared/p_block_steel_casing
     behavior:
-      display_item: mekanized:display/chemical_washer
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_steel_casing
-          model:
-            path: mekanized:block/display_empty/shared/p_block_steel_casing
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
   mekanized:chemical_crystallizer:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_models_chemical_crystallizer
+      display_model: mekanized:block/display_empty/shared/p_block_models_chemical_crystallizer
     behavior:
-      display_item: mekanized:display/chemical_crystallizer
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_models_chemical_crystallizer
-          model:
-            path: mekanized:block/display_empty/shared/p_block_models_chemical_crystallizer
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
   mekanized:electrolytic_separator:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_steel_casing
+      display_model: mekanized:block/display_empty/shared/p_block_steel_casing
     behavior:
-      display_item: mekanized:display/electrolytic_separator
       display_rotation: 90
       display_rotations: north=0/90,south=0/270,east=0/180,west=0/0
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_steel_casing
-          model:
-            path: mekanized:block/display_empty/shared/p_block_steel_casing
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
   mekanized:rotary_condensentrator:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_models_rotary_condensentrator
+      display_model: mekanized:block/display_empty/shared/p_block_models_rotary_condensentrator
     behavior:
-      display_item: mekanized:display/rotary_condensentrator
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_models_rotary_condensentrator
-          model:
-            path: mekanized:block/display_empty/shared/p_block_models_rotary_condensentrator
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
   mekanized:electric_pump:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_steel_casing
+      display_model: mekanized:block/display_empty/shared/p_block_steel_casing
     behavior:
       options:
         energy: 2000
         ticks: 20
         range: 32
         heavy-water-per-block: 10
-      display_item: mekanized:display/electric_pump
       display_rotation: 180
       display_rotations: north=0/180,south=0/0,east=0/270,west=0/90
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_steel_casing
-          model:
-            path: mekanized:block/display_empty/shared/p_block_steel_casing
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
 # Pressurized tubes (chemicals) and mechanical pipes (fluids): one row per block. A row's rate is the block's (D34): what one block passes per tick.
 # Each row makes the block, its item and the 19 parts display entities draw it with
 # (mekanized:cable_part/<transport>/<part>); see docs/CE_TEMPLATES_PLAN.md.

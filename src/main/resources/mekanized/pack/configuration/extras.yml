@@ -77,151 +77,42 @@ items:
     model: mekanized:item/geiger_counter
 blocks:
   mekanized:dimensional_stabilizer:
-    template: machineengine:block/machine
+    template: mekanized:block/machine_active
     behavior:
       options:
         energy-per-chunk: 500
-    settings:
-      template: mekanized:settings/machine
-    states:
-      properties:
-        active:
-          type: boolean
-          default: false
-      appearances:
-        active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/dimensional_stabilizer
-        active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/dimensional_stabilizer_active
-      variants:
-        active=false:
-          appearance: active_false
-        active=true:
-          appearance: active_true
   mekanized:quantum_entangloporter:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing_6
+    arguments:
+      display_state: mekanized_display_p_block_models_quantum_entangloporter
+      display_model: mekanized:block/display_empty/shared/p_block_models_quantum_entangloporter
     behavior:
-      display_item: mekanized:display/quantum_entangloporter
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270,up=270/0,down=90/0
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 6-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_models_quantum_entangloporter
-          model:
-            path: mekanized:block/display_empty/shared/p_block_models_quantum_entangloporter
-      variants:
-        facing=up:
-          appearance: default
-        facing=down:
-          appearance: default
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
   mekanized:radioactive_waste_barrel:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_models_radioactive_waste_barrel
+      display_model: mekanized:block/display_empty/shared/p_block_models_radioactive_waste_barrel
     behavior:
       storages:
         waste: { capacity: 512000 }
       options:
         decay-per-second: 1
-      display_item: mekanized:display/radioactive_waste_barrel
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_models_radioactive_waste_barrel
-          model:
-            path: mekanized:block/display_empty/shared/p_block_models_radioactive_waste_barrel
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
   mekanized:nutritional_liquifier:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_nutritional_liquifier
+      display_model: mekanized:block/display_empty/shared/p_block_nutritional_liquifier
     behavior:
       options:
         ticks: 100
         energy-per-tick: 200
-      display_item: mekanized:display/nutritional_liquifier
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_nutritional_liquifier
-          model:
-            path: mekanized:block/display_empty/shared/p_block_nutritional_liquifier
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
   mekanized:modification_station:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_models_modification_station
+      display_model: mekanized:block/display_empty/shared/p_block_models_modification_station
     behavior:
-      display_item: mekanized:display/modification_station
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_models_modification_station
-          model:
-            path: mekanized:block/display_empty/shared/p_block_models_modification_station
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default

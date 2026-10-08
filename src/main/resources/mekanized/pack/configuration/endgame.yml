@@ -100,286 +100,76 @@ items:
       block: mekanized:advanced_solar_generator
 blocks:
   mekanized:pressurized_reaction_chamber:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_models_pressurized_reaction_chamber_elements
+      display_model: mekanized:block/display_empty/shared/p_block_models_pressurized_reaction_chamber_elements
     behavior:
-      display_item: mekanized:display/pressurized_reaction_chamber
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_models_pressurized_reaction_chamber_elements
-          model:
-            path: mekanized:block/display_empty/shared/p_block_models_pressurized_reaction_chamber_elements
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
   mekanized:isotopic_centrifuge:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_models_isotopic_centrifuge
+      display_model: mekanized:block/display_empty/shared/p_block_models_isotopic_centrifuge
     behavior:
-      display_item: mekanized:display/isotopic_centrifuge
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_models_isotopic_centrifuge
-          model:
-            path: mekanized:block/display_empty/shared/p_block_models_isotopic_centrifuge
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
   mekanized:solar_neutron_activator:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_models_solar_neutron_activator1
+      display_model: mekanized:block/display_empty/shared/p_block_models_solar_neutron_activator1
     behavior:
-      display_item: mekanized:display/solar_neutron_activator
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_models_solar_neutron_activator1
-          model:
-            path: mekanized:block/display_empty/shared/p_block_models_solar_neutron_activator1
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
   mekanized:antiprotonic_nucleosynthesizer:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_models_antiprotonic_nucleosynthesizer_front
+      display_model: mekanized:block/display_empty/shared/p_block_models_antiprotonic_nucleosynthesizer_front
     behavior:
-      display_item: mekanized:display/antiprotonic_nucleosynthesizer
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_models_antiprotonic_nucleosynthesizer_front
-          model:
-            path: mekanized:block/display_empty/shared/p_block_models_antiprotonic_nucleosynthesizer_front
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
   mekanized:painting_machine:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_painting_machine_right
+      display_model: mekanized:block/display_empty/shared/p_block_painting_machine_right
     behavior:
-      display_item: mekanized:display/painting_machine
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_painting_machine_right
-          model:
-            path: mekanized:block/display_empty/shared/p_block_painting_machine_right
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
   mekanized:pigment_extractor:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_pigment_extractor_right
+      display_model: mekanized:block/display_empty/shared/p_block_pigment_extractor_right
     behavior:
-      display_item: mekanized:display/pigment_extractor
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_pigment_extractor_right
-          model:
-            path: mekanized:block/display_empty/shared/p_block_pigment_extractor_right
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
   mekanized:pigment_mixer:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_pigment_mixer_base
+      display_model: mekanized:block/display_empty/shared/p_block_pigment_mixer_base
     behavior:
-      display_item: mekanized:display/pigment_mixer
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_pigment_mixer_base
-          model:
-            path: mekanized:block/display_empty/shared/p_block_pigment_mixer_base
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
   mekanized:gas_burning_generator:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_model_gas_burning_generator
+      display_model: mekanized:block/display_empty/shared/p_block_model_gas_burning_generator
     behavior:
-      display_item: mekanized:display/gas_burning_generator
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_model_gas_burning_generator
-          model:
-            path: mekanized:block/display_empty/shared/p_block_model_gas_burning_generator
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=west:
-          appearance: default
-        facing=east:
-          appearance: default
   mekanized:wind_generator:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_steel_casing
+      display_model: mekanized:block/display_empty/shared/p_block_steel_casing
     behavior:
       options:
         max-energy-per-tick: 480
-      display_item: mekanized:display/wind_generator
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_steel_casing
-          model:
-            path: mekanized:block/display_empty/shared/p_block_steel_casing
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=west:
-          appearance: default
-        facing=east:
-          appearance: default
   mekanized:advanced_solar_generator:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_model_advanced_solar_generator
+      display_model: mekanized:block/display_empty/shared/p_block_model_advanced_solar_generator
     behavior:
       options:
         energy-per-tick: 300
-      display_item: mekanized:display/advanced_solar_generator
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_model_advanced_solar_generator
-          model:
-            path: mekanized:block/display_empty/shared/p_block_model_advanced_solar_generator
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=west:
-          appearance: default
-        facing=east:
-          appearance: default

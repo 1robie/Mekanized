@@ -58,25 +58,13 @@ items:
       block: mekanized:thermal_evaporation_controller
 blocks:
   mekanized:dynamic_tank:
-    template: machineengine:block/machine
+    template: mekanized:block/machine
     behavior:
       options:
         fluid-per-block: 350000
         chemical-per-block: 16000000
-    settings:
-      template: mekanized:settings/machine
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/dynamic_tank
   mekanized:dynamic_valve:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/dynamic_valve
+    template: mekanized:block/machine
   mekanized:structural_glass:
     template: machineengine:block/machine
     settings:
@@ -86,7 +74,9 @@ blocks:
       model:
         path: mekanized:block/structural_glass
   mekanized:induction_casing:
-    template: machineengine:block/machine
+    template: mekanized:block/machine
+    arguments:
+      model: mekanized:block/induction/casing
     behavior:
       options:
         cell-capacity:
@@ -94,14 +84,11 @@ blocks:
           advanced: 64000000000
           elite: 512000000000
           ultimate: 4000000000000
-    settings:
-      template: mekanized:settings/machine
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/induction/casing
   mekanized:induction_port:
-    template: machineengine:block/machine
+    template: mekanized:block/machine_active
+    arguments:
+      model: mekanized:block/induction/port
+      active_model: mekanized:block/induction/port_output
     behavior:
       options:
         provider-output:
@@ -109,117 +96,24 @@ blocks:
           advanced: 2048000
           elite: 16384000
           ultimate: 131072000
-    settings:
-      template: mekanized:settings/machine
-    states:
-      properties:
-        active:
-          type: boolean
-          default: false
-      appearances:
-        active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/induction/port
-        active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/induction/port_output
-      variants:
-        active=false:
-          appearance: active_false
-        active=true:
-          appearance: active_true
   mekanized:thermal_evaporation_block:
-    template: machineengine:block/machine
+    template: mekanized:block/machine
+    arguments:
+      model: mekanized:block/thermal_evaporation/block
     behavior:
       options:
         input-per-level-per-tick: 10
         input-tank-per-level: 16000
         output-tank: 10000
-    settings:
-      template: mekanized:settings/machine
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/thermal_evaporation/block
   mekanized:thermal_evaporation_valve:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/thermal_evaporation/valve
+    template: mekanized:block/machine
+    arguments:
+      model: mekanized:block/thermal_evaporation/valve
   mekanized:thermal_evaporation_controller:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-        active:
-          type: boolean
-          default: false
-      appearances:
-        facing_north_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/thermal_evaporation/controller
-        facing_south_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/thermal_evaporation/controller
-            y: 180
-        facing_east_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/thermal_evaporation/controller
-            y: 90
-        facing_west_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/thermal_evaporation/controller
-            y: 270
-        facing_north_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/thermal_evaporation/controller_active
-        facing_south_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/thermal_evaporation/controller_active
-            y: 180
-        facing_east_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/thermal_evaporation/controller_active
-            y: 90
-        facing_west_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/thermal_evaporation/controller_active
-            y: 270
-      variants:
-        facing=north,active=false:
-          appearance: facing_north_active_false
-        facing=south,active=false:
-          appearance: facing_south_active_false
-        facing=east,active=false:
-          appearance: facing_east_active_false
-        facing=west,active=false:
-          appearance: facing_west_active_false
-        facing=north,active=true:
-          appearance: facing_north_active_true
-        facing=south,active=true:
-          appearance: facing_south_active_true
-        facing=east,active=true:
-          appearance: facing_east_active_true
-        facing=west,active=true:
-          appearance: facing_west_active_true
-
+    template: mekanized:block/machine_facing_active
+    arguments:
+      model: mekanized:block/thermal_evaporation/controller
+      active_model: mekanized:block/thermal_evaporation/controller_active
 # Induction cells and providers, one row per tier. They are plain blocks the induction matrix
 # counts: their numbers are the matrix's options (D34).
 config_factory#induction_parts:

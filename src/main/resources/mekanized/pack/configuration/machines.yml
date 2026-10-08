@@ -1,40 +1,5 @@
 # Mekanized machines, generators, energy cubes, cables and upgrades (Phase 2), based on Mekanism (MIT).
 items:
-  mekanized:enrichment_chamber:
-    data:
-      item_name: <!i><lang:block.mekanized.enrichment_chamber>
-    model: mekanized:block/enrichment_chamber
-    behavior:
-      type: block_item
-      block: mekanized:enrichment_chamber
-  mekanized:crusher:
-    data:
-      item_name: <!i><lang:block.mekanized.crusher>
-    model: mekanized:block/crusher
-    behavior:
-      type: block_item
-      block: mekanized:crusher
-  mekanized:energized_smelter:
-    data:
-      item_name: <!i><lang:block.mekanized.energized_smelter>
-    model: mekanized:block/energized_smelter
-    behavior:
-      type: block_item
-      block: mekanized:energized_smelter
-  mekanized:osmium_compressor:
-    data:
-      item_name: <!i><lang:block.mekanized.osmium_compressor>
-    model: mekanized:block/osmium_compressor
-    behavior:
-      type: block_item
-      block: mekanized:osmium_compressor
-  mekanized:combiner:
-    data:
-      item_name: <!i><lang:block.mekanized.combiner>
-    model: mekanized:block/combiner
-    behavior:
-      type: block_item
-      block: mekanized:combiner
   mekanized:display/metallurgic_infuser:
     model: mekanized:block/metallurgic_infuser
   mekanized:metallurgic_infuser:
@@ -44,20 +9,6 @@ items:
     behavior:
       type: block_item
       block: mekanized:metallurgic_infuser
-  mekanized:purification_chamber:
-    data:
-      item_name: <!i><lang:block.mekanized.purification_chamber>
-    model: mekanized:block/purification_chamber
-    behavior:
-      type: block_item
-      block: mekanized:purification_chamber
-  mekanized:precision_sawmill:
-    data:
-      item_name: <!i><lang:block.mekanized.precision_sawmill>
-    model: mekanized:block/precision_sawmill
-    behavior:
-      type: block_item
-      block: mekanized:precision_sawmill
   mekanized:display/heat_generator:
     model: mekanized:block/heat_generator
   mekanized:display/heat_generator/active:
@@ -100,585 +51,40 @@ items:
       item_name: <!i><lang:item.mekanized.solar_panel>
     model: mekanized:item/solar_panel
 blocks:
-  mekanized:enrichment_chamber:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-        active:
-          type: boolean
-          default: false
-      appearances:
-        facing_north_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/enrichment_chamber
-        facing_south_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/enrichment_chamber
-            y: 180
-        facing_east_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/enrichment_chamber
-            y: 90
-        facing_west_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/enrichment_chamber
-            y: 270
-        facing_north_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/enrichment_chamber_active
-        facing_south_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/enrichment_chamber_active
-            y: 180
-        facing_east_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/enrichment_chamber_active
-            y: 90
-        facing_west_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/enrichment_chamber_active
-            y: 270
-      variants:
-        facing=north,active=false:
-          appearance: facing_north_active_false
-        facing=south,active=false:
-          appearance: facing_south_active_false
-        facing=east,active=false:
-          appearance: facing_east_active_false
-        facing=west,active=false:
-          appearance: facing_west_active_false
-        facing=north,active=true:
-          appearance: facing_north_active_true
-        facing=south,active=true:
-          appearance: facing_south_active_true
-        facing=east,active=true:
-          appearance: facing_east_active_true
-        facing=west,active=true:
-          appearance: facing_west_active_true
-  mekanized:crusher:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-        active:
-          type: boolean
-          default: false
-      appearances:
-        facing_north_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/crusher
-        facing_south_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/crusher
-            y: 180
-        facing_east_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/crusher
-            y: 90
-        facing_west_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/crusher
-            y: 270
-        facing_north_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/crusher_active
-        facing_south_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/crusher_active
-            y: 180
-        facing_east_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/crusher_active
-            y: 90
-        facing_west_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/crusher_active
-            y: 270
-      variants:
-        facing=north,active=false:
-          appearance: facing_north_active_false
-        facing=south,active=false:
-          appearance: facing_south_active_false
-        facing=east,active=false:
-          appearance: facing_east_active_false
-        facing=west,active=false:
-          appearance: facing_west_active_false
-        facing=north,active=true:
-          appearance: facing_north_active_true
-        facing=south,active=true:
-          appearance: facing_south_active_true
-        facing=east,active=true:
-          appearance: facing_east_active_true
-        facing=west,active=true:
-          appearance: facing_west_active_true
-  mekanized:energized_smelter:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-        active:
-          type: boolean
-          default: false
-      appearances:
-        facing_north_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/energized_smelter
-        facing_south_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/energized_smelter
-            y: 180
-        facing_east_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/energized_smelter
-            y: 90
-        facing_west_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/energized_smelter
-            y: 270
-        facing_north_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/energized_smelter_active
-        facing_south_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/energized_smelter_active
-            y: 180
-        facing_east_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/energized_smelter_active
-            y: 90
-        facing_west_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/energized_smelter_active
-            y: 270
-      variants:
-        facing=north,active=false:
-          appearance: facing_north_active_false
-        facing=south,active=false:
-          appearance: facing_south_active_false
-        facing=east,active=false:
-          appearance: facing_east_active_false
-        facing=west,active=false:
-          appearance: facing_west_active_false
-        facing=north,active=true:
-          appearance: facing_north_active_true
-        facing=south,active=true:
-          appearance: facing_south_active_true
-        facing=east,active=true:
-          appearance: facing_east_active_true
-        facing=west,active=true:
-          appearance: facing_west_active_true
-  mekanized:osmium_compressor:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-        active:
-          type: boolean
-          default: false
-      appearances:
-        facing_north_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/osmium_compressor
-        facing_south_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/osmium_compressor
-            y: 180
-        facing_east_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/osmium_compressor
-            y: 90
-        facing_west_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/osmium_compressor
-            y: 270
-        facing_north_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/osmium_compressor_active
-        facing_south_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/osmium_compressor_active
-            y: 180
-        facing_east_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/osmium_compressor_active
-            y: 90
-        facing_west_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/osmium_compressor_active
-            y: 270
-      variants:
-        facing=north,active=false:
-          appearance: facing_north_active_false
-        facing=south,active=false:
-          appearance: facing_south_active_false
-        facing=east,active=false:
-          appearance: facing_east_active_false
-        facing=west,active=false:
-          appearance: facing_west_active_false
-        facing=north,active=true:
-          appearance: facing_north_active_true
-        facing=south,active=true:
-          appearance: facing_south_active_true
-        facing=east,active=true:
-          appearance: facing_east_active_true
-        facing=west,active=true:
-          appearance: facing_west_active_true
-  mekanized:combiner:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-        active:
-          type: boolean
-          default: false
-      appearances:
-        facing_north_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/combiner
-        facing_south_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/combiner
-            y: 180
-        facing_east_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/combiner
-            y: 90
-        facing_west_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/combiner
-            y: 270
-        facing_north_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/combiner_active
-        facing_south_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/combiner_active
-            y: 180
-        facing_east_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/combiner_active
-            y: 90
-        facing_west_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/combiner_active
-            y: 270
-      variants:
-        facing=north,active=false:
-          appearance: facing_north_active_false
-        facing=south,active=false:
-          appearance: facing_south_active_false
-        facing=east,active=false:
-          appearance: facing_east_active_false
-        facing=west,active=false:
-          appearance: facing_west_active_false
-        facing=north,active=true:
-          appearance: facing_north_active_true
-        facing=south,active=true:
-          appearance: facing_south_active_true
-        facing=east,active=true:
-          appearance: facing_east_active_true
-        facing=west,active=true:
-          appearance: facing_west_active_true
   mekanized:metallurgic_infuser:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_steel_casing
+      display_model: mekanized:block/display_empty/shared/p_block_steel_casing
     behavior:
-      display_item: mekanized:display/metallurgic_infuser
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_steel_casing
-          model:
-            path: mekanized:block/display_empty/shared/p_block_steel_casing
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
-  mekanized:purification_chamber:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-        active:
-          type: boolean
-          default: false
-      appearances:
-        facing_north_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/purification_chamber
-        facing_south_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/purification_chamber
-            y: 180
-        facing_east_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/purification_chamber
-            y: 90
-        facing_west_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/purification_chamber
-            y: 270
-        facing_north_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/purification_chamber_active
-        facing_south_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/purification_chamber_active
-            y: 180
-        facing_east_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/purification_chamber_active
-            y: 90
-        facing_west_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/purification_chamber_active
-            y: 270
-      variants:
-        facing=north,active=false:
-          appearance: facing_north_active_false
-        facing=south,active=false:
-          appearance: facing_south_active_false
-        facing=east,active=false:
-          appearance: facing_east_active_false
-        facing=west,active=false:
-          appearance: facing_west_active_false
-        facing=north,active=true:
-          appearance: facing_north_active_true
-        facing=south,active=true:
-          appearance: facing_south_active_true
-        facing=east,active=true:
-          appearance: facing_east_active_true
-        facing=west,active=true:
-          appearance: facing_west_active_true
-  mekanized:precision_sawmill:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-        active:
-          type: boolean
-          default: false
-      appearances:
-        facing_north_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/precision_sawmill
-        facing_south_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/precision_sawmill
-            y: 180
-        facing_east_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/precision_sawmill
-            y: 90
-        facing_west_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/precision_sawmill
-            y: 270
-        facing_north_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/precision_sawmill_active
-        facing_south_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/precision_sawmill_active
-            y: 180
-        facing_east_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/precision_sawmill_active
-            y: 90
-        facing_west_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/precision_sawmill_active
-            y: 270
-      variants:
-        facing=north,active=false:
-          appearance: facing_north_active_false
-        facing=south,active=false:
-          appearance: facing_south_active_false
-        facing=east,active=false:
-          appearance: facing_east_active_false
-        facing=west,active=false:
-          appearance: facing_west_active_false
-        facing=north,active=true:
-          appearance: facing_north_active_true
-        facing=south,active=true:
-          appearance: facing_south_active_true
-        facing=east,active=true:
-          appearance: facing_east_active_true
-        facing=west,active=true:
-          appearance: facing_west_active_true
   mekanized:heat_generator:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_model_heat_generator
+      display_model: mekanized:block/display_empty/shared/p_block_model_heat_generator
     behavior:
       options:
         energy-per-tick: 200
-      display_item: mekanized:display/heat_generator
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_model_heat_generator
-          model:
-            path: mekanized:block/display_empty/shared/p_block_model_heat_generator
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=west:
-          appearance: default
-        facing=east:
-          appearance: default
   mekanized:solar_generator:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine
+    arguments:
+      display_state: mekanized_display_p_block_model_solar_generator
+      display_model: mekanized:block/display_empty/shared/p_block_model_solar_generator
     behavior:
       options:
         energy-per-tick: 50
-      display_item: mekanized:display/solar_generator
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: leaves
-        id: mekanized_display_p_block_model_solar_generator
-      model:
-        path: mekanized:block/display_empty/shared/p_block_model_solar_generator
   mekanized:bio_generator:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_model_bio_generator2
+      display_model: mekanized:block/display_empty/shared/p_block_model_bio_generator2
     behavior:
       options:
         energy-per-tick: 350
-      display_item: mekanized:display/bio_generator
       display_rotation: 180
       display_rotations: north=0/180,south=0/0,east=0/270,west=0/90
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_model_bio_generator2
-          model:
-            path: mekanized:block/display_empty/shared/p_block_model_bio_generator2
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=west:
-          appearance: default
-        facing=east:
-          appearance: default
 # Universal cables: one row per block. A row's rate is the block's (D34): what one block passes per tick.
 # Each row makes the block, its item and the 19 parts display entities draw it with
 # (mekanized:cable_part/<transport>/<part>); see docs/CE_TEMPLATES_PLAN.md.
@@ -813,3 +219,27 @@ config_factory#energy_cubes:
         arguments:
           tier: ${tier}
         behavior: ${behavior}
+
+# The basic machines: one row per block, each makes the block and its item. They turn to face the
+# player and show their working model (block/<machine>_active) while they run.
+config_factory#basic_machines:
+  instances:
+  - machine: enrichment_chamber
+  - machine: crusher
+  - machine: energized_smelter
+  - machine: osmium_compressor
+  - machine: combiner
+  - machine: purification_chamber
+  - machine: precision_sawmill
+  blueprint:
+    items:
+      mekanized:${machine}:
+        data:
+          item_name: <!i><lang:block.mekanized.${machine}>
+        model: mekanized:block/${machine}
+        behavior:
+          type: block_item
+          block: mekanized:${machine}
+    blocks:
+      mekanized:${machine}:
+        template: mekanized:block/machine_facing_active

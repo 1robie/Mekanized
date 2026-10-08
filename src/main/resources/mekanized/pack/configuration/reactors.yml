@@ -209,106 +209,19 @@ items:
     model: mekanized:item/turbine_blade
 blocks:
   mekanized:resistive_heater:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing
+    arguments:
+      display_state: mekanized_display_p_block_models_resistive_heater_sides_2
+      display_model: mekanized:block/display_empty/shared/p_block_models_resistive_heater_sides_2
     behavior:
-      display_item: mekanized:display/resistive_heater
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_models_resistive_heater_sides_2
-          model:
-            path: mekanized:block/display_empty/shared/p_block_models_resistive_heater_sides_2
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
   mekanized:fuelwood_heater:
-    template: machineengine:block/machine
+    template: mekanized:block/machine_facing_active
     behavior:
       options:
         heat-per-tick: 400
-    settings:
-      template: mekanized:settings/machine
-    states:
-      properties:
-        facing:
-          type: 4-direction
-          default: north
-        active:
-          type: boolean
-          default: false
-      appearances:
-        facing_north_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/fuelwood_heater
-        facing_south_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/fuelwood_heater
-            y: 180
-        facing_east_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/fuelwood_heater
-            y: 90
-        facing_west_active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/fuelwood_heater
-            y: 270
-        facing_north_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/fuelwood_heater_active
-        facing_south_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/fuelwood_heater_active
-            y: 180
-        facing_east_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/fuelwood_heater_active
-            y: 90
-        facing_west_active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/fuelwood_heater_active
-            y: 270
-      variants:
-        facing=north,active=false:
-          appearance: facing_north_active_false
-        facing=south,active=false:
-          appearance: facing_south_active_false
-        facing=east,active=false:
-          appearance: facing_east_active_false
-        facing=west,active=false:
-          appearance: facing_west_active_false
-        facing=north,active=true:
-          appearance: facing_north_active_true
-        facing=south,active=true:
-          appearance: facing_south_active_true
-        facing=east,active=true:
-          appearance: facing_east_active_true
-        facing=west,active=true:
-          appearance: facing_west_active_true
   mekanized:boiler_casing:
-    template: machineengine:block/machine
+    template: mekanized:block/machine
     behavior:
       options:
         heat-per-mb: 50
@@ -318,12 +231,6 @@ blocks:
         heat-per-block: 1000000
         superheated-sodium-per-block: 16000
         sodium-per-block: 16000
-    settings:
-      template: mekanized:settings/machine
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/boiler_casing
   mekanized:boiler_valve:
     template: machineengine:block/machine
     settings:
@@ -358,38 +265,13 @@ blocks:
         mode=output_coolant:
           appearance: mode_output_coolant
   mekanized:pressure_disperser:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/pressure_disperser
+    template: mekanized:block/machine
   mekanized:superheating_element:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    states:
-      properties:
-        active:
-          type: boolean
-          default: false
-      appearances:
-        active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/superheating_element
-        active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/superheating_element_active
-      variants:
-        active=false:
-          appearance: active_false
-        active=true:
-          appearance: active_true
+    template: mekanized:block/machine_active
   mekanized:turbine_casing:
-    template: machineengine:block/machine
+    template: mekanized:block/machine
+    arguments:
+      model: mekanized:block/turbine/casing
     behavior:
       options:
         steam-energy: 10.0
@@ -399,66 +281,29 @@ blocks:
         condenser-rate: 64000
         steam-per-block: 64000
         energy-per-block: 16000000
-    settings:
-      template: mekanized:settings/machine
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/turbine/casing
   mekanized:turbine_valve:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/turbine/valve
+    template: mekanized:block/machine
+    arguments:
+      model: mekanized:block/turbine/valve
   mekanized:turbine_vent:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/turbine/vent
+    template: mekanized:block/machine
+    arguments:
+      model: mekanized:block/turbine/vent
   mekanized:turbine_rotor:
-    template: machineengine:block/machine
-    behavior:
-      display_item: mekanized:display/turbine_rotor
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: leaves
-        id: mekanized_display_p_block_turbine_rotor
-      model:
-        path: mekanized:block/display_empty/shared/p_block_turbine_rotor
+    template: mekanized:block/display_machine
+    arguments:
+      display_state: mekanized_display_p_block_turbine_rotor
+      display_model: mekanized:block/display_empty/shared/p_block_turbine_rotor
   mekanized:rotational_complex:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/rotational_complex
+    template: mekanized:block/machine
   mekanized:electromagnetic_coil:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/electromagnetic_coil
+    template: mekanized:block/machine
   mekanized:saturating_condenser:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/saturating_condenser
+    template: mekanized:block/machine
   mekanized:fission_reactor_casing:
-    template: machineengine:block/machine
+    template: mekanized:block/machine
+    arguments:
+      model: mekanized:block/fission/casing
     behavior:
       options:
         heat-per-mb-burned: 1000000
@@ -469,12 +314,6 @@ blocks:
         sodium-per-assembly: 100000
         steam-per-assembly: 1000000
         superheated-sodium-per-assembly: 1000000
-    settings:
-      template: mekanized:settings/machine
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/fission/casing
   mekanized:fission_reactor_port:
     template: machineengine:block/machine
     settings:
@@ -509,13 +348,9 @@ blocks:
         mode=output_waste:
           appearance: mode_output_waste
   mekanized:fission_reactor_logic_adapter:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/fission/logic_adapter
+    template: mekanized:block/machine
+    arguments:
+      model: mekanized:block/fission/logic_adapter
   mekanized:reactor_glass:
     template: machineengine:block/machine
     settings:
@@ -525,107 +360,45 @@ blocks:
       model:
         path: mekanized:block/reactor_glass
   mekanized:fission_fuel_assembly:
-    template: machineengine:block/machine
-    behavior:
-      display_item: mekanized:display/fission_fuel_assembly
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: leaves
-        id: mekanized_display_p_block_model_fuel_assembly_fuel_rod_assembly_side
-      model:
-        path: mekanized:block/display_empty/shared/p_block_model_fuel_assembly_fuel_rod_assembly_side
+    template: mekanized:block/display_machine
+    arguments:
+      display_state: mekanized_display_p_block_model_fuel_assembly_fuel_rod_assembly_side
+      display_model: mekanized:block/display_empty/shared/p_block_model_fuel_assembly_fuel_rod_assembly_side
   mekanized:control_rod_assembly:
-    template: machineengine:block/machine
-    behavior:
-      display_item: mekanized:display/control_rod_assembly
-    settings:
-      template: mekanized:settings/transparent_machine
-    state:
-      auto_state:
-        type: leaves
-        id: mekanized_display_p_block_model_fuel_assembly_fuel_rod_assembly_side
-      model:
-        path: mekanized:block/display_empty/shared/p_block_model_fuel_assembly_fuel_rod_assembly_side
+    template: mekanized:block/display_machine
+    arguments:
+      display_state: mekanized_display_p_block_model_fuel_assembly_fuel_rod_assembly_side
+      display_model: mekanized:block/display_empty/shared/p_block_model_fuel_assembly_fuel_rod_assembly_side
   mekanized:fusion_reactor_controller:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    states:
-      properties:
-        active:
-          type: boolean
-          default: false
-      appearances:
-        active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/fusion/controller
-        active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/fusion/controller_on
-      variants:
-        active=false:
-          appearance: active_false
-        active=true:
-          appearance: active_true
+    template: mekanized:block/machine_active
+    arguments:
+      model: mekanized:block/fusion/controller
+      active_model: mekanized:block/fusion/controller_on
   mekanized:fusion_reactor_frame:
-    template: machineengine:block/machine
+    template: mekanized:block/machine
+    arguments:
+      model: mekanized:block/fusion/frame
     behavior:
       options:
         ignition-energy: 400000000
         energy-per-mb: 200000
         fuel-tank: 10000
         energy-buffer: 1000000000
-    settings:
-      template: mekanized:settings/machine
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/fusion/frame
   mekanized:fusion_reactor_port:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    states:
-      properties:
-        active:
-          type: boolean
-          default: false
-      appearances:
-        active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/fusion/port
-        active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/fusion/port_output
-      variants:
-        active=false:
-          appearance: active_false
-        active=true:
-          appearance: active_true
+    template: mekanized:block/machine_active
+    arguments:
+      model: mekanized:block/fusion/port
+      active_model: mekanized:block/fusion/port_output
   mekanized:fusion_reactor_logic_adapter:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/fusion/logic_adapter
+    template: mekanized:block/machine
+    arguments:
+      model: mekanized:block/fusion/logic_adapter
   mekanized:laser_focus_matrix:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/fusion/laser_focus_matrix
+    template: mekanized:block/machine
+    arguments:
+      model: mekanized:block/fusion/laser_focus_matrix
   mekanized:sps_casing:
-    template: machineengine:block/machine
+    template: mekanized:block/machine
     behavior:
       options:
         polonium-per-antimatter: 1000
@@ -633,69 +406,18 @@ blocks:
         polonium-tank: 10000
         antimatter-tank: 1000
         energy-buffer: 2000000000
-    settings:
-      template: mekanized:settings/machine
-    state:
-      auto_state: solid
-      model:
-        path: mekanized:block/sps_casing
   mekanized:sps_port:
-    template: machineengine:block/machine
-    settings:
-      template: mekanized:settings/machine
-    states:
-      properties:
-        active:
-          type: boolean
-          default: false
-      appearances:
-        active_false:
-          auto_state: solid
-          model:
-            path: mekanized:block/sps_port
-        active_true:
-          auto_state: solid
-          model:
-            path: mekanized:block/sps_port_output
-      variants:
-        active=false:
-          appearance: active_false
-        active=true:
-          appearance: active_true
+    template: mekanized:block/machine_active
+    arguments:
+      active_model: mekanized:block/sps_port_output
   mekanized:supercharged_coil:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing_6
+    arguments:
+      display_state: mekanized_display_p_block_steel_casing
+      display_model: mekanized:block/display_empty/shared/p_block_steel_casing
     behavior:
-      display_item: mekanized:display/supercharged_coil
       display_rotation: 180
       display_rotations: north=270/180,south=270/0,east=270/270,west=270/90,up=0/0,down=180/0
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 6-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_steel_casing
-          model:
-            path: mekanized:block/display_empty/shared/p_block_steel_casing
-      variants:
-        facing=up:
-          appearance: default
-        facing=down:
-          appearance: default
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
-
 # Thermodynamic conductors: one row per block. A row's rate is the block's (D34): what one block passes per tick.
 # Each row makes the block, its item and the 19 parts display entities draw it with
 # (mekanized:cable_part/<transport>/<part>); see docs/CE_TEMPLATES_PLAN.md.

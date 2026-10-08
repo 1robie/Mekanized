@@ -53,40 +53,15 @@ items:
       - mekanized:configurators
 blocks:
   mekanized:logistical_sorter:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing_6
+    arguments:
+      display_state: mekanized_display_p_block_models_logistical_sorter
+      display_model: mekanized:block/display_empty/shared/p_block_models_logistical_sorter
     behavior:
       options:
         every-ticks: 10
         stack-size: 64
-      display_item: mekanized:display/logistical_sorter
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270,up=270/0,down=90/0
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 6-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_p_block_models_logistical_sorter
-          model:
-            path: mekanized:block/display_empty/shared/p_block_models_logistical_sorter
-      variants:
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=west:
-          appearance: default
-        facing=up:
-          appearance: default
-        facing=down:
-          appearance: default
 # Logistical transporters: one row per block. A row's rate is the block's (D34): what one block passes per tick.
 # Each row makes the block, its item and the 19 parts display entities draw it with
 # (mekanized:cable_part/<transport>/<part>); see docs/CE_TEMPLATES_PLAN.md.

@@ -65,41 +65,16 @@ templates:
   # An energy cube: a frame, an energy core with 4 fill levels and a port on each output side
   # (the items mekanized:display/<id>, display/energy_core/<tier>/<1-4>, display/<id>/port/<side>).
   mekanized:block/energy_cube:
-    template: machineengine:block/machine
+    template: mekanized:block/display_machine_facing_6
+    arguments:
+      display_state: mekanized_display_energy_cube
+      display_model: mekanized:block/display_empty/shared/energy_cube
     behavior:
-      display_item: ${__NAMESPACE__}:display/${__ID__}
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270,up=270/0,down=90/0
       level_display: ${__NAMESPACE__}:display/energy_core/${tier}
       level_storage: energy
       level_steps: 4
       side_display: ${__NAMESPACE__}:display/${__ID__}/port
-    settings:
-      template: mekanized:settings/transparent_machine
-    states:
-      properties:
-        facing:
-          type: 6-direction
-          default: north
-      appearances:
-        default:
-          auto_state:
-            type: leaves
-            id: mekanized_display_energy_cube
-          model:
-            path: mekanized:block/display_empty/shared/energy_cube
-      variants:
-        facing=down:
-          appearance: default
-        facing=east:
-          appearance: default
-        facing=north:
-          appearance: default
-        facing=south:
-          appearance: default
-        facing=up:
-          appearance: default
-        facing=west:
-          appearance: default
 
   # A chemical tank, turned by facing (the item mekanized:display/<id> draws it).
   mekanized:block/chemical_tank:
@@ -136,6 +111,51 @@ templates:
       template: mekanized:settings/transparent_machine
     states:
       template: machineengine:block_state/display_rendered_facing
-      arguments:
-        display_state: ${display_state}
-        display_model: ${display_model}
+
+  # A machine drawn by display entities (the item mekanized:display/<id>), without facing.
+  # Arguments as mekanized:block/display_machine_facing, and state_type (default leaves).
+  mekanized:block/display_machine:
+    template: machineengine:block/machine
+    behavior:
+      display_item: ${__NAMESPACE__}:display/${__ID__}
+    settings:
+      template: mekanized:settings/transparent_machine
+    state:
+      template: machineengine:block_state/display_rendered
+
+  # Solid machines, with the model <namespace>:block/<id> unless the argument model says
+  # otherwise (and active_model, default <namespace>:block/<id>_active, for those with `active`).
+  mekanized:block/machine:
+    template: machineengine:block/machine
+    settings:
+      template: mekanized:settings/machine
+    state:
+      template: machineengine:block_state/solid
+  mekanized:block/machine_facing:
+    template: machineengine:block/machine
+    settings:
+      template: mekanized:settings/machine
+    states:
+      template: machineengine:block_state/facing
+  mekanized:block/machine_active:
+    template: machineengine:block/machine
+    settings:
+      template: mekanized:settings/machine
+    states:
+      template: machineengine:block_state/active
+  mekanized:block/machine_facing_active:
+    template: machineengine:block/machine
+    settings:
+      template: mekanized:settings/machine
+    states:
+      template: machineengine:block_state/facing_active
+
+  # As mekanized:block/display_machine_facing, turned by facing in all 6 directions.
+  mekanized:block/display_machine_facing_6:
+    template: machineengine:block/machine
+    behavior:
+      display_item: ${__NAMESPACE__}:display/${__ID__}
+    settings:
+      template: mekanized:settings/transparent_machine
+    states:
+      template: machineengine:block_state/display_rendered_facing_6
