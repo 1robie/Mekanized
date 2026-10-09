@@ -91,6 +91,25 @@ def frames():
     progress = Image.new("RGBA", (54, 18))
     progress.alpha_composite(arrow(0), (1, 5))
     save(progress, "frame/progress.png")
+    for frame in ("tall_gauge", "power_vertical", "power_horizontal", "progress"):
+        full_width(GUI / f"frame/{frame}.png")
+    for overlay in sorted((GUI / "slot").glob("overlay_*.png")):
+        full_width(overlay)
+
+
+def full_width(path):
+    """
+    Makes a title image move the cursor by its whole width. The client measures a font image up to its
+    last column with a visible pixel, so an image with empty columns on the right (a bar frame drawn in the
+    middle, a slot overlay icon) would pull every later image left. A pixel of alpha 1 in the last column
+    counts as visible there, and the text shader drops it (alpha below 0.1), so nothing shows.
+    """
+    image = Image.open(path).convert("RGBA")
+    width, height = image.size
+    if any(image.getpixel((width - 1, y))[3] for y in range(height)):
+        return
+    image.putpixel((width - 1, height - 1), (0, 0, 0, 1))
+    image.save(path)
 
 
 def fills():

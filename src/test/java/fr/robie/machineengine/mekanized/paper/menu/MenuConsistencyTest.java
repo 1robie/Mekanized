@@ -5,6 +5,7 @@ import fr.robie.machineengine.core.lifecycle.CoreMachineEngine;
 import fr.robie.machineengine.mekanized.MekanizedTestKit;
 import org.junit.jupiter.api.Test;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -15,6 +16,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.imageio.ImageIO;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -162,6 +164,31 @@ class MenuConsistencyTest {
             });
         }
         assertTrue(textured > 0, "no textured menu");
+        assertEquals(List.of(), problems);
+    }
+
+    /**
+     * The client moves the cursor past a font image up to its last visible column, so an image with an
+     * empty right edge would pull every later image of the title left (compose_menu_textures.py gives
+     * such images an invisible pixel there).
+     */
+    @Test
+    void titleImagesMoveTheCursorByTheirWholeWidth() throws IOException {
+        Matcher file = Pattern.compile("file: ([\\w/]+)[,}]").matcher(gui());
+        List<String> problems = new ArrayList<>();
+        int checked = 0;
+        while (file.find()) {
+            String path = "mekanized/pack/resourcepack/assets/mekanized/textures/gui/" + file.group(1) + ".png";
+            try (InputStream in = Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(path), path)) {
+                BufferedImage image = ImageIO.read(in);
+                int last = image.getWidth() - 1;
+                boolean visible = false;
+                for (int y = 0; y < image.getHeight() && !visible; y++) visible = (image.getRGB(last, y) >>> 24) != 0;
+                if (!visible) problems.add(file.group(1) + ": its last column is empty");
+                checked++;
+            }
+        }
+        assertTrue(checked > 10, "images checked: " + checked);
         assertEquals(List.of(), problems);
     }
 
