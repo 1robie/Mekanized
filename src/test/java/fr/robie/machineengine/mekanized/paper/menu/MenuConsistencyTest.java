@@ -138,6 +138,7 @@ class MenuConsistencyTest {
         int textured = 0;
         List<MenuYaml.Menu> all = new ArrayList<>(MenuCatalog.menus());
         for (int i = 0; i < SideMenus.GROUPS.length; i++) all.add(SideMenus.sideMenu(i));
+        all.add(UpgradeMenu.menu());
         for (MenuYaml.Menu menu : all) {
             textured++;
             String title = menu.title();

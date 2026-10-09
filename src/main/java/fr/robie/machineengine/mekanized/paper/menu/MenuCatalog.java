@@ -32,6 +32,11 @@ public final class MenuCatalog {
             }
         }
         installed += SideMenus.install(plugin, files, folder);
+        try {
+            if (files.install(folder.resolve(UpgradeMenu.NAME + ".yml"), yaml(UpgradeMenu.menu()).getBytes(StandardCharsets.UTF_8))) installed++;
+        } catch (IOException e) {
+            plugin.getLogger().warning("Could not install the upgrades menu: " + e.getMessage());
+        }
         if (installed > 0) plugin.getLogger().info("Installed " + installed + " Mekanized machine menus in " + folder);
     }
 

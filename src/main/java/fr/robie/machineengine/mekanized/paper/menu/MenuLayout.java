@@ -211,9 +211,9 @@ final class MenuLayout {
 
     /** The upgrades button, as Mekanism's upgrade tab. */
     MenuLayout upgrades() {
-        this.buttons.put("upgrades", "    type: machineengine_upgrades\n    slot: " + UPGRADES + "\n    update: true\n"
-                + item("craftengine:mekanized:gui/icon/upgrade", "<aqua>Upgrades", "<gray>Installed: %zmenu_machineengine_upgrades%",
-                "<dark_gray>Click with an upgrade to install,", "<dark_gray>with an empty hand to take one out"));
+        this.buttons.put("upgrades", "    type: machineengine_upgrades\n    menu: " + UpgradeMenu.NAME + "\n    slot: " + UPGRADES
+                + "\n    update: true\n" + item("craftengine:mekanized:gui/icon/upgrade", "<aqua>Upgrades",
+                "<gray>Installed: %zmenu_machineengine_upgrades%", "<dark_gray>Click to see them,", "<dark_gray>click with upgrades to install them"));
         return this;
     }
 
@@ -226,7 +226,6 @@ final class MenuLayout {
         return this;
     }
 
-    /** No side configuration button (a machine without sides). */
     /** A window name other than the machine's (MiniMessage). */
     MenuLayout name(String name) {
         this.name = name;
@@ -239,6 +238,7 @@ final class MenuLayout {
         return this;
     }
 
+    /** No side configuration button (a machine without sides). */
     MenuLayout noSides() {
         this.sideSlot = -1;
         return this;

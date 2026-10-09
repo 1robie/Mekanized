@@ -98,7 +98,8 @@ final class MenuYaml {
         // The window is drawn by the title's images (Mekanized's gui.yml); fill bars redraw by themselves.
         StringBuilder yaml = new StringBuilder()
                 .append("# Mekanized ").append(menu.machine()).append(" menu (zMenu). Edit freely; delete to get the default back.\n")
-                .append("# Buttons: machineengine_slot (a storage slot), machineengine_upgrades, machineengine_data (a setting);\n")
+                .append("# Buttons: machineengine_slot (a storage slot), machineengine_upgrades, machineengine_data (a setting),\n")
+                .append("# machineengine_action (the machine's actions and lists, e.g. upgrade / upgrades);\n")
                 .append("# placeholders %zmenu_machineengine_<key>%. The title's <image:...> and <shift:...> draw the window\n")
                 .append("# (Mekanized's gui.yml, docs/MENU_TEXTURES_PLAN.md).\n")
                 .append("size: ").append(menu.size()).append("\n")
