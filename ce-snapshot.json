@@ -20518,6 +20518,18 @@
                 "path": "mekanized:item/geiger_counter"
             }
         },
+        "mekanized:gui/bar/chemical/0/0": {
+            "material": "leather_horse_armor",
+            "model": {
+                "path": "mekanized:gui/bar/chemical/0_0",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
         "mekanized:gui/bar/chemical/0/1": {
             "material": "leather_horse_armor",
             "model": {
@@ -20714,6 +20726,18 @@
             "material": "leather_horse_armor",
             "model": {
                 "path": "mekanized:gui/bar/chemical/0_9",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/chemical/1/0": {
+            "material": "leather_horse_armor",
+            "model": {
+                "path": "mekanized:gui/bar/chemical/1_0",
                 "tints": [
                     {
                         "default": -1,
@@ -20938,6 +20962,18 @@
                 ]
             }
         },
+        "mekanized:gui/bar/chemical/2/0": {
+            "material": "leather_horse_armor",
+            "model": {
+                "path": "mekanized:gui/bar/chemical/2_0",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
         "mekanized:gui/bar/chemical/2/1": {
             "material": "leather_horse_armor",
             "model": {
@@ -21142,6 +21178,18 @@
                 ]
             }
         },
+        "mekanized:gui/bar/energy/0/0": {
+            "material": "leather_horse_armor",
+            "model": {
+                "path": "mekanized:gui/bar/energy/0_0",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
         "mekanized:gui/bar/energy/0/1": {
             "material": "leather_horse_armor",
             "model": {
@@ -21338,6 +21386,18 @@
             "material": "leather_horse_armor",
             "model": {
                 "path": "mekanized:gui/bar/energy/0_9",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/energy/1/0": {
+            "material": "leather_horse_armor",
+            "model": {
+                "path": "mekanized:gui/bar/energy/1_0",
                 "tints": [
                     {
                         "default": -1,
@@ -21562,6 +21622,18 @@
                 ]
             }
         },
+        "mekanized:gui/bar/energy/2/0": {
+            "material": "leather_horse_armor",
+            "model": {
+                "path": "mekanized:gui/bar/energy/2_0",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
         "mekanized:gui/bar/energy/2/1": {
             "material": "leather_horse_armor",
             "model": {
@@ -21766,6 +21838,18 @@
                 ]
             }
         },
+        "mekanized:gui/bar/energy_horizontal/0/0": {
+            "material": "leather_horse_armor",
+            "model": {
+                "path": "mekanized:gui/bar/energy_horizontal/0_0",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
         "mekanized:gui/bar/energy_horizontal/0/1": {
             "material": "leather_horse_armor",
             "model": {
@@ -21962,6 +22046,18 @@
             "material": "leather_horse_armor",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/0_9",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/energy_horizontal/1/0": {
+            "material": "leather_horse_armor",
+            "model": {
+                "path": "mekanized:gui/bar/energy_horizontal/1_0",
                 "tints": [
                     {
                         "default": -1,
@@ -22186,6 +22282,18 @@
                 ]
             }
         },
+        "mekanized:gui/bar/energy_horizontal/2/0": {
+            "material": "leather_horse_armor",
+            "model": {
+                "path": "mekanized:gui/bar/energy_horizontal/2_0",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
         "mekanized:gui/bar/energy_horizontal/2/1": {
             "material": "leather_horse_armor",
             "model": {
@@ -22390,6 +22498,18 @@
                 ]
             }
         },
+        "mekanized:gui/bar/fluid/0/0": {
+            "material": "leather_horse_armor",
+            "model": {
+                "path": "mekanized:gui/bar/fluid/0_0",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
         "mekanized:gui/bar/fluid/0/1": {
             "material": "leather_horse_armor",
             "model": {
@@ -22586,6 +22706,18 @@
             "material": "leather_horse_armor",
             "model": {
                 "path": "mekanized:gui/bar/fluid/0_9",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/fluid/1/0": {
+            "material": "leather_horse_armor",
+            "model": {
+                "path": "mekanized:gui/bar/fluid/1_0",
                 "tints": [
                     {
                         "default": -1,
@@ -22810,6 +22942,18 @@
                 ]
             }
         },
+        "mekanized:gui/bar/fluid/2/0": {
+            "material": "leather_horse_armor",
+            "model": {
+                "path": "mekanized:gui/bar/fluid/2_0",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
         "mekanized:gui/bar/fluid/2/1": {
             "material": "leather_horse_armor",
             "model": {
@@ -23014,6 +23158,18 @@
                 ]
             }
         },
+        "mekanized:gui/bar/heat/0/0": {
+            "material": "leather_horse_armor",
+            "model": {
+                "path": "mekanized:gui/bar/heat/0_0",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
         "mekanized:gui/bar/heat/0/1": {
             "material": "leather_horse_armor",
             "model": {
@@ -23210,6 +23366,18 @@
             "material": "leather_horse_armor",
             "model": {
                 "path": "mekanized:gui/bar/heat/0_9",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/heat/1/0": {
+            "material": "leather_horse_armor",
+            "model": {
+                "path": "mekanized:gui/bar/heat/1_0",
                 "tints": [
                     {
                         "default": -1,
@@ -23434,6 +23602,18 @@
                 ]
             }
         },
+        "mekanized:gui/bar/heat/2/0": {
+            "material": "leather_horse_armor",
+            "model": {
+                "path": "mekanized:gui/bar/heat/2_0",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
         "mekanized:gui/bar/heat/2/1": {
             "material": "leather_horse_armor",
             "model": {
@@ -23638,6 +23818,18 @@
                 ]
             }
         },
+        "mekanized:gui/bar/progress/0/0": {
+            "material": "leather_horse_armor",
+            "model": {
+                "path": "mekanized:gui/bar/progress/0_0",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
         "mekanized:gui/bar/progress/0/1": {
             "material": "leather_horse_armor",
             "model": {
@@ -23834,6 +24026,18 @@
             "material": "leather_horse_armor",
             "model": {
                 "path": "mekanized:gui/bar/progress/0_9",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/progress/1/0": {
+            "material": "leather_horse_armor",
+            "model": {
+                "path": "mekanized:gui/bar/progress/1_0",
                 "tints": [
                     {
                         "default": -1,
@@ -24050,6 +24254,18 @@
             "material": "leather_horse_armor",
             "model": {
                 "path": "mekanized:gui/bar/progress/1_9",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/progress/2/0": {
+            "material": "leather_horse_armor",
+            "model": {
+                "path": "mekanized:gui/bar/progress/2_0",
                 "tints": [
                     {
                         "default": -1,

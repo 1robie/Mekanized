@@ -1,67 +1,67 @@
-antimatter
-aqua
-bio
-black
-blue
-brine
-brown
-carbon
-chlorine
-clean_copper
-clean_gold
-clean_iron
-clean_lead
-clean_osmium
-clean_tin
-clean_uranium
-cyan
-dark_red
-deuterium
-diamond
-dirty_copper
-dirty_gold
-dirty_iron
-dirty_lead
-dirty_osmium
-dirty_tin
-dirty_uranium
-ethene
-fissile_fuel
-fungi
-fusion_fuel
-gold
-gray
-green
-hydrofluoric_acid
-hydrogen
-hydrogen_chloride
-light_blue
-light_gray
-lime
-lithium
-magenta
-nuclear_waste
-orange
-osmium
-oxygen
-pink
-plutonium
-polonium
-purple
-red
-redstone
-refined_obsidian
-sodium
-spent_nuclear_waste
-steam
-sulfur_dioxide
-sulfur_trioxide
-sulfuric_acid
-superheated_sodium
-tin
-tritium
-uranium_hexafluoride
-uranium_oxide
-water_vapor
-white
-yellow
+antimatter #A464B3
+aqua #30FFF9
+bio #5A4630
+black #404040
+blue #366BD0
+brine #FEEF9C
+brown #A17649
+carbon #2C2C2C
+chlorine #CFE800
+clean_copper #AA4B19
+clean_gold #F2CD67
+clean_iron #AF8E77
+clean_lead #3A404A
+clean_osmium #1E79C3
+clean_tin #CCCCD9
+clean_uranium #46664F
+cyan #00F3D0
+dark_red #C9071F
+deuterium #FF3232
+diamond #6CEDD8
+dirty_copper #AA4B19
+dirty_gold #F2CD67
+dirty_iron #AF8E77
+dirty_lead #3A404A
+dirty_osmium #1E79C3
+dirty_tin #CCCCD9
+dirty_uranium #46664F
+ethene #EACCF9
+fissile_fuel #2E332F
+fungi #74656A
+fusion_fuel #7E007D
+gold #F2CD67
+gray #7A7A7A
+green #59C15F
+hydrofluoric_acid #C6C7BD
+hydrogen #FFFFFF
+hydrogen_chloride #A8F1E9
+light_blue #559EFF
+light_gray #CFCFCF
+lime #75FF89
+lithium #EBA400
+magenta #D55ECB
+nuclear_waste #4F412A
+orange #FFA160
+osmium #52BDCA
+oxygen #6CE2FF
+pink #FFBCC4
+plutonium #1F919C
+polonium #1B9E7B
+purple #A460D9
+red #FF383C
+redstone #B30505
+refined_obsidian #7C00ED
+sodium #E9FEF4
+spent_nuclear_waste #262015
+steam #FFFFFF
+sulfur_dioxide #A99D90
+sulfur_trioxide #CE6C6C
+sulfuric_acid #82802B
+superheated_sodium #D19469
+tin #CCCCD9
+tritium #64FF70
+uranium_hexafluoride #809960
+uranium_oxide #E1F573
+water_vapor #FFFFFF
+white #FFFFFF
+yellow #FFDD4F

@@ -4,6 +4,7 @@ import fr.robie.machineengine.api.data.DataMap;
 import fr.robie.machineengine.api.registry.Registries;
 import fr.robie.machineengine.api.resource.Energy;
 import fr.robie.machineengine.api.resource.Fluids;
+import fr.robie.machineengine.api.resource.ResourceType;
 import fr.robie.machineengine.api.resource.ResourceVariant;
 import fr.robie.machineengine.core.lifecycle.CoreMachineEngine;
 import fr.robie.machineengine.mekanized.machine.MekanizedRegistry;
@@ -13,6 +14,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -32,6 +35,21 @@ class EngineResourcesTest {
         var types = this.engine.registries().registry(Registries.RESOURCE_TYPE);
         assertFalse(types.keys().contains(Key.key("mekanized", "energy")));
         assertFalse(types.keys().contains(Key.key("mekanized", "fluid/water")));
+    }
+
+    @Test
+    void everyChemicalAndFluidHasAMenuColor() {
+        var types = this.engine.registries().registry(Registries.RESOURCE_TYPE);
+        for (Key key : types.keys()) {
+            ResourceType type = types.getOrThrow(key);
+            boolean ours = type.category() == MekanizedContent.CHEMICAL
+                    || type.category() == MekanizedContent.FLUID && key.namespace().equals(MekanizedContent.NAMESPACE);
+            if (ours) assertNotNull(MekanizedContent.color(type), key + " has no color in chemicals.txt or fluids.txt");
+        }
+        assertEquals(0xB30505, MekanizedContent.color(types.getOrThrow(Key.key("mekanized", "redstone"))), "Mekanism's redstone tint");
+        assertEquals(0x0D1455, MekanizedContent.color(MekanizedContent.fluid("heavy_water")));
+        assertNotNull(MekanizedContent.color(MekanizedContent.HEAT));
+        assertNull(MekanizedContent.color(Fluids.water()), "water is MachineEngine's: ResourceColors colors it");
     }
 
     @Test

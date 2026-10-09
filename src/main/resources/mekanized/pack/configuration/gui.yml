@@ -119,8 +119,11 @@ items:
     arguments: {texture: side/both, size: 14}
 
 # Fill bars: mekanized:gui/bar/<shape>/<cell>/<level>. A bar covers 3 slots; cell 0 is the bottom
-# (vertical) or left (horizontal) slot. Cells 0 and 2 have levels 1-17, cell 1 has 1-18; level 0 is
-# mekanized:gui/empty. Shapes: chemical and fluid (tall gauge, tinted), energy (vertical power bar),
+# (vertical) or left (horizontal) slot. Cells 0 and 2 have levels 0-17, cell 1 has 0-18 (0: empty).
+# A menu names the cell straight from a placeholder, e.g.
+#   material: "craftengine:mekanized:gui/bar/chemical/0/%zmenu_machineengine_storage_chemical_cell_0%"
+#   components: {dyed-color: "%zmenu_machineengine_storage_chemical_color%"}
+# Shapes: chemical and fluid (tall gauge, tinted), energy (vertical power bar),
 # energy_horizontal, heat (horizontal, tinted), progress (arrow). Tinted cells take the item's dyed color.
 config_factory#menu_bar_cells:
   instances:
@@ -144,6 +147,9 @@ config_factory#menu_bar_cells:
   - {shape: progress, cell: 2}
   blueprint:
     items:
+      mekanized:gui/bar/${shape}/${cell}/0:
+        template: mekanized:item/gui_bar
+        arguments: {shape: '${shape}', cell: '${cell}', level: 0}
       mekanized:gui/bar/${shape}/${cell}/1:
         template: mekanized:item/gui_bar
         arguments: {shape: '${shape}', cell: '${cell}', level: 1}

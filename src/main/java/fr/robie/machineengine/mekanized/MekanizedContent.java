@@ -47,8 +47,12 @@ public final class MekanizedContent {
     /** Heat in Joules: heaters make it, thermodynamic conductors carry it, boilers use it. */
     public static final ResourceCategory HEAT_CATEGORY = ResourceCategory.builder(key("heat")).unit("J").build();
     public static final ResourceType HEAT = ResourceType.of(key("heat"), HEAT_CATEGORY);
+    /** Heat bars in menus: Mekanism's heat orange. */
+    private static final int HEAT_COLOR = 0xFF7E1F;
     private static final Map<String, ResourceType> FLUIDS = new ConcurrentHashMap<>(Map.of("water", Fluids.water(), "lava", Fluids.lava()));
     private static final Map<String, ResourceType> CHEMICALS = new ConcurrentHashMap<>();
+    /** Menu colors of the chemicals and fluids (Mekanism's tints), from the second column of their lists. */
+    private static final Map<ResourceType, Integer> COLORS = new ConcurrentHashMap<>();
 
     private MekanizedContent() {
     }
@@ -96,21 +100,35 @@ public final class MekanizedContent {
         context.resourceCategories().register(HEAT_CATEGORY);
         context.resourceTypes().register(HEAT);
         context.resourceCategories().register(CHEMICAL);
-        for (String chemical : lines("mekanized/chemicals.txt")) {
-            context.resourceTypes().register(CHEMICALS.computeIfAbsent(chemical, name -> ResourceType.of(key(name), CHEMICAL)));
-        }
-        for (String fluid : lines("mekanized/fluids.txt")) {
-            ResourceType type = FLUIDS.computeIfAbsent(fluid, name -> Fluids.create(key("fluid/" + name)));
+        for (String[] chemical : lines("mekanized/chemicals.txt")) {
+            ResourceType type = CHEMICALS.computeIfAbsent(chemical[0], name -> ResourceType.of(key(name), CHEMICAL));
             context.resourceTypes().register(type);
+            color(type, chemical);
+        }
+        for (String[] fluid : lines("mekanized/fluids.txt")) {
+            ResourceType type = FLUIDS.computeIfAbsent(fluid[0], name -> Fluids.create(key("fluid/" + name)));
+            context.resourceTypes().register(type);
+            color(type, fluid);
         }
         MekanizedRegistry.register(context);
     }
 
-    private static List<String> lines(String resource) {
+    /** The menu color of a Mekanized chemical or fluid ({@code 0xRRGGBB}), or {@code null}. */
+    public static @Nullable Integer color(ResourceType type) {
+        if (type == HEAT) return HEAT_COLOR;
+        return COLORS.get(type);
+    }
+
+    private static void color(ResourceType type, String[] line) {
+        if (line.length > 1 && line[1].startsWith("#")) COLORS.put(type, Integer.parseInt(line[1].substring(1), 16));
+    }
+
+    /** The lines of a list: a name, then optionally {@code #RRGGBB}. */
+    private static List<String[]> lines(String resource) {
         try (InputStream in = Objects.requireNonNull(MekanizedContent.class.getClassLoader().getResourceAsStream(resource),
                 resource + " is missing from the jar");
              BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
-            return reader.lines().map(String::trim).filter(line -> !line.isEmpty()).toList();
+            return reader.lines().map(String::trim).filter(line -> !line.isEmpty()).map(line -> line.split("\\s+")).toList();
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

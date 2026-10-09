@@ -1,22 +1,22 @@
-bioethanol
-brine
-chlorine
-deuterium
-ethene
-fusion_fuel
-heavy_water
-hydrofluoric_acid
-hydrogen
-hydrogen_chloride
-lithium
-nutritional_paste
-oxygen
-sodium
-steam
-sulfur_dioxide
-sulfur_trioxide
-sulfuric_acid
-superheated_sodium
-tritium
-uranium_hexafluoride
-uranium_oxide
+bioethanol #CEEB3D
+brine #FEEF9C
+chlorine #CFE800
+deuterium #FF3232
+ethene #EACCF9
+fusion_fuel #7E007D
+heavy_water #0D1455
+hydrofluoric_acid #C6C7BD
+hydrogen #FFFFFF
+hydrogen_chloride #A8F1E9
+lithium #EBA400
+nutritional_paste #EB6CA3
+oxygen #6CE2FF
+sodium #E9FEF4
+steam #FFFFFF
+sulfur_dioxide #A99D90
+sulfur_trioxide #CE6C6C
+sulfuric_acid #82802B
+superheated_sodium #D19469
+tritium #64FF70
+uranium_hexafluoride #809960
+uranium_oxide #E1F573
