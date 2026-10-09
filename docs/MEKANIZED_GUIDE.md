@@ -12,6 +12,8 @@ Mekanized is not affiliated with Mekanism.
    for MachineEngine, but without it machines have no menus.
 3. Start the server once, then run `/ce reload all`. CraftEngine builds the resource pack with the
    Mekanized blocks and items and sends it to players.
+4. Players need that resource pack (make CraftEngine send it as required): it also draws the machine
+   menus. Without it, menu titles show boxes and the gauges are invisible.
 
 Mekanized writes its files on the first start:
 
@@ -165,7 +167,7 @@ Click a machine's upgrade button with the upgrade in hand to install it.
   The Energized Smelter uses every furnace recipe of the server, datapacks included.
 - **Crafting recipes:** in CraftEngine's `recipes_*.yml` under `plugins/CraftEngine/resources/mekanized/`.
 - **Menus:** the zMenu files `plugins/MachineEngine/menus/mekanized_*.yml`. Placeholders are
-  `%zmenu_machineengine_<key>%`; see MachineEngine's README.
+  `%zmenu_machineengine_<key>%`; see MachineEngine's README and "Textured menus" below.
 
   Gear has no `config.yml` settings any more: every number is in the item's CraftEngine config
   (`plugins/CraftEngine/resources/mekanized/configuration/gear.yml`, `chemistry.yml`), under `behaviors`.
@@ -237,6 +239,68 @@ Click a machine's upgrade button with the upgrade in hand to install it.
   | `machineengine:wrench` | configurator | `click`, `sneak-click`: `rotate`, `dismantle` or `none` |
   | `mekanized:module` | `module_*` items | `module`, `energy` (per second, per use or made), `range`, `capacity-factor`, `enchantment`, `enchantment-level`, `glider`, `fits` (the items it goes into) |
 
+## Textured menus
+
+The menus look like Mekanism's windows. Each menu file draws its window in two parts:
+
+- **The title draws everything that does not move:** the panel (player inventory included), the slot
+  frames and the bar frames. They are CraftEngine images, placed with `<shift:n>` (n pixels right or left):
+  ```yaml
+  name: "<white><shift:-8><image:mekanized:gui/panel_5><shift:-152><image:mekanized:gui/slot_input_r2>…<shift:-162></white><lang:block.mekanized.crusher>"
+  ```
+  The title starts at x 8 of the window; `<shift:-8>` brings it to 0. An image moves the next one by its
+  width + 1 (a slot frame 18 + 1, the panel 176 + 1). Chest slot (row, column), counted from 0, has its
+  frame at x `7 + 18 × column`, so to move an image by one slot, change the shifts around it by 18.
+- **Slots draw everything that moves:** fill bars, empty slots and icons are CraftEngine items in zMenu
+  buttons.
+
+**Images** (`plugins/CraftEngine/resources/mekanized/configuration/gui.yml`):
+
+| Image | What |
+|---|---|
+| `mekanized:gui/panel_<rows>` | the window for a chest of 3 to 6 rows |
+| `mekanized:gui/slot_<kind>_r<row>` | a slot frame on chest row `row`: `normal`, `input` (red), `input_2`, `output` (blue), `output_2`, `extra` (yellow), `power` (green) |
+| `mekanized:gui/overlay_<icon>_r<row>` | an icon over a slot frame: `power`, `input`, `output`, `upgrade` |
+| `mekanized:gui/frame_<bar>_r<row>` | a bar's frame starting on row `row`: `tall_gauge` and `power_vertical` (3 rows tall), `power_horizontal` and `progress` (3 columns wide), `lane` (one slot) |
+
+**Items** (`craftengine:<id>` as a button's `material`):
+
+| Item | What |
+|---|---|
+| `mekanized:gui/empty` | nothing: an empty machine slot shows its frame, the button's name is the tooltip |
+| `mekanized:gui/bar/<shape>/<cell>/<level>` | one slot of a fill bar: shapes `chemical`, `fluid`, `energy`, `energy_horizontal`, `heat`, `progress`, `lane` |
+| `mekanized:gui/icon/<name>` | Mekanism's tab and button icons: `upgrade`, `configuration`, `redstone_ignored`, `redstone_high`, `redstone_low`, `items`, `energy`, `chemicals`, `fluids`, `heat`, `auto_eject`, `back`, `clear_sides`, `transporter_config` |
+| `mekanized:gui/side/<mode>` | a side configuration square: `none`, `input`, `output`, `both` |
+
+**A fill bar** covers 3 slots (bottom to top, or left to right), one button per slot, cell 0 first. Each
+button names its item from placeholders, which MachineEngine fills in for the machine the player looks at:
+```yaml
+  water-0:
+    slot: 27
+    item:
+      material: "craftengine:mekanized:gui/bar/fluid/0/%zmenu_machineengine_storage_water_cell_0%"
+      components:
+        dyed-color: "%zmenu_machineengine_storage_water_color%"
+      flags: [HIDE_DYE, HIDE_ATTRIBUTES]
+      name: "<!i><aqua>Water"
+      lore:
+        - "<!i><gray>%zmenu_machineengine_storage_water_amount% / %zmenu_machineengine_storage_water_capacity% mB"
+```
+- `storage_<id>_cell_<k>` is cell k's level (0 to 18; 16 for cell 2); `storage_<id>_slot_<n>_cell_<k>` for
+  one slot of a storage; `process_cell_<k>` for the progress arrow; `data_<id>_cell` (0 to 16) for a
+  one-slot bar following a percent setting, like a factory lane.
+- `storage_<id>_color` is the color of what the storage holds (Mekanism's, from `chemicals.txt` and
+  `fluids.txt`); only the `chemical`, `fluid` and `heat` shapes are tinted.
+- MachineEngine redraws every button whose `material` holds a machine placeholder by itself, all at once,
+  at the menu's `update-interval` and whenever the machine changes. Do not add `update: true` to them.
+
+**Icons that follow a setting** name their item from it the same way:
+`craftengine:mekanized:gui/icon/redstone_%zmenu_machineengine_data_redstone%`,
+`craftengine:mekanized:gui/side/%zmenu_machineengine_side_items_front_mode%`.
+
+The textures are Mekanism's, kept in the plugin. The panels, bar frames and bar models are made by
+`mekanized/tools/compose_menu_textures.py` in the source tree (run by hand; not needed to edit menus).
+
 ## Commands (permission `machineengine.admin`)
 | Command | What it does |
 |---|---|
@@ -263,6 +327,10 @@ Click a machine's upgrade button with the upgrade in hand to install it.
 
 ## Troubleshooting
 - **Players see missing textures or nothing at all:** run `/ce reload all` after an update.
+- **Menu titles show boxes or `<image:…>` text:** the player has not loaded the resource pack, or
+  CraftEngine's `network.intercept-packets.container` is off (it must be on).
+- **A menu still looks plain or old after an update:** you edited that file, so the update kept it (the
+  log says so). Delete it to get the new menu, then make your changes again.
 - **CraftEngine reports no free block states:** run `/ce clean-cache visual_block_states`, then
   `/ce reload all`. Old entries hold states that new blocks need.
 - **A multiblock does not form:**
