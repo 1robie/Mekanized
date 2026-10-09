@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.IntFunction;
 
 /**
  * A textured menu (docs/MENU_TEXTURES_PLAN.md): widgets placed by chest row and column, each adding its
@@ -85,6 +86,12 @@ final class MenuLayout {
         return slot(name, row, column, kind, storage, 1, label);
     }
 
+    /** A fluid tank's bucket slots: buckets to fill or empty, and the buckets that come out. */
+    MenuLayout buckets(int row, int inColumn, int outColumn) {
+        return slot("bucket-in", row, inColumn, Kind.INPUT, "bucket_in", "Bucket (fills or empties)")
+                .slot("bucket-out", row, outColumn, Kind.OUTPUT, "bucket_out", "Buckets out");
+    }
+
     /** The energy item slot (redstone and energy items charge the machine). */
     MenuLayout energySlot(int row, int column) {
         return slot("energy-slot", row, column, Kind.POWER, "energy_slot", "Energy item (redstone: 10 kJ each)");
@@ -98,7 +105,7 @@ final class MenuLayout {
     MenuLayout tank(String name, int topRow, int column, Tank tank, String storage, int storageSlot, String label) {
         image("frame_tall_gauge", topRow, column, 18);
         String prefix = "%zmenu_machineengine_storage_" + storage + "_" + (storageSlot > 0 ? "slot_" + storageSlot + "_" : "");
-        bar(name, vertical(topRow, column), tank.shape, prefix + "cell_", prefix + "color%", tank.color + label,
+        bar(name, vertical(topRow, column), tank.shape, cells(prefix + "cell_"),prefix + "color%", tank.color + label,
                 "<gray>" + prefix + "name%", "<gray>" + prefix + "amount% / " + prefix + "capacity% mB");
         return this;
     }
@@ -111,7 +118,7 @@ final class MenuLayout {
     MenuLayout energy(int topRow, int column) {
         image("frame_power_vertical", topRow, column, 18);
         String prefix = "%zmenu_machineengine_storage_energy_";
-        bar("energy", vertical(topRow, column), "energy", prefix + "cell_", null, "<green>Energy",
+        bar("energy", vertical(topRow, column), "energy", cells(prefix + "cell_"),null, "<green>Energy",
                 "<gray>" + prefix + "amount% / " + prefix + "capacity% J");
         return this;
     }
@@ -120,7 +127,7 @@ final class MenuLayout {
     MenuLayout energyHorizontal(int row, int column) {
         image("frame_power_horizontal", row, column, 54);
         String prefix = "%zmenu_machineengine_storage_energy_";
-        bar("energy", horizontal(row, column), "energy_horizontal", prefix + "cell_", null, "<green>Energy",
+        bar("energy", horizontal(row, column), "energy_horizontal", cells(prefix + "cell_"),null, "<green>Energy",
                 "<gray>" + prefix + "amount% / " + prefix + "capacity% J");
         return this;
     }
@@ -129,15 +136,32 @@ final class MenuLayout {
     MenuLayout heat(String name, int row, int column, String storage, String label) {
         image("frame_power_horizontal", row, column, 54);
         String prefix = "%zmenu_machineengine_storage_" + storage + "_";
-        bar(name, horizontal(row, column), "heat", prefix + "cell_", prefix + "color%", "<gold>" + label,
+        bar(name, horizontal(row, column), "heat", cells(prefix + "cell_"),prefix + "color%", "<gold>" + label,
                 "<gray>" + prefix + "amount% / " + prefix + "capacity% J");
+        return this;
+    }
+
+    /** A chemical or other tinted amount as a horizontal bar, from {@code column} right 3 columns. */
+    MenuLayout horizontalTank(String name, int row, int column, String storage, String label) {
+        image("frame_power_horizontal", row, column, 54);
+        String prefix = "%zmenu_machineengine_storage_" + storage + "_";
+        bar(name, horizontal(row, column), "heat", cells(prefix + "cell_"),prefix + "color%", "<light_purple>" + label,
+                "<gray>" + prefix + "name%", "<gray>" + prefix + "amount% / " + prefix + "capacity% mB");
+        return this;
+    }
+
+    /** A factory lane's down arrow in one slot, following a percent setting ({@code data}). */
+    MenuLayout lane(String name, int row, int column, String data, String label) {
+        image("frame_lane", row, column, 18);
+        bar(name, new int[]{at(row, column)}, "lane", k -> "%zmenu_machineengine_data_" + data + "_cell%", null,
+                "<yellow>" + label, "<gray>%zmenu_machineengine_data_" + data + "% %");
         return this;
     }
 
     /** The process's progress arrow, from {@code column} right 3 columns. */
     MenuLayout progress(int row, int column) {
         image("frame_progress", row, column, 54);
-        bar("progress", horizontal(row, column), "progress", "%zmenu_machineengine_process_cell_", null, "<yellow>Progress",
+        bar("progress", horizontal(row, column), "progress", cells("%zmenu_machineengine_process_cell_"), null, "<yellow>Progress",
                 "<gray>%zmenu_machineengine_process_percent% %");
         return this;
     }
@@ -152,17 +176,22 @@ final class MenuLayout {
         return new int[]{at(row, column), at(row, column + 1), at(row, column + 2)};
     }
 
+    /** The level placeholders of a 3-slot bar: {@code <prefix><k>%}. */
+    private static IntFunction<String> cells(String prefix) {
+        return k -> prefix + k + "%";
+    }
+
     /**
      * One button per cell, naming its item {@code mekanized:gui/bar/<shape>/<k>/<level>}.
      *
-     * @param cell  the placeholder before the cell index, e.g. {@code %zmenu_machineengine_process_cell_}
+     * @param level the placeholder of cell k's level, e.g. {@code %zmenu_machineengine_process_cell_0%}
      * @param color the color placeholder of a tinted bar, or {@code null}
      */
-    private void bar(String name, int[] slots, String shape, String cell, String color, String label, String... lore) {
+    private void bar(String name, int[] slots, String shape, IntFunction<String> level, String color, String label, String... lore) {
         for (int k = 0; k < slots.length; k++) {
             StringBuilder button = new StringBuilder("    slot: ").append(slots[k]).append('\n')
                     .append("    item:\n      material: \"craftengine:mekanized:gui/bar/").append(shape).append('/').append(k).append('/')
-                    .append(cell).append(k).append("%\"\n");
+                    .append(level.apply(k)).append("\"\n");
             if (color != null) {
                 button.append("      components:\n        dyed-color: \"").append(color).append("\"\n")
                         .append("      flags: [HIDE_DYE, HIDE_ATTRIBUTES]\n");

@@ -9,7 +9,7 @@ Writes, under the Mekanized resource pack:
 - textures/gui/frame/*.png: the static frames of the bars, drawn in menu titles;
 - textures/gui/fill/*.png: bar fills that are not a Mekanism texture as they are;
 - textures/gui/side/<mode>.png: the side configuration buttons;
-- models/gui/bar/<shape>/<cell>_<level>.json: one model per bar cell and fill level;
+- models/gui/bar/<shape>/<cell>_<level>.json: one model per bar cell and fill level (and the factory lane arrows);
 - models/gui/icon_{18,14}.json: the parents of the menu icons.
 
 A bar spans 3 slots along its axis (54 px with the frame, 52 px of fill). Cell k (0 at the start: the
@@ -74,6 +74,11 @@ def arrow(strip):
     return out
 
 
+def lane_arrow(strip):
+    """Mekanism's small down arrow (progress/down.png, 8 x 20: strip 0 empty, 1 full) cut to 16 px tall: its shaft is shorter."""
+    return Image.open(GUI / "progress/down.png").convert("RGBA").crop((strip * 8, 4, strip * 8 + 8, 20))
+
+
 def ticks():
     """Mekanism's gauge ticks (gauge/standard.png, 16 x 58) cut to the 52 px of a bar."""
     return Image.open(GUI / "gauge/standard.png").convert("RGBA").crop((0, 3, 16, 3 + LENGTH))
@@ -92,7 +97,10 @@ def frames():
     progress = Image.new("RGBA", (54, 18))
     progress.alpha_composite(arrow(0), (1, 5))
     save(progress, "frame/progress.png")
-    for frame in ("tall_gauge", "power_vertical", "power_horizontal", "progress"):
+    lane = Image.new("RGBA", (18, 18))
+    lane.alpha_composite(lane_arrow(0), (5, 1))
+    save(lane, "frame/lane.png")
+    for frame in ("tall_gauge", "power_vertical", "power_horizontal", "progress", "lane"):
         full_width(GUI / f"frame/{frame}.png")
     for overlay in sorted((GUI / "slot").glob("overlay_*.png")):
         full_width(overlay)
@@ -115,6 +123,7 @@ def full_width(path):
 
 def fills():
     save(arrow(1), "fill/progress.png")
+    save(lane_arrow(1), "fill/lane.png")
     save(ticks(), "fill/ticks.png")
     # Heat and other tinted horizontal bars: white with Mekanism's bar shading, tinted per resource.
     heat = Image.new("RGBA", (LENGTH, 4), (255, 255, 255, 255))
@@ -209,6 +218,25 @@ def bar_models():
                 (folder / f"{cell}_{level}.json").write_text(json.dumps(model, separators=(",", ":")) + "\n", encoding="utf-8")
 
 
+def lane_models():
+    """
+    A factory lane's down arrow: one cell, levels 0 to 16, filling from the top (models/gui/bar/lane/0_<level>.json).
+    The arrow is 8 px wide in the middle of the slot (item x 4 to 12).
+    """
+    folder = ASSETS / "models/gui/bar/lane"
+    folder.mkdir(parents=True, exist_ok=True)
+    for old in folder.glob("*.json"):
+        old.unlink()
+    texture = "mekanized:gui/fill/lane"
+    for level in range(17):
+        elements = []
+        if level:
+            face = {"uv": [0, 0, 16, level], "texture": "#fill"}
+            elements.append({"from": [4, 16 - level, 7.995], "to": [12, 16, 8], "faces": {"south": face, "north": dict(face)}})
+        model = {"gui_light": "front", "textures": {"fill": texture, "particle": texture}, "elements": elements}
+        (folder / f"0_{level}.json").write_text(json.dumps(model, separators=(",", ":")) + "\n", encoding="utf-8")
+
+
 def icon_parents():
     """Parents of the menu icons (template mekanized:item/gui_icon): 18 px over the slot frame, or 14 px centered."""
     for size, (low, high) in {18: (-1, 17), 14: (1, 15)}.items():
@@ -225,6 +253,7 @@ def main():
     fills()
     side_buttons()
     bar_models()
+    lane_models()
     print("written under", ASSETS)
 
 

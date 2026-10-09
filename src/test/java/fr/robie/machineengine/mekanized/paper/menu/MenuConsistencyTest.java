@@ -33,7 +33,7 @@ class MenuConsistencyTest {
     private static final Pattern DATA = Pattern.compile("(?m)^    data: (\\w+)$");
     private static final Pattern PLACEHOLDER_STORAGE =
             Pattern.compile("%zmenu_machineengine_storage_(\\w+?)_(?:slot_(\\d+)_)?(?:name|amount|capacity|bar|color|cell_\\d)%");
-    private static final Pattern PLACEHOLDER_DATA = Pattern.compile("%zmenu_machineengine_data_(\\w+)%");
+    private static final Pattern PLACEHOLDER_DATA = Pattern.compile("%zmenu_machineengine_data_(\\w+?)(?:_cell)?%");
 
     private final CoreMachineEngine engine = MekanizedTestKit.engine();
 
@@ -137,7 +137,6 @@ class MenuConsistencyTest {
         List<String> problems = new ArrayList<>();
         int textured = 0;
         for (MenuYaml.Menu menu : MenuCatalog.menus()) {
-            if (!menu.textured()) continue;
             textured++;
             String title = menu.title();
             Matcher images1 = image.matcher(title);

@@ -46,6 +46,8 @@ config_factory#menu_rows:
       # Frames of the horizontal bars: 3 columns wide (54 px).
       mekanized:gui/frame_power_horizontal_r${row}: {template: mekanized:gui/glyph, arguments: {file: frame/power_horizontal, ascent: '${ascent}'}}
       mekanized:gui/frame_progress_r${row}: {template: mekanized:gui/glyph, arguments: {file: frame/progress, ascent: '${ascent}'}}
+      # A factory lane's down arrow, in one slot.
+      mekanized:gui/frame_lane_r${row}: {template: mekanized:gui/glyph, arguments: {file: frame/lane, ascent: '${ascent}'}}
       # Frames of the vertical bars: 3 rows tall (54 px).
       mekanized:gui/frame_tall_gauge_r${row}: {template: mekanized:gui/glyph, arguments: {file: frame/tall_gauge, height: 54, ascent: '${ascent}'}}
       mekanized:gui/frame_power_vertical_r${row}: {template: mekanized:gui/glyph, arguments: {file: frame/power_vertical, height: 54, ascent: '${ascent}'}}
@@ -124,7 +126,8 @@ items:
 #   material: "craftengine:mekanized:gui/bar/chemical/0/%zmenu_machineengine_storage_chemical_cell_0%"
 #   components: {dyed-color: "%zmenu_machineengine_storage_chemical_color%"}
 # Shapes: chemical and fluid (tall gauge, tinted), energy (vertical power bar),
-# energy_horizontal, heat (horizontal, tinted), progress (arrow). Tinted cells take the item's dyed color.
+# energy_horizontal, heat (horizontal, tinted), progress (arrow), lane (a factory lane's one-slot down arrow).
+# Tinted cells take the item's dyed color.
 config_factory#menu_bar_cells:
   instances:
   - {shape: chemical, cell: 0}
@@ -145,6 +148,8 @@ config_factory#menu_bar_cells:
   - {shape: progress, cell: 0}
   - {shape: progress, cell: 1}
   - {shape: progress, cell: 2}
+  # A factory lane's down arrow: one cell, filling from the top (levels 0-16).
+  - {shape: lane, cell: 0}
   blueprint:
     items:
       mekanized:gui/bar/${shape}/${cell}/0:

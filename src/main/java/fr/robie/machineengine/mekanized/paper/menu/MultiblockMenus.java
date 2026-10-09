@@ -1,9 +1,10 @@
 package fr.robie.machineengine.mekanized.paper.menu;
 
+import fr.robie.machineengine.mekanized.paper.menu.MenuLayout.Kind;
+import fr.robie.machineengine.mekanized.paper.menu.MenuLayout.Tank;
 import fr.robie.machineengine.mekanized.paper.menu.MenuYaml.Menu;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
+import static fr.robie.machineengine.mekanized.paper.menu.MenuLayout.at;
 import static fr.robie.machineengine.mekanized.paper.menu.MenuYaml.*;
 
 /** The menus of the structures (dynamic tank, induction matrix, thermal evaporation plant), opened from any member: the anchor's storage. */
@@ -12,26 +13,28 @@ final class MultiblockMenus {
     }
 
     static void add(List<Menu> menus) {
-        Map<String, String> tank = new LinkedHashMap<>();
-        tank.put("info", display(4, "BUCKET", "<aqua>Dynamic Tank", "<gray>Holds one fluid or one chemical,",
-                "<gray>350,000 mB of fluid per block inside"));
-        tank.put("chemical", chemical(15, "chemical", "Chemical"));
-        buckets(tank, "fluid", "Fluid", 11);
-        menus.add(new Menu("dynamic_tank", tank));
+        menus.add(new MenuLayout("dynamic_tank", 5)
+                .button("info", display(at(0, 4), "BUCKET", "<aqua>Dynamic Tank", "<gray>Holds one fluid or one chemical,",
+                        "<gray>350,000 mB of fluid per block inside"))
+                .tank("fluid", 1, 2, Tank.FLUID, "fluid", "Fluid")
+                .buckets(4, 2, 3)
+                .tank("chemical", 1, 6, Tank.CHEMICAL, "chemical", "Chemical")
+                .build());
 
-        Map<String, String> matrix = new LinkedHashMap<>();
-        matrix.put("info", display(4, "BEACON", "<aqua>Induction Matrix", "<gray>Cells store energy, providers set the output rate.",
-                "<gray>Configurator on a port: input or output"));
-        matrix.put("energy", energyDisplay(22));
-        menus.add(new Menu("induction_casing", matrix));
+        menus.add(new MenuLayout("induction_casing", 5)
+                .button("info", display(at(0, 4), "BEACON", "<aqua>Induction Matrix", "<gray>Cells store energy, providers set the output rate.",
+                        "<gray>Configurator on a port: input or output"))
+                .energy(1, 4)
+                .build());
 
-        Map<String, String> tower = new LinkedHashMap<>();
-        tower.put("info", display(4, "SUNFLOWER", "<gold>Thermal Evaporation Plant", "<gray>Water to brine, brine to liquid lithium.",
-                "<gray>Faster when taller, by day, and when dry"));
-        buckets(tower, "input", "Input", 10);
-        tower.put("output", tank(16, "output", "WATER_BUCKET", "<aqua>", "Output"));
-        tower.put("output-bucket", slotOf(25, "output_bucket", 1, "Empty bucket to fill from the output"));
-        tower.put("state", display(13, "REDSTONE_TORCH", "<yellow>%zmenu_machineengine_state%"));
-        menus.add(new Menu("thermal_evaporation_block", tower));
+        menus.add(new MenuLayout("thermal_evaporation_block", 5)
+                .button("info", display(at(0, 4), "SUNFLOWER", "<gold>Thermal Evaporation Plant", "<gray>Water to brine, brine to liquid lithium.",
+                        "<gray>Faster when taller, by day, and when dry"))
+                .tank("input", 1, 0, Tank.FLUID, "input", "Input")
+                .buckets(4, 0, 1)
+                .button("state", display(at(2, 4), "REDSTONE_TORCH", "<yellow>%zmenu_machineengine_state%"))
+                .tank("output", 1, 7, Tank.FLUID, "output", "Output")
+                .slot("output-bucket", 4, 7, Kind.OUTPUT, "output_bucket", "Empty bucket to fill from the output")
+                .build());
     }
 }

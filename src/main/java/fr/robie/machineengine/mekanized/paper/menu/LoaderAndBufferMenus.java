@@ -2,11 +2,12 @@ package fr.robie.machineengine.mekanized.paper.menu;
 
 import fr.robie.machineengine.mekanized.machine.ChunkLoadingSettings;
 import fr.robie.machineengine.mekanized.machine.Liquifier;
+import fr.robie.machineengine.mekanized.paper.menu.MenuLayout.Kind;
+import fr.robie.machineengine.mekanized.paper.menu.MenuLayout.Tank;
 import fr.robie.machineengine.mekanized.paper.menu.MenuYaml.Menu;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
+import static fr.robie.machineengine.mekanized.paper.menu.MenuLayout.at;
 import static fr.robie.machineengine.mekanized.paper.menu.MenuYaml.*;
 
 /** The menus of the dimensional stabilizer, quantum entangloporter, radioactive waste barrel and nutritional liquifier. */
@@ -33,44 +34,43 @@ final class LoaderAndBufferMenus {
     }
 
     static void add(List<Menu> menus) {
-        Map<String, String> stabilizer = new LinkedHashMap<>();
-        stabilizer.put("info", display(4, "END_CRYSTAL", "<light_purple>Dimensional Stabilizer", "<gray>Keeps the chunks around it loaded",
-                "<gray>while it has energy, paid per chunk."));
-        stabilizer.put("radius", setting(11, "radius", radii(), "COMPASS",
-                "<yellow>Chunks around: %zmenu_machineengine_data_radius%", "<gray>" + radiusAreas()));
-        stabilizer.put("energy", energyDisplay(13));
-        stabilizer.put("status", status(15));
-        stabilizer.put("energy-slot", slot(31, "energy_slot", "Energy item (redstone: 10 kJ each)"));
-        menus.add(new Menu("dimensional_stabilizer", stabilizer));
+        menus.add(new MenuLayout("dimensional_stabilizer", 5)
+                .button("info", display(at(0, 4), "END_CRYSTAL", "<light_purple>Dimensional Stabilizer", "<gray>Keeps the chunks around it loaded",
+                        "<gray>while it has energy, paid per chunk."))
+                .button("radius", setting(at(2, 2), "radius", radii(), "COMPASS",
+                        "<yellow>Chunks around: %zmenu_machineengine_data_radius%", "<gray>" + radiusAreas()))
+                .button("status", status(at(2, 4)))
+                .energy(1, 8)
+                .energySlot(4, 8)
+                .build());
 
-        Map<String, String> entangloporter = new LinkedHashMap<>();
-        entangloporter.put("info", display(4, "ENDER_EYE", "<light_purple>Quantum Entangloporter",
-                "<gray>Every entangloporter of a frequency shares one buffer.", "<gray>Sending ones fill it from pipes, cables and hoppers;",
-                "<gray>receiving ones empty it out of every side.", "<gray>Frequency: look at it, /mekanized frequency <name>"));
-        entangloporter.put("frequency", display(10, "NAME_TAG", "<yellow>Frequency: %zmenu_machineengine_data_frequency%"));
-        entangloporter.put("mode", setting(12, "entangloporter_mode", List.of("send", "receive"), "COMPARATOR",
-                "<yellow>Mode: %zmenu_machineengine_data_entangloporter_mode%"));
-        entangloporter.put("energy", energyDisplay(14));
-        entangloporter.put("fluid", tank(15, "fluid", "WATER_BUCKET", "<aqua>", "Fluid"));
-        entangloporter.put("chemical", chemical(16, "chemical", "Chemical"));
-        entangloporter.put("items", slot(22, "items", "Items"));
-        menus.add(new Menu("quantum_entangloporter", entangloporter, -1));
+        menus.add(new MenuLayout("quantum_entangloporter", 5)
+                .button("info", display(at(0, 4), "ENDER_EYE", "<light_purple>Quantum Entangloporter",
+                        "<gray>Every entangloporter of a frequency shares one buffer.", "<gray>Sending ones fill it from pipes, cables and hoppers;",
+                        "<gray>receiving ones empty it out of every side.", "<gray>Frequency: look at it, /mekanized frequency <name>"))
+                .button("frequency", display(at(1, 1), "NAME_TAG", "<yellow>Frequency: %zmenu_machineengine_data_frequency%"))
+                .button("mode", setting(at(3, 1), "entangloporter_mode", List.of("send", "receive"), "COMPARATOR",
+                        "<yellow>Mode: %zmenu_machineengine_data_entangloporter_mode%"))
+                .energy(1, 3)
+                .slot("items", 2, 4, Kind.NORMAL, "items", "Items")
+                .tank("fluid", 1, 5, Tank.FLUID, "fluid", "Fluid")
+                .tank("chemical", 1, 6, Tank.CHEMICAL, "chemical", "Chemical")
+                .noSides()
+                .build());
 
-        Map<String, String> barrel = new LinkedHashMap<>();
-        barrel.put("info", display(4, "BARREL", "<green>Radioactive Waste Barrel", "<gray>Holds radioactive chemicals safely",
-                "<gray>while they slowly decay."));
-        barrel.put("waste", chemical(13, "waste", "Waste"));
-        menus.add(new Menu("radioactive_waste_barrel", barrel, -1));
+        menus.add(new MenuLayout("radioactive_waste_barrel", 5)
+                .button("info", display(at(0, 4), "BARREL", "<green>Radioactive Waste Barrel", "<gray>Holds radioactive chemicals safely",
+                        "<gray>while they slowly decay."))
+                .tank("waste", 1, 4, Tank.CHEMICAL, "waste", "Waste")
+                .noSides()
+                .build());
 
-        Map<String, String> liquifier = new LinkedHashMap<>();
-        liquifier.put("info", display(4, "BREAD", "<gold>Nutritional Liquifier", "<gray>Food into nutritional paste: "
-                + Liquifier.PASTE_PER_FOOD + " mB per hunger point.",
-                "<gray>Right-click it with a canteen to fill it."));
-        liquifier.put("input", slot(10, "input", "Food"));
-        liquifier.put("paste", tank(14, "paste", "HONEY_BOTTLE", "<gold>", "Nutritional paste"));
-        liquifier.put("energy", energyDisplay(16));
-        liquifier.put("energy-slot", slot(34, "energy_slot", "Energy item (redstone: 10 kJ each)"));
-        liquifier.put("upgrades", upgrades());
-        menus.add(new Menu("nutritional_liquifier", liquifier));
+        menus.add(powered("nutritional_liquifier")
+                .button("info", display(at(0, 4), "BREAD", "<gold>Nutritional Liquifier", "<gray>Food into nutritional paste: "
+                        + Liquifier.PASTE_PER_FOOD + " mB per hunger point.", "<gray>Right-click it with a canteen to fill it."))
+                .slot("input", 2, 1, Kind.INPUT, "input", "Food")
+                .progress(2, 2)
+                .tank("paste", 1, 5, Tank.FLUID, "paste", "Nutritional paste")
+                .build());
     }
 }

@@ -1,0 +1,1 @@
+{"gui_light":"front","textures":{"fill":"mekanized:gui/fill/lane","particle":"mekanized:gui/fill/lane"},"elements":[{"from":[4,13,7.995],"to":[12,16,8],"faces":{"south":{"uv":[0,0,16,3],"texture":"#fill"},"north":{"uv":[0,0,16,3],"texture":"#fill"}}}]}

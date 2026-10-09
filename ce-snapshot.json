@@ -23818,6 +23818,210 @@
                 ]
             }
         },
+        "mekanized:gui/bar/lane/0/0": {
+            "material": "leather_helmet",
+            "model": {
+                "path": "mekanized:gui/bar/lane/0_0",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/lane/0/1": {
+            "material": "leather_helmet",
+            "model": {
+                "path": "mekanized:gui/bar/lane/0_1",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/lane/0/10": {
+            "material": "leather_helmet",
+            "model": {
+                "path": "mekanized:gui/bar/lane/0_10",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/lane/0/11": {
+            "material": "leather_helmet",
+            "model": {
+                "path": "mekanized:gui/bar/lane/0_11",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/lane/0/12": {
+            "material": "leather_helmet",
+            "model": {
+                "path": "mekanized:gui/bar/lane/0_12",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/lane/0/13": {
+            "material": "leather_helmet",
+            "model": {
+                "path": "mekanized:gui/bar/lane/0_13",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/lane/0/14": {
+            "material": "leather_helmet",
+            "model": {
+                "path": "mekanized:gui/bar/lane/0_14",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/lane/0/15": {
+            "material": "leather_helmet",
+            "model": {
+                "path": "mekanized:gui/bar/lane/0_15",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/lane/0/16": {
+            "material": "leather_helmet",
+            "model": {
+                "path": "mekanized:gui/bar/lane/0_16",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/lane/0/2": {
+            "material": "leather_helmet",
+            "model": {
+                "path": "mekanized:gui/bar/lane/0_2",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/lane/0/3": {
+            "material": "leather_helmet",
+            "model": {
+                "path": "mekanized:gui/bar/lane/0_3",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/lane/0/4": {
+            "material": "leather_helmet",
+            "model": {
+                "path": "mekanized:gui/bar/lane/0_4",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/lane/0/5": {
+            "material": "leather_helmet",
+            "model": {
+                "path": "mekanized:gui/bar/lane/0_5",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/lane/0/6": {
+            "material": "leather_helmet",
+            "model": {
+                "path": "mekanized:gui/bar/lane/0_6",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/lane/0/7": {
+            "material": "leather_helmet",
+            "model": {
+                "path": "mekanized:gui/bar/lane/0_7",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/lane/0/8": {
+            "material": "leather_helmet",
+            "model": {
+                "path": "mekanized:gui/bar/lane/0_8",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/lane/0/9": {
+            "material": "leather_helmet",
+            "model": {
+                "path": "mekanized:gui/bar/lane/0_9",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
         "mekanized:gui/bar/progress/0/0": {
             "material": "leather_helmet",
             "model": {
