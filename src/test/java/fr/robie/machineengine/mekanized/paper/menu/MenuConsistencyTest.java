@@ -136,7 +136,9 @@ class MenuConsistencyTest {
         Pattern bar = Pattern.compile("gui/bar/(\\w+)/(\\d)/");
         List<String> problems = new ArrayList<>();
         int textured = 0;
-        for (MenuYaml.Menu menu : MenuCatalog.menus()) {
+        List<MenuYaml.Menu> all = new ArrayList<>(MenuCatalog.menus());
+        for (int i = 0; i < SideMenus.GROUPS.length; i++) all.add(SideMenus.sideMenu(i));
+        for (MenuYaml.Menu menu : all) {
             textured++;
             String title = menu.title();
             Matcher images1 = image.matcher(title);

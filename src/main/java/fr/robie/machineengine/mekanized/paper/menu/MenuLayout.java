@@ -53,6 +53,8 @@ final class MenuLayout {
     private final Map<String, String> buttons = new LinkedHashMap<>();
     private final List<Glyph> glyphs = new ArrayList<>();
     private int sideSlot = SIDE_CONFIG;
+    /** The window's name (MiniMessage); the machine's translated name if {@code null}. */
+    private String name;
 
     MenuLayout(String machine, int rows) {
         if (rows < 3 || rows > 6) throw new IllegalArgumentException("rows: " + rows);
@@ -225,6 +227,18 @@ final class MenuLayout {
     }
 
     /** No side configuration button (a machine without sides). */
+    /** A window name other than the machine's (MiniMessage). */
+    MenuLayout name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /** A slot frame with no button of its own, e.g. behind a setting or to mark the open tab. */
+    MenuLayout frame(Kind kind, int row, int column) {
+        image(kind.image, row, column, 18);
+        return this;
+    }
+
     MenuLayout noSides() {
         this.sideSlot = -1;
         return this;
@@ -247,7 +261,8 @@ final class MenuLayout {
             title.append("<shift:").append(glyph.x() - cursor).append("><image:").append(glyph.image()).append('>');
             cursor = glyph.x() + glyph.width() + 1;
         }
-        return title.append("<shift:").append(8 - cursor).append("></white><lang:block.mekanized.").append(this.machine).append('>').toString();
+        String name = this.name != null ? this.name : "<lang:block.mekanized." + this.machine + ">";
+        return title.append("<shift:").append(8 - cursor).append("></white>").append(name).toString();
     }
 
     /** {@code item:} with a material (quoted: it may hold placeholders), a name and lore. */
