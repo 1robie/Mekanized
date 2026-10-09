@@ -247,10 +247,11 @@ templates:
     file: mekanized:gui/${file}.png
 
   # One cell of a fill bar at one level (models written by mekanized/tools/compose_menu_textures.py).
-  # Arguments: shape, cell, level. Leather horse armor carries the resource's color (dyed_color) to
-  # the tinted faces, on 1.20.6 as on later clients.
+  # Arguments: shape, cell, level. A leather helmet carries the resource's color (dyed_color) to the
+  # tinted faces, on 1.20.6 as on later clients; zMenu's dyed-color component only colors wearable
+  # leather armor (not horse armor). Menus hide its dye and armor lines (flags HIDE_DYE, HIDE_ATTRIBUTES).
   mekanized:item/gui_bar:
-    material: leather_horse_armor
+    material: leather_helmet
     model:
       path: mekanized:gui/bar/${shape}/${cell}_${level}
       tints:

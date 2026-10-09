@@ -20519,7 +20519,7 @@
             }
         },
         "mekanized:gui/bar/chemical/0/0": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/0_0",
                 "tints": [
@@ -20531,7 +20531,7 @@
             }
         },
         "mekanized:gui/bar/chemical/0/1": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/0_1",
                 "tints": [
@@ -20543,7 +20543,7 @@
             }
         },
         "mekanized:gui/bar/chemical/0/10": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/0_10",
                 "tints": [
@@ -20555,7 +20555,7 @@
             }
         },
         "mekanized:gui/bar/chemical/0/11": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/0_11",
                 "tints": [
@@ -20567,7 +20567,7 @@
             }
         },
         "mekanized:gui/bar/chemical/0/12": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/0_12",
                 "tints": [
@@ -20579,7 +20579,7 @@
             }
         },
         "mekanized:gui/bar/chemical/0/13": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/0_13",
                 "tints": [
@@ -20591,7 +20591,7 @@
             }
         },
         "mekanized:gui/bar/chemical/0/14": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/0_14",
                 "tints": [
@@ -20603,7 +20603,7 @@
             }
         },
         "mekanized:gui/bar/chemical/0/15": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/0_15",
                 "tints": [
@@ -20615,7 +20615,7 @@
             }
         },
         "mekanized:gui/bar/chemical/0/16": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/0_16",
                 "tints": [
@@ -20627,7 +20627,7 @@
             }
         },
         "mekanized:gui/bar/chemical/0/17": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/0_17",
                 "tints": [
@@ -20639,7 +20639,7 @@
             }
         },
         "mekanized:gui/bar/chemical/0/2": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/0_2",
                 "tints": [
@@ -20651,7 +20651,7 @@
             }
         },
         "mekanized:gui/bar/chemical/0/3": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/0_3",
                 "tints": [
@@ -20663,7 +20663,7 @@
             }
         },
         "mekanized:gui/bar/chemical/0/4": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/0_4",
                 "tints": [
@@ -20675,7 +20675,7 @@
             }
         },
         "mekanized:gui/bar/chemical/0/5": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/0_5",
                 "tints": [
@@ -20687,7 +20687,7 @@
             }
         },
         "mekanized:gui/bar/chemical/0/6": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/0_6",
                 "tints": [
@@ -20699,7 +20699,7 @@
             }
         },
         "mekanized:gui/bar/chemical/0/7": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/0_7",
                 "tints": [
@@ -20711,7 +20711,7 @@
             }
         },
         "mekanized:gui/bar/chemical/0/8": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/0_8",
                 "tints": [
@@ -20723,7 +20723,7 @@
             }
         },
         "mekanized:gui/bar/chemical/0/9": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/0_9",
                 "tints": [
@@ -20735,7 +20735,7 @@
             }
         },
         "mekanized:gui/bar/chemical/1/0": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/1_0",
                 "tints": [
@@ -20747,7 +20747,7 @@
             }
         },
         "mekanized:gui/bar/chemical/1/1": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/1_1",
                 "tints": [
@@ -20759,7 +20759,7 @@
             }
         },
         "mekanized:gui/bar/chemical/1/10": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/1_10",
                 "tints": [
@@ -20771,7 +20771,7 @@
             }
         },
         "mekanized:gui/bar/chemical/1/11": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/1_11",
                 "tints": [
@@ -20783,7 +20783,7 @@
             }
         },
         "mekanized:gui/bar/chemical/1/12": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/1_12",
                 "tints": [
@@ -20795,7 +20795,7 @@
             }
         },
         "mekanized:gui/bar/chemical/1/13": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/1_13",
                 "tints": [
@@ -20807,7 +20807,7 @@
             }
         },
         "mekanized:gui/bar/chemical/1/14": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/1_14",
                 "tints": [
@@ -20819,7 +20819,7 @@
             }
         },
         "mekanized:gui/bar/chemical/1/15": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/1_15",
                 "tints": [
@@ -20831,7 +20831,7 @@
             }
         },
         "mekanized:gui/bar/chemical/1/16": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/1_16",
                 "tints": [
@@ -20843,7 +20843,7 @@
             }
         },
         "mekanized:gui/bar/chemical/1/17": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/1_17",
                 "tints": [
@@ -20855,7 +20855,7 @@
             }
         },
         "mekanized:gui/bar/chemical/1/18": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/1_18",
                 "tints": [
@@ -20867,7 +20867,7 @@
             }
         },
         "mekanized:gui/bar/chemical/1/2": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/1_2",
                 "tints": [
@@ -20879,7 +20879,7 @@
             }
         },
         "mekanized:gui/bar/chemical/1/3": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/1_3",
                 "tints": [
@@ -20891,7 +20891,7 @@
             }
         },
         "mekanized:gui/bar/chemical/1/4": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/1_4",
                 "tints": [
@@ -20903,7 +20903,7 @@
             }
         },
         "mekanized:gui/bar/chemical/1/5": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/1_5",
                 "tints": [
@@ -20915,7 +20915,7 @@
             }
         },
         "mekanized:gui/bar/chemical/1/6": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/1_6",
                 "tints": [
@@ -20927,7 +20927,7 @@
             }
         },
         "mekanized:gui/bar/chemical/1/7": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/1_7",
                 "tints": [
@@ -20939,7 +20939,7 @@
             }
         },
         "mekanized:gui/bar/chemical/1/8": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/1_8",
                 "tints": [
@@ -20951,7 +20951,7 @@
             }
         },
         "mekanized:gui/bar/chemical/1/9": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/1_9",
                 "tints": [
@@ -20963,7 +20963,7 @@
             }
         },
         "mekanized:gui/bar/chemical/2/0": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/2_0",
                 "tints": [
@@ -20975,7 +20975,7 @@
             }
         },
         "mekanized:gui/bar/chemical/2/1": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/2_1",
                 "tints": [
@@ -20987,7 +20987,7 @@
             }
         },
         "mekanized:gui/bar/chemical/2/10": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/2_10",
                 "tints": [
@@ -20999,7 +20999,7 @@
             }
         },
         "mekanized:gui/bar/chemical/2/11": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/2_11",
                 "tints": [
@@ -21011,7 +21011,7 @@
             }
         },
         "mekanized:gui/bar/chemical/2/12": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/2_12",
                 "tints": [
@@ -21023,7 +21023,7 @@
             }
         },
         "mekanized:gui/bar/chemical/2/13": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/2_13",
                 "tints": [
@@ -21035,7 +21035,7 @@
             }
         },
         "mekanized:gui/bar/chemical/2/14": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/2_14",
                 "tints": [
@@ -21047,7 +21047,7 @@
             }
         },
         "mekanized:gui/bar/chemical/2/15": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/2_15",
                 "tints": [
@@ -21059,7 +21059,7 @@
             }
         },
         "mekanized:gui/bar/chemical/2/16": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/2_16",
                 "tints": [
@@ -21071,7 +21071,7 @@
             }
         },
         "mekanized:gui/bar/chemical/2/17": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/2_17",
                 "tints": [
@@ -21083,7 +21083,7 @@
             }
         },
         "mekanized:gui/bar/chemical/2/2": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/2_2",
                 "tints": [
@@ -21095,7 +21095,7 @@
             }
         },
         "mekanized:gui/bar/chemical/2/3": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/2_3",
                 "tints": [
@@ -21107,7 +21107,7 @@
             }
         },
         "mekanized:gui/bar/chemical/2/4": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/2_4",
                 "tints": [
@@ -21119,7 +21119,7 @@
             }
         },
         "mekanized:gui/bar/chemical/2/5": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/2_5",
                 "tints": [
@@ -21131,7 +21131,7 @@
             }
         },
         "mekanized:gui/bar/chemical/2/6": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/2_6",
                 "tints": [
@@ -21143,7 +21143,7 @@
             }
         },
         "mekanized:gui/bar/chemical/2/7": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/2_7",
                 "tints": [
@@ -21155,7 +21155,7 @@
             }
         },
         "mekanized:gui/bar/chemical/2/8": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/2_8",
                 "tints": [
@@ -21167,7 +21167,7 @@
             }
         },
         "mekanized:gui/bar/chemical/2/9": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/chemical/2_9",
                 "tints": [
@@ -21179,7 +21179,7 @@
             }
         },
         "mekanized:gui/bar/energy/0/0": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/0_0",
                 "tints": [
@@ -21191,7 +21191,7 @@
             }
         },
         "mekanized:gui/bar/energy/0/1": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/0_1",
                 "tints": [
@@ -21203,7 +21203,7 @@
             }
         },
         "mekanized:gui/bar/energy/0/10": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/0_10",
                 "tints": [
@@ -21215,7 +21215,7 @@
             }
         },
         "mekanized:gui/bar/energy/0/11": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/0_11",
                 "tints": [
@@ -21227,7 +21227,7 @@
             }
         },
         "mekanized:gui/bar/energy/0/12": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/0_12",
                 "tints": [
@@ -21239,7 +21239,7 @@
             }
         },
         "mekanized:gui/bar/energy/0/13": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/0_13",
                 "tints": [
@@ -21251,7 +21251,7 @@
             }
         },
         "mekanized:gui/bar/energy/0/14": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/0_14",
                 "tints": [
@@ -21263,7 +21263,7 @@
             }
         },
         "mekanized:gui/bar/energy/0/15": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/0_15",
                 "tints": [
@@ -21275,7 +21275,7 @@
             }
         },
         "mekanized:gui/bar/energy/0/16": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/0_16",
                 "tints": [
@@ -21287,7 +21287,7 @@
             }
         },
         "mekanized:gui/bar/energy/0/17": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/0_17",
                 "tints": [
@@ -21299,7 +21299,7 @@
             }
         },
         "mekanized:gui/bar/energy/0/2": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/0_2",
                 "tints": [
@@ -21311,7 +21311,7 @@
             }
         },
         "mekanized:gui/bar/energy/0/3": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/0_3",
                 "tints": [
@@ -21323,7 +21323,7 @@
             }
         },
         "mekanized:gui/bar/energy/0/4": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/0_4",
                 "tints": [
@@ -21335,7 +21335,7 @@
             }
         },
         "mekanized:gui/bar/energy/0/5": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/0_5",
                 "tints": [
@@ -21347,7 +21347,7 @@
             }
         },
         "mekanized:gui/bar/energy/0/6": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/0_6",
                 "tints": [
@@ -21359,7 +21359,7 @@
             }
         },
         "mekanized:gui/bar/energy/0/7": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/0_7",
                 "tints": [
@@ -21371,7 +21371,7 @@
             }
         },
         "mekanized:gui/bar/energy/0/8": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/0_8",
                 "tints": [
@@ -21383,7 +21383,7 @@
             }
         },
         "mekanized:gui/bar/energy/0/9": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/0_9",
                 "tints": [
@@ -21395,7 +21395,7 @@
             }
         },
         "mekanized:gui/bar/energy/1/0": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/1_0",
                 "tints": [
@@ -21407,7 +21407,7 @@
             }
         },
         "mekanized:gui/bar/energy/1/1": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/1_1",
                 "tints": [
@@ -21419,7 +21419,7 @@
             }
         },
         "mekanized:gui/bar/energy/1/10": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/1_10",
                 "tints": [
@@ -21431,7 +21431,7 @@
             }
         },
         "mekanized:gui/bar/energy/1/11": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/1_11",
                 "tints": [
@@ -21443,7 +21443,7 @@
             }
         },
         "mekanized:gui/bar/energy/1/12": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/1_12",
                 "tints": [
@@ -21455,7 +21455,7 @@
             }
         },
         "mekanized:gui/bar/energy/1/13": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/1_13",
                 "tints": [
@@ -21467,7 +21467,7 @@
             }
         },
         "mekanized:gui/bar/energy/1/14": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/1_14",
                 "tints": [
@@ -21479,7 +21479,7 @@
             }
         },
         "mekanized:gui/bar/energy/1/15": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/1_15",
                 "tints": [
@@ -21491,7 +21491,7 @@
             }
         },
         "mekanized:gui/bar/energy/1/16": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/1_16",
                 "tints": [
@@ -21503,7 +21503,7 @@
             }
         },
         "mekanized:gui/bar/energy/1/17": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/1_17",
                 "tints": [
@@ -21515,7 +21515,7 @@
             }
         },
         "mekanized:gui/bar/energy/1/18": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/1_18",
                 "tints": [
@@ -21527,7 +21527,7 @@
             }
         },
         "mekanized:gui/bar/energy/1/2": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/1_2",
                 "tints": [
@@ -21539,7 +21539,7 @@
             }
         },
         "mekanized:gui/bar/energy/1/3": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/1_3",
                 "tints": [
@@ -21551,7 +21551,7 @@
             }
         },
         "mekanized:gui/bar/energy/1/4": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/1_4",
                 "tints": [
@@ -21563,7 +21563,7 @@
             }
         },
         "mekanized:gui/bar/energy/1/5": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/1_5",
                 "tints": [
@@ -21575,7 +21575,7 @@
             }
         },
         "mekanized:gui/bar/energy/1/6": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/1_6",
                 "tints": [
@@ -21587,7 +21587,7 @@
             }
         },
         "mekanized:gui/bar/energy/1/7": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/1_7",
                 "tints": [
@@ -21599,7 +21599,7 @@
             }
         },
         "mekanized:gui/bar/energy/1/8": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/1_8",
                 "tints": [
@@ -21611,7 +21611,7 @@
             }
         },
         "mekanized:gui/bar/energy/1/9": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/1_9",
                 "tints": [
@@ -21623,7 +21623,7 @@
             }
         },
         "mekanized:gui/bar/energy/2/0": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/2_0",
                 "tints": [
@@ -21635,7 +21635,7 @@
             }
         },
         "mekanized:gui/bar/energy/2/1": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/2_1",
                 "tints": [
@@ -21647,7 +21647,7 @@
             }
         },
         "mekanized:gui/bar/energy/2/10": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/2_10",
                 "tints": [
@@ -21659,7 +21659,7 @@
             }
         },
         "mekanized:gui/bar/energy/2/11": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/2_11",
                 "tints": [
@@ -21671,7 +21671,7 @@
             }
         },
         "mekanized:gui/bar/energy/2/12": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/2_12",
                 "tints": [
@@ -21683,7 +21683,7 @@
             }
         },
         "mekanized:gui/bar/energy/2/13": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/2_13",
                 "tints": [
@@ -21695,7 +21695,7 @@
             }
         },
         "mekanized:gui/bar/energy/2/14": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/2_14",
                 "tints": [
@@ -21707,7 +21707,7 @@
             }
         },
         "mekanized:gui/bar/energy/2/15": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/2_15",
                 "tints": [
@@ -21719,7 +21719,7 @@
             }
         },
         "mekanized:gui/bar/energy/2/16": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/2_16",
                 "tints": [
@@ -21731,7 +21731,7 @@
             }
         },
         "mekanized:gui/bar/energy/2/17": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/2_17",
                 "tints": [
@@ -21743,7 +21743,7 @@
             }
         },
         "mekanized:gui/bar/energy/2/2": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/2_2",
                 "tints": [
@@ -21755,7 +21755,7 @@
             }
         },
         "mekanized:gui/bar/energy/2/3": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/2_3",
                 "tints": [
@@ -21767,7 +21767,7 @@
             }
         },
         "mekanized:gui/bar/energy/2/4": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/2_4",
                 "tints": [
@@ -21779,7 +21779,7 @@
             }
         },
         "mekanized:gui/bar/energy/2/5": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/2_5",
                 "tints": [
@@ -21791,7 +21791,7 @@
             }
         },
         "mekanized:gui/bar/energy/2/6": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/2_6",
                 "tints": [
@@ -21803,7 +21803,7 @@
             }
         },
         "mekanized:gui/bar/energy/2/7": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/2_7",
                 "tints": [
@@ -21815,7 +21815,7 @@
             }
         },
         "mekanized:gui/bar/energy/2/8": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/2_8",
                 "tints": [
@@ -21827,7 +21827,7 @@
             }
         },
         "mekanized:gui/bar/energy/2/9": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/2_9",
                 "tints": [
@@ -21839,7 +21839,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/0/0": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/0_0",
                 "tints": [
@@ -21851,7 +21851,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/0/1": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/0_1",
                 "tints": [
@@ -21863,7 +21863,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/0/10": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/0_10",
                 "tints": [
@@ -21875,7 +21875,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/0/11": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/0_11",
                 "tints": [
@@ -21887,7 +21887,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/0/12": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/0_12",
                 "tints": [
@@ -21899,7 +21899,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/0/13": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/0_13",
                 "tints": [
@@ -21911,7 +21911,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/0/14": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/0_14",
                 "tints": [
@@ -21923,7 +21923,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/0/15": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/0_15",
                 "tints": [
@@ -21935,7 +21935,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/0/16": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/0_16",
                 "tints": [
@@ -21947,7 +21947,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/0/17": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/0_17",
                 "tints": [
@@ -21959,7 +21959,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/0/2": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/0_2",
                 "tints": [
@@ -21971,7 +21971,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/0/3": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/0_3",
                 "tints": [
@@ -21983,7 +21983,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/0/4": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/0_4",
                 "tints": [
@@ -21995,7 +21995,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/0/5": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/0_5",
                 "tints": [
@@ -22007,7 +22007,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/0/6": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/0_6",
                 "tints": [
@@ -22019,7 +22019,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/0/7": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/0_7",
                 "tints": [
@@ -22031,7 +22031,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/0/8": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/0_8",
                 "tints": [
@@ -22043,7 +22043,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/0/9": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/0_9",
                 "tints": [
@@ -22055,7 +22055,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/1/0": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/1_0",
                 "tints": [
@@ -22067,7 +22067,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/1/1": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/1_1",
                 "tints": [
@@ -22079,7 +22079,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/1/10": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/1_10",
                 "tints": [
@@ -22091,7 +22091,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/1/11": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/1_11",
                 "tints": [
@@ -22103,7 +22103,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/1/12": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/1_12",
                 "tints": [
@@ -22115,7 +22115,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/1/13": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/1_13",
                 "tints": [
@@ -22127,7 +22127,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/1/14": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/1_14",
                 "tints": [
@@ -22139,7 +22139,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/1/15": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/1_15",
                 "tints": [
@@ -22151,7 +22151,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/1/16": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/1_16",
                 "tints": [
@@ -22163,7 +22163,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/1/17": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/1_17",
                 "tints": [
@@ -22175,7 +22175,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/1/18": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/1_18",
                 "tints": [
@@ -22187,7 +22187,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/1/2": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/1_2",
                 "tints": [
@@ -22199,7 +22199,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/1/3": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/1_3",
                 "tints": [
@@ -22211,7 +22211,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/1/4": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/1_4",
                 "tints": [
@@ -22223,7 +22223,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/1/5": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/1_5",
                 "tints": [
@@ -22235,7 +22235,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/1/6": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/1_6",
                 "tints": [
@@ -22247,7 +22247,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/1/7": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/1_7",
                 "tints": [
@@ -22259,7 +22259,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/1/8": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/1_8",
                 "tints": [
@@ -22271,7 +22271,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/1/9": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/1_9",
                 "tints": [
@@ -22283,7 +22283,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/2/0": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/2_0",
                 "tints": [
@@ -22295,7 +22295,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/2/1": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/2_1",
                 "tints": [
@@ -22307,7 +22307,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/2/10": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/2_10",
                 "tints": [
@@ -22319,7 +22319,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/2/11": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/2_11",
                 "tints": [
@@ -22331,7 +22331,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/2/12": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/2_12",
                 "tints": [
@@ -22343,7 +22343,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/2/13": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/2_13",
                 "tints": [
@@ -22355,7 +22355,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/2/14": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/2_14",
                 "tints": [
@@ -22367,7 +22367,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/2/15": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/2_15",
                 "tints": [
@@ -22379,7 +22379,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/2/16": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/2_16",
                 "tints": [
@@ -22391,7 +22391,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/2/17": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/2_17",
                 "tints": [
@@ -22403,7 +22403,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/2/2": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/2_2",
                 "tints": [
@@ -22415,7 +22415,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/2/3": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/2_3",
                 "tints": [
@@ -22427,7 +22427,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/2/4": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/2_4",
                 "tints": [
@@ -22439,7 +22439,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/2/5": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/2_5",
                 "tints": [
@@ -22451,7 +22451,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/2/6": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/2_6",
                 "tints": [
@@ -22463,7 +22463,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/2/7": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/2_7",
                 "tints": [
@@ -22475,7 +22475,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/2/8": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/2_8",
                 "tints": [
@@ -22487,7 +22487,7 @@
             }
         },
         "mekanized:gui/bar/energy_horizontal/2/9": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/2_9",
                 "tints": [
@@ -22499,7 +22499,7 @@
             }
         },
         "mekanized:gui/bar/fluid/0/0": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/0_0",
                 "tints": [
@@ -22511,7 +22511,7 @@
             }
         },
         "mekanized:gui/bar/fluid/0/1": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/0_1",
                 "tints": [
@@ -22523,7 +22523,7 @@
             }
         },
         "mekanized:gui/bar/fluid/0/10": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/0_10",
                 "tints": [
@@ -22535,7 +22535,7 @@
             }
         },
         "mekanized:gui/bar/fluid/0/11": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/0_11",
                 "tints": [
@@ -22547,7 +22547,7 @@
             }
         },
         "mekanized:gui/bar/fluid/0/12": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/0_12",
                 "tints": [
@@ -22559,7 +22559,7 @@
             }
         },
         "mekanized:gui/bar/fluid/0/13": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/0_13",
                 "tints": [
@@ -22571,7 +22571,7 @@
             }
         },
         "mekanized:gui/bar/fluid/0/14": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/0_14",
                 "tints": [
@@ -22583,7 +22583,7 @@
             }
         },
         "mekanized:gui/bar/fluid/0/15": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/0_15",
                 "tints": [
@@ -22595,7 +22595,7 @@
             }
         },
         "mekanized:gui/bar/fluid/0/16": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/0_16",
                 "tints": [
@@ -22607,7 +22607,7 @@
             }
         },
         "mekanized:gui/bar/fluid/0/17": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/0_17",
                 "tints": [
@@ -22619,7 +22619,7 @@
             }
         },
         "mekanized:gui/bar/fluid/0/2": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/0_2",
                 "tints": [
@@ -22631,7 +22631,7 @@
             }
         },
         "mekanized:gui/bar/fluid/0/3": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/0_3",
                 "tints": [
@@ -22643,7 +22643,7 @@
             }
         },
         "mekanized:gui/bar/fluid/0/4": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/0_4",
                 "tints": [
@@ -22655,7 +22655,7 @@
             }
         },
         "mekanized:gui/bar/fluid/0/5": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/0_5",
                 "tints": [
@@ -22667,7 +22667,7 @@
             }
         },
         "mekanized:gui/bar/fluid/0/6": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/0_6",
                 "tints": [
@@ -22679,7 +22679,7 @@
             }
         },
         "mekanized:gui/bar/fluid/0/7": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/0_7",
                 "tints": [
@@ -22691,7 +22691,7 @@
             }
         },
         "mekanized:gui/bar/fluid/0/8": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/0_8",
                 "tints": [
@@ -22703,7 +22703,7 @@
             }
         },
         "mekanized:gui/bar/fluid/0/9": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/0_9",
                 "tints": [
@@ -22715,7 +22715,7 @@
             }
         },
         "mekanized:gui/bar/fluid/1/0": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/1_0",
                 "tints": [
@@ -22727,7 +22727,7 @@
             }
         },
         "mekanized:gui/bar/fluid/1/1": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/1_1",
                 "tints": [
@@ -22739,7 +22739,7 @@
             }
         },
         "mekanized:gui/bar/fluid/1/10": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/1_10",
                 "tints": [
@@ -22751,7 +22751,7 @@
             }
         },
         "mekanized:gui/bar/fluid/1/11": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/1_11",
                 "tints": [
@@ -22763,7 +22763,7 @@
             }
         },
         "mekanized:gui/bar/fluid/1/12": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/1_12",
                 "tints": [
@@ -22775,7 +22775,7 @@
             }
         },
         "mekanized:gui/bar/fluid/1/13": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/1_13",
                 "tints": [
@@ -22787,7 +22787,7 @@
             }
         },
         "mekanized:gui/bar/fluid/1/14": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/1_14",
                 "tints": [
@@ -22799,7 +22799,7 @@
             }
         },
         "mekanized:gui/bar/fluid/1/15": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/1_15",
                 "tints": [
@@ -22811,7 +22811,7 @@
             }
         },
         "mekanized:gui/bar/fluid/1/16": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/1_16",
                 "tints": [
@@ -22823,7 +22823,7 @@
             }
         },
         "mekanized:gui/bar/fluid/1/17": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/1_17",
                 "tints": [
@@ -22835,7 +22835,7 @@
             }
         },
         "mekanized:gui/bar/fluid/1/18": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/1_18",
                 "tints": [
@@ -22847,7 +22847,7 @@
             }
         },
         "mekanized:gui/bar/fluid/1/2": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/1_2",
                 "tints": [
@@ -22859,7 +22859,7 @@
             }
         },
         "mekanized:gui/bar/fluid/1/3": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/1_3",
                 "tints": [
@@ -22871,7 +22871,7 @@
             }
         },
         "mekanized:gui/bar/fluid/1/4": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/1_4",
                 "tints": [
@@ -22883,7 +22883,7 @@
             }
         },
         "mekanized:gui/bar/fluid/1/5": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/1_5",
                 "tints": [
@@ -22895,7 +22895,7 @@
             }
         },
         "mekanized:gui/bar/fluid/1/6": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/1_6",
                 "tints": [
@@ -22907,7 +22907,7 @@
             }
         },
         "mekanized:gui/bar/fluid/1/7": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/1_7",
                 "tints": [
@@ -22919,7 +22919,7 @@
             }
         },
         "mekanized:gui/bar/fluid/1/8": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/1_8",
                 "tints": [
@@ -22931,7 +22931,7 @@
             }
         },
         "mekanized:gui/bar/fluid/1/9": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/1_9",
                 "tints": [
@@ -22943,7 +22943,7 @@
             }
         },
         "mekanized:gui/bar/fluid/2/0": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/2_0",
                 "tints": [
@@ -22955,7 +22955,7 @@
             }
         },
         "mekanized:gui/bar/fluid/2/1": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/2_1",
                 "tints": [
@@ -22967,7 +22967,7 @@
             }
         },
         "mekanized:gui/bar/fluid/2/10": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/2_10",
                 "tints": [
@@ -22979,7 +22979,7 @@
             }
         },
         "mekanized:gui/bar/fluid/2/11": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/2_11",
                 "tints": [
@@ -22991,7 +22991,7 @@
             }
         },
         "mekanized:gui/bar/fluid/2/12": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/2_12",
                 "tints": [
@@ -23003,7 +23003,7 @@
             }
         },
         "mekanized:gui/bar/fluid/2/13": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/2_13",
                 "tints": [
@@ -23015,7 +23015,7 @@
             }
         },
         "mekanized:gui/bar/fluid/2/14": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/2_14",
                 "tints": [
@@ -23027,7 +23027,7 @@
             }
         },
         "mekanized:gui/bar/fluid/2/15": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/2_15",
                 "tints": [
@@ -23039,7 +23039,7 @@
             }
         },
         "mekanized:gui/bar/fluid/2/16": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/2_16",
                 "tints": [
@@ -23051,7 +23051,7 @@
             }
         },
         "mekanized:gui/bar/fluid/2/17": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/2_17",
                 "tints": [
@@ -23063,7 +23063,7 @@
             }
         },
         "mekanized:gui/bar/fluid/2/2": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/2_2",
                 "tints": [
@@ -23075,7 +23075,7 @@
             }
         },
         "mekanized:gui/bar/fluid/2/3": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/2_3",
                 "tints": [
@@ -23087,7 +23087,7 @@
             }
         },
         "mekanized:gui/bar/fluid/2/4": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/2_4",
                 "tints": [
@@ -23099,7 +23099,7 @@
             }
         },
         "mekanized:gui/bar/fluid/2/5": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/2_5",
                 "tints": [
@@ -23111,7 +23111,7 @@
             }
         },
         "mekanized:gui/bar/fluid/2/6": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/2_6",
                 "tints": [
@@ -23123,7 +23123,7 @@
             }
         },
         "mekanized:gui/bar/fluid/2/7": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/2_7",
                 "tints": [
@@ -23135,7 +23135,7 @@
             }
         },
         "mekanized:gui/bar/fluid/2/8": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/2_8",
                 "tints": [
@@ -23147,7 +23147,7 @@
             }
         },
         "mekanized:gui/bar/fluid/2/9": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/2_9",
                 "tints": [
@@ -23159,7 +23159,7 @@
             }
         },
         "mekanized:gui/bar/heat/0/0": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/0_0",
                 "tints": [
@@ -23171,7 +23171,7 @@
             }
         },
         "mekanized:gui/bar/heat/0/1": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/0_1",
                 "tints": [
@@ -23183,7 +23183,7 @@
             }
         },
         "mekanized:gui/bar/heat/0/10": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/0_10",
                 "tints": [
@@ -23195,7 +23195,7 @@
             }
         },
         "mekanized:gui/bar/heat/0/11": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/0_11",
                 "tints": [
@@ -23207,7 +23207,7 @@
             }
         },
         "mekanized:gui/bar/heat/0/12": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/0_12",
                 "tints": [
@@ -23219,7 +23219,7 @@
             }
         },
         "mekanized:gui/bar/heat/0/13": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/0_13",
                 "tints": [
@@ -23231,7 +23231,7 @@
             }
         },
         "mekanized:gui/bar/heat/0/14": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/0_14",
                 "tints": [
@@ -23243,7 +23243,7 @@
             }
         },
         "mekanized:gui/bar/heat/0/15": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/0_15",
                 "tints": [
@@ -23255,7 +23255,7 @@
             }
         },
         "mekanized:gui/bar/heat/0/16": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/0_16",
                 "tints": [
@@ -23267,7 +23267,7 @@
             }
         },
         "mekanized:gui/bar/heat/0/17": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/0_17",
                 "tints": [
@@ -23279,7 +23279,7 @@
             }
         },
         "mekanized:gui/bar/heat/0/2": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/0_2",
                 "tints": [
@@ -23291,7 +23291,7 @@
             }
         },
         "mekanized:gui/bar/heat/0/3": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/0_3",
                 "tints": [
@@ -23303,7 +23303,7 @@
             }
         },
         "mekanized:gui/bar/heat/0/4": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/0_4",
                 "tints": [
@@ -23315,7 +23315,7 @@
             }
         },
         "mekanized:gui/bar/heat/0/5": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/0_5",
                 "tints": [
@@ -23327,7 +23327,7 @@
             }
         },
         "mekanized:gui/bar/heat/0/6": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/0_6",
                 "tints": [
@@ -23339,7 +23339,7 @@
             }
         },
         "mekanized:gui/bar/heat/0/7": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/0_7",
                 "tints": [
@@ -23351,7 +23351,7 @@
             }
         },
         "mekanized:gui/bar/heat/0/8": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/0_8",
                 "tints": [
@@ -23363,7 +23363,7 @@
             }
         },
         "mekanized:gui/bar/heat/0/9": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/0_9",
                 "tints": [
@@ -23375,7 +23375,7 @@
             }
         },
         "mekanized:gui/bar/heat/1/0": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/1_0",
                 "tints": [
@@ -23387,7 +23387,7 @@
             }
         },
         "mekanized:gui/bar/heat/1/1": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/1_1",
                 "tints": [
@@ -23399,7 +23399,7 @@
             }
         },
         "mekanized:gui/bar/heat/1/10": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/1_10",
                 "tints": [
@@ -23411,7 +23411,7 @@
             }
         },
         "mekanized:gui/bar/heat/1/11": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/1_11",
                 "tints": [
@@ -23423,7 +23423,7 @@
             }
         },
         "mekanized:gui/bar/heat/1/12": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/1_12",
                 "tints": [
@@ -23435,7 +23435,7 @@
             }
         },
         "mekanized:gui/bar/heat/1/13": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/1_13",
                 "tints": [
@@ -23447,7 +23447,7 @@
             }
         },
         "mekanized:gui/bar/heat/1/14": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/1_14",
                 "tints": [
@@ -23459,7 +23459,7 @@
             }
         },
         "mekanized:gui/bar/heat/1/15": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/1_15",
                 "tints": [
@@ -23471,7 +23471,7 @@
             }
         },
         "mekanized:gui/bar/heat/1/16": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/1_16",
                 "tints": [
@@ -23483,7 +23483,7 @@
             }
         },
         "mekanized:gui/bar/heat/1/17": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/1_17",
                 "tints": [
@@ -23495,7 +23495,7 @@
             }
         },
         "mekanized:gui/bar/heat/1/18": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/1_18",
                 "tints": [
@@ -23507,7 +23507,7 @@
             }
         },
         "mekanized:gui/bar/heat/1/2": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/1_2",
                 "tints": [
@@ -23519,7 +23519,7 @@
             }
         },
         "mekanized:gui/bar/heat/1/3": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/1_3",
                 "tints": [
@@ -23531,7 +23531,7 @@
             }
         },
         "mekanized:gui/bar/heat/1/4": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/1_4",
                 "tints": [
@@ -23543,7 +23543,7 @@
             }
         },
         "mekanized:gui/bar/heat/1/5": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/1_5",
                 "tints": [
@@ -23555,7 +23555,7 @@
             }
         },
         "mekanized:gui/bar/heat/1/6": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/1_6",
                 "tints": [
@@ -23567,7 +23567,7 @@
             }
         },
         "mekanized:gui/bar/heat/1/7": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/1_7",
                 "tints": [
@@ -23579,7 +23579,7 @@
             }
         },
         "mekanized:gui/bar/heat/1/8": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/1_8",
                 "tints": [
@@ -23591,7 +23591,7 @@
             }
         },
         "mekanized:gui/bar/heat/1/9": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/1_9",
                 "tints": [
@@ -23603,7 +23603,7 @@
             }
         },
         "mekanized:gui/bar/heat/2/0": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/2_0",
                 "tints": [
@@ -23615,7 +23615,7 @@
             }
         },
         "mekanized:gui/bar/heat/2/1": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/2_1",
                 "tints": [
@@ -23627,7 +23627,7 @@
             }
         },
         "mekanized:gui/bar/heat/2/10": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/2_10",
                 "tints": [
@@ -23639,7 +23639,7 @@
             }
         },
         "mekanized:gui/bar/heat/2/11": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/2_11",
                 "tints": [
@@ -23651,7 +23651,7 @@
             }
         },
         "mekanized:gui/bar/heat/2/12": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/2_12",
                 "tints": [
@@ -23663,7 +23663,7 @@
             }
         },
         "mekanized:gui/bar/heat/2/13": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/2_13",
                 "tints": [
@@ -23675,7 +23675,7 @@
             }
         },
         "mekanized:gui/bar/heat/2/14": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/2_14",
                 "tints": [
@@ -23687,7 +23687,7 @@
             }
         },
         "mekanized:gui/bar/heat/2/15": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/2_15",
                 "tints": [
@@ -23699,7 +23699,7 @@
             }
         },
         "mekanized:gui/bar/heat/2/16": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/2_16",
                 "tints": [
@@ -23711,7 +23711,7 @@
             }
         },
         "mekanized:gui/bar/heat/2/17": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/2_17",
                 "tints": [
@@ -23723,7 +23723,7 @@
             }
         },
         "mekanized:gui/bar/heat/2/2": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/2_2",
                 "tints": [
@@ -23735,7 +23735,7 @@
             }
         },
         "mekanized:gui/bar/heat/2/3": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/2_3",
                 "tints": [
@@ -23747,7 +23747,7 @@
             }
         },
         "mekanized:gui/bar/heat/2/4": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/2_4",
                 "tints": [
@@ -23759,7 +23759,7 @@
             }
         },
         "mekanized:gui/bar/heat/2/5": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/2_5",
                 "tints": [
@@ -23771,7 +23771,7 @@
             }
         },
         "mekanized:gui/bar/heat/2/6": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/2_6",
                 "tints": [
@@ -23783,7 +23783,7 @@
             }
         },
         "mekanized:gui/bar/heat/2/7": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/2_7",
                 "tints": [
@@ -23795,7 +23795,7 @@
             }
         },
         "mekanized:gui/bar/heat/2/8": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/2_8",
                 "tints": [
@@ -23807,7 +23807,7 @@
             }
         },
         "mekanized:gui/bar/heat/2/9": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/2_9",
                 "tints": [
@@ -23819,7 +23819,7 @@
             }
         },
         "mekanized:gui/bar/progress/0/0": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/0_0",
                 "tints": [
@@ -23831,7 +23831,7 @@
             }
         },
         "mekanized:gui/bar/progress/0/1": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/0_1",
                 "tints": [
@@ -23843,7 +23843,7 @@
             }
         },
         "mekanized:gui/bar/progress/0/10": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/0_10",
                 "tints": [
@@ -23855,7 +23855,7 @@
             }
         },
         "mekanized:gui/bar/progress/0/11": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/0_11",
                 "tints": [
@@ -23867,7 +23867,7 @@
             }
         },
         "mekanized:gui/bar/progress/0/12": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/0_12",
                 "tints": [
@@ -23879,7 +23879,7 @@
             }
         },
         "mekanized:gui/bar/progress/0/13": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/0_13",
                 "tints": [
@@ -23891,7 +23891,7 @@
             }
         },
         "mekanized:gui/bar/progress/0/14": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/0_14",
                 "tints": [
@@ -23903,7 +23903,7 @@
             }
         },
         "mekanized:gui/bar/progress/0/15": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/0_15",
                 "tints": [
@@ -23915,7 +23915,7 @@
             }
         },
         "mekanized:gui/bar/progress/0/16": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/0_16",
                 "tints": [
@@ -23927,7 +23927,7 @@
             }
         },
         "mekanized:gui/bar/progress/0/17": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/0_17",
                 "tints": [
@@ -23939,7 +23939,7 @@
             }
         },
         "mekanized:gui/bar/progress/0/2": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/0_2",
                 "tints": [
@@ -23951,7 +23951,7 @@
             }
         },
         "mekanized:gui/bar/progress/0/3": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/0_3",
                 "tints": [
@@ -23963,7 +23963,7 @@
             }
         },
         "mekanized:gui/bar/progress/0/4": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/0_4",
                 "tints": [
@@ -23975,7 +23975,7 @@
             }
         },
         "mekanized:gui/bar/progress/0/5": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/0_5",
                 "tints": [
@@ -23987,7 +23987,7 @@
             }
         },
         "mekanized:gui/bar/progress/0/6": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/0_6",
                 "tints": [
@@ -23999,7 +23999,7 @@
             }
         },
         "mekanized:gui/bar/progress/0/7": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/0_7",
                 "tints": [
@@ -24011,7 +24011,7 @@
             }
         },
         "mekanized:gui/bar/progress/0/8": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/0_8",
                 "tints": [
@@ -24023,7 +24023,7 @@
             }
         },
         "mekanized:gui/bar/progress/0/9": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/0_9",
                 "tints": [
@@ -24035,7 +24035,7 @@
             }
         },
         "mekanized:gui/bar/progress/1/0": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/1_0",
                 "tints": [
@@ -24047,7 +24047,7 @@
             }
         },
         "mekanized:gui/bar/progress/1/1": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/1_1",
                 "tints": [
@@ -24059,7 +24059,7 @@
             }
         },
         "mekanized:gui/bar/progress/1/10": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/1_10",
                 "tints": [
@@ -24071,7 +24071,7 @@
             }
         },
         "mekanized:gui/bar/progress/1/11": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/1_11",
                 "tints": [
@@ -24083,7 +24083,7 @@
             }
         },
         "mekanized:gui/bar/progress/1/12": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/1_12",
                 "tints": [
@@ -24095,7 +24095,7 @@
             }
         },
         "mekanized:gui/bar/progress/1/13": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/1_13",
                 "tints": [
@@ -24107,7 +24107,7 @@
             }
         },
         "mekanized:gui/bar/progress/1/14": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/1_14",
                 "tints": [
@@ -24119,7 +24119,7 @@
             }
         },
         "mekanized:gui/bar/progress/1/15": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/1_15",
                 "tints": [
@@ -24131,7 +24131,7 @@
             }
         },
         "mekanized:gui/bar/progress/1/16": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/1_16",
                 "tints": [
@@ -24143,7 +24143,7 @@
             }
         },
         "mekanized:gui/bar/progress/1/17": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/1_17",
                 "tints": [
@@ -24155,7 +24155,7 @@
             }
         },
         "mekanized:gui/bar/progress/1/18": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/1_18",
                 "tints": [
@@ -24167,7 +24167,7 @@
             }
         },
         "mekanized:gui/bar/progress/1/2": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/1_2",
                 "tints": [
@@ -24179,7 +24179,7 @@
             }
         },
         "mekanized:gui/bar/progress/1/3": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/1_3",
                 "tints": [
@@ -24191,7 +24191,7 @@
             }
         },
         "mekanized:gui/bar/progress/1/4": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/1_4",
                 "tints": [
@@ -24203,7 +24203,7 @@
             }
         },
         "mekanized:gui/bar/progress/1/5": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/1_5",
                 "tints": [
@@ -24215,7 +24215,7 @@
             }
         },
         "mekanized:gui/bar/progress/1/6": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/1_6",
                 "tints": [
@@ -24227,7 +24227,7 @@
             }
         },
         "mekanized:gui/bar/progress/1/7": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/1_7",
                 "tints": [
@@ -24239,7 +24239,7 @@
             }
         },
         "mekanized:gui/bar/progress/1/8": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/1_8",
                 "tints": [
@@ -24251,7 +24251,7 @@
             }
         },
         "mekanized:gui/bar/progress/1/9": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/1_9",
                 "tints": [
@@ -24263,7 +24263,7 @@
             }
         },
         "mekanized:gui/bar/progress/2/0": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/2_0",
                 "tints": [
@@ -24275,7 +24275,7 @@
             }
         },
         "mekanized:gui/bar/progress/2/1": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/2_1",
                 "tints": [
@@ -24287,7 +24287,7 @@
             }
         },
         "mekanized:gui/bar/progress/2/10": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/2_10",
                 "tints": [
@@ -24299,7 +24299,7 @@
             }
         },
         "mekanized:gui/bar/progress/2/11": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/2_11",
                 "tints": [
@@ -24311,7 +24311,7 @@
             }
         },
         "mekanized:gui/bar/progress/2/12": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/2_12",
                 "tints": [
@@ -24323,7 +24323,7 @@
             }
         },
         "mekanized:gui/bar/progress/2/13": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/2_13",
                 "tints": [
@@ -24335,7 +24335,7 @@
             }
         },
         "mekanized:gui/bar/progress/2/14": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/2_14",
                 "tints": [
@@ -24347,7 +24347,7 @@
             }
         },
         "mekanized:gui/bar/progress/2/15": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/2_15",
                 "tints": [
@@ -24359,7 +24359,7 @@
             }
         },
         "mekanized:gui/bar/progress/2/16": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/2_16",
                 "tints": [
@@ -24371,7 +24371,7 @@
             }
         },
         "mekanized:gui/bar/progress/2/17": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/2_17",
                 "tints": [
@@ -24383,7 +24383,7 @@
             }
         },
         "mekanized:gui/bar/progress/2/2": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/2_2",
                 "tints": [
@@ -24395,7 +24395,7 @@
             }
         },
         "mekanized:gui/bar/progress/2/3": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/2_3",
                 "tints": [
@@ -24407,7 +24407,7 @@
             }
         },
         "mekanized:gui/bar/progress/2/4": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/2_4",
                 "tints": [
@@ -24419,7 +24419,7 @@
             }
         },
         "mekanized:gui/bar/progress/2/5": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/2_5",
                 "tints": [
@@ -24431,7 +24431,7 @@
             }
         },
         "mekanized:gui/bar/progress/2/6": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/2_6",
                 "tints": [
@@ -24443,7 +24443,7 @@
             }
         },
         "mekanized:gui/bar/progress/2/7": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/2_7",
                 "tints": [
@@ -24455,7 +24455,7 @@
             }
         },
         "mekanized:gui/bar/progress/2/8": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/2_8",
                 "tints": [
@@ -24467,7 +24467,7 @@
             }
         },
         "mekanized:gui/bar/progress/2/9": {
-            "material": "leather_horse_armor",
+            "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/2_9",
                 "tints": [
