@@ -21,11 +21,11 @@ items:
   mekanized:bio_generator:
     template: mekanized:item/block_item
   mekanized:upgrade_speed:
-    template: mekanized:item/named
+    template: mekanized:item/generated
   mekanized:upgrade_energy:
-    template: mekanized:item/named
+    template: mekanized:item/generated
   mekanized:solar_panel:
-    template: mekanized:item/named
+    template: mekanized:item/generated
 blocks:
   mekanized:metallurgic_infuser:
     template: mekanized:block/display_machine_facing

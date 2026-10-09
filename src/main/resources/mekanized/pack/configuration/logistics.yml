@@ -7,22 +7,22 @@ items:
   mekanized:logistical_sorter:
     template: mekanized:item/block_item
   mekanized:basic_tier_installer:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:tier_installer
       tier: basic
   mekanized:advanced_tier_installer:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:tier_installer
       tier: advanced
   mekanized:elite_tier_installer:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:tier_installer
       tier: elite
   mekanized:ultimate_tier_installer:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:tier_installer
       tier: ultimate

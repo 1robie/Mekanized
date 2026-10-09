@@ -1,6 +1,0 @@
-{
-    "parent": "item/bow",
-    "textures": { 
-        "layer0": "mekanized:item/electric_bow"
-    }
-}

@@ -45,35 +45,35 @@ items:
       item_name: <!i><lang:block.mekanized.cardboard_box>
     model: mekanized:block/cardboard_box
   mekanized:teleportation_core:
-    template: mekanized:item/named
+    template: mekanized:item/generated
   mekanized:robit:
     template: mekanized:item/named
     arguments:
       model: mekanized:item/robit_transforms
   mekanized:seismic_reader:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:seismic_reader
   mekanized:qio_drive_base:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:qio_drive
       items: 16000
       kinds: 128
   mekanized:qio_drive_hyper_dense:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:qio_drive
       items: 128000
       kinds: 256
   mekanized:qio_drive_time_dilating:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:qio_drive
       items: 1048000
       kinds: 1024
   mekanized:qio_drive_supermassive:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:qio_drive
       items: 16000000

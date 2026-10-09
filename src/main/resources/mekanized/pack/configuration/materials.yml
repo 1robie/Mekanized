@@ -1,13 +1,13 @@
 # Mekanized materials, ores and storage blocks (Phase 1), based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
 items:
   mekanized:advanced_control_circuit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:circuits
       - c:circuits/advanced
   mekanized:alloy_atomic:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:alloys
@@ -15,7 +15,7 @@ items:
       - mekanized:alloys
       - mekanized:alloys/atomic
   mekanized:alloy_infused:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:alloys
@@ -23,7 +23,7 @@ items:
       - mekanized:alloys
       - mekanized:alloys/infused
   mekanized:alloy_reinforced:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:alloys
@@ -31,13 +31,13 @@ items:
       - mekanized:alloys
       - mekanized:alloys/reinforced
   mekanized:basic_control_circuit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:circuits
       - c:circuits/basic
   mekanized:bio_fuel:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:fuels
@@ -64,87 +64,87 @@ items:
     arguments:
       model: mekanized:block/storage/salt
   mekanized:clump_copper:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:clumps
       - mekanized:clumps/copper
   mekanized:clump_gold:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:clumps
       - mekanized:clumps/gold
       - minecraft:piglin_loved
   mekanized:clump_iron:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:clumps
       - mekanized:clumps/iron
   mekanized:clump_lead:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:clumps
       - mekanized:clumps/lead
   mekanized:clump_osmium:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:clumps
       - mekanized:clumps/osmium
   mekanized:clump_tin:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:clumps
       - mekanized:clumps/tin
   mekanized:clump_uranium:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:clumps
       - mekanized:clumps/uranium
   mekanized:crystal_copper:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:crystals
       - mekanized:crystals/copper
   mekanized:crystal_gold:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:crystals
       - mekanized:crystals/gold
       - minecraft:piglin_loved
   mekanized:crystal_iron:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:crystals
       - mekanized:crystals/iron
   mekanized:crystal_lead:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:crystals
       - mekanized:crystals/lead
   mekanized:crystal_osmium:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:crystals
       - mekanized:crystals/osmium
   mekanized:crystal_tin:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:crystals
       - mekanized:crystals/tin
   mekanized:crystal_uranium:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:crystals
@@ -200,226 +200,230 @@ items:
       - c:ores/uranium
       - c:ores_in_ground/deepslate
   mekanized:dirty_dust_copper:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:dirty_dusts
       - mekanized:dirty_dusts/copper
   mekanized:dirty_dust_gold:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:dirty_dusts
       - mekanized:dirty_dusts/gold
       - minecraft:piglin_loved
   mekanized:dirty_dust_iron:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:dirty_dusts
       - mekanized:dirty_dusts/iron
   mekanized:dirty_dust_lead:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:dirty_dusts
       - mekanized:dirty_dusts/lead
   mekanized:dirty_dust_osmium:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:dirty_dusts
       - mekanized:dirty_dusts/osmium
   mekanized:dirty_dust_tin:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:dirty_dusts
       - mekanized:dirty_dusts/tin
   mekanized:dirty_dust_uranium:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:dirty_dusts
       - mekanized:dirty_dusts/uranium
   mekanized:dirty_netherite_scrap:
-    template: mekanized:item/named
+    template: mekanized:item/generated
   mekanized:dust_bronze:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:dusts
       - c:dusts/bronze
   mekanized:dust_charcoal:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:dusts
       - c:dusts/charcoal
   mekanized:dust_coal:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:dusts
       - c:dusts/coal
   mekanized:dust_copper:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:dusts
       - c:dusts/copper
   mekanized:dust_diamond:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:dusts
       - c:dusts/diamond
   mekanized:dust_emerald:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:dusts
       - c:dusts/emerald
   mekanized:dust_fluorite:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:dusts
       - c:dusts/fluorite
   mekanized:dust_gold:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:dusts
       - c:dusts/gold
       - minecraft:piglin_loved
   mekanized:dust_iron:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:dusts
       - c:dusts/iron
   mekanized:dust_lapis_lazuli:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:dusts
       - c:dusts/lapis
   mekanized:dust_lead:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:dusts
       - c:dusts/lead
   mekanized:dust_lithium:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:dusts
       - c:dusts/lithium
   mekanized:dust_netherite:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:dusts
       - c:dusts/netherite
   mekanized:dust_obsidian:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:dusts
       - c:dusts/obsidian
   mekanized:dust_osmium:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:dusts
       - c:dusts/osmium
   mekanized:dust_quartz:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:dusts
       - c:dusts/quartz
   mekanized:dust_refined_obsidian:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:dusts
       - c:dusts/refined_obsidian
   mekanized:dust_steel:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:dusts
       - c:dusts/steel
   mekanized:dust_sulfur:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:dusts
       - c:dusts/sulfur
   mekanized:dust_tin:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:dusts
       - c:dusts/tin
   mekanized:dust_uranium:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:dusts
       - c:dusts/uranium
   mekanized:dye_base:
-    template: mekanized:item/named
+    template: mekanized:item/generated
   mekanized:elite_control_circuit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:circuits
       - c:circuits/elite
   mekanized:enriched_carbon:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:enriched
       - mekanized:enriched/carbon
   mekanized:enriched_diamond:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:enriched
       - mekanized:enriched/diamond
   mekanized:enriched_gold:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:enriched
       - mekanized:enriched/gold
       - minecraft:piglin_loved
   mekanized:enriched_iron:
-    template: mekanized:item/named
+    template: mekanized:item/generated
+    settings:
+      tags:
+      - mekanized:enriched
+      - mekanized:enriched/iron
   mekanized:enriched_redstone:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:enriched
       - mekanized:enriched/redstone
   mekanized:enriched_refined_obsidian:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:enriched
       - mekanized:enriched/obsidian
   mekanized:enriched_tin:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:enriched
       - mekanized:enriched/tin
   mekanized:fluorite_gem:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:gems
@@ -436,26 +440,26 @@ items:
       - c:ores/fluorite
       - c:ores_in_ground/stone
   mekanized:hdpe_pellet:
-    template: mekanized:item/named
+    template: mekanized:item/generated
   mekanized:hdpe_rod:
-    template: mekanized:item/named
+    template: mekanized:item/generated
   mekanized:hdpe_sheet:
-    template: mekanized:item/named
+    template: mekanized:item/generated
   mekanized:hdpe_stick:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:rods
       - c:rods/plastic
   mekanized:ingot_bronze:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:ingots
       - c:ingots/bronze
       - minecraft:beacon_payment_items
   mekanized:ingot_lead:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:ingots
@@ -463,7 +467,7 @@ items:
       - mekanized:muffling_center
       - minecraft:beacon_payment_items
   mekanized:ingot_osmium:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:ingots
@@ -471,7 +475,7 @@ items:
       - mekanized:muffling_center
       - minecraft:beacon_payment_items
   mekanized:ingot_refined_glowstone:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:ingots
@@ -479,21 +483,21 @@ items:
       - minecraft:beacon_payment_items
       - minecraft:piglin_loved
   mekanized:ingot_refined_obsidian:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:ingots
       - c:ingots/refined_obsidian
       - minecraft:beacon_payment_items
   mekanized:ingot_steel:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:ingots
       - c:ingots/steel
       - minecraft:beacon_payment_items
   mekanized:ingot_tin:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:ingots
@@ -501,7 +505,7 @@ items:
       - mekanized:muffling_center
       - minecraft:beacon_payment_items
   mekanized:ingot_uranium:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:ingots
@@ -518,49 +522,49 @@ items:
       - c:ores/lead
       - c:ores_in_ground/stone
   mekanized:nugget_bronze:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:nuggets
       - c:nuggets/bronze
   mekanized:nugget_lead:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:nuggets
       - c:nuggets/lead
   mekanized:nugget_osmium:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:nuggets
       - c:nuggets/osmium
   mekanized:nugget_refined_glowstone:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:nuggets
       - c:nuggets/refined_glowstone
   mekanized:nugget_refined_obsidian:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:nuggets
       - c:nuggets/refined_obsidian
   mekanized:nugget_steel:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:nuggets
       - c:nuggets/steel
   mekanized:nugget_tin:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:nuggets
       - c:nuggets/tin
   mekanized:nugget_uranium:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:nuggets
@@ -576,97 +580,97 @@ items:
       - c:ores/osmium
       - c:ores_in_ground/stone
   mekanized:pellet_antimatter:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:pellets/antimatter
   mekanized:pellet_plutonium:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:pellets/plutonium
   mekanized:pellet_polonium:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:pellets/polonium
   mekanized:raw_lead:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:raw_materials
       - c:raw_materials/lead
   mekanized:raw_osmium:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:raw_materials
       - c:raw_materials/osmium
   mekanized:raw_tin:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:raw_materials
       - c:raw_materials/tin
   mekanized:raw_uranium:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:raw_materials
       - c:raw_materials/uranium
   mekanized:reprocessed_fissile_fragment:
-    template: mekanized:item/named
+    template: mekanized:item/generated
   mekanized:salt:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:dusts
       - c:dusts/salt
   mekanized:sawdust:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:dusts
       - c:dusts/wood
   mekanized:shard_copper:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:shards
       - mekanized:shards/copper
   mekanized:shard_gold:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:shards
       - mekanized:shards/gold
       - minecraft:piglin_loved
   mekanized:shard_iron:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:shards
       - mekanized:shards/iron
   mekanized:shard_lead:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:shards
       - mekanized:shards/lead
   mekanized:shard_osmium:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:shards
       - mekanized:shards/osmium
   mekanized:shard_tin:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:shards
       - mekanized:shards/tin
   mekanized:shard_uranium:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - mekanized:shards
@@ -674,7 +678,7 @@ items:
   mekanized:steel_casing:
     template: mekanized:item/block_item
   mekanized:substrate:
-    template: mekanized:item/named
+    template: mekanized:item/generated
   mekanized:tin_ore:
     template: mekanized:item/block_item
     arguments:
@@ -686,7 +690,7 @@ items:
       - c:ores/tin
       - c:ores_in_ground/stone
   mekanized:ultimate_control_circuit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     settings:
       tags:
       - c:circuits
@@ -702,7 +706,7 @@ items:
       - c:ores/uranium
       - c:ores_in_ground/stone
   mekanized:yellow_cake_uranium:
-    template: mekanized:item/named
+    template: mekanized:item/generated
 blocks:
   mekanized:block_bio_fuel:
     template: mekanized:block/storage_block

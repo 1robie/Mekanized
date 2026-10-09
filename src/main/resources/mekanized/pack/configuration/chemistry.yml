@@ -35,9 +35,9 @@ items:
   mekanized:electric_pump:
     template: mekanized:item/block_item
   mekanized:electrolytic_core:
-    template: mekanized:item/named
+    template: mekanized:item/generated
   mekanized:energy_tablet:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: machineengine:energy_item
       max-energy: 1000000

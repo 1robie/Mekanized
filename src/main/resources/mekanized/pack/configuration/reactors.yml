@@ -97,7 +97,7 @@ items:
   mekanized:supercharged_coil:
     template: mekanized:item/block_item
   mekanized:turbine_blade:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:turbine_blade
 blocks:

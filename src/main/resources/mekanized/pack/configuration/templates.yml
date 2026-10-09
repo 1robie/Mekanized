@@ -182,8 +182,43 @@ templates:
       type: block_item
       block: ${__NAMESPACE__}:${__ID__}
 
-  # Any other item. Argument model (default <namespace>:item/<id>).
-  mekanized:item/named:
+  mekanized:item/name:
     data:
       item_name: <!i><lang:item.${__NAMESPACE__}.${__ID__}>
+
+  # Any other item. Argument model (default <namespace>:item/<id>).
+  mekanized:item/named:
+    template: mekanized:item/name
     model: ${model:-"${__NAMESPACE__}:item/${__ID__}"}
+
+  mekanized:item/generated:
+    template: mekanized:item/name
+    model:
+      path: ${__NAMESPACE__}:item/${__ID__}
+      generation:
+        parent: ${parent:-"minecraft:item/handheld"}
+        textures:
+          layer0: ${texture:-"${__NAMESPACE__}:item/${__ID__}"}
+
+  mekanized:item/generated_2_layers:
+    template: mekanized:item/generated
+    model:
+      generation:
+        textures:
+          layer1: ${layer1:-"${__NAMESPACE__}:item/${__ID__}${layer1_suffix:-_layer1}"}
+
+  mekanized:item/generated_bow:
+    template: mekanized:item/name
+    material: bow
+    textures:
+      - ${texture:-"${__NAMESPACE__}:item/${__ID__}"}
+      - ${texture2:-"${__NAMESPACE__}:item/${__ID__}_pulling_0"}
+      - ${texture3:-"${__NAMESPACE__}:item/${__ID__}_pulling_1"}
+      - ${texture4:-"${__NAMESPACE__}:item/${__ID__}_pulling_2"}
+
+  mekanized:item/generated_elytra:
+    template: mekanized:item/name
+    material: elytra
+    textures:
+      - ${texture:-"${__NAMESPACE__}:item/${__ID__}"}
+      - ${texture2:-"${__NAMESPACE__}:item/${__ID__}_broken"}

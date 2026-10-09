@@ -76,8 +76,7 @@ items:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:electric_bow:
-    template: mekanized:item/named
-    material: bow
+    template: mekanized:item/generated_bow
     behaviors:
     - type: machineengine:energy_item
       max-energy: 120000
@@ -96,7 +95,7 @@ items:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:network_reader:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: machineengine:storage_reader
     material: stick
@@ -105,7 +104,7 @@ items:
       components:
         minecraft:max_stack_size: 1
   mekanized:canteen:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     material: paper
     behaviors:
     - type: machineengine:resource_item
@@ -121,7 +120,7 @@ items:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:portable_teleporter:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     material: paper
     behaviors:
     - type: machineengine:energy_item
@@ -135,7 +134,9 @@ items:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:portable_qio_dashboard:
-    template: mekanized:item/named
+    template: mekanized:item/generated_2_layers
+    arguments:
+      layer1_suffix: "_tint_led"
     behaviors:
     - type: mekanized:portable_qio
     material: paper
@@ -147,7 +148,7 @@ items:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:configuration_card:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:configuration_card
     material: paper
@@ -159,7 +160,7 @@ items:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:gauge_dropper:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:gauge_dropper
       capacity: 16000
@@ -172,7 +173,7 @@ items:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:dictionary:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:dictionary
     material: paper
@@ -181,7 +182,7 @@ items:
       components:
         minecraft:max_stack_size: 1
   mekanized:crafting_formula:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:crafting_formula
     material: paper
@@ -302,7 +303,9 @@ items:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:mekasuit_helmet:
-    template: mekanized:item/named
+    template: mekanized:item/generated_2_layers
+    arguments:
+      layer1_suffix: "_tint_layer"
     material: netherite_helmet
     behaviors:
     - type: machineengine:energy_item
@@ -324,7 +327,9 @@ items:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:mekasuit_bodyarmor:
-    template: mekanized:item/named
+    template: mekanized:item/generated_2_layers
+    arguments:
+      layer1_suffix: "_tint_layer"
     material: netherite_chestplate
     behaviors:
     - type: machineengine:energy_item
@@ -356,7 +361,9 @@ items:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:mekasuit_pants:
-    template: mekanized:item/named
+    template: mekanized:item/generated_2_layers
+    arguments:
+      layer1_suffix: "_tint_layer"
     material: netherite_leggings
     behaviors:
     - type: machineengine:energy_item
@@ -377,7 +384,9 @@ items:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:mekasuit_boots:
-    template: mekanized:item/named
+    template: mekanized:item/generated_2_layers
+    arguments:
+      layer1_suffix: "_tint_layer"
     material: netherite_boots
     behaviors:
     - type: machineengine:energy_item
@@ -400,7 +409,7 @@ items:
       mekanized:gear_lore: {}
       machineengine:resource_lore: {}
   mekanized:hazmat_mask:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:radiation_shielding
       protection: 0.25
@@ -413,7 +422,7 @@ items:
       tags:
       - minecraft:head_armor
   mekanized:hazmat_gown:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:radiation_shielding
       protection: 0.25
@@ -426,7 +435,7 @@ items:
       tags:
       - minecraft:chest_armor
   mekanized:hazmat_pants:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:radiation_shielding
       protection: 0.25
@@ -439,7 +448,7 @@ items:
       tags:
       - minecraft:leg_armor
   mekanized:hazmat_boots:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:radiation_shielding
       protection: 0.25
@@ -452,12 +461,12 @@ items:
       tags:
       - minecraft:foot_armor
   mekanized:module_base:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: base
   mekanized:module_electrolytic_breathing_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: electrolytic_breathing_unit
@@ -468,7 +477,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_vision_enhancement_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: vision_enhancement_unit
@@ -479,7 +488,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_nutritional_injection_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: nutritional_injection_unit
@@ -490,7 +499,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_inhalation_purification_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: inhalation_purification_unit
@@ -501,7 +510,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_jetpack_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: jetpack_unit
@@ -511,7 +520,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_gravitational_modulating_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: gravitational_modulating_unit
@@ -522,7 +531,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_elytra_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: elytra_unit
@@ -533,7 +542,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_locomotive_boosting_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: locomotive_boosting_unit
@@ -544,7 +553,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_hydraulic_propulsion_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: hydraulic_propulsion_unit
@@ -555,7 +564,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_excavation_escalation_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: excavation_escalation_unit
@@ -565,7 +574,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_attack_amplification_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: attack_amplification_unit
@@ -575,7 +584,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_silk_touch_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: silk_touch_unit
@@ -587,7 +596,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_fortune_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: fortune_unit
@@ -599,7 +608,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_vein_mining_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: vein_mining_unit
@@ -609,7 +618,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_teleportation_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: teleportation_unit
@@ -619,7 +628,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_radiation_shielding_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: radiation_shielding_unit
@@ -632,7 +641,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_geiger_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: geiger_unit
@@ -642,7 +651,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_dosimeter_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: dosimeter_unit
@@ -652,7 +661,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_energy_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: energy_unit
@@ -666,7 +675,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_charge_distribution_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: charge_distribution_unit
@@ -677,7 +686,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_gyroscopic_stabilization_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: gyroscopic_stabilization_unit
@@ -688,7 +697,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_solar_recharging_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: solar_recharging_unit
@@ -699,7 +708,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_geothermal_generator_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: geothermal_generator_unit
@@ -710,7 +719,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_motorized_servo_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: motorized_servo_unit
@@ -721,7 +730,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_hydrostatic_repulsor_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: hydrostatic_repulsor_unit
@@ -732,7 +741,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_magnetic_attraction_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: magnetic_attraction_unit
@@ -744,7 +753,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_frost_walker_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: frost_walker_unit
@@ -756,7 +765,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_soul_surfer_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: soul_surfer_unit
@@ -768,7 +777,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_blasting_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: blasting_unit
@@ -778,7 +787,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_farming_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: farming_unit
@@ -788,7 +797,7 @@ items:
       tags:
       - mekanized:unit
   mekanized:module_shearing_unit:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:module
       module: shearing_unit
@@ -798,7 +807,8 @@ items:
       tags:
       - mekanized:unit
   mekanized:hdpe_elytra:
-    template: mekanized:item/named
+    template: mekanized:item/generated_elytra
+    material: elytra
     settings:
       tags:
       - minecraft:enchantable/durability

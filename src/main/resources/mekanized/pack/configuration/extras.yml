@@ -21,20 +21,20 @@ items:
   mekanized:modification_station:
     template: mekanized:item/block_item
   mekanized:upgrade_chemical:
-    template: mekanized:item/named
+    template: mekanized:item/generated
   mekanized:upgrade_filter:
-    template: mekanized:item/named
+    template: mekanized:item/generated
   mekanized:upgrade_anchor:
-    template: mekanized:item/named
+    template: mekanized:item/generated
   mekanized:upgrade_stone_generator:
-    template: mekanized:item/named
+    template: mekanized:item/generated
   mekanized:dosimeter:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:radiation_reader
       mode: dose
   mekanized:geiger_counter:
-    template: mekanized:item/named
+    template: mekanized:item/generated
     behaviors:
     - type: mekanized:radiation_reader
       mode: environment
