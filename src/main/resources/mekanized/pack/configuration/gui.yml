@@ -1,0 +1,54 @@
+# Mekanized menu textures (docs/MENU_TEXTURES_PLAN.md). STAGE 0 SPIKE: replaced in stage 2.
+# Images are font glyphs drawn in menu titles with <image:id>; a glyph's height on screen is fixed
+# by its ascent: top = 13 - ascent (the title line starts at y 6 of the window).
+images:
+  mekanized:gui/panel_5:
+    height: 204
+    ascent: 13
+    font: mekanized:gui
+    file: mekanized:gui/panel/panel_5.png
+  # Chest slot r (0-based) has its 18 x 18 frame at y 17 + 18 r: ascent -4 - 18 r.
+  mekanized:gui/slot_input_r1:
+    height: 18
+    ascent: -22
+    font: mekanized:gui
+    file: mekanized:gui/slot/input.png
+  mekanized:gui/slot_output_r1:
+    height: 18
+    ascent: -22
+    font: mekanized:gui
+    file: mekanized:gui/slot/output.png
+  mekanized:gui/gauge_r1:
+    height: 18
+    ascent: -22
+    font: mekanized:gui
+    file: mekanized:gui/slot/normal.png
+  mekanized:gui/slot_r3:
+    height: 18
+    ascent: -58
+    font: mekanized:gui
+    file: mekanized:gui/slot/normal.png
+
+items:
+  # Shown in an empty machine slot so the slot texture under it shows; its name is the tooltip.
+  mekanized:gui/empty:
+    model:
+      path: mekanized:item/gui/empty
+      generation:
+        parent: minecraft:item/generated
+        textures:
+          layer0: mekanized:item/gui/empty
+  mekanized:gui/test_energy:
+    model:
+      path: mekanized:item/gui/test_energy
+      generation:
+        parent: minecraft:item/generated
+        textures:
+          layer0: mekanized:item/gui/test_energy
+  mekanized:gui/test_progress:
+    model:
+      path: mekanized:item/gui/test_progress
+      generation:
+        parent: minecraft:item/generated
+        textures:
+          layer0: mekanized:item/gui/test_progress
