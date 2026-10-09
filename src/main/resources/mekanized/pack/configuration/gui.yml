@@ -119,7 +119,7 @@ items:
     arguments: {texture: side/both, size: 14}
 
 # Fill bars: mekanized:gui/bar/<shape>/<cell>/<level>. A bar covers 3 slots; cell 0 is the bottom
-# (vertical) or left (horizontal) slot. Cells 0 and 2 have levels 0-17, cell 1 has 0-18 (0: empty).
+# (vertical) or left (horizontal) slot. Cells 0 and 1 have levels 0-18, cell 2 has 0-16 (0: empty).
 # A menu names the cell straight from a placeholder, e.g.
 #   material: "craftengine:mekanized:gui/bar/chemical/0/%zmenu_machineengine_storage_chemical_cell_0%"
 #   components: {dyed-color: "%zmenu_machineengine_storage_chemical_color%"}
@@ -198,21 +198,27 @@ config_factory#menu_bar_cells:
       mekanized:gui/bar/${shape}/${cell}/16:
         template: mekanized:item/gui_bar
         arguments: {shape: '${shape}', cell: '${cell}', level: 16}
+
+# The last 2 levels of the first 2 cells (18 px: a slot and the gap after it).
+config_factory#menu_bar_long:
+  instances:
+  - {shape: chemical, cell: 0}
+  - {shape: chemical, cell: 1}
+  - {shape: fluid, cell: 0}
+  - {shape: fluid, cell: 1}
+  - {shape: energy, cell: 0}
+  - {shape: energy, cell: 1}
+  - {shape: energy_horizontal, cell: 0}
+  - {shape: energy_horizontal, cell: 1}
+  - {shape: heat, cell: 0}
+  - {shape: heat, cell: 1}
+  - {shape: progress, cell: 0}
+  - {shape: progress, cell: 1}
+  blueprint:
+    items:
       mekanized:gui/bar/${shape}/${cell}/17:
         template: mekanized:item/gui_bar
         arguments: {shape: '${shape}', cell: '${cell}', level: 17}
-
-# The middle cell's last level (18 px: it also covers both gaps).
-config_factory#menu_bar_middle:
-  instances:
-  - {shape: chemical}
-  - {shape: fluid}
-  - {shape: energy}
-  - {shape: energy_horizontal}
-  - {shape: heat}
-  - {shape: progress}
-  blueprint:
-    items:
-      mekanized:gui/bar/${shape}/1/18:
+      mekanized:gui/bar/${shape}/${cell}/18:
         template: mekanized:item/gui_bar
-        arguments: {shape: '${shape}', cell: 1, level: 18}
+        arguments: {shape: '${shape}', cell: '${cell}', level: 18}

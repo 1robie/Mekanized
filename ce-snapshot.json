@@ -20638,6 +20638,18 @@
                 ]
             }
         },
+        "mekanized:gui/bar/chemical/0/18": {
+            "material": "leather_helmet",
+            "model": {
+                "path": "mekanized:gui/bar/chemical/0_18",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
         "mekanized:gui/bar/chemical/0/2": {
             "material": "leather_helmet",
             "model": {
@@ -21070,18 +21082,6 @@
                 ]
             }
         },
-        "mekanized:gui/bar/chemical/2/17": {
-            "material": "leather_helmet",
-            "model": {
-                "path": "mekanized:gui/bar/chemical/2_17",
-                "tints": [
-                    {
-                        "default": -1,
-                        "type": "dye"
-                    }
-                ]
-            }
-        },
         "mekanized:gui/bar/chemical/2/2": {
             "material": "leather_helmet",
             "model": {
@@ -21290,6 +21290,18 @@
             "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy/0_17",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/energy/0/18": {
+            "material": "leather_helmet",
+            "model": {
+                "path": "mekanized:gui/bar/energy/0_18",
                 "tints": [
                     {
                         "default": -1,
@@ -21730,18 +21742,6 @@
                 ]
             }
         },
-        "mekanized:gui/bar/energy/2/17": {
-            "material": "leather_helmet",
-            "model": {
-                "path": "mekanized:gui/bar/energy/2_17",
-                "tints": [
-                    {
-                        "default": -1,
-                        "type": "dye"
-                    }
-                ]
-            }
-        },
         "mekanized:gui/bar/energy/2/2": {
             "material": "leather_helmet",
             "model": {
@@ -21950,6 +21950,18 @@
             "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/energy_horizontal/0_17",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/energy_horizontal/0/18": {
+            "material": "leather_helmet",
+            "model": {
+                "path": "mekanized:gui/bar/energy_horizontal/0_18",
                 "tints": [
                     {
                         "default": -1,
@@ -22390,18 +22402,6 @@
                 ]
             }
         },
-        "mekanized:gui/bar/energy_horizontal/2/17": {
-            "material": "leather_helmet",
-            "model": {
-                "path": "mekanized:gui/bar/energy_horizontal/2_17",
-                "tints": [
-                    {
-                        "default": -1,
-                        "type": "dye"
-                    }
-                ]
-            }
-        },
         "mekanized:gui/bar/energy_horizontal/2/2": {
             "material": "leather_helmet",
             "model": {
@@ -22610,6 +22610,18 @@
             "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/fluid/0_17",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/fluid/0/18": {
+            "material": "leather_helmet",
+            "model": {
+                "path": "mekanized:gui/bar/fluid/0_18",
                 "tints": [
                     {
                         "default": -1,
@@ -23050,18 +23062,6 @@
                 ]
             }
         },
-        "mekanized:gui/bar/fluid/2/17": {
-            "material": "leather_helmet",
-            "model": {
-                "path": "mekanized:gui/bar/fluid/2_17",
-                "tints": [
-                    {
-                        "default": -1,
-                        "type": "dye"
-                    }
-                ]
-            }
-        },
         "mekanized:gui/bar/fluid/2/2": {
             "material": "leather_helmet",
             "model": {
@@ -23270,6 +23270,18 @@
             "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/heat/0_17",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/heat/0/18": {
+            "material": "leather_helmet",
+            "model": {
+                "path": "mekanized:gui/bar/heat/0_18",
                 "tints": [
                     {
                         "default": -1,
@@ -23710,18 +23722,6 @@
                 ]
             }
         },
-        "mekanized:gui/bar/heat/2/17": {
-            "material": "leather_helmet",
-            "model": {
-                "path": "mekanized:gui/bar/heat/2_17",
-                "tints": [
-                    {
-                        "default": -1,
-                        "type": "dye"
-                    }
-                ]
-            }
-        },
         "mekanized:gui/bar/heat/2/2": {
             "material": "leather_helmet",
             "model": {
@@ -23930,6 +23930,18 @@
             "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/0_17",
+                "tints": [
+                    {
+                        "default": -1,
+                        "type": "dye"
+                    }
+                ]
+            }
+        },
+        "mekanized:gui/bar/progress/0/18": {
+            "material": "leather_helmet",
+            "model": {
+                "path": "mekanized:gui/bar/progress/0_18",
                 "tints": [
                     {
                         "default": -1,
@@ -24362,18 +24374,6 @@
             "material": "leather_helmet",
             "model": {
                 "path": "mekanized:gui/bar/progress/2_16",
-                "tints": [
-                    {
-                        "default": -1,
-                        "type": "dye"
-                    }
-                ]
-            }
-        },
-        "mekanized:gui/bar/progress/2/17": {
-            "material": "leather_helmet",
-            "model": {
-                "path": "mekanized:gui/bar/progress/2_17",
                 "tints": [
                     {
                         "default": -1,

@@ -1,1 +1,1 @@
-{"gui_light":"front","textures":{"fill":"mekanized:gui/fill/progress","particle":"mekanized:gui/fill/progress"},"elements":[{"from":[-1,4,7.995],"to":[13,12,8],"faces":{"south":{"uv":[5.2308,0,9.5385,16],"texture":"#fill"},"north":{"uv":[5.2308,0,9.5385,16],"texture":"#fill"}}}]}
+{"gui_light":"front","textures":{"fill":"mekanized:gui/fill/progress","particle":"mekanized:gui/fill/progress"},"elements":[{"from":[0,4,7.995],"to":[14,12,8],"faces":{"south":{"uv":[5.5385,0,9.8462,16],"texture":"#fill"},"north":{"uv":[5.5385,0,9.8462,16],"texture":"#fill"}}}]}

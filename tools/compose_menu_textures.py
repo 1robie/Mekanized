@@ -13,8 +13,9 @@ Writes, under the Mekanized resource pack:
 - models/gui/icon_{18,14}.json: the parents of the menu icons.
 
 A bar spans 3 slots along its axis (54 px with the frame, 52 px of fill). Cell k (0 at the start: the
-bottom of a vertical bar, the left of a horizontal one) covers fill pixels [max(0, 18k - 1), min(52, 18k + 17))
-and draws them from its slot's item area, reaching 1 px out on each side across the gap to its neighbours.
+bottom of a vertical bar, the left of a horizontal one) covers fill pixels [18k, min(52, 18k + 18)): its
+slot's item area and the 2 px gap after it. Clients (26.2) clip what an item model draws below or left of
+its slot, but not above or right, so cells only ever reach forward.
 Level L of cell k fills the first L of its pixels; level 0 is an empty model. MachineEngine picks cell levels the same way (stage 3).
 Based on Mekanism (MIT, see LICENSE-MEKANISM.txt).
 """
@@ -152,7 +153,7 @@ SHAPES = {
 
 
 def cell_range(cell):
-    return max(0, 18 * cell - 1), min(LENGTH, 18 * cell + 17)
+    return 18 * cell, min(LENGTH, 18 * cell + 18)
 
 
 def chunks(start, end, tile):
