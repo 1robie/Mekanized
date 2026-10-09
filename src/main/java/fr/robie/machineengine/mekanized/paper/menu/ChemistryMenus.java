@@ -23,7 +23,7 @@ final class ChemistryMenus {
         infuser.put("output", chemical(14, "output", "Output (front)"));
         menus.add(new Menu("chemical_infuser", infuser));
 
-        menus.add(processing("chemical_injection_chamber", false, "Chemical source"));
+        menus.add(processing("chemical_injection_chamber", false, "Chemical source").build());
 
         Map<String, String> dissolution = machine();
         dissolution.put("input", slot(10, "input", "Input"));

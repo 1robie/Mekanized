@@ -50,10 +50,9 @@ final class ReactionAndPigmentMenus {
         mixer.put("output", chemical(14, "output", "Output (front)"));
         menus.add(new Menu("pigment_mixer", mixer));
 
-        Menu burner = generator("gas_burning_generator", false);
-        burner.buttons().put("fuel", chemical(11, "fuel", "Fuel (hydrogen, ethene)"));
-        menus.add(burner);
-        menus.add(generator("wind_generator", false));
-        menus.add(generator("advanced_solar_generator", false));
+        menus.add(generator("gas_burning_generator", false)
+                .tank("fuel", 1, 0, MenuLayout.Tank.CHEMICAL, "fuel", "Fuel (hydrogen, ethene)").build());
+        menus.add(generator("wind_generator", false).build());
+        menus.add(generator("advanced_solar_generator", false).build());
     }
 }

@@ -37,22 +37,16 @@ public final class MenuCatalog {
 
     static List<Menu> menus() {
         List<Menu> menus = new ArrayList<>();
-        for (String machine : List.of("enrichment_chamber", "crusher", "energized_smelter")) menus.add(processing(machine, false, null));
-        menus.add(processing("precision_sawmill", true, null));
-        Menu combiner = processing("combiner", false, null);
-        combiner.buttons().put("extra", slot(28, "extra", "Second input"));
-        menus.add(combiner);
-        menus.add(processing("osmium_compressor", false, "Osmium source (osmium ingots)"));
-        menus.add(processing("purification_chamber", false, "Oxygen source"));
-        menus.add(processing("metallurgic_infuser", false, "Infuse source (redstone, coal, diamond dust...)"));
-        menus.add(generator("heat_generator", true));
-        menus.add(generator("bio_generator", true));
-        menus.add(generator("solar_generator", false));
-        for (String tier : List.of("basic", "advanced", "elite", "ultimate", "creative")) {
-            Menu cube = generator(tier + "_energy_cube", false);
-            cube.buttons().put("charge", slot(31, "charge", "Charge an Energy Tablet"));
-            menus.add(cube);
-        }
+        for (String machine : List.of("enrichment_chamber", "crusher", "energized_smelter")) menus.add(processing(machine, false, null).build());
+        menus.add(processing("precision_sawmill", true, null).build());
+        menus.add(processing("combiner", false, null).slot("extra", 3, 1, MenuLayout.Kind.EXTRA, "extra", "Second input").build());
+        menus.add(processing("osmium_compressor", false, "Osmium source (osmium ingots)").build());
+        menus.add(processing("purification_chamber", false, "Oxygen source").build());
+        menus.add(processing("metallurgic_infuser", false, "Infuse source (redstone, coal, diamond dust...)").build());
+        menus.add(generator("heat_generator", true).build());
+        menus.add(generator("bio_generator", true).build());
+        menus.add(generator("solar_generator", false).build());
+        for (String tier : List.of("basic", "advanced", "elite", "ultimate", "creative")) menus.add(energyCube(tier + "_energy_cube").build());
         ChemistryMenus.add(menus);
         LogisticsMenus.add(menus);
         MultiblockMenus.add(menus);

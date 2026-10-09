@@ -5,9 +5,13 @@ import fr.robie.machineengine.core.lifecycle.CoreMachineEngine;
 import fr.robie.machineengine.mekanized.MekanizedTestKit;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,7 +30,7 @@ class MenuConsistencyTest {
     private static final Pattern STORAGE_SLOT = Pattern.compile("(?m)^    storage-slot: (\\d+)$");
     private static final Pattern DATA = Pattern.compile("(?m)^    data: (\\w+)$");
     private static final Pattern PLACEHOLDER_STORAGE =
-            Pattern.compile("%zmenu_machineengine_storage_(\\w+?)_(?:slot_(\\d+)_)?(?:name|amount|capacity|bar)%");
+            Pattern.compile("%zmenu_machineengine_storage_(\\w+?)_(?:slot_(\\d+)_)?(?:name|amount|capacity|bar|color|cell_\\d)%");
     private static final Pattern PLACEHOLDER_DATA = Pattern.compile("%zmenu_machineengine_data_(\\w+)%");
 
     private final CoreMachineEngine engine = MekanizedTestKit.engine();
@@ -98,6 +102,66 @@ class MenuConsistencyTest {
                 }
             });
         }
+        assertEquals(List.of(), problems);
+    }
+
+    /** The images and bar items Mekanized's gui.yml declares, read from its row and bar factories. */
+    private static String gui() throws IOException {
+        try (InputStream in = Objects.requireNonNull(MenuConsistencyTest.class.getClassLoader()
+                .getResourceAsStream("mekanized/pack/configuration/gui.yml"), "gui.yml")) {
+            return new String(in.readAllBytes(), StandardCharsets.UTF_8);
+        }
+    }
+
+    @Test
+    void texturedTitlesNameExistingImagesAndBars() throws IOException {
+        String gui = gui();
+        Set<String> images = new HashSet<>();
+        Matcher panel = Pattern.compile("(?m)^  (mekanized:gui/panel_\\d):$").matcher(gui);
+        while (panel.find()) images.add(panel.group(1));
+        Matcher row = Pattern.compile("(?m)^      (mekanized:gui/\\w+)_r\\$\\{row}:").matcher(gui);
+        while (row.find()) {
+            for (int r = 0; r < 6; r++) images.add(row.group(1) + "_r" + r);
+        }
+        Set<String> shapes = new HashSet<>();
+        Matcher shape = Pattern.compile("\\{shape: (\\w+), cell: 0}").matcher(gui);
+        while (shape.find()) shapes.add(shape.group(1));
+        assertTrue(images.size() > 50 && shapes.contains("energy"), "read gui.yml: " + images.size() + " images, shapes " + shapes);
+
+        Pattern image = Pattern.compile("<image:([^>]+)>");
+        Pattern shift = Pattern.compile("<shift:(-?\\d+)>");
+        Pattern tall = Pattern.compile("frame_(?:tall_gauge|power_vertical)_r(\\d)");
+        Pattern bar = Pattern.compile("gui/bar/(\\w+)/(\\d)/");
+        List<String> problems = new ArrayList<>();
+        int textured = 0;
+        for (MenuYaml.Menu menu : MenuCatalog.menus()) {
+            if (!menu.textured()) continue;
+            textured++;
+            String title = menu.title();
+            Matcher images1 = image.matcher(title);
+            while (images1.find()) {
+                if (!images.contains(images1.group(1))) problems.add(menu.machine() + ": no image " + images1.group(1));
+            }
+            if (!title.contains("gui/panel_" + menu.size() / 9 + ">")) problems.add(menu.machine() + ": panel for another size");
+            Matcher shifts = shift.matcher(title);
+            while (shifts.find()) {
+                int by = Integer.parseInt(shifts.group(1));
+                if (by < -256 || by > 256) problems.add(menu.machine() + ": shift " + by + " (CraftEngine has -256 to 256)");
+            }
+            Matcher frames = tall.matcher(title);
+            while (frames.find()) {
+                if (Integer.parseInt(frames.group(1)) + 3 > menu.size() / 9) problems.add(menu.machine() + ": a tall bar below the window");
+            }
+            menu.buttons().forEach((name, button) -> {
+                Matcher cell = bar.matcher(button);
+                while (cell.find()) {
+                    if (!shapes.contains(cell.group(1))) problems.add(menu.machine() + "." + name + ": no bar shape " + cell.group(1));
+                    if (Integer.parseInt(cell.group(2)) > 2) problems.add(menu.machine() + "." + name + ": bar cell " + cell.group(2));
+                }
+                if (button.contains("GRAY_STAINED_GLASS_PANE")) problems.add(menu.machine() + "." + name + ": a pane on a textured menu");
+            });
+        }
+        assertTrue(textured > 0, "no textured menu");
         assertEquals(List.of(), problems);
     }
 

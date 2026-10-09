@@ -17,14 +17,23 @@ final class MenuYaml {
     /**
      * @param sideSlot where the side configuration button goes, -1 for none
      * @param size     the inventory size (rows of 9)
+     * @param title    a textured menu's title ({@link MenuLayout}), or {@code null} for a plain menu
      */
-    record Menu(String machine, Map<String, String> buttons, int sideSlot, int size) {
+    record Menu(String machine, Map<String, String> buttons, int sideSlot, int size, String title) {
         Menu(String machine, Map<String, String> buttons) {
             this(machine, buttons, 44);
         }
 
         Menu(String machine, Map<String, String> buttons, int sideSlot) {
             this(machine, buttons, sideSlot, 45);
+        }
+
+        Menu(String machine, Map<String, String> buttons, int sideSlot, int size) {
+            this(machine, buttons, sideSlot, size, null);
+        }
+
+        boolean textured() {
+            return this.title != null;
         }
     }
 
@@ -89,36 +98,46 @@ final class MenuYaml {
     }
 
     /**
-     * Input, progress, output(s), energy, energy slot, upgrades; a chemical tank and its slot if any.
+     * Mekanism's processing window, 5 rows: input, progress arrow and output(s) across row 2, the energy
+     * bar on the right with its slot below, the upgrade and side tabs top right; a chemical tank on the
+     * left with its item slot below, if any.
      *
      * @param chemical the label of the chemical tank's item slot, or {@code null} for no tank
      */
-    static Menu processing(String machine, boolean secondOutput, String chemical) {
-        Map<String, String> buttons = new LinkedHashMap<>();
-        buttons.put("input", slot(10, "input", "Input"));
-        buttons.put("progress", display(12, "BLAZE_POWDER", "<yellow>Progress",
-                "<gray>%zmenu_machineengine_process_bar%", "<gray>%zmenu_machineengine_process_percent% %"));
-        buttons.put("output", slot(14, "output", "Output"));
-        if (secondOutput) buttons.put("output-2", slotOf(15, "output", 2, "Secondary output"));
-        buttons.put("energy", energyDisplay(16));
-        buttons.put("energy-slot", slot(34, "energy_slot", "Energy item (redstone: 10 kJ each)"));
-        buttons.put("upgrades", upgrades());
+    static MenuLayout processing(String machine, boolean secondOutput, String chemical) {
+        MenuLayout layout = new MenuLayout(machine, 5)
+                .slot("input", 2, 1, MenuLayout.Kind.INPUT, "input", "Input")
+                .progress(2, 2)
+                .slot("output", 2, 5, MenuLayout.Kind.OUTPUT, "output", "Output")
+                .energy(1, 8)
+                .energySlot(4, 8)
+                .upgrades();
+        if (secondOutput) layout.slot("output-2", 2, 6, MenuLayout.Kind.OUTPUT_2, "output", 2, "Secondary output");
         if (chemical != null) {
-            buttons.put("chemical-slot", slot(30, "chemical_slot", chemical));
-            buttons.put("chemical", display(32, "GLASS_BOTTLE", "<light_purple>%zmenu_machineengine_storage_chemical_name%",
-                    "<gray>%zmenu_machineengine_storage_chemical_amount% / %zmenu_machineengine_storage_chemical_capacity% mB",
-                    "<light_purple>%zmenu_machineengine_storage_chemical_bar%"));
+            layout.tank("chemical", 1, 0, MenuLayout.Tank.CHEMICAL, "chemical", "Chemical")
+                    .slot("chemical-slot", 4, 0, MenuLayout.Kind.EXTRA, "chemical_slot", chemical);
         }
-        return new Menu(machine, buttons);
+        return layout;
     }
 
-    /** Generators and energy cubes: the energy buffer, plus a fuel slot for burning generators. */
-    static Menu generator(String machine, boolean fuel) {
-        Map<String, String> buttons = new LinkedHashMap<>();
-        buttons.put("energy", energyDisplay(13));
-        if (fuel) buttons.put("fuel", slot(11, "fuel", "Fuel"));
-        buttons.put("state", display(15, "REDSTONE_TORCH", "<yellow>%zmenu_machineengine_state%"));
-        return new Menu(machine, buttons);
+    /**
+     * Generators, 5 rows: the energy bar on the right, the fuel slot (burning generators) and the state
+     * across row 2.
+     */
+    static MenuLayout generator(String machine, boolean fuel) {
+        MenuLayout layout = new MenuLayout(machine, 5)
+                .energy(1, 8)
+                .button("state", display(22, "REDSTONE_TORCH", "<yellow>%zmenu_machineengine_state%"));
+        if (fuel) layout.slot("fuel", 2, 2, MenuLayout.Kind.INPUT, "fuel", "Fuel");
+        return layout;
+    }
+
+    /** Energy cubes, 5 rows: a horizontal energy bar across the middle, the charging slot on its right. */
+    static MenuLayout energyCube(String machine) {
+        return new MenuLayout(machine, 5)
+                .energyHorizontal(2, 3)
+                .slot("charge", 2, 7, MenuLayout.Kind.POWER, "charge", "Charge an Energy Tablet")
+                .button("state", display(4, "REDSTONE_TORCH", "<yellow>%zmenu_machineengine_state%"));
     }
 
     /** Mekanism's redstone control: ignored, works while powered, works while not powered. */
@@ -163,16 +182,24 @@ final class MenuYaml {
                 .append("# Mekanized ").append(menu.machine()).append(" menu (zMenu). Edit freely; delete to get the default back.\n")
                 .append("# Buttons: machineengine_slot (a storage slot), machineengine_upgrades, machineengine_data (a setting);\n")
                 .append("# placeholders %zmenu_machineengine_<key>%.\n")
-                .append("size: ").append(menu.size()).append("\n")
-                .append("name: \"<lang:block.mekanized.").append(menu.machine()).append(">\"\n")
-                .append("update-interval: 500\n\nitems:\n")
-                .append("  background:\n    is-permanent: true\n    item:\n      material: GRAY_STAINED_GLASS_PANE\n      name: \" \"\n")
-                .append("    slots:\n      - 0-").append(menu.size() - 1).append("\n");
+                .append("size: ").append(menu.size()).append("\n");
+        if (menu.textured()) {
+            // The window is drawn by the title's images (Mekanized's gui.yml); fill bars redraw by themselves.
+            yaml.append("name: \"").append(menu.title()).append("\"\n").append("update-interval: 500\n\nitems:\n");
+        } else {
+            yaml.append("name: \"<lang:block.mekanized.").append(menu.machine()).append(">\"\n")
+                    .append("update-interval: 500\n\nitems:\n")
+                    .append("  background:\n    is-permanent: true\n    item:\n      material: GRAY_STAINED_GLASS_PANE\n      name: \" \"\n")
+                    .append("    slots:\n      - 0-").append(menu.size() - 1).append("\n");
+        }
         menu.buttons().forEach((name, button) -> yaml.append("  ").append(name).append(":\n").append(button));
         if (menu.sideSlot() < 0) return yaml.toString();
         yaml.append("  side-config:\n    type: machineengine_menu\n    menu: ").append(SIDE_MENU)
                 .append("\n    groups: [items, energy, chemical, fluid, heat]\n    slot: ").append(menu.sideSlot()).append("\n")
-                .append(item("COMPARATOR", "<gold>Side configuration", "<gray>Inputs, outputs and auto-eject per side"));
+                .append(menu.textured()
+                        ? MenuLayout.item("craftengine:mekanized:gui/icon/configuration", "<gold>Side configuration",
+                        "<gray>Inputs, outputs and auto-eject per side")
+                        : item("COMPARATOR", "<gold>Side configuration", "<gray>Inputs, outputs and auto-eject per side"));
         return yaml.toString();
     }
 }
