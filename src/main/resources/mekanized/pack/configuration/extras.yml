@@ -22,12 +22,20 @@ items:
     template: mekanized:item/block_item
   mekanized:upgrade_chemical:
     template: mekanized:item/generated
+    behaviors:
+    - type: machineengine:upgrade
   mekanized:upgrade_filter:
     template: mekanized:item/generated
+    behaviors:
+    - type: machineengine:upgrade
   mekanized:upgrade_anchor:
     template: mekanized:item/generated
+    behaviors:
+    - type: machineengine:upgrade
   mekanized:upgrade_stone_generator:
     template: mekanized:item/generated
+    behaviors:
+    - type: machineengine:upgrade
   mekanized:dosimeter:
     template: mekanized:item/generated
     behaviors:

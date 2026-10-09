@@ -5,7 +5,9 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import fr.robie.machineengine.api.MachineEngine;
 import fr.robie.machineengine.api.capability.Capabilities;
+import fr.robie.machineengine.api.machine.MachineAction;
 import fr.robie.machineengine.api.machine.MachineInstance;
+import fr.robie.machineengine.api.upgrade.UpgradeActions;
 import fr.robie.machineengine.api.resource.ResourceStack;
 import fr.robie.machineengine.api.transfer.ResourceHandler;
 import fr.robie.machineengine.api.transfer.StorageView;
@@ -47,6 +49,9 @@ import java.util.List;
  *   <li>{@code fill <size>}: a size×size grid of idle crushers, to measure the idle cost.</li>
  *   <li>{@code check-item-data}: items holding the old Bukkit persistent data read the same through
  *       CraftEngine item data, which then holds it (D32).</li>
+ *   <li>{@code check-upgrades}: an enrichment chamber takes 8 of 10 speed upgrades (items with the
+ *       {@code machineengine:upgrade} behavior) through its {@code upgrade} action, lists them, gives all 8
+ *       back on a shift-click, and refuses a filter upgrade with a reason (D40).</li>
  *   <li>{@code check-block-options}: a basic bin, basic energy cube, chargepad and basic universal cable in a
  *       row from the position (placed if missing, kept otherwise), and what their machines read from their
  *       block configs (D34): the bin's capacity, the cube's output rate, the chargepad's charge per tick. The
@@ -71,6 +76,7 @@ final class EngineCheckCommands {
                 new PositionSubCommand(this.plugin, "check-hopper", this::checkHopper),
                 new PositionSubCommand(this.plugin, "check-comparator", this::checkComparator),
                 new PositionSubCommand(this.plugin, "check-block-options", this::checkBlockOptions),
+                new PositionSubCommand(this.plugin, "check-upgrades", this::checkUpgrades),
                 SubCommand.builder(this.plugin, "check-item-data").permission(PositionSubCommand.ADMIN)
                         .executes(dispatch -> {
                             checkItemData();
@@ -180,6 +186,39 @@ final class EngineCheckCommands {
      * so a check can run again at the same place: CraftEngine does not place a block over the same
      * block, and leftover hoppers, chests or drops would skew the counts.
      */
+    private void checkUpgrades(CommandContext<CommandSourceStack> context, World world, int x, int y, int z) {
+        reset(world, x, y, z, 0, 0);
+        if (!MekanizedDebugCommands.place(world, x, y, z, "enrichment_chamber")) {
+            MekanizedCommands.reply(context, "check-upgrades: could not place an enrichment chamber");
+            return;
+        }
+        MachineInstance chamber = MachineEngine.get().machineAt(WorldPosition.of(world.getKey(), x, y, z)).orElse(null);
+        ItemStack speed = PaperItems.itemOf(MekanizedContent.key("upgrade_speed"));
+        ItemStack filter = PaperItems.itemOf(MekanizedContent.key("upgrade_filter"));
+        if (chamber == null || speed == null || filter == null) {
+            log("check-upgrades: the chamber or the upgrade items are missing");
+            return;
+        }
+        java.util.UUID nobody = new java.util.UUID(0, 0);
+        MachineAction.Outcome install = chamber.runAction(UpgradeActions.ACTION, new MachineAction.Click(nobody,
+                MachineAction.ClickKind.LEFT, 0, PaperItems.toResource(speed.asQuantity(10))));
+        List<java.util.Map<String, String>> rows = chamber.list(UpgradeActions.LIST);
+        int row = 0;
+        while (row < rows.size() && !rows.get(row).get("id").equals("mekanized:upgrade_speed")) row++;
+        String listed = row < rows.size() ? rows.get(row).get("count") + "/" + rows.get(row).get("max") + " item " + rows.get(row).get("item") : "missing";
+        MachineAction.Outcome take = chamber.runAction(UpgradeActions.ACTION, new MachineAction.Click(nobody,
+                MachineAction.ClickKind.SHIFT, row, null));
+        String given = take.give().stream().map(stack -> stack.amount() + " " + PaperItems.idOf(PaperItems.toItemStacks(stack).getFirst()).asString())
+                .reduce((a, b) -> a + ", " + b).orElse("nothing");
+        MachineAction.Outcome refused = chamber.runAction(UpgradeActions.ACTION, new MachineAction.Click(nobody,
+                MachineAction.ClickKind.LEFT, 0, PaperItems.toResource(filter)));
+        String reason = refused.message() == null ? "none"
+                : net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer.plainText().serialize(refused.message());
+        log("check-upgrades: installed " + install.used() + " (expected 8), listed " + listed
+                + " (expected 8/8 item mekanized:upgrade_speed), gave back " + given + " (expected 8 mekanized:upgrade_speed), "
+                + rows.size() + " rows (expected 3: speed, energy, anchor), filter refused " + !refused.done() + " (expected true): " + reason);
+    }
+
     private static void reset(World world, int x, int y, int z, int dx, int dz) {
         for (int i = 0; i <= dx; i++) {
             for (int j = 0; j <= dz; j++) {

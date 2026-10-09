@@ -22,8 +22,12 @@ items:
     template: mekanized:item/block_item
   mekanized:upgrade_speed:
     template: mekanized:item/generated
+    behaviors:
+    - type: machineengine:upgrade
   mekanized:upgrade_energy:
     template: mekanized:item/generated
+    behaviors:
+    - type: machineengine:upgrade
   mekanized:solar_panel:
     template: mekanized:item/generated
 blocks:
