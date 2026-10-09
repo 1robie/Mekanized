@@ -44,7 +44,8 @@ templates:
       required_break_power: 1
 
   # A cable, tube, pipe, transporter or conductor. Invisible itself (all of them share one visual
-  # state): display entities draw its parts, the items mekanized:cable_part/<id>/<part>.
+  # state): display entities draw its parts, the items mekanized:cable_part/<id>/<part>
+  # (center, arm, arm_pull, arm_push; template mekanized:item/cable_part).
   # Use: template: mekanized:block/transport, with behavior: { rate: ... } next to it.
   mekanized:block/transport:
     template: machineengine:block/transport
@@ -181,6 +182,19 @@ templates:
     behavior:
       type: block_item
       block: ${__NAMESPACE__}:${__ID__}
+
+  # A part of a transport, drawn by display entities: the model block/cable/shape/<shape>/<part>
+  # with the transport's texture. The arm points north; the display turns it to each side.
+  # Arguments: shape (thin, thick), part (center, arm, arm_pull, arm_push), texture (the center
+  # texture; the side texture is <texture>_vertical).
+  mekanized:item/cable_part:
+    model:
+      path: ${__NAMESPACE__}:block/${__ID__}
+      generation:
+        parent: mekanized:block/cable/shape/${shape}/${part}
+        textures:
+          center: ${texture}
+          side: ${texture}_vertical
 
   mekanized:item/name:
     data:

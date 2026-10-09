@@ -1,9 +1,0 @@
-{
-  "parent": "mekanized:block/transmitter/small/small",
-  "textures": {
-    "side": "mekanized:block/models/multipart/advanced_universal_cable_vertical",
-    "center_down": "mekanized:block/models/multipart/advanced_universal_cable",
-    "side_opaque": "mekanized:block/models/multipart/opaque/advanced_universal_cable_vertical",
-    "center_opaque": "mekanized:block/models/multipart/advanced_universal_cable"
-  }
-}

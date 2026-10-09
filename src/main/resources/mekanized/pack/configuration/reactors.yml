@@ -312,65 +312,56 @@ blocks:
       display_rotation: 180
       display_rotations: north=270/180,south=270/0,east=270/270,west=270/90,up=0/0,down=180/0
 # Thermodynamic conductors: one row per block. A row's rate is the block's (D34): what one block passes per tick.
-# Each row makes the block, its item and the 19 parts display entities draw it with
-# (mekanized:cable_part/<transport>/<part>); see docs/CE_TEMPLATES_PLAN.md.
+# Each row makes the block, its item and the 4 parts display entities draw it with
+# (mekanized:cable_part/<transport>/<part>, template mekanized:item/cable_part): shape is thin or
+# thick, texture defaults to mekanized:block/models/multipart/<transport>. See docs/CABLE_ARMS_PLAN.md.
 config_factory#heat_transports:
   instances:
   - transport: basic_thermodynamic_conductor
     rate: 10000
+    shape: thin
   - transport: advanced_thermodynamic_conductor
     rate: 40000
+    shape: thin
   - transport: elite_thermodynamic_conductor
     rate: 160000
+    shape: thin
   - transport: ultimate_thermodynamic_conductor
     rate: 640000
+    shape: thin
   blueprint:
     items:
       mekanized:${transport}:
         data:
           item_name: <!i><lang:block.mekanized.${transport}>
-        model: mekanized:block/cable/${transport}/center
+        model: mekanized:block/cable_part/${transport}/center
         behavior:
           type: block_item
           block: mekanized:${transport}
       mekanized:cable_part/${transport}/center:
-        model: mekanized:block/cable/${transport}/center
-      mekanized:cable_part/${transport}/north:
-        model: mekanized:block/cable/${transport}/north
-      mekanized:cable_part/${transport}/north_pull:
-        model: mekanized:block/cable/${transport}/north_pull
-      mekanized:cable_part/${transport}/north_push:
-        model: mekanized:block/cable/${transport}/north_push
-      mekanized:cable_part/${transport}/south:
-        model: mekanized:block/cable/${transport}/south
-      mekanized:cable_part/${transport}/south_pull:
-        model: mekanized:block/cable/${transport}/south_pull
-      mekanized:cable_part/${transport}/south_push:
-        model: mekanized:block/cable/${transport}/south_push
-      mekanized:cable_part/${transport}/east:
-        model: mekanized:block/cable/${transport}/east
-      mekanized:cable_part/${transport}/east_pull:
-        model: mekanized:block/cable/${transport}/east_pull
-      mekanized:cable_part/${transport}/east_push:
-        model: mekanized:block/cable/${transport}/east_push
-      mekanized:cable_part/${transport}/west:
-        model: mekanized:block/cable/${transport}/west
-      mekanized:cable_part/${transport}/west_pull:
-        model: mekanized:block/cable/${transport}/west_pull
-      mekanized:cable_part/${transport}/west_push:
-        model: mekanized:block/cable/${transport}/west_push
-      mekanized:cable_part/${transport}/up:
-        model: mekanized:block/cable/${transport}/up
-      mekanized:cable_part/${transport}/up_pull:
-        model: mekanized:block/cable/${transport}/up_pull
-      mekanized:cable_part/${transport}/up_push:
-        model: mekanized:block/cable/${transport}/up_push
-      mekanized:cable_part/${transport}/down:
-        model: mekanized:block/cable/${transport}/down
-      mekanized:cable_part/${transport}/down_pull:
-        model: mekanized:block/cable/${transport}/down_pull
-      mekanized:cable_part/${transport}/down_push:
-        model: mekanized:block/cable/${transport}/down_push
+        template: mekanized:item/cable_part
+        arguments:
+          shape: ${shape}
+          part: center
+          texture: ${texture:-"mekanized:block/models/multipart/${transport}"}
+      mekanized:cable_part/${transport}/arm:
+        template: mekanized:item/cable_part
+        arguments:
+          shape: ${shape}
+          part: arm
+          texture: ${texture:-"mekanized:block/models/multipart/${transport}"}
+      mekanized:cable_part/${transport}/arm_pull:
+        template: mekanized:item/cable_part
+        arguments:
+          shape: ${shape}
+          part: arm_pull
+          texture: ${texture:-"mekanized:block/models/multipart/${transport}"}
+      mekanized:cable_part/${transport}/arm_push:
+        template: mekanized:item/cable_part
+        arguments:
+          shape: ${shape}
+          part: arm_push
+          texture: ${texture:-"mekanized:block/models/multipart/${transport}"}
     blocks:
       mekanized:${transport}:
         template: mekanized:block/transport
