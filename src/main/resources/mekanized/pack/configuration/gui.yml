@@ -1,36 +1,57 @@
-# Mekanized menu textures (docs/MENU_TEXTURES_PLAN.md). STAGE 0 SPIKE: replaced in stage 2.
-# Images are font glyphs drawn in menu titles with <image:id>; a glyph's height on screen is fixed
-# by its ascent: top = 13 - ascent (the title line starts at y 6 of the window).
+# Mekanized menu textures (docs/MENU_TEXTURES_PLAN.md). Textures based on Mekanism (MIT).
+#
+# Menu titles draw the static parts with CraftEngine images and shifts:
+#   "<white><shift:-8><image:mekanized:gui/panel_5><shift:…><image:mekanized:gui/slot_input_r1>…</white><lang:…>"
+# The title starts at x 8 of the window (<shift:-8> brings it to 0), and an image moves the cursor by
+# its width + 1. Live parts (fills, icons, empty slots) are the items below, shown in slots.
 images:
+  # The window background, player inventory included: one per chest size (rows).
+  mekanized:gui/panel_3:
+    template: mekanized:gui/glyph
+    arguments: {file: panel/panel_3, height: 168, ascent: 13}
+  mekanized:gui/panel_4:
+    template: mekanized:gui/glyph
+    arguments: {file: panel/panel_4, height: 186, ascent: 13}
   mekanized:gui/panel_5:
-    height: 204
-    ascent: 13
-    font: mekanized:gui
-    file: mekanized:gui/panel/panel_5.png
-  # Chest slot r (0-based) has its 18 x 18 frame at y 17 + 18 r: ascent -4 - 18 r.
-  mekanized:gui/slot_input_r1:
-    height: 18
-    ascent: -22
-    font: mekanized:gui
-    file: mekanized:gui/slot/input.png
-  mekanized:gui/slot_output_r1:
-    height: 18
-    ascent: -22
-    font: mekanized:gui
-    file: mekanized:gui/slot/output.png
-  mekanized:gui/gauge_r1:
-    height: 18
-    ascent: -22
-    font: mekanized:gui
-    file: mekanized:gui/slot/normal.png
-  mekanized:gui/slot_r3:
-    height: 18
-    ascent: -58
-    font: mekanized:gui
-    file: mekanized:gui/slot/normal.png
+    template: mekanized:gui/glyph
+    arguments: {file: panel/panel_5, height: 204, ascent: 13}
+  mekanized:gui/panel_6:
+    template: mekanized:gui/glyph
+    arguments: {file: panel/panel_6, height: 222, ascent: 13}
+
+# Images placed on chest row r (0-based), named <kind>_r<r>; each is drawn at the slot frame's x
+# (7 + 18 × column). Chest row r has its slot frames at y 17 + 18 r, so ascent = -4 - 18 r.
+# The tall frames (gauge, vertical power bar) start on row r and cover rows r to r + 2.
+config_factory#menu_rows:
+  instances:
+  - {row: 0, ascent: -4}
+  - {row: 1, ascent: -22}
+  - {row: 2, ascent: -40}
+  - {row: 3, ascent: -58}
+  - {row: 4, ascent: -76}
+  - {row: 5, ascent: -94}
+  blueprint:
+    images:
+      mekanized:gui/slot_normal_r${row}: {template: mekanized:gui/glyph, arguments: {file: slot/normal, ascent: '${ascent}'}}
+      mekanized:gui/slot_input_r${row}: {template: mekanized:gui/glyph, arguments: {file: slot/input, ascent: '${ascent}'}}
+      mekanized:gui/slot_input_2_r${row}: {template: mekanized:gui/glyph, arguments: {file: slot/input_2, ascent: '${ascent}'}}
+      mekanized:gui/slot_output_r${row}: {template: mekanized:gui/glyph, arguments: {file: slot/output, ascent: '${ascent}'}}
+      mekanized:gui/slot_output_2_r${row}: {template: mekanized:gui/glyph, arguments: {file: slot/output_2, ascent: '${ascent}'}}
+      mekanized:gui/slot_extra_r${row}: {template: mekanized:gui/glyph, arguments: {file: slot/extra, ascent: '${ascent}'}}
+      mekanized:gui/slot_power_r${row}: {template: mekanized:gui/glyph, arguments: {file: slot/power, ascent: '${ascent}'}}
+      mekanized:gui/overlay_power_r${row}: {template: mekanized:gui/glyph, arguments: {file: slot/overlay_power, ascent: '${ascent}'}}
+      mekanized:gui/overlay_input_r${row}: {template: mekanized:gui/glyph, arguments: {file: slot/overlay_input, ascent: '${ascent}'}}
+      mekanized:gui/overlay_output_r${row}: {template: mekanized:gui/glyph, arguments: {file: slot/overlay_output, ascent: '${ascent}'}}
+      mekanized:gui/overlay_upgrade_r${row}: {template: mekanized:gui/glyph, arguments: {file: slot/overlay_upgrade, ascent: '${ascent}'}}
+      # Frames of the horizontal bars: 3 columns wide (54 px).
+      mekanized:gui/frame_power_horizontal_r${row}: {template: mekanized:gui/glyph, arguments: {file: frame/power_horizontal, ascent: '${ascent}'}}
+      mekanized:gui/frame_progress_r${row}: {template: mekanized:gui/glyph, arguments: {file: frame/progress, ascent: '${ascent}'}}
+      # Frames of the vertical bars: 3 rows tall (54 px).
+      mekanized:gui/frame_tall_gauge_r${row}: {template: mekanized:gui/glyph, arguments: {file: frame/tall_gauge, height: 54, ascent: '${ascent}'}}
+      mekanized:gui/frame_power_vertical_r${row}: {template: mekanized:gui/glyph, arguments: {file: frame/power_vertical, height: 54, ascent: '${ascent}'}}
 
 items:
-  # Shown in an empty machine slot so the slot texture under it shows; its name is the tooltip.
+  # Shown in an empty machine slot so the slot texture under it shows; the button's name is the tooltip.
   mekanized:gui/empty:
     model:
       path: mekanized:item/gui/empty
@@ -38,17 +59,154 @@ items:
         parent: minecraft:item/generated
         textures:
           layer0: mekanized:item/gui/empty
-  mekanized:gui/test_energy:
-    model:
-      path: mekanized:item/gui/test_energy
-      generation:
-        parent: minecraft:item/generated
-        textures:
-          layer0: mekanized:item/gui/test_energy
-  mekanized:gui/test_progress:
-    model:
-      path: mekanized:item/gui/test_progress
-      generation:
-        parent: minecraft:item/generated
-        textures:
-          layer0: mekanized:item/gui/test_progress
+
+  # Icons (Mekanism's buttons and tabs), 18 px over the slot frame.
+  mekanized:gui/icon/redstone_ignored:
+    template: mekanized:item/gui_icon
+    arguments: {texture: redstone_control_disabled}
+  mekanized:gui/icon/redstone_high:
+    template: mekanized:item/gui_icon
+    arguments: {texture: redstone_control_high}
+  mekanized:gui/icon/redstone_low:
+    template: mekanized:item/gui_icon
+    arguments: {texture: redstone_control_low}
+  mekanized:gui/icon/configuration:
+    template: mekanized:item/gui_icon
+    arguments: {texture: configuration}
+  mekanized:gui/icon/transporter_config:
+    template: mekanized:item/gui_icon
+    arguments: {texture: transporter_config}
+  mekanized:gui/icon/upgrade:
+    template: mekanized:item/gui_icon
+    arguments: {texture: upgrade}
+  mekanized:gui/icon/items:
+    template: mekanized:item/gui_icon
+    arguments: {texture: items}
+  mekanized:gui/icon/energy:
+    template: mekanized:item/gui_icon
+    arguments: {texture: energy}
+  mekanized:gui/icon/chemicals:
+    template: mekanized:item/gui_icon
+    arguments: {texture: chemicals}
+  mekanized:gui/icon/fluids:
+    template: mekanized:item/gui_icon
+    arguments: {texture: fluids}
+  mekanized:gui/icon/heat:
+    template: mekanized:item/gui_icon
+    arguments: {texture: heat}
+  # Small buttons, 14 px.
+  mekanized:gui/icon/auto_eject:
+    template: mekanized:item/gui_icon
+    arguments: {texture: button/auto_eject, size: 14}
+  mekanized:gui/icon/back:
+    template: mekanized:item/gui_icon
+    arguments: {texture: button/back, size: 14}
+  mekanized:gui/icon/clear_sides:
+    template: mekanized:item/gui_icon
+    arguments: {texture: button/clear_sides, size: 14}
+  # Side configuration: what a side does for a port group.
+  mekanized:gui/side/none:
+    template: mekanized:item/gui_icon
+    arguments: {texture: side/none, size: 14}
+  mekanized:gui/side/input:
+    template: mekanized:item/gui_icon
+    arguments: {texture: side/input, size: 14}
+  mekanized:gui/side/output:
+    template: mekanized:item/gui_icon
+    arguments: {texture: side/output, size: 14}
+  mekanized:gui/side/both:
+    template: mekanized:item/gui_icon
+    arguments: {texture: side/both, size: 14}
+
+# Fill bars: mekanized:gui/bar/<shape>/<cell>/<level>. A bar covers 3 slots; cell 0 is the bottom
+# (vertical) or left (horizontal) slot. Cells 0 and 2 have levels 1-17, cell 1 has 1-18; level 0 is
+# mekanized:gui/empty. Shapes: chemical and fluid (tall gauge, tinted), energy (vertical power bar),
+# energy_horizontal, heat (horizontal, tinted), progress (arrow). Tinted cells take the item's dyed color.
+config_factory#menu_bar_cells:
+  instances:
+  - {shape: chemical, cell: 0}
+  - {shape: chemical, cell: 1}
+  - {shape: chemical, cell: 2}
+  - {shape: fluid, cell: 0}
+  - {shape: fluid, cell: 1}
+  - {shape: fluid, cell: 2}
+  - {shape: energy, cell: 0}
+  - {shape: energy, cell: 1}
+  - {shape: energy, cell: 2}
+  - {shape: energy_horizontal, cell: 0}
+  - {shape: energy_horizontal, cell: 1}
+  - {shape: energy_horizontal, cell: 2}
+  - {shape: heat, cell: 0}
+  - {shape: heat, cell: 1}
+  - {shape: heat, cell: 2}
+  - {shape: progress, cell: 0}
+  - {shape: progress, cell: 1}
+  - {shape: progress, cell: 2}
+  blueprint:
+    items:
+      mekanized:gui/bar/${shape}/${cell}/1:
+        template: mekanized:item/gui_bar
+        arguments: {shape: '${shape}', cell: '${cell}', level: 1}
+      mekanized:gui/bar/${shape}/${cell}/2:
+        template: mekanized:item/gui_bar
+        arguments: {shape: '${shape}', cell: '${cell}', level: 2}
+      mekanized:gui/bar/${shape}/${cell}/3:
+        template: mekanized:item/gui_bar
+        arguments: {shape: '${shape}', cell: '${cell}', level: 3}
+      mekanized:gui/bar/${shape}/${cell}/4:
+        template: mekanized:item/gui_bar
+        arguments: {shape: '${shape}', cell: '${cell}', level: 4}
+      mekanized:gui/bar/${shape}/${cell}/5:
+        template: mekanized:item/gui_bar
+        arguments: {shape: '${shape}', cell: '${cell}', level: 5}
+      mekanized:gui/bar/${shape}/${cell}/6:
+        template: mekanized:item/gui_bar
+        arguments: {shape: '${shape}', cell: '${cell}', level: 6}
+      mekanized:gui/bar/${shape}/${cell}/7:
+        template: mekanized:item/gui_bar
+        arguments: {shape: '${shape}', cell: '${cell}', level: 7}
+      mekanized:gui/bar/${shape}/${cell}/8:
+        template: mekanized:item/gui_bar
+        arguments: {shape: '${shape}', cell: '${cell}', level: 8}
+      mekanized:gui/bar/${shape}/${cell}/9:
+        template: mekanized:item/gui_bar
+        arguments: {shape: '${shape}', cell: '${cell}', level: 9}
+      mekanized:gui/bar/${shape}/${cell}/10:
+        template: mekanized:item/gui_bar
+        arguments: {shape: '${shape}', cell: '${cell}', level: 10}
+      mekanized:gui/bar/${shape}/${cell}/11:
+        template: mekanized:item/gui_bar
+        arguments: {shape: '${shape}', cell: '${cell}', level: 11}
+      mekanized:gui/bar/${shape}/${cell}/12:
+        template: mekanized:item/gui_bar
+        arguments: {shape: '${shape}', cell: '${cell}', level: 12}
+      mekanized:gui/bar/${shape}/${cell}/13:
+        template: mekanized:item/gui_bar
+        arguments: {shape: '${shape}', cell: '${cell}', level: 13}
+      mekanized:gui/bar/${shape}/${cell}/14:
+        template: mekanized:item/gui_bar
+        arguments: {shape: '${shape}', cell: '${cell}', level: 14}
+      mekanized:gui/bar/${shape}/${cell}/15:
+        template: mekanized:item/gui_bar
+        arguments: {shape: '${shape}', cell: '${cell}', level: 15}
+      mekanized:gui/bar/${shape}/${cell}/16:
+        template: mekanized:item/gui_bar
+        arguments: {shape: '${shape}', cell: '${cell}', level: 16}
+      mekanized:gui/bar/${shape}/${cell}/17:
+        template: mekanized:item/gui_bar
+        arguments: {shape: '${shape}', cell: '${cell}', level: 17}
+
+# The middle cell's last level (18 px: it also covers both gaps).
+config_factory#menu_bar_middle:
+  instances:
+  - {shape: chemical}
+  - {shape: fluid}
+  - {shape: energy}
+  - {shape: energy_horizontal}
+  - {shape: heat}
+  - {shape: progress}
+  blueprint:
+    items:
+      mekanized:gui/bar/${shape}/1/18:
+        template: mekanized:item/gui_bar
+        arguments: {shape: '${shape}', cell: 1, level: 18}

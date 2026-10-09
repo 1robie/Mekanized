@@ -236,3 +236,33 @@ templates:
     textures:
       - ${texture:-"${__NAMESPACE__}:item/${__ID__}"}
       - ${texture2:-"${__NAMESPACE__}:item/${__ID__}_broken"}
+  # Menu textures (gui.yml, docs/MENU_TEXTURES_PLAN.md).
+
+  # An image drawn in menu titles. Arguments: file (under textures/gui/, no .png), ascent, height
+  # (default 18). Its top is at y 13 - ascent of the menu window.
+  mekanized:gui/glyph:
+    height: ${height:-18}
+    ascent: ${ascent}
+    font: mekanized:gui
+    file: mekanized:gui/${file}.png
+
+  # One cell of a fill bar at one level (models written by mekanized/tools/compose_menu_textures.py).
+  # Arguments: shape, cell, level. Leather horse armor carries the resource's color (dyed_color) to
+  # the tinted faces, on 1.20.6 as on later clients.
+  mekanized:item/gui_bar:
+    material: leather_horse_armor
+    model:
+      path: mekanized:gui/bar/${shape}/${cell}_${level}
+      tints:
+      - type: dye
+        default: -1
+
+  # A menu icon over a slot. Arguments: texture (under textures/gui/), size (18: covers the slot
+  # frame, 14: Mekanism's small buttons).
+  mekanized:item/gui_icon:
+    model:
+      path: ${__NAMESPACE__}:${__ID__}
+      generation:
+        parent: mekanized:gui/icon_${size:-18}
+        textures:
+          icon: mekanized:gui/${texture}

@@ -1,0 +1,1 @@
+{"gui_light":"front","textures":{"fill":"mekanized:gui/fill/progress","particle":"mekanized:gui/fill/progress"},"elements":[{"from":[0,4,7.995],"to":[9,12,8],"faces":{"south":{"uv":[0.0,0,2.7692,16],"texture":"#fill"},"north":{"uv":[0.0,0,2.7692,16],"texture":"#fill"}}}]}

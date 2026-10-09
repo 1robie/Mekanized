@@ -1,0 +1,1 @@
+{"gui_light":"front","textures":{"fill":"mekanized:gui/bar/vertical_power","particle":"mekanized:gui/bar/vertical_power"},"elements":[{"from":[6,-1,7.995],"to":[10,3,8],"faces":{"south":{"uv":[0,4.0,16,5.2308],"texture":"#fill"},"north":{"uv":[0,4.0,16,5.2308],"texture":"#fill"}}}]}
