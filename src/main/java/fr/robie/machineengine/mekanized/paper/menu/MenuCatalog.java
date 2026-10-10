@@ -60,6 +60,7 @@ public final class MenuCatalog {
         ReactorMenus.add(menus);
         AutomationMenus.add(menus);
         LoaderAndBufferMenus.add(menus);
+        StationMenu.add(menus);
         return menus;
     }
 }

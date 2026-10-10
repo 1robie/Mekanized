@@ -265,6 +265,17 @@ final class MenuLayout {
         return title.append("<shift:").append(8 - cursor).append("></white>").append(name).toString();
     }
 
+    /** {@code empty:} of a {@code machineengine_action} list row: what the row shows past the end of the list. */
+    static String empty(String material, String name, String... lore) {
+        StringBuilder text = new StringBuilder("    empty:\n      material: \"").append(material).append("\"\n      name: \"")
+                .append(name).append("\"\n");
+        if (lore.length > 0) {
+            text.append("      lore:\n");
+            for (String line : lore) text.append("        - \"").append(line).append("\"\n");
+        }
+        return text.toString();
+    }
+
     /** {@code item:} with a material (quoted: it may hold placeholders), a name and lore. */
     static String item(String material, String name, String... lore) {
         return "    item:\n      material: \"" + material + "\"\n" + text(name, lore);

@@ -55,6 +55,8 @@ import java.util.List;
  *   <li>{@code check-modules}: module levels and the on/off switch on real gear (D40): fortune units raise the
  *       Meka-Tool's own Fortune and give it back when they go, an energy unit doubles a MekaSuit piece's
  *       capacity per level and cannot be switched off, and taking it out loses the energy over the capacity.</li>
+ *   <li>{@code check-station}: a modification station with energy, a Meka-Tool and two fortune units installs
+ *       both levels over time (Fortune II), then its module list takes one level back out (D40).</li>
  *   <li>{@code check-block-options}: a basic bin, basic energy cube, chargepad and basic universal cable in a
  *       row from the position (placed if missing, kept otherwise), and what their machines read from their
  *       block configs (D34): the bin's capacity, the cube's output rate, the chargepad's charge per tick. The
@@ -80,6 +82,7 @@ final class EngineCheckCommands {
                 new PositionSubCommand(this.plugin, "check-comparator", this::checkComparator),
                 new PositionSubCommand(this.plugin, "check-block-options", this::checkBlockOptions),
                 new PositionSubCommand(this.plugin, "check-upgrades", this::checkUpgrades),
+                new PositionSubCommand(this.plugin, "check-station", this::checkStation),
                 SubCommand.builder(this.plugin, "check-modules").permission(PositionSubCommand.ADMIN)
                         .executes(dispatch -> {
                             checkModules();
@@ -225,6 +228,53 @@ final class EngineCheckCommands {
         log("check-upgrades: installed " + install.used() + " (expected 8), listed " + listed
                 + " (expected 8/8 item mekanized:upgrade_speed), gave back " + given + " (expected 8 mekanized:upgrade_speed), "
                 + rows.size() + " rows (expected 3: speed, energy, anchor), filter refused " + !refused.done() + " (expected true): " + reason);
+    }
+
+    private void checkStation(CommandContext<CommandSourceStack> context, World world, int x, int y, int z) {
+        reset(world, x, y, z, 0, 0);
+        if (!MekanizedDebugCommands.place(world, x, y, z, "modification_station")) {
+            MekanizedCommands.reply(context, "check-station: could not place a modification station");
+            return;
+        }
+        MachineInstance station = MachineEngine.get().machineAt(WorldPosition.of(world.getKey(), x, y, z)).orElse(null);
+        ItemStack tool = PaperItems.itemOf(MekanizedContent.key("meka_tool"));
+        ItemStack fortune = PaperItems.itemOf(MekanizedContent.key("module_fortune_unit"));
+        if (station == null || tool == null || fortune == null) {
+            log("check-station: the station or the items are missing");
+            return;
+        }
+        long[] in = new long[3];
+        try (Transaction transaction = station.context().transactions().openOuter()) {
+            in[0] = station.context().storage("gear").insert(PaperItems.toResource(tool).variant(), 1, transaction);
+            in[1] = station.context().storage("module").insert(PaperItems.toResource(fortune).variant(), 2, transaction);
+            in[2] = station.context().storage("energy").insert(MekanizedContent.ENERGY.variant(), 40_000, transaction);
+            transaction.commit();
+        }
+        station.wake(fr.robie.machineengine.api.machine.WakeReason.INPUT_CHANGED);
+        MekanizedCommands.reply(context, "check-station: installing; checking in 6 s");
+        PaperWorld.scheduler().runLater(new Location(world, x, y, z), () -> {
+            List<java.util.Map<String, String>> rows = station.list(fr.robie.machineengine.mekanized.machine.ModificationStation.LIST);
+            String listed = rows.isEmpty() ? "none" : rows.getFirst().get("name") + " " + rows.getFirst().get("level") + "/" + rows.getFirst().get("max");
+            int enchanted = enchantment(station);
+            MachineAction.Outcome take = station.runAction(fr.robie.machineengine.mekanized.machine.ModificationStation.ACTION,
+                    new MachineAction.Click(new java.util.UUID(0, 0), MachineAction.ClickKind.LEFT, 0, null));
+            log("check-station: put in " + java.util.Arrays.toString(in) + " (expected [1, 2, 40000]), listed " + listed
+                    + " (expected fortune_unit 2/3), Fortune " + enchanted + " (expected 2), status '"
+                    + station.context().get(fr.robie.machineengine.mekanized.machine.ModificationStation.STATUS)
+                    + "', took out " + take.give().stream().mapToLong(ResourceStack::amount).sum() + " (expected 1), then Fortune "
+                    + enchantment(station) + " (expected 1)");
+        }, 120);
+    }
+
+    /** The Fortune level of the gear in a station's gear slot. */
+    private static int enchantment(MachineInstance station) {
+        for (StorageView view : station.context().storage("gear").views()) {
+            if (view.isEmpty()) continue;
+            ItemStack gear = PaperItems.toItemStack(view.variant(), 1);
+            org.bukkit.enchantments.Enchantment fortune = org.bukkit.Registry.ENCHANTMENT.get(org.bukkit.NamespacedKey.minecraft("fortune"));
+            return gear == null || fortune == null ? -1 : gear.getEnchantmentLevel(fortune);
+        }
+        return -1;
     }
 
     private static void reset(World world, int x, int y, int z, int dx, int dz) {

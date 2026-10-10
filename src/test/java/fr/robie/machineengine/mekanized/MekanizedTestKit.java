@@ -296,6 +296,7 @@ public final class MekanizedTestKit {
             UtilityBehaviors.setCrafting(null);
             UtilityBehaviors.setItemFactory(null);
             ItemResources.setAccess(null);
+            fr.robie.machineengine.mekanized.machine.ModificationStation.setItems(null);
             Frequencies.onTeleportersChanged(null);
             ChunkLoaders.onChange(null);
             Frequencies.clear();

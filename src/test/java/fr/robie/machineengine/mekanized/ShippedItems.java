@@ -26,6 +26,15 @@ final class ShippedItems {
         return resource.equals(holder.get("resource")) ? ((Number) holder.get("capacity")).longValue() : 0;
     }
 
+    /** The ids of the items with a behavior of {@code type}. */
+    static java.util.Set<String> withBehavior(String type) {
+        java.util.Set<String> ids = new java.util.TreeSet<>();
+        BEHAVIORS.forEach((id, behaviors) -> {
+            if (behaviors.containsKey(type)) ids.add(id);
+        });
+        return ids;
+    }
+
     /** The option {@code key} of the behavior {@code type} on the Mekanized item {@code id}, or {@code null}. */
     static Object option(String id, String type, String key) {
         return BEHAVIORS.getOrDefault(id, Map.of()).getOrDefault(type, Map.of()).get(key);

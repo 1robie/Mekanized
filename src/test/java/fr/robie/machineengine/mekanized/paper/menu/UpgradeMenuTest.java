@@ -64,7 +64,18 @@ class UpgradeMenuTest {
             String row = menu.buttons().get("upgrade-" + i);
             assertTrue(row.contains("action: upgrade") && row.contains("list: upgrades") && row.contains("index: " + i), row);
             assertTrue(row.contains("%zmenu_machineengine_list_upgrades_" + i + "_item%"), "the row shows its upgrade's item");
+            assertTrue(row.contains("    empty:\n      material: \"craftengine:mekanized:gui/ghost_upgrade\""), "an empty row shows a ghost upgrade");
         }
         assertTrue(menu.buttons().get("input").contains("input: true"));
+    }
+
+    @Test
+    void stationRowsShowAGhostModuleWhenEmpty() {
+        MenuYaml.Menu menu = StationMenu.menu();
+        for (int i = 0; i < StationMenu.ROWS; i++) {
+            String row = menu.buttons().get("module-" + i);
+            assertTrue(row.contains("list: modules") && row.contains("index: " + i), row);
+            assertTrue(row.contains("craftengine:mekanized:gui/ghost_module"), "an empty row shows a ghost module");
+        }
     }
 }

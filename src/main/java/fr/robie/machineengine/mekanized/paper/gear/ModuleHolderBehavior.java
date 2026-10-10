@@ -1,7 +1,6 @@
 package fr.robie.machineengine.mekanized.paper.gear;
 
 import fr.robie.machineengine.api.item.ItemCapacityModifier;
-import fr.robie.machineengine.api.item.MachineTool;
 import fr.robie.machineengine.api.paper.PaperItemBehavior;
 import fr.robie.machineengine.api.resource.Energy;
 import fr.robie.machineengine.mekanized.machine.GearRules;
@@ -22,8 +21,8 @@ import java.util.Set;
 /**
  * The CraftEngine item behavior {@code mekanized:module_holder}: gear that takes modules (the MekaSuit,
  * the Meka-Tool). Installed modules with a {@code capacity-factor} (the energy unit) multiply the item's
- * energy capacity once per level (MachineEngine's {@code energy_item}, D32). Right-click a modification
- * station to take one level of the last module back out.
+ * energy capacity once per level (MachineEngine's {@code energy_item}, D32). Modules go in and come out at
+ * the modification station (its menu, D40); sneak-right-clicking a module installs it into worn gear.
  *
  * <pre>{@code
  * behaviors:
@@ -32,7 +31,7 @@ import java.util.Set;
  *   - type: mekanized:module_holder
  * }</pre>
  */
-public final class ModuleHolderBehavior extends PaperItemBehavior implements ItemCapacityModifier, MachineTool {
+public final class ModuleHolderBehavior extends PaperItemBehavior implements ItemCapacityModifier {
     public static final ItemBehaviorFactory<ModuleHolderBehavior> FACTORY = (pack, path, id, section) -> new ModuleHolderBehavior();
 
     @Override
@@ -45,14 +44,6 @@ public final class ModuleHolderBehavior extends PaperItemBehavior implements Ite
             if (module != null && module.capacityFactor() > 1) result = GearRules.scaled(result, module.capacityFactor(), installed.level());
         }
         return result;
-    }
-
-    /** At a modification station: one level of the last module comes back out as an item. */
-    @Override
-    protected boolean use(@NotNull Use use) {
-        if (use.block() == null || GearItems.installed(use.item()).isEmpty() || !GearModules.isStation(use.block())) return false;
-        GearModules.uninstall(use.player(), use.item());
-        return true;
     }
 
     /**

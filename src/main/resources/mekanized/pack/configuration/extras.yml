@@ -86,4 +86,8 @@ blocks:
       display_state: mekanized_display_p_block_models_modification_station
       display_model: mekanized:block/display_empty/shared/p_block_models_modification_station
     behavior:
+      options:
+        ticks: 40
+        energy-per-tick: 400
+        confirm-seconds: 5
       display_rotations: north=0/0,south=0/180,east=0/90,west=0/270

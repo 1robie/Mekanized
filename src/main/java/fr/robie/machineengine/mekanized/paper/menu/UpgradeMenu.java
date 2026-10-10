@@ -8,12 +8,12 @@ import static fr.robie.machineengine.mekanized.paper.menu.MenuLayout.at;
 /**
  * The upgrades menu, Mekanism's upgrade screen (D40): one menu for every machine, opened from the upgrade
  * tab. Its rows are the machine's {@code upgrades} list (what it accepts, then anything installed it no
- * longer accepts), so each machine shows its own; rows past the end are hidden.
+ * longer accepts), so each machine shows its own; rows past the end show an empty upgrade.
  */
 final class UpgradeMenu {
     /** The menu file name ({@code mekanized_upgrades.yml}), which the upgrade tabs open. */
     static final String NAME = "mekanized_upgrades";
-    /** Row positions: every registered upgrade could show (a machine shows 3 or 4). */
+    /** Row positions: every registered upgrade could show (a machine shows 3 or 4, the rest show an empty upgrade). */
     static final int ROWS = MekanizedRegistry.UPGRADES.size();
     private static final int ROW = 2;
     private static final int FIRST_COLUMN = 1;
@@ -42,7 +42,9 @@ final class UpgradeMenu {
                             + MenuLayout.item("craftengine:" + row + "item%",
                             "<white><lang:item." + row + "namespace%." + row + "value%> <gray>" + row + "count%/" + row + "max%",
                             "<dark_gray>Click: take one out", "<dark_gray>Shift-click: take them all out",
-                            "<dark_gray>Click with upgrades: install them"));
+                            "<dark_gray>Click with upgrades: install them")
+                            + MenuLayout.empty("craftengine:mekanized:gui/ghost_upgrade", "<gray>No upgrade",
+                            "<dark_gray>This machine takes no more kinds"));
         }
         layout.frame(Kind.INPUT, 4, 4)
                 // No list row 99: an empty-handed click takes nothing out.

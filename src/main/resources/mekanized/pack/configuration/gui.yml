@@ -62,6 +62,22 @@ items:
         textures:
           layer0: mekanized:item/gui/empty
 
+  # Faded gray module and upgrade, shown in empty rows of the station and upgrades menus (D40).
+  mekanized:gui/ghost_module:
+    model:
+      path: mekanized:item/gui/ghost_module
+      generation:
+        parent: minecraft:item/generated
+        textures:
+          layer0: mekanized:item/gui/ghost_module
+  mekanized:gui/ghost_upgrade:
+    model:
+      path: mekanized:item/gui/ghost_upgrade
+      generation:
+        parent: minecraft:item/generated
+        textures:
+          layer0: mekanized:item/gui/ghost_upgrade
+
   # Icons (Mekanism's buttons and tabs), 18 px over the slot frame.
   mekanized:gui/icon/redstone_ignored:
     template: mekanized:item/gui_icon

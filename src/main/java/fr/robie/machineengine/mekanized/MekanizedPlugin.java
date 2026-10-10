@@ -114,6 +114,8 @@ public final class MekanizedPlugin extends JavaPlugin {
         PaperUtility.install(this);
         PaperAutomation.install(this);
         SuitTicker.install(this);
+        // The modification station reads gear and module items through CraftEngine (D40).
+        fr.robie.machineengine.mekanized.machine.ModificationStation.setItems(fr.robie.machineengine.mekanized.paper.gear.PaperStationItems.INSTANCE);
         GearTools.install(this);
         PaperChunkLoaders.install(this);
         PaperEntangloporters.install(this);

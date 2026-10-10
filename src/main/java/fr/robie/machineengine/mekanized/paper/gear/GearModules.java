@@ -1,9 +1,6 @@
 package fr.robie.machineengine.mekanized.paper.gear;
 
-import fr.robie.machineengine.api.machine.MachineInstance;
-import fr.robie.machineengine.mekanized.MekanizedContent;
 import fr.robie.machineengine.mekanized.machine.GearRules;
-import fr.robie.machineengine.mekanized.paper.PaperWorld;
 import fr.robie.machineengine.api.platform.Nms;
 import fr.robie.machineengine.api.paper.PaperItems;
 import java.util.LinkedHashMap;
@@ -15,7 +12,6 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.GameMode;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
-import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -152,21 +148,5 @@ public final class GearModules {
     private static @Nullable Enchantment enchantment(String key) {
         NamespacedKey parsed = NamespacedKey.fromString(key);
         return parsed == null ? null : Registry.ENCHANTMENT.get(parsed);
-    }
-
-    static boolean isStation(Block block) {
-        MachineInstance machine = PaperWorld.machine(block);
-        return machine != null && machine.inspect().type().equals(MekanizedContent.key("modification_station"));
-    }
-
-    /** At a modification station: one level of the gear's last module comes back out as an item. */
-    static void uninstall(Player player, ItemStack gear) {
-        List<GearRules.Installed> modules = installed(gear);
-        if (modules.isEmpty()) return;
-        String module = modules.getLast().name();
-        if (remove(gear, module, 1) == 0) return;
-        ItemStack item = PaperItems.itemOf(MekanizedContent.key("module_" + module));
-        if (item != null) PaperWorld.give(player, item);
-        player.sendActionBar(Component.text("Removed: " + module.replace('_', ' '), NamedTextColor.YELLOW));
     }
 }

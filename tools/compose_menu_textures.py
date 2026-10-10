@@ -10,7 +10,8 @@ Writes, under the Mekanized resource pack:
 - textures/gui/fill/*.png: bar fills that are not a Mekanism texture as they are;
 - textures/gui/side/<mode>.png: the side configuration buttons;
 - models/gui/bar/<shape>/<cell>_<level>.json: one model per bar cell and fill level (and the factory lane arrows);
-- models/gui/icon_{18,14}.json: the parents of the menu icons.
+- models/gui/icon_{18,14}.json: the parents of the menu icons;
+- textures/item/gui/ghost_{module,upgrade}.png: a faded gray module and upgrade, shown in empty list rows (D40).
 
 A bar spans 3 slots along its axis (54 px with the frame, 52 px of fill). Cell k (0 at the start: the
 bottom of a vertical bar, the left of a horizontal one) covers fill pixels [18k, min(52, 18k + 18)): its
@@ -246,6 +247,21 @@ def icon_parents():
         (ASSETS / f"models/gui/icon_{size}.json").write_text(json.dumps(model, separators=(",", ":")) + "\n", encoding="utf-8")
 
 
+def ghosts():
+    """A faded gray copy of a module and of an upgrade: what an empty row of the station or upgrades menu shows."""
+    for name, source in (("ghost_module", "module_base"), ("ghost_upgrade", "upgrade_speed")):
+        item = Image.open(ASSETS / "textures/item" / (source + ".png")).convert("RGBA")
+        ghost = Image.new("RGBA", item.size)
+        for x in range(item.width):
+            for y in range(item.height):
+                r, g, b, a = item.getpixel((x, y))
+                gray = int((0.3 * r + 0.59 * g + 0.11 * b) * 0.55 + 40)
+                ghost.putpixel((x, y), (gray, gray, gray, int(a * 0.45)))
+        path = ASSETS / "textures/item/gui" / (name + ".png")
+        path.parent.mkdir(parents=True, exist_ok=True)
+        ghost.save(path)
+
+
 def main():
     panels()
     icon_parents()
@@ -254,6 +270,7 @@ def main():
     side_buttons()
     bar_models()
     lane_models()
+    ghosts()
     print("written under", ASSETS)
 
 

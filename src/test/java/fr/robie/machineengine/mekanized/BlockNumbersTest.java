@@ -9,6 +9,7 @@ import fr.robie.machineengine.api.network.TransportType;
 import fr.robie.machineengine.api.registry.Registries;
 import fr.robie.machineengine.core.lifecycle.CoreMachineEngine;
 import fr.robie.machineengine.core.machine.MachineInstanceImpl;
+import fr.robie.machineengine.mekanized.machine.ModificationStation;
 import fr.robie.machineengine.mekanized.machine.AutomationMachines;
 import fr.robie.machineengine.mekanized.machine.ChemistryBehaviors;
 import fr.robie.machineengine.mekanized.machine.ChunkLoaders;
@@ -125,6 +126,7 @@ class BlockNumbersTest {
         expected.put("logistical_sorter", Map.of("every-ticks", 10, "stack-size", 64));
         expected.put("fluidic_plenisher", Map.of("energy", 2_000, "ticks", 20, "range", 32));
         expected.put("formulaic_assemblicator", Map.of("energy", 4_000, "ticks", 40));
+        expected.put("modification_station", defaults(List.of(ModificationStation.TICKS, ModificationStation.ENERGY_PER_TICK, ModificationStation.CONFIRM_SECONDS)));
         // Multiblocks: on the casing that anchors each structure, the providers' on the induction port.
         expected.put("dynamic_tank", Map.of("fluid-per-block", MultiblockMachines.TANK_FLUID_PER_BLOCK.defaultValue(),
                 "chemical-per-block", MultiblockMachines.TANK_CHEMICAL_PER_BLOCK.defaultValue()));
