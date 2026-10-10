@@ -98,7 +98,13 @@ The lowest corner block keeps the structure's contents. Breaking another block u
 until it is rebuilt; breaking the corner block keeps the contents in its item.
 
 ### Upgrades
-Click a machine's upgrade button with the upgrade in hand to install it.
+- **Installing:** right-click the machine with an upgrade (sneak: as many as fit), or click the upgrade tab
+  (top right of the machine's menu) with upgrades on the cursor (right-click: one).
+- **The upgrades menu:** click the upgrade tab with an empty hand. It shows the upgrades the machine takes,
+  each with `installed/max`: click one to take one out, shift-click to take them all out, click with upgrades
+  to install them. Put upgrades in the slot below, or shift-click them from your inventory.
+- A machine has 2 upgrade slots: two kinds at once, each up to its max (8 speed, 8 energy, 8 chemical, 1 of the others).
+  A refused upgrade says why on the action bar.
 
 | Upgrade | Effect | Fits |
 |---|---|---|
@@ -145,9 +151,29 @@ Click a machine's upgrade button with the upgrade in hand to install it.
 | Canteen | Fill it at a Nutritional Liquifier (food into paste); right-click to eat |
 
 ### Gear and modules
-- **Installing:** sneak-right-click with a module while wearing the piece it fits. For the Meka-Tool,
-  hold the tool in your off hand.
-- **Removing:** right-click a Modification Station holding the gear; its last module comes back out.
+- **The Modification Station:** put a MekaSuit piece or the Meka-Tool in its gear slot (bottom left) and a
+  module in the slot above it. With energy it installs one level every 2 seconds (400 J a tick); the line
+  under the slots says why it waits (no gear, does not fit, at its max level, needs energy...). The middle
+  shows the gear's modules: click to take a level out, shift-click to take them all out, right-click to
+  switch one on or off. Taking out an energy unit that would lose stored energy asks first: click again
+  within 5 seconds.
+- **Shortcut:** sneak-right-click with a module while wearing the piece it fits (the Meka-Tool: in your off
+  hand) to install one level.
+- **Levels:** some modules take several, as in Mekanism; the item's tooltip shows `level/max`, and a module
+  switched off shows gray and does nothing.
+
+  | Module | Max | Each level |
+  |---|---|---|
+  | Energy unit | 8 | doubles the piece's energy capacity (cannot be switched off) |
+  | Solar recharging, geothermal generator | 8 | more energy made |
+  | Fortune unit | 3 | Fortune I more |
+  | Magnetic attraction | 4 | 4 blocks more range |
+  | Locomotive boosting, hydraulic propulsion | 4 | stronger speed or jump, more energy |
+  | Vein mining, excavation escalation, attack amplification | 4 | a quarter of the way to the full boost |
+  | Every other module | 1 | |
+
+- **Enchantments** from modules (fortune, silk touch) are taken back when the module goes or is switched off;
+  an enchantment the item had before comes back.
 - **Not supported:** the color modulation and laser dissipation units (lasers do not hurt in Mekanized).
 
 ## Configuring
@@ -183,7 +209,8 @@ Click a machine's upgrade button with the upgrade in hand to install it.
   - `options:` on the nutritional liquifier (`ticks`, `energy-per-tick`), electric pump (`energy`, `ticks`,
     `range`, `heavy-water-per-block`), fuelwood heater (`heat-per-tick`), seismic vibrator (`energy-per-tick`),
     lasers (`energy-per-tick`, `range`, `energy-per-hardness`), digital miner (`energy-per-block`,
-    `ticks-per-block`) and dimensional stabilizer (`energy-per-chunk`);
+    `ticks-per-block`), dimensional stabilizer (`energy-per-chunk`) and modification station (`ticks` per
+    module level, `energy-per-tick`, `confirm-seconds` for the second click before losing stored energy);
   - the radioactive waste barrel: `storages: { waste: { capacity: ... } }` and `options: { decay-per-second: ... }`;
   - energy cubes, chemical tanks and fluid tanks: `storages:` (their capacity) and `ports: { out: { rate: ... } }`
     (what they give out per tick, and how fast they charge an item), in the rows of `config_factory#energy_cubes`
@@ -237,7 +264,8 @@ Click a machine's upgrade button with the upgrade in hand to install it.
   | `mekanized:fall_absorber` | free runners, MekaSuit boots | `energy-per-damage` |
   | `mekanized:radiation_shielding` | hazmat suit, MekaSuit | `protection` (0.25 a piece), `requires-module` |
   | `machineengine:wrench` | configurator | `click`, `sneak-click`: `rotate`, `dismantle` or `none` |
-  | `mekanized:module` | `module_*` items | `module`, `energy` (per second, per use or made), `range`, `capacity-factor`, `enchantment`, `enchantment-level`, `glider`, `fits` (the items it goes into) |
+  | `mekanized:module` | `module_*` items | `module`, `max-level`, `energy` (per second, per use or made) and `energy-per-level`, `effect-amplifier` (per level) and `effect-duration` (potion modules), `range` (per level) and `pull-speed` (magnet), `step-height` (servos), `removes-effects` (inhalation purification), `capacity-factor` (per level), `enchantment`, `enchantment-level` (per level), `glider`, `fits` (the items it goes into) |
+  | `machineengine:upgrade` | `upgrade_*` items | `upgrade` (the upgrade type; the item's own id by default) |
 
 ## Textured menus
 
@@ -268,6 +296,7 @@ The menus look like Mekanism's windows. Each menu file draws its window in two p
 | Item | What |
 |---|---|
 | `mekanized:gui/empty` | nothing: an empty machine slot shows its frame, the button's name is the tooltip |
+| `mekanized:gui/ghost_module`, `gui/ghost_upgrade` | a faded gray module or upgrade: an empty row of the station or upgrades menu (`empty:` of a `machineengine_action` button) |
 | `mekanized:gui/bar/<shape>/<cell>/<level>` | one slot of a fill bar: shapes `chemical`, `fluid`, `energy`, `energy_horizontal`, `heat`, `progress`, `lane` |
 | `mekanized:gui/icon/<name>` | Mekanism's tab and button icons: `upgrade`, `configuration`, `redstone_ignored`, `redstone_high`, `redstone_low`, `items`, `energy`, `chemicals`, `fluids`, `heat`, `auto_eject`, `back`, `clear_sides`, `transporter_config` |
 | `mekanized:gui/side/<mode>` | a side configuration square: `none`, `input`, `output`, `both` |
