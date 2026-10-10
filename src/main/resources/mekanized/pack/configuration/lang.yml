@@ -3597,6 +3597,8 @@ lang:
     item.mekanized.yellow_cake_uranium: ɯnᴉuɐɹ∩ ǝʞɐƆ ʍoꞁꞁǝ⅄
   en_us:
     mekanized.lore.module: "<aqua>+ %s"
+    mekanized.lore.module_level: "<aqua>+ %s %s/%s"
+    mekanized.lore.module_off: "<dark_gray>+ %s (off)"
     mekanized.lore.card: "<gray>Holds: %s"
     mekanized.lore.dropper: "<gray>%s: %s / %s mB"
     mekanized.lore.formula: "<aqua>Encoded"

@@ -31,8 +31,10 @@ public final class ItemData {
 
     /** The fields Mekanized keeps on items. */
     public enum Field {
-        /** Gear: the installed modules, a list of names. */
+        /** Gear: the installed modules, entries {@code name[:level[:off]]} ({@code GearRules.Installed}). */
         MODULES("modules"),
+        /** Gear: enchantments its modules applied, entries {@code enchantment|applied|own} ({@code GearRules.Enchanted}). */
+        MODULE_ENCHANTMENTS("module_enchantments"),
         /** Configuration card: the copied configuration. */
         CONFIGURATION("configuration"),
         /** Gauge dropper: the resource type key and the amount it holds. */

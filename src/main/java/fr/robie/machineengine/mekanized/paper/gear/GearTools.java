@@ -39,6 +39,7 @@ import fr.robie.machineengine.api.paper.PaperItemBehavior;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.chemical;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.energy;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.id;
+import fr.robie.machineengine.mekanized.machine.GearRules;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.modules;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.useChemical;
 import static fr.robie.machineengine.mekanized.paper.gear.GearItems.useEnergy;
@@ -78,7 +79,9 @@ public final class GearTools implements Listener {
         if (!useEnergy(tool, mining.energyPerBlock())) return;
         boolean vein = player.isSneaking();
         Set<String> modules = modules(tool);
-        int limit = modules.contains("vein_mining_unit") ? mining.veinLimitWithUnit() : mining.veinLimit();
+        // Each vein mining level takes the limit a step towards vein-limit-with-unit (Mekanism: 4 levels).
+        int limit = (int) GearRules.byLevel(mining.veinLimit(), mining.veinLimitWithUnit(), GearItems.level(tool, "vein_mining_unit"),
+                GearBehaviors.moduleMaxLevel("vein_mining_unit"));
         Block start = event.getBlock();
         if (!vein && modules.contains("blasting_unit")) {
             blast(player, tool, start, mining.energyPerBlock());
@@ -160,8 +163,9 @@ public final class GearTools implements Listener {
         ItemStack tool = player.getInventory().getItemInMainHand();
         GearBehaviors.MiningTool mining = GearBehaviors.options(tool, GearBehaviors.MiningTool.class);
         if (mining == null || !useEnergy(tool, mining.hitEnergy())) return;
-        event.setDamage(Math.max(event.getDamage(), modules(tool).contains("attack_amplification_unit")
-                ? mining.amplifiedDamage() : mining.damage()));
+        // Each attack amplification level takes the damage a step towards amplified-damage.
+        event.setDamage(Math.max(event.getDamage(), GearRules.byLevel(mining.damage(), mining.amplifiedDamage(),
+                GearItems.level(tool, "attack_amplification_unit"), GearBehaviors.moduleMaxLevel("attack_amplification_unit"))));
     }
 
     /**

@@ -481,6 +481,7 @@ items:
     behaviors:
     - type: mekanized:module
       module: vision_enhancement_unit
+      effect-duration: 400
       energy: 200
       fits:
       - mekanized:mekasuit_helmet
@@ -503,6 +504,16 @@ items:
     behaviors:
     - type: mekanized:module
       module: inhalation_purification_unit
+      removes-effects:
+      - minecraft:poison
+      - minecraft:wither
+      - minecraft:hunger
+      - minecraft:nausea
+      - minecraft:blindness
+      - minecraft:slowness
+      - minecraft:mining_fatigue
+      - minecraft:weakness
+      - minecraft:darkness
       energy: 2000
       fits:
       - mekanized:mekasuit_helmet
@@ -546,6 +557,9 @@ items:
     behaviors:
     - type: mekanized:module
       module: locomotive_boosting_unit
+      energy-per-level: true
+      effect-amplifier: 1
+      max-level: 4
       energy: 2000
       fits:
       - mekanized:mekasuit_pants
@@ -557,6 +571,9 @@ items:
     behaviors:
     - type: mekanized:module
       module: hydraulic_propulsion_unit
+      energy-per-level: true
+      effect-amplifier: 1
+      max-level: 4
       energy: 200
       fits:
       - mekanized:mekasuit_boots
@@ -568,6 +585,7 @@ items:
     behaviors:
     - type: mekanized:module
       module: excavation_escalation_unit
+      max-level: 4
       fits:
       - mekanized:meka_tool
     settings:
@@ -578,6 +596,7 @@ items:
     behaviors:
     - type: mekanized:module
       module: attack_amplification_unit
+      max-level: 4
       fits:
       - mekanized:meka_tool
     settings:
@@ -600,8 +619,9 @@ items:
     behaviors:
     - type: mekanized:module
       module: fortune_unit
+      max-level: 3
       enchantment: minecraft:fortune
-      enchantment-level: 3
+      enchantment-level: 1
       fits:
       - mekanized:meka_tool
     settings:
@@ -612,6 +632,7 @@ items:
     behaviors:
     - type: mekanized:module
       module: vein_mining_unit
+      max-level: 4
       fits:
       - mekanized:meka_tool
     settings:
@@ -665,7 +686,8 @@ items:
     behaviors:
     - type: mekanized:module
       module: energy_unit
-      capacity-factor: 4
+      max-level: 8
+      capacity-factor: 2
       fits:
       - mekanized:mekasuit_helmet
       - mekanized:mekasuit_bodyarmor
@@ -690,6 +712,7 @@ items:
     behaviors:
     - type: mekanized:module
       module: gyroscopic_stabilization_unit
+      effect-amplifier: 2
       energy: 200
       fits:
       - mekanized:mekasuit_bodyarmor
@@ -701,6 +724,8 @@ items:
     behaviors:
     - type: mekanized:module
       module: solar_recharging_unit
+      energy-per-level: true
+      max-level: 8
       energy: 2000
       fits:
       - mekanized:mekasuit_helmet
@@ -712,6 +737,8 @@ items:
     behaviors:
     - type: mekanized:module
       module: geothermal_generator_unit
+      energy-per-level: true
+      max-level: 8
       energy: 10000
       fits:
       - mekanized:mekasuit_pants
@@ -723,6 +750,7 @@ items:
     behaviors:
     - type: mekanized:module
       module: motorized_servo_unit
+      step-height: 1.1
       energy: 100
       fits:
       - mekanized:mekasuit_pants
@@ -734,6 +762,7 @@ items:
     behaviors:
     - type: mekanized:module
       module: hydrostatic_repulsor_unit
+      effect-amplifier: 0
       energy: 500
       fits:
       - mekanized:mekasuit_pants
@@ -745,8 +774,10 @@ items:
     behaviors:
     - type: mekanized:module
       module: magnetic_attraction_unit
+      pull-speed: 0.6
+      max-level: 4
       energy: 20
-      range: 8
+      range: 4
       fits:
       - mekanized:mekasuit_boots
     settings:

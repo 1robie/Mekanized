@@ -14,7 +14,7 @@ import org.bukkit.Tag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.components.ToolComponent;
 import org.jetbrains.annotations.Nullable;
-import java.util.LinkedHashSet;
+import fr.robie.machineengine.mekanized.machine.GearRules;
 import fr.robie.machineengine.mekanized.paper.ItemData;
 
 /**
@@ -70,8 +70,23 @@ public final class GearItems {
         return true;
     }
 
+    /** The names of the modules installed and switched on: what the gear does now. */
     public static Set<String> modules(@Nullable ItemStack stack) {
-        return new LinkedHashSet<>(ItemData.getStrings(stack, ItemData.Field.MODULES));
+        return GearRules.enabled(installed(stack));
+    }
+
+    /** Every installed module, on or off, with its level, in install order. */
+    public static List<GearRules.Installed> installed(@Nullable ItemStack stack) {
+        return GearRules.parse(ItemData.getStrings(stack, ItemData.Field.MODULES));
+    }
+
+    /** The level of {@code module} if it is installed and on, else 0. */
+    public static int level(@Nullable ItemStack stack, String module) {
+        return GearRules.level(installed(stack), module);
+    }
+
+    static void setInstalled(ItemStack stack, List<GearRules.Installed> modules) {
+        ItemData.setStrings(stack, ItemData.Field.MODULES, GearRules.format(modules));
     }
 
     /** The item's energy capacity, with its modules (an energy unit raises it). */
@@ -95,13 +110,15 @@ public final class GearItems {
         boolean oldLore = stack.hasItemMeta() && stack.getItemMeta().hasLore();
         if (mining == null && !oldLore) return;
         long energy = mining == null ? 0 : energy(stack);
-        Set<String> modules = mining == null ? Set.of() : modules(stack);
+        int excavation = mining == null ? 0 : level(stack, "excavation_escalation_unit");
         stack.editMeta(meta -> {
             if (oldLore) meta.lore(null);
             if (mining == null) return;
             // Mining tools: fast on what pickaxes, axes, shovels and hoes mine while charged.
             boolean charged = energy >= mining.energyPerBlock();
-            float speed = !charged ? 1f : modules.contains("excavation_escalation_unit") ? mining.amplifiedSpeed() : mining.chargedSpeed();
+            // Each excavation escalation level takes the speed a step from charged to amplified (Mekanism: 4 levels).
+            float speed = !charged ? 1f : (float) GearRules.byLevel(mining.chargedSpeed(), mining.amplifiedSpeed(), excavation,
+                    GearBehaviors.moduleMaxLevel("excavation_escalation_unit"));
             ToolComponent component = meta.getTool();
             component.setRules(new ArrayList<>());
             component.setDefaultMiningSpeed(charged ? 4f : 1f);

@@ -338,11 +338,22 @@ class SettingsTest {
                 Map.entry("charge_distribution_unit", 20_000));
         moduleEnergy.forEach((module, joules) ->
                 assertEquals(joules, ShippedItems.option("module_" + module, "mekanized:module", "energy"), module));
-        assertEquals(8, ShippedItems.option("module_magnetic_attraction_unit", "mekanized:module", "range"));
-        assertEquals(4, ShippedItems.option("module_energy_unit", "mekanized:module", "capacity-factor"), "energy unit: x4");
+        // Per level since D40 (Mekanism): 4 blocks a level (up to 4), x2 a level (up to 8), Fortune I a level (up to 3).
+        assertEquals(4, ShippedItems.option("module_magnetic_attraction_unit", "mekanized:module", "range"));
+        assertEquals(2, ShippedItems.option("module_energy_unit", "mekanized:module", "capacity-factor"), "energy unit: x2 a level");
         assertEquals(true, ShippedItems.option("module_elytra_unit", "mekanized:module", "glider"));
         assertEquals("minecraft:fortune", ShippedItems.option("module_fortune_unit", "mekanized:module", "enchantment"));
-        assertEquals(3, ShippedItems.option("module_fortune_unit", "mekanized:module", "enchantment-level"));
+        assertEquals(1, ShippedItems.option("module_fortune_unit", "mekanized:module", "enchantment-level"));
+        // Effects that were Java numbers, now in the item config (D40): the same values.
+        assertEquals(400, ShippedItems.option("module_vision_enhancement_unit", "mekanized:module", "effect-duration"));
+        assertEquals(1, ShippedItems.option("module_locomotive_boosting_unit", "mekanized:module", "effect-amplifier"));
+        assertEquals(true, ShippedItems.option("module_locomotive_boosting_unit", "mekanized:module", "energy-per-level"));
+        assertEquals(1, ShippedItems.option("module_hydraulic_propulsion_unit", "mekanized:module", "effect-amplifier"));
+        assertEquals(2, ShippedItems.option("module_gyroscopic_stabilization_unit", "mekanized:module", "effect-amplifier"));
+        assertEquals(true, ShippedItems.option("module_solar_recharging_unit", "mekanized:module", "energy-per-level"));
+        assertEquals(0.6, ShippedItems.option("module_magnetic_attraction_unit", "mekanized:module", "pull-speed"));
+        assertEquals(1.1, ShippedItems.option("module_motorized_servo_unit", "mekanized:module", "step-height"));
+        assertEquals(9, ((List<?>) ShippedItems.option("module_inhalation_purification_unit", "mekanized:module", "removes-effects")).size());
     }
 
     @Test

@@ -7,6 +7,7 @@ import fr.robie.machineengine.api.registry.Registries;
 import fr.robie.machineengine.mekanized.machine.ConfigurationCard;
 import fr.robie.machineengine.mekanized.machine.GaugeDropper;
 import fr.robie.machineengine.mekanized.paper.PaperTools;
+import fr.robie.machineengine.mekanized.machine.GearRules;
 import fr.robie.machineengine.mekanized.paper.ItemData;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
@@ -52,9 +53,17 @@ public final class GearLoreProcessor implements SimpleNetworkItemProcessor {
     public void apply(ItemBuildContext context) {
         Item item = context.item();
         List<Component> lines = new ArrayList<>();
-        for (String module : ItemData.peekStrings(item, ItemData.Field.MODULES)) {
-            lines.add(Component.translatable("mekanized.lore.module", "§b+ %s",
-                    Component.translatable("item.mekanized.module_" + module, humanize(module))));
+        for (GearRules.Installed module : GearRules.parse(ItemData.peekStrings(item, ItemData.Field.MODULES))) {
+            Component name = Component.translatable("item.mekanized.module_" + module.name(), humanize(module.name()));
+            int max = GearBehaviors.moduleMaxLevel(module.name());
+            if (!module.enabled()) {
+                lines.add(Component.translatable("mekanized.lore.module_off", "§8+ %s (off)", name));
+            } else if (max > 1) {
+                lines.add(Component.translatable("mekanized.lore.module_level", "§b+ %s %s/%s", name,
+                        Component.text(module.level()), Component.text(max)));
+            } else {
+                lines.add(Component.translatable("mekanized.lore.module", "§b+ %s", name));
+            }
         }
         String card = ItemData.peekString(item, ItemData.Field.CONFIGURATION);
         if (card != null) {

@@ -52,6 +52,9 @@ import java.util.List;
  *   <li>{@code check-upgrades}: an enrichment chamber takes 8 of 10 speed upgrades (items with the
  *       {@code machineengine:upgrade} behavior) through its {@code upgrade} action, lists them, gives all 8
  *       back on a shift-click, and refuses a filter upgrade with a reason (D40).</li>
+ *   <li>{@code check-modules}: module levels and the on/off switch on real gear (D40): fortune units raise the
+ *       Meka-Tool's own Fortune and give it back when they go, an energy unit doubles a MekaSuit piece's
+ *       capacity per level and cannot be switched off, and taking it out loses the energy over the capacity.</li>
  *   <li>{@code check-block-options}: a basic bin, basic energy cube, chargepad and basic universal cable in a
  *       row from the position (placed if missing, kept otherwise), and what their machines read from their
  *       block configs (D34): the bin's capacity, the cube's output rate, the chargepad's charge per tick. The
@@ -77,6 +80,11 @@ final class EngineCheckCommands {
                 new PositionSubCommand(this.plugin, "check-comparator", this::checkComparator),
                 new PositionSubCommand(this.plugin, "check-block-options", this::checkBlockOptions),
                 new PositionSubCommand(this.plugin, "check-upgrades", this::checkUpgrades),
+                SubCommand.builder(this.plugin, "check-modules").permission(PositionSubCommand.ADMIN)
+                        .executes(dispatch -> {
+                            checkModules();
+                            return CommandResultType.SUCCESS;
+                        }).build(),
                 SubCommand.builder(this.plugin, "check-item-data").permission(PositionSubCommand.ADMIN)
                         .executes(dispatch -> {
                             checkItemData();
@@ -263,6 +271,45 @@ final class EngineCheckCommands {
         return total;
     }
 
+    private void checkModules() {
+        ItemStack tool = PaperItems.itemOf(MekanizedContent.key("meka_tool"));
+        ItemStack chest = PaperItems.itemOf(MekanizedContent.key("mekasuit_bodyarmor"));
+        var fortune = fr.robie.machineengine.mekanized.paper.gear.GearBehaviors.module("fortune_unit");
+        var energyUnit = fr.robie.machineengine.mekanized.paper.gear.GearBehaviors.module("energy_unit");
+        if (tool == null || chest == null || fortune == null || energyUnit == null) {
+            log("check-modules: the gear or the module items are missing");
+            return;
+        }
+        org.bukkit.enchantments.Enchantment fortuneEnchantment = org.bukkit.Registry.ENCHANTMENT.get(org.bukkit.NamespacedKey.minecraft("fortune"));
+        tool.addUnsafeEnchantment(fortuneEnchantment, 1); // the tool's own Fortune I
+        List<Object> levels = new java.util.ArrayList<>();
+        for (int i = 0; i < 4; i++) levels.add(fr.robie.machineengine.mekanized.paper.gear.GearModules.install(tool, fortune));
+        int installed = tool.getEnchantmentLevel(fortuneEnchantment);
+        fr.robie.machineengine.mekanized.paper.gear.GearModules.toggle(tool, "fortune_unit");
+        int off = tool.getEnchantmentLevel(fortuneEnchantment);
+        fr.robie.machineengine.mekanized.paper.gear.GearModules.toggle(tool, "fortune_unit");
+        fr.robie.machineengine.mekanized.paper.gear.GearModules.remove(tool, "fortune_unit", 1);
+        int two = tool.getEnchantmentLevel(fortuneEnchantment);
+        int removed = fr.robie.machineengine.mekanized.paper.gear.GearModules.remove(tool, "fortune_unit", 9);
+        int gone = tool.getEnchantmentLevel(fortuneEnchantment);
+        log("check-modules: fortune units " + levels + " (expected [1, 2, 3, null]), Fortune " + installed + " (expected 3), off "
+                + off + " (expected 1, the tool's own), after one out " + two + " (expected 2), " + removed + " more out (expected 2), then "
+                + gone + " (expected 1)");
+
+        long base = fr.robie.machineengine.api.paper.PaperItemResources.capacity(chest, fr.robie.machineengine.api.resource.Energy.KEY);
+        fr.robie.machineengine.mekanized.paper.gear.GearModules.install(chest, energyUnit);
+        fr.robie.machineengine.mekanized.paper.gear.GearModules.install(chest, energyUnit);
+        long four = fr.robie.machineengine.api.paper.PaperItemResources.capacity(chest, fr.robie.machineengine.api.resource.Energy.KEY);
+        boolean toggled = fr.robie.machineengine.mekanized.paper.gear.GearModules.toggle(chest, "energy_unit");
+        fr.robie.machineengine.api.paper.PaperItemResources.withAmount(chest, fr.robie.machineengine.api.resource.Energy.KEY, four);
+        fr.robie.machineengine.mekanized.paper.gear.GearModules.remove(chest, "energy_unit", 1);
+        long left = fr.robie.machineengine.api.paper.PaperItemResources.amount(chest, fr.robie.machineengine.api.resource.Energy.KEY);
+        log("check-modules: energy units: capacity " + base + " then " + four + " (expected x4), switched off " + toggled
+                + " (expected false), full then one out: " + left + " (expected " + base * 2 + "), modules "
+                + fr.robie.machineengine.mekanized.paper.ItemData.getStrings(chest, fr.robie.machineengine.mekanized.paper.ItemData.Field.MODULES)
+                + " (expected [energy_unit:1])");
+    }
+
     /** Old items: values written as Bukkit persistent data, as Mekanized did before D32, then read the new way. */
     private void checkItemData() {
         org.bukkit.NamespacedKey energy = new org.bukkit.NamespacedKey(MekanizedContent.NAMESPACE, "energy");
@@ -291,7 +338,7 @@ final class EngineCheckCommands {
         String text = fr.robie.machineengine.mekanized.paper.ItemData.getString(cardItem, fr.robie.machineengine.mekanized.paper.ItemData.Field.CONFIGURATION);
         long amount = fr.robie.machineengine.mekanized.paper.ItemData.getLong(cardItem, fr.robie.machineengine.mekanized.paper.ItemData.Field.DROPPER_AMOUNT);
         byte[] bytes = fr.robie.machineengine.mekanized.paper.ItemData.getBytes(cardItem, fr.robie.machineengine.mekanized.paper.ItemData.Field.BOX_ITEMS);
-        log("check-item-data: energy " + joules + " (expected 5000), capacity " + capacity + " (expected 64000000, energy unit x4), modules "
+        log("check-item-data: energy " + joules + " (expected 5000), capacity " + capacity + " (expected 32000000, energy unit x2), modules "
                 + installed + " (expected [vein_mining_unit, energy_unit]), card '" + text + "' (expected 'old card'), dropper " + amount
                 + " (expected 42), box " + java.util.Arrays.toString(bytes) + " (expected [1, 2, 3])");
         // Writing the new way: kept, and the old persistent data is gone.

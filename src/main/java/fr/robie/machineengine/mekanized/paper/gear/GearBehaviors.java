@@ -36,6 +36,12 @@ public final class GearBehaviors {
         return module == null ? 0 : module.energy();
     }
 
+    /** The most levels of the module {@code name} one piece takes, 1 if unknown. */
+    public static int moduleMaxLevel(String name) {
+        ModuleHolderBehavior.Module module = module(name);
+        return module == null ? 1 : module.maxLevel();
+    }
+
     /**
      * {@code mekanized:mining_tool}: the atomic disassembler and the Meka-Tool.
      *

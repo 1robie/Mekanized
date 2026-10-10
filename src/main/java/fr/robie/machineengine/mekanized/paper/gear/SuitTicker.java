@@ -43,10 +43,6 @@ import static fr.robie.machineengine.mekanized.paper.gear.GearItems.useEnergy;
  * the magnetic attraction unit and the free runners, run for each player by their own scheduler.
  */
 public final class SuitTicker implements Listener {
-    private static final Set<PotionEffectType> HARMFUL = Set.of(PotionEffectType.POISON, PotionEffectType.WITHER, PotionEffectType.HUNGER,
-            PotionEffectType.NAUSEA, PotionEffectType.BLINDNESS, PotionEffectType.SLOWNESS, PotionEffectType.MINING_FATIGUE,
-            PotionEffectType.WEAKNESS, PotionEffectType.DARKNESS);
-
     private SuitTicker() {
     }
 
@@ -71,16 +67,17 @@ public final class SuitTicker implements Listener {
         }, null, 1, 1);
     }
 
-    /** Magnetic attraction unit: items within its {@code range} fly to the player ({@code energy} each, every 5 ticks). */
+    /** Magnetic attraction unit: items within its {@code range} per level fly to the player at its {@code pull-speed} ({@code energy} each, every 5 ticks). */
     private static void magnet(Player player) {
         ItemStack boots = player.getInventory().getBoots();
-        if (!modules(boots).contains("magnetic_attraction_unit")) return;
+        int level = GearItems.level(boots, "magnetic_attraction_unit");
+        if (level == 0) return;
         ModuleHolderBehavior.Module unit = GearBehaviors.module("magnetic_attraction_unit");
         if (unit == null || unit.range() <= 0) return;
         Location at = player.getLocation().add(0, 0.5, 0);
-        for (Item item : player.getWorld().getNearbyEntitiesByType(Item.class, at, unit.range())) {
-            if (item.getPickupDelay() > 0 || !useEnergy(boots, unit.energy())) continue;
-            item.setVelocity(at.toVector().subtract(item.getLocation().toVector()).normalize().multiply(0.6));
+        for (Item item : player.getWorld().getNearbyEntitiesByType(Item.class, at, (double) unit.range() * level)) {
+            if (item.getPickupDelay() > 0 || !useEnergy(boots, unit.energy(level))) continue;
+            item.setVelocity(at.toVector().subtract(item.getLocation().toVector()).normalize().multiply(unit.pullSpeed()));
         }
     }
 
@@ -137,16 +134,16 @@ public final class SuitTicker implements Listener {
         }
         {
             Set<String> modules = modules(helmet);
-            if (modules.contains("vision_enhancement_unit") && useEnergy(helmet, moduleEnergy("vision_enhancement_unit"))) {
-                player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 400, 0, true, false, false));
-            }
+            effect(player, helmet, "vision_enhancement_unit", PotionEffectType.NIGHT_VISION);
             if (modules.contains("nutritional_injection_unit") && player.getFoodLevel() < 20 && useEnergy(helmet, moduleEnergy("nutritional_injection_unit"))) {
                 player.setFoodLevel(player.getFoodLevel() + 1);
                 player.setSaturation(Math.min(player.getFoodLevel(), player.getSaturation() + 1));
             }
-            if (modules.contains("inhalation_purification_unit")) {
+            ModuleHolderBehavior.Module purifier = GearBehaviors.module("inhalation_purification_unit");
+            if (modules.contains("inhalation_purification_unit") && purifier != null) {
                 for (PotionEffect effect : List.copyOf(player.getActivePotionEffects())) {
-                    if (HARMFUL.contains(effect.getType()) && useEnergy(helmet, moduleEnergy("inhalation_purification_unit"))) player.removePotionEffect(effect.getType());
+                    if (purifier.removesEffects().contains(effect.getType().getKey().toString())
+                            && useEnergy(helmet, purifier.energy())) player.removePotionEffect(effect.getType());
                 }
             }
         }
@@ -167,22 +164,12 @@ public final class SuitTicker implements Listener {
             player.setFlying(false);
             player.setAllowFlight(false);
         }
-        if (modules(legs).contains("locomotive_boosting_unit") && player.isSprinting()
-                && useEnergy(legs, moduleEnergy("locomotive_boosting_unit"))) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 40, 1, true, false, false));
-        }
-        if (modules(boots).contains("hydraulic_propulsion_unit") && useEnergy(boots, moduleEnergy("hydraulic_propulsion_unit"))) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST, 40, 1, true, false, false));
-        }
-        // Energy makers: sunlight on the helmet, lava or fire around the pants.
-        if (modules(helmet).contains("solar_recharging_unit")
-                && player.getWorld().isDayTime() && player.getLocation().getBlock().getLightFromSky() >= 15) {
-            addEnergy(helmet, moduleEnergy("solar_recharging_unit"));
-        }
-        if (modules(legs).contains("geothermal_generator_unit")
-                && (player.isInLava() || player.getFireTicks() > 0)) {
-            addEnergy(legs, moduleEnergy("geothermal_generator_unit"));
-        }
+        // Boosts: their effect and energy by level, as their item config says.
+        if (player.isSprinting()) effect(player, legs, "locomotive_boosting_unit", PotionEffectType.SPEED);
+        effect(player, boots, "hydraulic_propulsion_unit", PotionEffectType.JUMP_BOOST);
+        // Energy makers, their energy by level: sunlight on the helmet, lava or fire around the pants.
+        if (player.getWorld().isDayTime() && player.getLocation().getBlock().getLightFromSky() >= 15) make(helmet, "solar_recharging_unit");
+        if (player.isInLava() || player.getFireTicks() > 0) make(legs, "geothermal_generator_unit");
         // Charge distribution: the body armour shares its energy with the other pieces and the held item.
         if (modules(chest).contains("charge_distribution_unit")) {
             for (ItemStack other : new ItemStack[]{helmet, legs, boots, player.getInventory().getItemInMainHand()}) {
@@ -191,18 +178,32 @@ public final class SuitTicker implements Listener {
                 if (given > 0) useEnergy(chest, given);
             }
         }
-        // Motorized servos: step up a full block (Minecraft 1.20.5+).
-        boolean servo = modules(legs).contains("motorized_servo_unit") && energy(legs) >= moduleEnergy("motorized_servo_unit");
-        stepHeight(player, data, servo ? 1.1 : -1);
-        if (modules(legs).contains("hydrostatic_repulsor_unit") && player.isInWater()
-                && useEnergy(legs, moduleEnergy("hydrostatic_repulsor_unit"))) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, 40, 0, true, false, false));
-        }
+        // Motorized servos: step up its step-height (Minecraft 1.20.5+).
+        ModuleHolderBehavior.Module servo = GearBehaviors.module("motorized_servo_unit");
+        int servoLevel = GearItems.level(legs, "motorized_servo_unit");
+        boolean stepping = servo != null && servoLevel > 0 && servo.stepHeight() > 0 && energy(legs) >= servo.energy(servoLevel);
+        stepHeight(player, data, stepping ? servo.stepHeight() : -1);
+        if (player.isInWater()) effect(player, legs, "hydrostatic_repulsor_unit", PotionEffectType.DOLPHINS_GRACE);
         // Gyroscopic stabilization: mining in the air or underwater is less slow.
-        if (modules(chest).contains("gyroscopic_stabilization_unit")
-                && (!player.isOnGround() || player.isInWater()) && useEnergy(chest, moduleEnergy("gyroscopic_stabilization_unit"))) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, 40, 2, true, false, false));
-        }
+        if (!player.isOnGround() || player.isInWater()) effect(player, chest, "gyroscopic_stabilization_unit", PotionEffectType.HASTE);
+    }
+
+    /**
+     * A potion effect module in {@code gear}, installed and on: renews its effect ({@code effect-amplifier}
+     * per level, {@code effect-duration}) for its energy.
+     */
+    private static void effect(Player player, ItemStack gear, String name, PotionEffectType type) {
+        int level = GearItems.level(gear, name);
+        ModuleHolderBehavior.Module unit = level == 0 ? null : GearBehaviors.module(name);
+        if (unit == null || !useEnergy(gear, unit.energy(level))) return;
+        player.addPotionEffect(new PotionEffect(type, unit.effectDuration(), unit.amplifier(level), true, false, false));
+    }
+
+    /** An energy maker module in {@code gear}, installed and on: adds its energy (by level, as configured). */
+    private static void make(ItemStack gear, String name) {
+        int level = GearItems.level(gear, name);
+        ModuleHolderBehavior.Module unit = level == 0 ? null : GearBehaviors.module(name);
+        if (unit != null) addEnergy(gear, unit.energy(level));
     }
 
     /** Sets the step height ({@code height} below 0: back to normal, if it was raised). */
