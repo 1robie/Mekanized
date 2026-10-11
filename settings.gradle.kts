@@ -21,7 +21,11 @@ dependencyResolutionManagement {
         maven("https://repo.momirealms.net/releases/") {
             mavenContent { releasesOnly() }
         }
-        // MachineEngine (com.github.1robie.MachineEngine) and Paper-Dispatch.
+        // MachineEngine's releases (the 1robie/maven repo on GitHub Pages).
+        maven("https://1robie.github.io/maven/") {
+            mavenContent { includeGroup("com.github.1robie.MachineEngine") }
+        }
+        // Paper-Dispatch, and MachineEngine when JitPack builds it.
         maven("https://jitpack.io") {
             mavenContent {
                 includeGroup("com.github.1robie.MachineEngine")
