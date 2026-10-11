@@ -61,6 +61,10 @@ paper {
             description = "See your own radiation dose and the radiation where you stand (/mekanized radiation dose|level)"
             default = net.minecrell.pluginyml.bukkit.BukkitPluginDescription.Permission.Default.TRUE
         }
+        register("mekanized.personal.bypass") {
+            description = "Open and break other players' personal chests and barrels"
+            default = net.minecrell.pluginyml.bukkit.BukkitPluginDescription.Permission.Default.OP
+        }
     }
 }
 
