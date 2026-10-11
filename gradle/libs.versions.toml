@@ -1,0 +1,35 @@
+[versions]
+# MachineEngine's api and test harness (JitPack, from a MachineEngine git tag). A MachineEngine checkout
+# next to this one (../MachineEngine) replaces them: see settings.gradle.kts.
+machineengine = "0.1.0"
+# Compile against the newest Paper API, use only what the oldest supported version has
+# (verifyPaperBaseline checks the bytecode against paper-baseline), like MachineEngine (its D25).
+paper = "26.3.build.156-beta"
+paper-baseline = "1.20.6-R0.1-SNAPSHOT"
+asm = "9.8"
+jetbrains-annotations = "26.0.2"
+junit = "6.1.3"
+shadow = "9.6.1"
+plugin-yml = "0.9.0"
+run-paper = "3.1.0"
+zmenu = "1.1.1.9"
+# Shaded and relocated. main at 2fafd75, as MachineEngine; switch to the release tag once there is one.
+paper-dispatch = "2fafd75"
+
+[libraries]
+machineengine-api = { module = "com.github.1robie.MachineEngine:machineengine-api", version.ref = "machineengine" }
+machineengine-test = { module = "com.github.1robie.MachineEngine:machineengine-test", version.ref = "machineengine" }
+machineengine-plugin = { module = "com.github.1robie.MachineEngine:machineengine-plugin", version.ref = "machineengine" }
+paper-api = { module = "io.papermc.paper:paper-api", version.ref = "paper" }
+paper-api-baseline = { module = "io.papermc.paper:paper-api", version.ref = "paper-baseline" }
+asm = { module = "org.ow2.asm:asm", version.ref = "asm" }
+jetbrains-annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains-annotations" }
+paper-dispatch = { module = "com.github.1robie.paper-dispatch:paper-dispatch", version.ref = "paper-dispatch" }
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+
+[plugins]
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
+plugin-yml-paper = { id = "de.eldoria.plugin-yml.paper", version.ref = "plugin-yml" }
+run-paper = { id = "xyz.jpenilla.run-paper", version.ref = "run-paper" }

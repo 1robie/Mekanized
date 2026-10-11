@@ -1,0 +1,26 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Dev servers and the CraftEngine dev build
+run/
+.craftengine/
+
+# Logs and Kotlin compiler state
+*.log
+.kotlin/
+
+# IDEs
+.idea/
+*.iml
+out/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local Claude settings
+.claude/settings.local.json
+.claude/worktrees/
