@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.shadow)
     alias(libs.plugins.plugin.yml.paper)
     alias(libs.plugins.run.paper)
+    alias(libs.plugins.hangar.publish)
 }
 
 description = "Mekanized: Mekanism-style machines for MachineEngine (textures, models and recipes from Mekanism, MIT)."
@@ -76,6 +77,37 @@ tasks.shadowJar {
 
 tasks.assemble {
     dependsOn(tasks.shadowJar)
+}
+
+// Hangar (https://hangar.papermc.io/1robie/Mekanized): the release workflow runs
+// publishPluginPublicationToHangar on a tag, with -Pversion=<tag> and the HANGAR_API_TOKEN secret.
+hangarPublish {
+    publications.register("plugin") {
+        version = project.version.toString()
+        id = "Mekanized"
+        // Tags with a hyphen (0.2.0-beta.1) go to the Snapshot channel, which must exist on Hangar.
+        channel = if (project.version.toString().contains('-')) "Snapshot" else "Release"
+        changelog = "https://github.com/1robie/Mekanized/releases/tag/${project.version}"
+        apiKey = providers.environmentVariable("HANGAR_API_TOKEN")
+        platforms {
+            register(io.papermc.hangarpublishplugin.model.Platforms.PAPER) {
+                jar = tasks.shadowJar.flatMap { it.archiveFile }
+                platformVersions = providers.gradleProperty("hangar_paper_versions").get().split(",").map { it.trim() }
+                dependencies {
+                    hangar("MachineEngine") {
+                        required = true
+                    }
+                    url("CraftEngine", "https://modrinth.com/plugin/craftengine") {
+                        required = true
+                    }
+                    // Optional for the plugin to load, but machines have no menus without it.
+                    hangar("zMenu") {
+                        required = false
+                    }
+                }
+            }
+        }
+    }
 }
 
 val verifyRelocation = tasks.register<VerifyRelocation>("verifyRelocation") {

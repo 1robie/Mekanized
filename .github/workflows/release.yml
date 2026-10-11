@@ -1,0 +1,47 @@
+name: Release
+
+# Push a tag named like the version (0.1.0, 0.2.0-beta.1) to release it: the plugin jar is built with
+# that version, attached to a GitHub release, and uploaded to Hangar. It builds against the
+# MachineEngine version in gradle/libs.versions.toml, so that MachineEngine tag must exist first.
+on:
+  push:
+    tags:
+      - "[0-9]+.[0-9]+.[0-9]+*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    if: github.repository == '1robie/Mekanized'
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ github.ref_name }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: |
+            21
+            25
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Build and test
+        run: ./gradlew build -Pversion="$VERSION" --console=plain
+
+      - name: GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          prerelease=""
+          case "$VERSION" in *-*) prerelease="--prerelease" ;; esac
+          gh release create "$VERSION" "build/libs/Mekanized-$VERSION.jar" \
+            --title "Mekanized $VERSION" --generate-notes $prerelease
+
+      - name: Hangar
+        env:
+          HANGAR_API_TOKEN: ${{ secrets.HANGAR_API_TOKEN }}
+        run: ./gradlew publishPluginPublicationToHangar -Pversion="$VERSION" --console=plain

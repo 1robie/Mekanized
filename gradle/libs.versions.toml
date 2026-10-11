@@ -12,6 +12,7 @@ junit = "6.1.3"
 shadow = "9.6.1"
 plugin-yml = "0.9.0"
 run-paper = "3.1.0"
+hangar-publish = "0.1.4"
 zmenu = "1.1.1.9"
 # Shaded and relocated. main at 2fafd75, as MachineEngine; switch to the release tag once there is one.
 paper-dispatch = "2fafd75"
@@ -33,3 +34,4 @@ junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
 plugin-yml-paper = { id = "de.eldoria.plugin-yml.paper", version.ref = "plugin-yml" }
 run-paper = { id = "xyz.jpenilla.run-paper", version.ref = "run-paper" }
+hangar-publish = { id = "io.papermc.hangar-publish-plugin", version.ref = "hangar-publish" }
