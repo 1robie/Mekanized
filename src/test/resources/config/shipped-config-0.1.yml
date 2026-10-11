@@ -112,3 +112,7 @@ gear:
     solar-recharging-energy: 2000           # J made per second in daylight
     geothermal-generator-energy: 10000      # J made per second in lava or on fire
     charge-distribution-energy: 20000       # J given to each other piece per second
+
+# Menu colors of chemicals and fluids: resource (e.g. steam, or fluid/brine for a fluid) to "#RRGGBB".
+# Empty: Mekanism's colors. Restart to apply.
+colors: {}

@@ -44,12 +44,12 @@ class EngineResourcesTest {
             ResourceType type = types.getOrThrow(key);
             boolean ours = type.category() == MekanizedContent.CHEMICAL
                     || type.category() == MekanizedContent.FLUID && key.namespace().equals(MekanizedContent.NAMESPACE);
-            if (ours) assertNotNull(MekanizedContent.color(type), key + " has no color in chemicals.txt or fluids.txt");
+            if (ours) assertNotNull(type.color(), key + " has no color in chemicals.txt or fluids.txt");
         }
-        assertEquals(0xB30505, MekanizedContent.color(types.getOrThrow(Key.key("mekanized", "redstone"))), "Mekanism's redstone tint");
-        assertEquals(0x0D1455, MekanizedContent.color(MekanizedContent.fluid("heavy_water")));
-        assertNotNull(MekanizedContent.color(MekanizedContent.HEAT));
-        assertNull(MekanizedContent.color(Fluids.water()), "water is MachineEngine's: ResourceColors colors it");
+        assertEquals(0xB30505, types.getOrThrow(Key.key("mekanized", "redstone")).color().intValue(), "Mekanism's redstone tint");
+        assertEquals(0x0D1455, MekanizedContent.fluid("heavy_water").color().intValue());
+        assertEquals(0xFF7E1F, MekanizedContent.HEAT.color().intValue(), "heat is Mekanism's orange, on its type");
+        assertEquals(0x3F76E4, Fluids.water().color().intValue(), "water's color is config.yml's default, on its type");
     }
 
     @Test

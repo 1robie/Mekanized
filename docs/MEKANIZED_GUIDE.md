@@ -318,8 +318,10 @@ button names its item from placeholders, which MachineEngine fills in for the ma
 - `storage_<id>_cell_<k>` is cell k's level (0 to 18; 16 for cell 2); `storage_<id>_slot_<n>_cell_<k>` for
   one slot of a storage; `process_cell_<k>` for the progress arrow; `data_<id>_cell` (0 to 16) for a
   one-slot bar following a percent setting, like a factory lane.
-- `storage_<id>_color` is the color of what the storage holds (Mekanism's, from `chemicals.txt` and
-  `fluids.txt`); only the `chemical`, `fluid` and `heat` shapes are tinted.
+- `storage_<id>_color` is the color of what the storage holds: the menu color of its resource type (Mekanism's,
+  from `chemicals.txt` and `fluids.txt`, or the `colors` setting in Mekanized's config.yml to change them; water
+  and lava from MachineEngine's config.yml). Only the `chemical`, `fluid` and `heat` shapes are tinted, and their
+  labels take the same color.
 - MachineEngine redraws every button whose `material` holds a machine placeholder by itself, all at once,
   at the menu's `update-interval` and whenever the machine changes. Do not add `update: true` to them.
 

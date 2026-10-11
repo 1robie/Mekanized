@@ -10,6 +10,7 @@ import fr.robie.machineengine.mekanized.machine.TeleporterSettings;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Every setting of {@code plugins/Mekanized/config.yml} (D30): the file is generated from {@link #SPEC},
@@ -64,6 +65,10 @@ public final class MekanizedConfig {
             "widest radius (1-128); 32 is a 65 x 65 area");
     public static final ConfigKey<Integer> QIO_ARRAY_KINDS = integer("qio.array-kinds", QioSettings.DEFAULT_ARRAY_KINDS, 1, 16_384,
             "kinds of item a drive array holds at most, whatever its drives (1-16384)");
+
+    public static final ConfigKey<Map<String, String>> COLORS = add(ConfigKey.map("colors", Map.of())
+            .comment("Menu colors of chemicals and fluids: resource (e.g. steam, or fluid/brine for a fluid) to \"#RRGGBB\".",
+                    "Empty: Mekanism's colors. Restart to apply."));
 
     public static final ConfigSpec SPEC = ConfigSpec.builder()
             .header("Mekanized settings. Read when the server starts: restart to apply changes.",

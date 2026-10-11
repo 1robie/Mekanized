@@ -121,7 +121,6 @@ public final class MekanizedPlugin extends JavaPlugin {
         PaperEntangloporters.install(this);
         PaperRadiation.install(this);
         fr.robie.machineengine.api.paper.ResourceNames.register(PaperResourceNames::name);
-        fr.robie.machineengine.api.paper.ResourceColors.register(variant -> MekanizedContent.color(variant.type()));
         PaperConfigurator.install();
         this.commands.trackCommand(new MekanizedCommands(this));
         this.commands.flushRegistrations();

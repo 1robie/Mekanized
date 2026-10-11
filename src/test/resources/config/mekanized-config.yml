@@ -49,3 +49,7 @@ digital-miner:
 qio:
   # kinds of item a drive array holds at most, whatever its drives (1-16384)
   array-kinds: 1024
+
+# Menu colors of chemicals and fluids: resource (e.g. steam, or fluid/brine for a fluid) to "#RRGGBB".
+# Empty: Mekanism's colors. Restart to apply.
+colors: {}

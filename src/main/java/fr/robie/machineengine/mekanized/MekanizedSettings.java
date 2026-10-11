@@ -32,6 +32,7 @@ public final class MekanizedSettings {
         TeleporterSettings.otherWorldCost = config.get(MekanizedConfig.TELEPORT_OTHER_WORLD_COST);
         TeleporterSettings.cooldownMs = Math.round(config.get(MekanizedConfig.TELEPORT_COOLDOWN) * 1000);
         ChunkLoadingSettings.maxRadius = config.get(MekanizedConfig.CHUNK_MAX_RADIUS);
+        MekanizedContent.colorOverrides = config.get(MekanizedConfig.COLORS);
 
         RadiationSettings.background = config.get(MekanizedConfig.RADIATION_BACKGROUND);
         RadiationSettings.sourceDecayPerSecond = config.get(MekanizedConfig.SOURCE_DECAY);

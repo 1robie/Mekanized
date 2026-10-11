@@ -31,17 +31,23 @@ final class MenuLayout {
         }
     }
 
-    /** A tall gauge's fill: Mekanism's chemical texture, or water's, tinted with the resource's color. */
+    /**
+     * A tall gauge's fill: Mekanism's chemical texture, or water's, tinted with the resource's color (its type's,
+     * from code, a definition or config.yml; see {@code ResourceColors}). The label takes the same color.
+     */
     enum Tank {
-        CHEMICAL("chemical", "<light_purple>"), FLUID("fluid", "<aqua>");
+        CHEMICAL("chemical"), FLUID("fluid");
 
         final String shape;
-        final String color;
 
-        Tank(String shape, String color) {
+        Tank(String shape) {
             this.shape = shape;
-            this.color = color;
         }
+    }
+
+    /** A label in the color of a storage's resource: MiniMessage with the {@code _color} placeholder (#RRGGBB). */
+    private static String tinted(String prefix, String label) {
+        return "<color:" + prefix + "color%>" + label;
     }
 
     /** An image of the title, its left edge at {@code x} in the window. */
@@ -107,7 +113,7 @@ final class MenuLayout {
     MenuLayout tank(String name, int topRow, int column, Tank tank, String storage, int storageSlot, String label) {
         image("frame_tall_gauge", topRow, column, 18);
         String prefix = "%zmenu_machineengine_storage_" + storage + "_" + (storageSlot > 0 ? "slot_" + storageSlot + "_" : "");
-        bar(name, vertical(topRow, column), tank.shape, cells(prefix + "cell_"),prefix + "color%", tank.color + label,
+        bar(name, vertical(topRow, column), tank.shape, cells(prefix + "cell_"), prefix + "color%", tinted(prefix, label),
                 "<gray>" + prefix + "name%", "<gray>" + prefix + "amount% / " + prefix + "capacity% mB");
         return this;
     }
@@ -138,7 +144,7 @@ final class MenuLayout {
     MenuLayout heat(String name, int row, int column, String storage, String label) {
         image("frame_power_horizontal", row, column, 54);
         String prefix = "%zmenu_machineengine_storage_" + storage + "_";
-        bar(name, horizontal(row, column), "heat", cells(prefix + "cell_"),prefix + "color%", "<gold>" + label,
+        bar(name, horizontal(row, column), "heat", cells(prefix + "cell_"), prefix + "color%", tinted(prefix, label),
                 "<gray>" + prefix + "amount% / " + prefix + "capacity% J");
         return this;
     }
@@ -147,7 +153,7 @@ final class MenuLayout {
     MenuLayout horizontalTank(String name, int row, int column, String storage, String label) {
         image("frame_power_horizontal", row, column, 54);
         String prefix = "%zmenu_machineengine_storage_" + storage + "_";
-        bar(name, horizontal(row, column), "heat", cells(prefix + "cell_"),prefix + "color%", "<light_purple>" + label,
+        bar(name, horizontal(row, column), "heat", cells(prefix + "cell_"), prefix + "color%", tinted(prefix, label),
                 "<gray>" + prefix + "name%", "<gray>" + prefix + "amount% / " + prefix + "capacity% mB");
         return this;
     }

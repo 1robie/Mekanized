@@ -46,13 +46,16 @@ public final class MekanizedContent {
     public static final ResourceCategory FLUID = Fluids.category();
     /** Heat in Joules: heaters make it, thermodynamic conductors carry it, boilers use it. */
     public static final ResourceCategory HEAT_CATEGORY = ResourceCategory.builder(key("heat")).unit("J").build();
-    public static final ResourceType HEAT = ResourceType.of(key("heat"), HEAT_CATEGORY);
-    /** Heat bars in menus: Mekanism's heat orange. */
+    /** Heat bars in menus: Mekanism's heat orange. Heat's type is created once, before config.yml is read, so this stays fixed. */
     private static final int HEAT_COLOR = 0xFF7E1F;
+    public static final ResourceType HEAT = ResourceType.of(key("heat"), HEAT_CATEGORY, HEAT_COLOR);
     private static final Map<String, ResourceType> FLUIDS = new ConcurrentHashMap<>(Map.of("water", Fluids.water(), "lava", Fluids.lava()));
     private static final Map<String, ResourceType> CHEMICALS = new ConcurrentHashMap<>();
-    /** Menu colors of the chemicals and fluids (Mekanism's tints), from the second column of their lists. */
-    private static final Map<ResourceType, Integer> COLORS = new ConcurrentHashMap<>();
+    /**
+     * The colors set in {@code config.yml} ({@code colors}, {@code #RRGGBB} by resource key value, e.g. {@code steam} or
+     * {@code fluid/brine}). Read by {@link MekanizedSettings#apply} before {@link #register} creates the types.
+     */
+    static volatile Map<String, String> colorOverrides = Map.of();
 
     private MekanizedContent() {
     }
@@ -101,26 +104,24 @@ public final class MekanizedContent {
         context.resourceTypes().register(HEAT);
         context.resourceCategories().register(CHEMICAL);
         for (String[] chemical : lines("mekanized/chemicals.txt")) {
-            ResourceType type = CHEMICALS.computeIfAbsent(chemical[0], name -> ResourceType.of(key(name), CHEMICAL));
+            ResourceType type = CHEMICALS.computeIfAbsent(chemical[0], name -> typeOf(key(name), CHEMICAL, chemical));
             context.resourceTypes().register(type);
-            color(type, chemical);
         }
         for (String[] fluid : lines("mekanized/fluids.txt")) {
-            ResourceType type = FLUIDS.computeIfAbsent(fluid[0], name -> Fluids.create(key("fluid/" + name)));
+            ResourceType type = FLUIDS.computeIfAbsent(fluid[0], name -> typeOf(key("fluid/" + name), FLUID, fluid));
             context.resourceTypes().register(type);
-            color(type, fluid);
         }
         MekanizedRegistry.register(context);
     }
 
-    /** The menu color of a Mekanized chemical or fluid ({@code 0xRRGGBB}), or {@code null}. */
-    public static @Nullable Integer color(ResourceType type) {
-        if (type == HEAT) return HEAT_COLOR;
-        return COLORS.get(type);
-    }
-
-    private static void color(ResourceType type, String[] line) {
-        if (line.length > 1 && line[1].startsWith("#")) COLORS.put(type, Integer.parseInt(line[1].substring(1), 16));
+    /**
+     * A chemical or fluid with its menu color: the {@code colors} setting of config.yml if it has one for the
+     * resource, else the second column of its list (Mekanism's tint), else none.
+     */
+    private static ResourceType typeOf(Key key, ResourceCategory category, String[] line) {
+        Integer color = ResourceType.parseColor(colorOverrides.get(key.value()));
+        if (color == null && line.length > 1) color = ResourceType.parseColor(line[1]);
+        return color == null ? ResourceType.of(key, category) : ResourceType.of(key, category, color);
     }
 
     /** The lines of a list: a name, then optionally {@code #RRGGBB}. */
