@@ -1,0 +1,186 @@
+package fr.robie.mekanized.paper;
+
+import fr.robie.mekanized.paper.gear.GearItems;
+import java.util.List;
+import java.util.ArrayList;
+import fr.robie.mekanized.paper.gear.GearBehaviors;
+import fr.robie.mekanized.MekanizedPlayers;
+import fr.robie.machineengine.api.player.MachinePlayer;
+
+import fr.robie.mekanized.machine.Radiation;
+import fr.robie.mekanized.machine.RadiationSettings;
+import fr.robie.mekanized.paper.persist.LineStore;
+import fr.robie.mekanized.machine.SaveLines;
+import net.kyori.adventure.key.Key;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.jetbrains.annotations.Nullable;
+import net.momirealms.craftengine.core.item.behavior.ItemBehaviorFactory;
+import fr.robie.machineengine.api.paper.PaperItemBehavior;
+import fr.robie.machineengine.api.item.MachineTool;
+
+import java.nio.file.Path;
+import java.util.concurrent.ThreadLocalRandom;
+
+/**
+ * The player side of {@link Radiation}: each second a player takes in the radiation where they stand
+ * (less what hazmat pieces and MekaSuit radiation shielding units stop, a quarter each by default), their dose
+ * fades slowly, and a high dose hurts. The Geiger counter reads the radiation, the dosimeter the dose;
+ * a MekaSuit helmet with the matching unit shows them all the time (unless the player turned off the setting
+ * {@code mekanized:radiation_hud}). The dose is player data ({@link MekanizedPlayers#RADIATION_DOSE}, reset on
+ * death by MachineEngine); sources are saved in {@code plugins/Mekanized/radiation.txt}.
+ */
+public final class PaperRadiation implements Listener {
+    private static final long SAVE_SECONDS = 30;
+
+    private final Plugin plugin;
+    private final Path file;
+
+    private PaperRadiation(Plugin plugin) {
+        this.plugin = plugin;
+        this.file = plugin.getDataFolder().toPath().resolve("radiation.txt");
+    }
+
+    public static void install(Plugin plugin) {
+        PaperRadiation radiation = new PaperRadiation(plugin);
+        instance = radiation;
+        radiation.load();
+        Bukkit.getPluginManager().registerEvents(radiation, plugin);
+        long[] seconds = {0};
+        PaperWorld.scheduler().runTimer(() -> {
+            Radiation.decay();
+            if (++seconds[0] % SAVE_SECONDS == 0) radiation.save();
+        }, 20, 20);
+        for (Player player : Bukkit.getOnlinePlayers()) radiation.start(player);
+    }
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event) {
+        start(event.getPlayer());
+    }
+
+    private void start(Player player) {
+        PaperWorld.scheduler().runTimer(player, () -> {
+            if (player.isOnline() && !player.isDead()) expose(player);
+        }, null, 20, 20);
+    }
+
+    /** One second of radiation for {@code player}. */
+    private void expose(Player player) {
+        MachinePlayer data = MekanizedPlayers.of(player).orElse(null);
+        if (data == null) return;
+        Location at = player.getLocation();
+        double level = level(at);
+        double shielding = shielding(player);
+        double dose = data.update(MekanizedPlayers.RADIATION_DOSE, old -> Radiation.nextDose(old, level, shielding));
+        ItemStack helmet = player.getInventory().getHelmet();
+        if ("mekasuit_helmet".equals(GearItems.id(helmet)) && data.get(MekanizedPlayers.RADIATION_HUD)) {
+            var modules = GearItems.modules(helmet);
+            String shown = (modules.contains("geiger_unit") ? "Radiation " + Radiation.format(level, "/h") : "")
+                    + (modules.contains("geiger_unit") && modules.contains("dosimeter_unit") ? " - " : "")
+                    + (modules.contains("dosimeter_unit") ? "Dose " + Radiation.format(dose, "") : "");
+            if (!shown.isEmpty() && level > RadiationSettings.background * 10) player.sendActionBar(Component.text(shown, NamedTextColor.GREEN));
+        }
+        // Mekanism's thresholds: a high dose makes you sick, a very high one hurts, a fatal one kills.
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+        if (Radiation.causesSickness(dose) && random.nextInt(10) == 0) player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 200, 0));
+        if (Radiation.causesDamage(dose)) {
+            if (random.nextInt(10) == 0) player.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 200, 0));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 40, 0, true, false, false));
+            if (random.nextInt(5) == 0) player.damage(1);
+        }
+        if (Radiation.isLethal(dose)) player.damage(4);
+    }
+
+    static double level(Location at) {
+        return Radiation.levelAt(Key.key(at.getWorld().getKey().asString()), at.getX(), at.getY() + 1, at.getZ());
+    }
+
+    /** The player's dose in Sv ({@link MekanizedPlayers#RADIATION_DOSE}). */
+    static double dose(Player player) {
+        return MekanizedPlayers.of(player).map(data -> data.get(MekanizedPlayers.RADIATION_DOSE)).orElse(0.0);
+    }
+
+    /**
+     * What the worn armour stops: pieces with {@code mekanized:radiation_shielding} (hazmat, and MekaSuit
+     * pieces while their radiation shielding unit is installed), a quarter each by default.
+     */
+    private static double shielding(Player player) {
+        List<Double> protections = new ArrayList<>();
+        for (ItemStack piece : player.getInventory().getArmorContents()) {
+            GearBehaviors.RadiationShielding shielding = GearBehaviors.options(piece, GearBehaviors.RadiationShielding.class);
+            if (shielding == null) continue;
+            if (shielding.requiresModule() != null && !GearItems.modules(piece).contains(shielding.requiresModule())) continue;
+            protections.add(shielding.protection());
+        }
+        return Radiation.shielding(protections);
+    }
+
+    /**
+     * {@code mekanized:radiation_reader}: right-click to read the radiation here ({@code mode: environment},
+     * the Geiger counter) or your own dose ({@code mode: dose}, the dosimeter).
+     */
+    public static final class ReaderBehavior extends PaperItemBehavior implements MachineTool {
+        public static final ItemBehaviorFactory<ReaderBehavior> FACTORY = (pack, path, id, section) ->
+                new ReaderBehavior(section.getString("mode", "environment").equalsIgnoreCase("dose"));
+
+        private final boolean dose;
+
+        private ReaderBehavior(boolean dose) {
+            this.dose = dose;
+        }
+
+        @Override
+        protected boolean use(Use use) {
+            Player player = use.player();
+            if (this.dose) {
+                double dose = dose(player);
+                player.sendMessage(Component.text("Your radiation dose: ", NamedTextColor.GRAY)
+                        .append(Component.text(Radiation.format(dose, ""), color(dose))));
+            } else {
+                double level = level(player.getLocation());
+                player.sendMessage(Component.text("Radiation here: ", NamedTextColor.GRAY)
+                        .append(Component.text(Radiation.format(level, "/h"), color(level * 3600))));
+            }
+            return true;
+        }
+    }
+
+    /** Green below 0.1 Sv, yellow below 1, red above (for an hour's worth of a level, or a dose). */
+    private static NamedTextColor color(double sieverts) {
+        return switch (Radiation.severity(sieverts)) {
+            case LOW -> NamedTextColor.GREEN;
+            case MEDIUM -> NamedTextColor.YELLOW;
+            case HIGH -> NamedTextColor.RED;
+        };
+    }
+
+    // -- saving ------------------------------------------------------------------------------------
+
+    private void load() {
+        LineStore.load(this.plugin, this.file, SaveLines.RADIATION_FIELDS, SaveLines::readRadiationSource);
+    }
+
+    synchronized void save() {
+        StringBuilder text = new StringBuilder();
+        Radiation.sources().forEach((at, strength) -> text.append(SaveLines.radiationSource(at, strength)));
+        LineStore.write(this.plugin, this.file, text);
+    }
+
+    private static @Nullable PaperRadiation instance;
+
+    /** Saves the sources (when the plugin stops). */
+    public static void saveNow() {
+        if (instance != null) instance.save();
+    }
+}

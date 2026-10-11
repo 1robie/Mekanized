@@ -1,0 +1,186 @@
+package fr.robie.mekanized;
+
+import fr.robie.mekanized.paper.PaperConfigurator;
+import fr.robie.mekanized.paper.PaperUtility;
+import fr.robie.mekanized.paper.PaperRadiation;
+import fr.robie.mekanized.paper.PaperChunkLoaders;
+import fr.robie.mekanized.paper.PaperEntangloporters;
+import fr.robie.mekanized.paper.MekanizedItemBehaviors;
+import fr.robie.mekanized.paper.gear.GearTools;
+import fr.robie.mekanized.paper.gear.SuitTicker;
+import fr.robie.mekanized.paper.automation.PaperAutomation;
+import fr.robie.mekanized.paper.menu.MenuCatalog;
+import fr.robie.mekanized.paper.command.MekanizedCommands;
+import fr.robie.paperdispatch.manager.CommandManager;
+
+import fr.robie.machineengine.api.MachineEngine;
+import fr.robie.machineengine.api.addon.AddonRegistration;
+import fr.robie.mekanized.machine.MekanizedRegistry;
+import fr.robie.mekanized.paper.PaperFurnaceRecipes;
+import fr.robie.mekanized.paper.PaperResourceNames;
+import fr.robie.mekanized.paper.PaperWorld;
+import fr.robie.mekanized.paper.persist.LineStore;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.util.Enumeration;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+
+/**
+ * Mekanized: Mekanism-style machines on MachineEngine (docs/MEKANIZED_PLAN.md). Inspired by
+ * Mekanism; textures, models and recipes come from Mekanism by Aidan C. Brady under the MIT license
+ * (LICENSE-MEKANISM.txt, shipped in the jar and in the CraftEngine pack). Not affiliated with Mekanism.
+ *
+ * <p>Registers its content in {@code onLoad} (D13) and installs its CraftEngine pack before
+ * CraftEngine loads packs.</p>
+ */
+public final class MekanizedPlugin extends JavaPlugin {
+    /** Paper-Dispatch's, Mekanized's own relocated copy (D35). */
+    private final CommandManager<MekanizedPlugin> commands = new CommandManager<>(this);
+
+    /** Inside the jar: the content (src/main/resources/mekanized), under {@code mekanized/}. */
+    private static final String CONTENT = "mekanized/";
+    /** Mekanized's CraftEngine templates: rewritten at every start, owners copy one under another name to change it. */
+    private static final String TEMPLATES = "configuration/templates.yml";
+    /**
+     * The content files to install, as listed by the build ({@code mekanized/manifest.yml}): a file
+     * added to the content is installed, with no list kept by hand to forget it in.
+     */
+    private ContentManifest manifest = new ContentManifest(java.util.Set.of(), java.util.List.of());
+
+    @Override
+    public void onLoad() {
+        // Every class now: if the jar is replaced while the server runs, nothing breaks later.
+        fr.robie.machineengine.api.paper.ClassPreloader.preload(MekanizedPlugin.class, "fr/robie/mekanized/");
+        // Before anything builds the machines and transports from them.
+        MekanizedSettings.load(this);
+        MekanizedRegistry.furnaceRecipes(PaperFurnaceRecipes::provide);
+        MekanizedItemBehaviors.register();
+        MekanizedItemBehaviors.registerProcessors();
+        MachineEngine.register(AddonRegistration.builder(getName(), getPluginMeta().getVersion())
+                .requiresApi("[0.1,1.0)")
+                .register(MekanizedContent::register)
+                .build());
+        try {
+            this.manifest = ContentManifest.load(getClassLoader());
+        } catch (IOException | RuntimeException e) {
+            getLogger().severe("Could not read the list of Mekanized content files: " + e.getMessage());
+        }
+        // Editable content files are updated only while nobody changed them (EditableFiles).
+        try (EditableFiles files = new EditableFiles(this)) {
+            installCraftEnginePack(files);
+            installDefinitions(files);
+            MenuCatalog.install(this, files);
+        } catch (IOException e) {
+            getLogger().warning("Could not record the installed Mekanized files: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Copies the definitions the manifest lists to {@code plugins/MachineEngine/definitions/mekanized/}:
+     * server owners edit them there; edited files are never overwritten (delete one to get the default).
+     */
+    private void installDefinitions(EditableFiles files) {
+        Path target = getDataFolder().toPath().getParent().resolve("MachineEngine/definitions/mekanized");
+        for (String file : this.manifest.definitions()) {
+            try (InputStream in = getResource(CONTENT + "definitions/" + file)) {
+                if (in == null) throw new IOException("missing resource " + file);
+                files.install(target.resolve(file), in.readAllBytes());
+            } catch (IOException e) {
+                getLogger().severe("Could not install the definitions file " + file + ": " + e.getMessage());
+            }
+        }
+    }
+
+    @Override
+    public void onDisable() {
+        this.commands.unregisterAll(this);
+        PaperEntangloporters.save();
+        PaperRadiation.saveNow();
+        LineStore.flush();
+    }
+
+    @Override
+    @SuppressWarnings("UnstableApiUsage")
+    public void onEnable() {
+        // First: everything below may schedule (D35).
+        PaperWorld.install(MachineEngine.scheduler(this));
+        MekanizedItemBehaviors.install();
+        PaperUtility.install(this);
+        PaperAutomation.install(this);
+        SuitTicker.install(this);
+        // The modification station reads gear and module items through CraftEngine (D40).
+        fr.robie.mekanized.machine.ModificationStation.setItems(fr.robie.mekanized.paper.gear.PaperStationItems.INSTANCE);
+        GearTools.install(this);
+        PaperChunkLoaders.install(this);
+        PaperEntangloporters.install(this);
+        PaperRadiation.install(this);
+        fr.robie.machineengine.api.paper.ResourceNames.register(PaperResourceNames::name);
+        PaperConfigurator.install();
+        this.commands.trackCommand(new MekanizedCommands(this));
+        this.commands.flushRegistrations();
+    }
+
+    /**
+     * Copies {@code mekanized/pack/} to {@code plugins/CraftEngine/resources/mekanized/}. Assets
+     * ({@code resourcepack/}) and the templates ({@code configuration/templates.yml}, which the block
+     * files rely on) are refreshed on every start; other configuration files are installed once, so
+     * server owners' edits are kept.
+     */
+    private void installCraftEnginePack(EditableFiles files) {
+        Path target = getDataFolder().toPath().getParent().resolve("CraftEngine/resources/mekanized");
+        int copied = 0;
+        try (JarFile jar = new JarFile(getFile())) {
+            // Assets are not editable: start from an empty folder so files removed from the jar go too.
+            deleteRecursively(target.resolve("resourcepack"));
+            Enumeration<JarEntry> entries = jar.entries();
+            while (entries.hasMoreElements()) {
+                JarEntry entry = entries.nextElement();
+                String name = entry.getName();
+                if (entry.isDirectory() || !name.startsWith(CONTENT + "pack/")) continue;
+                String relative = name.substring((CONTENT + "pack/").length());
+                Path destination = target.resolve(relative);
+                boolean asset = relative.startsWith("resourcepack/");
+                if (!asset && !relative.equals(TEMPLATES)) {
+                    if (!this.manifest.pack().contains(relative)) continue;
+                    try (InputStream in = jar.getInputStream(entry)) {
+                        if (files.install(destination, in.readAllBytes())) copied++;
+                    }
+                    continue;
+                }
+                Files.createDirectories(destination.getParent());
+                try (InputStream in = jar.getInputStream(entry)) {
+                    Files.copy(in, destination, StandardCopyOption.REPLACE_EXISTING);
+                }
+                copied++;
+            }
+            copyResource("pack.yml", target.resolve("pack.yml"), false);
+            copyResource(CONTENT + "LICENSE-MEKANISM.txt", target.resolve("LICENSE-MEKANISM.txt"), true);
+        } catch (IOException e) {
+            getLogger().severe("Could not install the Mekanized CraftEngine pack: " + e.getMessage());
+            return;
+        }
+        getLogger().info("Installed the Mekanized CraftEngine pack (" + copied + " files) in " + target);
+    }
+
+    private static void deleteRecursively(Path folder) throws IOException {
+        if (!Files.exists(folder)) return;
+        try (var walk = Files.walk(folder)) {
+            for (Path path : walk.sorted(java.util.Comparator.reverseOrder()).toList()) Files.delete(path);
+        }
+    }
+
+    private void copyResource(String resource, Path destination, boolean replace) throws IOException {
+        if (!replace && Files.exists(destination)) return;
+        try (InputStream in = getResource(resource)) {
+            if (in == null) throw new IOException("missing resource " + resource);
+            Files.createDirectories(destination.getParent());
+            Files.copy(in, destination, StandardCopyOption.REPLACE_EXISTING);
+        }
+    }
+}

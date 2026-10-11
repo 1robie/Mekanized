@@ -37,7 +37,7 @@ tasks.processResources {
 
 paper {
     name = "Mekanized"
-    main = "fr.robie.machineengine.mekanized.MekanizedPlugin"
+    main = "fr.robie.mekanized.MekanizedPlugin"
     version = project.version.toString()
     description = "Mekanism-style machines for MachineEngine. Inspired by Mekanism; textures, models and recipes " +
             "from Mekanism by Aidan C. Brady (MIT, see LICENSE-MEKANISM.txt). Not affiliated with Mekanism."
@@ -71,7 +71,7 @@ tasks.jar {
 tasks.shadowJar {
     archiveClassifier = ""
     archiveFileName = "Mekanized-${project.version}.jar"
-    relocate("fr.robie.paperdispatch", "fr.robie.machineengine.mekanized.libs.paperdispatch")
+    relocate("fr.robie.paperdispatch", "fr.robie.mekanized.libs.paperdispatch")
 }
 
 tasks.assemble {
