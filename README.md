@@ -10,6 +10,8 @@ from Mekanism by Aidan C. Brady (MIT, see
 [LICENSE-MEKANISM.txt](src/main/resources/mekanized/LICENSE-MEKANISM.txt), which ships in the jar).
 Mekanized is not affiliated with Mekanism.
 
+**Documentation:** [1robie.github.io/plugins/mekanized](https://1robie.github.io/plugins/mekanized/)
+
 ## Requirements
 
 | | |
@@ -21,8 +23,10 @@ Mekanized is not affiliated with Mekanism.
 ## Installing
 
 Put CraftEngine, MachineEngine, Mekanized and zMenu in `plugins/`, start the server once, then run
-`/ce reload all`. Players need CraftEngine's resource pack, which also draws the menus. The full
-server owner's guide is [docs/MEKANIZED_GUIDE.md](docs/MEKANIZED_GUIDE.md).
+`/ce reload all`. Players need CraftEngine's resource pack, which also draws the menus. Download
+from [Hangar](https://hangar.papermc.io/1robie/Mekanized) or the
+[GitHub releases](https://github.com/1robie/Mekanized/releases); the full guide is on the
+[documentation site](https://1robie.github.io/plugins/mekanized/installation/installing).
 
 ## Building
 
