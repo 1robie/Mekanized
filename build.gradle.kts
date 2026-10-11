@@ -89,6 +89,11 @@ hangarPublish {
         channel = if (project.version.toString().contains('-')) "Snapshot" else "Release"
         changelog = "https://github.com/1robie/Mekanized/releases/tag/${project.version}"
         apiKey = providers.environmentVariable("HANGAR_API_TOKEN")
+        // The project's main page is the README (hangar-page.yml syncs it when it changes), with its
+        // relative links made absolute: on Hangar they would point nowhere.
+        pages.resourcePage(providers.fileContents(layout.projectDirectory.file("README.md")).asText.map { readme ->
+            readme.replace(Regex("""\]\((?!https?://|#|mailto:)([^)\s]+)\)"""), "](https://github.com/1robie/Mekanized/blob/main/$1)")
+        })
         platforms {
             register(io.papermc.hangarpublishplugin.model.Platforms.PAPER) {
                 jar = tasks.shadowJar.flatMap { it.archiveFile }
