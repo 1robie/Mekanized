@@ -31,6 +31,13 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
 
+      # MachineEngine at the version in gradle/libs.versions.toml, next to this checkout: the build
+      # uses it instead of JitPack (settings.gradle.kts), so a JitPack outage cannot block a build.
+      - name: MachineEngine checkout
+        run: |
+          version=$(grep -oP '^machineengine = "\K[^"]+' gradle/libs.versions.toml)
+          git clone --quiet --depth 1 --branch "$version" https://github.com/1robie/MachineEngine.git ../MachineEngine
+
       - name: Resolve newest CraftEngine snapshot
         if: matrix.craftengine == 'latest'
         run: |
@@ -39,7 +46,6 @@ jobs:
           echo "Newest CraftEngine snapshot: $version"
           echo "CE_ARGS=-Pcraftengine_version=$version" >> "$GITHUB_ENV"
 
-      # MachineEngine comes from JitPack (gradle/libs.versions.toml): there is no checkout next to this one.
       - name: Build and test
         run: ./gradlew build ${CE_ARGS:-} --console=plain
 

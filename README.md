@@ -37,7 +37,8 @@ stays Java 21, and `check` fails if it uses Paper API newer than 1.20.6 (`verify
 `machineengine-test`, from JitPack at the version in `gradle/libs.versions.toml`. With a MachineEngine
 checkout next to this one (`../MachineEngine`, or `-Pmachineengine_dir=<path>`), the build uses that
 checkout instead, so engine changes are picked up without a release; `-PlocalEngine=false` turns this
-off.
+off. CI and releases clone MachineEngine at that version next to the checkout, so they do not
+depend on JitPack.
 
 ## Dev servers
 

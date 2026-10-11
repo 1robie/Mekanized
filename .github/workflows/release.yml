@@ -2,7 +2,7 @@ name: Release
 
 # Push a tag named like the version (0.1.0, 0.2.0-beta.1) to release it: the plugin jar is built with
 # that version, attached to a GitHub release, and uploaded to Hangar. It builds against the
-# MachineEngine version in gradle/libs.versions.toml, so that MachineEngine tag must exist first.
+# MachineEngine tag named in gradle/libs.versions.toml, which must exist first.
 on:
   push:
     tags:
@@ -28,6 +28,13 @@ jobs:
             25
 
       - uses: gradle/actions/setup-gradle@v4
+
+      # MachineEngine at the version in gradle/libs.versions.toml, next to this checkout: the build
+      # uses it instead of JitPack (settings.gradle.kts), so a JitPack outage cannot block a build.
+      - name: MachineEngine checkout
+        run: |
+          version=$(grep -oP '^machineengine = "\K[^"]+' gradle/libs.versions.toml)
+          git clone --quiet --depth 1 --branch "$version" https://github.com/1robie/MachineEngine.git ../MachineEngine
 
       - name: Build and test
         run: ./gradlew build -Pversion="$VERSION" --console=plain
