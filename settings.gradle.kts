@@ -25,11 +25,13 @@ dependencyResolutionManagement {
         maven("https://1robie.github.io/maven/") {
             mavenContent { includeGroup("com.github.1robie.MachineEngine") }
         }
-        // Paper-Dispatch, and MachineEngine when JitPack builds it.
+        // Paper-Dispatch, MessageFlow (MachineEngine's, reached through machineengine-test), and MachineEngine
+        // when JitPack builds it.
         maven("https://jitpack.io") {
             mavenContent {
                 includeGroup("com.github.1robie.MachineEngine")
                 includeGroup("com.github.1robie.paper-dispatch")
+                includeGroup("com.github.1robie.MessageFlow")
             }
         }
         // MachineEngine's own dependencies, reached through machineengine-test.
