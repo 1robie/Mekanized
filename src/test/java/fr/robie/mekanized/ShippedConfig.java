@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
  * never hold a block's or item's numbers.
  */
 final class ShippedConfig {
-    static final List<String> FILES = List.of("automation.yml", "chemistry.yml", "endgame.yml", "extras.yml", "gear.yml",
+    static final List<String> FILES = List.of("automation.yml", "buckets.yml", "chemistry.yml", "endgame.yml", "extras.yml", "gear.yml",
             "logistics.yml", "machines.yml", "materials.yml", "multiblocks.yml", "reactors.yml", "utility.yml");
     private static final Pattern FACTORY = Pattern.compile("config_factor(y|ies)(#.*)?");
     private static final Pattern BLUEPRINT = Pattern.compile("blueprint|prototype|schema");

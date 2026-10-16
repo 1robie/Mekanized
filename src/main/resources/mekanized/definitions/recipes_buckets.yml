@@ -41,3 +41,443 @@ recipes:
     outputs:
     - item: minecraft:lava_bucket
       amount: 1
+  mekanized:bucket_filling/bioethanol:
+    type: mekanized:bucket_filling
+    inputs:
+    - item: mekanized:bioethanol_bucket
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/bioethanol
+      amount: 1000
+    - item: minecraft:bucket
+      amount: 1
+  mekanized:bucket_draining/bioethanol:
+    type: mekanized:bucket_draining
+    inputs:
+    - item: minecraft:bucket
+      amount: 1
+    - type: mekanized:fluid/bioethanol
+      amount: 1000
+    outputs:
+    - item: mekanized:bioethanol_bucket
+      amount: 1
+  mekanized:bucket_filling/brine:
+    type: mekanized:bucket_filling
+    inputs:
+    - item: mekanized:brine_bucket
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/brine
+      amount: 1000
+    - item: minecraft:bucket
+      amount: 1
+  mekanized:bucket_draining/brine:
+    type: mekanized:bucket_draining
+    inputs:
+    - item: minecraft:bucket
+      amount: 1
+    - type: mekanized:fluid/brine
+      amount: 1000
+    outputs:
+    - item: mekanized:brine_bucket
+      amount: 1
+  mekanized:bucket_filling/chlorine:
+    type: mekanized:bucket_filling
+    inputs:
+    - item: mekanized:chlorine_bucket
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/chlorine
+      amount: 1000
+    - item: minecraft:bucket
+      amount: 1
+  mekanized:bucket_draining/chlorine:
+    type: mekanized:bucket_draining
+    inputs:
+    - item: minecraft:bucket
+      amount: 1
+    - type: mekanized:fluid/chlorine
+      amount: 1000
+    outputs:
+    - item: mekanized:chlorine_bucket
+      amount: 1
+  mekanized:bucket_filling/deuterium:
+    type: mekanized:bucket_filling
+    inputs:
+    - item: mekanized:deuterium_bucket
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/deuterium
+      amount: 1000
+    - item: minecraft:bucket
+      amount: 1
+  mekanized:bucket_draining/deuterium:
+    type: mekanized:bucket_draining
+    inputs:
+    - item: minecraft:bucket
+      amount: 1
+    - type: mekanized:fluid/deuterium
+      amount: 1000
+    outputs:
+    - item: mekanized:deuterium_bucket
+      amount: 1
+  mekanized:bucket_filling/ethene:
+    type: mekanized:bucket_filling
+    inputs:
+    - item: mekanized:ethene_bucket
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/ethene
+      amount: 1000
+    - item: minecraft:bucket
+      amount: 1
+  mekanized:bucket_draining/ethene:
+    type: mekanized:bucket_draining
+    inputs:
+    - item: minecraft:bucket
+      amount: 1
+    - type: mekanized:fluid/ethene
+      amount: 1000
+    outputs:
+    - item: mekanized:ethene_bucket
+      amount: 1
+  mekanized:bucket_filling/fusion_fuel:
+    type: mekanized:bucket_filling
+    inputs:
+    - item: mekanized:fusion_fuel_bucket
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/fusion_fuel
+      amount: 1000
+    - item: minecraft:bucket
+      amount: 1
+  mekanized:bucket_draining/fusion_fuel:
+    type: mekanized:bucket_draining
+    inputs:
+    - item: minecraft:bucket
+      amount: 1
+    - type: mekanized:fluid/fusion_fuel
+      amount: 1000
+    outputs:
+    - item: mekanized:fusion_fuel_bucket
+      amount: 1
+  mekanized:bucket_filling/heavy_water:
+    type: mekanized:bucket_filling
+    inputs:
+    - item: mekanized:heavy_water_bucket
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/heavy_water
+      amount: 1000
+    - item: minecraft:bucket
+      amount: 1
+  mekanized:bucket_draining/heavy_water:
+    type: mekanized:bucket_draining
+    inputs:
+    - item: minecraft:bucket
+      amount: 1
+    - type: mekanized:fluid/heavy_water
+      amount: 1000
+    outputs:
+    - item: mekanized:heavy_water_bucket
+      amount: 1
+  mekanized:bucket_filling/hydrofluoric_acid:
+    type: mekanized:bucket_filling
+    inputs:
+    - item: mekanized:hydrofluoric_acid_bucket
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/hydrofluoric_acid
+      amount: 1000
+    - item: minecraft:bucket
+      amount: 1
+  mekanized:bucket_draining/hydrofluoric_acid:
+    type: mekanized:bucket_draining
+    inputs:
+    - item: minecraft:bucket
+      amount: 1
+    - type: mekanized:fluid/hydrofluoric_acid
+      amount: 1000
+    outputs:
+    - item: mekanized:hydrofluoric_acid_bucket
+      amount: 1
+  mekanized:bucket_filling/hydrogen:
+    type: mekanized:bucket_filling
+    inputs:
+    - item: mekanized:hydrogen_bucket
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/hydrogen
+      amount: 1000
+    - item: minecraft:bucket
+      amount: 1
+  mekanized:bucket_draining/hydrogen:
+    type: mekanized:bucket_draining
+    inputs:
+    - item: minecraft:bucket
+      amount: 1
+    - type: mekanized:fluid/hydrogen
+      amount: 1000
+    outputs:
+    - item: mekanized:hydrogen_bucket
+      amount: 1
+  mekanized:bucket_filling/hydrogen_chloride:
+    type: mekanized:bucket_filling
+    inputs:
+    - item: mekanized:hydrogen_chloride_bucket
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/hydrogen_chloride
+      amount: 1000
+    - item: minecraft:bucket
+      amount: 1
+  mekanized:bucket_draining/hydrogen_chloride:
+    type: mekanized:bucket_draining
+    inputs:
+    - item: minecraft:bucket
+      amount: 1
+    - type: mekanized:fluid/hydrogen_chloride
+      amount: 1000
+    outputs:
+    - item: mekanized:hydrogen_chloride_bucket
+      amount: 1
+  mekanized:bucket_filling/lithium:
+    type: mekanized:bucket_filling
+    inputs:
+    - item: mekanized:lithium_bucket
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/lithium
+      amount: 1000
+    - item: minecraft:bucket
+      amount: 1
+  mekanized:bucket_draining/lithium:
+    type: mekanized:bucket_draining
+    inputs:
+    - item: minecraft:bucket
+      amount: 1
+    - type: mekanized:fluid/lithium
+      amount: 1000
+    outputs:
+    - item: mekanized:lithium_bucket
+      amount: 1
+  mekanized:bucket_filling/nutritional_paste:
+    type: mekanized:bucket_filling
+    inputs:
+    - item: mekanized:nutritional_paste_bucket
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/nutritional_paste
+      amount: 1000
+    - item: minecraft:bucket
+      amount: 1
+  mekanized:bucket_draining/nutritional_paste:
+    type: mekanized:bucket_draining
+    inputs:
+    - item: minecraft:bucket
+      amount: 1
+    - type: mekanized:fluid/nutritional_paste
+      amount: 1000
+    outputs:
+    - item: mekanized:nutritional_paste_bucket
+      amount: 1
+  mekanized:bucket_filling/oxygen:
+    type: mekanized:bucket_filling
+    inputs:
+    - item: mekanized:oxygen_bucket
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/oxygen
+      amount: 1000
+    - item: minecraft:bucket
+      amount: 1
+  mekanized:bucket_draining/oxygen:
+    type: mekanized:bucket_draining
+    inputs:
+    - item: minecraft:bucket
+      amount: 1
+    - type: mekanized:fluid/oxygen
+      amount: 1000
+    outputs:
+    - item: mekanized:oxygen_bucket
+      amount: 1
+  mekanized:bucket_filling/sodium:
+    type: mekanized:bucket_filling
+    inputs:
+    - item: mekanized:sodium_bucket
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/sodium
+      amount: 1000
+    - item: minecraft:bucket
+      amount: 1
+  mekanized:bucket_draining/sodium:
+    type: mekanized:bucket_draining
+    inputs:
+    - item: minecraft:bucket
+      amount: 1
+    - type: mekanized:fluid/sodium
+      amount: 1000
+    outputs:
+    - item: mekanized:sodium_bucket
+      amount: 1
+  mekanized:bucket_filling/steam:
+    type: mekanized:bucket_filling
+    inputs:
+    - item: mekanized:steam_bucket
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/steam
+      amount: 1000
+    - item: minecraft:bucket
+      amount: 1
+  mekanized:bucket_draining/steam:
+    type: mekanized:bucket_draining
+    inputs:
+    - item: minecraft:bucket
+      amount: 1
+    - type: mekanized:fluid/steam
+      amount: 1000
+    outputs:
+    - item: mekanized:steam_bucket
+      amount: 1
+  mekanized:bucket_filling/sulfur_dioxide:
+    type: mekanized:bucket_filling
+    inputs:
+    - item: mekanized:sulfur_dioxide_bucket
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/sulfur_dioxide
+      amount: 1000
+    - item: minecraft:bucket
+      amount: 1
+  mekanized:bucket_draining/sulfur_dioxide:
+    type: mekanized:bucket_draining
+    inputs:
+    - item: minecraft:bucket
+      amount: 1
+    - type: mekanized:fluid/sulfur_dioxide
+      amount: 1000
+    outputs:
+    - item: mekanized:sulfur_dioxide_bucket
+      amount: 1
+  mekanized:bucket_filling/sulfur_trioxide:
+    type: mekanized:bucket_filling
+    inputs:
+    - item: mekanized:sulfur_trioxide_bucket
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/sulfur_trioxide
+      amount: 1000
+    - item: minecraft:bucket
+      amount: 1
+  mekanized:bucket_draining/sulfur_trioxide:
+    type: mekanized:bucket_draining
+    inputs:
+    - item: minecraft:bucket
+      amount: 1
+    - type: mekanized:fluid/sulfur_trioxide
+      amount: 1000
+    outputs:
+    - item: mekanized:sulfur_trioxide_bucket
+      amount: 1
+  mekanized:bucket_filling/sulfuric_acid:
+    type: mekanized:bucket_filling
+    inputs:
+    - item: mekanized:sulfuric_acid_bucket
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/sulfuric_acid
+      amount: 1000
+    - item: minecraft:bucket
+      amount: 1
+  mekanized:bucket_draining/sulfuric_acid:
+    type: mekanized:bucket_draining
+    inputs:
+    - item: minecraft:bucket
+      amount: 1
+    - type: mekanized:fluid/sulfuric_acid
+      amount: 1000
+    outputs:
+    - item: mekanized:sulfuric_acid_bucket
+      amount: 1
+  mekanized:bucket_filling/superheated_sodium:
+    type: mekanized:bucket_filling
+    inputs:
+    - item: mekanized:superheated_sodium_bucket
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/superheated_sodium
+      amount: 1000
+    - item: minecraft:bucket
+      amount: 1
+  mekanized:bucket_draining/superheated_sodium:
+    type: mekanized:bucket_draining
+    inputs:
+    - item: minecraft:bucket
+      amount: 1
+    - type: mekanized:fluid/superheated_sodium
+      amount: 1000
+    outputs:
+    - item: mekanized:superheated_sodium_bucket
+      amount: 1
+  mekanized:bucket_filling/tritium:
+    type: mekanized:bucket_filling
+    inputs:
+    - item: mekanized:tritium_bucket
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/tritium
+      amount: 1000
+    - item: minecraft:bucket
+      amount: 1
+  mekanized:bucket_draining/tritium:
+    type: mekanized:bucket_draining
+    inputs:
+    - item: minecraft:bucket
+      amount: 1
+    - type: mekanized:fluid/tritium
+      amount: 1000
+    outputs:
+    - item: mekanized:tritium_bucket
+      amount: 1
+  mekanized:bucket_filling/uranium_hexafluoride:
+    type: mekanized:bucket_filling
+    inputs:
+    - item: mekanized:uranium_hexafluoride_bucket
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/uranium_hexafluoride
+      amount: 1000
+    - item: minecraft:bucket
+      amount: 1
+  mekanized:bucket_draining/uranium_hexafluoride:
+    type: mekanized:bucket_draining
+    inputs:
+    - item: minecraft:bucket
+      amount: 1
+    - type: mekanized:fluid/uranium_hexafluoride
+      amount: 1000
+    outputs:
+    - item: mekanized:uranium_hexafluoride_bucket
+      amount: 1
+  mekanized:bucket_filling/uranium_oxide:
+    type: mekanized:bucket_filling
+    inputs:
+    - item: mekanized:uranium_oxide_bucket
+      amount: 1
+    outputs:
+    - type: mekanized:fluid/uranium_oxide
+      amount: 1000
+    - item: minecraft:bucket
+      amount: 1
+  mekanized:bucket_draining/uranium_oxide:
+    type: mekanized:bucket_draining
+    inputs:
+    - item: minecraft:bucket
+      amount: 1
+    - type: mekanized:fluid/uranium_oxide
+      amount: 1000
+    outputs:
+    - item: mekanized:uranium_oxide_bucket
+      amount: 1

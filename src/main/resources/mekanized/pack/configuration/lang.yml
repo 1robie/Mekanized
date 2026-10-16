@@ -4078,6 +4078,28 @@ lang:
     item.mekanized.yellow_cake_uranium: Yellow Cake Uranium
     setting.mekanized.radiation_hud: Radiation display
     setting.mekanized.radiation_hud.description: The MekaSuit helmet shows radiation and dose in the action bar
+    item.mekanized.bioethanol_bucket: Bioethanol Bucket
+    item.mekanized.brine_bucket: Brine Bucket
+    item.mekanized.chlorine_bucket: Liquid Chlorine Bucket
+    item.mekanized.deuterium_bucket: Liquid Deuterium Bucket
+    item.mekanized.ethene_bucket: Liquid Ethene Bucket
+    item.mekanized.fusion_fuel_bucket: Liquid D-T Fuel Bucket
+    item.mekanized.heavy_water_bucket: Heavy Water Bucket
+    item.mekanized.hydrofluoric_acid_bucket: Liquid Hydrofluoric Acid Bucket
+    item.mekanized.hydrogen_bucket: Liquid Hydrogen Bucket
+    item.mekanized.hydrogen_chloride_bucket: Liquid Hydrogen Chloride Bucket
+    item.mekanized.lithium_bucket: Liquid Lithium Bucket
+    item.mekanized.nutritional_paste_bucket: Nutritional Paste Bucket
+    item.mekanized.oxygen_bucket: Liquid Oxygen Bucket
+    item.mekanized.sodium_bucket: Liquid Sodium Bucket
+    item.mekanized.steam_bucket: Liquid Steam Bucket
+    item.mekanized.sulfur_dioxide_bucket: Liquid Sulfur Dioxide Bucket
+    item.mekanized.sulfur_trioxide_bucket: Liquid Sulfur Trioxide Bucket
+    item.mekanized.sulfuric_acid_bucket: Liquid Sulfuric Acid Bucket
+    item.mekanized.superheated_sodium_bucket: Liquid Superheated Sodium Bucket
+    item.mekanized.tritium_bucket: Liquid Tritium Bucket
+    item.mekanized.uranium_hexafluoride_bucket: Liquid Uranium Hexafluoride Bucket
+    item.mekanized.uranium_oxide_bucket: Liquid Uranium Oxide Bucket
   enws:
     block.mekanized.advanced_bin: Bin Nguyen
     block.mekanized.advanced_energy_cube: 'Emotional Containment Prism: Advanced'
@@ -6888,7 +6910,10 @@ lang:
     item.mekanized.basic_control_circuit: Circuit de contrôle de base
     item.mekanized.basic_tier_installer: Installateur de niveau de base
     item.mekanized.bio_fuel: Biocarburant
+    item.mekanized.bioethanol_bucket: Seau de bioéthanol
+    item.mekanized.brine_bucket: Seau de saumure
     item.mekanized.canteen: Gourde
+    item.mekanized.chlorine_bucket: Seau de chlore liquide
     item.mekanized.clump_copper: Amas de cuivre
     item.mekanized.clump_gold: Amas d'or
     item.mekanized.clump_iron: Amas de fer
@@ -6906,6 +6931,7 @@ lang:
     item.mekanized.crystal_osmium: Cristal d'Osmium
     item.mekanized.crystal_tin: Cristal d'étain
     item.mekanized.crystal_uranium: Cristal d'uranium
+    item.mekanized.deuterium_bucket: Seau de deutérium liquide
     item.mekanized.dictionary: Dictionnaire
     item.mekanized.dirty_dust_copper: Poussière de cuivre sale
     item.mekanized.dirty_dust_gold: Poussière d'or sale
@@ -6950,10 +6976,12 @@ lang:
     item.mekanized.enriched_redstone: Redstone enrichi
     item.mekanized.enriched_refined_obsidian: Obsidienne enrichie
     item.mekanized.enriched_tin: Étain enrichi
+    item.mekanized.ethene_bucket: "Seau d'éthylène liquide"
     item.mekanized.flamethrower: Lance-flamme
     item.mekanized.fluorite_gem: Fluorite
     item.mekanized.free_runners: Coureuses
     item.mekanized.free_runners_armored: Coureuses blindées
+    item.mekanized.fusion_fuel_bucket: Seau de carburant D-T Liquide
     item.mekanized.gauge_dropper: Compte-gouttes
     item.mekanized.geiger_counter: Compteur Geiger
     item.mekanized.hazmat_boots: Botte hazmat
@@ -6965,6 +6993,10 @@ lang:
     item.mekanized.hdpe_rod: Tige de PE-HD
     item.mekanized.hdpe_sheet: Feuille de PE-HD
     item.mekanized.hdpe_stick: Bâton de PE-HD
+    item.mekanized.heavy_water_bucket: "Seau d'eau lourde"
+    item.mekanized.hydrofluoric_acid_bucket: "Seau d'acide fluorhydrique"
+    item.mekanized.hydrogen_bucket: "Seau d'hydrogène liquide"
+    item.mekanized.hydrogen_chloride_bucket: "Seau d'acide Chlorhydrique"
     item.mekanized.ingot_bronze: Lingot de Bronze
     item.mekanized.ingot_lead: Lingot de plomb
     item.mekanized.ingot_osmium: Lingot d'Osmium
@@ -6975,6 +7007,7 @@ lang:
     item.mekanized.ingot_uranium: Lingot d'uranium
     item.mekanized.jetpack: Jetpack
     item.mekanized.jetpack_armored: Jetpack blindé
+    item.mekanized.lithium_bucket: Seau de lithium liquide
     item.mekanized.meka_tool: Outils Meka
     item.mekanized.mekasuit_bodyarmor: Plastron Meka
     item.mekanized.mekasuit_boots: Bottes Meka
@@ -7021,6 +7054,8 @@ lang:
     item.mekanized.nugget_steel: Pépite d'acier
     item.mekanized.nugget_tin: Pépite d'étain
     item.mekanized.nugget_uranium: Pépite d'uranium
+    item.mekanized.nutritional_paste_bucket: Seau de bloc de pâte Nutritive
+    item.mekanized.oxygen_bucket: "Seau d'oxygène liquide"
     item.mekanized.pellet_antimatter: Pastille d'antimatière
     item.mekanized.pellet_plutonium: Pastille de Plutonium
     item.mekanized.pellet_polonium: Pastille de Polonium
@@ -7048,9 +7083,16 @@ lang:
     item.mekanized.shard_osmium: Fragment d'osmium
     item.mekanized.shard_tin: Fragment d'étain
     item.mekanized.shard_uranium: Fragment d'uranium
+    item.mekanized.sodium_bucket: Seau de sodium liquide
     item.mekanized.solar_panel: Panneau solaire
+    item.mekanized.steam_bucket: Seau de vapeur liquide
     item.mekanized.substrate: Substrat
+    item.mekanized.sulfur_dioxide_bucket: Seau de dioxyde de soufre liquide
+    item.mekanized.sulfur_trioxide_bucket: Seau de trioxyde de soufre liquide
+    item.mekanized.sulfuric_acid_bucket: "Seau d'acide sulfurique liquide"
+    item.mekanized.superheated_sodium_bucket: Seau de sodium surchauffé liquide
     item.mekanized.teleportation_core: Noyau de téléportation
+    item.mekanized.tritium_bucket: Seau de tritium liquide
     item.mekanized.turbine_blade: Pale de Turbine
     item.mekanized.ultimate_control_circuit: Circuit de contrôle ultime
     item.mekanized.ultimate_tier_installer: Installateur de niveau ultime
@@ -7059,6 +7101,8 @@ lang:
     item.mekanized.upgrade_filter: Mise à niveau du filtre
     item.mekanized.upgrade_speed: Mise à niveau de la vitesse
     item.mekanized.upgrade_stone_generator: Mise à niveau du générateur de roche
+    item.mekanized.uranium_hexafluoride_bucket: "Seau d'hexafluorure d'uranium liquide"
+    item.mekanized.uranium_oxide_bucket: "Seau d'oxyde d'uranium liquide"
     item.mekanized.yellow_cake_uranium: Yellowcake d'uranium
     setting.mekanized.radiation_hud: Affichage des radiations
     setting.mekanized.radiation_hud.description: Le casque MekaSuit affiche les radiations et la dose dans la barre d'action

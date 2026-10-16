@@ -1,0 +1,40 @@
+# Buckets of Mekanized's fluids (D46): one per fluid, mekanized:<fluid>_bucket. Each is a water bucket for
+# the game, so it empties and fills like one; MachineEngine places its fluid and keeps the right bucket.
+# The texture is drawn by MachineEngine from the vanilla bucket, in the fluid's color
+# (machineengine:item/fluid_bucket/mekanized/fluid/<fluid>); config.yml colors change it.
+config_factory#fluid_buckets:
+  instances:
+  - fluid: bioethanol
+  - fluid: brine
+  - fluid: chlorine
+  - fluid: deuterium
+  - fluid: ethene
+  - fluid: fusion_fuel
+  - fluid: heavy_water
+  - fluid: hydrofluoric_acid
+  - fluid: hydrogen
+  - fluid: hydrogen_chloride
+  - fluid: lithium
+  - fluid: nutritional_paste
+  - fluid: oxygen
+  - fluid: sodium
+  - fluid: steam
+  - fluid: sulfur_dioxide
+  - fluid: sulfur_trioxide
+  - fluid: sulfuric_acid
+  - fluid: superheated_sodium
+  - fluid: tritium
+  - fluid: uranium_hexafluoride
+  - fluid: uranium_oxide
+  blueprint:
+    items:
+      mekanized:${fluid}_bucket:
+        template: mekanized:item/generated
+        material: water_bucket
+        arguments:
+          parent: minecraft:item/generated
+          texture: machineengine:item/fluid_bucket/mekanized/fluid/${fluid}
+        settings:
+          tags:
+          - c:buckets
+          - mekanized:fluid_buckets

@@ -5,6 +5,9 @@ import fr.robie.machineengine.api.resource.Energy;
 import fr.robie.machineengine.api.resource.Fluids;
 import fr.robie.machineengine.api.resource.ResourceCategory;
 import fr.robie.machineengine.api.resource.ResourceType;
+import fr.robie.machineengine.api.resource.fluid.FluidItems;
+import fr.robie.machineengine.api.resource.fluid.FluidTexture;
+import fr.robie.machineengine.api.resource.fluid.FluidType;
 import fr.robie.mekanized.machine.MekanizedRegistry;
 import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.NotNull;
@@ -31,7 +34,8 @@ import java.util.concurrent.ConcurrentHashMap;
  *       each in {@link #CHEMICAL}, from {@code mekanized/chemicals.txt};</li>
  *   <li>fluids, in MachineEngine's global {@link #FLUID} category: water and lava are MachineEngine's
  *       ({@code machineengine:fluid/water}); Mekanism's others are {@code mekanized:fluid/<name>}, from
- *       {@code mekanized/fluids.txt}, apart from the chemicals of the same name.</li>
+ *       {@code mekanized/fluids.txt}, apart from the chemicals of the same name. They can be placed in the
+ *       world, with buckets (D46).</li>
  * </ul>
  *
  * Items, blocks, tags and recipes are CraftEngine content and YAML definitions installed by
@@ -51,6 +55,7 @@ public final class MekanizedContent {
     public static final ResourceType HEAT = ResourceType.of(key("heat"), HEAT_CATEGORY, HEAT_COLOR);
     private static final Map<String, ResourceType> FLUIDS = new ConcurrentHashMap<>(Map.of("water", Fluids.water(), "lava", Fluids.lava()));
     private static final Map<String, ResourceType> CHEMICALS = new ConcurrentHashMap<>();
+    private static final Map<String, FluidTexture> TEXTURES = new ConcurrentHashMap<>();
     /**
      * The colors set in {@code config.yml} ({@code colors}, {@code #RRGGBB} by resource key value, e.g. {@code steam} or
      * {@code fluid/brine}). Read by {@link MekanizedSettings#apply} before {@link #register} creates the types.
@@ -108,7 +113,7 @@ public final class MekanizedContent {
             context.resourceTypes().register(type);
         }
         for (String[] fluid : lines("mekanized/fluids.txt")) {
-            ResourceType type = FLUIDS.computeIfAbsent(fluid[0], name -> typeOf(key("fluid/" + name), FLUID, fluid));
+            ResourceType type = FLUIDS.computeIfAbsent(fluid[0], name -> fluidOf(name, fluid));
             context.resourceTypes().register(type);
         }
         MekanizedRegistry.register(context);
@@ -122,6 +127,32 @@ public final class MekanizedContent {
         Integer color = ResourceType.parseColor(colorOverrides.get(key.value()));
         if (color == null && line.length > 1) color = ResourceType.parseColor(line[1]);
         return color == null ? ResourceType.of(key, category) : ResourceType.of(key, category, color);
+    }
+
+    /**
+     * A Mekanism fluid, placeable in the world (D46): Mekanism's liquid texture (steam has its own) tinted
+     * with the fluid's color, as Mekanism draws it, and its bucket item {@code mekanized:<name>_bucket}.
+     * Server owners change any of it in {@code plugins/MachineEngine/fluids.yml}.
+     */
+    private static FluidType fluidOf(String name, String[] line) {
+        Integer color = ResourceType.parseColor(colorOverrides.get("fluid/" + name));
+        if (color == null && line.length > 1) color = ResourceType.parseColor(line[1]);
+        String texture = name.equals("steam") ? "mek_liquid/steam" : "mek_liquid/liquid";
+        FluidType.Builder builder = FluidType.builder(key("fluid/" + name)).placeable()
+                .still(texture(texture))
+                .flow(texture(texture + "_flow"))
+                .frameTime(2)
+                .bucket(new FluidItems.Bucket.Item(key(name + "_bucket")));
+        if (color != null) builder.color(color).tint(color);
+        return builder.build();
+    }
+
+    /** One object per texture: fluids sharing a texture share its tile in the pack (each keeps its tint). */
+    private static FluidTexture texture(String path) {
+        return TEXTURES.computeIfAbsent(path, ignored -> {
+            Key texture = key(path);
+            return (size, context) -> context.pack(texture, size);
+        });
     }
 
     /** The lines of a list: a name, then optionally {@code #RRGGBB}. */
