@@ -1,7 +1,7 @@
 [versions]
 # MachineEngine's api and test harness (JitPack, from a MachineEngine git tag). A MachineEngine checkout
 # next to this one (../MachineEngine) replaces them: see settings.gradle.kts.
-machineengine = "0.1.0"
+machineengine = "0.2.0"
 # Compile against the newest Paper API, use only what the oldest supported version has
 # (verifyPaperBaseline checks the bytecode against paper-baseline), like MachineEngine (its D25).
 paper = "26.3.build.156-beta"
