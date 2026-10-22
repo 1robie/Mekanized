@@ -79,7 +79,8 @@ The same model as MachineEngine (its D48 and CONTRIBUTING "Branches"):
 - Work happens on `develop`, the default branch; pull requests target it. Every push (not
   docs-only) makes a dev build `<next>-dev.<run>`, on the rolling `dev` pre-release and Hangar's
   Snapshot channel (`dev-build.yml`). A newer push cancels a dev build still building or testing,
-  never one already publishing.
+  never one already publishing. `[skip dev]` in the (last) commit message of a push skips the dev
+  build, not the Build workflow; `[skip ci]` skips every workflow.
 - `main` holds releases. Only the owner opens pull requests into it, from `develop` or `hotfix/*`
   (the `Release source` check); they need `Build (CraftEngine pinned)` and are merged with a merge
   commit. No force pushes or deletion on either branch.

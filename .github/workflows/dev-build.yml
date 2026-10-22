@@ -8,6 +8,9 @@ name: Dev build
 #
 # A newer push cancels a build still building or testing (only the newest commit is worth
 # publishing), but never a publish under way: that one finishes, and the newer publish waits.
+#
+# "[skip dev]" in the last commit message of a push skips the dev build (the Build workflow still
+# runs); a skipped push does not cancel a build under way. "[skip ci]" skips every workflow.
 on:
   push:
     branches: [develop]
@@ -21,7 +24,7 @@ permissions:
 
 jobs:
   build:
-    if: github.repository == '1robie/Mekanized'
+    if: github.repository == '1robie/Mekanized' && !contains(github.event.head_commit.message, '[skip dev]')
     runs-on: ubuntu-latest
     concurrency:
       group: dev-build-build
