@@ -28,6 +28,10 @@ from [Hangar](https://hangar.papermc.io/1robie/Mekanized) or the
 [GitHub releases](https://github.com/1robie/Mekanized/releases); the full guide is on the
 [documentation site](https://1robie.github.io/plugins/mekanized/installation/installing).
 
+**Dev builds** of the next version (unstable, not for production servers) are on the Hangar
+Snapshot channel and the GitHub pre-release
+[`dev`](https://github.com/1robie/Mekanized/releases/tag/dev), rebuilt on every change to `develop`.
+
 ## Building
 
 ```bash
@@ -67,6 +71,21 @@ The content is kept by hand in `src/main/resources/mekanized/`: textures and mod
 `pack/resourcepack/`, CraftEngine items and crafting recipes under `pack/configuration/`, and machine
 recipes and tags under `definitions/`. A `.yml` file added to `pack/configuration/` or `definitions/`
 is installed automatically: the build lists them in `manifest.yml`.
+
+## Branches and releases
+
+The same model as MachineEngine (its D48 and CONTRIBUTING "Branches"):
+
+- Work happens on `develop`, the default branch; pull requests target it. Every push (not
+  docs-only) makes a dev build `<next>-dev.<run>`, on the rolling `dev` pre-release and Hangar's
+  Snapshot channel (`dev-build.yml`).
+- `main` holds releases. Only the owner opens pull requests into it, from `develop` or `hotfix/*`
+  (the `Release source` check); they need `Build (CraftEngine pinned)` and are merged with a merge
+  commit. No force pushes or deletion on either branch.
+- A release: release MachineEngine first if Mekanized needs it, and set its version in
+  `gradle/libs.versions.toml`; then pull request `develop` → `main`, merge, tag the merge commit
+  on `main` with the version and push the tag (`release.yml` refuses a tag that is not on `main`);
+  then raise `version` in `gradle.properties` on `develop` to the next `-SNAPSHOT`.
 
 ## License
 

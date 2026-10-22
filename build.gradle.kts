@@ -91,7 +91,9 @@ hangarPublish {
         id = "Mekanized"
         // Tags with a hyphen (0.2.0-beta.1) go to the Snapshot channel, which must exist on Hangar.
         channel = if (project.version.toString().contains('-')) "Snapshot" else "Release"
-        changelog = "https://github.com/1robie/Mekanized/releases/tag/${project.version}"
+        // dev-build.yml passes -Phangar_changelog (the commit): a dev build has no release page.
+        changelog = providers.gradleProperty("hangar_changelog")
+            .getOrElse("https://github.com/1robie/Mekanized/releases/tag/${project.version}")
         apiKey = providers.environmentVariable("HANGAR_API_TOKEN")
         // The project's main page is the README (hangar-page.yml syncs it when it changes), with its
         // relative links made absolute: on Hangar they would point nowhere.

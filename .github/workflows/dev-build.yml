@@ -1,0 +1,69 @@
+name: Dev build
+
+# Every push to develop makes a dev build (MachineEngine D48): version <next>-dev.<run> (0.2.0-dev.5,
+# from the -SNAPSHOT version in gradle.properties), built and tested, then
+# - the rolling GitHub pre-release "dev" (tag moved to the commit, jar replaced), and
+# - the Hangar Snapshot channel (a hyphenated version goes there).
+# The "dev" tag never matches the release tag pattern, so release.yml does not run.
+on:
+  push:
+    branches: [develop]
+    paths-ignore:
+      - "docs/**"
+      - "**.md"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dev-build
+  cancel-in-progress: false
+
+jobs:
+  dev-build:
+    if: github.repository == '1robie/Mekanized'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Version
+        run: |
+          base=$(grep -oP '^version=\K.+' gradle.properties)
+          echo "VERSION=${base%-SNAPSHOT}-dev.${{ github.run_number }}" >> "$GITHUB_ENV"
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: |
+            21
+            25
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      # MachineEngine at the version in gradle/libs.versions.toml, next to this checkout: the build
+      # uses it instead of JitPack (settings.gradle.kts), so a JitPack outage cannot block a build.
+      - name: MachineEngine checkout
+        run: |
+          version=$(grep -oP '^machineengine = "\K[^"]+' gradle/libs.versions.toml)
+          git clone --quiet --depth 1 --branch "$version" https://github.com/1robie/MachineEngine.git ../MachineEngine
+
+      - name: Build and test
+        run: ./gradlew build -Pversion="$VERSION" --console=plain
+
+      - name: GitHub pre-release "dev"
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete dev --cleanup-tag --yes || true
+          gh release create dev "build/libs/Mekanized-$VERSION.jar" \
+            --target "$GITHUB_SHA" --prerelease --latest=false \
+            --title "Mekanized dev build ($VERSION)" \
+            --notes "Unstable build of \`develop\` at $GITHUB_SHA, replaced on every push. Releases: https://github.com/1robie/Mekanized/releases"
+
+      - name: Hangar Snapshot channel
+        env:
+          HANGAR_API_TOKEN: ${{ secrets.HANGAR_API_TOKEN }}
+        run: |
+          ./gradlew publishPluginPublicationToHangar -Pversion="$VERSION" \
+            -Phangar_changelog="https://github.com/1robie/Mekanized/commit/$GITHUB_SHA" --console=plain
