@@ -24,8 +24,13 @@ public final class SideMenus {
     static final String[][] GROUPS = {
             {"items", "items", "Items"}, {"energy", "energy", "Energy"}, {"chemical", "chemicals", "Chemicals"},
             {"fluid", "fluids", "Fluids"}, {"heat", "heat", "Heat"}};
-    /** The sides laid out like an unfolded cube: left, front, right and back in a row, top above the front, bottom below it. */
-    private static final Object[][] CROSS = {{"top", 1, 4}, {"left", 2, 3}, {"front", 2, 4}, {"right", 2, 5}, {"back", 2, 6}, {"bottom", 3, 4}};
+    /**
+     * The sides laid out like an unfolded cube seen from the front: left, front, right and back in a row,
+     * top above the front, bottom below it. Each entry: the machine's side, its label, row, column. The
+     * machine's left is as seen from behind it (RelativeSide), so the face on the viewer's left is its right.
+     */
+    private static final Object[][] CROSS = {{"top", "Top", 1, 4}, {"right", "Left", 2, 3}, {"front", "Front", 2, 4},
+            {"left", "Right", 2, 5}, {"back", "Back", 2, 6}, {"bottom", "Bottom", 3, 4}};
 
     private SideMenus() {
     }
@@ -61,9 +66,9 @@ public final class SideMenus {
                 "<gray>Pushes outputs out of their output sides", "<dark_gray>Click to switch"));
         for (Object[] entry : CROSS) {
             String side = (String) entry[0];
-            int row = (Integer) entry[1];
-            int column = (Integer) entry[2];
-            String label = Character.toUpperCase(side.charAt(0)) + side.substring(1);
+            String label = (String) entry[1];
+            int row = (Integer) entry[2];
+            int column = (Integer) entry[3];
             String state = "%zmenu_machineengine_side_" + group + "_" + side;
             layout.frame(Kind.NORMAL, row, column)
                     .button("side-" + side, "    type: machineengine_side\n    side: " + side + "\n    group: " + group
